@@ -8,7 +8,7 @@ from django.contrib import messages
 from django.utils import timezone
 import os
 from .forms import ArticleForm, CommentForm, SearchForm, CategoryForm, ProfileUpdateForm
-from .models import Article, Category, Comment, ArticleMedia, UserProfile, User
+from .models import Article, Category, Comment, ArticleMedia, UserProfile, User, ArticleLike
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 
@@ -707,3 +707,39 @@ def user_public_profile(request, username):
         'articles_count': articles_count,
     }
     return render(request, 'wiki/user_public_profile.html', context)
+
+
+@login_required
+def toggle_article_like(request, slug):
+    """Добавляет/убирает лайк статьи"""
+    article = get_object_or_404(Article, slug=slug)
+
+    if request.method == 'POST':
+        liked = article.toggle_like(request.user)
+        likes_count = article.get_likes_count()
+
+        return JsonResponse({
+            'success': True,
+            'liked': liked,
+            'likes_count': likes_count
+        })
+
+    return JsonResponse({'success': False, 'error': 'Invalid method'})
+
+
+@login_required
+def liked_articles(request):
+    """Страница с понравившимися статьями"""
+    likes = ArticleLike.objects.filter(user=request.user).select_related('article')
+    liked_articles_list = [like.article for like in likes if like.article.status == 'published']
+
+    # Пагинация
+    paginator = Paginator(liked_articles_list, 12)
+    page_number = request.GET.get('page')
+    articles = paginator.get_page(page_number)
+
+    context = {
+        'articles': articles,
+        'total_count': len(liked_articles_list),
+    }
+    return render(request, 'wiki/liked_articles.html', context)

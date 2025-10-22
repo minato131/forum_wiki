@@ -58,6 +58,31 @@ class Article(models.Model):
         ('archived', 'Архив'),
     ]
 
+    def get_likes_count(self):
+        """Возвращает количество лайков статьи"""
+        return self.likes.count()
+
+    def is_liked_by_user(self, user):
+        """Проверяет, лайкнул ли пользователь статью"""
+        if not user.is_authenticated:
+            return False
+        return self.likes.filter(user=user).exists()
+
+    def toggle_like(self, user):
+        """Добавляет или убирает лайк"""
+        if not user.is_authenticated:
+            return False
+
+        like, created = ArticleLike.objects.get_or_create(
+            user=user,
+            article=self
+        )
+
+        if not created:
+            like.delete()
+            return False  # Лайк убран
+        return True  # Лайк добавлен
+
     title = models.CharField('Заголовок', max_length=200)
     slug = models.SlugField('URL', unique=True, max_length=200)
     content = CKEditor5Field('Содержание', config_name='extends')
@@ -329,3 +354,17 @@ class MediaLibrary(models.Model):
 
     def __str__(self):
         return self.title
+class ArticleLike(models.Model):
+    """Модель для лайков статей"""
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь')
+    article = models.ForeignKey(Article, on_delete=models.CASCADE, verbose_name='Статья', related_name='likes')
+    created_at = models.DateTimeField('Время лайка', auto_now_add=True)
+
+    class Meta:
+        verbose_name = 'Лайк статьи'
+        verbose_name_plural = 'Лайки статей'
+        unique_together = ['user', 'article']  # Один лайк на статью от пользователя
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f'{self.user.username} лайкнул {self.article.title}'

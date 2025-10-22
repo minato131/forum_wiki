@@ -171,6 +171,9 @@
 
             {% if user.is_authenticated %}
                 <a href="{% url 'wiki:my_articles' %}">📝 Мои статьи</a>
+                    <a href="{% url 'wiki:liked_articles' %}">❤️ Понравившиеся</a>
+                    <a href="{% url 'wiki:profile' %}">👤 {{ user.username }}</a>
+                    <a href="{% url 'logout' %}">🚪 Выйти</a>
             {% endif %}
 
             {% if user.is_staff %}

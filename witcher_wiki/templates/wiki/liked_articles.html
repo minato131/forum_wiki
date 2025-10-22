@@ -1,0 +1,236 @@
+{% extends 'base.html' %}
+
+{% block title %}Понравившиеся статьи | Wiki Ведьмака{% endblock %}
+
+{% block content %}
+<style>
+    .liked-articles-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    .page-header {
+        background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+        padding: 30px;
+        border-radius: 15px;
+        border: 2px solid #D4AF37;
+        margin-bottom: 30px;
+        text-align: center;
+    }
+    .page-title {
+        color: #D4AF37;
+        font-size: 2.5em;
+        margin: 0 0 10px 0;
+    }
+    .page-subtitle {
+        color: #e8e8e8;
+        font-size: 1.2em;
+        margin: 0;
+    }
+    .articles-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 25px;
+        margin-bottom: 30px;
+    }
+    .article-card {
+        background: #2d2d2d;
+        border-radius: 15px;
+        border: 1px solid #444;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        position: relative;
+    }
+    .article-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
+        border-color: #D4AF37;
+    }
+    .article-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-bottom: 1px solid #444;
+    }
+    .article-content {
+        padding: 20px;
+    }
+    .article-title {
+        color: #D4AF37;
+        font-size: 1.3em;
+        margin: 0 0 10px 0;
+        line-height: 1.4;
+    }
+    .article-title a {
+        color: inherit;
+        text-decoration: none;
+    }
+    .article-title a:hover {
+        color: #FFD700;
+    }
+    .article-excerpt {
+        color: #ccc;
+        font-size: 0.95em;
+        line-height: 1.5;
+        margin-bottom: 15px;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    .article-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 15px;
+        padding-top: 15px;
+        border-top: 1px solid #444;
+    }
+    .article-author {
+        color: #D4AF37;
+        font-size: 0.9em;
+        text-decoration: none;
+    }
+    .article-author:hover {
+        color: #FFD700;
+    }
+    .article-stats {
+        display: flex;
+        gap: 15px;
+        color: #888;
+        font-size: 0.85em;
+    }
+    .empty-state {
+        text-align: center;
+        padding: 60px 20px;
+        color: #888;
+    }
+    .empty-icon {
+        font-size: 4em;
+        margin-bottom: 20px;
+        display: block;
+    }
+    .pagination {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 30px;
+    }
+    .page-link {
+        padding: 10px 15px;
+        background: #2d2d2d;
+        color: #D4AF37;
+        text-decoration: none;
+        border-radius: 5px;
+        border: 1px solid #444;
+        transition: all 0.3s;
+    }
+    .page-link:hover {
+        background: #D4AF37;
+        color: #1a1a1a;
+    }
+    .page-current {
+        background: #D4AF37;
+        color: #1a1a1a;
+    }
+    .like-badge {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: #ef4444;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 15px;
+        font-size: 0.8em;
+        font-weight: bold;
+    }
+</style>
+
+<div class="liked-articles-container">
+    <!-- Шапка страницы -->
+    <div class="page-header">
+        <h1 class="page-title">❤️ Понравившиеся статьи</h1>
+        <p class="page-subtitle">
+            {% if total_count %}
+                📚 Всего понравившихся статей: {{ total_count }}
+            {% else %}
+                📚 Здесь появятся статьи, которые вам понравятся
+            {% endif %}
+        </p>
+    </div>
+
+    <!-- Сетка статей -->
+    {% if articles %}
+        <div class="articles-grid">
+            {% for article in articles %}
+            <div class="article-card">
+                <div class="like-badge">❤️</div>
+                
+                {% if article.featured_image %}
+                <img src="{{ article.featured_image.url }}" alt="{{ article.title }}" class="article-image">
+                {% else %}
+                <div style="width: 100%; height: 200px; background: linear-gradient(135deg, #D4AF37 0%, #FFD700 100%); display: flex; align-items: center; justify-content: center; color: #1a1a1a; font-size: 3em;">
+                    ⚔️
+                </div>
+                {% endif %}
+                
+                <div class="article-content">
+                    <h3 class="article-title">
+                        <a href="{% url 'wiki:article_detail' article.slug %}">
+                            {{ article.title }}
+                        </a>
+                    </h3>
+                    
+                    {% if article.excerpt %}
+                    <p class="article-excerpt">{{ article.excerpt }}</p>
+                    {% endif %}
+                    
+                    <div class="article-meta">
+                        <a href="{% url 'wiki:user_public_profile' article.author.username %}" class="article-author">
+                            👤 {{ article.author.username }}
+                        </a>
+                        <div class="article-stats">
+                            <span>👁️ {{ article.views_count }}</span>
+                            <span>❤️ {{ article.get_likes_count }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Пагинация -->
+        {% if articles.has_other_pages %}
+        <div class="pagination">
+            {% if articles.has_previous %}
+            <a href="?page={{ articles.previous_page_number }}" class="page-link">← Назад</a>
+            {% endif %}
+            
+            {% for num in articles.paginator.page_range %}
+            {% if articles.number == num %}
+            <span class="page-link page-current">{{ num }}</span>
+            {% else %}
+            <a href="?page={{ num }}" class="page-link">{{ num }}</a>
+            {% endif %}
+            {% endfor %}
+            
+            {% if articles.has_next %}
+            <a href="?page={{ articles.next_page_number }}" class="page-link">Вперед →</a>
+            {% endif %}
+        </div>
+        {% endif %}
+    {% else %}
+        <!-- Состояние пустого списка -->
+        <div class="empty-state">
+            <span class="empty-icon">😔</span>
+            <h3 style="color: #D4AF37; margin-bottom: 15px;">Пока нет понравившихся статей</h3>
+            <p style="color: #ccc; margin-bottom: 25px; max-width: 500px; margin-left: auto; margin-right: auto;">
+                Статьи, которые вам понравятся, будут появляться здесь после того, как вы поставите им лайк.
+            </p>
+            <a href="{% url 'wiki:home' %}" style="background: #D4AF37; color: #1a1a1a; padding: 12px 25px; border-radius: 8px; text-decoration: none; font-weight: bold; display: inline-block;">
+                🔍 Найти интересные статьи
+            </a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

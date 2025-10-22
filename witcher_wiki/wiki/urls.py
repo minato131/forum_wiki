@@ -38,4 +38,6 @@ urlpatterns = [
     path('accounts/profile/', views.profile, name='profile'),
     path('accounts/register/', views.register, name='register'),
     path('user/<str:username>/', views.user_public_profile, name='user_public_profile'),
+    path('article/<slug:slug>/like/', views.toggle_article_like, name='toggle_article_like'),
+    path('liked-articles/', views.liked_articles, name='liked_articles'),
 ]
