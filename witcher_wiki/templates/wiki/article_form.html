@@ -1,0 +1,70 @@
+{% extends 'wiki/base.html' %}
+
+{% block title %}{{ title }} - Угол Ведьмака{% endblock %}
+
+{% block content %}
+<h1 style="color: var(--gold);">{{ title }}</h1>
+
+<form method="post" enctype="multipart/form-data" style="max-width: 800px;">
+    {% csrf_token %}
+    
+    <div style="margin-bottom: 1.5rem;">
+        <label style="display: block; margin-bottom: 0.5rem; font-weight: bold;">{{ form.title.label }} *</label>
+        {{ form.title }}
+        <small style="color: var(--light-brown);">{{ form.title.help_text }}</small>
+    </div>
+
+    <div style="margin-bottom: 1.5rem;">
+        <label style="display: block; margin-bottom: 0.5rem; font-weight: bold;">{{ form.excerpt.label }} *</label>
+        {{ form.excerpt }}
+        <small style="color: var(--light-brown);">{{ form.excerpt.help_text }}</small>
+    </div>
+
+    <div style="margin-bottom: 1.5rem;">
+        <label style="display: block; margin-bottom: 0.5rem; font-weight: bold;">{{ form.content.label }} *</label>
+        {{ form.content }}
+        <small style="color: var(--light-brown);">{{ form.content.help_text }}</small>
+    </div>
+
+    <div style="margin-bottom: 1.5rem;">
+        <label style="display: block; margin-bottom: 0.5rem; font-weight: bold;">{{ form.featured_image.label }}</label>
+        {{ form.featured_image }}
+    </div>
+
+    <div style="margin-bottom: 1.5rem;">
+        <label style="display: block; margin-bottom: 0.5rem; font-weight: bold;">{{ form.categories.label }} *</label>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.5rem;">
+            {% for checkbox in form.categories %}
+            <label style="display: flex; align-items: center; gap: 0.5rem;">
+                {{ checkbox.tag }} {{ checkbox.choice_label }}
+            </label>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div style="margin-bottom: 1.5rem;">
+        <label style="display: block; margin-bottom: 0.5rem; font-weight: bold;">{{ form.tags.label }}</label>
+        {{ form.tags }}
+        <small style="color: var(--light-brown);">{{ form.tags.help_text }}</small>
+    </div>
+
+    <div style="margin-bottom: 1.5rem;">
+        <label style="display: block; margin-bottom: 0.5rem; font-weight: bold;">{{ form.status.label }}</label>
+        {{ form.status }}
+    </div>
+
+    <div style="display: flex; gap: 1rem;">
+        <button type="submit" class="btn">💾 {{ title }}</button>
+        <a href="{% url 'wiki:home' %}" class="btn" style="background-color: var(--dark-red);">🚫 Отмена</a>
+    </div>
+</form>
+
+<div style="margin-top: 2rem; padding: 1.5rem; background: rgba(212, 175, 55, 0.1); border-radius: 8px;">
+    <h3 style="color: var(--gold);">💡 Рекомендации по категориям:</h3>
+    <ul>
+        <li><strong>🧙 Персонажи</strong> - для людей, эльфов, гномов и других разумных существ</li>
+        <li><strong>🐺 Монстры</strong> - для чудовищ, мутантов и диких животных</li>
+        <li><strong>🏰 Локации</strong> - для городов, замков и других географических мест</li>
+    </ul>
+</div>
+{% endblock %}

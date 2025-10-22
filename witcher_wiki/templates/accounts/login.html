@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Вход - Wiki Ведьмака{% endblock %}
+
+{% block content %}
+<div style="max-width: 400px; margin: 50px auto; padding: 30px; background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%); border-radius: 10px; border: 2px solid #D4AF37;">
+    <h1 style="color: #D4AF37; text-align: center; font-family: 'Cinzel', serif;">⚔️ Вход</h1>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div style="color: #ff6b6b; text-align: center; margin-bottom: 15px;">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        <div style="margin-bottom: 20px;">
+            <label style="display: block; margin-bottom: 5px; color: #D4AF37;">Имя пользователя:</label>
+            <input type="text" name="username" style="width: 100%; padding: 10px; border: 1px solid #D4AF37; border-radius: 5px; background: #1a1a1a; color: #e8e8e8; box-sizing: border-box;" required>
+        </div>
+        <div style="margin-bottom: 20px;">
+            <label style="display: block; margin-bottom: 5px; color: #D4AF37;">Пароль:</label>
+            <input type="password" name="password" style="width: 100%; padding: 10px; border: 1px solid #D4AF37; border-radius: 5px; background: #1a1a1a; color: #e8e8e8; box-sizing: border-box;" required>
+        </div>
+        <button type="submit" style="width: 100%; padding: 12px; background: #D4AF37; color: #1a1a1a; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">Войти</button>
+    </form>
+
+    <div style="text-align: center; margin-top: 20px;">
+        <p style="color: #888;">Нет аккаунта? <a href="{% url 'accounts:register' %}" style="color: #D4AF37;">Зарегистрироваться</a></p>
+    </div>
+</div>
+{% endblock %}

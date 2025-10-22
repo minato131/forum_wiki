@@ -1,0 +1,192 @@
+{% extends 'base.html' %}
+
+{% block title %}Модерация статьи | Форум по Вселенной Ведьмака{% endblock %}
+
+{% block content %}
+<style>
+    .moderation-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .article-preview {
+        background: rgba(212, 175, 55, 0.1);
+        border: 1px solid #D4AF37;
+        border-radius: 15px;
+        padding: 25px;
+        margin-bottom: 30px;
+    }
+
+    .article-title {
+        color: #D4AF37;
+        font-family: 'Cinzel', serif;
+        font-size: 1.8em;
+        margin-bottom: 15px;
+    }
+
+    .article-meta {
+        color: #888;
+        font-size: 0.9em;
+        margin-bottom: 20px;
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+
+    .article-content {
+        color: #ccc;
+        line-height: 1.6;
+        margin-bottom: 20px;
+    }
+
+    .moderation-form {
+        background: rgba(212, 175, 55, 0.1);
+        border: 1px solid #D4AF37;
+        border-radius: 15px;
+        padding: 25px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-label {
+        display: block;
+        color: #D4AF37;
+        margin-bottom: 8px;
+        font-weight: 600;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 12px 15px;
+        background: #1a1a1a;
+        border: 1px solid #D4AF37;
+        border-radius: 8px;
+        color: #e8e8e8;
+        font-size: 1em;
+    }
+
+    textarea.form-control {
+        min-height: 100px;
+        resize: vertical;
+    }
+
+    .action-buttons {
+        display: flex;
+        gap: 15px;
+        margin-top: 25px;
+    }
+
+    .btn {
+        padding: 12px 25px;
+        border: none;
+        border-radius: 8px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        flex: 1;
+    }
+
+    .btn-approve {
+        background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+        color: white;
+    }
+
+    .btn-approve:hover {
+        background: linear-gradient(135deg, #16a34a 0%, #22c55e 100%);
+        transform: translateY(-2px);
+    }
+
+    .btn-reject {
+        background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+        color: white;
+    }
+
+    .btn-reject:hover {
+        background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+        transform: translateY(-2px);
+    }
+
+    .btn-cancel {
+        background: #6b7280;
+        color: white;
+    }
+
+    .btn-cancel:hover {
+        background: #4b5563;
+    }
+</style>
+
+<div class="moderation-container">
+    <h1 style="color: #D4AF37; font-family: 'Cinzel', serif; text-align: center; margin-bottom: 30px;">
+        ⚖️ Модерация статьи
+    </h1>
+
+    <div class="article-preview">
+        <h2 class="article-title">{{ article.title }}</h2>
+
+        <div class="article-meta">
+            <span>👤 Автор: {{ article.author.username }}</span>
+            <span>📅 Создана: {{ article.created_at|date:"d.m.Y H:i" }}</span>
+            <span>🏷️ Категории:
+                {% for category in article.categories.all %}
+                {{ category.name }}{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+            </span>
+        </div>
+
+        {% if article.excerpt %}
+        <div class="article-content">
+            <strong>Краткое описание:</strong><br>
+            {{ article.excerpt }}
+        </div>
+        {% endif %}
+
+        <div class="article-content">
+            <strong>Содержание:</strong><br>
+            {{ article.content|striptags|truncatewords:100 }}
+        </div>
+    </div>
+
+    <div class="moderation-form">
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label class="form-label" for="moderation_notes">
+                    Заметки модератора (обязательно при отклонении)
+                </label>
+                <textarea class="form-control" id="moderation_notes" name="moderation_notes"
+                          placeholder="Укажите причины одобрения или отклонения статьи..."></textarea>
+            </div>
+
+            <div class="action-buttons">
+                <button type="submit" name="action" value="approve" class="btn btn-approve">
+                    ✅ Одобрить и опубликовать
+                </button>
+                <button type="submit" name="action" value="reject" class="btn btn-reject">
+                    ❌ Отклонить
+                </button>
+                <a href="{% url 'wiki:moderation_queue' %}" class="btn btn-cancel" style="text-decoration: none; text-align: center;">
+                    ↩️ Назад
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    document.querySelector('form').addEventListener('submit', function(e) {
+        const action = e.submitter.value;
+        const notes = document.getElementById('moderation_notes').value.trim();
+
+        if (action === 'reject' && !notes) {
+            e.preventDefault();
+            alert('Пожалуйста, укажите причину отклонения статьи');
+            document.getElementById('moderation_notes').focus();
+        }
+    });
+</script>
+{% endblock %}

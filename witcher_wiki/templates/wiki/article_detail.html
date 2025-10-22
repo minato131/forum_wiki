@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ article.title }} | Форум по Вселенной Ведьмака{% endblock %}
+
+{% block content %}
+<style>
+    .meta {
+        color: #888;
+        margin-bottom: 20px;
+        font-style: italic;
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+    .content {
+        line-height: 1.6;
+        margin-bottom: 20px;
+    }
+    .categories {
+        margin: 20px 0;
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+    .category-tag {
+        background: rgba(212, 175, 55, 0.2);
+        color: #D4AF37;
+        padding: 5px 10px;
+        border-radius: 15px;
+        text-decoration: none;
+        font-size: 0.9em;
+    }
+    .category-tag:hover {
+        background: #D4AF37;
+        color: #1a1a1a;
+    }
+    .btn {
+        display: inline-block;
+        padding: 10px 20px;
+        background: #D4AF37;
+        color: #1a1a1a;
+        text-decoration: none;
+        border-radius: 5px;
+        margin-right: 10px;
+    }
+    .btn-outline {
+        background: transparent;
+        color: #D4AF37;
+        border: 2px solid #D4AF37;
+    }
+    .btn-outline:hover {
+        background: #D4AF37;
+        color: #1a1a1a;
+    }
+</style>
+
+<h1>⚔️ {{ article.title }}</h1>
+<div class="meta">
+    <span>👤 Автор: {{ article.author.username }}</span>
+    <span>📅 Дата: {{ article.created_at|date:"d.m.Y" }}</span>
+    <span>👁️ Просмотры: {{ article.views_count }}</span>
+</div>
+
+{% if article.categories.exists %}
+<div class="categories">📂 Категории:
+    {% for cat in article.categories.all %}
+    <a href="/category/{{ cat.slug }}/" class="category-tag">{{ cat.name }}</a>
+    {% endfor %}
+</div>
+{% endif %}
+
+<div class="content">{{ article.content|safe }}</div>
+
+<div style="margin-top: 30px;">
+    <a href="/" class="btn">🏠 На главную</a>
+    <a href="/search/" class="btn btn-outline">🔍 Поиск</a>
+    {% if can_edit %}
+        <a href="/article/{{ article.slug }}/edit/" class="btn">✏️ Редактировать</a>
+    {% endif %}
+</div>
+{% endblock %}

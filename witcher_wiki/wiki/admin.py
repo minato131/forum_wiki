@@ -1,0 +1,66 @@
+from django.contrib import admin
+from .models import Category, Article, ArticleRevision, Comment
+
+
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ['name', 'parent', 'created_at']
+    list_filter = ['parent', 'created_at']
+    search_fields = ['name', 'description']
+    prepopulated_fields = {'slug': ('name',)}
+
+
+@admin.register(Article)
+class ArticleAdmin(admin.ModelAdmin):
+    list_display = ['title', 'author', 'status', 'created_at', 'views_count']
+    list_filter = ['status', 'categories', 'created_at', 'author']
+    search_fields = ['title', 'content', 'excerpt']
+    prepopulated_fields = {'slug': ('title',)}
+    filter_horizontal = ['categories']
+    readonly_fields = ['views_count', 'created_at', 'updated_at']
+
+    fieldsets = (
+        ('Основная информация', {
+            'fields': ('title', 'slug', 'excerpt', 'content', 'featured_image')
+        }),
+        ('Категоризация', {
+            'fields': ('categories', 'tags')
+        }),
+        ('SEO', {
+            'fields': ('meta_title', 'meta_description', 'meta_keywords'),
+            'classes': ('collapse',)
+        }),
+        ('Публикация', {
+            'fields': ('author', 'status', 'published_at')
+        }),
+        ('Статистика', {
+            'fields': ('views_count', 'created_at', 'updated_at'),
+            'classes': ('collapse',)
+        }),
+    )
+
+
+@admin.register(ArticleRevision)
+class ArticleRevisionAdmin(admin.ModelAdmin):
+    list_display = ['article', 'author', 'created_at', 'comment']
+    list_filter = ['created_at', 'author']
+    search_fields = ['article__title', 'comment']
+    readonly_fields = ['created_at']
+
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ['article', 'author', 'created_at', 'is_approved']
+    list_filter = ['is_approved', 'created_at']
+    search_fields = ['content', 'article__title', 'author__username']
+    actions = ['approve_comments', 'disapprove_comments']
+
+    def approve_comments(self, request, queryset):
+        queryset.update(is_approved=True)
+
+    approve_comments.short_description = "Одобрить выбранные комментарии"
+
+    def disapprove_comments(self, request, queryset):
+        queryset.update(is_approved=False)
+
+    disapprove_comments.short_description = "Отклонить выбранные комментарии"

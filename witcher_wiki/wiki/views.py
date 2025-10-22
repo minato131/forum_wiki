@@ -1,0 +1,641 @@
+from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponse, JsonResponse
+from django.contrib.auth.decorators import login_required
+from django.db.models import Q, Count
+from django.middleware.csrf import get_token
+from django.core.paginator import Paginator
+from django.utils.text import slugify
+from django.contrib import messages
+from django.utils import timezone
+import os
+from .models import Article, Category, Comment, ArticleMedia
+from .forms import ArticleForm, CommentForm, SearchForm, CategoryForm
+
+
+def home(request):
+    # Основные категории для горизонтального скролла
+    featured_categories = Category.objects.filter(
+        is_featured=True
+    ).annotate(
+        article_count=Count('articles')
+    ).order_by('display_order', 'name')[:10]
+
+    # Последние опубликованные статьи
+    recent_articles = Article.objects.filter(status='published').order_by('-created_at')[:6]
+
+    # Популярные категории (по количеству статей)
+    popular_categories = Category.objects.annotate(
+        article_count=Count('articles')
+    ).order_by('-article_count')[:8]
+
+    # Все категории для навигации
+    categories = Category.objects.all()
+
+    context = {
+        'featured_categories': featured_categories,
+        'recent_articles': recent_articles,
+        'popular_categories': popular_categories,
+        'categories': categories,
+    }
+    return render(request, 'wiki/home.html', context)
+
+
+def category_detail(request, slug):
+    category = get_object_or_404(Category, slug=slug)
+    articles_list = Article.objects.filter(categories=category, status='published').order_by('-created_at')
+
+    # Пагинация
+    paginator = Paginator(articles_list, 12)
+    page_number = request.GET.get('page')
+    articles = paginator.get_page(page_number)
+
+    context = {
+        'category': category,
+        'articles': articles,
+        'articles_list': articles_list,
+    }
+    return render(request, 'wiki/category_detail.html', context)
+
+
+def search(request):
+    query = request.GET.get('q', '').strip()
+    category_filter = request.GET.get('category', '')
+    results = []
+    total_count = 0
+
+    if query:
+        # Улучшенный поиск
+        search_query = Q(title__icontains=query) | Q(content__icontains=query) | Q(excerpt__icontains=query)
+
+        # Поиск по тегам если они есть
+        try:
+            search_query |= Q(tags__name__icontains=query)
+        except:
+            pass
+
+        results = Article.objects.filter(search_query, status='published').distinct()
+
+        # Фильтр по категории
+        if category_filter:
+            results = results.filter(categories__slug=category_filter)
+
+        total_count = results.count()
+
+        # Сортировка по релевантности (приоритет заголовку)
+        title_matches = results.filter(title__icontains=query)
+        other_matches = results.exclude(title__icontains=query)
+        results = list(title_matches) + list(other_matches)
+
+        # Пагинация
+        paginator = Paginator(results, 10)
+        page_number = request.GET.get('page')
+        results = paginator.get_page(page_number)
+
+    # Получаем категории для фильтра
+    categories = Category.objects.all()
+
+    context = {
+        'query': query,
+        'category_filter': category_filter,
+        'results': results,
+        'total_count': total_count,
+        'categories': categories,
+    }
+    return render(request, 'wiki/search.html', context)
+
+
+@login_required
+def profile(request):
+    """Простая страница профиля пользователя"""
+    user = request.user
+    articles_count = user.articles.count()
+
+    context = {
+        'user': user,
+        'articles_count': articles_count,
+    }
+    return render(request, 'wiki/profile.html', context)
+
+
+@login_required
+def article_create(request):
+    """Создание новой статьи"""
+    error_message = ""
+    success_message = ""
+
+    if request.method == 'POST':
+        title = request.POST.get('title', '').strip()
+        content = request.POST.get('content', '').strip()
+        excerpt = request.POST.get('excerpt', '').strip()
+        category_ids = request.POST.getlist('categories')
+
+        # Упрощенная проверка - только is_staff
+        if request.user.is_staff:
+            status = 'published'  # Админы публикуют сразу
+        else:
+            status = 'review'  # Обычные пользователи отправляют на модерацию
+
+        if title and content:
+            # Создаем slug из заголовка
+            try:
+                from unidecode import unidecode
+                slug = slugify(unidecode(title))
+            except ImportError:
+                # Простая транслитерация если unidecode не установлен
+                translit_dict = {
+                    'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd', 'е': 'e', 'ё': 'yo',
+                    'ж': 'zh', 'з': 'z', 'и': 'i', 'й': 'y', 'к': 'k', 'л': 'l', 'м': 'm',
+                    'н': 'n', 'о': 'o', 'п': 'p', 'р': 'r', 'с': 's', 'т': 't', 'у': 'u',
+                    'ф': 'f', 'х': 'h', 'ц': 'ts', 'ч': 'ch', 'ш': 'sh', 'щ': 'sch',
+                    'ъ': '', 'ы': 'y', 'ь': '', 'э': 'e', 'ю': 'yu', 'я': 'ya'
+                }
+                title_lower = title.lower()
+                for ru, en in translit_dict.items():
+                    title_lower = title_lower.replace(ru, en)
+                slug = slugify(title_lower)
+
+            # Проверяем уникальность slug
+            if Article.objects.filter(slug=slug).exists():
+                counter = 1
+                original_slug = slug
+                while Article.objects.filter(slug=slug).exists():
+                    slug = f"{original_slug}-{counter}"
+                    counter += 1
+
+            # Создаем статью
+            article = Article(
+                title=title,
+                content=content,
+                excerpt=excerpt,
+                slug=slug,
+                author=request.user,
+                status=status
+            )
+            article.save()
+
+            # Добавляем категории
+            if category_ids:
+                categories = Category.objects.filter(id__in=category_ids)
+                article.categories.set(categories)
+
+            # Обрабатываем загруженные медиафайлы
+            media_files = request.FILES.getlist('media_files')
+            for media_file in media_files:
+                if media_file:
+                    # Определяем тип файла
+                    file_name = media_file.name.lower()
+                    if any(ext in file_name for ext in ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.webp']):
+                        file_type = 'image'
+                    elif any(ext in file_name for ext in ['.mp4', '.avi', '.mov', '.wmv', '.flv', '.webm']):
+                        file_type = 'video'
+                    elif any(ext in file_name for ext in ['.mp3', '.wav', '.ogg', '.flac']):
+                        file_type = 'audio'
+                    else:
+                        file_type = 'document'
+
+                    ArticleMedia.objects.create(
+                        article=article,
+                        file=media_file,
+                        file_type=file_type,
+                        title=media_file.name,
+                        uploaded_by=request.user
+                    )
+
+            if status == 'review':
+                success_message = "Статья отправлена на модерацию. После проверки она будет опубликована."
+                return render(request, 'wiki/article_create.html', {
+                    'categories': Category.objects.all(),
+                    'success_message': success_message
+                })
+            else:
+                return redirect('wiki:article_detail', slug=article.slug)
+        else:
+            error_message = "Пожалуйста, заполните все обязательные поля."
+
+    # Получаем все категории для формы
+    categories = Category.objects.all()
+
+    context = {
+        'categories': categories,
+        'error_message': error_message,
+        'success_message': success_message,
+    }
+    return render(request, 'wiki/article_create.html', context)
+
+def article_detail(request, slug):
+    article = get_object_or_404(Article, slug=slug)
+
+    # Проверяем права на просмотр
+    if article.status != 'published' and not article.can_edit(request.user):
+        return render(request, 'wiki/access_denied.html', {
+            'message': 'У вас нет прав для просмотра этой статьи.'
+        })
+
+    # Увеличиваем счетчик просмотров только для опубликованных статей
+    if article.status == 'published' and hasattr(article, 'views_count'):
+        article.views_count += 1
+        article.save(update_fields=['views_count'])
+
+    # Получаем медиафайлы статьи
+    media_files = article.media_files.all()
+
+    context = {
+        'article': article,
+        'media_files': media_files,
+        'can_edit': article.can_edit(request.user),
+        'can_moderate': article.can_moderate(request.user),
+    }
+    return render(request, 'wiki/article_detail.html', context)
+
+
+@login_required
+def article_edit(request, slug):
+    """Редактирование статьи"""
+    article = get_object_or_404(Article, slug=slug)
+
+    if not article.can_edit(request.user):
+        return render(request, 'wiki/access_denied.html', {
+            'message': 'У вас нет прав для редактирования этой статьи.'
+        })
+
+    error_message = ""
+    success_message = ""
+
+    if request.method == 'POST':
+        title = request.POST.get('title', '').strip()
+        content = request.POST.get('content', '').strip()
+        excerpt = request.POST.get('excerpt', '').strip()
+        category_ids = request.POST.getlist('categories')
+
+        if title and content:
+            article.title = title
+            article.content = content
+            article.excerpt = excerpt
+
+            # Если статья была отклонена, возвращаем ее на модерацию после редактирования
+            if article.status == 'rejected':
+                article.status = 'review'
+                article.moderation_notes = ''
+                success_message = "Статья отправлена на повторную модерацию."
+
+            article.save()
+
+            # Обновляем категории
+            if category_ids:
+                categories = Category.objects.filter(id__in=category_ids)
+                article.categories.set(categories)
+            else:
+                article.categories.clear()
+
+            # Обрабатываем загруженные медиафайлы
+            media_files = request.FILES.getlist('media_files')
+            for media_file in media_files:
+                if media_file:
+                    # Определяем тип файла
+                    file_name = media_file.name.lower()
+                    if any(ext in file_name for ext in ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.webp']):
+                        file_type = 'image'
+                    elif any(ext in file_name for ext in ['.mp4', '.avi', '.mov', '.wmv', '.flv', '.webm']):
+                        file_type = 'video'
+                    elif any(ext in file_name for ext in ['.mp3', '.wav', '.ogg', '.flac']):
+                        file_type = 'audio'
+                    else:
+                        file_type = 'document'
+
+                    ArticleMedia.objects.create(
+                        article=article,
+                        file=media_file,
+                        file_type=file_type,
+                        title=media_file.name,
+                        uploaded_by=request.user
+                    )
+
+            return redirect('wiki:article_detail', slug=article.slug)
+        else:
+            error_message = "Пожалуйста, заполните все обязательные поля."
+
+    # Получаем все категории для формы
+    categories = Category.objects.all()
+    media_files = article.media_files.all()
+
+    context = {
+        'article': article,
+        'categories': categories,
+        'media_files': media_files,
+        'error_message': error_message,
+        'success_message': success_message,
+    }
+    return render(request, 'wiki/article_edit.html', context)
+
+
+@login_required
+def article_moderate(request, slug):
+    """Модерация статьи"""
+    article = get_object_or_404(Article, slug=slug)
+
+    if not article.can_moderate(request.user):
+        return render(request, 'wiki/access_denied.html', {
+            'message': 'У вас нет прав для модерации статей.'
+        })
+
+    if request.method == 'POST':
+        action = request.POST.get('action')
+        moderation_notes = request.POST.get('moderation_notes', '').strip()
+
+        if action == 'approve':
+            article.status = 'published'
+            article.published_at = timezone.now()
+            article.moderated_by = request.user
+            article.moderated_at = timezone.now()
+            article.moderation_notes = moderation_notes
+            article.save()
+            messages.success(request, f'Статья "{article.title}" одобрена и опубликована.')
+
+        elif action == 'reject':
+            article.status = 'rejected'
+            article.moderated_by = request.user
+            article.moderated_at = timezone.now()
+            article.moderation_notes = moderation_notes
+            article.save()
+            messages.success(request, f'Статья "{article.title}" отклонена.')
+
+        return redirect('wiki:moderation_queue')
+
+    context = {
+        'article': article,
+    }
+    return render(request, 'wiki/article_moderate.html', context)
+
+
+@login_required
+def moderation_queue(request):
+    """Очередь статей на модерацию"""
+    if not (request.user.is_staff or
+            request.user.groups.filter(name__in=['Модератор', 'Администратор']).exists()):
+        return render(request, 'wiki/access_denied.html', {
+            'message': 'У вас нет прав для модерации статей.'
+        })
+
+    # Статьи на модерации
+    pending_articles = Article.objects.filter(status='review').order_by('-created_at')
+
+    # Недавно отклоненные статьи
+    rejected_articles = Article.objects.filter(status='rejected').order_by('-moderated_at')[:10]
+
+    context = {
+        'pending_articles': pending_articles,
+        'rejected_articles': rejected_articles,
+    }
+    return render(request, 'wiki/moderation_queue.html', context)
+
+
+@login_required
+def my_articles(request):
+    """Статьи текущего пользователя"""
+    articles = Article.objects.filter(author=request.user).order_by('-created_at')
+
+    # Статистика по статусам
+    stats = {
+        'draft': articles.filter(status='draft').count(),
+        'review': articles.filter(status='review').count(),
+        'published': articles.filter(status='published').count(),
+        'rejected': articles.filter(status='rejected').count(),
+    }
+
+    context = {
+        'articles': articles,
+        'stats': stats,
+    }
+    return render(request, 'wiki/my_articles.html', context)
+
+
+@login_required
+def delete_media(request, media_id):
+    """Удаление медиафайла"""
+    media = get_object_or_404(ArticleMedia, id=media_id)
+
+    if not media.article.can_edit(request.user):
+        return JsonResponse({'success': False, 'error': 'Нет прав для удаления медиафайла'})
+
+    try:
+        media_file_path = media.file.path
+        media.delete()
+
+        # Удаляем физический файл
+        if os.path.exists(media_file_path):
+            os.remove(media_file_path)
+
+        return JsonResponse({'success': True})
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)})
+
+
+# Существующие представления для управления категориями остаются без изменений
+@login_required
+def category_management(request):
+    """Страница управления категориями"""
+    if not (request.user.is_staff or
+            request.user.groups.filter(name__in=['Модератор', 'Администратор']).exists()):
+        return render(request, 'wiki/access_denied.html', {
+            'message': 'У вас нет прав для управления категориями.'
+        })
+
+    categories = Category.objects.all().annotate(
+        article_count=Count('articles'),
+        children_count=Count('children')
+    ).order_by('display_order', 'name')
+
+    context = {
+        'categories': categories,
+    }
+    return render(request, 'wiki/category_management.html', context)
+
+
+@login_required
+def category_create(request):
+    """Создание новой категории"""
+    if not (request.user.is_staff or
+            request.user.groups.filter(name__in=['Модератор', 'Администратор']).exists()):
+        return JsonResponse({'success': False, 'error': 'Нет прав для создания категорий'})
+
+    if request.method == 'POST':
+        name = request.POST.get('name', '').strip()
+        description = request.POST.get('description', '').strip()
+        parent_id = request.POST.get('parent', '')
+        is_featured = request.POST.get('is_featured') == 'true'
+        display_order = request.POST.get('display_order', 0)
+        icon = request.POST.get('icon', '').strip()
+
+        if not name:
+            return JsonResponse({'success': False, 'error': 'Название категории обязательно'})
+
+        try:
+            # Создаем slug из названия
+            slug = slugify(name)
+            if Category.objects.filter(slug=slug).exists():
+                counter = 1
+                original_slug = slug
+                while Category.objects.filter(slug=slug).exists():
+                    slug = f"{original_slug}-{counter}"
+                    counter += 1
+
+            category = Category(
+                name=name,
+                slug=slug,
+                description=description,
+                is_featured=is_featured,
+                display_order=display_order,
+                icon=icon
+            )
+
+            if parent_id:
+                parent = Category.objects.get(id=parent_id)
+                category.parent = parent
+
+            category.save()
+
+            return JsonResponse({
+                'success': True,
+                'category': {
+                    'id': category.id,
+                    'name': category.name,
+                    'slug': category.slug,
+                    'description': category.description,
+                    'is_featured': category.is_featured,
+                    'display_order': category.display_order,
+                    'icon': category.icon,
+                    'parent': category.parent.name if category.parent else None,
+                    'article_count': 0,
+                    'children_count': 0
+                }
+            })
+
+        except Exception as e:
+            return JsonResponse({'success': False, 'error': str(e)})
+
+    return JsonResponse({'success': False, 'error': 'Неверный метод запроса'})
+
+
+@login_required
+def category_edit(request, category_id):
+    """Редактирование категории"""
+    if not (request.user.is_staff or
+            request.user.groups.filter(name__in=['Модератор', 'Администратор']).exists()):
+        return JsonResponse({'success': False, 'error': 'Нет прав для редактирования категорий'})
+
+    category = get_object_or_404(Category, id=category_id)
+
+    if request.method == 'POST':
+        name = request.POST.get('name', '').strip()
+        description = request.POST.get('description', '').strip()
+        parent_id = request.POST.get('parent', '')
+        is_featured = request.POST.get('is_featured') == 'true'
+        display_order = request.POST.get('display_order', 0)
+        icon = request.POST.get('icon', '').strip()
+
+        if not name:
+            return JsonResponse({'success': False, 'error': 'Название категории обязательно'})
+
+        try:
+            category.name = name
+            category.description = description
+            category.is_featured = is_featured
+            category.display_order = display_order
+            category.icon = icon
+
+            if parent_id:
+                parent = Category.objects.get(id=parent_id)
+                category.parent = parent
+            else:
+                category.parent = None
+
+            category.save()
+
+            return JsonResponse({
+                'success': True,
+                'category': {
+                    'id': category.id,
+                    'name': category.name,
+                    'slug': category.slug,
+                    'description': category.description,
+                    'is_featured': category.is_featured,
+                    'display_order': category.display_order,
+                    'icon': category.icon,
+                    'parent': category.parent.name if category.parent else None
+                }
+            })
+
+        except Exception as e:
+            return JsonResponse({'success': False, 'error': str(e)})
+
+    # GET запрос - возвращаем данные категории
+    return JsonResponse({
+        'success': True,
+        'category': {
+            'id': category.id,
+            'name': category.name,
+            'description': category.description,
+            'is_featured': category.is_featured,
+            'display_order': category.display_order,
+            'icon': category.icon,
+            'parent': category.parent.id if category.parent else None
+        }
+    })
+
+
+@login_required
+def category_delete(request, category_id):
+    """Удаление категории"""
+    if not (request.user.is_staff or
+            request.user.groups.filter(name__in=['Модератор', 'Администратор']).exists()):
+        return JsonResponse({'success': False, 'error': 'Нет прав для удаления категорий'})
+
+    category = get_object_or_404(Category, id=category_id)
+
+    # Проверяем, можно ли удалить категорию
+    if category.articles.exists():
+        return JsonResponse({
+            'success': False,
+            'error': 'Нельзя удалить категорию, в которой есть статьи. Перенесите статьи в другие категории.'
+        })
+
+    if category.children.exists():
+        return JsonResponse({
+            'success': False,
+            'error': 'Нельзя удалить категорию, у которой есть подкатегории. Сначала удалите или переместите подкатегории.'
+        })
+
+    try:
+        category_name = category.name
+        category.delete()
+        return JsonResponse({'success': True, 'message': f'Категория "{category_name}" удалена'})
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)})
+
+
+@login_required
+def category_toggle_featured(request, category_id):
+    """Переключение статуса основной категории"""
+    if not (request.user.is_staff or
+            request.user.groups.filter(name__in=['Модератор', 'Администратор']).exists()):
+        return JsonResponse({'success': False, 'error': 'Нет прав для изменения категорий'})
+
+    category = get_object_or_404(Category, id=category_id)
+
+    try:
+        category.is_featured = not category.is_featured
+        category.save()
+
+        return JsonResponse({
+            'success': True,
+            'is_featured': category.is_featured,
+            'message': f'Категория {"добавлена в" if category.is_featured else "убрана из"} основных'
+        })
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)})
+
+
+def get_categories_json(request):
+    """API для получения списка категорий в формате JSON"""
+    categories = Category.objects.all().values('id', 'name', 'parent')
+    return JsonResponse(list(categories), safe=False)

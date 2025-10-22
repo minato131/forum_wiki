@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Доступ запрещен | Форум по Вселенной Ведьмака{% endblock %}
+
+{% block content %}
+<style>
+    .error-container {
+        text-align: center;
+        padding: 50px;
+    }
+    .btn { 
+        display: inline-block; 
+        padding: 10px 20px; 
+        background: #D4AF37; 
+        color: #1a1a1a; 
+        text-decoration: none; 
+        border-radius: 5px; 
+    }
+</style>
+
+<div class="error-container">
+    <h1>🚫 Доступ запрещен</h1>
+    <p>{{ message }}</p>
+    <a href="/" class="btn">🏠 На главную</a>
+</div>
+{% endblock %}

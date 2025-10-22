@@ -1,0 +1,216 @@
+{% extends 'base.html' %}
+
+{% block title %}Очередь модерации | Форум по Вселенной Ведьмака{% endblock %}
+
+{% block content %}
+<style>
+    .moderation-queue {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .section-title {
+        color: #D4AF37;
+        font-family: 'Cinzel', serif;
+        font-size: 2.2em;
+        margin-bottom: 30px;
+        text-align: center;
+    }
+
+    .articles-grid {
+        display: grid;
+        gap: 20px;
+        margin-bottom: 40px;
+    }
+
+    .article-card {
+        background: rgba(212, 175, 55, 0.1);
+        border: 1px solid #D4AF37;
+        border-radius: 10px;
+        padding: 20px;
+        transition: all 0.3s ease;
+    }
+
+    .article-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(212, 175, 55, 0.2);
+    }
+
+    .article-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: start;
+        margin-bottom: 15px;
+        gap: 15px;
+    }
+
+    .article-title {
+        color: #D4AF37;
+        font-family: 'Cinzel', serif;
+        font-size: 1.3em;
+        margin: 0;
+        flex: 1;
+    }
+
+    .article-meta {
+        color: #888;
+        font-size: 0.9em;
+        margin-bottom: 15px;
+    }
+
+    .article-excerpt {
+        color: #ccc;
+        line-height: 1.5;
+        margin-bottom: 15px;
+    }
+
+    .action-buttons {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .btn {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 5px;
+        text-decoration: none;
+        font-size: 0.9em;
+        transition: all 0.3s ease;
+    }
+
+    .btn-moderate {
+        background: #D4AF37;
+        color: #1a1a1a;
+        font-weight: bold;
+    }
+
+    .btn-moderate:hover {
+        background: #FFD700;
+    }
+
+    .btn-view {
+        background: #3b82f6;
+        color: white;
+    }
+
+    .btn-view:hover {
+        background: #2563eb;
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 60px 20px;
+        color: #888;
+    }
+
+    .empty-icon {
+        font-size: 4em;
+        margin-bottom: 20px;
+    }
+
+    .rejected-section {
+        margin-top: 40px;
+        padding-top: 30px;
+        border-top: 1px solid rgba(212, 175, 55, 0.3);
+    }
+</style>
+
+<div class="moderation-queue">
+    <h1 class="section-title">⚖️ Очередь модерации</h1>
+
+    {% if messages %}
+    <div style="margin-bottom: 20px;">
+        {% for message in messages %}
+        <div style="padding: 10px 15px; border-radius: 5px;
+                   background: {% if message.tags == 'success' %}#22c55e{% else %}#ef4444{% endif %};
+                   color: white; margin-bottom: 10px;">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <h2 style="color: #D4AF37; margin-bottom: 20px;">⏳ Статьи на модерации ({{ pending_articles.count }})</h2>
+
+    {% if pending_articles %}
+    <div class="articles-grid">
+        {% for article in pending_articles %}
+        <div class="article-card">
+            <div class="article-header">
+                <h3 class="article-title">{{ article.title }}</h3>
+                <span style="background: #f59e0b; color: white; padding: 4px 8px; border-radius: 12px; font-size: 0.8em;">
+                    ⏳ На модерации
+                </span>
+            </div>
+
+            <div class="article-meta">
+                <span>👤 {{ article.author.username }}</span> •
+                <span>📅 {{ article.created_at|date:"d.m.Y H:i" }}</span> •
+                <span>🏷️ {% for category in article.categories.all %}{{ category.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</span>
+            </div>
+
+            {% if article.excerpt %}
+            <div class="article-excerpt">
+                {{ article.excerpt|truncatewords:30 }}
+            </div>
+            {% endif %}
+
+            <div class="action-buttons">
+                <a href="{% url 'wiki:article_moderate' article.slug %}" class="btn btn-moderate">
+                    ⚖️ Модерировать
+                </a>
+                <a href="{% url 'wiki:article_detail' article.slug %}" class="btn btn-view">
+                    👁️ Просмотреть
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state">
+        <div class="empty-icon">✅</div>
+        <h3 style="color: #D4AF37; margin-bottom: 15px;">Все статьи проверены!</h3>
+        <p>В настоящее время нет статей, ожидающих модерации.</p>
+    </div>
+    {% endif %}
+
+    {% if rejected_articles %}
+    <div class="rejected-section">
+        <h2 style="color: #D4AF37; margin-bottom: 20px;">❌ Недавно отклоненные статьи</h2>
+
+        <div class="articles-grid">
+            {% for article in rejected_articles %}
+            <div class="article-card">
+                <div class="article-header">
+                    <h3 class="article-title">{{ article.title }}</h3>
+                    <span style="background: #ef4444; color: white; padding: 4px 8px; border-radius: 12px; font-size: 0.8em;">
+                        ❌ Отклонено
+                    </span>
+                </div>
+
+                <div class="article-meta">
+                    <span>👤 {{ article.author.username }}</span> •
+                    <span>📅 Отклонено: {{ article.moderated_at|date:"d.m.Y H:i" }}</span> •
+                    <span>⚖️ Модератор: {{ article.moderated_by.username }}</span>
+                </div>
+
+                {% if article.moderation_notes %}
+                <div style="color: #ef4444; font-size: 0.9em; margin-bottom: 10px;">
+                    <strong>Причина:</strong> {{ article.moderation_notes|truncatewords:20 }}
+                </div>
+                {% endif %}
+
+                <div class="action-buttons">
+                    <a href="{% url 'wiki:article_detail' article.slug %}" class="btn btn-view">
+                        👁️ Просмотреть
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

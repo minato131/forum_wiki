@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Форум по Вселенной Ведьмака{% endblock %}</title>
+    <style>
+        /* RESET */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: #e8e8e8;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* HEADER */
+        .header {
+            background: linear-gradient(135deg, #8B4513 0%, #D4AF37 50%, #8B4513 100%);
+            color: #1a1a1a;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 2.5em;
+            margin: 0;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            background: linear-gradient(90deg, #2d2d2d 0%, #1a1a1a 50%, #2d2d2d 100%);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            border-bottom: 2px solid #D4AF37;
+            position: relative;
+        }
+
+        .nav-links {
+            display: flex;
+        }
+
+        .navbar a {
+            color: #D4AF37;
+            text-decoration: none;
+            padding: 14px 16px;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .navbar a:hover {
+            background-color: rgba(212, 175, 55, 0.1);
+            color: #FFD700;
+        }
+
+        /* USER MENU */
+        .user-info {
+            position: relative;
+        }
+
+        .user-dropdown {
+            position: relative;
+        }
+
+        .user-btn {
+            background: transparent;
+            color: #D4AF37;
+            border: 2px solid #D4AF37;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Georgia', serif;
+            font-size: 14px;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 100%;
+            background: #2d2d2d;
+            min-width: 200px;
+            border: 1px solid #D4AF37;
+            border-radius: 5px;
+            margin-top: 5px;
+            z-index: 1000;
+        }
+
+        .dropdown-content.show {
+            display: block;
+        }
+
+        .dropdown-content a {
+            color: #e8e8e8;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .dropdown-content a:hover {
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        /* AUTH BUTTONS */
+        .auth-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-outline-light {
+            background: transparent;
+            border: 2px solid #D4AF37;
+            color: #D4AF37;
+            padding: 8px 16px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .btn-outline-light:hover {
+            background: #D4AF37;
+            color: #1a1a1a;
+        }
+
+        /* CONTENT */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .footer {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: #D4AF37;
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+            border-top: 2px solid #D4AF37;
+        }
+
+        .user-role {
+            font-size: 0.8em;
+            color: #888;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="header">
+        <h1>⚔️ Форум по Вселенной Ведьмака ⚔️</h1>
+        <p>Энциклопедия Континента и Сферы</p>
+    </div>
+
+    <div class="navbar">
+        <div class="nav-links">
+            <a href="/">🏠 Главная</a>
+            <a href="{% url 'wiki:search' %}">🔍 Поиск</a>
+            <a href="{% url 'wiki:category_detail' 'characters' %}">👥 Персонажи</a>
+            <a href="{% url 'wiki:category_detail' 'monsters' %}">🐺 Монстры</a>
+            <a href="{% url 'wiki:category_detail' 'locations' %}">🏰 Локации</a>
+
+            {% if user.is_authenticated %}
+                <a href="{% url 'wiki:my_articles' %}">📝 Мои статьи</a>
+            {% endif %}
+
+            {% if user.is_staff %}
+                <a href="{% url 'wiki:moderation_queue' %}">⚖️ Модерация</a>
+                <a href="{% url 'wiki:category_management' %}">📁 Управление категориями</a>
+            {% endif %}
+        </div>
+
+        <div class="user-info">
+            {% if user.is_authenticated %}
+                <div class="user-dropdown">
+                    <button class="user-btn" onclick="toggleMenu()">
+                        👤 {{ user.username }}
+                        {% if user.is_staff %}
+                            <span class="user-role">(Админ)</span>
+                        {% else %}
+                            <span class="user-role">(Пользователь)</span>
+                        {% endif %}
+                        ▼
+                    </button>
+                    <div class="dropdown-content" id="userDropdown">
+                        <a href="{% url 'wiki:profile' %}">👤 Профиль</a>
+                        <a href="/article/create/">✍️ Создать статью</a>
+                        {% if user.is_staff %}
+                            <a href="{% url 'wiki:category_management' %}">📁 Управление категориями</a>
+                        {% endif %}
+                        {% if user.is_staff %}
+                            <a href="/admin/">⚙️ Админ-панель</a>
+                        {% endif %}
+                        <a href="/accounts/logout/">🚪 Выйти</a>
+                    </div>
+                </div>
+            {% else %}
+                <div class="auth-buttons">
+                    <a href="/accounts/login/" class="btn-outline-light">🚪 Войти</a>
+                    <a href="/accounts/register/" class="btn-outline-light">📝 Регистрация</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="content">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2025 Форум по Вселенной Ведьмака. Все права защищены. ⚔️</p>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            const dropdown = document.getElementById('userDropdown');
+            dropdown.classList.toggle('show');
+        }
+
+        document.addEventListener('click', function(event) {
+            const dropdown = document.getElementById('userDropdown');
+            const userBtn = document.querySelector('.user-btn');
+
+            if (!userBtn.contains(event.target) && !dropdown.contains(event.target)) {
+                dropdown.classList.remove('show');
+            }
+        });
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                const dropdown = document.getElementById('userDropdown');
+                dropdown.classList.remove('show');
+            }
+        });
+    </script>
+</body>
+</html>

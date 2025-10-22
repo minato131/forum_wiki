@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Профиль | Wiki Ведьмака{% endblock %}
+
+{% block content %}
+<div style="max-width: 600px; margin: 40px auto; padding: 20px;">
+    <div style="background: #2d2d2d; padding: 30px; border-radius: 10px; border: 2px solid #D4AF37;">
+        <h2 style="color: #D4AF37; text-align: center; margin-bottom: 20px;">👤 Профиль пользователя</h2>
+
+        <div style="text-align: center; margin-bottom: 20px;">
+            <div style="width: 80px; height: 80px; background: #D4AF37; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; color: #1a1a1a; font-size: 24px; font-weight: bold;">
+                {{ user.username.0|upper }}
+            </div>
+        </div>
+
+        <div style="text-align: center;">
+            <h3 style="color: #D4AF37; margin-bottom: 15px;">{{ user.username }}</h3>
+            <p><strong>📅 Дата регистрации:</strong> {{ user.date_joined|date:"d.m.Y" }}</p>
+            <p><strong>👁️ Последний вход:</strong> {{ user.last_login|date:"d.m.Y H:i"|default:"Никогда" }}</p>
+
+            {% if user.is_staff %}
+                <p><strong>🎯 Роль:</strong> Администратор</p>
+            {% elif user.groups.all %}
+                <p><strong>🎯 Роль:</strong> {{ user.groups.first.name }}</p>
+            {% else %}
+                <p><strong>🎯 Роль:</strong> Пользователь</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

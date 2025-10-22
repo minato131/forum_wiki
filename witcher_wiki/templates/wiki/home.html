@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+
+{% block title %}Главная | Форум по Вселенной Ведьмака{% endblock %}
+
+{% block content %}
+<style>
+    .hero {
+        background: linear-gradient(rgba(26, 26, 26, 0.7), rgba(45, 45, 45, 0.7));
+        background-size: cover;
+        background-position: center;
+        height: 400px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #D4AF37;
+        text-align: center;
+        margin-bottom: 30px;
+        border-radius: 10px;
+        border: 2px solid #D4AF37;
+    }
+    .hero-content {
+        background: linear-gradient(135deg, rgba(26, 26, 26, 0.9), rgba(45, 45, 45, 0.9));
+        padding: 30px;
+        border-radius: 10px;
+        border: 1px solid #D4AF37;
+    }
+    .content-section {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 20px;
+        margin-bottom: 30px;
+    }
+    .card {
+        background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        padding: 20px;
+        border: 1px solid #D4AF37;
+    }
+    .card h2 {
+        margin-top: 0;
+        border-bottom: 2px solid #D4AF37;
+        padding-bottom: 10px;
+        color: #D4AF37;
+        font-family: 'Cinzel', serif;
+    }
+    .article-list {
+        list-style-type: none;
+        padding: 0;
+    }
+    .article-list li {
+        margin-bottom: 10px;
+        padding: 10px;
+        background: rgba(212, 175, 55, 0.1);
+        border-radius: 5px;
+        border-left: 3px solid #D4AF37;
+    }
+    .article-list a {
+        color: #e8e8e8;
+        text-decoration: none;
+    }
+    .article-list a:hover {
+        color: #D4AF37;
+    }
+    .category-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+    }
+    .category-card {
+        background: linear-gradient(135deg, #654321 0%, #8B4513 100%);
+        color: #D4AF37;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        border: 1px solid #D4AF37;
+        text-decoration: none;
+        display: block;
+    }
+    .category-card:hover {
+        background: linear-gradient(135deg, #8B4513 0%, #D4AF37 100%);
+        color: #1a1a1a;
+    }
+    .btn {
+        display: inline-block;
+        padding: 12px 24px;
+        background: #D4AF37;
+        color: #1a1a1a;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+        margin: 5px;
+    }
+</style>
+
+<div class="hero">
+    <div class="hero-content">
+        <h1>Добро пожаловать в мир Ведьмака</h1>
+        <p>Исследуйте богатую вселенную, созданную Анджеем Сапковским</p>
+        <a href="/search/" class="btn">🔍 Начать исследование</a>
+        {% if user.is_authenticated and user.is_staff or user.groups.all %}
+            <a href="/article/create/" class="btn">✍️ Создать статью</a>
+        {% endif %}
+    </div>
+</div>
+
+<div class="content-section">
+    <div class="card">
+        <h2>📚 Последние статьи</h2>
+        <ul class="article-list">
+            {% if recent_articles %}
+                {% for article in recent_articles %}
+                <li>
+                    <a href="/article/{{ article.slug }}/">📖 {{ article.title }}</a><br>
+                    <small style="color: #888;">Автор: {{ article.author.username }} | {{ article.created_at|date:"d.m.Y" }}</small>
+                </li>
+                {% endfor %}
+            {% else %}
+                <li>Пока нет статей</li>
+            {% endif %}
+        </ul>
+    </div>
+
+    <div class="card">
+        <h2>📂 Основные категории</h2>
+        <div class="category-grid">
+            <a href="/category/characters/" class="category-card">
+                <h3>👥 Персонажи</h3>
+                <p>Статьи о людях, эльфах, магах и других разумных существах</p>
+            </a>
+            <a href="/category/monsters/" class="category-card">
+                <h3>🐺 Монстры</h3>
+                <p>Bestiary чудовищ и существ Континента</p>
+            </a>
+            <a href="/category/locations/" class="category-card">
+                <h3>🏰 Локации</h3>
+                <p>Королевства, города и важные места</p>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <h2>🗡️ О проекте</h2>
+    <p>Форум по Вселенной Ведьмака - это энциклопедия, посвященная вселенной Ведьмака, созданной польским писателем Анджеем Сапковским и расширенной в играх от CD Projekt Red.</p>
+    <p>Здесь вы найдете информацию о персонажах, существах, местах, событиях и многом другом из этого фэнтезийного мира.</p>
+</div>
+{% endblock %}

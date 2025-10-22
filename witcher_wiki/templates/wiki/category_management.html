@@ -1,0 +1,284 @@
+{% extends 'base.html' %}
+
+{% block title %}Управление категориями | Форум по Вселенной Ведьмака{% endblock %}
+
+{% block content %}
+<style>
+    .category-management {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .management-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .section-title {
+        color: #D4AF37;
+        font-family: 'Cinzel', serif;
+        font-size: 2.2em;
+        margin: 0;
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, #D4AF37 0%, #FFD700 100%);
+        color: #1a1a1a;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-family: 'Cinzel', serif;
+    }
+
+    .btn-primary:hover {
+        background: linear-gradient(135deg, #FFD700 0%, #D4AF37 100%);
+        transform: translateY(-2px);
+    }
+
+    .categories-table {
+        background: rgba(212, 175, 55, 0.1);
+        border: 1px solid #D4AF37;
+        border-radius: 10px;
+        overflow: hidden;
+        margin-bottom: 30px;
+    }
+
+    .table-header {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1fr 1fr auto;
+        gap: 15px;
+        padding: 15px 20px;
+        background: rgba(212, 175, 55, 0.2);
+        border-bottom: 1px solid #D4AF37;
+        font-weight: bold;
+        color: #D4AF37;
+        font-family: 'Cinzel', serif;
+    }
+
+    .category-item {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1fr 1fr auto;
+        gap: 15px;
+        padding: 15px 20px;
+        border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+        align-items: center;
+        transition: background 0.3s ease;
+    }
+
+    .category-item:hover {
+        background: rgba(212, 175, 55, 0.05);
+    }
+
+    .category-item:last-child {
+        border-bottom: none;
+    }
+
+    .category-info {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .category-icon {
+        font-size: 1.5em;
+        min-width: 30px;
+        text-align: center;
+    }
+
+    .category-name {
+        color: #D4AF37;
+        font-weight: 600;
+        margin: 0;
+    }
+
+    .category-description {
+        color: #ccc;
+        font-size: 0.9em;
+        margin: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .category-stats {
+        color: #888;
+        font-size: 0.9em;
+    }
+
+    .featured-badge {
+        background: #D4AF37;
+        color: #1a1a1a;
+        padding: 4px 8px;
+        border-radius: 12px;
+        font-size: 0.8em;
+        font-weight: bold;
+    }
+
+    .action-buttons {
+        display: flex;
+        gap: 8px;
+        justify-content: flex-end;
+    }
+
+    .btn-sm {
+        padding: 6px 12px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 0.85em;
+        transition: all 0.3s ease;
+    }
+
+    .btn-edit {
+        background: rgba(59, 130, 246, 0.2);
+        color: #3b82f6;
+        border: 1px solid #3b82f6;
+    }
+
+    .btn-edit:hover {
+        background: #3b82f6;
+        color: white;
+    }
+
+    .btn-delete {
+        background: rgba(239, 68, 68, 0.2);
+        color: #ef4444;
+        border: 1px solid #ef4444;
+    }
+
+    .btn-delete:hover {
+        background: #ef4444;
+        color: white;
+    }
+
+    .btn-featured {
+        background: rgba(212, 175, 55, 0.2);
+        color: #D4AF37;
+        border: 1px solid #D4AF37;
+    }
+
+    .btn-featured:hover {
+        background: #D4AF37;
+        color: #1a1a1a;
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 60px 20px;
+        color: #888;
+    }
+
+    .empty-icon {
+        font-size: 4em;
+        margin-bottom: 20px;
+    }
+
+    .empty-title {
+        color: #D4AF37;
+        font-family: 'Cinzel', serif;
+        margin-bottom: 15px;
+    }
+
+    @media (max-width: 768px) {
+        .table-header,
+        .category-item {
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+
+        .action-buttons {
+            justify-content: flex-start;
+        }
+
+        .management-header {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .section-title {
+            text-align: center;
+        }
+    }
+</style>
+
+<div class="category-management">
+    <div class="management-header">
+        <h1 class="section-title">⚙️ Управление категориями</h1>
+        <a href="/admin/wiki/category/add/" class="btn-primary">
+            ➕ Создать категорию
+        </a>
+    </div>
+
+    <div class="categories-table">
+        <div class="table-header">
+            <div>Категория</div>
+            <div>Статьи</div>
+            <div>Подкатегории</div>
+            <div>Порядок</div>
+            <div>Статус</div>
+            <div>Действия</div>
+        </div>
+
+        {% for category in categories %}
+        <div class="category-item">
+            <div class="category-info">
+                <span class="category-icon">{{ category.icon|default:"⚔️" }}</span>
+                <div>
+                    <div class="category-name">{{ category.name }}</div>
+                    <div class="category-description" title="{{ category.description }}">
+                        {{ category.description|default:"Описание отсутствует"|truncatechars:50 }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="category-stats">
+                {{ category.article_count }} статей
+            </div>
+
+            <div class="category-stats">
+                {{ category.children_count }} подкат.
+            </div>
+
+            <div class="category-stats">
+                {{ category.display_order }}
+            </div>
+
+            <div>
+                {% if category.is_featured %}
+                <span class="featured-badge">Основная</span>
+                {% else %}
+                <span style="color: #888;">Обычная</span>
+                {% endif %}
+            </div>
+
+            <div class="action-buttons">
+                <a href="/admin/wiki/category/{{ category.id }}/change/" class="btn-sm btn-edit" title="Редактировать">
+                    ✏️
+                </a>
+                <a href="/admin/wiki/category/{{ category.id }}/delete/" class="btn-sm btn-delete" title="Удалить">
+                    🗑️
+                </a>
+            </div>
+        </div>
+        {% empty %}
+        <div class="empty-state">
+            <div class="empty-icon">📂</div>
+            <h3 class="empty-title">Категории не найдены</h3>
+            <p>Создайте первую категорию для организации статей</p>
+            <a href="/admin/wiki/category/add/" class="btn-primary" style="margin-top: 20px;">
+                ➕ Создать категорию
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

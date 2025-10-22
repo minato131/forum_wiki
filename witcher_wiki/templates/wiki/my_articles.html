@@ -1,0 +1,237 @@
+{% extends 'base.html' %}
+
+{% block title %}Мои статьи | Форум по Вселенной Ведьмака{% endblock %}
+
+{% block content %}
+<style>
+    .my-articles {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+        margin-bottom: 30px;
+    }
+
+    .stat-card {
+        background: rgba(212, 175, 55, 0.1);
+        border: 1px solid #D4AF37;
+        border-radius: 10px;
+        padding: 20px;
+        text-align: center;
+    }
+
+    .stat-number {
+        color: #D4AF37;
+        font-size: 2em;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    .stat-label {
+        color: #ccc;
+        font-size: 0.9em;
+    }
+
+    .articles-table {
+        background: rgba(212, 175, 55, 0.1);
+        border: 1px solid #D4AF37;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .table-header {
+        display: grid;
+        grid-template-columns: 3fr 1fr 1fr 1fr auto;
+        gap: 15px;
+        padding: 15px 20px;
+        background: rgba(212, 175, 55, 0.2);
+        border-bottom: 1px solid #D4AF37;
+        font-weight: bold;
+        color: #D4AF37;
+    }
+
+    .article-row {
+        display: grid;
+        grid-template-columns: 3fr 1fr 1fr 1fr auto;
+        gap: 15px;
+        padding: 15px 20px;
+        border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+        align-items: center;
+    }
+
+    .article-row:last-child {
+        border-bottom: none;
+    }
+
+    .article-title {
+        color: #D4AF37;
+        font-weight: 600;
+        margin: 0;
+    }
+
+    .article-excerpt {
+        color: #ccc;
+        font-size: 0.9em;
+        margin: 5px 0 0 0;
+    }
+
+    .status-badge {
+        padding: 4px 8px;
+        border-radius: 12px;
+        font-size: 0.8em;
+        font-weight: bold;
+    }
+
+    .status-draft { background: #6b7280; color: white; }
+    .status-review { background: #f59e0b; color: white; }
+    .status-published { background: #22c55e; color: white; }
+    .status-rejected { background: #ef4444; color: white; }
+
+    .action-buttons {
+        display: flex;
+        gap: 8px;
+        justify-content: flex-end;
+    }
+
+    .btn-sm {
+        padding: 6px 12px;
+        border: none;
+        border-radius: 5px;
+        text-decoration: none;
+        font-size: 0.85em;
+        transition: all 0.3s ease;
+    }
+
+    .btn-edit {
+        background: rgba(59, 130, 246, 0.2);
+        color: #3b82f6;
+        border: 1px solid #3b82f6;
+    }
+
+    .btn-edit:hover {
+        background: #3b82f6;
+        color: white;
+    }
+
+    .btn-view {
+        background: rgba(212, 175, 55, 0.2);
+        color: #D4AF37;
+        border: 1px solid #D4AF37;
+    }
+
+    .btn-view:hover {
+        background: #D4AF37;
+        color: #1a1a1a;
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 60px 20px;
+        color: #888;
+    }
+
+    @media (max-width: 768px) {
+        .table-header,
+        .article-row {
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+
+        .action-buttons {
+            justify-content: flex-start;
+        }
+    }
+</style>
+
+<div class="my-articles">
+    <h1 style="color: #D4AF37; font-family: 'Cinzel', serif; text-align: center; margin-bottom: 30px;">
+        📝 Мои статьи
+    </h1>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-number">{{ stats.draft }}</div>
+            <div class="stat-label">📝 Черновики</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">{{ stats.review }}</div>
+            <div class="stat-label">⏳ На модерации</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">{{ stats.published }}</div>
+            <div class="stat-label">✅ Опубликовано</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">{{ stats.rejected }}</div>
+            <div class="stat-label">❌ Отклонено</div>
+        </div>
+    </div>
+
+    <div class="articles-table">
+        <div class="table-header">
+            <div>Статья</div>
+            <div>Статус</div>
+            <div>Категории</div>
+            <div>Дата</div>
+            <div>Действия</div>
+        </div>
+
+        {% for article in articles %}
+        <div class="article-row">
+            <div>
+                <div class="article-title">{{ article.title }}</div>
+                {% if article.excerpt %}
+                <div class="article-excerpt">{{ article.excerpt|truncatewords:15 }}</div>
+                {% endif %}
+            </div>
+
+            <div>
+                <span class="status-badge status-{{ article.status }}">
+                    {% if article.status == 'draft' %}📝
+                    {% elif article.status == 'review' %}⏳
+                    {% elif article.status == 'published' %}✅
+                    {% elif article.status == 'rejected' %}❌{% endif %}
+                    {{ article.get_status_display }}
+                </span>
+            </div>
+
+            <div>
+                {% for category in article.categories.all|slice:":2" %}
+                <span style="color: #888; font-size: 0.8em;">{{ category.name }}{% if not forloop.last %}, {% endif %}</span>
+                {% endfor %}
+            </div>
+
+            <div style="color: #888; font-size: 0.9em;">
+                {{ article.created_at|date:"d.m.Y" }}
+            </div>
+
+            <div class="action-buttons">
+                <a href="{% url 'wiki:article_detail' article.slug %}" class="btn-sm btn-view">
+                    👁️
+                </a>
+                <a href="{% url 'wiki:article_edit' article.slug %}" class="btn-sm btn-edit">
+                    ✏️
+                </a>
+            </div>
+        </div>
+        {% empty %}
+        <div class="empty-state">
+            <div style="font-size: 4em; margin-bottom: 20px;">📝</div>
+            <h3 style="color: #D4AF37; margin-bottom: 15px;">У вас пока нет статей</h3>
+            <p style="margin-bottom: 20px;">Создайте свою первую статью и поделитесь знаниями о вселенной Ведьмака!</p>
+            <a href="{% url 'wiki:article_create' %}"
+               style="background: linear-gradient(135deg, #D4AF37 0%, #FFD700 100%);
+                      color: #1a1a1a; padding: 12px 24px; border-radius: 8px;
+                      text-decoration: none; font-weight: bold;">
+                ➕ Создать статью
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

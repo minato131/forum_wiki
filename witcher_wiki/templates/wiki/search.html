@@ -1,0 +1,209 @@
+{% extends 'base.html' %}
+
+{% block title %}Поиск | Форум по Вселенной Ведьмака{% endblock %}
+
+{% block content %}
+<style>
+    .search-form {
+        margin-bottom: 30px;
+        text-align: center;
+    }
+    .search-controls {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-bottom: 15px;
+    }
+    .search-form input[type="text"] {
+        padding: 12px;
+        width: 300px;
+        max-width: 100%;
+        border: 2px solid #D4AF37;
+        border-radius: 5px;
+        background: #1a1a1a;
+        color: #e8e8e8;
+        font-size: 16px;
+    }
+    .search-form select {
+        padding: 12px;
+        border: 2px solid #D4AF37;
+        border-radius: 5px;
+        background: #1a1a1a;
+        color: #e8e8e8;
+        font-size: 16px;
+    }
+    .search-form button {
+        padding: 12px 20px;
+        background: #D4AF37;
+        color: #1a1a1a;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+    }
+    .search-results {
+        margin-bottom: 30px;
+    }
+    .search-result {
+        background: rgba(212, 175, 55, 0.1);
+        padding: 20px;
+        border-radius: 10px;
+        border-left: 4px solid #D4AF37;
+        margin-bottom: 15px;
+    }
+    .search-result h3 {
+        margin: 0 0 10px 0;
+        color: #D4AF37;
+    }
+    .search-result h3 a {
+        color: #D4AF37;
+        text-decoration: none;
+    }
+    .excerpt {
+        color: #ccc;
+        margin-bottom: 10px;
+        line-height: 1.5;
+    }
+    .meta {
+        display: flex;
+        gap: 15px;
+        font-size: 0.9em;
+        color: #888;
+        flex-wrap: wrap;
+    }
+    .no-results, .search-help {
+        text-align: center;
+        color: #ccc;
+        padding: 40px 20px;
+    }
+    .popular-searches {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 15px;
+    }
+    .search-tag {
+        background: rgba(212, 175, 55, 0.2);
+        color: #D4AF37;
+        padding: 5px 10px;
+        border-radius: 15px;
+        text-decoration: none;
+        font-size: 0.9em;
+    }
+    .search-tag:hover {
+        background: #D4AF37;
+        color: #1a1a1a;
+    }
+    .pagination {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 30px;
+        flex-wrap: wrap;
+    }
+    .results-count {
+        text-align: center;
+        color: #888;
+        margin-bottom: 20px;
+        font-style: italic;
+    }
+</style>
+
+<!-- ЗАГОЛОВОК ПОИСКА ТЕПЕРЬ ЦЕНТРИРОВАН -->
+<h1 class="search-page-title">🔍 Поиск по Форуму по Вселенной Ведьмака</h1>
+
+<form class="search-form" method="get" action="/search/">
+    <div class="search-controls">
+        <input type="text" name="q" value="{{ query }}" placeholder="Поиск по названию, содержанию, тегам...">
+        <select name="category">
+            <option value="">Все категории</option>
+            {% for cat in categories %}
+            <option value="{{ cat.slug }}" {% if category_filter == cat.slug %}selected{% endif %}>{{ cat.name }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">🔍 Искать</button>
+    </div>
+</form>
+
+<!-- Остальной код остается без изменений -->
+{% if query %}
+<div class="results-count">Найдено результатов: {{ total_count }}</div>
+{% endif %}
+
+<div class="search-results">
+    {% if results %}
+        {% for article in results %}
+        <div class="search-result">
+            <h3><a href="/article/{{ article.slug }}/">📖 {{ article.title }}</a></h3>
+            <p class="excerpt">{{ article.excerpt|truncatechars:200|default:"Описание отсутствует" }}...</p>
+            <div class="meta">
+                <span>👤 {{ article.author.username }}</span>
+                <span>📅 {{ article.created_at|date:"d.m.Y" }}</span>
+                <span>📂 {% for cat in article.categories.all %}{{ cat.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</span>
+            </div>
+        </div>
+        {% endfor %}
+    {% elif query %}
+        <div class="no-results">
+            <h3>❌ По запросу "{{ query }}" ничего не найдено</h3>
+            <p>Попробуйте:</p>
+            <ul>
+                <li>Проверить правильность написания</li>
+                <li>Использовать более общие термины</li>
+                <li>Попробовать синонимы</li>
+                <li>Убрать фильтр по категории</li>
+            </ul>
+        </div>
+    {% else %}
+        <div class="search-help">
+            <h3>🔍 Как искать в Форуме по Вселенной Ведьмака?</h3>
+            <div class="help-content">
+                <p><strong>Внешнее название персонажа, места или события</strong><br>
+                Используйте полную номенклатуру для точного поиска.</p>
+
+                <p><strong>Поиск по различным критериям</strong><br>
+                Поиск ведется по заголовкам, содержанию и тегам.</p>
+            </div>
+            <h4>Популярные запросы:</h4>
+            <div class="popular-searches">
+                <a href="/search/?q=Геральт" class="search-tag">Геральт</a>
+                <a href="/search/?q=Цири" class="search-tag">Цири</a>
+                <a href="/search/?q=Йеннифэр" class="search-tag">Йеннифэр</a>
+                <a href="/search/?q=Трисс" class="search-tag">Трисс</a>
+                <a href="/search/?q=Веланд" class="search-tag">Веланд</a>
+                <a href="/search/?q=Каэр Морхен" class="search-tag">Каэр Морхен</a>
+                <a href="/search/?q=Новиград" class="search-tag">Новиград</a>
+                <a href="/search/?q=Ведьмак" class="search-tag">Ведьмак</a>
+                <a href="/search/?q=Заклинание" class="search-tag">Заклинание</a>
+                <a href="/search/?q=Гвинт" class="search-tag">Гвинт</a>
+            </div>
+        </div>
+    {% endif %}
+</div>
+
+{% if results.has_other_pages %}
+<div class="pagination">
+    {% if results.has_previous %}
+        <a href="?q={{ query }}&category={{ category_filter }}&page={{ results.previous_page_number }}" class="page-btn">← Предыдущая</a>
+    {% endif %}
+
+    {% for num in results.paginator.page_range %}
+        {% if num == results.number %}
+            <span class="page-current">{{ num }}</span>
+        {% else %}
+            <a href="?q={{ query }}&category={{ category_filter }}&page={{ num }}" class="page-btn">{{ num }}</a>
+        {% endif %}
+    {% endfor %}
+
+    {% if results.has_next %}
+        <a href="?q={{ query }}&category={{ category_filter }}&page={{ results.next_page_number }}" class="page-btn">Следующая →</a>
+    {% endif %}
+</div>
+{% endif %}
+
+<div style="text-align: center; margin-top: 30px;">
+    <a href="/" class="btn">🏠 На главную</a>
+</div>
+{% endblock %}
