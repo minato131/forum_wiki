@@ -164,7 +164,7 @@
 
     <div class="navbar">
         <div class="nav-links">
-            <a href="/">🏠 Главная</a>
+            <a href="{% url 'wiki:home' %}">🏠 Главная</a>
             <a href="{% url 'wiki:search' %}">🔍 Поиск</a>
             <a href="{% url 'wiki:category_detail' 'characters' %}">👥 Персонажи</a>
             <a href="{% url 'wiki:category_detail' 'monsters' %}">🐺 Монстры</a>
@@ -172,9 +172,7 @@
 
             {% if user.is_authenticated %}
                 <a href="{% url 'wiki:my_articles' %}">📝 Мои статьи</a>
-                    <a href="{% url 'wiki:liked_articles' %}">❤️ Понравившиеся</a>
-                    <a href="{% url 'wiki:profile' %}">👤 {{ user.username }}</a>
-                    <a href="{% url 'logout' %}">🚪 Выйти</a>
+                <a href="{% url 'wiki:liked_articles' %}">❤️ Понравившиеся</a>
             {% endif %}
 
             {% if user.is_staff %}
@@ -196,15 +194,21 @@
                         ▼
                     </button>
                     <div class="dropdown-content" id="userDropdown">
-                        <a href="{% url 'wiki:profile' %}">👤 Профиль</a>
-                        <a href="/article/create/">✍️ Создать статью</a>
+                        <a href="/accounts/profile/">👤 Профиль</a>
+                        <a href="{% url 'wiki:article_create' %}">✍️ Создать статью</a>
+                        <a href="{% url 'wiki:my_articles' %}">📝 Мои статьи</a>
+                        <a href="{% url 'wiki:liked_articles' %}">❤️ Понравившиеся</a>
                         {% if user.is_staff %}
                             <a href="{% url 'wiki:category_management' %}">📁 Управление категориями</a>
-                        {% endif %}
-                        {% if user.is_staff %}
+                            <a href="{% url 'wiki:moderation_queue' %}">⚖️ Модерация</a>
                             <a href="/admin/">⚙️ Админ-панель</a>
                         {% endif %}
-                        <a href="/accounts/logout/">🚪 Выйти</a>
+                        <form action="/accounts/logout/" method="post" style="display: inline;">
+                            {% csrf_token %}
+                            <button type="submit" style="background: none; border: none; color: #e8e8e8; padding: 12px 16px; width: 100%; text-align: left; cursor: pointer; font-family: inherit; font-size: inherit;">
+                                🚪 Выйти
+                            </button>
+                        </form>
                     </div>
                 </div>
             {% else %}

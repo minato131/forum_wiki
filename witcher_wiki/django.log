@@ -4981,3 +4981,563 @@ INFO 2025-10-22 23:48:08,763 autoreload Watching for file changes with StatReloa
 INFO 2025-10-22 23:48:09,938 basehttp "GET / HTTP/1.1" 200 12017
 WARNING 2025-10-22 23:48:12,068 log Method Not Allowed (GET): /accounts/logout/
 WARNING 2025-10-22 23:48:12,218 basehttp "GET /accounts/logout/ HTTP/1.1" 405 0
+INFO 2025-10-23 00:26:01,457 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\urls.py changed, reloading.
+INFO 2025-10-23 00:26:02,019 autoreload Watching for file changes with StatReloader
+INFO 2025-10-23 00:26:03,303 basehttp "GET / HTTP/1.1" 200 12017
+INFO 2025-10-23 00:26:03,493 basehttp "GET /static/css/style.css HTTP/1.1" 304 0
+INFO 2025-10-23 00:26:05,214 basehttp "GET /accounts/profile/ HTTP/1.1" 200 17459
+INFO 2025-10-23 00:26:05,277 basehttp "GET /media/avatars/avatars/user_2/avatar.jpg HTTP/1.1" 304 0
+INFO 2025-10-23 00:26:09,810 basehttp "GET /my-articles/ HTTP/1.1" 200 12719
+INFO 2025-10-23 00:26:10,366 basehttp "GET /liked-articles/ HTTP/1.1" 200 11796
+INFO 2025-10-23 00:26:10,843 basehttp "GET /category/locations/ HTTP/1.1" 200 9591
+INFO 2025-10-23 00:26:11,219 basehttp "GET /category/monsters/ HTTP/1.1" 200 9591
+INFO 2025-10-23 00:26:11,626 basehttp "GET /category/characters/ HTTP/1.1" 200 10188
+INFO 2025-10-23 00:26:11,913 basehttp "GET /search/ HTTP/1.1" 200 12553
+INFO 2025-10-23 00:26:14,036 basehttp "GET /article/create/ HTTP/1.1" 200 21432
+INFO 2025-10-23 00:26:15,038 basehttp "GET /categories/ HTTP/1.1" 200 18357
+INFO 2025-10-23 00:26:16,107 basehttp "GET /admin/ HTTP/1.1" 200 13414
+WARNING 2025-10-23 00:26:18,270 log Method Not Allowed (GET): /accounts/logout/
+WARNING 2025-10-23 00:26:18,313 basehttp "GET /accounts/logout/ HTTP/1.1" 405 0
+INFO 2025-10-23 00:27:08,285 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\witcher_wiki\urls.py changed, reloading.
+INFO 2025-10-23 00:27:08,907 autoreload Watching for file changes with StatReloader
+ERROR 2025-10-23 00:27:10,107 log Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py", line 40, in home
+    return render(request, 'wiki/home.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\defaulttags.py", line 327, in render
+    return nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'logout' not found. 'logout' is not a valid view function or pattern name.
+ERROR 2025-10-23 00:27:10,111 basehttp "GET / HTTP/1.1" 500 168881
+INFO 2025-10-23 00:27:18,759 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\witcher_wiki\urls.py changed, reloading.
+INFO 2025-10-23 00:27:19,344 autoreload Watching for file changes with StatReloader
+INFO 2025-10-23 00:27:20,372 basehttp "GET / HTTP/1.1" 200 12017
+WARNING 2025-10-23 00:27:22,526 log Method Not Allowed (GET): /accounts/logout/
+WARNING 2025-10-23 00:27:22,570 basehttp "GET /accounts/logout/ HTTP/1.1" 405 0
+INFO 2025-10-23 00:28:23,320 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\urls.py changed, reloading.
+INFO 2025-10-23 00:28:23,875 autoreload Watching for file changes with StatReloader
+INFO 2025-10-23 00:29:49,137 autoreload Watching for file changes with StatReloader
+ERROR 2025-10-23 00:29:50,541 log Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py", line 40, in home
+    return render(request, 'wiki/home.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\defaulttags.py", line 327, in render
+    return nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'profile' not found. 'profile' is not a valid view function or pattern name.
+ERROR 2025-10-23 00:29:50,546 basehttp "GET / HTTP/1.1" 500 171377
+INFO 2025-10-23 00:30:13,644 autoreload Watching for file changes with StatReloader
+ERROR 2025-10-23 00:30:14,750 log Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py", line 40, in home
+    return render(request, 'wiki/home.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\defaulttags.py", line 327, in render
+    return nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'profile' not found. 'profile' is not a valid view function or pattern name.
+ERROR 2025-10-23 00:30:14,755 basehttp "GET / HTTP/1.1" 500 169825
+INFO 2025-10-23 00:32:09,754 autoreload Watching for file changes with StatReloader
+ERROR 2025-10-23 00:32:10,840 log Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\urls\base.py", line 81, in reverse
+    extra, resolver = resolver.namespace_dict[ns]
+                      ~~~~~~~~~~~~~~~~~~~~~~~^^^^
+KeyError: 'accounts'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py", line 40, in home
+    return render(request, 'wiki/home.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\defaulttags.py", line 327, in render
+    return nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\urls\base.py", line 92, in reverse
+    raise NoReverseMatch("%s is not a registered namespace" % key)
+django.urls.exceptions.NoReverseMatch: 'accounts' is not a registered namespace
+ERROR 2025-10-23 00:32:10,844 basehttp "GET / HTTP/1.1" 500 172936
+INFO 2025-10-23 00:33:21,017 autoreload Watching for file changes with StatReloader
+INFO 2025-10-23 00:33:22,244 basehttp "GET / HTTP/1.1" 200 12578
+INFO 2025-10-23 00:33:22,400 basehttp "GET /static/css/style.css HTTP/1.1" 304 0
+WARNING 2025-10-23 00:33:26,116 log Not Found: /accounts/profile/
+WARNING 2025-10-23 00:33:26,116 basehttp "GET /accounts/profile/ HTTP/1.1" 404 10306
+INFO 2025-10-23 00:33:48,251 autoreload Watching for file changes with StatReloader
+INFO 2025-10-23 00:33:49,380 basehttp "GET / HTTP/1.1" 200 12574
+WARNING 2025-10-23 00:33:51,035 log Not Found: /wiki/profile/
+WARNING 2025-10-23 00:33:51,036 basehttp "GET /wiki/profile/ HTTP/1.1" 404 8183
+INFO 2025-10-23 00:34:08,585 basehttp "GET / HTTP/1.1" 200 12574
+INFO 2025-10-23 00:34:10,557 basehttp "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-10-23 00:34:10,606 basehttp "GET / HTTP/1.1" 200 10721
+ERROR 2025-10-23 00:34:11,759 log Internal Server Error: /accounts/login/
+Traceback (most recent call last):
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'register' not found. 'register' is not a valid view function or pattern name.
+ERROR 2025-10-23 00:34:11,764 basehttp "GET /accounts/login/ HTTP/1.1" 500 159187
+INFO 2025-10-23 00:34:48,134 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\witcher_wiki\urls.py changed, reloading.
+INFO 2025-10-23 00:34:48,724 autoreload Watching for file changes with StatReloader
+INFO 2025-10-23 00:34:54,323 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\witcher_wiki\urls.py changed, reloading.
+INFO 2025-10-23 00:34:55,037 autoreload Watching for file changes with StatReloader
+INFO 2025-10-23 00:35:38,022 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\accounts\views.py changed, reloading.
+INFO 2025-10-23 00:35:38,565 autoreload Watching for file changes with StatReloader
+INFO 2025-10-23 00:39:04,538 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\accounts\views.py changed, reloading.
+INFO 2025-10-23 00:39:05,085 autoreload Watching for file changes with StatReloader
+INFO 2025-10-23 00:40:17,053 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\accounts\views.py changed, reloading.
+INFO 2025-10-23 00:40:17,589 autoreload Watching for file changes with StatReloader
+INFO 2025-10-23 00:40:40,775 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\accounts\views.py changed, reloading.
+INFO 2025-10-23 00:40:41,319 autoreload Watching for file changes with StatReloader
+INFO 2025-10-23 00:43:00,705 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\accounts\views.py changed, reloading.
+INFO 2025-10-23 00:43:01,261 autoreload Watching for file changes with StatReloader
+INFO 2025-10-23 00:43:10,034 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\accounts\views.py changed, reloading.
+INFO 2025-10-23 00:43:10,619 autoreload Watching for file changes with StatReloader
+INFO 2025-10-23 00:44:11,435 autoreload Watching for file changes with StatReloader
+INFO 2025-10-23 00:44:12,996 basehttp "GET / HTTP/1.1" 200 10721
+INFO 2025-10-23 00:44:13,151 basehttp "GET /static/css/style.css HTTP/1.1" 304 0
+ERROR 2025-10-23 00:44:15,133 log Internal Server Error: /accounts/login/
+Traceback (most recent call last):
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\accounts\views.py", line 20, in login_view
+    return render(request, 'registration/login.html')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'register' not found. 'register' is not a valid view function or pattern name.
+ERROR 2025-10-23 00:44:15,137 basehttp "GET /accounts/login/ HTTP/1.1" 500 158556
+ERROR 2025-10-23 00:44:18,150 log Internal Server Error: /accounts/register/
+Traceback (most recent call last):
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\accounts\views.py", line 33, in register_view
+    return render(request, 'registration/register.html', {'form': form})
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: registration/register.html
+ERROR 2025-10-23 00:44:18,151 basehttp "GET /accounts/register/ HTTP/1.1" 500 90637
+INFO 2025-10-23 00:44:21,290 basehttp "GET /category/characters/ HTTP/1.1" 200 8991
+ERROR 2025-10-23 00:44:22,377 log Internal Server Error: /article/geralt-iz-rivii/
+Traceback (most recent call last):
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py", line 251, in article_detail
+    article.views += 1
+    ^^^^^^^^^^^^^
+AttributeError: 'Article' object has no attribute 'views'
+ERROR 2025-10-23 00:44:22,379 basehttp "GET /article/geralt-iz-rivii/ HTTP/1.1" 500 74139
+INFO 2025-10-23 00:44:26,054 basehttp "GET /category/characters/ HTTP/1.1" 200 8991
+INFO 2025-10-23 00:44:26,538 basehttp "GET /category/monsters/ HTTP/1.1" 200 8394
+INFO 2025-10-23 00:44:26,937 basehttp "GET /category/locations/ HTTP/1.1" 200 8394
+INFO 2025-10-23 00:44:27,397 basehttp "GET /category/characters/ HTTP/1.1" 200 8991
+INFO 2025-10-23 00:44:27,896 basehttp "GET /search/ HTTP/1.1" 200 11356
+INFO 2025-10-23 00:44:28,671 basehttp "GET / HTTP/1.1" 200 10721
+INFO 2025-10-23 00:48:33,806 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-10-23 00:48:34,336 autoreload Watching for file changes with StatReloader
+INFO 2025-10-23 00:49:11,715 autoreload Watching for file changes with StatReloader
+INFO 2025-10-23 00:49:12,965 basehttp "GET / HTTP/1.1" 200 10721
+INFO 2025-10-23 00:49:14,498 basehttp "GET /accounts/login/ HTTP/1.1" 200 8708
+INFO 2025-10-23 00:49:16,362 basehttp "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-10-23 00:49:16,413 basehttp "GET / HTTP/1.1" 200 12578
+INFO 2025-10-23 00:49:18,380 basehttp "GET /article/geralt-iz-rivii/ HTTP/1.1" 200 22431
+INFO 2025-10-23 00:49:18,437 basehttp "GET /media/article_media/64bef9d5ce5d0eee72c96ae43edcbef7.jpg HTTP/1.1" 304 0
+INFO 2025-10-23 00:49:27,042 basehttp "POST /article/geralt-iz-rivii/like/ HTTP/1.1" 200 50
+INFO 2025-10-23 00:49:27,909 basehttp "POST /article/geralt-iz-rivii/like/ HTTP/1.1" 200 51
+INFO 2025-10-23 00:49:31,885 basehttp "GET /accounts/profile/ HTTP/1.1" 200 14840
+INFO 2025-10-23 00:49:42,124 basehttp "GET / HTTP/1.1" 200 12578
+INFO 2025-10-23 00:49:46,227 basehttp "GET /liked-articles/ HTTP/1.1" 200 12357
+INFO 2025-10-23 00:49:51,808 basehttp "GET /my-articles/ HTTP/1.1" 200 13280
+INFO 2025-10-23 00:49:55,653 basehttp "GET /accounts/profile/ HTTP/1.1" 200 14840
+INFO 2025-10-23 00:50:05,823 basehttp "GET /my-articles/ HTTP/1.1" 200 13280
+INFO 2025-10-23 00:50:27,106 basehttp "GET / HTTP/1.1" 200 12578
+INFO 2025-10-23 00:50:27,771 basehttp "GET /search/ HTTP/1.1" 200 13114
+INFO 2025-10-23 00:50:28,277 basehttp "GET /category/characters/ HTTP/1.1" 200 10749
+INFO 2025-10-23 00:50:28,783 basehttp "GET /category/monsters/ HTTP/1.1" 200 10152
+INFO 2025-10-23 00:50:29,369 basehttp "GET /category/locations/ HTTP/1.1" 200 10152
+INFO 2025-10-23 00:50:29,698 basehttp "GET /my-articles/ HTTP/1.1" 200 13280
+INFO 2025-10-23 00:50:30,334 basehttp "GET /liked-articles/ HTTP/1.1" 200 12357
+INFO 2025-10-23 00:50:31,541 basehttp "GET / HTTP/1.1" 200 12578
+INFO 2025-10-23 00:50:32,959 basehttp "GET /article/geralt-iz-rivii/ HTTP/1.1" 200 22431
+INFO 2025-10-23 00:50:34,509 basehttp "GET /category/characters/ HTTP/1.1" 200 10749
+INFO 2025-10-23 00:50:36,638 basehttp "GET /article/geralt-iz-rivii/ HTTP/1.1" 200 22431
+INFO 2025-10-23 00:50:38,646 basehttp "POST /article/geralt-iz-rivii/like/ HTTP/1.1" 200 50
+INFO 2025-10-23 00:50:40,756 basehttp "GET /liked-articles/ HTTP/1.1" 200 13177
+INFO 2025-10-23 00:53:36,488 basehttp "GET /accounts/profile/ HTTP/1.1" 200 14840
+INFO 2025-10-23 00:53:36,499 basehttp "GET /static/css/style.css HTTP/1.1" 304 0
+INFO 2025-10-23 00:56:55,225 basehttp "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-10-23 00:56:55,380 basehttp "GET / HTTP/1.1" 200 10721
+INFO 2025-10-23 00:56:56,866 basehttp "GET /accounts/login/ HTTP/1.1" 200 8887
+INFO 2025-10-23 00:56:58,482 basehttp "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-10-23 00:56:58,543 basehttp "GET / HTTP/1.1" 200 12578
+INFO 2025-10-23 00:57:00,700 basehttp "GET /article/geralt-iz-rivii/ HTTP/1.1" 200 22431
+INFO 2025-10-23 00:57:09,866 basehttp "POST /article/geralt-iz-rivii/like/ HTTP/1.1" 200 51
+INFO 2025-10-23 00:57:10,580 basehttp "POST /article/geralt-iz-rivii/like/ HTTP/1.1" 200 50
+INFO 2025-10-23 01:01:04,996 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\accounts\views.py changed, reloading.
+INFO 2025-10-23 01:01:05,544 autoreload Watching for file changes with StatReloader
+INFO 2025-10-23 01:01:25,697 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\accounts\views.py changed, reloading.
+INFO 2025-10-23 01:01:27,601 autoreload Watching for file changes with StatReloader
+INFO 2025-10-23 01:01:57,800 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\accounts\views.py changed, reloading.
+INFO 2025-10-23 01:01:58,333 autoreload Watching for file changes with StatReloader
+INFO 2025-10-23 01:04:45,991 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\accounts\views.py changed, reloading.
+INFO 2025-10-23 01:04:46,579 autoreload Watching for file changes with StatReloader
+INFO 2025-10-23 01:08:15,737 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\accounts\views.py changed, reloading.
+INFO 2025-10-23 01:08:16,271 autoreload Watching for file changes with StatReloader
+INFO 2025-10-23 01:10:02,253 autoreload Watching for file changes with StatReloader
+INFO 2025-10-23 01:10:03,258 basehttp "GET / HTTP/1.1" 200 12578
+INFO 2025-10-23 01:10:03,419 basehttp "GET /static/css/style.css HTTP/1.1" 304 0
+INFO 2025-10-23 01:10:05,098 basehttp "GET /accounts/profile/ HTTP/1.1" 200 21331
+INFO 2025-10-23 01:10:26,600 basehttp "POST /accounts/profile/ HTTP/1.1" 200 21331
+INFO 2025-10-23 01:10:30,189 basehttp "POST /accounts/profile/ HTTP/1.1" 200 21331
+INFO 2025-10-23 01:10:31,918 basehttp "GET /accounts/profile/ HTTP/1.1" 200 21331
+INFO 2025-10-23 01:10:32,956 basehttp "GET /categories/ HTTP/1.1" 200 18918
+INFO 2025-10-23 01:10:34,061 basehttp "GET /accounts/profile/ HTTP/1.1" 200 21331
+INFO 2025-10-23 01:10:39,514 basehttp "POST /accounts/profile/ HTTP/1.1" 200 21331
+INFO 2025-10-23 01:10:54,595 basehttp "GET /categories/ HTTP/1.1" 200 18918
+INFO 2025-10-23 01:10:55,636 basehttp "GET /accounts/profile/ HTTP/1.1" 200 21331
+INFO 2025-10-23 01:11:02,244 basehttp "GET /moderation/ HTTP/1.1" 200 11273
+INFO 2025-10-23 01:11:02,645 basehttp "GET /categories/ HTTP/1.1" 200 18918
+INFO 2025-10-23 01:11:03,172 basehttp "GET /moderation/ HTTP/1.1" 200 10491
+INFO 2025-10-23 01:11:04,100 basehttp "GET /categories/ HTTP/1.1" 200 18918
+INFO 2025-10-23 01:11:04,470 basehttp "GET /moderation/ HTTP/1.1" 200 10491
+INFO 2025-10-23 01:11:04,922 basehttp "GET /liked-articles/ HTTP/1.1" 200 13177
+INFO 2025-10-23 01:11:05,526 basehttp "GET /my-articles/ HTTP/1.1" 200 13280
+INFO 2025-10-23 01:11:09,017 basehttp "GET /my-articles/ HTTP/1.1" 200 13280
+INFO 2025-10-23 01:11:09,702 basehttp "GET /category/locations/ HTTP/1.1" 200 10152
+INFO 2025-10-23 01:11:10,274 basehttp "GET /category/monsters/ HTTP/1.1" 200 10152
+INFO 2025-10-23 01:11:10,755 basehttp "GET /category/characters/ HTTP/1.1" 200 10749
+INFO 2025-10-23 01:11:11,179 basehttp "GET /search/ HTTP/1.1" 200 13114
+INFO 2025-10-23 01:11:11,900 basehttp "GET / HTTP/1.1" 200 12578
+INFO 2025-10-23 01:11:13,275 basehttp "GET /accounts/profile/ HTTP/1.1" 200 21331
+INFO 2025-10-23 01:11:20,018 basehttp "POST /accounts/profile/ HTTP/1.1" 200 21331
+INFO 2025-10-23 01:13:34,321 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\accounts\views.py changed, reloading.
+INFO 2025-10-23 01:13:34,894 autoreload Watching for file changes with StatReloader

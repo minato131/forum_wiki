@@ -7,7 +7,7 @@
 <div class="auth-container">
     <div class="auth-form">
         <h2>⚔️ Вход в систему</h2>
-
+        
         {% if messages %}
             {% for message in messages %}
                 <div class="alert alert-{{ message.tags }}">
@@ -22,15 +22,15 @@
                 <label for="username">Имя пользователя:</label>
                 <input type="text" id="username" name="username" required class="form-control">
             </div>
-
+            
             <div class="form-group">
                 <label for="password">Пароль:</label>
                 <input type="password" id="password" name="password" required class="form-control">
             </div>
-
+            
             <button type="submit" class="btn btn-primary">Войти</button>
         </form>
-
+        
         <div class="auth-links">
             <p>Нет аккаунта? <a href="{% url 'accounts:register' %}">Зарегистрируйтесь</a></p>
         </div>

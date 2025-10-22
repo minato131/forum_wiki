@@ -8,9 +8,6 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('search/', views.search, name='search'),
 
-    # Профиль пользователя
-    path('accounts/profile/', views.profile, name='profile'),
-
     # Категории
     path('category/<slug:slug>/', views.category_detail, name='category_detail'),
 
@@ -35,8 +32,8 @@ urlpatterns = [
     path('categories/<int:category_id>/toggle-featured/', views.category_toggle_featured,
          name='category_toggle_featured'),
     path('categories/json/', views.get_categories_json, name='categories_json'),
-    path('accounts/profile/', views.profile, name='profile'),
-    path('accounts/register/', views.register, name='register'),
+
+    # Пользовательские профили
     path('user/<str:username>/', views.user_public_profile, name='user_public_profile'),
     path('article/<slug:slug>/like/', views.toggle_article_like, name='toggle_article_like'),
     path('liked-articles/', views.liked_articles, name='liked_articles'),
