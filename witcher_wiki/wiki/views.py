@@ -259,8 +259,8 @@ def article_detail(request, slug):
         article.views_count += 1
         article.save(update_fields=['views_count'])
 
-    # Получаем медиафайлы статьи
-    media_files = article.media_files.all()
+    # Получаем медиафайлы статьи с сортировкой
+    media_files = article.media_files.all().order_by('display_order', 'uploaded_at')
 
     context = {
         'article': article,

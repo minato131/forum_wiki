@@ -1,47 +1,204 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}{{ article.title }} | Форум по Вселенной Ведьмака{% endblock %}
 
 {% block content %}
 <style>
-    .meta {
-        color: #888;
-        margin-bottom: 20px;
-        font-style: italic;
-        display: flex;
-        gap: 20px;
-        flex-wrap: wrap;
+    .article-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
     }
-    .content {
-        line-height: 1.6;
+    .article-header {
+        background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+        padding: 30px;
+        border-radius: 15px;
+        border: 2px solid #D4AF37;
+        margin-bottom: 30px;
+        position: relative;
+        overflow: hidden;
+    }
+    .article-header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, #D4AF37, #FFD700, #D4AF37);
+    }
+    .article-title {
+        color: #D4AF37;
+        font-size: 2.5em;
+        margin: 0 0 15px 0;
+        text-align: center;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
+    .meta-info {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
         margin-bottom: 20px;
+    }
+    .meta-item {
+        background: rgba(212, 175, 55, 0.1);
+        padding: 12px;
+        border-radius: 8px;
+        border-left: 3px solid #D4AF37;
+    }
+    .meta-label {
+        color: #D4AF37;
+        font-weight: bold;
+        font-size: 0.9em;
+        margin-bottom: 5px;
+    }
+    .meta-value {
+        color: #e8e8e8;
+        font-size: 1em;
+    }
+    .author-link {
+        color: #D4AF37;
+        text-decoration: none;
+        font-weight: bold;
+        transition: color 0.3s;
+    }
+    .author-link:hover {
+        color: #FFD700;
+        text-decoration: underline;
     }
     .categories {
-        margin: 20px 0;
         display: flex;
         gap: 10px;
         flex-wrap: wrap;
+        justify-content: center;
+        margin: 20px 0;
     }
     .category-tag {
         background: rgba(212, 175, 55, 0.2);
         color: #D4AF37;
-        padding: 5px 10px;
-        border-radius: 15px;
+        padding: 8px 15px;
+        border-radius: 20px;
         text-decoration: none;
         font-size: 0.9em;
+        border: 1px solid rgba(212, 175, 55, 0.3);
+        transition: all 0.3s;
     }
     .category-tag:hover {
         background: #D4AF37;
         color: #1a1a1a;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+    }
+    .article-content {
+        background: #2d2d2d;
+        padding: 40px;
+        border-radius: 15px;
+        border: 1px solid #444;
+        margin-bottom: 30px;
+        line-height: 1.8;
+        font-size: 1.1em;
+    }
+    .article-content h2, .article-content h3 {
+        color: #D4AF37;
+        margin-top: 30px;
+        margin-bottom: 15px;
+    }
+    .article-content p {
+        margin-bottom: 20px;
+        color: #e8e8e8;
+    }
+    .article-content img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 10px;
+        margin: 20px 0;
+        border: 2px solid #444;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+    .media-gallery {
+        margin: 40px 0;
+    }
+    .media-section-title {
+        color: #D4AF37;
+        font-size: 1.5em;
+        margin-bottom: 20px;
+        text-align: center;
+        border-bottom: 2px solid #D4AF37;
+        padding-bottom: 10px;
+    }
+    .media-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+        margin-top: 20px;
+    }
+    .media-item {
+        background: #1a1a1a;
+        border-radius: 10px;
+        overflow: hidden;
+        border: 1px solid #444;
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .media-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(212, 175, 55, 0.2);
+    }
+    .media-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-bottom: 1px solid #444;
+    }
+    .media-video {
+        width: 100%;
+        height: 200px;
+        background: #000;
+    }
+    .media-audio {
+        width: 100%;
+        padding: 20px;
+        background: #2d2d2d;
+    }
+    .media-document {
+        padding: 20px;
+        text-align: center;
+        background: #2d2d2d;
+    }
+    .media-info {
+        padding: 15px;
+    }
+    .media-title {
+        color: #D4AF37;
+        font-weight: bold;
+        margin-bottom: 8px;
+        font-size: 1.1em;
+    }
+    .media-description {
+        color: #888;
+        font-size: 0.9em;
+        line-height: 1.4;
+    }
+    .action-buttons {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 30px;
     }
     .btn {
-        display: inline-block;
-        padding: 10px 20px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 25px;
         background: #D4AF37;
         color: #1a1a1a;
         text-decoration: none;
-        border-radius: 5px;
-        margin-right: 10px;
+        border-radius: 8px;
+        font-weight: bold;
+        transition: all 0.3s;
+        border: none;
+        cursor: pointer;
     }
     .btn-outline {
         background: transparent;
@@ -52,38 +209,153 @@
         background: #D4AF37;
         color: #1a1a1a;
     }
+    .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+    }
+    .featured-image {
+        text-align: center;
+        margin: 30px 0;
+    }
+    .featured-image img {
+        max-width: 100%;
+        max-height: 500px;
+        border-radius: 15px;
+        border: 3px solid #D4AF37;
+        box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+    }
+    @media (max-width: 768px) {
+        .article-title {
+            font-size: 2em;
+        }
+        .meta-info {
+            grid-template-columns: 1fr;
+        }
+        .article-content {
+            padding: 20px;
+        }
+        .media-grid {
+            grid-template-columns: 1fr;
+        }
+    }
 </style>
 
-<h1>⚔️ {{ article.title }}</h1>
-<div style="margin-bottom: 20px; padding: 15px; background: #2d2d2d; border-radius: 5px;">
-    <p style="margin: 0; color: #e8e8e8;">
-        <strong>✍️ Автор:</strong>
-        <a href="{% url 'wiki:user_public_profile' article.author.username %}"
-           style="color: #D4AF37; text-decoration: none; font-weight: bold;">
-            {{ article.author.username }}
-        </a>
-    </p>
-    <p style="margin: 5px 0 0 0; color: #888; font-size: 14px;">
-        📅 Опубликовано: {{ article.created_at|date:"d.m.Y H:i" }}
-        {% if article.views_count %} | 👁️ {{ article.views_count }} просмотров{% endif %}
-    </p>
-</div>
+<div class="article-container">
+    <!-- Шапка статьи -->
+    <div class="article-header">
+        <h1 class="article-title">⚔️ {{ article.title }}</h1>
 
-{% if article.categories.exists %}
-<div class="categories">📂 Категории:
-    {% for cat in article.categories.all %}
-    <a href="/category/{{ cat.slug }}/" class="category-tag">{{ cat.name }}</a>
-    {% endfor %}
-</div>
-{% endif %}
+        <div class="meta-info">
+            <div class="meta-item">
+                <div class="meta-label">✍️ Автор</div>
+                <div class="meta-value">
+                    <a href="{% url 'wiki:user_public_profile' article.author.username %}" class="author-link">
+                        {{ article.author.username }}
+                    </a>
+                </div>
+            </div>
+            <div class="meta-item">
+                <div class="meta-label">📅 Опубликовано</div>
+                <div class="meta-value">{{ article.created_at|date:"d.m.Y H:i" }}</div>
+            </div>
+            {% if article.views_count %}
+            <div class="meta-item">
+                <div class="meta-label">👁️ Просмотры</div>
+                <div class="meta-value">{{ article.views_count }}</div>
+            </div>
+            {% endif %}
+            {% if article.updated_at != article.created_at %}
+            <div class="meta-item">
+                <div class="meta-label">🔄 Обновлено</div>
+                <div class="meta-value">{{ article.updated_at|date:"d.m.Y H:i" }}</div>
+            </div>
+            {% endif %}
+        </div>
 
-<div class="content">{{ article.content|safe }}</div>
+        {% if article.categories.exists %}
+        <div class="categories">
+            <span style="color: #D4AF37; font-weight: bold;">📂 Категории:</span>
+            {% for cat in article.categories.all %}
+            <a href="{% url 'wiki:category_detail' cat.slug %}" class="category-tag">
+                {{ cat.name }}
+            </a>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
 
-<div style="margin-top: 30px;">
-    <a href="/" class="btn">🏠 На главную</a>
-    <a href="/search/" class="btn btn-outline">🔍 Поиск</a>
-    {% if can_edit %}
-        <a href="/article/{{ article.slug }}/edit/" class="btn">✏️ Редактировать</a>
+    <!-- Главное изображение -->
+    {% if article.featured_image %}
+    <div class="featured-image">
+        <img src="{{ article.featured_image.url }}" alt="{{ article.title }}">
+    </div>
     {% endif %}
+
+    <!-- Контент статьи -->
+    <div class="article-content">
+        {{ article.content|safe }}
+    </div>
+
+    <!-- Медиа галерея -->
+    {% if media_files %}
+    <div class="media-gallery">
+        <h3 class="media-section-title">🖼️ Медиафайлы</h3>
+        <div class="media-grid">
+            {% for media in media_files %}
+            <div class="media-item">
+                {% if media.file_type == 'image' %}
+                    <img src="{{ media.file.url }}" alt="{{ media.title }}" class="media-image">
+                {% elif media.file_type == 'video' %}
+                    <video controls class="media-video">
+                        <source src="{{ media.file.url }}" type="video/mp4">
+                        Ваш браузер не поддерживает видео.
+                    </video>
+                {% elif media.file_type == 'audio' %}
+                    <div class="media-audio">
+                        <audio controls style="width: 100%;">
+                            <source src="{{ media.file.url }}" type="audio/mpeg">
+                            Ваш браузер не поддерживает аудио.
+                        </audio>
+                    </div>
+                {% else %}
+                    <div class="media-document">
+                        <div style="font-size: 3em; margin-bottom: 10px;">📄</div>
+                        <div style="color: #D4AF37; font-weight: bold;">Документ</div>
+                    </div>
+                {% endif %}
+
+                <div class="media-info">
+                    {% if media.title %}
+                    <div class="media-title">{{ media.title }}</div>
+                    {% endif %}
+                    {% if media.description %}
+                    <div class="media-description">{{ media.description }}</div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Кнопки действий -->
+    <div class="action-buttons">
+        <a href="{% url 'wiki:home' %}" class="btn">
+            🏠 На главную
+        </a>
+        <a href="{% url 'wiki:search' %}" class="btn btn-outline">
+            🔍 Поиск статей
+        </a>
+        {% if can_edit %}
+        <a href="{% url 'wiki:article_edit' article.slug %}" class="btn">
+            ✏️ Редактировать
+        </a>
+        {% endif %}
+        {% if can_moderate and article.status == 'review' %}
+        <a href="{% url 'wiki:article_moderate' article.slug %}" class="btn">
+            ⚡ Модерировать
+        </a>
+        {% endif %}
+    </div>
 </div>
 {% endblock %}
