@@ -94,11 +94,10 @@ TIME_ZONE = 'Asia/Irkutsk'  # Иркутск согласно ТЗ
 USE_I18N = True
 USE_TZ = True
 
-# Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = [
-    BASE_DIR / 'static',
+    BASE_DIR / 'static',  # Убедитесь что этот путь правильный
 ]
 
 # Media files
