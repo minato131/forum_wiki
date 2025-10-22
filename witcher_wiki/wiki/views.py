@@ -245,8 +245,11 @@ def article_create(request):
     }
     return render(request, 'wiki/article_create.html', context)
 
+
 def article_detail(request, slug):
     article = get_object_or_404(Article, slug=slug)
+    article.views += 1
+    article.save()
 
     # Проверяем права на просмотр
     if article.status != 'published' and not article.can_edit(request.user):

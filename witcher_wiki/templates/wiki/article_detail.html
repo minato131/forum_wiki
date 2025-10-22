@@ -224,6 +224,44 @@
         border: 3px solid #D4AF37;
         box-shadow: 0 8px 30px rgba(0,0,0,0.5);
     }
+    .like-section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+        margin: 20px 0;
+        padding: 20px;
+        background: rgba(42, 42, 42, 0.8);
+        border-radius: 10px;
+        border: 1px solid #444;
+    }
+    .like-button {
+        background: #444;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 25px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.3s;
+        font-weight: bold;
+    }
+    .like-button.liked {
+        background: #ef4444;
+    }
+    .like-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+    .likes-count {
+        color: #D4AF37;
+        font-weight: bold;
+        font-size: 1.1em;
+        min-width: 30px;
+        text-align: center;
+    }
     @media (max-width: 768px) {
         .article-title {
             font-size: 2em;
@@ -236,6 +274,14 @@
         }
         .media-grid {
             grid-template-columns: 1fr;
+        }
+        .action-buttons {
+            flex-direction: column;
+            align-items: center;
+        }
+        .btn {
+            width: 100%;
+            justify-content: center;
         }
     }
 </style>
@@ -294,6 +340,22 @@
     <!-- Контент статьи -->
     <div class="article-content">
         {{ article.content|safe }}
+    </div>
+
+    <!-- Блок лайков -->
+    <div class="like-section">
+        <button id="likeButton" class="like-button {% if user.is_authenticated and article.is_liked_by_user %}liked{% endif %}"
+                onclick="toggleLike('{{ article.slug }}')"
+                {% if not user.is_authenticated %}disabled title="Войдите, чтобы оценить"{% endif %}>
+            {% if user.is_authenticated and article.is_liked_by_user %}
+                ❤️ Мне нравится
+            {% else %}
+                🤍 Мне нравится
+            {% endif %}
+        </button>
+        <span id="likesCount" class="likes-count">
+            {{ article.get_likes_count|default:0 }}
+        </span>
     </div>
 
     <!-- Медиа галерея -->
@@ -358,25 +420,7 @@
         {% endif %}
     </div>
 </div>
-{% endblock %}
-<!-- Блок лайков -->
-<div style="display: flex; justify-content: center; align-items: center; gap: 15px; margin: 20px 0;">
-    <button id="likeButton"
-            style="background: {% if article.is_liked_by_user user %}#ef4444{% else %}#444{% endif %};
-                   color: white; border: none; padding: 10px 20px; border-radius: 25px;
-                   cursor: pointer; display: flex; align-items: center; gap: 8px;
-                   transition: all 0.3s; font-weight: bold;"
-            onclick="toggleLike('{{ article.slug }}')">
-        {% if article.is_liked_by_user user %}
-            ❤️ Мне нравится
-        {% else %}
-            🤍 Мне нравится
-        {% endif %}
-    </button>
-    <span id="likesCount" style="color: #D4AF37; font-weight: bold; font-size: 1.1em;">
-        {{ article.get_likes_count }}
-    </span>
-</div>
+
 <script>
 function toggleLike(articleSlug) {
     const likeButton = document.getElementById('likeButton');
@@ -394,10 +438,10 @@ function toggleLike(articleSlug) {
         if (data.success) {
             if (data.liked) {
                 likeButton.innerHTML = '❤️ Мне нравится';
-                likeButton.style.background = '#ef4444';
+                likeButton.classList.add('liked');
             } else {
                 likeButton.innerHTML = '🤍 Мне нравится';
-                likeButton.style.background = '#444';
+                likeButton.classList.remove('liked');
             }
             likesCount.textContent = data.likes_count;
         }
@@ -407,3 +451,4 @@ function toggleLike(articleSlug) {
     });
 }
 </script>
+{% endblock %}
