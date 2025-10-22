@@ -35,5 +35,7 @@ urlpatterns = [
     path('categories/<int:category_id>/toggle-featured/', views.category_toggle_featured,
          name='category_toggle_featured'),
     path('categories/json/', views.get_categories_json, name='categories_json'),
-
+    path('accounts/profile/', views.profile, name='profile'),
+    path('accounts/register/', views.register, name='register'),
+    path('user/<str:username>/', views.user_public_profile, name='user_public_profile'),
 ]

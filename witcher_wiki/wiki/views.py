@@ -2,15 +2,15 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q, Count
-from django.middleware.csrf import get_token
 from django.core.paginator import Paginator
 from django.utils.text import slugify
 from django.contrib import messages
 from django.utils import timezone
 import os
-from .models import Article, Category, Comment, ArticleMedia
-from .forms import ArticleForm, CommentForm, SearchForm, CategoryForm
-
+from .forms import ArticleForm, CommentForm, SearchForm, CategoryForm, ProfileUpdateForm
+from .models import Article, Category, Comment, ArticleMedia, UserProfile, User
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login
 
 def home(request):
     # Основные категории для горизонтального скролла
@@ -106,13 +106,36 @@ def search(request):
 
 @login_required
 def profile(request):
-    """Простая страница профиля пользователя"""
-    user = request.user
-    articles_count = user.articles.count()
+    """Страница профиля пользователя с возможностью редактирования"""
+    # Получаем или создаем профиль пользователя
+    user_profile, created = UserProfile.objects.get_or_create(user=request.user)
+
+    if request.method == 'POST':
+        form = ProfileUpdateForm(
+            request.POST,
+            request.FILES,
+            instance=user_profile,
+            user=request.user
+        )
+        if form.is_valid():
+            form.save()
+            messages.success(request, '✅ Ваш профиль был успешно обновлен!')
+            return redirect('wiki:profile')
+        else:
+            messages.error(request, '❌ Пожалуйста, исправьте ошибки в форме.')
+    else:
+        form = ProfileUpdateForm(instance=user_profile, user=request.user)
+
+    # Статистика пользователя
+    articles_count = request.user.articles.count()
+    published_articles_count = request.user.articles.filter(status='published').count()
 
     context = {
-        'user': user,
+        'form': form,
+        'user': request.user,
+        'user_profile': user_profile,
         'articles_count': articles_count,
+        'published_articles_count': published_articles_count,
     }
     return render(request, 'wiki/profile.html', context)
 
@@ -639,3 +662,48 @@ def get_categories_json(request):
     """API для получения списка категорий в формате JSON"""
     categories = Category.objects.all().values('id', 'name', 'parent')
     return JsonResponse(list(categories), safe=False)
+
+
+def register(request):
+    """Регистрация нового пользователя"""
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)  # Автоматически входим после регистрации
+            messages.success(request, f'✅ Аккаунт создан! Добро пожаловать, {user.username}!')
+            return redirect('wiki:home')
+        else:
+            messages.error(request, '❌ Пожалуйста, исправьте ошибки в форме.')
+    else:
+        form = UserCreationForm()
+
+    context = {
+        'form': form,
+    }
+    return render(request, 'wiki/register.html', context)
+
+
+def user_public_profile(request, username):
+    """Публичный профиль пользователя"""
+    user = get_object_or_404(User, username=username)
+
+    # Получаем профиль пользователя
+    try:
+        user_profile = UserProfile.objects.get(user=user)
+    except UserProfile.DoesNotExist:
+        user_profile = None
+
+    # Статьи пользователя (только опубликованные)
+    user_articles = Article.objects.filter(author=user, status='published').order_by('-created_at')
+
+    # Статистика
+    articles_count = user_articles.count()
+
+    context = {
+        'profile_user': user,
+        'user_profile': user_profile,
+        'user_articles': user_articles,
+        'articles_count': articles_count,
+    }
+    return render(request, 'wiki/user_public_profile.html', context)

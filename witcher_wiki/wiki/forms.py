@@ -5,6 +5,8 @@ from .models import Article, Comment, Category
 from django_ckeditor_5.widgets import CKEditor5Widget
 from django import forms
 from .models import Article, Comment, Category, ArticleMedia
+from .models import UserProfile
+from django.core.validators import FileExtensionValidator
 
 
 class ArticleForm(forms.ModelForm):
@@ -298,3 +300,120 @@ class QuickArticleForm(forms.ModelForm):
             article.save()
             self.save_m2m()
         return article
+
+
+class ProfileUpdateForm(forms.ModelForm):
+    avatar = forms.ImageField(
+        required=False,
+        label='Аватар',
+        help_text='Рекомендуемый размер: 300x300 пикселей. Максимальный размер: 2MB. Разрешены: JPG, PNG, GIF',
+        validators=[FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png', 'gif'])],
+        widget=forms.FileInput(attrs={
+            'class': 'form-control',
+            'accept': 'image/*'
+        })
+    )
+
+    first_name = forms.CharField(
+        required=False,
+        label='Имя',
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Ваше имя'
+        })
+    )
+
+    last_name = forms.CharField(
+        required=False,
+        label='Фамилия',
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Ваша фамилия'
+        })
+    )
+
+    email = forms.EmailField(
+        required=True,
+        label='Email',
+        widget=forms.EmailInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'your@email.com'
+        })
+    )
+
+    bio = forms.CharField(
+        required=False,
+        label='О себе',
+        widget=forms.Textarea(attrs={
+            'class': 'form-control',
+            'rows': 4,
+            'placeholder': 'Расскажите о себе...'
+        })
+    )
+
+    # Поля для соцсетей
+    telegram = forms.URLField(
+        required=False,
+        label='Telegram',
+        widget=forms.URLInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'https://t.me/username'
+        })
+    )
+
+    vk = forms.URLField(
+        required=False,
+        label='VK',
+        widget=forms.URLInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'https://vk.com/username'
+        })
+    )
+
+    youtube = forms.URLField(
+        required=False,
+        label='YouTube',
+        widget=forms.URLInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'https://youtube.com/c/username'
+        })
+    )
+
+    discord = forms.CharField(
+        required=False,
+        label='Discord',
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'username#1234'
+        })
+    )
+
+    class Meta:
+        model = UserProfile
+        fields = ['avatar', 'bio', 'telegram', 'vk', 'youtube', 'discord']
+
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user', None)
+        super().__init__(*args, **kwargs)
+
+        if self.user:
+            self.fields['first_name'].initial = self.user.first_name
+            self.fields['last_name'].initial = self.user.last_name
+            self.fields['email'].initial = self.user.email
+
+    def save(self, commit=True):
+        profile = super().save(commit=False)
+
+        if self.user:
+            if 'avatar' in self.changed_data:
+                profile.delete_old_avatar()
+
+            self.user.first_name = self.cleaned_data['first_name']
+            self.user.last_name = self.cleaned_data['last_name']
+            self.user.email = self.cleaned_data['email']
+            self.user.save()
+
+        if commit:
+            profile.save()
+
+        return profile

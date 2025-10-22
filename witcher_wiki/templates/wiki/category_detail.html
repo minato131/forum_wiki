@@ -141,3 +141,11 @@
     <a href="/search/" class="btn">🔍 Поиск</a>
 </div>
 {% endblock %}
+<!-- Пример для category_detail.html или search.html -->
+<p style="color: #888; font-size: 14px; margin: 5px 0;">
+    Автор:
+    <a href="{% url 'wiki:user_public_profile' article.author.username %}"
+       style="color: #D4AF37; text-decoration: none;">
+        {{ article.author.username }}
+    </a>
+</p>

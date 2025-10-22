@@ -6,6 +6,8 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('wiki.urls')),  # ВКЛЮЧАЕМ URL-ы ПРИЛОЖЕНИЯ wiki
+    path('ckeditor5/', include('django_ckeditor_5.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),
 ]
 
 # Для медиафайлов в разработке

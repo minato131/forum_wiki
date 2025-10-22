@@ -3,31 +3,49 @@
 {% block title %}Вход | Wiki Ведьмака{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header bg-dark text-white">
-                    <h3 class="mb-0">Вход</h3>
-                </div>
-                <div class="card-body">
-                    <form method="post">
-                        {% csrf_token %}
-                        <div class="form-group mb-3">
-                            <label for="id_username">Имя пользователя:</label>
-                            <input type="text" name="username" class="form-control" id="id_username" required>
-                        </div>
-                        <div class="form-group mb-3">
-                            <label for="id_password">Пароль:</label>
-                            <input type="password" name="password" class="form-control" id="id_password" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Войти</button>
-                    </form>
-                    <div class="mt-3">
-                        <p>Нет аккаунта? <a href="{% url 'accounts:register' %}">Зарегистрироваться</a></p>
-                    </div>
-                </div>
+<div style="max-width: 400px; margin: 80px auto; padding: 20px;">
+    <div style="background: #2d2d2d; padding: 40px; border-radius: 10px; border: 2px solid #D4AF37;">
+        <h2 style="color: #D4AF37; text-align: center; margin-bottom: 30px;">🔑 Вход в систему</h2>
+
+        {% if form.errors %}
+        <div style="background: #f44336; color: white; padding: 10px; border-radius: 5px; margin-bottom: 20px; text-align: center;">
+            ❌ Неправильное имя пользователя или пароль.
+        </div>
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+
+            <div style="margin-bottom: 20px;">
+                <label style="color: #D4AF37; display: block; margin-bottom: 8px; font-weight: bold;">
+                    Имя пользователя
+                </label>
+                <input type="text" name="username"
+                       style="width: 100%; padding: 12px; background: #1a1a1a; border: 1px solid #444; border-radius: 5px; color: #e8e8e8;"
+                       required autofocus>
             </div>
+
+            <div style="margin-bottom: 25px;">
+                <label style="color: #D4AF37; display: block; margin-bottom: 8px; font-weight: bold;">
+                    Пароль
+                </label>
+                <input type="password" name="password"
+                       style="width: 100%; padding: 12px; background: #1a1a1a; border: 1px solid #444; border-radius: 5px; color: #e8e8e8;"
+                       required>
+            </div>
+
+            <button type="submit"
+                    style="width: 100%; background: #D4AF37; color: #1a1a1a; border: none; padding: 12px; border-radius: 5px; font-weight: bold; cursor: pointer; font-size: 16px;">
+                🚀 Войти
+            </button>
+        </form>
+
+        <div style="margin-top: 25px; text-align: center; border-top: 1px solid #444; padding-top: 20px;">
+            <p style="color: #888; margin-bottom: 15px;">Нет аккаунта?</p>
+            <a href="{% url 'wiki:register' %}"
+               style="background: #444; color: #D4AF37; padding: 10px 20px; border-radius: 5px; text-decoration: none; font-weight: bold; border: 1px solid #D4AF37; display: inline-block;">
+                📝 Зарегистрироваться
+            </a>
         </div>
     </div>
 </div>

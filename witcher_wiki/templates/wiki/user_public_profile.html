@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+
+{% block title %}Профиль {{ profile_user.username }} | Wiki Ведьмака{% endblock %}
+
+{% block content %}
+<div style="max-width: 1000px; margin: 40px auto; padding: 20px;">
+    <!-- Шапка профиля -->
+    <div style="background: #2d2d2d; padding: 30px; border-radius: 10px; border: 2px solid #D4AF37; margin-bottom: 30px;">
+        <div style="display: flex; align-items: center; gap: 30px;">
+            <!-- Аватар -->
+            <div style="flex-shrink: 0;">
+                {% if user_profile.avatar %}
+                    <img src="{{ user_profile.avatar.url }}" 
+                         alt="{{ profile_user.username }}" 
+                         style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 3px solid #D4AF37;">
+                {% else %}
+                    <div style="width: 120px; height: 120px; background: #D4AF37; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #1a1a1a; font-size: 36px; font-weight: bold; border: 3px solid #D4AF37;">
+                        {{ profile_user.username.0|upper }}
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Информация -->
+            <div style="flex-grow: 1;">
+                <h1 style="color: #D4AF37; margin-bottom: 10px;">{{ profile_user.username }}</h1>
+                
+                <div style="display: grid; grid-template-columns: auto auto; gap: 20px; margin-bottom: 15px;">
+                    <div>
+                        <p><strong>📅 Дата регистрации:</strong> {{ profile_user.date_joined|date:"d.m.Y" }}</p>
+                        <p><strong>📝 Статей:</strong> {{ articles_count }}</p>
+                    </div>
+                    <div>
+                        {% if profile_user.is_staff %}
+                            <p><strong>🎯 Роль:</strong> Администратор</p>
+                        {% elif profile_user.groups.all %}
+                            <p><strong>🎯 Роль:</strong> {{ profile_user.groups.first.name }}</p>
+                        {% else %}
+                            <p><strong>🎯 Роль:</strong> Пользователь</p>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- О себе -->
+                {% if user_profile.bio %}
+                    <div style="background: #1a1a1a; padding: 15px; border-radius: 5px; margin-top: 10px;">
+                        <p style="color: #D4AF37; margin-bottom: 5px; font-weight: bold;">📖 О себе:</p>
+                        <p style="color: #e8e8e8; margin: 0;">{{ user_profile.bio|linebreaks }}</p>
+                    </div>
+                {% endif %}
+
+                <!-- Соцсети -->
+                {% if user_profile and user_profile.has_social_links %}
+                <div style="margin-top: 15px;">
+                    <p style="color: #D4AF37; margin-bottom: 10px; font-weight: bold;">🌐 Соцсети:</p>
+                    <div style="display: flex; gap: 15px;">
+                        {% if user_profile.telegram %}
+                            <a href="{{ user_profile.telegram }}" target="_blank" style="color: #0088cc; text-decoration: none;">
+                                <div style="text-align: center;">
+                                    <div style="font-size: 20px;">📱</div>
+                                    <div style="font-size: 11px; color: #0088cc;">Telegram</div>
+                                </div>
+                            </a>
+                        {% endif %}
+
+                        {% if user_profile.vk %}
+                            <a href="{{ user_profile.vk }}" target="_blank" style="color: #4a76a8; text-decoration: none;">
+                                <div style="text-align: center;">
+                                    <div style="font-size: 20px;">👥</div>
+                                    <div style="font-size: 11px; color: #4a76a8;">VK</div>
+                                </div>
+                            </a>
+                        {% endif %}
+
+                        {% if user_profile.youtube %}
+                            <a href="{{ user_profile.youtube }}" target="_blank" style="color: #ff0000; text-decoration: none;">
+                                <div style="text-align: center;">
+                                    <div style="font-size: 20px;">🎥</div>
+                                    <div style="font-size: 11px; color: #ff0000;">YouTube</div>
+                                </div>
+                            </a>
+                        {% endif %}
+
+                        {% if user_profile.discord %}
+                            <div style="text-align: center;">
+                                <div style="font-size: 20px;">💬</div>
+                                <div style="font-size: 11px; color: #5865F2;">Discord</div>
+                                <div style="font-size: 10px; color: #888;">{{ user_profile.discord }}</div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Статьи пользователя -->
+    <div style="background: #2d2d2d; padding: 30px; border-radius: 10px; border: 2px solid #D4AF37;">
+        <h2 style="color: #D4AF37; margin-bottom: 20px; border-bottom: 1px solid #444; padding-bottom: 10px;">
+            📚 Статьи автора ({{ articles_count }})
+        </h2>
+
+        {% if user_articles %}
+            <div style="display: grid; gap: 15px;">
+                {% for article in user_articles %}
+                <div style="background: #1a1a1a; padding: 20px; border-radius: 5px; border-left: 4px solid #D4AF37;">
+                    <h3 style="margin: 0 0 10px 0;">
+                        <a href="{% url 'wiki:article_detail' article.slug %}" 
+                           style="color: #D4AF37; text-decoration: none; font-size: 18px;">
+                            {{ article.title }}
+                        </a>
+                    </h3>
+                    
+                    {% if article.excerpt %}
+                        <p style="color: #e8e8e8; margin: 0 0 10px 0; font-size: 14px;">
+                            {{ article.excerpt|truncatewords:30 }}
+                        </p>
+                    {% endif %}
+                    
+                    <div style="display: flex; gap: 20px; font-size: 12px; color: #888;">
+                        <span>📅 {{ article.created_at|date:"d.m.Y" }}</span>
+                        <span>👁️ {{ article.views_count }} просмотров</span>
+                        <span>🏷️ 
+                            {% for category in article.categories.all %}
+                                {{ category.name }}{% if not forloop.last %}, {% endif %}
+                            {% endfor %}
+                        </span>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div style="text-align: center; padding: 40px; color: #888;">
+                <p style="font-size: 18px; margin-bottom: 10px;">😔 Пока нет статей</p>
+                <p>Этот пользователь еще не опубликовал ни одной статьи.</p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

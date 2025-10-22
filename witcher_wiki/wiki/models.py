@@ -205,8 +205,13 @@ class Comment(models.Model):
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     avatar = models.ImageField('Аватар', upload_to='avatars/', blank=True, null=True)
-    bio = CKEditor5Field('О себе', config_name='default', blank=True)
-    website = models.URLField('Веб-сайт', blank=True)
+    bio = models.TextField('О себе', blank=True)
+
+    # Соцсети вместо веб-сайта
+    telegram = models.URLField('Telegram', blank=True, max_length=255)
+    vk = models.URLField('VK', blank=True, max_length=255)
+    youtube = models.URLField('YouTube', blank=True, max_length=255)
+    discord = models.CharField('Discord', blank=True, max_length=100)
 
     class Meta:
         verbose_name = 'Профиль пользователя'
@@ -214,6 +219,100 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return f'Профиль пользователя {self.user.username}'
+
+    def has_social_links(self):
+        """Проверяет, есть ли у пользователя соцсети"""
+        return bool(self.telegram or self.vk or self.youtube or self.discord)
+
+    def get_telegram_username(self):
+        """Извлекает username из ссылки Telegram"""
+        if self.telegram:
+            if 't.me/' in self.telegram:
+                return self.telegram.split('t.me/')[-1]
+            elif '@' in self.telegram:
+                return self.telegram.replace('@', '')
+        return None
+
+    def get_vk_username(self):
+        """Извлекает username из ссылки VK"""
+        if self.vk:
+            if 'vk.com/' in self.vk:
+                return self.vk.split('vk.com/')[-1]
+        return None
+
+    def save(self, *args, **kwargs):
+        if self.avatar:
+            self.resize_avatar()
+        super().save(*args, **kwargs)
+
+    def resize_avatar(self):
+        """Изменяет размер аватара до 300x300 пикселей"""
+        try:
+            from PIL import Image
+            from io import BytesIO
+            from django.core.files.base import ContentFile
+            import os
+
+            # Открываем изображение
+            img = Image.open(self.avatar)
+
+            # Конвертируем в RGB если нужно
+            if img.mode in ('RGBA', 'P'):
+                img = img.convert('RGB')
+
+            # Получаем текущий размер
+            width, height = img.size
+
+            # Ограничиваем максимальный размер
+            max_size = 300
+            if width > max_size or height > max_size:
+                # Вычисляем новые размеры сохраняя пропорции
+                if width > height:
+                    new_width = max_size
+                    new_height = int(height * max_size / width)
+                else:
+                    new_height = max_size
+                    new_width = int(width * max_size / height)
+
+                # Изменяем размер
+                img = img.resize((new_width, new_height), Image.Resampling.LANCZOS)
+
+            # Сохраняем обратно в поле avatar
+            thumb_io = BytesIO()
+            img.save(thumb_io, format='JPEG', quality=85, optimize=True)
+
+            # Получаем имя файла
+            avatar_name = self.avatar.name
+            if not avatar_name.startswith('avatars/'):
+                file_ext = os.path.splitext(avatar_name)[1] or '.jpg'
+                avatar_name = f"avatars/user_{self.user.id}/avatar{file_ext}"
+
+            # Сохраняем измененное изображение
+            self.avatar.save(
+                avatar_name,
+                ContentFile(thumb_io.getvalue()),
+                save=False
+            )
+
+        except Exception as e:
+            # В случае ошибки просто сохраняем без изменений
+            print(f"Ошибка при обработке аватара: {e}")
+            pass
+
+    def delete_old_avatar(self):
+        """Удаляет старый аватар при загрузке нового"""
+        try:
+            import os
+            from django.core.files.storage import default_storage
+
+            if self.avatar:
+                # Получаем старый профиль если он существует
+                old_profile = UserProfile.objects.filter(user=self.user).first()
+                if old_profile and old_profile.avatar and old_profile.avatar != self.avatar:
+                    if default_storage.exists(old_profile.avatar.name):
+                        default_storage.delete(old_profile.avatar.name)
+        except Exception as e:
+            print(f"Ошибка при удалении старого аватара: {e}")
 
 
 class MediaLibrary(models.Model):

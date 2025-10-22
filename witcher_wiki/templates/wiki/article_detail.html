@@ -55,10 +55,18 @@
 </style>
 
 <h1>⚔️ {{ article.title }}</h1>
-<div class="meta">
-    <span>👤 Автор: {{ article.author.username }}</span>
-    <span>📅 Дата: {{ article.created_at|date:"d.m.Y" }}</span>
-    <span>👁️ Просмотры: {{ article.views_count }}</span>
+<div style="margin-bottom: 20px; padding: 15px; background: #2d2d2d; border-radius: 5px;">
+    <p style="margin: 0; color: #e8e8e8;">
+        <strong>✍️ Автор:</strong>
+        <a href="{% url 'wiki:user_public_profile' article.author.username %}"
+           style="color: #D4AF37; text-decoration: none; font-weight: bold;">
+            {{ article.author.username }}
+        </a>
+    </p>
+    <p style="margin: 5px 0 0 0; color: #888; font-size: 14px;">
+        📅 Опубликовано: {{ article.created_at|date:"d.m.Y H:i" }}
+        {% if article.views_count %} | 👁️ {{ article.views_count }} просмотров{% endif %}
+    </p>
 </div>
 
 {% if article.categories.exists %}
