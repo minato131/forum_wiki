@@ -66,7 +66,6 @@ DATABASES = {
         'PASSWORD': 'qwe123',
         'HOST': 'localhost',
         'PORT': '5432',
-        # Уберите OPTIONS для начала
     }
 }
 
