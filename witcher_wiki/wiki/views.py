@@ -127,15 +127,27 @@ def profile(request):
         form = ProfileUpdateForm(instance=user_profile, user=request.user)
 
     # Статистика пользователя
-    articles_count = request.user.articles.count()
+    user_articles_count = request.user.articles.count()
     published_articles_count = request.user.articles.filter(status='published').count()
+
+    # Количество лайков пользователя
+    liked_articles_count = ArticleLike.objects.filter(user=request.user).count()
+
+    # Общее количество просмотров статей пользователя
+    total_views = request.user.articles.aggregate(total_views=Sum('views_count'))['total_views'] or 0
+
+    # Последние статьи пользователя
+    recent_articles = request.user.articles.filter(status='published').order_by('-created_at')[:5]
 
     context = {
         'form': form,
         'user': request.user,
         'user_profile': user_profile,
-        'articles_count': articles_count,
+        'user_articles_count': user_articles_count,
         'published_articles_count': published_articles_count,
+        'liked_articles_count': liked_articles_count,
+        'total_views': total_views,
+        'recent_articles': recent_articles,
     }
     return render(request, 'wiki/profile.html', context)
 

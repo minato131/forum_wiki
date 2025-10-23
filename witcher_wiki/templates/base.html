@@ -153,10 +153,141 @@
             font-size: 0.8em;
             color: #888;
         }
+
+        /* МОДАЛЬНОЕ ОКНО ПОДТВЕРЖДЕНИЯ */
+        .confirmation-modal {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+            margin: 15% auto;
+            padding: 30px;
+            border: 2px solid #D4AF37;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            position: relative;
+        }
+
+        .modal-header {
+            margin-bottom: 20px;
+        }
+
+        .modal-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+
+        .modal-title {
+            color: #D4AF37;
+            font-family: 'Cinzel', serif;
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .modal-message {
+            color: #e8e8e8;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .modal-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Georgia', serif;
+        }
+
+        .modal-btn-confirm {
+            background: #dc3545;
+            color: white;
+        }
+
+        .modal-btn-confirm:hover {
+            background: #c82333;
+            transform: translateY(-2px);
+        }
+
+        .modal-btn-cancel {
+            background: #6c757d;
+            color: white;
+        }
+
+        .modal-btn-cancel:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+        }
+
+        .modal-btn-warning {
+            background: #ffc107;
+            color: #1a1a1a;
+        }
+
+        .modal-btn-warning:hover {
+            background: #e0a800;
+            transform: translateY(-2px);
+        }
+
+        .logout-form-btn {
+            background: none;
+            border: none;
+            color: #e8e8e8;
+            padding: 12px 16px;
+            width: 100%;
+            text-align: left;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: inherit;
+            transition: background-color 0.3s;
+        }
+
+        .logout-form-btn:hover {
+            background: rgba(220, 53, 69, 0.1);
+        }
+
+        /* Стили для форм с подтверждением */
+        .confirmable-form {
+            display: inline;
+        }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Модальное окно подтверждения -->
+    <div id="confirmationModal" class="confirmation-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-icon" id="modalIcon">⚠️</div>
+                <h3 class="modal-title" id="modalTitle">Подтверждение действия</h3>
+            </div>
+            <div class="modal-message" id="modalMessage">
+                Вы уверены, что хотите выполнить это действие?
+            </div>
+            <div class="modal-actions">
+                <button class="modal-btn modal-btn-cancel" onclick="closeConfirmationModal()">Отмена</button>
+                <button class="modal-btn" id="modalConfirmBtn">Подтвердить</button>
+            </div>
+        </div>
+    </div>
+
     <div class="header">
         <h1>⚔️ Форум по Вселенной Ведьмака ⚔️</h1>
         <p>Энциклопедия Континента и Сферы</p>
@@ -203,12 +334,9 @@
                             <a href="{% url 'wiki:moderation_queue' %}">⚖️ Модерация</a>
                             <a href="/admin/">⚙️ Админ-панель</a>
                         {% endif %}
-                        <form action="/accounts/logout/" method="post" style="display: inline;">
-                            {% csrf_token %}
-                            <button type="submit" style="background: none; border: none; color: #e8e8e8; padding: 12px 16px; width: 100%; text-align: left; cursor: pointer; font-family: inherit; font-size: inherit;">
-                                🚪 Выйти
-                            </button>
-                        </form>
+                        <button type="button" class="logout-form-btn" onclick="confirmLogout()">
+                            🚪 Выйти
+                        </button>
                     </div>
                 </div>
             {% else %}
@@ -250,7 +378,259 @@
             if (event.key === 'Escape') {
                 const dropdown = document.getElementById('userDropdown');
                 dropdown.classList.remove('show');
+                closeConfirmationModal();
             }
+        });
+
+        // Функции для модального окна подтверждения
+        function showConfirmationModal(message, confirmCallback, options = {}) {
+            const modal = document.getElementById('confirmationModal');
+            const modalMessage = document.getElementById('modalMessage');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalIcon = document.getElementById('modalIcon');
+            const confirmBtn = document.getElementById('modalConfirmBtn');
+
+            modalMessage.textContent = message;
+            modalTitle.textContent = options.title || 'Подтверждение действия';
+            modalIcon.textContent = options.icon || '⚠️';
+
+            // Настройка кнопки подтверждения
+            confirmBtn.textContent = options.confirmText || 'Подтвердить';
+            confirmBtn.className = 'modal-btn';
+
+            if (options.type === 'warning') {
+                confirmBtn.classList.add('modal-btn-warning');
+            } else if (options.type === 'danger') {
+                confirmBtn.classList.add('modal-btn-confirm');
+            } else {
+                confirmBtn.classList.add('modal-btn-warning');
+            }
+
+            // Удаляем предыдущие обработчики
+            confirmBtn.replaceWith(confirmBtn.cloneNode(true));
+            const newConfirmBtn = document.getElementById('modalConfirmBtn');
+
+            // Добавляем новый обработчик
+            newConfirmBtn.onclick = function() {
+                confirmCallback();
+                closeConfirmationModal();
+            };
+
+            modal.style.display = 'block';
+        }
+
+        function closeConfirmationModal() {
+            const modal = document.getElementById('confirmationModal');
+            modal.style.display = 'none';
+        }
+
+        function confirmLogout() {
+            showConfirmationModal(
+                'Вы уверены, что хотите выйти из аккаунта?',
+                function() {
+                    // Создаем скрытую форму для выхода
+                    const form = document.createElement('form');
+                    form.method = 'post';
+                    form.action = '/accounts/logout/';
+
+                    const csrfToken = document.createElement('input');
+                    csrfToken.type = 'hidden';
+                    csrfToken.name = 'csrfmiddlewaretoken';
+                    csrfToken.value = '{{ csrf_token }}';
+
+                    form.appendChild(csrfToken);
+                    document.body.appendChild(form);
+                    form.submit();
+                },
+                { type: 'danger', icon: '🚪', title: 'Выход из системы' }
+            );
+        }
+
+        // Функция для подтверждения сохранения профиля
+        function confirmProfileSave(form) {
+            showConfirmationModal(
+                'Вы уверены, что хотите сохранить изменения в профиле?',
+                function() {
+                    form.submit();
+                },
+                { type: 'warning', icon: '💾', title: 'Сохранение профиля', confirmText: 'Сохранить' }
+            );
+            return false;
+        }
+
+        // Функция для подтверждения сохранения статьи
+        function confirmArticleSave(form) {
+            showConfirmationModal(
+                'Вы уверены, что хотите сохранить изменения в статье?',
+                function() {
+                    form.submit();
+                },
+                { type: 'warning', icon: '💾', title: 'Сохранение статьи', confirmText: 'Сохранить' }
+            );
+            return false;
+        }
+
+        // Функция для подтверждения отправки на модерацию
+        function confirmSubmitForModeration(form) {
+            showConfirmationModal(
+                'Вы уверены, что хотите отправить статью на модерацию? После отправки вы не сможете редактировать статью до завершения проверки.',
+                function() {
+                    form.submit();
+                },
+                { type: 'warning', icon: '⚖️', title: 'Отправка на модерацию', confirmText: 'Отправить' }
+            );
+            return false;
+        }
+
+        // Функция для подтверждения удаления лайка
+        function confirmUnlike(articleId, articleTitle) {
+            showConfirmationModal(
+                `Вы уверены, что хотите убрать лайк со статьи "${articleTitle}"?`,
+                function() {
+                    // Отправляем AJAX запрос для удаления лайка
+                    fetch(`/article/${articleId}/like/`, {
+                        method: 'POST',
+                        headers: {
+                            'X-CSRFToken': '{{ csrf_token }}',
+                            'Content-Type': 'application/json',
+                        },
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Обновляем отображение
+                            const likeBtn = document.querySelector(`[data-article-id="${articleId}"]`);
+                            const likesCount = document.querySelector(`[data-likes-count="${articleId}"]`);
+
+                            if (likeBtn && likesCount) {
+                                likeBtn.textContent = '🤍';
+                                likeBtn.onclick = () => toggleLike(articleId);
+                                likesCount.textContent = data.likes_count;
+                            }
+
+                            // Показываем уведомление
+                            showToast('Лайк убран', 'success');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        showToast('Ошибка при удалении лайка', 'error');
+                    });
+                },
+                { type: 'warning', icon: '❤️', title: 'Убрать лайк', confirmText: 'Убрать' }
+            );
+        }
+
+        // Функция для переключения лайка
+        function toggleLike(articleId) {
+            const likeBtn = document.querySelector(`[data-article-id="${articleId}"]`);
+            const articleTitle = likeBtn.getAttribute('data-article-title') || 'этой статьи';
+
+            if (likeBtn.textContent === '🤍') {
+                // Ставим лайк
+                fetch(`/article/${articleId}/like/`, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}',
+                        'Content-Type': 'application/json',
+                    },
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        likeBtn.textContent = '❤️';
+                        likeBtn.onclick = () => confirmUnlike(articleId, articleTitle);
+                        const likesCount = document.querySelector(`[data-likes-count="${articleId}"]`);
+                        if (likesCount) {
+                            likesCount.textContent = data.likes_count;
+                        }
+                        showToast('Лайк добавлен', 'success');
+                    }
+                });
+            } else {
+                // Убираем лайк с подтверждением
+                confirmUnlike(articleId, articleTitle);
+            }
+        }
+
+        // Функция для показа уведомлений
+        function showToast(message, type = 'info') {
+            // Создаем элемент уведомления
+            const toast = document.createElement('div');
+            toast.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 15px 20px;
+                border-radius: 8px;
+                color: white;
+                font-weight: bold;
+                z-index: 10001;
+                transition: all 0.3s;
+                opacity: 0;
+                transform: translateX(100%);
+            `;
+
+            if (type === 'success') {
+                toast.style.background = '#28a745';
+            } else if (type === 'error') {
+                toast.style.background = '#dc3545';
+            } else {
+                toast.style.background = '#17a2b8';
+            }
+
+            toast.textContent = message;
+            document.body.appendChild(toast);
+
+            // Анимация появления
+            setTimeout(() => {
+                toast.style.opacity = '1';
+                toast.style.transform = 'translateX(0)';
+            }, 100);
+
+            // Автоматическое скрытие
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    document.body.removeChild(toast);
+                }, 300);
+            }, 3000);
+        }
+
+        // Закрытие модального окна при клике вне его
+        window.addEventListener('click', function(event) {
+            const modal = document.getElementById('confirmationModal');
+            if (event.target === modal) {
+                closeConfirmationModal();
+            }
+        });
+
+        // Автоматическая привязка к формам с классом confirmable-form
+        document.addEventListener('DOMContentLoaded', function() {
+            const profileForms = document.querySelectorAll('form.profile-edit-form');
+            profileForms.forEach(form => {
+                form.onsubmit = function(event) {
+                    event.preventDefault();
+                    confirmProfileSave(this);
+                };
+            });
+
+            const articleEditForms = document.querySelectorAll('form.article-edit-form');
+            articleEditForms.forEach(form => {
+                form.onsubmit = function(event) {
+                    event.preventDefault();
+                    confirmArticleSave(this);
+                };
+            });
+
+            const articleCreateForms = document.querySelectorAll('form.article-create-form');
+            articleCreateForms.forEach(form => {
+                form.onsubmit = function(event) {
+                    event.preventDefault();
+                    confirmSubmitForModeration(this);
+                };
+            });
         });
     </script>
 </body>

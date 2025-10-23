@@ -4,6 +4,14 @@
 
 {% block content %}
 <style>
+    .search-page-title {
+        text-align: center;
+        color: #D4AF37;
+        font-family: 'Cinzel', serif;
+        margin-bottom: 30px;
+        font-size: 2.5em;
+    }
+
     .search-form {
         margin-bottom: 30px;
         text-align: center;
@@ -114,7 +122,7 @@
 <!-- ЗАГОЛОВОК ПОИСКА ТЕПЕРЬ ЦЕНТРИРОВАН -->
 <h1 class="search-page-title">🔍 Поиск по Форуму по Вселенной Ведьмака</h1>
 
-<form class="search-form" method="get" action="/search/">
+<form class="search-form" method="get" action="{% url 'wiki:search' %}">
     <div class="search-controls">
         <input type="text" name="q" value="{{ query }}" placeholder="Поиск по названию, содержанию, тегам...">
         <select name="category">
@@ -136,10 +144,15 @@
     {% if results %}
         {% for article in results %}
         <div class="search-result">
-            <h3><a href="/article/{{ article.slug }}/">📖 {{ article.title }}</a></h3>
+            <h3><a href="{% url 'wiki:article_detail' article.slug %}">📖 {{ article.title }}</a></h3>
             <p class="excerpt">{{ article.excerpt|truncatechars:200|default:"Описание отсутствует" }}...</p>
             <div class="meta">
-                <span>👤 {{ article.author.username }}</span>
+                <span>👤
+                    <a href="{% url 'wiki:user_public_profile' article.author.username %}"
+                       style="color: #D4AF37; text-decoration: none;">
+                        {{ article.author.username }}
+                    </a>
+                </span>
                 <span>📅 {{ article.created_at|date:"d.m.Y" }}</span>
                 <span>📂 {% for cat in article.categories.all %}{{ cat.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</span>
             </div>
@@ -168,16 +181,16 @@
             </div>
             <h4>Популярные запросы:</h4>
             <div class="popular-searches">
-                <a href="/search/?q=Геральт" class="search-tag">Геральт</a>
-                <a href="/search/?q=Цири" class="search-tag">Цири</a>
-                <a href="/search/?q=Йеннифэр" class="search-tag">Йеннифэр</a>
-                <a href="/search/?q=Трисс" class="search-tag">Трисс</a>
-                <a href="/search/?q=Веланд" class="search-tag">Веланд</a>
-                <a href="/search/?q=Каэр Морхен" class="search-tag">Каэр Морхен</a>
-                <a href="/search/?q=Новиград" class="search-tag">Новиград</a>
-                <a href="/search/?q=Ведьмак" class="search-tag">Ведьмак</a>
-                <a href="/search/?q=Заклинание" class="search-tag">Заклинание</a>
-                <a href="/search/?q=Гвинт" class="search-tag">Гвинт</a>
+                <a href="{% url 'wiki:search' %}?q=Геральт" class="search-tag">Геральт</a>
+                <a href="{% url 'wiki:search' %}?q=Цири" class="search-tag">Цири</a>
+                <a href="{% url 'wiki:search' %}?q=Йеннифэр" class="search-tag">Йеннифэр</a>
+                <a href="{% url 'wiki:search' %}?q=Трисс" class="search-tag">Трисс</a>
+                <a href="{% url 'wiki:search' %}?q=Веланд" class="search-tag">Веланд</a>
+                <a href="{% url 'wiki:search' %}?q=Каэр Морхен" class="search-tag">Каэр Морхен</a>
+                <a href="{% url 'wiki:search' %}?q=Новиград" class="search-tag">Новиград</a>
+                <a href="{% url 'wiki:search' %}?q=Ведьмак" class="search-tag">Ведьмак</a>
+                <a href="{% url 'wiki:search' %}?q=Заклинание" class="search-tag">Заклинание</a>
+                <a href="{% url 'wiki:search' %}?q=Гвинт" class="search-tag">Гвинт</a>
             </div>
         </div>
     {% endif %}
@@ -204,14 +217,6 @@
 {% endif %}
 
 <div style="text-align: center; margin-top: 30px;">
-    <a href="/" class="btn">🏠 На главную</a>
+    <a href="{% url 'wiki:home' %}" class="btn">🏠 На главную</a>
 </div>
 {% endblock %}
-<!-- Пример для category_detail.html или search.html -->
-<p style="color: #888; font-size: 14px; margin: 5px 0;">
-    Автор:
-    <a href="{% url 'wiki:user_public_profile' article.author.username %}"
-       style="color: #D4AF37; text-decoration: none;">
-        {{ article.author.username }}
-    </a>
-</p>
