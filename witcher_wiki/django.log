@@ -5541,3 +5541,171 @@ INFO 2025-10-23 01:11:13,275 basehttp "GET /accounts/profile/ HTTP/1.1" 200 2133
 INFO 2025-10-23 01:11:20,018 basehttp "POST /accounts/profile/ HTTP/1.1" 200 21331
 INFO 2025-10-23 01:13:34,321 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\accounts\views.py changed, reloading.
 INFO 2025-10-23 01:13:34,894 autoreload Watching for file changes with StatReloader
+INFO 2025-10-23 01:43:54,320 autoreload Watching for file changes with StatReloader
+INFO 2025-10-23 01:43:55,944 basehttp "GET / HTTP/1.1" 200 12578
+INFO 2025-10-23 01:43:56,093 basehttp "GET /static/css/style.css HTTP/1.1" 304 0
+INFO 2025-10-23 01:43:57,707 basehttp "GET /accounts/profile/ HTTP/1.1" 200 24918
+INFO 2025-10-23 01:44:06,146 basehttp "POST /accounts/profile/ HTTP/1.1" 302 0
+INFO 2025-10-23 01:44:06,196 basehttp "GET /accounts/profile/ HTTP/1.1" 200 24918
+INFO 2025-10-23 01:44:09,960 basehttp "GET /article/create/ HTTP/1.1" 200 21993
+INFO 2025-10-23 01:44:11,375 basehttp "GET /accounts/profile/ HTTP/1.1" 200 24918
+INFO 2025-10-23 01:44:18,477 basehttp "POST /accounts/profile/ HTTP/1.1" 302 0
+INFO 2025-10-23 01:44:18,526 basehttp "GET /accounts/profile/ HTTP/1.1" 200 24918
+INFO 2025-10-23 01:44:28,913 basehttp "POST /accounts/profile/ HTTP/1.1" 302 0
+INFO 2025-10-23 01:44:28,964 basehttp "GET /accounts/profile/ HTTP/1.1" 200 24918
+INFO 2025-10-23 01:44:33,072 basehttp "GET /my-articles/ HTTP/1.1" 200 13280
+INFO 2025-10-23 01:44:33,944 basehttp "GET /accounts/profile/ HTTP/1.1" 200 24918
+INFO 2025-10-23 01:44:39,725 basehttp "POST /accounts/profile/ HTTP/1.1" 302 0
+INFO 2025-10-23 01:44:39,776 basehttp "GET /accounts/profile/ HTTP/1.1" 200 24918
+INFO 2025-10-23 01:44:54,750 autoreload Watching for file changes with StatReloader
+INFO 2025-10-23 01:44:55,852 basehttp "GET / HTTP/1.1" 200 12578
+ERROR 2025-10-23 01:44:57,960 log Internal Server Error: /accounts/profile/
+Traceback (most recent call last):
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\accounts\views.py", line 68, in profile_view
+    return render(request, 'accounts/profile.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+           ^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+               ^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader_tags.py", line 299, in do_extends
+    nodelist = parser.parse()
+               ^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 523, in parse
+    self.unclosed_block_tag(parse_until)
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 590, in unclosed_block_tag
+    raise self.error(token, msg)
+django.template.exceptions.TemplateSyntaxError: Unclosed tag on line 6: 'block'. Looking for one of: endblock.
+ERROR 2025-10-23 01:44:57,965 basehttp "GET /accounts/profile/ HTTP/1.1" 500 194135
+INFO 2025-10-23 01:45:44,091 autoreload Watching for file changes with StatReloader
+INFO 2025-10-23 01:45:45,160 basehttp "GET / HTTP/1.1" 200 12578
+INFO 2025-10-23 01:45:46,460 basehttp "GET /accounts/profile/ HTTP/1.1" 200 25157
+INFO 2025-10-23 01:45:46,664 basehttp "GET /media/avatars/avatars/avatars/avatars/avatars/user_2/avatar_EGbZzmb.jpg HTTP/1.1" 200 32963
+INFO 2025-10-24 01:38:42,118 autoreload Watching for file changes with StatReloader
+INFO 2025-10-24 01:38:43,918 basehttp "GET / HTTP/1.1" 200 12578
+INFO 2025-10-24 01:38:44,109 basehttp "GET /static/css/style.css HTTP/1.1" 304 0
+WARNING 2025-10-24 01:38:44,430 log Not Found: /favicon.ico
+WARNING 2025-10-24 01:38:44,431 basehttp "GET /favicon.ico HTTP/1.1" 404 8346
+INFO 2025-10-24 01:38:46,611 basehttp "GET /article/geralt-iz-rivii/ HTTP/1.1" 200 22431
+INFO 2025-10-24 01:38:46,818 basehttp "GET /media/article_media/64bef9d5ce5d0eee72c96ae43edcbef7.jpg HTTP/1.1" 200 142066
+INFO 2025-10-24 01:38:57,514 basehttp "GET /search/ HTTP/1.1" 200 13114
+INFO 2025-10-24 01:38:58,959 basehttp "GET /article/geralt-iz-rivii/edit/ HTTP/1.1" 200 25460
+INFO 2025-10-24 01:39:05,180 basehttp "GET /categories/ HTTP/1.1" 200 18918
+INFO 2025-10-24 01:39:06,162 basehttp "GET /moderation/ HTTP/1.1" 200 11751
+INFO 2025-10-24 01:39:08,996 basehttp "GET /moderation/ HTTP/1.1" 200 10491
+INFO 2025-10-24 01:39:10,314 basehttp "GET /liked-articles/ HTTP/1.1" 200 13177
+INFO 2025-10-24 01:39:23,237 basehttp "GET /my-articles/ HTTP/1.1" 200 13280
+INFO 2025-10-24 01:39:26,150 basehttp "GET /article/geralt-iz-rivii/ HTTP/1.1" 200 22431
+INFO 2025-10-24 01:39:28,510 basehttp "GET /my-articles/ HTTP/1.1" 200 13280
+INFO 2025-10-24 01:39:28,903 basehttp "GET /category/locations/ HTTP/1.1" 200 10152
+INFO 2025-10-24 01:39:29,802 basehttp "GET /category/monsters/ HTTP/1.1" 200 10152
+INFO 2025-10-24 01:39:30,423 basehttp "GET /category/characters/ HTTP/1.1" 200 10749
+INFO 2025-10-24 01:39:30,931 basehttp "GET /search/ HTTP/1.1" 200 13114
+INFO 2025-10-24 01:39:31,818 basehttp "GET / HTTP/1.1" 200 12578
+INFO 2025-10-24 01:39:33,306 basehttp "GET /accounts/profile/ HTTP/1.1" 200 25157
+INFO 2025-10-24 01:39:33,370 basehttp "GET /media/avatars/avatars/avatars/avatars/avatars/user_2/avatar_EGbZzmb.jpg HTTP/1.1" 200 32963
+INFO 2025-10-24 01:39:46,884 basehttp "GET /moderation/ HTTP/1.1" 200 10491
+INFO 2025-10-24 01:39:47,841 basehttp "GET /liked-articles/ HTTP/1.1" 200 13177
+ERROR 2025-10-24 01:39:49,852 log Internal Server Error: /user/yondaime_hokage/
+Traceback (most recent call last):
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py", line 713, in user_public_profile
+    return render(request, 'wiki/user_public_profile.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+           ^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+               ^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 519, in parse
+    self.extend_nodelist(nodelist, compiled_result, token)
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 540, in extend_nodelist
+    raise self.error(
+django.template.exceptions.TemplateSyntaxError: {% extends 'base.html' %} must be the first tag in 'wiki/user_public_profile.html'.
+ERROR 2025-10-24 01:39:49,855 basehttp "GET /user/yondaime_hokage/ HTTP/1.1" 500 155083
+INFO 2025-10-24 01:41:08,689 autoreload Watching for file changes with StatReloader
+INFO 2025-10-24 01:41:09,769 basehttp "GET / HTTP/1.1" 200 12578
+INFO 2025-10-24 01:41:12,082 basehttp "GET /article/geralt-iz-rivii/ HTTP/1.1" 200 22431
+INFO 2025-10-24 01:41:14,177 basehttp "GET /user/yondaime_hokage/ HTTP/1.1" 200 4398
+INFO 2025-10-24 01:41:21,734 basehttp "GET /accounts/profile/ HTTP/1.1" 200 25157
+INFO 2025-10-24 01:41:24,723 basehttp "GET /moderation/ HTTP/1.1" 200 10491
+INFO 2025-10-24 01:41:25,379 basehttp "GET /liked-articles/ HTTP/1.1" 200 13177
+INFO 2025-10-24 01:41:26,850 basehttp "GET /user/yondaime_hokage/ HTTP/1.1" 200 4398
