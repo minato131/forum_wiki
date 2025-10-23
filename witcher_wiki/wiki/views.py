@@ -7,11 +7,35 @@ from django.utils.text import slugify
 from django.contrib import messages
 from django.utils import timezone
 import os
+import re
 from .forms import ArticleForm, CommentForm, SearchForm, CategoryForm, ProfileUpdateForm
 from .models import Article, Category, Comment, ArticleMedia, UserProfile, User, ArticleLike
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.views.decorators.csrf import csrf_protect
+
+
+def clean_latex_from_content(content):
+    """
+    Удаляет LaTeX-команды из контента
+    """
+    if not content:
+        return content
+
+    # Удаляем простые LaTeX-команды вида \command{content}
+    content = re.sub(r'\\[a-zA-Z]+\{.*?\}', '', content)
+
+    # Удаляем математические окружения \[ \]
+    content = re.sub(r'\\\[.*?\\\]', '', content, flags=re.DOTALL)
+
+    # Удаляем математические окружения $$ $$
+    content = re.sub(r'\$\$.*?\$\$', '', content, flags=re.DOTALL)
+
+    # Удаляем одиночные $ для inline math
+    content = re.sub(r'\$[^$]*?\$', '', content)
+
+    return content.strip()
+
 
 def home(request):
     # Основные категории для горизонтального скролла
@@ -165,6 +189,10 @@ def article_create(request):
         excerpt = request.POST.get('excerpt', '').strip()
         category_ids = request.POST.getlist('categories')
 
+        # Очищаем контент от LaTeX
+        content = clean_latex_from_content(content)
+        excerpt = clean_latex_from_content(excerpt)
+
         # Упрощенная проверка - только is_staff
         if request.user.is_staff:
             status = 'published'  # Админы публикуют сразу
@@ -307,6 +335,10 @@ def article_edit(request, slug):
         excerpt = request.POST.get('excerpt', '').strip()
         category_ids = request.POST.getlist('categories')
 
+        # Очищаем контент от LaTeX
+        content = clean_latex_from_content(content)
+        excerpt = clean_latex_from_content(excerpt)
+
         if title and content:
             article.title = title
             article.content = content
@@ -366,6 +398,37 @@ def article_edit(request, slug):
         'success_message': success_message,
     }
     return render(request, 'wiki/article_edit.html', context)
+
+
+@login_required
+def clean_all_articles_latex(request):
+    """
+    Админская функция для очистки LaTeX из всех статей
+    Только для администраторов
+    """
+    if not request.user.is_staff:
+        return JsonResponse({'success': False, 'error': 'Только для администраторов'})
+
+    try:
+        articles_updated = 0
+        articles = Article.objects.all()
+
+        for article in articles:
+            original_content = article.content
+            cleaned_content = clean_latex_from_content(original_content)
+
+            if original_content != cleaned_content:
+                article.content = cleaned_content
+                article.save(update_fields=['content'])
+                articles_updated += 1
+
+        return JsonResponse({
+            'success': True,
+            'message': f'Очищено {articles_updated} статей от LaTeX-кода'
+        })
+
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)})
 
 
 @login_required
@@ -763,6 +826,7 @@ def liked_articles(request):
         'total_count': len(liked_articles_list),
     }
     return render(request, 'wiki/liked_articles.html', context)
+
 
 @login_required
 def debug_test_like(request):

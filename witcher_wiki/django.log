@@ -6334,3 +6334,146 @@ INFO 2025-10-24 03:45:31,840 basehttp "POST /accounts/login/ HTTP/1.1" 302 0
 INFO 2025-10-24 03:45:31,890 basehttp "GET / HTTP/1.1" 200 27245
 INFO 2025-10-24 03:45:33,182 basehttp "GET /article/geralt-iz-rivii/ HTTP/1.1" 200 39078
 INFO 2025-10-24 03:45:36,172 basehttp "GET /liked-articles/ HTTP/1.1" 200 36335
+INFO 2025-10-24 03:56:56,978 autoreload Watching for file changes with StatReloader
+INFO 2025-10-24 03:56:58,341 basehttp "GET / HTTP/1.1" 200 27245
+INFO 2025-10-24 03:57:00,477 basehttp "GET /article/geralt-iz-rivii/ HTTP/1.1" 200 43212
+INFO 2025-10-24 03:57:09,623 basehttp "POST /article/geralt-iz-rivii/like/ HTTP/1.1" 200 51
+INFO 2025-10-24 03:57:10,337 basehttp "POST /article/geralt-iz-rivii/like/ HTTP/1.1" 200 50
+INFO 2025-10-24 04:01:14,924 basehttp "GET / HTTP/1.1" 200 27245
+INFO 2025-10-24 04:01:16,127 basehttp "GET /search/ HTTP/1.1" 200 27958
+INFO 2025-10-24 04:01:18,589 basehttp "GET /article/create/ HTTP/1.1" 200 36738
+INFO 2025-10-24 04:03:13,227 basehttp "POST /article/create/ HTTP/1.1" 302 0
+INFO 2025-10-24 04:03:13,286 basehttp "GET /article/kaer-morkhen/ HTTP/1.1" 200 44327
+INFO 2025-10-24 04:03:13,494 basehttp "GET /media/article_media/video_2025-10-24_04-00-59.mp4 HTTP/1.1" 200 1487978
+INFO 2025-10-24 04:03:36,787 basehttp "GET /article/kaer-morkhen/edit/ HTTP/1.1" 200 40959
+INFO 2025-10-24 04:03:36,866 basehttp "GET /media/article_media/video_2025-10-24_04-00-59.mp4 HTTP/1.1" 304 0
+INFO 2025-10-24 04:03:43,890 basehttp "POST /article/kaer-morkhen/edit/ HTTP/1.1" 302 0
+INFO 2025-10-24 04:03:43,948 basehttp "GET /article/kaer-morkhen/ HTTP/1.1" 200 44616
+INFO 2025-10-24 04:03:46,573 basehttp "GET / HTTP/1.1" 200 27490
+INFO 2025-10-24 04:03:48,604 basehttp "GET /article/kaer-morkhen/ HTTP/1.1" 200 44616
+INFO 2025-10-24 04:03:50,347 basehttp "GET /media/article_media/video_2025-10-24_04-00-59.mp4 HTTP/1.1" 304 0
+INFO 2025-10-24 04:04:19,202 basehttp "GET / HTTP/1.1" 200 27490
+INFO 2025-10-24 04:04:21,078 basehttp "GET /article/geralt-iz-rivii/ HTTP/1.1" 200 43212
+INFO 2025-10-24 04:11:19,303 autoreload Watching for file changes with StatReloader
+INFO 2025-10-24 04:11:20,307 basehttp "GET / HTTP/1.1" 200 27490
+INFO 2025-10-24 04:11:22,318 basehttp "GET /article/geralt-iz-rivii/ HTTP/1.1" 200 45057
+INFO 2025-10-24 04:11:36,054 basehttp "GET /article/kaer-morkhen/ HTTP/1.1" 200 45639
+INFO 2025-10-24 04:11:36,124 basehttp "GET /media/article_media/video_2025-10-24_04-00-59.mp4 HTTP/1.1" 304 0
+INFO 2025-10-24 04:12:13,954 autoreload Watching for file changes with StatReloader
+INFO 2025-10-24 04:12:15,309 basehttp "GET / HTTP/1.1" 200 27490
+INFO 2025-10-24 04:12:17,061 basehttp "GET /article/kaer-morkhen/ HTTP/1.1" 200 44617
+INFO 2025-10-24 04:12:33,184 basehttp "POST /article/kaer-morkhen/like/ HTTP/1.1" 200 50
+INFO 2025-10-24 04:12:33,955 basehttp "POST /article/kaer-morkhen/like/ HTTP/1.1" 200 51
+INFO 2025-10-24 04:12:41,391 basehttp "GET /article/geralt-iz-rivii/ HTTP/1.1" 200 43212
+INFO 2025-10-24 04:12:46,974 basehttp "GET /article/geralt-iz-rivii/ HTTP/1.1" 200 43212
+INFO 2025-10-24 04:13:02,732 autoreload Watching for file changes with StatReloader
+INFO 2025-10-24 04:13:03,819 basehttp "GET / HTTP/1.1" 200 27490
+INFO 2025-10-24 04:13:06,768 basehttp "GET /article/geralt-iz-rivii/ HTTP/1.1" 200 45057
+INFO 2025-10-24 04:13:36,589 basehttp "GET /article/kaer-morkhen/ HTTP/1.1" 200 45640
+INFO 2025-10-24 04:13:36,769 basehttp "GET /media/article_media/video_2025-10-24_04-00-59.mp4 HTTP/1.1" 304 0
+INFO 2025-10-24 04:14:47,476 basehttp "GET /media/article_media/video_2025-10-24_04-00-59.mp4 HTTP/1.1" 304 0
+INFO 2025-10-24 04:21:26,808 autoreload Watching for file changes with StatReloader
+INFO 2025-10-24 04:21:27,944 basehttp "GET / HTTP/1.1" 200 27490
+INFO 2025-10-24 04:21:28,098 basehttp "GET /static/css/style.css HTTP/1.1" 304 0
+INFO 2025-10-24 04:21:32,299 basehttp "GET /article/kaer-morkhen/ HTTP/1.1" 200 39869
+INFO 2025-10-24 04:21:32,367 basehttp "GET /media/article_media/video_2025-10-24_04-00-59.mp4 HTTP/1.1" 304 0
+INFO 2025-10-24 04:22:04,408 basehttp "GET /article/geralt-iz-rivii/ HTTP/1.1" 200 39167
+INFO 2025-10-24 04:23:50,023 basehttp "GET /media/article_media/video_2025-10-24_04-00-59.mp4 HTTP/1.1" 304 0
+INFO 2025-10-24 04:29:28,596 autoreload Watching for file changes with StatReloader
+INFO 2025-10-24 04:29:30,999 basehttp "GET / HTTP/1.1" 200 27490
+INFO 2025-10-24 04:29:32,590 basehttp "GET /article/geralt-iz-rivii/ HTTP/1.1" 200 39109
+WARNING 2025-10-24 04:29:37,069 log Not Found: /article/geralt-iz-rivii/undefined
+WARNING 2025-10-24 04:29:37,070 basehttp "GET /article/geralt-iz-rivii/undefined HTTP/1.1" 404 9136
+WARNING 2025-10-24 04:29:41,405 log Not Found: /article/geralt-iz-rivii/undefined
+WARNING 2025-10-24 04:29:41,405 basehttp "GET /article/geralt-iz-rivii/undefined HTTP/1.1" 404 9136
+WARNING 2025-10-24 04:29:42,392 log Not Found: /article/geralt-iz-rivii/undefined
+WARNING 2025-10-24 04:29:42,392 basehttp "GET /article/geralt-iz-rivii/undefined HTTP/1.1" 404 9136
+INFO 2025-10-24 04:29:48,128 basehttp "GET /article/kaer-morkhen/ HTTP/1.1" 200 39820
+INFO 2025-10-24 04:29:48,298 basehttp "GET /media/article_media/video_2025-10-24_04-00-59.mp4 HTTP/1.1" 304 0
+INFO 2025-10-24 04:32:09,280 basehttp "GET /admin/ HTTP/1.1" 200 13414
+INFO 2025-10-24 04:32:14,646 basehttp "GET /admin/wiki/article/ HTTP/1.1" 200 17718
+INFO 2025-10-24 04:32:14,727 basehttp "GET /static/admin/css/changelists.css HTTP/1.1" 200 6878
+INFO 2025-10-24 04:32:14,730 basehttp "GET /static/admin/js/actions.js HTTP/1.1" 200 8076
+INFO 2025-10-24 04:32:14,731 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-10-24 04:32:14,731 basehttp "GET /static/admin/js/urlify.js HTTP/1.1" 200 7887
+INFO 2025-10-24 04:32:14,733 basehttp "GET /static/admin/js/prepopulate.js HTTP/1.1" 200 1531
+INFO 2025-10-24 04:32:14,736 basehttp "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 325171
+INFO 2025-10-24 04:32:14,745 basehttp "GET /static/admin/js/jquery.init.js HTTP/1.1" 200 347
+INFO 2025-10-24 04:32:14,745 basehttp "GET /static/admin/img/search.svg HTTP/1.1" 200 458
+INFO 2025-10-24 04:32:14,753 basehttp "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 200 9777
+INFO 2025-10-24 04:32:14,757 basehttp "GET /static/admin/js/core.js HTTP/1.1" 200 6208
+INFO 2025-10-24 04:32:14,759 basehttp "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 285314
+INFO 2025-10-24 04:32:14,780 basehttp "GET /static/admin/js/filters.js HTTP/1.1" 200 978
+INFO 2025-10-24 04:32:14,789 basehttp "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 200 581
+INFO 2025-10-24 04:32:14,796 basehttp "GET /static/admin/img/tooltag-add.svg HTTP/1.1" 200 331
+INFO 2025-10-24 04:32:14,798 basehttp "GET /static/admin/img/sorting-icons.svg HTTP/1.1" 200 1097
+INFO 2025-10-24 04:32:19,313 basehttp "GET /admin/wiki/article/1/change/ HTTP/1.1" 200 31834
+INFO 2025-10-24 04:32:19,334 basehttp "GET /static/admin/css/forms.css HTTP/1.1" 200 8525
+INFO 2025-10-24 04:32:19,352 basehttp "GET /static/django_ckeditor_5/dist/styles.css HTTP/1.1" 200 213809
+INFO 2025-10-24 04:32:19,352 basehttp "GET /static/django_ckeditor_5/dist/translations/ru.js HTTP/1.1" 200 47437
+INFO 2025-10-24 04:32:19,354 basehttp "GET /static/admin/css/widgets.css HTTP/1.1" 200 11973
+INFO 2025-10-24 04:32:19,359 basehttp "GET /static/admin/js/calendar.js HTTP/1.1" 200 9141
+INFO 2025-10-24 04:32:19,360 basehttp "GET /static/admin/js/admin/DateTimeShortcuts.js HTTP/1.1" 200 19319
+INFO 2025-10-24 04:32:19,362 basehttp "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 200 586
+INFO 2025-10-24 04:32:19,377 basehttp "GET /static/admin/js/SelectBox.js HTTP/1.1" 200 4530
+INFO 2025-10-24 04:32:19,377 basehttp "GET /static/admin/js/SelectFilter2.js HTTP/1.1" 200 15845
+INFO 2025-10-24 04:32:19,381 basehttp "GET /static/django_ckeditor_5/dist/bundle.js HTTP/1.1" 200 1275904
+INFO 2025-10-24 04:32:19,389 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-10-24 04:32:19,394 basehttp "GET /static/admin/js/change_form.js HTTP/1.1" 200 606
+INFO 2025-10-24 04:32:19,438 basehttp "GET /static/admin/img/tooltag-arrowright.svg HTTP/1.1" 200 280
+INFO 2025-10-24 04:32:19,564 basehttp "GET /static/admin/img/icon-calendar.svg HTTP/1.1" 200 1086
+INFO 2025-10-24 04:32:19,564 basehttp "GET /static/admin/img/icon-clock.svg HTTP/1.1" 200 677
+INFO 2025-10-24 04:32:19,564 basehttp "GET /static/admin/img/selector-icons.svg HTTP/1.1" 200 3291
+INFO 2025-10-24 04:37:08,208 autoreload Watching for file changes with StatReloader
+INFO 2025-10-24 04:37:09,371 basehttp "GET / HTTP/1.1" 200 27490
+INFO 2025-10-24 04:37:10,942 basehttp "GET /article/geralt-iz-rivii/ HTTP/1.1" 200 39109
+INFO 2025-10-24 04:37:17,782 basehttp "GET /article/kaer-morkhen/ HTTP/1.1" 200 39820
+INFO 2025-10-24 04:37:17,960 basehttp "GET /media/article_media/video_2025-10-24_04-00-59.mp4 HTTP/1.1" 304 0
+INFO 2025-10-24 04:37:19,943 basehttp "GET /article/kaer-morkhen/edit/ HTTP/1.1" 200 40966
+INFO 2025-10-24 04:37:38,238 basehttp "POST /article/kaer-morkhen/edit/ HTTP/1.1" 302 0
+INFO 2025-10-24 04:37:38,411 basehttp "GET /article/kaer-morkhen/ HTTP/1.1" 200 40413
+INFO 2025-10-24 04:37:38,532 basehttp "GET /media/article_media/video_2025-10-24_04-01-06.mp4 HTTP/1.1" 200 7061773
+INFO 2025-10-24 04:37:41,166 basehttp "GET /media/article_media/video_2025-10-24_04-01-06.mp4 HTTP/1.1" 304 0
+INFO 2025-10-24 04:37:45,609 basehttp "GET /media/article_media/video_2025-10-24_04-01-06.mp4 HTTP/1.1" 304 0
+INFO 2025-10-24 04:38:06,767 basehttp "GET /user/yondaime_hokage/ HTTP/1.1" 200 32677
+INFO 2025-10-24 04:38:06,843 basehttp "GET /media/avatars/avatars/avatars/avatars/avatars/user_2/avatar.png HTTP/1.1" 304 0
+INFO 2025-10-24 04:38:13,982 basehttp "GET /article/kaer-morkhen/edit/ HTTP/1.1" 200 41570
+INFO 2025-10-24 04:38:21,324 basehttp "POST /article/kaer-morkhen/edit/ HTTP/1.1" 302 0
+INFO 2025-10-24 04:38:21,383 basehttp "GET /article/kaer-morkhen/ HTTP/1.1" 200 41006
+INFO 2025-10-24 04:38:21,490 basehttp "GET /media/article_media/video_2025-10-24_04-01-03.mp4 HTTP/1.1" 200 8081085
+INFO 2025-10-24 04:38:24,237 basehttp "GET /media/article_media/video_2025-10-24_04-01-03.mp4 HTTP/1.1" 304 0
+INFO 2025-10-24 04:38:28,910 basehttp "GET /media/article_media/video_2025-10-24_04-01-03.mp4 HTTP/1.1" 304 0
+INFO 2025-10-24 04:39:23,883 basehttp "GET / HTTP/1.1" 200 27490
+WARNING 2025-10-24 04:39:27,029 log Not Found: /wiki/clean-latex/
+WARNING 2025-10-24 04:39:27,029 basehttp "GET /wiki/clean-latex/ HTTP/1.1" 404 9088
+INFO 2025-10-24 04:40:03,993 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\urls.py changed, reloading.
+INFO 2025-10-24 04:40:05,541 autoreload Watching for file changes with StatReloader
+INFO 2025-10-24 04:40:07,012 basehttp "GET / HTTP/1.1" 200 27490
+WARNING 2025-10-24 04:40:18,579 log Not Found: /wiki/clean-latex/
+WARNING 2025-10-24 04:40:18,580 basehttp "GET /wiki/clean-latex/ HTTP/1.1" 404 9353
+INFO 2025-10-24 04:40:25,406 basehttp "GET / HTTP/1.1" 200 27490
+INFO 2025-10-24 04:40:27,547 basehttp "GET /article/geralt-iz-rivii/ HTTP/1.1" 200 39109
+INFO 2025-10-24 04:40:32,466 basehttp "GET /article/kaer-morkhen/ HTTP/1.1" 200 41006
+INFO 2025-10-24 04:40:32,547 basehttp "GET /media/article_media/video_2025-10-24_04-01-06.mp4 HTTP/1.1" 304 0
+INFO 2025-10-24 04:40:32,550 basehttp "GET /media/article_media/video_2025-10-24_04-01-03.mp4 HTTP/1.1" 304 0
+WARNING 2025-10-24 04:40:47,098 log Not Found: /article/kaer-morkhen/undefined
+WARNING 2025-10-24 04:40:47,098 basehttp "GET /article/kaer-morkhen/undefined HTTP/1.1" 404 9392
+WARNING 2025-10-24 04:40:47,820 log Not Found: /article/kaer-morkhen/undefined
+WARNING 2025-10-24 04:40:47,821 basehttp "GET /article/kaer-morkhen/undefined HTTP/1.1" 404 9392
+WARNING 2025-10-24 04:40:48,318 log Not Found: /article/kaer-morkhen/undefined
+WARNING 2025-10-24 04:40:48,318 basehttp "GET /article/kaer-morkhen/undefined HTTP/1.1" 404 9392
+WARNING 2025-10-24 04:40:49,216 log Not Found: /article/kaer-morkhen/undefined
+WARNING 2025-10-24 04:40:49,217 basehttp "GET /article/kaer-morkhen/undefined HTTP/1.1" 404 9392
+WARNING 2025-10-24 04:40:52,291 log Not Found: /article/kaer-morkhen/undefined
+WARNING 2025-10-24 04:40:52,292 basehttp "GET /article/kaer-morkhen/undefined HTTP/1.1" 404 9392
+INFO 2025-10-24 04:48:39,316 basehttp "GET / HTTP/1.1" 200 27490
+INFO 2025-10-24 04:48:41,128 basehttp "GET /article/kaer-morkhen/ HTTP/1.1" 200 41006
+INFO 2025-10-24 04:48:41,249 basehttp "GET /media/article_media/video_2025-10-24_04-00-59.mp4 HTTP/1.1" 304 0
+INFO 2025-10-24 04:48:41,250 basehttp "GET /media/article_media/video_2025-10-24_04-01-06.mp4 HTTP/1.1" 304 0
+INFO 2025-10-24 04:48:41,250 basehttp "GET /media/article_media/video_2025-10-24_04-01-03.mp4 HTTP/1.1" 304 0
+INFO 2025-10-24 04:48:43,567 basehttp "GET /category/locations/ HTTP/1.1" 200 25384
+INFO 2025-10-24 04:48:44,746 basehttp "GET /article/kaer-morkhen/ HTTP/1.1" 200 41006
+INFO 2025-10-24 04:48:44,914 basehttp "GET /media/article_media/video_2025-10-24_04-01-06.mp4 HTTP/1.1" 200 7061773
+INFO 2025-10-24 04:48:45,023 basehttp "GET /media/article_media/video_2025-10-24_04-01-03.mp4 HTTP/1.1" 200 8081085
+INFO 2025-10-24 04:48:46,809 basehttp "GET /media/article_media/video_2025-10-24_04-01-03.mp4 HTTP/1.1" 200 8081085
+INFO 2025-10-24 04:49:16,197 basehttp "GET /media/article_media/video_2025-10-24_04-01-06.mp4 HTTP/1.1" 200 7061773

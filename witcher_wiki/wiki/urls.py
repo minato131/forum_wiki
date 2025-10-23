@@ -40,4 +40,6 @@ urlpatterns = [
 
     path('debug/test-like/', views.debug_test_like, name='debug_test_like'),
     path('debug/article-like/<slug:slug>/', views.debug_article_like, name='debug_article_like'),
+
+    path('clean-latex/', views.clean_all_articles_latex, name='clean_latex'),
 ]
