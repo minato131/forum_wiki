@@ -6059,3 +6059,278 @@ INFO 2025-10-24 02:20:01,943 basehttp "GET /article/geralt-iz-rivii/ HTTP/1.1" 2
 INFO 2025-10-24 02:20:10,017 basehttp "GET /liked-articles/ HTTP/1.1" 200 34705
 WARNING 2025-10-24 02:20:16,671 log Not Found: /article/1/like/
 WARNING 2025-10-24 02:20:16,671 basehttp "POST /article/1/like/ HTTP/1.1" 404 4616
+INFO 2025-10-24 02:22:37,031 basehttp "GET / HTTP/1.1" 200 27245
+INFO 2025-10-24 02:22:38,505 basehttp "GET /article/geralt-iz-rivii/ HTTP/1.1" 200 37104
+WARNING 2025-10-24 02:23:17,617 log Not Found: /article/1/like/
+WARNING 2025-10-24 02:23:17,617 basehttp "POST /article/1/like/ HTTP/1.1" 404 4616
+INFO 2025-10-24 02:24:53,398 basehttp "GET /moderation/ HTTP/1.1" 200 25158
+INFO 2025-10-24 02:24:54,066 basehttp "GET /categories/ HTTP/1.1" 200 33585
+INFO 2025-10-24 02:28:52,624 basehttp "GET / HTTP/1.1" 200 27245
+INFO 2025-10-24 02:28:55,478 basehttp "GET /search/ HTTP/1.1" 200 27958
+INFO 2025-10-24 02:32:14,784 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\urls.py changed, reloading.
+INFO 2025-10-24 02:32:15,270 autoreload Watching for file changes with StatReloader
+INFO 2025-10-24 02:32:19,699 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\urls.py changed, reloading.
+INFO 2025-10-24 02:32:20,202 autoreload Watching for file changes with StatReloader
+INFO 2025-10-24 02:33:56,715 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\urls.py changed, reloading.
+INFO 2025-10-24 02:33:57,163 autoreload Watching for file changes with StatReloader
+INFO 2025-10-24 02:35:50,665 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\urls.py changed, reloading.
+INFO 2025-10-24 02:35:51,155 autoreload Watching for file changes with StatReloader
+INFO 2025-10-24 02:54:36,051 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-10-24 02:54:36,726 autoreload Watching for file changes with StatReloader
+INFO 2025-10-24 02:58:04,061 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\models.py changed, reloading.
+INFO 2025-10-24 02:58:04,556 autoreload Watching for file changes with StatReloader
+INFO 2025-10-24 02:58:52,627 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-10-24 02:58:53,154 autoreload Watching for file changes with StatReloader
+INFO 2025-10-24 02:59:44,095 autoreload Watching for file changes with StatReloader
+INFO 2025-10-24 02:59:49,101 basehttp "GET / HTTP/1.1" 200 27245
+INFO 2025-10-24 02:59:54,590 basehttp "GET /article/geralt-iz-rivii/ HTTP/1.1" 200 37104
+INFO 2025-10-24 03:00:03,949 basehttp "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-10-24 03:00:03,995 basehttp "GET / HTTP/1.1" 200 25795
+INFO 2025-10-24 03:00:05,204 basehttp "GET /accounts/login/ HTTP/1.1" 200 23961
+INFO 2025-10-24 03:00:07,609 basehttp "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-10-24 03:00:07,662 basehttp "GET / HTTP/1.1" 200 26685
+INFO 2025-10-24 03:00:08,923 basehttp "GET /article/geralt-iz-rivii/ HTTP/1.1" 200 36513
+INFO 2025-10-24 03:00:15,592 basehttp "GET /liked-articles/ HTTP/1.1" 200 32448
+INFO 2025-10-24 03:00:18,336 basehttp "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-10-24 03:00:18,380 basehttp "GET / HTTP/1.1" 200 25795
+INFO 2025-10-24 03:00:21,018 basehttp "GET /accounts/login/ HTTP/1.1" 200 23961
+INFO 2025-10-24 03:00:23,658 basehttp "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-10-24 03:00:23,823 basehttp "GET / HTTP/1.1" 200 27245
+INFO 2025-10-24 03:00:24,608 basehttp "GET /liked-articles/ HTTP/1.1" 200 34705
+WARNING 2025-10-24 03:00:26,439 log Not Found: /article/1/like/
+WARNING 2025-10-24 03:00:26,440 basehttp "POST /article/1/like/ HTTP/1.1" 404 4616
+INFO 2025-10-24 03:00:37,739 basehttp "GET /liked-articles/ HTTP/1.1" 200 34705
+INFO 2025-10-24 03:00:38,480 basehttp "GET /moderation/ HTTP/1.1" 200 25158
+INFO 2025-10-24 03:00:39,382 basehttp "GET /liked-articles/ HTTP/1.1" 200 34705
+INFO 2025-10-24 03:00:40,974 basehttp "GET /my-articles/ HTTP/1.1" 200 27947
+INFO 2025-10-24 03:00:41,901 basehttp "GET /category/locations/ HTTP/1.1" 200 24819
+INFO 2025-10-24 03:00:42,691 basehttp "GET /category/monsters/ HTTP/1.1" 200 24819
+INFO 2025-10-24 03:00:45,624 basehttp "GET / HTTP/1.1" 200 27245
+INFO 2025-10-24 03:03:17,195 autoreload Watching for file changes with StatReloader
+INFO 2025-10-24 03:03:18,321 basehttp "GET / HTTP/1.1" 200 27245
+INFO 2025-10-24 03:03:23,101 basehttp "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-10-24 03:03:23,258 basehttp "GET / HTTP/1.1" 200 25795
+INFO 2025-10-24 03:03:24,612 basehttp "GET /accounts/login/ HTTP/1.1" 200 23961
+INFO 2025-10-24 03:03:26,102 basehttp "GET /search/ HTTP/1.1" 200 26607
+INFO 2025-10-24 03:03:27,798 basehttp "GET /accounts/login/ HTTP/1.1" 200 23782
+INFO 2025-10-24 03:03:30,636 basehttp "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-10-24 03:03:30,810 basehttp "GET / HTTP/1.1" 200 26685
+INFO 2025-10-24 03:03:33,005 basehttp "GET /article/geralt-iz-rivii/ HTTP/1.1" 200 37508
+INFO 2025-10-24 03:03:36,453 basehttp "GET / HTTP/1.1" 200 26685
+INFO 2025-10-24 03:03:40,198 basehttp "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-10-24 03:03:40,354 basehttp "GET / HTTP/1.1" 200 25795
+INFO 2025-10-24 03:03:40,653 basehttp "GET /accounts/register/ HTTP/1.1" 200 25306
+INFO 2025-10-24 03:03:41,394 basehttp "GET /accounts/login/ HTTP/1.1" 200 23961
+INFO 2025-10-24 03:03:42,553 basehttp "GET /accounts/login/ HTTP/1.1" 200 23782
+INFO 2025-10-24 03:03:45,062 basehttp "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-10-24 03:03:45,114 basehttp "GET / HTTP/1.1" 200 27245
+INFO 2025-10-24 03:03:48,928 basehttp "GET /search/ HTTP/1.1" 200 27958
+INFO 2025-10-24 03:03:50,108 basehttp "GET / HTTP/1.1" 200 27245
+INFO 2025-10-24 03:03:51,649 basehttp "GET /article/geralt-iz-rivii/ HTTP/1.1" 200 38099
+INFO 2025-10-24 03:03:57,460 basehttp "GET /article/geralt-iz-rivii/edit/ HTTP/1.1" 200 40209
+INFO 2025-10-24 03:04:07,997 basehttp "POST /article/geralt-iz-rivii/edit/ HTTP/1.1" 302 0
+INFO 2025-10-24 03:04:08,058 basehttp "GET /article/geralt-iz-rivii/ HTTP/1.1" 200 38093
+INFO 2025-10-24 03:04:11,237 basehttp "GET /liked-articles/ HTTP/1.1" 200 34705
+INFO 2025-10-24 03:04:14,591 basehttp "GET /liked-articles/ HTTP/1.1" 200 34705
+INFO 2025-10-24 03:04:15,025 basehttp "GET /my-articles/ HTTP/1.1" 200 27947
+INFO 2025-10-24 03:04:15,468 basehttp "GET /category/locations/ HTTP/1.1" 200 24819
+INFO 2025-10-24 03:04:16,022 basehttp "GET /category/monsters/ HTTP/1.1" 200 24819
+INFO 2025-10-24 03:04:16,493 basehttp "GET /category/characters/ HTTP/1.1" 200 25416
+INFO 2025-10-24 03:04:16,980 basehttp "GET /search/ HTTP/1.1" 200 27958
+INFO 2025-10-24 03:04:17,410 basehttp "GET / HTTP/1.1" 200 27245
+INFO 2025-10-24 03:04:18,250 basehttp "GET /categories/ HTTP/1.1" 200 33585
+INFO 2025-10-24 03:04:27,636 basehttp "GET /accounts/profile/ HTTP/1.1" 200 39859
+INFO 2025-10-24 03:04:27,696 basehttp "GET /media/avatars/avatars/avatars/avatars/avatars/user_2/avatar.png HTTP/1.1" 304 0
+INFO 2025-10-24 03:04:35,442 basehttp "GET /category/characters/ HTTP/1.1" 200 25416
+INFO 2025-10-24 03:04:36,008 basehttp "GET / HTTP/1.1" 200 27245
+INFO 2025-10-24 03:04:37,448 basehttp "GET /article/geralt-iz-rivii/ HTTP/1.1" 200 38094
+INFO 2025-10-24 03:04:38,307 basehttp "GET /user/yondaime_hokage/ HTTP/1.1" 200 31823
+INFO 2025-10-24 03:04:42,503 basehttp "GET /article/geralt-iz-rivii/ HTTP/1.1" 200 38094
+WARNING 2025-10-24 03:05:16,166 log Not Found: /favicon.ico
+WARNING 2025-10-24 03:05:16,166 basehttp "GET /favicon.ico HTTP/1.1" 404 8346
+WARNING 2025-10-24 03:05:23,215 log Not Found: /favicon.ico
+WARNING 2025-10-24 03:05:23,215 basehttp "GET /favicon.ico HTTP/1.1" 404 8346
+INFO 2025-10-24 03:05:30,448 basehttp "GET /article/geralt-iz-rivii/ HTTP/1.1" 200 38094
+INFO 2025-10-24 03:12:31,501 autoreload Watching for file changes with StatReloader
+INFO 2025-10-24 03:12:32,725 basehttp "GET / HTTP/1.1" 200 27245
+INFO 2025-10-24 03:12:34,882 basehttp "GET /article/geralt-iz-rivii/ HTTP/1.1" 200 38094
+INFO 2025-10-24 03:12:41,477 basehttp "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-10-24 03:12:41,523 basehttp "GET / HTTP/1.1" 200 25795
+INFO 2025-10-24 03:12:42,296 basehttp "GET /accounts/login/ HTTP/1.1" 200 23961
+INFO 2025-10-24 03:12:45,202 basehttp "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-10-24 03:12:45,359 basehttp "GET / HTTP/1.1" 200 26685
+INFO 2025-10-24 03:12:46,413 basehttp "GET /article/geralt-iz-rivii/ HTTP/1.1" 200 37503
+INFO 2025-10-24 03:14:20,391 basehttp "GET /article/geralt-iz-rivii/ HTTP/1.1" 200 37503
+INFO 2025-10-24 03:15:51,309 basehttp "GET /search/ HTTP/1.1" 200 27497
+INFO 2025-10-24 03:15:51,819 basehttp "GET / HTTP/1.1" 200 26685
+INFO 2025-10-24 03:15:52,486 basehttp "GET /category/characters/ HTTP/1.1" 200 24956
+INFO 2025-10-24 03:15:53,943 basehttp "GET /category/monsters/ HTTP/1.1" 200 24358
+INFO 2025-10-24 03:15:54,409 basehttp "GET /category/locations/ HTTP/1.1" 200 24358
+INFO 2025-10-24 03:15:55,110 basehttp "GET /my-articles/ HTTP/1.1" 200 26949
+INFO 2025-10-24 03:15:55,478 basehttp "GET /liked-articles/ HTTP/1.1" 200 32448
+INFO 2025-10-24 03:15:57,120 basehttp "GET /my-articles/ HTTP/1.1" 200 26949
+INFO 2025-10-24 03:15:59,397 basehttp "GET /liked-articles/ HTTP/1.1" 200 32448
+INFO 2025-10-24 03:16:01,894 basehttp "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-10-24 03:16:01,940 basehttp "GET / HTTP/1.1" 200 25795
+INFO 2025-10-24 03:16:02,684 basehttp "GET /accounts/login/ HTTP/1.1" 200 23961
+INFO 2025-10-24 03:16:05,493 basehttp "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-10-24 03:16:05,643 basehttp "GET / HTTP/1.1" 200 27245
+INFO 2025-10-24 03:16:08,016 basehttp "GET /article/geralt-iz-rivii/ HTTP/1.1" 200 38094
+INFO 2025-10-24 03:16:14,032 basehttp "GET /search/ HTTP/1.1" 200 27958
+INFO 2025-10-24 03:16:20,680 basehttp "GET /categories/ HTTP/1.1" 200 33585
+INFO 2025-10-24 03:16:22,053 basehttp "GET /admin/wiki/category/3/change/ HTTP/1.1" 200 19397
+INFO 2025-10-24 03:16:22,183 basehttp "GET /static/admin/js/actions.js HTTP/1.1" 200 8076
+INFO 2025-10-24 03:16:22,189 basehttp "GET /static/admin/css/forms.css HTTP/1.1" 200 8525
+INFO 2025-10-24 03:16:22,189 basehttp "GET /static/admin/js/jquery.init.js HTTP/1.1" 200 347
+INFO 2025-10-24 03:16:22,202 basehttp "GET /static/admin/js/core.js HTTP/1.1" 200 6208
+INFO 2025-10-24 03:16:22,203 basehttp "GET /static/admin/js/urlify.js HTTP/1.1" 200 7887
+INFO 2025-10-24 03:16:22,203 basehttp "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 200 9777
+INFO 2025-10-24 03:16:22,210 basehttp "GET /static/admin/js/prepopulate.js HTTP/1.1" 200 1531
+INFO 2025-10-24 03:16:22,217 basehttp "GET /static/admin/css/widgets.css HTTP/1.1" 200 11973
+INFO 2025-10-24 03:16:22,222 basehttp "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 200 586
+INFO 2025-10-24 03:16:22,236 basehttp "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 285314
+INFO 2025-10-24 03:16:22,269 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-10-24 03:16:22,295 basehttp "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 200 581
+INFO 2025-10-24 03:16:22,299 basehttp "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 325171
+INFO 2025-10-24 03:16:22,312 basehttp "GET /static/admin/js/change_form.js HTTP/1.1" 200 606
+INFO 2025-10-24 03:16:22,325 basehttp "GET /static/admin/img/tooltag-arrowright.svg HTTP/1.1" 200 280
+INFO 2025-10-24 03:18:16,778 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-10-24 03:18:17,284 autoreload Watching for file changes with StatReloader
+INFO 2025-10-24 03:18:26,681 basehttp "GET / HTTP/1.1" 200 27245
+INFO 2025-10-24 03:18:35,105 basehttp "GET /article/geralt-iz-rivii/ HTTP/1.1" 200 38094
+INFO 2025-10-24 03:18:42,067 basehttp "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-10-24 03:18:42,112 basehttp "GET / HTTP/1.1" 200 25795
+INFO 2025-10-24 03:18:42,937 basehttp "GET /accounts/login/ HTTP/1.1" 200 23961
+INFO 2025-10-24 03:18:46,640 basehttp "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-10-24 03:18:46,794 basehttp "GET / HTTP/1.1" 200 26685
+INFO 2025-10-24 03:18:48,252 basehttp "GET /article/geralt-iz-rivii/ HTTP/1.1" 200 37503
+INFO 2025-10-24 03:19:57,816 basehttp "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-10-24 03:19:57,863 basehttp "GET / HTTP/1.1" 200 25795
+INFO 2025-10-24 03:19:59,105 basehttp "GET /article/geralt-iz-rivii/ HTTP/1.1" 200 36671
+INFO 2025-10-24 03:20:23,148 basehttp "GET /accounts/login/ HTTP/1.1" 200 23961
+INFO 2025-10-24 03:20:24,774 basehttp "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-10-24 03:20:24,928 basehttp "GET / HTTP/1.1" 200 26685
+INFO 2025-10-24 03:20:26,055 basehttp "GET /article/geralt-iz-rivii/ HTTP/1.1" 200 37503
+INFO 2025-10-24 03:21:08,219 autoreload Watching for file changes with StatReloader
+INFO 2025-10-24 03:21:09,777 basehttp "GET / HTTP/1.1" 200 26685
+INFO 2025-10-24 03:21:11,633 basehttp "GET /article/geralt-iz-rivii/ HTTP/1.1" 200 37503
+INFO 2025-10-24 03:25:15,039 autoreload Watching for file changes with StatReloader
+INFO 2025-10-24 03:25:16,086 basehttp "GET / HTTP/1.1" 200 26685
+ERROR 2025-10-24 03:25:22,052 log Internal Server Error: /article/geralt-iz-rivii/
+Traceback (most recent call last):
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py", line 288, in article_detail
+    return render(request, 'wiki/article_detail.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+           ^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+               ^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader_tags.py", line 299, in do_extends
+    nodelist = parser.parse()
+               ^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 523, in parse
+    self.unclosed_block_tag(parse_until)
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 590, in unclosed_block_tag
+    raise self.error(token, msg)
+django.template.exceptions.TemplateSyntaxError: Unclosed tag on line 6: 'block'. Looking for one of: endblock.
+ERROR 2025-10-24 03:25:22,056 basehttp "GET /article/geralt-iz-rivii/ HTTP/1.1" 500 186111
+INFO 2025-10-24 03:29:12,996 autoreload Watching for file changes with StatReloader
+INFO 2025-10-24 03:29:14,146 basehttp "GET / HTTP/1.1" 200 26685
+INFO 2025-10-24 03:29:16,356 basehttp "GET /article/geralt-iz-rivii/ HTTP/1.1" 200 37935
+INFO 2025-10-24 03:29:34,119 basehttp "GET /my-articles/ HTTP/1.1" 200 26949
+INFO 2025-10-24 03:30:57,215 basehttp "GET / HTTP/1.1" 200 26685
+INFO 2025-10-24 03:31:00,330 basehttp "GET /article/geralt-iz-rivii/ HTTP/1.1" 200 37935
+INFO 2025-10-24 03:31:02,177 basehttp "GET /user/yondaime_hokage/ HTTP/1.1" 200 31362
+INFO 2025-10-24 03:31:02,348 basehttp "GET /media/avatars/avatars/avatars/avatars/avatars/user_2/avatar.png HTTP/1.1" 304 0
+INFO 2025-10-24 03:31:11,710 basehttp "GET /article/geralt-iz-rivii/ HTTP/1.1" 200 37935
+INFO 2025-10-24 03:35:50,565 autoreload Watching for file changes with StatReloader
+INFO 2025-10-24 03:35:52,427 basehttp "GET / HTTP/1.1" 200 26685
+INFO 2025-10-24 03:35:54,630 basehttp "GET /article/geralt-iz-rivii/ HTTP/1.1" 200 37977
+WARNING 2025-10-24 03:35:56,436 log Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /article/geralt-iz-rivii/like/
+WARNING 2025-10-24 03:35:56,478 basehttp "POST /article/geralt-iz-rivii/like/ HTTP/1.1" 403 2591
+WARNING 2025-10-24 03:36:00,313 log Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /article/geralt-iz-rivii/like/
+WARNING 2025-10-24 03:36:00,463 basehttp "POST /article/geralt-iz-rivii/like/ HTTP/1.1" 403 2591
+INFO 2025-10-24 03:37:39,435 autoreload Watching for file changes with StatReloader
+INFO 2025-10-24 03:37:41,121 basehttp "GET / HTTP/1.1" 200 26685
+INFO 2025-10-24 03:37:45,506 basehttp "GET /article/geralt-iz-rivii/ HTTP/1.1" 200 38487
+INFO 2025-10-24 03:37:47,542 basehttp "POST /article/geralt-iz-rivii/like/ HTTP/1.1" 200 50
+INFO 2025-10-24 03:37:51,619 basehttp "GET /liked-articles/ HTTP/1.1" 200 34245
+WARNING 2025-10-24 03:37:54,306 log Not Found: /article/1/like/
+WARNING 2025-10-24 03:37:54,306 basehttp "POST /article/1/like/ HTTP/1.1" 404 4616
+INFO 2025-10-24 03:38:08,190 basehttp "GET /liked-articles/ HTTP/1.1" 200 34245
+INFO 2025-10-24 03:38:08,954 basehttp "GET /my-articles/ HTTP/1.1" 200 26949
+INFO 2025-10-24 03:38:09,424 basehttp "GET /liked-articles/ HTTP/1.1" 200 34245
+INFO 2025-10-24 03:38:10,966 basehttp "GET /article/geralt-iz-rivii/ HTTP/1.1" 200 38487
+INFO 2025-10-24 03:38:12,807 basehttp "POST /article/geralt-iz-rivii/like/ HTTP/1.1" 200 51
+INFO 2025-10-24 03:38:13,741 basehttp "POST /article/geralt-iz-rivii/like/ HTTP/1.1" 200 50
+INFO 2025-10-24 03:38:18,152 basehttp "GET /liked-articles/ HTTP/1.1" 200 34245
+WARNING 2025-10-24 03:38:20,223 log Not Found: /article/1/like/
+WARNING 2025-10-24 03:38:20,224 basehttp "POST /article/1/like/ HTTP/1.1" 404 4616
+INFO 2025-10-24 03:44:12,230 autoreload Watching for file changes with StatReloader
+INFO 2025-10-24 03:44:13,535 basehttp "GET / HTTP/1.1" 200 26685
+INFO 2025-10-24 03:44:15,046 basehttp "GET /article/geralt-iz-rivii/ HTTP/1.1" 200 38487
+INFO 2025-10-24 03:44:16,805 basehttp "POST /article/geralt-iz-rivii/like/ HTTP/1.1" 200 51
+INFO 2025-10-24 03:44:17,739 basehttp "POST /article/geralt-iz-rivii/like/ HTTP/1.1" 200 50
+INFO 2025-10-24 03:44:19,758 basehttp "GET /liked-articles/ HTTP/1.1" 200 35874
+INFO 2025-10-24 03:44:21,799 basehttp "POST /article/geralt-iz-rivii/like/ HTTP/1.1" 200 51
+INFO 2025-10-24 03:44:24,667 basehttp "GET /liked-articles/ HTTP/1.1" 200 34263
+INFO 2025-10-24 03:44:25,691 basehttp "GET /liked-articles/ HTTP/1.1" 200 34263
+INFO 2025-10-24 03:44:26,915 basehttp "GET / HTTP/1.1" 200 26685
+INFO 2025-10-24 03:44:28,118 basehttp "GET /article/geralt-iz-rivii/ HTTP/1.1" 200 38487
+INFO 2025-10-24 03:44:30,119 basehttp "POST /article/geralt-iz-rivii/like/ HTTP/1.1" 200 50
+INFO 2025-10-24 03:45:17,975 basehttp "GET / HTTP/1.1" 200 26685
+INFO 2025-10-24 03:45:19,887 basehttp "GET /article/geralt-iz-rivii/ HTTP/1.1" 200 38487
+INFO 2025-10-24 03:45:22,750 basehttp "GET /accounts/profile/ HTTP/1.1" 200 38909
+INFO 2025-10-24 03:45:22,835 basehttp "GET /media/avatars/avatars/user_3/avatar.png HTTP/1.1" 200 17330
+INFO 2025-10-24 03:45:27,584 basehttp "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-10-24 03:45:27,629 basehttp "GET / HTTP/1.1" 200 25795
+INFO 2025-10-24 03:45:28,787 basehttp "GET /accounts/login/ HTTP/1.1" 200 23961
+INFO 2025-10-24 03:45:31,840 basehttp "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-10-24 03:45:31,890 basehttp "GET / HTTP/1.1" 200 27245
+INFO 2025-10-24 03:45:33,182 basehttp "GET /article/geralt-iz-rivii/ HTTP/1.1" 200 39078
+INFO 2025-10-24 03:45:36,172 basehttp "GET /liked-articles/ HTTP/1.1" 200 36335

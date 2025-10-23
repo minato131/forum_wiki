@@ -16,54 +16,55 @@
             <span class="stat-number">{{ total_count }}</span>
             <span class="stat-label">всего статей</span>
         </div>
+         {% csrf_token %}
     </div>
 
     <div class="articles-grid">
-        {% for article in articles %}
-        <div class="article-card liked-article-card">
-            <div class="article-header">
-                <h3 class="article-title">
-                    <a href="{% url 'wiki:article_detail' article.slug %}">{{ article.title }}</a>
-                </h3>
-                <button class="like-btn active"
-                        data-article-id="{{ article.id }}"
-                        data-article-title="{{ article.title }}"
-                        onclick="confirmUnlike('{{ article.id }}', '{{ article.title|escapejs }}')"
-                        title="Убрать лайк">
-                    ❤️
-                </button>
-            </div>
+{% for article in articles %}
+<div class="article-card liked-article-card">
+    <div class="article-header">
+        <h3 class="article-title">
+            <a href="{% url 'wiki:article_detail' article.slug %}">{{ article.title }}</a>
+        </h3>
+        <button class="like-btn active"
+                data-article-slug="{{ article.slug }}"
+                data-article-title="{{ article.title }}"
+                onclick="confirmUnlike('{{ article.slug }}', '{{ article.title|escapejs }}')"
+                title="Убрать лайк">
+            ❤️
+        </button>
+    </div>
 
-            <div class="article-meta">
-                <span class="meta-item">
-                    👤 <a href="{% url 'wiki:user_public_profile' article.author.username %}">{{ article.author.username }}</a>
-                </span>
-                <span class="meta-item">📅 {{ article.created_at|date:"d.m.Y" }}</span>
-                <span class="meta-item">👁️ {{ article.views_count|default:0 }}</span>
-                <span class="meta-item likes-count" data-likes-count="{{ article.id }}">
-                    ❤️ {{ article.likes_count|default:0 }}
-                </span>
-            </div>
+    <div class="article-meta">
+        <span class="meta-item">
+            👤 <a href="{% url 'wiki:user_public_profile' article.author.username %}">{{ article.author.username }}</a>
+        </span>
+        <span class="meta-item">📅 {{ article.created_at|date:"d.m.Y" }}</span>
+        <span class="meta-item">👁️ {{ article.views_count|default:0 }}</span>
+        <span class="meta-item">
+            ❤️ {{ article.get_likes_count|default:0 }}
+        </span>
+    </div>
 
-            {% if article.excerpt %}
-            <p class="article-excerpt">{{ article.excerpt|truncatewords:30 }}</p>
-            {% endif %}
+    {% if article.excerpt %}
+    <p class="article-excerpt">{{ article.excerpt|truncatewords:30 }}</p>
+    {% endif %}
 
-            <div class="article-categories">
-                {% for category in article.categories.all %}
-                <span class="category-tag">{{ category.name }}</span>
-                {% endfor %}
-            </div>
-
-            <div class="article-actions">
-                <a href="{% url 'wiki:article_detail' article.slug %}" class="btn-read">📖 Читать</a>
-                <button class="btn-unlike"
-                        onclick="confirmUnlike('{{ article.id }}', '{{ article.title|escapejs }}')">
-                    🗑️ Убрать лайк
-                </button>
-            </div>
-        </div>
+    <div class="article-categories">
+        {% for category in article.categories.all %}
+        <span class="category-tag">{{ category.name }}</span>
         {% endfor %}
+    </div>
+
+    <div class="article-actions">
+        <a href="{% url 'wiki:article_detail' article.slug %}" class="btn-read">📖 Читать</a>
+        <button class="btn-unlike"
+                onclick="confirmUnlike('{{ article.slug }}', '{{ article.title|escapejs }}')">
+            🗑️ Убрать лайк
+        </button>
+    </div>
+</div>
+{% endfor %}
     </div>
 
     <!-- Пагинация -->
@@ -428,11 +429,11 @@
 
 <script>
 // Функция для подтверждения удаления лайка
-function confirmUnlike(articleId, articleTitle) {
+function confirmUnlike(articleSlug, articleTitle) {
     showConfirmationModal(
         `Вы уверены, что хотите убрать лайк со статьи "${articleTitle}"?`,
         function() {
-            removeLike(articleId, articleTitle);
+            removeLike(articleSlug, articleTitle);
         },
         {
             type: 'danger',
@@ -444,26 +445,39 @@ function confirmUnlike(articleId, articleTitle) {
 }
 
 // Функция для удаления лайка через AJAX
-function removeLike(articleId, articleTitle) {
-    const likeUrl = `/article/${articleId}/like/`;
+function removeLike(articleSlug, articleTitle) {
+    // Получаем CSRF токен
+    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]')?.value;
 
-    fetch(likeUrl, {
+    if (!csrfToken) {
+        alert('Ошибка безопасности. Перезагрузите страницу.');
+        return;
+    }
+
+    // Создаем FormData для правильной отправки CSRF
+    const formData = new FormData();
+    formData.append('csrfmiddlewaretoken', csrfToken);
+
+    fetch(`/article/${articleSlug}/like/`, {
         method: 'POST',
         headers: {
-            'X-CSRFToken': '{{ csrf_token }}',
-            'Content-Type': 'application/json',
+            'X-CSRFToken': csrfToken,
+            'X-Requested-With': 'XMLHttpRequest',
         },
+        body: formData,
+        credentials: 'same-origin'
     })
     .then(response => {
         if (!response.ok) {
-            throw new Error('Network response was not ok');
+            throw new Error(`HTTP error! status: ${response.status}`);
         }
         return response.json();
     })
     .then(data => {
+        console.log('Unlike response:', data);
         if (data.success) {
             // Находим карточку статьи и удаляем её
-            const articleCard = document.querySelector(`[data-article-id="${articleId}"]`)?.closest('.article-card');
+            const articleCard = document.querySelector(`[data-article-slug="${articleSlug}"]`)?.closest('.article-card');
             if (articleCard) {
                 // Анимация исчезновения
                 articleCard.style.transition = 'all 0.3s ease';
@@ -480,12 +494,12 @@ function removeLike(articleId, articleTitle) {
                 window.location.reload();
             }
         } else {
-            showToast('Ошибка при удалении лайка', 'error');
+            showToast('Ошибка при удалении лайка: ' + (data.error || 'Неизвестная ошибка'), 'error');
         }
     })
     .catch(error => {
         console.error('Error:', error);
-        showToast('Ошибка при удалении лайка', 'error');
+        showToast('Ошибка сети при удалении лайка', 'error');
     });
 }
 
@@ -521,15 +535,60 @@ function showEmptyState() {
     container.innerHTML = emptyStateHTML;
 }
 
+// Функция для показа уведомлений
+function showToast(message, type = 'info') {
+    // Создаем элемент уведомления
+    const toast = document.createElement('div');
+    toast.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 15px 20px;
+        border-radius: 8px;
+        color: white;
+        font-weight: bold;
+        z-index: 10001;
+        transition: all 0.3s;
+        opacity: 0;
+        transform: translateX(100%);
+    `;
+
+    if (type === 'success') {
+        toast.style.background = '#28a745';
+    } else if (type === 'error') {
+        toast.style.background = '#dc3545';
+    } else {
+        toast.style.background = '#17a2b8';
+    }
+
+    toast.textContent = message;
+    document.body.appendChild(toast);
+
+    // Анимация появления
+    setTimeout(() => {
+        toast.style.opacity = '1';
+        toast.style.transform = 'translateX(0)';
+    }, 100);
+
+    // Автоматическое скрытие
+    setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateX(100%)';
+        setTimeout(() => {
+            document.body.removeChild(toast);
+        }, 300);
+    }, 3000);
+}
+
 // Инициализация при загрузке страницы
 document.addEventListener('DOMContentLoaded', function() {
     // Добавляем data-атрибуты для кнопок лайков
     const likeBtns = document.querySelectorAll('.like-btn');
     likeBtns.forEach(btn => {
-        const articleId = btn.getAttribute('data-article-id');
+        const articleSlug = btn.getAttribute('data-article-slug');
         const articleTitle = btn.closest('.article-card').querySelector('.article-title a').textContent;
         btn.setAttribute('data-article-title', articleTitle);
-        btn.onclick = () => confirmUnlike(articleId, articleTitle);
+        btn.onclick = () => confirmUnlike(articleSlug, articleTitle);
     });
 });
 </script>

@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required
-from django.db.models import Q, Count
+from django.db.models import Q, Count, Sum
 from django.core.paginator import Paginator
 from django.utils.text import slugify
 from django.contrib import messages
@@ -11,6 +11,7 @@ from .forms import ArticleForm, CommentForm, SearchForm, CategoryForm, ProfileUp
 from .models import Article, Category, Comment, ArticleMedia, UserProfile, User, ArticleLike
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
+from django.views.decorators.csrf import csrf_protect
 
 def home(request):
     # Основные категории для горизонтального скролла
@@ -731,14 +732,17 @@ def toggle_article_like(request, slug):
     article = get_object_or_404(Article, slug=slug)
 
     if request.method == 'POST':
-        liked = article.toggle_like(request.user)
-        likes_count = article.get_likes_count()
+        try:
+            liked = article.toggle_like(request.user)
+            likes_count = article.get_likes_count()
 
-        return JsonResponse({
-            'success': True,
-            'liked': liked,
-            'likes_count': likes_count
-        })
+            return JsonResponse({
+                'success': True,
+                'liked': liked,
+                'likes_count': likes_count
+            })
+        except Exception as e:
+            return JsonResponse({'success': False, 'error': str(e)})
 
     return JsonResponse({'success': False, 'error': 'Invalid method'})
 
@@ -759,3 +763,43 @@ def liked_articles(request):
         'total_count': len(liked_articles_list),
     }
     return render(request, 'wiki/liked_articles.html', context)
+
+@login_required
+def debug_test_like(request):
+    """Простой тестовый endpoint"""
+    return JsonResponse({
+        'status': 'ok',
+        'message': 'Debug endpoint works!',
+        'method': request.method
+    })
+
+
+@login_required
+def debug_article_like(request, slug):
+    """Упрощенная версия лайков для отладки"""
+    print(f"DEBUG: Like request for article slug: {slug}")  # Проверим в консоли Django
+
+    if request.method == 'POST':
+        try:
+            article = Article.objects.get(slug=slug)
+            liked = article.toggle_like(request.user)
+            likes_count = article.get_likes_count()
+
+            return JsonResponse({
+                'success': True,
+                'liked': liked,
+                'likes_count': likes_count,
+                'debug_slug': slug
+            })
+        except Article.DoesNotExist:
+            return JsonResponse({
+                'success': False,
+                'error': f'Article with slug {slug} not found'
+            })
+        except Exception as e:
+            return JsonResponse({
+                'success': False,
+                'error': str(e)
+            })
+
+    return JsonResponse({'success': False, 'error': 'Only POST allowed'})

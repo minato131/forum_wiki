@@ -344,8 +344,8 @@
 
     <!-- Блок лайков -->
     <div class="like-section">
-        <button id="likeButton" class="like-button {% if user.is_authenticated and article.is_liked_by_user %}liked{% endif %}"
-                onclick="toggleLike('{{ article.slug }}')"
+        <button id="articleLikeButton" class="like-button {% if user.is_authenticated and article.is_liked_by_user %}liked{% endif %}"
+                onclick="toggleArticleLike()"
                 {% if not user.is_authenticated %}disabled title="Войдите, чтобы оценить"{% endif %}>
             {% if user.is_authenticated and article.is_liked_by_user %}
                 ❤️ Мне нравится
@@ -353,7 +353,7 @@
                 🤍 Мне нравится
             {% endif %}
         </button>
-        <span id="likesCount" class="likes-count">
+        <span id="articleLikesCount" class="likes-count">
             {{ article.get_likes_count|default:0 }}
         </span>
     </div>
@@ -419,22 +419,63 @@
         </a>
         {% endif %}
     </div>
+    {% csrf_token %}
 </div>
 
 <script>
-function toggleLike(articleSlug) {
-    const likeButton = document.getElementById('likeButton');
-    const likesCount = document.getElementById('likesCount');
+function toggleArticleLike() {
+    const likeButton = document.getElementById('articleLikeButton');
+    const likesCount = document.getElementById('articleLikesCount');
+
+    if (!likeButton || !likesCount) {
+        console.error('Elements not found');
+        return;
+    }
+
+    // Получаем slug из URL
+    const path = window.location.pathname;
+    const match = path.match(/\/article\/([^\/]+)\//);
+    const articleSlug = match ? match[1] : null;
+
+    if (!articleSlug) {
+        alert('Не удалось определить статью');
+        return;
+    }
+
+    // Получаем CSRF токен правильно
+    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]')?.value;
+
+    if (!csrfToken) {
+        alert('Ошибка безопасности. Перезагрузите страницу.');
+        return;
+    }
+
+    // Показываем loading state
+    const originalHTML = likeButton.innerHTML;
+    likeButton.innerHTML = '⏳...';
+    likeButton.disabled = true;
+
+    // Создаем FormData для правильной отправки CSRF
+    const formData = new FormData();
+    formData.append('csrfmiddlewaretoken', csrfToken);
 
     fetch(`/article/${articleSlug}/like/`, {
         method: 'POST',
         headers: {
-            'X-CSRFToken': '{{ csrf_token }}',
-            'Content-Type': 'application/json',
+            'X-CSRFToken': csrfToken,
+            'X-Requested-With': 'XMLHttpRequest',
         },
+        body: formData,
+        credentials: 'same-origin'
     })
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+    })
     .then(data => {
+        console.log('Like response:', data);
         if (data.success) {
             if (data.liked) {
                 likeButton.innerHTML = '❤️ Мне нравится';
@@ -444,11 +485,28 @@ function toggleLike(articleSlug) {
                 likeButton.classList.remove('liked');
             }
             likesCount.textContent = data.likes_count;
+        } else {
+            alert('Ошибка: ' + (data.error || 'Неизвестная ошибка'));
         }
     })
     .catch(error => {
         console.error('Error:', error);
+        alert('Ошибка сети: ' + error.message);
+        likeButton.innerHTML = originalHTML;
+    })
+    .finally(() => {
+        likeButton.disabled = false;
     });
+}
+
+// Альтернативная функция для получения CSRF токена
+function getCSRFToken() {
+    const cookieValue = document.cookie
+        .split('; ')
+        .find(row => row.startsWith('csrftoken='))
+        ?.split('=')[1];
+
+    return cookieValue || document.querySelector('[name=csrfmiddlewaretoken]')?.value;
 }
 </script>
 {% endblock %}

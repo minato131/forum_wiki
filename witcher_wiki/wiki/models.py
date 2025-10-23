@@ -58,31 +58,7 @@ class Article(models.Model):
         ('archived', 'Архив'),
     ]
 
-    def get_likes_count(self):
-        """Возвращает количество лайков статьи"""
-        return self.likes.count()
-
-    def is_liked_by_user(self, user):
-        """Проверяет, лайкнул ли пользователь статью"""
-        if not user.is_authenticated:
-            return False
-        return self.likes.filter(user=user).exists()
-
-    def toggle_like(self, user):
-        """Добавляет или убирает лайк"""
-        if not user.is_authenticated:
-            return False
-
-        like, created = ArticleLike.objects.get_or_create(
-            user=user,
-            article=self
-        )
-
-        if not created:
-            like.delete()
-            return False  # Лайк убран
-        return True  # Лайк добавлен
-
+    # Сначала все поля модели
     title = models.CharField('Заголовок', max_length=200)
     slug = models.SlugField('URL', unique=True, max_length=200)
     content = CKEditor5Field('Содержание', config_name='extends')
@@ -150,6 +126,32 @@ class Article(models.Model):
         """Проверяет, может ли пользователь модерировать статью"""
         return (user.is_staff or
                 user.groups.filter(name__in=['Модератор', 'Администратор']).exists())
+
+    # МЕТОДЫ ДЛЯ ЛАЙКОВ ДОЛЖНЫ БЫТЬ ПОСЛЕ ВСЕХ ПОЛЕЙ
+    def get_likes_count(self):
+        """Возвращает количество лайков статьи"""
+        return self.likes.count()
+
+    def is_liked_by_user(self, user):
+        """Проверяет, лайкнул ли пользователь статью"""
+        if not user.is_authenticated:
+            return False
+        return self.likes.filter(user=user).exists()
+
+    def toggle_like(self, user):
+        """Добавляет или убирает лайк"""
+        if not user.is_authenticated:
+            return False
+
+        like, created = ArticleLike.objects.get_or_create(
+            user=user,
+            article=self
+        )
+
+        if not created:
+            like.delete()
+            return False  # Лайк убран
+        return True  # Лайк добавлен
 
 
 class ArticleMedia(models.Model):

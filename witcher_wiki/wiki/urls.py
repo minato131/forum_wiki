@@ -16,7 +16,7 @@ urlpatterns = [
     path('article/<slug:slug>/', views.article_detail, name='article_detail'),
     path('article/<slug:slug>/edit/', views.article_edit, name='article_edit'),
     path('article/<slug:slug>/moderate/', views.article_moderate, name='article_moderate'),
-    path('article/<slug:slug>/like/', views.toggle_article_like, name='toggle_article_like'),  # ПЕРЕМЕЩЕНО ВЫШЕ
+    path('article/<slug:slug>/like/', views.toggle_article_like, name='toggle_article_like'),
 
     # Модерация
     path('moderation/', views.moderation_queue, name='moderation_queue'),
@@ -37,4 +37,7 @@ urlpatterns = [
     # Пользовательские профили
     path('user/<str:username>/', views.user_public_profile, name='user_public_profile'),
     path('liked-articles/', views.liked_articles, name='liked_articles'),
+
+    path('debug/test-like/', views.debug_test_like, name='debug_test_like'),
+    path('debug/article-like/<slug:slug>/', views.debug_article_like, name='debug_article_like'),
 ]
