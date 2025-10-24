@@ -6477,3 +6477,67 @@ INFO 2025-10-24 04:48:44,914 basehttp "GET /media/article_media/video_2025-10-24
 INFO 2025-10-24 04:48:45,023 basehttp "GET /media/article_media/video_2025-10-24_04-01-03.mp4 HTTP/1.1" 200 8081085
 INFO 2025-10-24 04:48:46,809 basehttp "GET /media/article_media/video_2025-10-24_04-01-03.mp4 HTTP/1.1" 200 8081085
 INFO 2025-10-24 04:49:16,197 basehttp "GET /media/article_media/video_2025-10-24_04-01-06.mp4 HTTP/1.1" 200 7061773
+INFO 2025-10-24 05:01:39,972 autoreload Watching for file changes with StatReloader
+INFO 2025-10-24 05:01:41,002 basehttp "GET / HTTP/1.1" 200 27490
+INFO 2025-10-24 05:01:43,015 basehttp "GET /article/geralt-iz-rivii/ HTTP/1.1" 200 39109
+INFO 2025-10-24 05:01:43,084 basehttp "GET /media/article_media/64bef9d5ce5d0eee72c96ae43edcbef7.jpg HTTP/1.1" 304 0
+INFO 2025-10-24 05:01:46,897 basehttp "GET /article/kaer-morkhen/ HTTP/1.1" 200 41006
+INFO 2025-10-24 05:01:47,009 basehttp "GET /media/article_media/video_2025-10-24_04-00-59.mp4 HTTP/1.1" 200 1487978
+INFO 2025-10-24 05:01:47,035 basehttp "GET /media/article_media/video_2025-10-24_04-01-03.mp4 HTTP/1.1" 200 8081085
+INFO 2025-10-24 05:01:47,080 basehttp "GET /media/article_media/video_2025-10-24_04-01-06.mp4 HTTP/1.1" 304 0
+INFO 2025-10-24 05:02:54,774 basehttp "GET / HTTP/1.1" 200 27490
+INFO 2025-10-24 05:03:02,024 basehttp "GET /article/kaer-morkhen/ HTTP/1.1" 200 41006
+INFO 2025-10-24 05:04:35,529 basehttp "GET / HTTP/1.1" 200 27490
+INFO 2025-10-24 05:04:36,755 basehttp "GET /accounts/profile/ HTTP/1.1" 200 39859
+INFO 2025-10-24 05:04:36,817 basehttp "GET /media/avatars/avatars/avatars/avatars/avatars/user_2/avatar.png HTTP/1.1" 304 0
+INFO 2025-10-24 05:06:27,746 basehttp "GET /media/article_media/video_2025-10-24_04-01-06.mp4 HTTP/1.1" 304 0
+INFO 2025-10-24 05:06:38,529 basehttp "GET /media/article_media/video_2025-10-24_04-01-03.mp4 HTTP/1.1" 304 0
+INFO 2025-10-24 21:08:02,221 autoreload Watching for file changes with StatReloader
+INFO 2025-10-24 21:08:03,521 basehttp "GET / HTTP/1.1" 200 27490
+INFO 2025-10-24 21:08:03,678 basehttp "GET /static/css/style.css HTTP/1.1" 304 0
+WARNING 2025-10-24 21:08:03,888 log Not Found: /favicon.ico
+WARNING 2025-10-24 21:08:03,888 basehttp "GET /favicon.ico HTTP/1.1" 404 9335
+INFO 2025-10-24 21:08:05,994 basehttp "GET /article/kaer-morkhen/ HTTP/1.1" 200 41006
+INFO 2025-10-24 21:08:06,091 basehttp "GET /media/article_media/video_2025-10-24_04-00-59.mp4 HTTP/1.1" 304 0
+INFO 2025-10-24 21:08:06,095 basehttp "GET /media/article_media/video_2025-10-24_04-01-03.mp4 HTTP/1.1" 304 0
+INFO 2025-10-24 21:08:06,205 basehttp "GET /media/article_media/video_2025-10-24_04-01-06.mp4 HTTP/1.1" 304 0
+INFO 2025-10-24 21:08:55,755 basehttp "GET /user/yondaime_hokage/ HTTP/1.1" 200 32677
+INFO 2025-10-24 21:08:55,831 basehttp "GET /media/avatars/avatars/avatars/avatars/avatars/user_2/avatar.png HTTP/1.1" 304 0
+INFO 2025-10-24 21:08:59,787 basehttp "GET /category/characters/ HTTP/1.1" 200 25417
+INFO 2025-10-24 21:09:00,509 basehttp "GET /search/ HTTP/1.1" 200 27958
+INFO 2025-10-24 21:09:01,370 basehttp "GET / HTTP/1.1" 200 27490
+INFO 2025-10-24 21:09:02,171 basehttp "GET /search/ HTTP/1.1" 200 27958
+INFO 2025-10-24 21:09:04,318 basehttp "GET /category/locations/ HTTP/1.1" 200 25384
+INFO 2025-10-24 21:09:04,979 basehttp "GET /my-articles/ HTTP/1.1" 200 29163
+INFO 2025-10-24 21:09:07,655 basehttp "GET /accounts/profile/ HTTP/1.1" 200 39859
+INFO 2025-10-24 21:09:12,653 basehttp "GET /liked-articles/ HTTP/1.1" 200 36335
+INFO 2025-10-24 21:09:14,543 basehttp "POST /article/geralt-iz-rivii/like/ HTTP/1.1" 200 51
+INFO 2025-10-24 21:09:16,340 basehttp "GET /liked-articles/ HTTP/1.1" 200 34724
+INFO 2025-10-24 21:09:17,546 basehttp "GET /category/locations/ HTTP/1.1" 200 25384
+INFO 2025-10-24 21:09:18,236 basehttp "GET /liked-articles/ HTTP/1.1" 200 34724
+INFO 2025-10-24 21:09:19,148 basehttp "GET /search/ HTTP/1.1" 200 27958
+INFO 2025-10-24 21:09:19,441 basehttp "GET / HTTP/1.1" 200 27490
+INFO 2025-10-24 21:09:20,584 basehttp "GET /article/geralt-iz-rivii/ HTTP/1.1" 200 39109
+INFO 2025-10-24 21:09:20,659 basehttp "GET /media/article_media/64bef9d5ce5d0eee72c96ae43edcbef7.jpg HTTP/1.1" 304 0
+INFO 2025-10-24 21:09:22,141 basehttp "POST /article/geralt-iz-rivii/like/ HTTP/1.1" 200 50
+INFO 2025-10-24 21:09:23,939 basehttp "GET / HTTP/1.1" 200 27490
+INFO 2025-10-24 21:09:24,936 basehttp "GET /article/kaer-morkhen/ HTTP/1.1" 200 41006
+INFO 2025-10-24 21:09:26,399 basehttp "POST /article/kaer-morkhen/like/ HTTP/1.1" 200 50
+INFO 2025-10-24 21:09:28,769 basehttp "GET /liked-articles/ HTTP/1.1" 200 38055
+INFO 2025-10-24 21:09:33,018 basehttp "GET /liked-articles/ HTTP/1.1" 200 38055
+INFO 2025-10-24 21:09:34,379 basehttp "GET /article/kaer-morkhen/ HTTP/1.1" 200 41006
+INFO 2025-10-24 21:09:34,580 basehttp "GET /media/article_media/video_2025-10-24_04-01-06.mp4 HTTP/1.1" 200 7061773
+INFO 2025-10-24 21:09:34,587 basehttp "GET /media/article_media/video_2025-10-24_04-01-03.mp4 HTTP/1.1" 200 8081085
+INFO 2025-10-24 21:09:36,393 basehttp "GET /media/article_media/video_2025-10-24_04-01-03.mp4 HTTP/1.1" 200 8081085
+INFO 2025-10-24 21:09:44,414 basehttp "GET /media/article_media/video_2025-10-24_04-01-06.mp4 HTTP/1.1" 200 7061773
+INFO 2025-10-24 21:39:16,542 autoreload Watching for file changes with StatReloader
+INFO 2025-10-24 21:39:17,734 basehttp "GET / HTTP/1.1" 200 27490
+WARNING 2025-10-24 21:39:18,096 log Not Found: /favicon.ico
+WARNING 2025-10-24 21:39:18,096 basehttp "GET /favicon.ico HTTP/1.1" 404 9335
+INFO 2025-10-24 21:39:20,925 basehttp "GET /article/kaer-morkhen/ HTTP/1.1" 200 41006
+INFO 2025-10-24 21:42:04,178 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\models.py changed, reloading.
+INFO 2025-10-24 21:42:04,702 autoreload Watching for file changes with StatReloader
+INFO 2025-10-24 21:42:30,985 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\models.py changed, reloading.
+INFO 2025-10-24 21:42:31,677 autoreload Watching for file changes with StatReloader
+INFO 2025-10-24 21:42:59,052 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\models.py changed, reloading.
+INFO 2025-10-24 21:42:59,700 autoreload Watching for file changes with StatReloader

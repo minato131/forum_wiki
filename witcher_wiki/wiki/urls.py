@@ -22,6 +22,11 @@ urlpatterns = [
     path('moderation/', views.moderation_queue, name='moderation_queue'),
     path('my-articles/', views.my_articles, name='my_articles'),
 
+    # Новые URL для расширенной модерации
+    path('article/<slug:slug>/moderate/comment/', views.add_moderation_comment, name='add_moderation_comment'),
+    path('article/<slug:slug>/editor-review/', views.editor_review, name='editor_review'),
+    path('article/<slug:slug>/author-review/', views.author_review, name='author_review'),
+
     # Медиа
     path('media/<int:media_id>/delete/', views.delete_media, name='delete_media'),
 

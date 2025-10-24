@@ -53,6 +53,9 @@ class Article(models.Model):
     STATUS_CHOICES = [
         ('draft', 'Черновик'),
         ('review', 'На модерации'),
+        ('needs_correction', 'Требует правок'),
+        ('editor_review', 'На проверке у редактора'),
+        ('author_review', 'На согласовании у автора'),
         ('published', 'Опубликовано'),
         ('rejected', 'Отклонено'),
         ('archived', 'Архив'),
@@ -65,6 +68,12 @@ class Article(models.Model):
     excerpt = models.TextField('Краткое описание', max_length=500, blank=True)
     featured_image = models.ImageField('Главное изображение', upload_to='articles/', blank=True, null=True)
 
+
+    editor_notes = models.TextField('Заметки редактора', blank=True)
+    author_notes = models.TextField('Заметки автора', blank=True)
+    correction_deadline = models.DateTimeField('Срок исправления', null=True, blank=True)
+    highlighted_corrections = models.JSONField('Выделенные правки', blank=True, null=True,
+                                               help_text='JSON с выделенными фрагментами и замечаниями')
     # Метаданные
     meta_title = models.CharField('Meta Title', max_length=60, blank=True)
     meta_description = models.CharField('Meta Description', max_length=160, blank=True)
@@ -89,6 +98,7 @@ class Article(models.Model):
 
     # Статистика
     views_count = models.PositiveIntegerField('Просмотры', default=0)
+
 
     class Meta:
         verbose_name = 'Статья'
@@ -153,6 +163,60 @@ class Article(models.Model):
             return False  # Лайк убран
         return True  # Лайк добавлен
 
+
+# В models.py ДОБАВИТЬ после модели Article:
+
+# В models.py ДОБАВИТЬ после модели Article:
+
+class ModerationComment(models.Model):
+    """Комментарии модератора к конкретным фрагментам текста"""
+    article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='moderation_comments')
+    moderator = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Модератор')
+    highlighted_text = models.TextField('Выделенный текст')
+    comment = models.TextField('Замечание')
+    start_position = models.IntegerField('Начальная позиция', default=0)
+    end_position = models.IntegerField('Конечная позиция', default=0)
+    created_at = models.DateTimeField('Создано', auto_now_add=True)
+    resolved = models.BooleanField('Исправлено', default=False)
+    resolved_at = models.DateTimeField('Время исправления', null=True, blank=True)
+
+    class Meta:
+        verbose_name = 'Комментарий модератора'
+        verbose_name_plural = 'Комментарии модераторов'
+        ordering = ['created_at']
+
+    def __str__(self):
+        return f'Комментарий к статье "{self.article.title}"'
+
+
+# В модели Article ОБНОВИТЬ STATUS_CHOICES и добавить новые поля:
+
+class Article(models.Model):
+    STATUS_CHOICES = [
+        ('draft', 'Черновик'),
+        ('review', 'На модерации'),
+        ('needs_correction', 'Требует правок'),
+        ('editor_review', 'На проверке у редактора'),
+        ('author_review', 'На согласовании у автора'),
+        ('published', 'Опубликовано'),
+        ('rejected', 'Отклонено'),
+        ('archived', 'Архив'),
+    ]
+
+    # Существующие поля остаются...
+
+    # ДОБАВИТЬ эти новые поля:
+    editor_notes = models.TextField('Заметки редактора', blank=True)
+    author_notes = models.TextField('Заметки автора', blank=True)
+    correction_deadline = models.DateTimeField('Срок исправления', null=True, blank=True)
+
+    # Поле для хранения выделенных фрагментов с замечаниями
+    highlighted_corrections = models.JSONField('Выделенные правки', blank=True, null=True)
+
+    class Meta:
+        verbose_name = 'Статья'
+        verbose_name_plural = 'Статьи'
+        ordering = ['-created_at']
 
 class ArticleMedia(models.Model):
     """Медиафайлы для статей"""
@@ -370,3 +434,26 @@ class ArticleLike(models.Model):
 
     def __str__(self):
         return f'{self.user.username} лайкнул {self.article.title}'
+
+
+# В models.py ДОБАВИТЬ после существующих моделей
+
+class ModerationComment(models.Model):
+    """Комментарии модератора к конкретным фрагментам текста"""
+    article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='moderation_comments')
+    moderator = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Модератор')
+    highlighted_text = models.TextField('Выделенный текст')
+    comment = models.TextField('Замечание')
+    start_position = models.IntegerField('Начальная позиция', default=0)
+    end_position = models.IntegerField('Конечная позиция', default=0)
+    created_at = models.DateTimeField('Создано', auto_now_add=True)
+    resolved = models.BooleanField('Исправлено', default=False)
+    resolved_at = models.DateTimeField('Время исправления', null=True, blank=True)
+
+    class Meta:
+        verbose_name = 'Комментарий модератора'
+        verbose_name_plural = 'Комментарии модераторов'
+        ordering = ['created_at']
+
+    def __str__(self):
+        return f'Комментарий к статье "{self.article.title}"'

@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q, Count, Sum
 from django.core.paginator import Paginator
@@ -12,7 +11,10 @@ from .forms import ArticleForm, CommentForm, SearchForm, CategoryForm, ProfileUp
 from .models import Article, Category, Comment, ArticleMedia, UserProfile, User, ArticleLike
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
-from django.views.decorators.csrf import csrf_protect
+import json
+from django.utils import timezone
+from django.contrib import messages
+from django.http import JsonResponse
 
 
 def clean_latex_from_content(content):
@@ -433,7 +435,7 @@ def clean_all_articles_latex(request):
 
 @login_required
 def article_moderate(request, slug):
-    """Модерация статьи"""
+    """Расширенная модерация статьи с возможностью выделения текста"""
     article = get_object_or_404(Article, slug=slug)
 
     if not article.can_moderate(request.user):
@@ -444,6 +446,7 @@ def article_moderate(request, slug):
     if request.method == 'POST':
         action = request.POST.get('action')
         moderation_notes = request.POST.get('moderation_notes', '').strip()
+        highlighted_corrections = request.POST.get('highlighted_corrections', '')
 
         if action == 'approve':
             article.status = 'published'
@@ -452,7 +455,46 @@ def article_moderate(request, slug):
             article.moderated_at = timezone.now()
             article.moderation_notes = moderation_notes
             article.save()
+
+            # Отправка уведомления автору
+            send_moderation_notification(article, 'approved')
             messages.success(request, f'Статья "{article.title}" одобрена и опубликована.')
+
+        elif action == 'needs_correction':
+            article.status = 'needs_correction'
+            article.moderated_by = request.user
+            article.moderated_at = timezone.now()
+            article.moderation_notes = moderation_notes
+
+            # Сохраняем выделенные правки если есть
+            if highlighted_corrections:
+                try:
+                    article.highlighted_corrections = json.loads(highlighted_corrections)
+                except json.JSONDecodeError:
+                    pass
+
+            # Устанавливаем срок исправления (7 дней по умолчанию)
+            article.correction_deadline = timezone.now() + timezone.timedelta(days=7)
+            article.save()
+
+            # Отправка уведомления автору
+            send_moderation_notification(article, 'needs_correction')
+            messages.success(request, f'Статья "{article.title}" отправлена на доработку.')
+
+        elif action == 'send_to_editor':
+            article.status = 'editor_review'
+            article.moderated_by = request.user
+            article.moderated_at = timezone.now()
+            article.moderation_notes = moderation_notes
+
+            if highlighted_corrections:
+                try:
+                    article.highlighted_corrections = json.loads(highlighted_corrections)
+                except json.JSONDecodeError:
+                    pass
+
+            article.save()
+            messages.success(request, f'Статья "{article.title}" отправлена редактору.')
 
         elif action == 'reject':
             article.status = 'rejected'
@@ -464,8 +506,12 @@ def article_moderate(request, slug):
 
         return redirect('wiki:moderation_queue')
 
+    # Получаем существующие комментарии модерации
+    moderation_comments = article.moderation_comments.filter(resolved=False)
+
     context = {
         'article': article,
+        'moderation_comments': moderation_comments,
     }
     return render(request, 'wiki/article_moderate.html', context)
 
@@ -492,25 +538,189 @@ def moderation_queue(request):
     return render(request, 'wiki/moderation_queue.html', context)
 
 
-@login_required
-def my_articles(request):
-    """Статьи текущего пользователя"""
-    articles = Article.objects.filter(author=request.user).order_by('-created_at')
+# В views.py ДОБАВИТЬ новые функции модерации
 
-    # Статистика по статусам
-    stats = {
-        'draft': articles.filter(status='draft').count(),
-        'review': articles.filter(status='review').count(),
-        'published': articles.filter(status='published').count(),
-        'rejected': articles.filter(status='rejected').count(),
-    }
+@login_required
+def article_moderate(request, slug):
+    """Расширенная модерация статьи с возможностью выделения текста"""
+    article = get_object_or_404(Article, slug=slug)
+
+    if not article.can_moderate(request.user):
+        return render(request, 'wiki/access_denied.html', {
+            'message': 'У вас нет прав для модерации статей.'
+        })
+
+    if request.method == 'POST':
+        action = request.POST.get('action')
+        moderation_notes = request.POST.get('moderation_notes', '').strip()
+        highlighted_corrections = request.POST.get('highlighted_corrections', '')
+
+        if action == 'approve':
+            article.status = 'published'
+            article.published_at = timezone.now()
+            article.moderated_by = request.user
+            article.moderated_at = timezone.now()
+            article.moderation_notes = moderation_notes
+            article.save()
+
+            # Отправка уведомления автору
+            send_moderation_notification(article, 'approved')
+            messages.success(request, f'Статья "{article.title}" одобрена и опубликована.')
+
+        elif action == 'needs_correction':
+            article.status = 'needs_correction'
+            article.moderated_by = request.user
+            article.moderated_at = timezone.now()
+            article.moderation_notes = moderation_notes
+
+            # Сохраняем выделенные правки если есть
+            if highlighted_corrections:
+                try:
+                    article.highlighted_corrections = json.loads(highlighted_corrections)
+                except json.JSONDecodeError:
+                    pass
+
+            # Устанавливаем срок исправления (7 дней по умолчанию)
+            article.correction_deadline = timezone.now() + timezone.timedelta(days=7)
+            article.save()
+
+            # Отправка уведомления автору
+            send_moderation_notification(article, 'needs_correction')
+            messages.success(request, f'Статья "{article.title}" отправлена на доработку.')
+
+        elif action == 'send_to_editor':
+            article.status = 'editor_review'
+            article.moderated_by = request.user
+            article.moderated_at = timezone.now()
+            article.moderation_notes = moderation_notes
+
+            if highlighted_corrections:
+                try:
+                    article.highlighted_corrections = json.loads(highlighted_corrections)
+                except json.JSONDecodeError:
+                    pass
+
+            article.save()
+            messages.success(request, f'Статья "{article.title}" отправлена редактору.')
+
+        return redirect('wiki:moderation_queue')
+
+    # Получаем существующие комментарии модерации
+    moderation_comments = article.moderation_comments.filter(resolved=False)
 
     context = {
-        'articles': articles,
-        'stats': stats,
+        'article': article,
+        'moderation_comments': moderation_comments,
     }
-    return render(request, 'wiki/my_articles.html', context)
+    return render(request, 'wiki/article_moderate.html', context)
 
+
+@login_required
+def add_moderation_comment(request, slug):
+    """Добавление комментария к выделенному тексту"""
+    if request.method == 'POST' and request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        article = get_object_or_404(Article, slug=slug)
+
+        if not article.can_moderate(request.user):
+            return JsonResponse({'success': False, 'error': 'Нет прав для модерации'})
+
+        highlighted_text = request.POST.get('highlighted_text', '')
+        comment = request.POST.get('comment', '')
+        start_pos = request.POST.get('start_position', 0)
+        end_pos = request.POST.get('end_position', 0)
+
+        if highlighted_text and comment:
+            moderation_comment = ModerationComment.objects.create(
+                article=article,
+                moderator=request.user,
+                highlighted_text=highlighted_text,
+                comment=comment,
+                start_position=start_pos,
+                end_position=end_pos
+            )
+
+            return JsonResponse({
+                'success': True,
+                'comment_id': moderation_comment.id,
+                'created_at': moderation_comment.created_at.strftime('%d.%m.%Y %H:%M')
+            })
+
+    return JsonResponse({'success': False, 'error': 'Неверный запрос'})
+
+
+def send_moderation_notification(article, action_type):
+    """Отправка уведомления автору о результате модерации"""
+    # В реальном проекте здесь будет отправка email или уведомлений в системе
+    # Пока просто логируем
+    print(f"Уведомление для {article.author.username}: Статья '{article.title}' - {action_type}")
+
+
+@login_required
+def editor_review(request, slug):
+    """Страница для редактора"""
+    article = get_object_or_404(Article, slug=slug)
+
+    # Проверяем права редактора
+    if not (request.user.is_staff or
+            request.user.groups.filter(name__in=['Редактор', 'Модератор', 'Администратор']).exists()):
+        return render(request, 'wiki/access_denied.html', {
+            'message': 'У вас нет прав редактора.'
+        })
+
+    if request.method == 'POST':
+        corrected_content = request.POST.get('corrected_content', '')
+        editor_notes = request.POST.get('editor_notes', '')
+
+        if corrected_content:
+            # Сохраняем исправленную версию
+            article.content = corrected_content
+            article.editor_notes = editor_notes
+            article.status = 'author_review'
+            article.save()
+
+            # Отправляем уведомление автору
+            send_moderation_notification(article, 'editor_correction')
+            messages.success(request, 'Исправленная версия отправлена автору на согласование.')
+            return redirect('wiki:moderation_queue')
+
+    context = {
+        'article': article,
+    }
+    return render(request, 'wiki/editor_review.html', context)
+
+
+@login_required
+def author_review(request, slug):
+    """Страница для автора - согласование исправлений"""
+    article = get_object_or_404(Article, slug=slug)
+
+    if request.user != article.author:
+        return render(request, 'wiki/access_denied.html', {
+            'message': 'Вы не автор этой статьи.'
+        })
+
+    if request.method == 'POST':
+        action = request.POST.get('action')
+
+        if action == 'accept':
+            article.status = 'published'
+            article.published_at = timezone.now()
+            article.author_notes = 'Исправления редактора приняты'
+            article.save()
+            messages.success(request, 'Статья опубликована с исправлениями редактора.')
+
+        elif action == 'reject':
+            article.status = 'draft'
+            article.author_notes = request.POST.get('author_notes', '')
+            article.save()
+            messages.success(request, 'Исправления отклонены. Статья возвращена в черновики.')
+
+        return redirect('wiki:my_articles')
+
+    context = {
+        'article': article,
+    }
+    return render(request, 'wiki/author_review.html', context)
 
 @login_required
 def delete_media(request, media_id):
@@ -867,3 +1077,133 @@ def debug_article_like(request, slug):
             })
 
     return JsonResponse({'success': False, 'error': 'Only POST allowed'})
+# В views.py ДОБАВИТЬ функцию my_articles (если её нет):
+
+@login_required
+def my_articles(request):
+    """Статьи текущего пользователя"""
+    articles = Article.objects.filter(author=request.user).order_by('-created_at')
+
+    # Статистика по статусам
+    stats = {
+        'draft': articles.filter(status='draft').count(),
+        'review': articles.filter(status='review').count(),
+        'published': articles.filter(status='published').count(),
+        'rejected': articles.filter(status='rejected').count(),
+    }
+
+    context = {
+        'articles': articles,
+        'stats': stats,
+    }
+    return render(request, 'wiki/my_articles.html', context)
+
+
+# В views.py ДОБАВИТЬ эти функции:
+
+@login_required
+def add_moderation_comment(request, slug):
+    """Добавление комментария к выделенному тексту"""
+    if request.method == 'POST' and request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        article = get_object_or_404(Article, slug=slug)
+
+        if not article.can_moderate(request.user):
+            return JsonResponse({'success': False, 'error': 'Нет прав для модерации'})
+
+        highlighted_text = request.POST.get('highlighted_text', '')
+        comment = request.POST.get('comment', '')
+        start_pos = int(request.POST.get('start_position', 0))
+        end_pos = int(request.POST.get('end_position', 0))
+
+        if highlighted_text and comment:
+            moderation_comment = ModerationComment.objects.create(
+                article=article,
+                moderator=request.user,
+                highlighted_text=highlighted_text,
+                comment=comment,
+                start_position=start_pos,
+                end_position=end_pos
+            )
+
+            return JsonResponse({
+                'success': True,
+                'comment_id': moderation_comment.id,
+                'created_at': moderation_comment.created_at.strftime('%d.%m.%Y %H:%M')
+            })
+
+    return JsonResponse({'success': False, 'error': 'Неверный запрос'})
+
+
+def send_moderation_notification(article, action_type):
+    """Отправка уведомления автору о результате модерации"""
+    # В реальном проекте здесь будет отправка email или уведомлений в системе
+    # Пока просто логируем
+    print(f"Уведомление для {article.author.username}: Статья '{article.title}' - {action_type}")
+
+
+@login_required
+def editor_review(request, slug):
+    """Страница для редактора"""
+    article = get_object_or_404(Article, slug=slug)
+
+    # Проверяем права редактора
+    if not (request.user.is_staff or
+            request.user.groups.filter(name__in=['Редактор', 'Модератор', 'Администратор']).exists()):
+        return render(request, 'wiki/access_denied.html', {
+            'message': 'У вас нет прав редактора.'
+        })
+
+    if request.method == 'POST':
+        corrected_content = request.POST.get('corrected_content', '')
+        editor_notes = request.POST.get('editor_notes', '')
+
+        if corrected_content:
+            # Сохраняем исправленную версию
+            article.content = corrected_content
+            article.editor_notes = editor_notes
+            article.status = 'author_review'
+            article.save()
+
+            # Отправляем уведомление автору
+            send_moderation_notification(article, 'editor_correction')
+            messages.success(request, 'Исправленная версия отправлена автору на согласование.')
+            return redirect('wiki:moderation_queue')
+
+    context = {
+        'article': article,
+    }
+    return render(request, 'wiki/editor_review.html', context)
+
+
+@login_required
+def author_review(request, slug):
+    """Страница для автора - согласование исправлений"""
+    article = get_object_or_404(Article, slug=slug)
+
+    if request.user != article.author:
+        return render(request, 'wiki/access_denied.html', {
+            'message': 'Вы не автор этой статьи.'
+        })
+
+    if request.method == 'POST':
+        action = request.POST.get('action')
+
+        if action == 'accept':
+            article.status = 'published'
+            article.published_at = timezone.now()
+            article.author_notes = 'Исправления редактора приняты'
+            article.save()
+            messages.success(request, 'Статья опубликована с исправлениями редактора.')
+
+        elif action == 'reject':
+            article.status = 'draft'
+            article.author_notes = request.POST.get('author_notes', '')
+            article.save()
+            messages.success(request, 'Исправления отклонены. Статья возвращена в черновики.')
+
+        return redirect('wiki:my_articles')
+
+    context = {
+        'article': article,
+    }
+    return render(request, 'wiki/author_review.html', context)
