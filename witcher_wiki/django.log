@@ -7036,3 +7036,361 @@ INFO 2025-10-26 04:20:56,323 basehttp "POST /article/kaer-morkhen/ HTTP/1.1" 200
 INFO 2025-10-26 04:21:02,588 basehttp "POST /comment/3/delete/ HTTP/1.1" 200 17
 INFO 2025-10-26 04:21:04,165 basehttp "POST /comment/4/delete/ HTTP/1.1" 200 17
 INFO 2025-10-26 04:21:05,578 basehttp "POST /comment/5/delete/ HTTP/1.1" 200 17
+INFO 2025-10-26 04:28:17,531 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-10-26 04:28:18,050 autoreload Watching for file changes with StatReloader
+INFO 2025-10-26 04:28:46,482 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-10-26 04:28:47,074 autoreload Watching for file changes with StatReloader
+INFO 2025-10-26 04:29:07,433 autoreload Watching for file changes with StatReloader
+INFO 2025-10-26 04:29:08,697 basehttp "GET / HTTP/1.1" 200 31775
+INFO 2025-10-26 04:29:10,300 basehttp "GET /article/kaer-morkhen/ HTTP/1.1" 200 50458
+INFO 2025-10-26 04:29:19,112 basehttp "GET /media/article_media/video_2025-10-24_04-01-06.mp4 HTTP/1.1" 200 7061773
+INFO 2025-10-26 04:29:19,431 basehttp "GET /media/article_media/video_2025-10-24_04-01-06.mp4 HTTP/1.1" 200 7061773
+INFO 2025-10-26 04:30:23,783 basehttp "POST /article/kaer-morkhen/ HTTP/1.1" 302 0
+INFO 2025-10-26 04:30:23,972 basehttp "GET /article/kaer-morkhen/ HTTP/1.1" 200 52410
+INFO 2025-10-26 04:30:31,163 basehttp "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-10-26 04:30:31,316 basehttp "GET / HTTP/1.1" 200 29655
+INFO 2025-10-26 04:30:32,152 basehttp "GET /accounts/login/ HTTP/1.1" 200 27576
+INFO 2025-10-26 04:30:35,271 basehttp "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-10-26 04:30:35,325 basehttp "GET / HTTP/1.1" 200 30875
+INFO 2025-10-26 04:30:37,032 basehttp "GET /article/kaer-morkhen/ HTTP/1.1" 200 50834
+INFO 2025-10-26 04:30:47,450 basehttp "POST /article/kaer-morkhen/ HTTP/1.1" 302 0
+INFO 2025-10-26 04:30:47,526 basehttp "GET /article/kaer-morkhen/ HTTP/1.1" 200 53236
+INFO 2025-10-26 04:30:50,631 basehttp "GET /category/monsters/ HTTP/1.1" 200 28303
+INFO 2025-10-26 04:30:51,357 basehttp "GET / HTTP/1.1" 200 30875
+INFO 2025-10-26 04:30:52,866 basehttp "GET /article/kaer-morkhen/ HTTP/1.1" 200 52873
+INFO 2025-10-26 04:31:10,134 basehttp "GET /liked-articles/ HTTP/1.1" 200 39819
+INFO 2025-10-26 04:31:12,524 basehttp "POST /article/geralt-iz-rivii/like/ HTTP/1.1" 200 51
+INFO 2025-10-26 04:31:15,112 basehttp "GET /liked-articles/ HTTP/1.1" 200 38208
+INFO 2025-10-26 04:32:04,518 autoreload Watching for file changes with StatReloader
+INFO 2025-10-26 04:32:05,721 basehttp "GET / HTTP/1.1" 200 30875
+INFO 2025-10-26 04:32:07,728 basehttp "GET /article/kaer-morkhen/ HTTP/1.1" 200 52793
+INFO 2025-10-26 04:32:15,271 basehttp "GET / HTTP/1.1" 200 30875
+INFO 2025-10-26 04:32:15,719 basehttp "GET /search/ HTTP/1.1" 200 31219
+INFO 2025-10-26 04:32:19,611 basehttp "GET /search/?q=%D0%A6%D0%B8%D1%80%D0%B8 HTTP/1.1" 200 31668
+INFO 2025-10-26 04:32:22,468 basehttp "GET /search/ HTTP/1.1" 200 31219
+INFO 2025-10-26 04:32:32,101 basehttp "GET /liked-articles/ HTTP/1.1" 200 38208
+INFO 2025-10-26 04:32:34,599 basehttp "GET / HTTP/1.1" 200 30875
+INFO 2025-10-26 04:32:36,784 basehttp "GET /article/kaer-morkhen/ HTTP/1.1" 200 52793
+INFO 2025-10-26 04:32:36,937 basehttp "GET /media/article_media/video_2025-10-24_04-01-06.mp4 HTTP/1.1" 200 7061773
+INFO 2025-10-26 04:32:38,312 basehttp "POST /article/kaer-morkhen/like/ HTTP/1.1" 200 50
+INFO 2025-10-26 04:32:39,869 basehttp "GET /liked-articles/ HTTP/1.1" 200 39843
+INFO 2025-10-26 04:32:42,950 basehttp "POST /article/kaer-morkhen/like/ HTTP/1.1" 200 51
+INFO 2025-10-26 04:32:45,464 basehttp "GET /liked-articles/ HTTP/1.1" 200 38208
+INFO 2025-10-26 04:33:43,869 basehttp "GET /liked-articles/ HTTP/1.1" 200 38208
+INFO 2025-10-26 04:33:47,258 basehttp "GET /my-articles/ HTTP/1.1" 200 31383
+INFO 2025-10-26 04:33:51,863 basehttp "GET /article/novigrad/edit/ HTTP/1.1" 200 26488
+INFO 2025-10-26 04:33:53,786 basehttp "GET / HTTP/1.1" 200 30875
+INFO 2025-10-26 04:33:57,900 basehttp "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-10-26 04:33:57,948 basehttp "GET / HTTP/1.1" 200 29655
+INFO 2025-10-26 04:34:00,014 basehttp "GET /accounts/login/ HTTP/1.1" 200 27576
+INFO 2025-10-26 04:34:02,468 basehttp "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-10-26 04:34:02,524 basehttp "GET / HTTP/1.1" 200 31775
+INFO 2025-10-26 04:34:05,360 basehttp "GET /admin/ HTTP/1.1" 200 16548
+INFO 2025-10-26 04:34:07,869 basehttp "GET /admin/auth/user/4/change/ HTTP/1.1" 200 34095
+INFO 2025-10-26 04:34:07,896 basehttp "GET /static/admin/css/forms.css HTTP/1.1" 304 0
+INFO 2025-10-26 04:34:07,898 basehttp "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 304 0
+INFO 2025-10-26 04:34:07,899 basehttp "GET /static/admin/js/core.js HTTP/1.1" 304 0
+INFO 2025-10-26 04:34:07,900 basehttp "GET /static/admin/js/calendar.js HTTP/1.1" 304 0
+INFO 2025-10-26 04:34:07,900 basehttp "GET /static/admin/js/jquery.init.js HTTP/1.1" 304 0
+INFO 2025-10-26 04:34:07,901 basehttp "GET /static/admin/js/admin/DateTimeShortcuts.js HTTP/1.1" 304 0
+INFO 2025-10-26 04:34:07,902 basehttp "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 304 0
+INFO 2025-10-26 04:34:07,904 basehttp "GET /static/admin/css/widgets.css HTTP/1.1" 304 0
+INFO 2025-10-26 04:34:07,905 basehttp "GET /static/admin/js/actions.js HTTP/1.1" 304 0
+INFO 2025-10-26 04:34:07,905 basehttp "GET /static/admin/js/SelectFilter2.js HTTP/1.1" 304 0
+INFO 2025-10-26 04:34:07,905 basehttp "GET /static/admin/js/SelectBox.js HTTP/1.1" 304 0
+INFO 2025-10-26 04:34:07,906 basehttp "GET /static/admin/js/urlify.js HTTP/1.1" 304 0
+INFO 2025-10-26 04:34:07,906 basehttp "GET /static/admin/js/prepopulate.js HTTP/1.1" 304 0
+INFO 2025-10-26 04:34:07,908 basehttp "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 304 0
+INFO 2025-10-26 04:34:07,909 basehttp "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 304 0
+INFO 2025-10-26 04:34:07,911 basehttp "GET /static/admin/js/change_form.js HTTP/1.1" 304 0
+INFO 2025-10-26 04:34:08,048 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-10-26 04:34:08,097 basehttp "GET /static/admin/img/icon-clock.svg HTTP/1.1" 304 0
+INFO 2025-10-26 04:34:08,097 basehttp "GET /static/admin/img/selector-icons.svg HTTP/1.1" 304 0
+INFO 2025-10-26 04:34:08,097 basehttp "GET /static/admin/img/search.svg HTTP/1.1" 304 0
+INFO 2025-10-26 04:34:08,097 basehttp "GET /static/admin/img/icon-calendar.svg HTTP/1.1" 304 0
+INFO 2025-10-26 04:34:17,622 basehttp "POST /admin/auth/user/4/change/ HTTP/1.1" 302 0
+INFO 2025-10-26 04:34:17,689 basehttp "GET /admin/auth/user/ HTTP/1.1" 200 19101
+INFO 2025-10-26 04:34:17,706 basehttp "GET /static/admin/css/changelists.css HTTP/1.1" 304 0
+INFO 2025-10-26 04:34:17,707 basehttp "GET /static/admin/img/icon-yes.svg HTTP/1.1" 304 0
+INFO 2025-10-26 04:34:17,707 basehttp "GET /static/admin/img/icon-no.svg HTTP/1.1" 304 0
+INFO 2025-10-26 04:34:17,710 basehttp "GET /static/admin/js/filters.js HTTP/1.1" 304 0
+INFO 2025-10-26 04:34:17,751 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-10-26 04:34:17,768 basehttp "GET /static/admin/img/tooltag-add.svg HTTP/1.1" 304 0
+INFO 2025-10-26 04:34:17,769 basehttp "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 304 0
+INFO 2025-10-26 04:34:17,769 basehttp "GET /static/admin/img/sorting-icons.svg HTTP/1.1" 304 0
+INFO 2025-10-26 04:34:21,618 basehttp "GET /admin/auth/user/3/change/ HTTP/1.1" 200 34106
+INFO 2025-10-26 04:34:21,785 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-10-26 04:34:25,803 basehttp "POST /admin/auth/user/3/change/ HTTP/1.1" 302 0
+INFO 2025-10-26 04:34:25,975 basehttp "GET /admin/auth/user/ HTTP/1.1" 200 19097
+INFO 2025-10-26 04:34:26,042 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-10-26 04:34:30,062 basehttp "GET / HTTP/1.1" 200 31775
+INFO 2025-10-26 04:34:34,963 basehttp "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-10-26 04:34:35,119 basehttp "GET / HTTP/1.1" 200 29655
+INFO 2025-10-26 04:34:48,889 basehttp "GET /accounts/login/ HTTP/1.1" 200 27576
+INFO 2025-10-26 04:34:51,289 basehttp "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-10-26 04:34:51,452 basehttp "GET / HTTP/1.1" 200 30974
+INFO 2025-10-26 04:34:52,241 basehttp "GET /my-articles/ HTTP/1.1" 200 31383
+INFO 2025-10-26 04:34:53,775 basehttp "GET /article/novigrad/edit/ HTTP/1.1" 200 26488
+INFO 2025-10-26 04:35:08,186 basehttp "GET /admin HTTP/1.1" 301 0
+INFO 2025-10-26 04:35:08,231 basehttp "GET /admin/ HTTP/1.1" 302 0
+INFO 2025-10-26 04:35:08,299 basehttp "GET /admin/login/?next=/admin/ HTTP/1.1" 200 3948
+INFO 2025-10-26 04:35:08,402 basehttp "GET /static/admin/css/login.css HTTP/1.1" 200 951
+INFO 2025-10-26 04:35:14,611 basehttp "POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+INFO 2025-10-26 04:35:14,667 basehttp "GET /admin/ HTTP/1.1" 200 16544
+INFO 2025-10-26 04:35:17,711 basehttp "GET /admin/auth/group/ HTTP/1.1" 200 15355
+INFO 2025-10-26 04:35:17,880 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-10-26 04:35:22,133 basehttp "GET /admin/auth/group/3/change/ HTTP/1.1" 200 23194
+INFO 2025-10-26 04:35:22,193 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-10-26 04:36:13,682 basehttp "POST /admin/auth/group/3/change/ HTTP/1.1" 302 0
+INFO 2025-10-26 04:36:13,739 basehttp "GET /admin/auth/group/ HTTP/1.1" 200 15584
+INFO 2025-10-26 04:36:13,797 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-10-26 04:36:16,548 basehttp "GET /my-articles/ HTTP/1.1" 200 33448
+INFO 2025-10-26 04:36:19,740 basehttp "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-10-26 04:36:19,786 basehttp "GET / HTTP/1.1" 200 29655
+INFO 2025-10-26 04:36:20,605 basehttp "GET /accounts/login/ HTTP/1.1" 200 27576
+INFO 2025-10-26 04:36:22,775 basehttp "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-10-26 04:36:22,833 basehttp "GET / HTTP/1.1" 200 30974
+INFO 2025-10-26 04:36:24,256 basehttp "GET /my-articles/ HTTP/1.1" 200 31383
+INFO 2025-10-26 04:36:25,119 basehttp "GET /article/novigrad/edit/ HTTP/1.1" 200 26488
+INFO 2025-10-26 04:36:27,834 basehttp "GET / HTTP/1.1" 200 30974
+INFO 2025-10-26 04:36:29,262 basehttp "GET /my-articles/ HTTP/1.1" 200 31383
+INFO 2025-10-26 04:36:30,404 basehttp "GET /article/novigrad/ HTTP/1.1" 200 26478
+INFO 2025-10-26 04:36:32,645 basehttp "GET /article/novigrad/ HTTP/1.1" 200 26478
+INFO 2025-10-26 04:36:33,521 basehttp "GET /article/novigrad/edit/ HTTP/1.1" 200 26488
+INFO 2025-10-26 04:37:42,484 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-10-26 04:37:43,053 autoreload Watching for file changes with StatReloader
+INFO 2025-10-26 04:39:58,837 autoreload Watching for file changes with StatReloader
+INFO 2025-10-26 04:39:59,940 basehttp "GET / HTTP/1.1" 200 30974
+ERROR 2025-10-26 04:40:03,337 log Internal Server Error: /liked-articles/
+Traceback (most recent call last):
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 510, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'endfor'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py", line 1048, in liked_articles
+    return render(request, 'wiki/liked_articles.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+           ^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+               ^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader_tags.py", line 299, in do_extends
+    nodelist = parser.parse()
+               ^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\defaulttags.py", line 962, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 512, in parse
+    self.invalid_block_tag(token, command, parse_until)
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 567, in invalid_block_tag
+    raise self.error(
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 77: 'endfor', expected 'elif', 'else' or 'endif'. Did you forget to register or load this tag?
+ERROR 2025-10-26 04:40:03,342 basehttp "GET /liked-articles/ HTTP/1.1" 500 241994
+INFO 2025-10-26 04:41:09,784 autoreload Watching for file changes with StatReloader
+INFO 2025-10-26 04:41:10,851 basehttp "GET / HTTP/1.1" 200 30974
+ERROR 2025-10-26 04:41:12,336 log Internal Server Error: /liked-articles/
+Traceback (most recent call last):
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 510, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'endfor'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py", line 1048, in liked_articles
+    return render(request, 'wiki/liked_articles.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+           ^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+               ^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader_tags.py", line 299, in do_extends
+    nodelist = parser.parse()
+               ^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\defaulttags.py", line 962, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 512, in parse
+    self.invalid_block_tag(token, command, parse_until)
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 567, in invalid_block_tag
+    raise self.error(
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 58: 'endfor', expected 'elif', 'else' or 'endif'. Did you forget to register or load this tag?
+ERROR 2025-10-26 04:41:12,341 basehttp "GET /liked-articles/ HTTP/1.1" 500 239166
+INFO 2025-10-26 04:41:23,288 autoreload Watching for file changes with StatReloader
+INFO 2025-10-26 04:41:24,153 basehttp "GET / HTTP/1.1" 200 30974
+INFO 2025-10-26 04:41:25,324 basehttp "GET /liked-articles/ HTTP/1.1" 200 38208
+INFO 2025-10-26 04:41:27,373 basehttp "GET / HTTP/1.1" 200 30974
+INFO 2025-10-26 04:41:28,636 basehttp "GET /article/kaer-morkhen/ HTTP/1.1" 200 56051
+INFO 2025-10-26 04:41:28,782 basehttp "GET /media/article_media/video_2025-10-24_04-01-06.mp4 HTTP/1.1" 200 7061773
+INFO 2025-10-26 04:41:35,752 basehttp "POST /article/kaer-morkhen/like/ HTTP/1.1" 200 94
+INFO 2025-10-26 04:41:37,633 basehttp "GET /liked-articles/ HTTP/1.1" 200 39843
+INFO 2025-10-26 04:41:39,709 basehttp "POST /article/kaer-morkhen/like/ HTTP/1.1" 200 94
+INFO 2025-10-26 04:41:42,441 basehttp "GET /liked-articles/ HTTP/1.1" 200 38208
+INFO 2025-10-26 04:41:43,482 basehttp "GET / HTTP/1.1" 200 30974
+INFO 2025-10-26 04:41:44,597 basehttp "GET /article/kaer-morkhen/ HTTP/1.1" 200 56051
+INFO 2025-10-26 04:41:47,796 basehttp "POST /article/kaer-morkhen/like/ HTTP/1.1" 200 94
+INFO 2025-10-26 04:41:49,134 basehttp "GET /liked-articles/ HTTP/1.1" 200 39843
+INFO 2025-10-26 04:51:13,650 autoreload Watching for file changes with StatReloader
+INFO 2025-10-26 04:51:14,709 basehttp "GET / HTTP/1.1" 200 30974
+INFO 2025-10-26 04:51:18,121 basehttp "GET /liked-articles/ HTTP/1.1" 200 44278
+INFO 2025-10-26 04:51:20,294 basehttp "POST /article/kaer-morkhen/like/ HTTP/1.1" 200 94
+INFO 2025-10-26 04:51:23,192 basehttp "GET /liked-articles/ HTTP/1.1" 200 42562
+INFO 2025-10-26 04:51:27,100 basehttp "GET /my-articles/ HTTP/1.1" 200 31383
+INFO 2025-10-26 04:51:29,004 basehttp "GET /article/novigrad/edit/ HTTP/1.1" 200 26488
+INFO 2025-10-26 04:51:30,181 basehttp "GET /liked-articles/ HTTP/1.1" 200 42562
+INFO 2025-10-26 04:51:31,476 basehttp "GET / HTTP/1.1" 200 30974
+INFO 2025-10-26 04:51:32,617 basehttp "GET /article/kaer-morkhen/ HTTP/1.1" 200 56051
+INFO 2025-10-26 04:51:34,315 basehttp "POST /article/kaer-morkhen/like/ HTTP/1.1" 200 94
+INFO 2025-10-26 04:52:37,235 basehttp "POST /article/kaer-morkhen/like/ HTTP/1.1" 200 94
+INFO 2025-10-26 04:52:38,181 basehttp "POST /article/kaer-morkhen/like/ HTTP/1.1" 200 94
+INFO 2025-10-26 04:52:40,285 basehttp "GET /liked-articles/ HTTP/1.1" 200 44278
+INFO 2025-10-26 04:52:41,691 basehttp "GET /article/kaer-morkhen/ HTTP/1.1" 200 56051
+INFO 2025-10-26 04:52:44,321 basehttp "POST /article/kaer-morkhen/like/ HTTP/1.1" 200 94
+INFO 2025-10-26 04:52:47,407 basehttp "GET /liked-articles/ HTTP/1.1" 200 42562
+INFO 2025-10-26 04:52:49,789 basehttp "GET / HTTP/1.1" 200 30974
+INFO 2025-10-26 04:52:51,002 basehttp "GET /article/kaer-morkhen/ HTTP/1.1" 200 56051
+INFO 2025-10-26 04:52:51,176 basehttp "GET /media/article_media/video_2025-10-24_04-01-06.mp4 HTTP/1.1" 200 7061773
+INFO 2025-10-26 04:52:51,182 basehttp "GET /media/article_media/video_2025-10-24_04-01-03.mp4 HTTP/1.1" 200 8081085
+INFO 2025-10-26 04:52:56,166 basehttp "POST /article/kaer-morkhen/like/ HTTP/1.1" 200 94
+INFO 2025-10-26 04:52:57,393 basehttp "GET / HTTP/1.1" 200 30974
+INFO 2025-10-26 04:52:57,788 basehttp "GET /search/ HTTP/1.1" 200 31219
+INFO 2025-10-26 04:52:58,447 basehttp "GET /category/characters/ HTTP/1.1" 200 28901
+INFO 2025-10-26 04:52:59,121 basehttp "GET /category/monsters/ HTTP/1.1" 200 28303
+INFO 2025-10-26 04:52:59,834 basehttp "GET /category/locations/ HTTP/1.1" 200 28868
+INFO 2025-10-26 04:53:00,343 basehttp "GET /my-articles/ HTTP/1.1" 200 31383
+INFO 2025-10-26 04:53:00,797 basehttp "GET /liked-articles/ HTTP/1.1" 200 44278
+INFO 2025-10-26 04:53:02,360 basehttp "GET /article/create/ HTTP/1.1" 200 40757
+INFO 2025-10-26 04:53:24,128 basehttp "GET / HTTP/1.1" 200 30974
+INFO 2025-10-26 04:53:29,516 basehttp "GET /article/kaer-morkhen/ HTTP/1.1" 200 56051
+INFO 2025-10-26 04:53:29,633 basehttp "GET /media/article_media/video_2025-10-24_04-01-06.mp4 HTTP/1.1" 200 7061773
+INFO 2025-10-26 04:53:29,749 basehttp "GET /media/article_media/video_2025-10-24_04-01-03.mp4 HTTP/1.1" 200 8081085
+INFO 2025-10-26 04:53:54,390 basehttp "GET /search/ HTTP/1.1" 200 31219
+INFO 2025-10-26 04:53:57,113 basehttp "GET / HTTP/1.1" 200 30974
+INFO 2025-10-26 04:54:14,541 basehttp "GET /article/kaer-morkhen/ HTTP/1.1" 200 56051
+INFO 2025-10-26 04:58:15,420 autoreload Watching for file changes with StatReloader
+INFO 2025-10-26 04:58:16,510 basehttp "GET / HTTP/1.1" 200 30974
+INFO 2025-10-26 04:58:18,037 basehttp "GET /article/kaer-morkhen/ HTTP/1.1" 200 60738
+INFO 2025-10-26 04:58:49,336 basehttp "GET /article/kaer-morkhen/ HTTP/1.1" 200 60738
+INFO 2025-10-26 04:58:55,609 basehttp "GET /article/geralt-iz-rivii/ HTTP/1.1" 200 52955
+INFO 2025-10-26 04:59:02,991 basehttp "GET /article/kaer-morkhen/ HTTP/1.1" 200 60738
+INFO 2025-10-26 04:59:19,214 basehttp "GET /media/article_media/video_2025-10-24_04-01-03.mp4 HTTP/1.1" 200 8081085
+INFO 2025-10-26 04:59:19,327 basehttp "GET /media/article_media/video_2025-10-24_04-01-06.mp4 HTTP/1.1" 200 7061773
+INFO 2025-10-26 05:02:09,801 autoreload Watching for file changes with StatReloader
+INFO 2025-10-26 05:02:10,998 basehttp "GET / HTTP/1.1" 200 30974
+INFO 2025-10-26 05:02:13,186 basehttp "GET /article/kaer-morkhen/ HTTP/1.1" 200 57520
+INFO 2025-10-26 05:02:13,358 basehttp "GET /media/article_media/video_2025-10-24_04-01-06.mp4 HTTP/1.1" 200 7061773
+INFO 2025-10-26 05:02:13,448 basehttp "GET /media/article_media/video_2025-10-24_04-01-03.mp4 HTTP/1.1" 200 8081085
+INFO 2025-10-26 05:02:51,476 autoreload Watching for file changes with StatReloader
+INFO 2025-10-26 05:02:52,771 basehttp "GET / HTTP/1.1" 200 30974
+INFO 2025-10-26 05:02:55,431 basehttp "GET /article/kaer-morkhen/ HTTP/1.1" 200 60661

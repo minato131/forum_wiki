@@ -321,8 +321,8 @@ def article_detail(request, slug):
 
     # Форма для добавления комментария
     comment_form = CommentForm()
-    print(f"DEBUG: Article: {article.title}")
-    print(f"DEBUG: Comments count: {article.comments.count()}")
+
+    # Обработка добавления комментария (ТОЛЬКО ОДНА обработка POST)
     if request.method == 'POST' and request.user.is_authenticated:
         print(f"DEBUG: POST request received from {request.user.username}")
         comment_form = CommentForm(request.POST)
@@ -333,47 +333,25 @@ def article_detail(request, slug):
             comment.author = request.user
             print(f"DEBUG: Comment content: {comment.content}")
 
-            # ... остальной код ...
-
-            comment.save()
-            print(f"DEBUG: Comment saved with ID: {comment.id}")
-            messages.success(request, 'Комментарий добавлен!')
-
-            # После сохранения перезагружаем комментарии
-            comments = article.comments.filter(is_approved=True, parent__isnull=True).order_by('created_at')
-            print(f"DEBUG: Comments after save: {comments.count()}")
-
-            # Очищаем форму
-            comment_form = CommentForm()
-        else:
-            print(f"DEBUG: Form errors: {comment_form.errors}")
-            messages.error(request, 'Ошибка при добавлении комментария. Проверьте форму.')
-
-    if request.method == 'POST' and request.user.is_authenticated:
-        comment_form = CommentForm(request.POST)
-        if comment_form.is_valid():
-            comment = comment_form.save(commit=False)
-            comment.article = article
-            comment.author = request.user
-
             # Обработка родительского комментария (для ответов)
             parent_id = request.POST.get('parent_id')
             if parent_id:
                 try:
                     parent_comment = Comment.objects.get(id=parent_id)
                     comment.parent = parent_comment
+                    print(f"DEBUG: Reply to comment {parent_id}")
                 except Comment.DoesNotExist:
+                    print(f"DEBUG: Parent comment {parent_id} not found")
                     pass
 
             comment.save()
+            print(f"DEBUG: Comment saved with ID: {comment.id}")
             messages.success(request, 'Комментарий добавлен!')
 
-            # После сохранения перезагружаем комментарии
-            comments = article.comments.filter(is_approved=True, parent__isnull=True).order_by('created_at')
-
-            # Очищаем форму
-            comment_form = CommentForm()
+            # После сохранения перезагружаем страницу чтобы показать новый комментарий
+            return redirect('wiki:article_detail', slug=article.slug)
         else:
+            print(f"DEBUG: Form errors: {comment_form.errors}")
             messages.error(request, 'Ошибка при добавлении комментария. Проверьте форму.')
 
     context = {
@@ -1032,13 +1010,19 @@ def toggle_article_like(request, slug):
 
     if request.method == 'POST':
         try:
+            # Проверяем, был ли уже лайк от пользователя
+            was_liked = article.is_liked_by_user(request.user)
+
+            # Переключаем лайк
             liked = article.toggle_like(request.user)
             likes_count = article.get_likes_count()
 
             return JsonResponse({
                 'success': True,
                 'liked': liked,
-                'likes_count': likes_count
+                'likes_count': likes_count,
+                'was_liked': was_liked,  # Добавляем информацию о предыдущем состоянии
+                'status_changed': was_liked != liked  # Изменился ли статус лайка
             })
         except Exception as e:
             return JsonResponse({'success': False, 'error': str(e)})

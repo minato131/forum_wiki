@@ -240,17 +240,17 @@
     </div>
 
     {% if messages %}
-<div class="messages-container" style="margin-bottom: 20px;">
-    {% for message in messages %}
-    <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}"
-         style="padding: 12px; border-radius: 8px; margin-bottom: 10px;
-                {% if message.tags == 'success' %}background: rgba(34, 197, 94, 0.2); color: #22c55e; border: 1px solid #22c55e;{% endif %}
-                {% if message.tags == 'error' %}background: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1px solid #ef4444;{% endif %}">
-        {{ message }}
+    <div class="messages-container" style="margin-bottom: 20px;">
+        {% for message in messages %}
+        <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}"
+             style="padding: 12px; border-radius: 8px; margin-bottom: 10px;
+                    {% if message.tags == 'success' %}background: rgba(34, 197, 94, 0.2); color: #22c55e; border: 1px solid #22c55e;{% endif %}
+                    {% if message.tags == 'error' %}background: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1px solid #ef4444;{% endif %}">
+            {{ message }}
+        </div>
+        {% endfor %}
     </div>
-    {% endfor %}
-</div>
-{% endif %}
+    {% endif %}
 
     <!-- Главное изображение -->
     {% if article.featured_image %}
@@ -263,145 +263,22 @@
     <!-- Контент статьи -->
     <div class="article-content">
         {{ article.content|safe }}
-        <!-- article_detail.html - ДОБАВИТЬ в конец блока content, перед закрывающим div -->
-
-<!-- article_detail.html - ОБНОВИТЬ форму комментариев -->
-
-<!-- Секция комментариев -->
-<div class="comments-section" style="margin-top: 40px;">
-    <h3 style="color: #D4AF37; border-bottom: 2px solid #D4AF37; padding-bottom: 10px; margin-bottom: 20px;">
-        💬 Комментарии (<span id="comments-count">{{ comments.count }}</span>)
-    </h3>
-
-    <!-- Форма добавления комментария -->
-    {% if user.is_authenticated %}
-    <div class="comment-form-container" style="background: rgba(212, 175, 55, 0.1); padding: 20px; border-radius: 10px; margin-bottom: 30px;">
-        <h4 style="color: #D4AF37; margin-bottom: 15px;">Оставить комментарий</h4>
-        <form method="post" class="comment-form" id="comment-form">
-            {% csrf_token %}
-            <input type="hidden" name="parent_id" id="parent_id" value="">
-
-            <div class="form-group">
-                <textarea name="content" id="comment-content" class="form-control"
-                         placeholder="Напишите ваш комментарий..."
-                         rows="4"
-                         style="width: 100%; background: #1a1a1a; color: #e8e8e8; border: 1px solid #444; border-radius: 8px; padding: 12px;"
-                         required></textarea>
-            </div>
-
-            <button type="submit" class="btn" style="background: #D4AF37; color: #1a1a1a; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold;">
-                📝 Отправить комментарий
-            </button>
-
-            <button type="button" id="cancel-reply" onclick="cancelReply()"
-                    style="background: #6b7280; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold; margin-left: 10px; display: none;">
-                ❌ Отменить ответ
-            </button>
-        </form>
     </div>
-    {% else %}
-    <div style="text-align: center; padding: 20px; background: rgba(212, 175, 55, 0.1); border-radius: 10px; margin-bottom: 30px;">
-        <p style="color: #D4AF37; margin-bottom: 15px;">💡 Войдите, чтобы оставить комментарий</p>
-        <a href="{% url 'login' %}?next={{ request.path }}" class="btn" style="background: #D4AF37; color: #1a1a1a; text-decoration: none; padding: 10px 20px; border-radius: 5px; font-weight: bold;">
-            🔐 Войти
-        </a>
+
+    <!-- Теги/хештеги -->
+    {% if article.tags.all %}
+    <div class="tags-section" style="text-align: center; margin: 15px 0;">
+        <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 8px;">
+            {% for tag in article.tags.all %}
+            <a href="{% url 'wiki:search' %}?q={{ tag.name|urlencode }}"
+               class="tag"
+               style="background: rgba(23, 162, 184, 0.2); color: #17a2b8; padding: 5px 10px; border-radius: 15px; text-decoration: none; font-size: 0.85em; border: 1px solid rgba(23, 162, 184, 0.3);">
+                #{{ tag.name }}
+            </a>
+            {% endfor %}
+        </div>
     </div>
     {% endif %}
-
-    <!-- Список комментариев -->
-    <div class="comments-list" id="comments-list">
-        {% for comment in comments %}
-            {% include 'wiki/comment_item.html' with comment=comment %}
-        {% empty %}
-            <div style="text-align: center; padding: 40px; color: #888;">
-                <p>💬 Пока нет комментариев. Будьте первым!</p>
-            </div>
-        {% endfor %}
-    </div>
-</div>
-
-<script>
-// Функция для ответа на комментарий
-function replyToComment(commentId, authorName) {
-    document.getElementById('parent_id').value = commentId;
-    const textarea = document.getElementById('comment-content');
-    textarea.value = `@${authorName}, `;
-    textarea.focus();
-    textarea.scrollIntoView({ behavior: 'smooth' });
-
-    // Показываем кнопку отмены
-    document.getElementById('cancel-reply').style.display = 'inline-block';
-}
-
-// Функция отмены ответа
-function cancelReply() {
-    document.getElementById('parent_id').value = '';
-    document.getElementById('comment-content').value = '';
-    document.getElementById('cancel-reply').style.display = 'none';
-}
-
-// Функция удаления комментария
-function deleteComment(commentId) {
-    if (confirm('Вы уверены, что хотите удалить этот комментарий?')) {
-        fetch(`/comment/${commentId}/delete/`, {
-            method: 'POST',
-            headers: {
-                'X-CSRFToken': '{{ csrf_token }}',
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                const commentElement = document.getElementById(`comment-${commentId}`);
-                if (commentElement) {
-                    commentElement.remove();
-                    // Обновляем счетчик комментариев
-                    const commentsCount = document.getElementById('comments-count');
-                    if (commentsCount) {
-                        commentsCount.textContent = parseInt(commentsCount.textContent) - 1;
-                    }
-                }
-            } else {
-                alert('Ошибка удаления: ' + data.error);
-            }
-        })
-        .catch(error => {
-            alert('Ошибка: ' + error);
-        });
-    }
-}
-
-// Автофокус на поле комментария после отправки
-document.addEventListener('DOMContentLoaded', function() {
-    const commentForm = document.getElementById('comment-form');
-    if (commentForm) {
-        commentForm.addEventListener('submit', function() {
-            // Очищаем поле после отправки
-            setTimeout(function() {
-                document.getElementById('comment-content').value = '';
-                cancelReply();
-            }, 100);
-        });
-    }
-});
-</script>
-
-<!-- Теги/хештеги -->
-{% if article.tags.all %}
-<div class="tags-section" style="text-align: center; margin: 15px 0;">
-    <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 8px;">
-        {% for tag in article.tags.all %}
-        <a href="{% url 'wiki:search' %}?q={{ tag.name|urlencode }}"
-           class="tag"
-           style="background: rgba(23, 162, 184, 0.2); color: #17a2b8; padding: 5px 10px; border-radius: 15px; text-decoration: none; font-size: 0.85em; border: 1px solid rgba(23, 162, 184, 0.3);">
-            #{{ tag.name }}
-        </a>
-        {% endfor %}
-    </div>
-</div>
-{% endif %}
-    </div>
 
     <!-- Блок лайков -->
     <div class="like-section">
@@ -419,40 +296,132 @@ document.addEventListener('DOMContentLoaded', function() {
         </span>
     </div>
 
-    <!-- Медиа галерея -->
-    {% if media_files %}
-    <div class="media-gallery">
-        <h3 class="media-section-title">🖼️ Медиафайлы</h3>
-        <div class="media-grid">
-            {% for media in media_files %}
-            <div class="media-item" id="media-{{ media.id }}">
-                {% if media.file_type == 'image' %}
-                    <img src="{{ media.file.url }}" alt="" class="media-image"
-                         onclick="openLightbox('{{ media.file.url }}', '')">
-                {% elif media.file_type == 'video' %}
-                    <div class="media-video-container" onclick="playVideo(this, '{{ media.file.url }}', {{ media.id }})">
-                        <video class="media-video-preview" preload="metadata" muted loop>
+
+{% if media_files %}
+<div class="media-gallery" style="margin: 40px 0;">
+    <div class="media-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; justify-items: center;">
+        {% for media in media_files %}
+        <div class="media-item" id="media-{{ media.id }}"
+             style="background: #2d2d2d; border: 2px solid #D4AF37; border-radius: 12px; padding: 15px; max-width: 100%; display: flex; justify-content: center; align-items: center;">
+
+            {% if media.file_type == 'image' %}
+                <div class="media-image-container" style="text-align: center;">
+                    <img src="{{ media.file.url }}" alt="{{ media.title|default:'' }}"
+                         class="media-image"
+                         style="max-width: 100%; max-height: 400px; border-radius: 8px; cursor: pointer;"
+                         onclick="openLightbox('{{ media.file.url }}', '{{ media.title|default:"" }}')">
+                    {% if media.title %}
+                    <div class="media-caption" style="color: #D4AF37; margin-top: 10px; font-size: 0.9em;">
+                        {{ media.title }}
+                    </div>
+                    {% endif %}
+                </div>
+
+            {% elif media.file_type == 'video' %}
+                <div class="media-video-container" style="text-align: center; width: 100%;">
+                    <div class="video-wrapper"
+                         onclick="playVideo(this, '{{ media.file.url }}', {{ media.id }})"
+                         style="position: relative; cursor: pointer; background: #1a1a1a; border-radius: 8px; padding: 10px;">
+                        <video class="media-video-preview" preload="metadata" muted loop
+                               style="max-width: 100%; max-height: 300px; border-radius: 6px;">
                             <source src="{{ media.file.url }}" type="video/mp4">
                         </video>
-                        <div class="video-play-icon">▶</div>
+                        <div class="video-play-icon" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(212, 175, 55, 0.8); color: #1a1a1a; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5em; font-weight: bold;">
+                            ▶
+                        </div>
                     </div>
-                {% elif media.file_type == 'audio' %}
-                    <div class="media-audio">
-                        <audio controls style="width: 100%; height: 40px;">
+                    {% if media.title %}
+                    <div class="media-caption" style="color: #D4AF37; margin-top: 10px; font-size: 0.9em;">
+                        {{ media.title }}
+                    </div>
+                    {% endif %}
+                </div>
+
+            {% elif media.file_type == 'audio' %}
+                <div class="media-audio" style="text-align: center; width: 100%;">
+                    <div style="background: #1a1a1a; padding: 20px; border-radius: 8px;">
+                        <div style="color: #D4AF37; font-size: 2em; margin-bottom: 10px;">🎵</div>
+                        <audio controls style="width: 100%; max-width: 300px;">
                             <source src="{{ media.file.url }}" type="audio/mpeg">
                         </audio>
                     </div>
-                {% else %}
-                    <div class="media-document">
-                        <div class="media-document-icon">📄</div>
-                        <div style="color: #D4AF37; font-weight: bold;">Документ</div>
+                    {% if media.title %}
+                    <div class="media-caption" style="color: #D4AF37; margin-top: 10px; font-size: 0.9em;">
+                        {{ media.title }}
                     </div>
-                {% endif %}
-            </div>
+                    {% endif %}
+                </div>
+
+            {% else %}
+                <div class="media-document" style="text-align: center; width: 100%;">
+                    <div style="background: #1a1a1a; padding: 30px; border-radius: 8px;">
+                        <div style="color: #D4AF37; font-size: 3em; margin-bottom: 10px;">📄</div>
+                        <div style="color: #D4AF37; font-weight: bold; margin-bottom: 10px;">Документ</div>
+                        {% if media.title %}
+                        <div style="color: #e8e8e8; font-size: 0.9em;">{{ media.title }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+    <!-- Секция комментариев -->
+    <div class="comments-section" style="margin-top: 40px;">
+        <h3 style="color: #D4AF37; border-bottom: 2px solid #D4AF37; padding-bottom: 10px; margin-bottom: 20px;">
+            💬 Комментарии (<span id="comments-count">{{ comments.count }}</span>)
+        </h3>
+
+        <!-- Форма добавления комментария -->
+        {% if user.is_authenticated %}
+        <div class="comment-form-container" style="background: rgba(212, 175, 55, 0.1); padding: 20px; border-radius: 10px; margin-bottom: 30px;">
+            <h4 style="color: #D4AF37; margin-bottom: 15px;">Оставить комментарий</h4>
+            <form method="post" class="comment-form" id="comment-form">
+                {% csrf_token %}
+                <input type="hidden" name="parent_id" id="parent_id" value="">
+
+                <div class="form-group">
+                    <textarea name="content" id="comment-content" class="form-control"
+                             placeholder="Напишите ваш комментарий..."
+                             rows="4"
+                             style="width: 100%; background: #1a1a1a; color: #e8e8e8; border: 1px solid #444; border-radius: 8px; padding: 12px;"
+                             required></textarea>
+                </div>
+
+                <button type="submit" class="btn" style="background: #D4AF37; color: #1a1a1a; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold;">
+                    📝 Отправить комментарий
+                </button>
+
+                <button type="button" id="cancel-reply" onclick="cancelReply()"
+                        style="background: #6b7280; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold; margin-left: 10px; display: none;">
+                    ❌ Отменить ответ
+                </button>
+            </form>
+        </div>
+        {% else %}
+        <div style="text-align: center; padding: 20px; background: rgba(212, 175, 55, 0.1); border-radius: 10px; margin-bottom: 30px;">
+            <p style="color: #D4AF37; margin-bottom: 15px;">💡 Войдите, чтобы оставить комментарий</p>
+            <a href="{% url 'login' %}?next={{ request.path }}" class="btn" style="background: #D4AF37; color: #1a1a1a; text-decoration: none; padding: 10px 20px; border-radius: 5px; font-weight: bold;">
+                🔐 Войти
+            </a>
+        </div>
+        {% endif %}
+
+        <!-- Список комментариев -->
+        <div class="comments-list" id="comments-list">
+            {% for comment in comments %}
+                {% include 'wiki/comment_item.html' with comment=comment %}
+            {% empty %}
+                <div style="text-align: center; padding: 40px; color: #888;">
+                    <p>💬 Пока нет комментариев. Будьте первым!</p>
+                </div>
             {% endfor %}
         </div>
     </div>
-    {% endif %}
 
     <!-- Кнопки действий -->
     <div class="action-buttons">
@@ -536,25 +505,55 @@ function changeImage(direction) {
 }
 
 // ВОСПРОИЗВЕДЕНИЕ ВИДЕО НА МЕСТЕ
+// ВОСПРОИЗВЕДЕНИЕ ВИДЕО НА МЕСТЕ
 function playVideo(container, videoSrc, mediaId) {
     // Останавливаем все другие видео
     stopAllVideos();
 
+    // Сохраняем оригинальный HTML для возможности восстановления
+    const originalHTML = container.innerHTML;
+    const videoWrapper = container.closest('.video-wrapper');
+
     // Создаем новый видеоплеер
     const videoHTML = `
-        <video controls autoplay class="video-playing">
+        <video controls autoplay class="video-playing"
+               style="max-width: 100%; max-height: 400px; border-radius: 8px;">
             <source src="${videoSrc}" type="video/mp4">
             Ваш браузер не поддерживает видео.
         </video>
+        <button class="video-close-btn"
+                onclick="restoreVideoPreview(this, '${originalHTML.replace(/'/g, "\\'")}')"
+                style="position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.7); color: white; border: none; border-radius: 50%; width: 30px; height: 30px; cursor: pointer; font-weight: bold;">
+            ×
+        </button>
     `;
 
-    // Заменяем превью на настоящий видеоплеер
-    container.outerHTML = videoHTML;
+    // Заменяем содержимое контейнера
+    container.innerHTML = videoHTML;
+    container.style.position = 'relative';
 
     // Добавляем класс к родительскому элементу для стилизации
     const mediaItem = document.getElementById(`media-${mediaId}`);
     if (mediaItem) {
         mediaItem.classList.add('video-playing');
+    }
+}
+
+// Функция восстановления превью видео
+function restoreVideoPreview(closeBtn, originalHTML) {
+    const container = closeBtn.parentElement;
+    container.innerHTML = originalHTML;
+
+    // Перезапускаем превью видео
+    const preview = container.querySelector('.media-video-preview');
+    if (preview) {
+        preview.play().catch(e => {});
+    }
+
+    // Убираем класс playing
+    const mediaItem = container.closest('.media-item');
+    if (mediaItem) {
+        mediaItem.classList.remove('video-playing');
     }
 }
 
@@ -636,6 +635,32 @@ function toggleArticleLike() {
                 likeButton.classList.remove('liked');
             }
             likesCount.textContent = data.likes_count;
+
+            // Проверяем, находится ли пользователь на странице "Понравившиеся"
+            const isOnLikedPage = window.location.pathname.includes('/liked-articles/');
+
+            // Если пользователь убрал лайк и находится на странице "Понравившиеся"
+            if (isOnLikedPage && data.was_liked && !data.liked) {
+                // Находим карточку статьи и удаляем её с анимацией
+                const articleCard = document.querySelector(`[data-article-slug="${articleSlug}"]`);
+                if (articleCard) {
+                    // Добавляем анимацию исчезновения
+                    articleCard.style.transition = 'all 0.3s ease';
+                    articleCard.style.opacity = '0';
+                    articleCard.style.transform = 'translateX(-100%)';
+
+                    // Удаляем карточку после анимации
+                    setTimeout(() => {
+                        articleCard.remove();
+
+                        // Обновляем счетчик статей
+                        updateLikedArticlesCount();
+
+                        // Показываем сообщение, если статей не осталось
+                        checkEmptyState();
+                    }, 300);
+                }
+            }
         }
     })
     .catch(error => {
@@ -646,5 +671,106 @@ function toggleArticleLike() {
         likeButton.disabled = false;
     });
 }
+
+// Функция обновления счетчика статей на странице "Понравившиеся"
+function updateLikedArticlesCount() {
+    const articlesCountElement = document.getElementById('liked-articles-count');
+    const articlesGrid = document.querySelector('.articles-grid');
+
+    if (articlesCountElement && articlesGrid) {
+        const currentCount = parseInt(articlesCountElement.textContent);
+        articlesCountElement.textContent = currentCount - 1;
+    }
+}
+
+// Функция проверки пустого состояния
+function checkEmptyState() {
+    const articlesGrid = document.querySelector('.articles-grid');
+    const emptyState = document.querySelector('.no-articles');
+
+    if (articlesGrid && articlesGrid.children.length === 0) {
+        if (!emptyState) {
+            const emptyHTML = `
+                <div class="no-articles" style="text-align: center; padding: 60px 20px; color: #888;">
+                    <div style="font-size: 4em; margin-bottom: 20px;">📚</div>
+                    <h3 style="color: #D4AF37; margin-bottom: 15px;">Понравившиеся статьи отсутствуют</h3>
+                    <p style="margin-bottom: 25px; font-size: 1.1em;">
+                        Статьи, которые вам понравятся, будут появляться здесь.
+                    </p>
+                    <a href="{% url 'wiki:home' %}" class="btn"
+                       style="background: #D4AF37; color: #1a1a1a; text-decoration: none; padding: 12px 24px; border-radius: 8px; font-weight: bold;">
+                        🔍 Найти интересные статьи
+                    </a>
+                </div>
+            `;
+            articlesGrid.innerHTML = emptyHTML;
+        }
+    }
+}
+
+// Функция для ответа на комментарий
+function replyToComment(commentId, authorName) {
+    document.getElementById('parent_id').value = commentId;
+    const textarea = document.getElementById('comment-content');
+    textarea.value = `@${authorName}, `;
+    textarea.focus();
+    textarea.scrollIntoView({ behavior: 'smooth' });
+
+    // Показываем кнопку отмены
+    document.getElementById('cancel-reply').style.display = 'inline-block';
+}
+
+// Функция отмены ответа
+function cancelReply() {
+    document.getElementById('parent_id').value = '';
+    document.getElementById('comment-content').value = '';
+    document.getElementById('cancel-reply').style.display = 'none';
+}
+
+// Функция удаления комментария
+function deleteComment(commentId) {
+    if (confirm('Вы уверены, что хотите удалить этот комментарий?')) {
+        fetch(`/comment/${commentId}/delete/`, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}',
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const commentElement = document.getElementById(`comment-${commentId}`);
+                if (commentElement) {
+                    commentElement.remove();
+                    // Обновляем счетчик комментариев
+                    const commentsCount = document.getElementById('comments-count');
+                    if (commentsCount) {
+                        commentsCount.textContent = parseInt(commentsCount.textContent) - 1;
+                    }
+                }
+            } else {
+                alert('Ошибка удаления: ' + data.error);
+            }
+        })
+        .catch(error => {
+            alert('Ошибка: ' + error);
+        });
+    }
+}
+
+// Автофокус на поле комментария после отправки
+document.addEventListener('DOMContentLoaded', function() {
+    const commentForm = document.getElementById('comment-form');
+    if (commentForm) {
+        commentForm.addEventListener('submit', function() {
+            // Очищаем поле после отправки
+            setTimeout(function() {
+                document.getElementById('comment-content').value = '';
+                cancelReply();
+            }, 100);
+        });
+    }
+});
 </script>
 {% endblock %}
