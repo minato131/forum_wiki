@@ -1,0 +1,182 @@
+<!-- templates/wiki/editor_dashboard.html - СОЗДАТЬ новый файл -->
+{% extends 'base.html' %}
+
+{% block title %}Панель редактора | Форум по Вселенной Ведьмака{% endblock %}
+
+{% block content %}
+<style>
+    .editor-dashboard {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+        margin-bottom: 30px;
+    }
+
+    .stat-card {
+        background: rgba(23, 162, 184, 0.1);
+        border: 1px solid #17a2b8;
+        border-radius: 10px;
+        padding: 20px;
+        text-align: center;
+    }
+
+    .stat-number {
+        color: #17a2b8;
+        font-size: 2em;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    .stat-label {
+        color: #ccc;
+        font-size: 0.9em;
+    }
+
+    .articles-grid {
+        display: grid;
+        gap: 20px;
+    }
+
+    .article-card {
+        background: rgba(23, 162, 184, 0.1);
+        border: 1px solid #17a2b8;
+        border-radius: 10px;
+        padding: 20px;
+        transition: all 0.3s ease;
+    }
+
+    .article-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(23, 162, 184, 0.2);
+    }
+
+    .article-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: start;
+        margin-bottom: 15px;
+        gap: 15px;
+    }
+
+    .article-title {
+        color: #17a2b8;
+        font-family: 'Cinzel', serif;
+        font-size: 1.3em;
+        margin: 0;
+        flex: 1;
+    }
+
+    .article-meta {
+        color: #888;
+        font-size: 0.9em;
+        margin-bottom: 15px;
+    }
+
+    .action-buttons {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .btn {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 5px;
+        text-decoration: none;
+        font-size: 0.9em;
+        transition: all 0.3s ease;
+    }
+
+    .btn-edit {
+        background: #17a2b8;
+        color: white;
+        font-weight: bold;
+    }
+
+    .btn-edit:hover {
+        background: #138496;
+    }
+
+    .btn-view {
+        background: #6c757d;
+        color: white;
+    }
+
+    .btn-view:hover {
+        background: #545b62;
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 60px 20px;
+        color: #888;
+    }
+</style>
+
+<div class="editor-dashboard">
+    <h1 style="color: #17a2b8; font-family: 'Cinzel', serif; text-align: center; margin-bottom: 30px;">
+        📝 Панель редактора
+    </h1>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-number">{{ waiting_count }}</div>
+            <div class="stat-label">⏳ Ожидают правки</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">{{ edited_count }}</div>
+            <div class="stat-label">✅ Отредактировано</div>
+        </div>
+    </div>
+
+    <h2 style="color: #17a2b8; margin-bottom: 20px;">📋 Статьи для редактуры</h2>
+
+    {% if editor_articles %}
+    <div class="articles-grid">
+        {% for article in editor_articles %}
+        <div class="article-card">
+            <div class="article-header">
+                <h3 class="article-title">{{ article.title }}</h3>
+                <span style="background: #17a2b8; color: white; padding: 4px 8px; border-radius: 12px; font-size: 0.8em;">
+                    📝 На редактуре
+                </span>
+            </div>
+
+            <div class="article-meta">
+                <span>👤 {{ article.author.username }}</span> •
+                <span>📅 {{ article.created_at|date:"d.m.Y H:i" }}</span> •
+                <span>🏷️ {% for category in article.categories.all %}{{ category.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</span>
+            </div>
+
+            {% if article.moderation_notes %}
+            <div style="color: #ffc107; font-size: 0.9em; margin-bottom: 10px;">
+                <strong>Замечания модератора:</strong> {{ article.moderation_notes|truncatewords:20 }}
+            </div>
+            {% endif %}
+
+            <div class="action-buttons">
+                <a href="{% url 'wiki:editor_review' article.slug %}" class="btn btn-edit">
+                    ✏️ Редактировать
+                </a>
+                <a href="{% url 'wiki:article_detail' article.slug %}" class="btn btn-view">
+                    👁️ Просмотреть
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state">
+        <div style="font-size: 4em; margin-bottom: 20px;">✅</div>
+        <h3 style="color: #17a2b8; margin-bottom: 15px;">Нет статей для редактуры</h3>
+        <p>В настоящее время нет статей, ожидающих редактуры.</p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -239,6 +239,19 @@
         {% endif %}
     </div>
 
+    {% if messages %}
+<div class="messages-container" style="margin-bottom: 20px;">
+    {% for message in messages %}
+    <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}"
+         style="padding: 12px; border-radius: 8px; margin-bottom: 10px;
+                {% if message.tags == 'success' %}background: rgba(34, 197, 94, 0.2); color: #22c55e; border: 1px solid #22c55e;{% endif %}
+                {% if message.tags == 'error' %}background: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1px solid #ef4444;{% endif %}">
+        {{ message }}
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
     <!-- Главное изображение -->
     {% if article.featured_image %}
     <div class="featured-image">
@@ -250,6 +263,144 @@
     <!-- Контент статьи -->
     <div class="article-content">
         {{ article.content|safe }}
+        <!-- article_detail.html - ДОБАВИТЬ в конец блока content, перед закрывающим div -->
+
+<!-- article_detail.html - ОБНОВИТЬ форму комментариев -->
+
+<!-- Секция комментариев -->
+<div class="comments-section" style="margin-top: 40px;">
+    <h3 style="color: #D4AF37; border-bottom: 2px solid #D4AF37; padding-bottom: 10px; margin-bottom: 20px;">
+        💬 Комментарии (<span id="comments-count">{{ comments.count }}</span>)
+    </h3>
+
+    <!-- Форма добавления комментария -->
+    {% if user.is_authenticated %}
+    <div class="comment-form-container" style="background: rgba(212, 175, 55, 0.1); padding: 20px; border-radius: 10px; margin-bottom: 30px;">
+        <h4 style="color: #D4AF37; margin-bottom: 15px;">Оставить комментарий</h4>
+        <form method="post" class="comment-form" id="comment-form">
+            {% csrf_token %}
+            <input type="hidden" name="parent_id" id="parent_id" value="">
+
+            <div class="form-group">
+                <textarea name="content" id="comment-content" class="form-control"
+                         placeholder="Напишите ваш комментарий..."
+                         rows="4"
+                         style="width: 100%; background: #1a1a1a; color: #e8e8e8; border: 1px solid #444; border-radius: 8px; padding: 12px;"
+                         required></textarea>
+            </div>
+
+            <button type="submit" class="btn" style="background: #D4AF37; color: #1a1a1a; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold;">
+                📝 Отправить комментарий
+            </button>
+
+            <button type="button" id="cancel-reply" onclick="cancelReply()"
+                    style="background: #6b7280; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold; margin-left: 10px; display: none;">
+                ❌ Отменить ответ
+            </button>
+        </form>
+    </div>
+    {% else %}
+    <div style="text-align: center; padding: 20px; background: rgba(212, 175, 55, 0.1); border-radius: 10px; margin-bottom: 30px;">
+        <p style="color: #D4AF37; margin-bottom: 15px;">💡 Войдите, чтобы оставить комментарий</p>
+        <a href="{% url 'login' %}?next={{ request.path }}" class="btn" style="background: #D4AF37; color: #1a1a1a; text-decoration: none; padding: 10px 20px; border-radius: 5px; font-weight: bold;">
+            🔐 Войти
+        </a>
+    </div>
+    {% endif %}
+
+    <!-- Список комментариев -->
+    <div class="comments-list" id="comments-list">
+        {% for comment in comments %}
+            {% include 'wiki/comment_item.html' with comment=comment %}
+        {% empty %}
+            <div style="text-align: center; padding: 40px; color: #888;">
+                <p>💬 Пока нет комментариев. Будьте первым!</p>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<script>
+// Функция для ответа на комментарий
+function replyToComment(commentId, authorName) {
+    document.getElementById('parent_id').value = commentId;
+    const textarea = document.getElementById('comment-content');
+    textarea.value = `@${authorName}, `;
+    textarea.focus();
+    textarea.scrollIntoView({ behavior: 'smooth' });
+
+    // Показываем кнопку отмены
+    document.getElementById('cancel-reply').style.display = 'inline-block';
+}
+
+// Функция отмены ответа
+function cancelReply() {
+    document.getElementById('parent_id').value = '';
+    document.getElementById('comment-content').value = '';
+    document.getElementById('cancel-reply').style.display = 'none';
+}
+
+// Функция удаления комментария
+function deleteComment(commentId) {
+    if (confirm('Вы уверены, что хотите удалить этот комментарий?')) {
+        fetch(`/comment/${commentId}/delete/`, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}',
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const commentElement = document.getElementById(`comment-${commentId}`);
+                if (commentElement) {
+                    commentElement.remove();
+                    // Обновляем счетчик комментариев
+                    const commentsCount = document.getElementById('comments-count');
+                    if (commentsCount) {
+                        commentsCount.textContent = parseInt(commentsCount.textContent) - 1;
+                    }
+                }
+            } else {
+                alert('Ошибка удаления: ' + data.error);
+            }
+        })
+        .catch(error => {
+            alert('Ошибка: ' + error);
+        });
+    }
+}
+
+// Автофокус на поле комментария после отправки
+document.addEventListener('DOMContentLoaded', function() {
+    const commentForm = document.getElementById('comment-form');
+    if (commentForm) {
+        commentForm.addEventListener('submit', function() {
+            // Очищаем поле после отправки
+            setTimeout(function() {
+                document.getElementById('comment-content').value = '';
+                cancelReply();
+            }, 100);
+        });
+    }
+});
+</script>
+
+<!-- Теги/хештеги -->
+{% if article.tags.all %}
+<div class="tags-section" style="text-align: center; margin: 15px 0;">
+    <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 8px;">
+        {% for tag in article.tags.all %}
+        <a href="{% url 'wiki:search' %}?q={{ tag.name|urlencode }}"
+           class="tag"
+           style="background: rgba(23, 162, 184, 0.2); color: #17a2b8; padding: 5px 10px; border-radius: 15px; text-decoration: none; font-size: 0.85em; border: 1px solid rgba(23, 162, 184, 0.3);">
+            #{{ tag.name }}
+        </a>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
     </div>
 
     <!-- Блок лайков -->

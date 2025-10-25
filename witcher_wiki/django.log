@@ -6541,3 +6541,498 @@ INFO 2025-10-24 21:42:30,985 autoreload C:\Users\User\PycharmProjects\pythonProj
 INFO 2025-10-24 21:42:31,677 autoreload Watching for file changes with StatReloader
 INFO 2025-10-24 21:42:59,052 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\models.py changed, reloading.
 INFO 2025-10-24 21:42:59,700 autoreload Watching for file changes with StatReloader
+INFO 2025-10-24 22:26:07,398 autoreload Watching for file changes with StatReloader
+INFO 2025-10-24 22:26:08,921 basehttp "GET / HTTP/1.1" 200 27490
+INFO 2025-10-24 22:26:12,537 basehttp "GET /moderation/ HTTP/1.1" 200 25158
+INFO 2025-10-24 22:26:13,836 basehttp "GET /liked-articles/ HTTP/1.1" 200 38055
+INFO 2025-10-24 22:26:14,530 basehttp "GET /my-articles/ HTTP/1.1" 200 29163
+INFO 2025-10-24 22:26:15,474 basehttp "GET /category/locations/ HTTP/1.1" 200 25384
+INFO 2025-10-24 22:26:16,024 basehttp "GET /category/monsters/ HTTP/1.1" 200 24819
+INFO 2025-10-24 22:26:16,832 basehttp "GET /category/characters/ HTTP/1.1" 200 25417
+INFO 2025-10-24 22:26:17,561 basehttp "GET /search/ HTTP/1.1" 200 27958
+INFO 2025-10-24 22:26:18,557 basehttp "GET /search/ HTTP/1.1" 200 27958
+INFO 2025-10-24 22:26:19,402 basehttp "GET /search/ HTTP/1.1" 200 27958
+INFO 2025-10-24 22:26:19,839 basehttp "GET /category/characters/ HTTP/1.1" 200 25417
+INFO 2025-10-24 22:26:21,108 basehttp "GET /category/monsters/ HTTP/1.1" 200 24819
+INFO 2025-10-24 22:26:21,429 basehttp "GET /category/locations/ HTTP/1.1" 200 25384
+INFO 2025-10-24 22:26:23,434 basehttp "GET /article/kaer-morkhen/ HTTP/1.1" 200 41006
+INFO 2025-10-24 22:26:33,073 basehttp "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-10-24 22:26:33,119 basehttp "GET / HTTP/1.1" 200 26040
+INFO 2025-10-24 22:26:33,857 basehttp "GET /accounts/login/ HTTP/1.1" 200 23961
+INFO 2025-10-24 22:26:36,632 basehttp "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-10-24 22:26:36,686 basehttp "GET / HTTP/1.1" 200 26930
+INFO 2025-10-24 22:26:49,218 basehttp "GET /my-articles/ HTTP/1.1" 200 26949
+INFO 2025-10-24 22:26:50,931 basehttp "GET /article/create/ HTTP/1.1" 200 36812
+INFO 2025-10-24 22:31:02,511 basehttp "POST /article/create/ HTTP/1.1" 200 39149
+INFO 2025-10-24 22:31:07,340 basehttp "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-10-24 22:31:07,388 basehttp "GET / HTTP/1.1" 200 26040
+INFO 2025-10-24 22:31:08,893 basehttp "GET /accounts/login/ HTTP/1.1" 200 23961
+INFO 2025-10-24 22:31:12,694 basehttp "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-10-24 22:31:12,746 basehttp "GET / HTTP/1.1" 200 27490
+INFO 2025-10-24 22:31:15,335 basehttp "GET /admin/ HTTP/1.1" 200 13414
+INFO 2025-10-24 22:31:18,971 basehttp "GET /admin/auth/user/add/ HTTP/1.1" 200 16710
+INFO 2025-10-24 22:31:19,048 basehttp "GET /static/admin/css/forms.css HTTP/1.1" 200 8525
+INFO 2025-10-24 22:31:19,071 basehttp "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 200 9777
+INFO 2025-10-24 22:31:19,074 basehttp "GET /static/admin/js/jquery.init.js HTTP/1.1" 200 347
+INFO 2025-10-24 22:31:19,080 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-10-24 22:31:19,081 basehttp "GET /static/admin/css/widgets.css HTTP/1.1" 200 11973
+INFO 2025-10-24 22:31:19,089 basehttp "GET /static/admin/css/unusable_password_field.css HTTP/1.1" 200 663
+INFO 2025-10-24 22:31:19,096 basehttp "GET /static/admin/js/core.js HTTP/1.1" 200 6208
+INFO 2025-10-24 22:31:19,097 basehttp "GET /static/admin/js/actions.js HTTP/1.1" 200 8076
+INFO 2025-10-24 22:31:19,100 basehttp "GET /static/admin/js/prepopulate.js HTTP/1.1" 200 1531
+INFO 2025-10-24 22:31:19,100 basehttp "GET /static/admin/js/urlify.js HTTP/1.1" 200 7887
+INFO 2025-10-24 22:31:19,110 basehttp "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 200 586
+INFO 2025-10-24 22:31:19,133 basehttp "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 285314
+INFO 2025-10-24 22:31:19,157 basehttp "GET /static/admin/js/change_form.js HTTP/1.1" 200 606
+INFO 2025-10-24 22:31:19,179 basehttp "GET /static/admin/js/unusable_password_field.js HTTP/1.1" 200 1480
+INFO 2025-10-24 22:31:19,192 basehttp "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 325171
+INFO 2025-10-24 22:31:25,201 basehttp "GET /admin/auth/group/ HTTP/1.1" 200 11625
+INFO 2025-10-24 22:31:25,228 basehttp "GET /static/admin/img/search.svg HTTP/1.1" 200 458
+INFO 2025-10-24 22:31:25,228 basehttp "GET /static/admin/css/changelists.css HTTP/1.1" 200 6878
+INFO 2025-10-24 22:31:25,244 basehttp "GET /static/admin/js/filters.js HTTP/1.1" 200 978
+INFO 2025-10-24 22:31:25,264 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-10-24 22:31:25,291 basehttp "GET /static/admin/img/tooltag-add.svg HTTP/1.1" 200 331
+INFO 2025-10-24 22:31:28,582 basehttp "GET /admin/auth/user/ HTTP/1.1" 200 16966
+INFO 2025-10-24 22:31:28,607 basehttp "GET /static/admin/img/icon-no.svg HTTP/1.1" 200 560
+INFO 2025-10-24 22:31:28,607 basehttp "GET /static/admin/img/icon-yes.svg HTTP/1.1" 200 436
+INFO 2025-10-24 22:31:28,746 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-10-24 22:31:28,773 basehttp "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 200 581
+INFO 2025-10-24 22:31:28,774 basehttp "GET /static/admin/img/sorting-icons.svg HTTP/1.1" 200 1097
+INFO 2025-10-24 22:31:35,519 basehttp "GET /admin/auth/user/add/ HTTP/1.1" 200 16710
+INFO 2025-10-24 22:31:35,684 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-10-24 22:31:58,281 basehttp "POST /admin/auth/user/add/ HTTP/1.1" 200 17103
+INFO 2025-10-24 22:31:58,447 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-10-24 22:32:10,348 basehttp "POST /admin/auth/user/add/ HTTP/1.1" 302 0
+INFO 2025-10-24 22:32:10,476 basehttp "GET /admin/auth/user/4/change/ HTTP/1.1" 200 32201
+INFO 2025-10-24 22:32:10,514 basehttp "GET /static/admin/js/calendar.js HTTP/1.1" 200 9141
+INFO 2025-10-24 22:32:10,514 basehttp "GET /static/admin/js/SelectFilter2.js HTTP/1.1" 200 15845
+INFO 2025-10-24 22:32:10,514 basehttp "GET /static/admin/js/SelectBox.js HTTP/1.1" 200 4530
+INFO 2025-10-24 22:32:10,514 basehttp "GET /static/admin/js/admin/DateTimeShortcuts.js HTTP/1.1" 200 19319
+INFO 2025-10-24 22:32:10,646 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-10-24 22:32:10,700 basehttp "GET /static/admin/img/icon-calendar.svg HTTP/1.1" 200 1086
+INFO 2025-10-24 22:32:10,700 basehttp "GET /static/admin/img/icon-clock.svg HTTP/1.1" 200 677
+INFO 2025-10-24 22:32:10,700 basehttp "GET /static/admin/img/selector-icons.svg HTTP/1.1" 200 3291
+INFO 2025-10-24 22:32:12,772 basehttp "GET /admin/auth/user/ HTTP/1.1" 200 17478
+INFO 2025-10-24 22:32:12,938 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-10-24 22:32:14,058 basehttp "GET /admin/auth/user/4/change/ HTTP/1.1" 200 31900
+INFO 2025-10-24 22:32:14,116 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-10-24 22:33:19,747 basehttp "GET / HTTP/1.1" 200 27490
+INFO 2025-10-24 22:33:22,436 basehttp "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-10-24 22:33:22,482 basehttp "GET / HTTP/1.1" 200 26040
+INFO 2025-10-24 22:33:23,064 basehttp "GET /search/ HTTP/1.1" 200 26607
+INFO 2025-10-24 22:33:24,188 basehttp "GET /accounts/login/ HTTP/1.1" 200 23961
+INFO 2025-10-24 22:33:26,469 basehttp "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-10-24 22:33:26,527 basehttp "GET / HTTP/1.1" 200 26930
+INFO 2025-10-24 22:33:27,217 basehttp "GET /my-articles/ HTTP/1.1" 200 27433
+INFO 2025-10-25 21:09:31,896 autoreload Watching for file changes with StatReloader
+INFO 2025-10-25 21:09:33,310 basehttp "GET / HTTP/1.1" 200 26930
+INFO 2025-10-25 21:09:33,469 basehttp "GET /static/css/style.css HTTP/1.1" 304 0
+WARNING 2025-10-25 21:09:33,739 log Not Found: /favicon.ico
+WARNING 2025-10-25 21:09:33,739 basehttp "GET /favicon.ico HTTP/1.1" 404 10232
+INFO 2025-10-25 21:09:37,714 basehttp "GET /my-articles/ HTTP/1.1" 200 27433
+INFO 2025-10-25 21:09:44,711 basehttp "GET /article/novigrad/ HTTP/1.1" 200 36732
+INFO 2025-10-25 21:09:44,827 basehttp "GET /media/article_media/video_2025-10-24_22-30-32.mp4 HTTP/1.1" 200 324946
+INFO 2025-10-25 21:10:08,878 basehttp "GET /category/monsters/ HTTP/1.1" 200 24358
+INFO 2025-10-25 21:10:09,670 basehttp "GET /category/characters/ HTTP/1.1" 200 24956
+INFO 2025-10-25 21:10:13,621 basehttp "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-10-25 21:10:13,671 basehttp "GET / HTTP/1.1" 200 26040
+INFO 2025-10-25 21:10:14,803 basehttp "GET /accounts/login/ HTTP/1.1" 200 23961
+INFO 2025-10-25 21:10:17,844 basehttp "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-10-25 21:10:17,898 basehttp "GET / HTTP/1.1" 200 27490
+INFO 2025-10-25 21:10:20,936 basehttp "GET /admin/ HTTP/1.1" 200 13784
+INFO 2025-10-25 21:10:23,016 basehttp "GET /moderation/ HTTP/1.1" 200 26347
+INFO 2025-10-25 21:10:27,367 basehttp "GET /article/novigrad/moderate/ HTTP/1.1" 200 34082
+INFO 2025-10-25 21:10:43,640 basehttp "GET /article/novigrad/ HTTP/1.1" 200 37193
+INFO 2025-10-25 21:10:45,204 basehttp "GET /article/novigrad/moderate/ HTTP/1.1" 200 34082
+INFO 2025-10-25 21:11:08,000 basehttp "GET /article/novigrad/moderate/ HTTP/1.1" 200 34082
+INFO 2025-10-25 21:11:08,022 basehttp "GET /static/css/style.css HTTP/1.1" 200 8975
+WARNING 2025-10-25 21:11:08,334 log Not Found: /favicon.ico
+WARNING 2025-10-25 21:11:08,334 basehttp "GET /favicon.ico HTTP/1.1" 404 10232
+INFO 2025-10-25 21:12:09,801 basehttp "GET /article/novigrad/moderate/ HTTP/1.1" 200 34082
+INFO 2025-10-25 21:12:10,002 basehttp "GET /article/novigrad/moderate/ HTTP/1.1" 200 34082
+INFO 2025-10-25 21:12:10,412 basehttp "GET /article/novigrad/moderate/ HTTP/1.1" 200 34082
+INFO 2025-10-25 21:12:12,912 basehttp "GET /article/novigrad/moderate/ HTTP/1.1" 200 34082
+INFO 2025-10-25 21:12:42,389 basehttp "GET /article/novigrad/moderate/ HTTP/1.1" 200 34082
+INFO 2025-10-25 21:12:52,258 basehttp "GET /article/novigrad/moderate/ HTTP/1.1" 200 34082
+INFO 2025-10-25 21:13:22,921 basehttp "GET /article/novigrad/moderate/ HTTP/1.1" 200 34082
+INFO 2025-10-25 21:13:35,995 basehttp "GET /admin/ HTTP/1.1" 200 13784
+INFO 2025-10-25 21:13:38,564 basehttp "GET /admin/auth/user/ HTTP/1.1" 200 17478
+INFO 2025-10-25 21:13:38,589 basehttp "GET /static/admin/css/changelists.css HTTP/1.1" 304 0
+INFO 2025-10-25 21:13:38,596 basehttp "GET /static/admin/js/jquery.init.js HTTP/1.1" 304 0
+INFO 2025-10-25 21:13:38,596 basehttp "GET /static/admin/js/actions.js HTTP/1.1" 304 0
+INFO 2025-10-25 21:13:38,596 basehttp "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 304 0
+INFO 2025-10-25 21:13:38,596 basehttp "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 304 0
+INFO 2025-10-25 21:13:38,597 basehttp "GET /static/admin/js/core.js HTTP/1.1" 304 0
+INFO 2025-10-25 21:13:38,598 basehttp "GET /static/admin/js/urlify.js HTTP/1.1" 304 0
+INFO 2025-10-25 21:13:38,599 basehttp "GET /static/admin/js/prepopulate.js HTTP/1.1" 304 0
+INFO 2025-10-25 21:13:38,599 basehttp "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 304 0
+INFO 2025-10-25 21:13:38,661 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-10-25 21:13:38,711 basehttp "GET /static/admin/img/search.svg HTTP/1.1" 304 0
+INFO 2025-10-25 21:13:38,711 basehttp "GET /static/admin/img/icon-no.svg HTTP/1.1" 304 0
+INFO 2025-10-25 21:13:38,714 basehttp "GET /static/admin/img/icon-yes.svg HTTP/1.1" 304 0
+INFO 2025-10-25 21:13:38,715 basehttp "GET /static/admin/js/filters.js HTTP/1.1" 304 0
+INFO 2025-10-25 21:13:38,727 basehttp "GET /static/admin/img/tooltag-add.svg HTTP/1.1" 304 0
+INFO 2025-10-25 21:13:38,728 basehttp "GET /static/admin/img/sorting-icons.svg HTTP/1.1" 304 0
+INFO 2025-10-25 21:13:38,728 basehttp "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 304 0
+INFO 2025-10-25 21:13:56,955 basehttp "GET /admin/auth/user/?is_superuser__exact=1 HTTP/1.1" 200 17183
+INFO 2025-10-25 21:13:57,117 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-10-25 21:14:02,484 basehttp "GET /admin/auth/user/ HTTP/1.1" 200 17478
+INFO 2025-10-25 21:14:02,544 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-10-25 21:14:04,673 basehttp "POST /admin/auth/user/ HTTP/1.1" 302 0
+INFO 2025-10-25 21:14:04,855 basehttp "GET /admin/auth/user/ HTTP/1.1" 200 17748
+INFO 2025-10-25 21:14:05,020 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-10-25 21:14:05,041 basehttp "GET /static/admin/img/icon-alert.svg HTTP/1.1" 200 504
+INFO 2025-10-25 21:14:07,684 basehttp "GET /admin/auth/user/4/change/ HTTP/1.1" 200 31900
+INFO 2025-10-25 21:14:07,705 basehttp "GET /static/admin/css/forms.css HTTP/1.1" 304 0
+INFO 2025-10-25 21:14:07,706 basehttp "GET /static/admin/js/calendar.js HTTP/1.1" 304 0
+INFO 2025-10-25 21:14:07,706 basehttp "GET /static/admin/js/admin/DateTimeShortcuts.js HTTP/1.1" 304 0
+INFO 2025-10-25 21:14:07,706 basehttp "GET /static/admin/js/SelectFilter2.js HTTP/1.1" 304 0
+INFO 2025-10-25 21:14:07,706 basehttp "GET /static/admin/js/SelectBox.js HTTP/1.1" 304 0
+INFO 2025-10-25 21:14:07,724 basehttp "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 304 0
+INFO 2025-10-25 21:14:07,724 basehttp "GET /static/admin/css/widgets.css HTTP/1.1" 304 0
+INFO 2025-10-25 21:14:07,726 basehttp "GET /static/admin/js/change_form.js HTTP/1.1" 304 0
+INFO 2025-10-25 21:14:07,749 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-10-25 21:14:07,787 basehttp "GET /static/admin/img/icon-clock.svg HTTP/1.1" 304 0
+INFO 2025-10-25 21:14:07,787 basehttp "GET /static/admin/img/selector-icons.svg HTTP/1.1" 304 0
+INFO 2025-10-25 21:14:07,787 basehttp "GET /static/admin/img/icon-calendar.svg HTTP/1.1" 304 0
+INFO 2025-10-25 21:14:20,529 basehttp "POST /admin/auth/user/4/change/ HTTP/1.1" 302 0
+INFO 2025-10-25 21:14:20,706 basehttp "GET /admin/auth/user/4/change/ HTTP/1.1" 200 32210
+INFO 2025-10-25 21:14:20,871 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-10-25 21:14:24,688 basehttp "GET /admin/auth/user/ HTTP/1.1" 200 17478
+INFO 2025-10-25 21:14:24,746 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-10-25 21:14:31,682 basehttp "POST /admin/auth/user/ HTTP/1.1" 200 11580
+INFO 2025-10-25 21:14:31,712 basehttp "GET /static/admin/js/cancel.js HTTP/1.1" 200 884
+INFO 2025-10-25 21:14:32,852 basehttp "POST /admin/auth/user/ HTTP/1.1" 302 0
+INFO 2025-10-25 21:14:32,905 basehttp "GET /admin/auth/user/ HTTP/1.1" 200 17094
+INFO 2025-10-25 21:14:32,962 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-10-25 21:14:34,956 basehttp "GET /admin/auth/user/2/change/ HTTP/1.1" 200 32057
+INFO 2025-10-25 21:14:35,013 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-10-25 21:14:40,164 basehttp "GET /admin/auth/user/ HTTP/1.1" 200 16931
+INFO 2025-10-25 21:14:43,548 basehttp "GET /admin/auth/user/ HTTP/1.1" 200 16931
+INFO 2025-10-25 21:14:47,357 basehttp "GET / HTTP/1.1" 200 27490
+INFO 2025-10-25 21:14:50,962 basehttp "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-10-25 21:14:51,011 basehttp "GET / HTTP/1.1" 200 26040
+INFO 2025-10-25 21:14:52,178 basehttp "GET /accounts/login/ HTTP/1.1" 200 23961
+INFO 2025-10-25 21:15:10,293 basehttp "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-10-25 21:15:10,347 basehttp "GET / HTTP/1.1" 200 27484
+INFO 2025-10-25 21:15:15,364 basehttp "GET /moderation/ HTTP/1.1" 200 26341
+INFO 2025-10-25 21:15:16,859 basehttp "GET /article/novigrad/moderate/ HTTP/1.1" 200 34076
+INFO 2025-10-25 21:15:34,054 basehttp "GET /article/novigrad/moderate/ HTTP/1.1" 200 34076
+INFO 2025-10-25 21:16:09,748 basehttp "POST /article/novigrad/moderate/ HTTP/1.1" 302 0
+INFO 2025-10-25 21:16:09,799 basehttp "GET /moderation/ HTTP/1.1" 200 25491
+INFO 2025-10-25 21:16:12,200 basehttp "GET /moderation/ HTTP/1.1" 200 25152
+INFO 2025-10-25 21:18:02,833 basehttp "GET /categories/ HTTP/1.1" 200 33579
+INFO 2025-10-25 21:23:32,946 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\admin.py changed, reloading.
+INFO 2025-10-25 21:23:33,532 autoreload Watching for file changes with StatReloader
+INFO 2025-10-25 21:31:13,526 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\models.py changed, reloading.
+INFO 2025-10-25 21:31:14,034 autoreload Watching for file changes with StatReloader
+INFO 2025-10-25 21:31:23,541 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-10-25 21:31:24,078 autoreload Watching for file changes with StatReloader
+INFO 2025-10-25 21:31:52,115 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\models.py changed, reloading.
+INFO 2025-10-25 21:31:52,616 autoreload Watching for file changes with StatReloader
+INFO 2025-10-25 21:33:02,015 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-10-25 21:33:02,541 autoreload Watching for file changes with StatReloader
+INFO 2025-10-25 21:33:43,906 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-10-25 21:33:44,960 autoreload Watching for file changes with StatReloader
+INFO 2025-10-25 21:34:30,452 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\urls.py changed, reloading.
+INFO 2025-10-25 21:34:30,941 autoreload Watching for file changes with StatReloader
+INFO 2025-10-25 21:35:58,231 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-10-25 21:35:58,757 autoreload Watching for file changes with StatReloader
+INFO 2025-10-25 22:06:35,020 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\witcher_wiki\settings.py changed, reloading.
+INFO 2025-10-25 22:06:35,592 autoreload Watching for file changes with StatReloader
+INFO 2025-10-25 22:14:52,022 autoreload Watching for file changes with StatReloader
+INFO 2025-10-25 22:58:59,693 autoreload Watching for file changes with StatReloader
+INFO 2025-10-26 00:17:25,408 autoreload Watching for file changes with StatReloader
+INFO 2025-10-26 00:17:26,866 basehttp "GET / HTTP/1.1" 200 31769
+INFO 2025-10-26 00:17:33,090 basehttp "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-10-26 00:17:33,137 basehttp "GET / HTTP/1.1" 200 29655
+INFO 2025-10-26 00:17:33,902 basehttp "GET /accounts/login/ HTTP/1.1" 200 27576
+INFO 2025-10-26 00:17:37,848 basehttp "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-10-26 00:17:38,008 basehttp "GET / HTTP/1.1" 200 31775
+INFO 2025-10-26 00:17:40,817 basehttp "GET /admin/ HTTP/1.1" 200 16548
+INFO 2025-10-26 00:17:40,879 basehttp "GET /static/admin/img/icon-deletelink.svg HTTP/1.1" 200 392
+INFO 2025-10-26 00:17:48,717 basehttp "GET /admin/auth/user/ HTTP/1.1" 200 18408
+INFO 2025-10-26 00:17:48,894 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-10-26 00:17:52,086 basehttp "GET /admin/auth/user/4/change/ HTTP/1.1" 200 33421
+INFO 2025-10-26 00:17:52,254 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-10-26 00:28:20,233 basehttp "GET /admin/taggit/tag/add/ HTTP/1.1" 200 29678
+INFO 2025-10-26 00:28:20,280 basehttp "GET /static/admin/js/inlines.js HTTP/1.1" 200 15628
+INFO 2025-10-26 00:28:20,411 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-10-26 00:28:20,457 basehttp "GET /static/admin/img/inline-delete.svg HTTP/1.1" 200 537
+INFO 2025-10-26 00:28:26,296 basehttp "GET /admin/auth/user/ HTTP/1.1" 200 18408
+INFO 2025-10-26 00:28:26,359 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-10-26 00:28:27,387 basehttp "GET /admin/auth/group/ HTTP/1.1" 200 13102
+INFO 2025-10-26 00:28:27,555 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-10-26 00:28:30,271 basehttp "GET /admin/auth/group/add/ HTTP/1.1" 200 22394
+INFO 2025-10-26 00:28:30,344 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-10-26 00:28:34,988 basehttp "GET /admin/auth/group/ HTTP/1.1" 200 13102
+INFO 2025-10-26 00:29:00,548 basehttp "GET /admin/auth/group/add/ HTTP/1.1" 200 22394
+INFO 2025-10-26 00:29:00,606 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-10-26 00:29:04,996 basehttp "GET /admin/auth/group/ HTTP/1.1" 200 13102
+INFO 2025-10-26 00:29:05,785 basehttp "GET /admin/auth/user/ HTTP/1.1" 200 18408
+INFO 2025-10-26 00:29:06,414 basehttp "GET /admin/taggit/tag/add/ HTTP/1.1" 200 29678
+INFO 2025-10-26 00:29:09,865 basehttp "GET / HTTP/1.1" 200 31775
+INFO 2025-10-26 00:29:13,408 basehttp "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-10-26 00:29:13,455 basehttp "GET / HTTP/1.1" 200 29655
+INFO 2025-10-26 00:29:14,360 basehttp "GET /accounts/login/ HTTP/1.1" 200 27576
+INFO 2025-10-26 00:29:31,561 basehttp "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-10-26 00:29:31,612 basehttp "GET / HTTP/1.1" 200 31769
+INFO 2025-10-26 00:29:36,293 basehttp "GET /admin/ HTTP/1.1" 200 4913
+INFO 2025-10-26 00:29:38,479 basehttp "GET /editor/dashboard/ HTTP/1.1" 200 30697
+INFO 2025-10-26 00:29:41,353 basehttp "GET /article/novigrad/editor-review/ HTTP/1.1" 200 30456
+ERROR 2025-10-26 00:29:59,874 log Internal Server Error: /article/novigrad/
+Traceback (most recent call last):
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py", line 299, in article_detail
+    if article.status != 'published' and not article.can_edit(request.user):
+                                             ^^^^^^^^^^^^^^^^
+AttributeError: 'Article' object has no attribute 'can_edit'
+ERROR 2025-10-26 00:29:59,877 basehttp "GET /article/novigrad/ HTTP/1.1" 500 74840
+INFO 2025-10-26 00:30:05,145 basehttp "GET /article/novigrad/editor-review/ HTTP/1.1" 200 30456
+INFO 2025-10-26 00:30:17,943 basehttp "POST /article/novigrad/editor-review/ HTTP/1.1" 302 0
+INFO 2025-10-26 00:30:17,996 basehttp "GET /moderation/ HTTP/1.1" 200 29796
+INFO 2025-10-26 00:30:21,136 basehttp "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-10-26 00:30:21,184 basehttp "GET / HTTP/1.1" 200 29655
+INFO 2025-10-26 00:30:22,162 basehttp "GET /accounts/login/ HTTP/1.1" 200 27576
+INFO 2025-10-26 00:30:25,224 basehttp "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-10-26 00:30:25,281 basehttp "GET / HTTP/1.1" 200 30875
+INFO 2025-10-26 00:30:27,928 basehttp "GET /my-articles/ HTTP/1.1" 200 31383
+INFO 2025-10-26 00:30:32,997 basehttp "GET / HTTP/1.1" 200 30875
+INFO 2025-10-26 00:30:37,201 basehttp "GET /liked-articles/ HTTP/1.1" 200 39819
+INFO 2025-10-26 00:30:39,363 basehttp "GET /my-articles/ HTTP/1.1" 200 31383
+INFO 2025-10-26 00:30:48,558 basehttp "GET / HTTP/1.1" 200 30875
+INFO 2025-10-26 00:30:49,582 basehttp "GET /category/locations/ HTTP/1.1" 200 28868
+INFO 2025-10-26 00:30:50,171 basehttp "GET /my-articles/ HTTP/1.1" 200 31383
+ERROR 2025-10-26 00:30:51,234 log Internal Server Error: /article/novigrad/edit/
+Traceback (most recent call last):
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py", line 326, in article_edit
+    if not article.can_edit(request.user):
+           ^^^^^^^^^^^^^^^^
+AttributeError: 'Article' object has no attribute 'can_edit'
+ERROR 2025-10-26 00:30:51,236 basehttp "GET /article/novigrad/edit/ HTTP/1.1" 500 79495
+INFO 2025-10-26 00:32:17,783 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\admin.py changed, reloading.
+INFO 2025-10-26 00:32:18,404 autoreload Watching for file changes with StatReloader
+INFO 2025-10-26 00:39:50,659 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\admin.py changed, reloading.
+INFO 2025-10-26 00:39:51,732 autoreload Watching for file changes with StatReloader
+INFO 2025-10-26 00:45:40,877 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\admin.py changed, reloading.
+INFO 2025-10-26 00:45:41,451 autoreload Watching for file changes with StatReloader
+INFO 2025-10-26 00:59:49,693 autoreload Watching for file changes with StatReloader
+INFO 2025-10-26 00:59:51,208 basehttp "GET / HTTP/1.1" 200 30875
+INFO 2025-10-26 00:59:54,452 basehttp "GET /my-articles/ HTTP/1.1" 200 31383
+INFO 2025-10-26 00:59:58,405 basehttp "GET /category/monsters/ HTTP/1.1" 200 28303
+INFO 2025-10-26 00:59:58,935 basehttp "GET /category/characters/ HTTP/1.1" 200 28901
+INFO 2025-10-26 01:00:00,090 basehttp "GET /category/locations/ HTTP/1.1" 200 28868
+INFO 2025-10-26 01:00:00,896 basehttp "GET /category/characters/ HTTP/1.1" 200 28901
+INFO 2025-10-26 01:00:01,526 basehttp "GET /search/ HTTP/1.1" 200 31442
+INFO 2025-10-26 01:00:02,215 basehttp "GET /category/locations/ HTTP/1.1" 200 28868
+INFO 2025-10-26 01:00:02,780 basehttp "GET /my-articles/ HTTP/1.1" 200 31383
+INFO 2025-10-26 01:00:03,154 basehttp "GET /liked-articles/ HTTP/1.1" 200 39819
+INFO 2025-10-26 01:00:04,245 basehttp "GET /accounts/profile/ HTTP/1.1" 200 42854
+INFO 2025-10-26 01:00:04,332 basehttp "GET /media/avatars/avatars/user_3/avatar.png HTTP/1.1" 200 17330
+INFO 2025-10-26 01:09:37,266 basehttp "GET /my-articles/ HTTP/1.1" 200 31383
+INFO 2025-10-26 01:09:39,117 basehttp "GET /article/novigrad/edit/ HTTP/1.1" 200 26488
+INFO 2025-10-26 03:22:53,577 basehttp "GET /article/novigrad/edit/ HTTP/1.1" 200 26488
+INFO 2025-10-26 03:22:56,839 basehttp "GET /article/novigrad/ HTTP/1.1" 200 26478
+INFO 2025-10-26 03:22:58,987 basehttp "GET /accounts/profile/ HTTP/1.1" 200 42854
+INFO 2025-10-26 03:23:03,170 basehttp "GET /my-articles/ HTTP/1.1" 200 31383
+INFO 2025-10-26 03:23:06,834 basehttp "GET /article/novigrad/edit/ HTTP/1.1" 200 26488
+INFO 2025-10-26 03:23:08,628 basehttp "GET /liked-articles/ HTTP/1.1" 200 39819
+INFO 2025-10-26 03:23:09,001 basehttp "GET /my-articles/ HTTP/1.1" 200 31383
+INFO 2025-10-26 03:23:09,576 basehttp "GET /category/locations/ HTTP/1.1" 200 28868
+INFO 2025-10-26 03:23:15,302 basehttp "GET /search/ HTTP/1.1" 200 31442
+INFO 2025-10-26 03:23:16,522 basehttp "GET /category/characters/ HTTP/1.1" 200 28901
+INFO 2025-10-26 03:23:19,103 basehttp "GET /liked-articles/ HTTP/1.1" 200 39819
+INFO 2025-10-26 03:23:19,693 basehttp "GET /my-articles/ HTTP/1.1" 200 31383
+INFO 2025-10-26 03:23:20,723 basehttp "GET /search/ HTTP/1.1" 200 31442
+INFO 2025-10-26 03:23:22,787 basehttp "GET /accounts/profile/ HTTP/1.1" 200 42854
+INFO 2025-10-26 03:23:25,560 basehttp "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-10-26 03:23:25,608 basehttp "GET / HTTP/1.1" 200 29655
+INFO 2025-10-26 03:23:26,755 basehttp "GET /accounts/login/ HTTP/1.1" 200 27576
+INFO 2025-10-26 03:23:39,077 basehttp "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-10-26 03:23:39,237 basehttp "GET / HTTP/1.1" 200 30875
+INFO 2025-10-26 03:23:40,386 basehttp "GET /liked-articles/ HTTP/1.1" 200 39819
+INFO 2025-10-26 03:23:42,946 basehttp "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-10-26 03:23:42,995 basehttp "GET / HTTP/1.1" 200 29655
+INFO 2025-10-26 03:23:43,424 basehttp "GET /accounts/register/ HTTP/1.1" 200 28921
+INFO 2025-10-26 03:23:44,057 basehttp "GET /accounts/login/ HTTP/1.1" 200 27576
+INFO 2025-10-26 03:23:44,897 basehttp "GET /accounts/register/ HTTP/1.1" 200 28921
+INFO 2025-10-26 03:24:06,490 basehttp "GET /accounts/login/ HTTP/1.1" 200 27397
+INFO 2025-10-26 03:24:19,247 basehttp "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-10-26 03:24:19,300 basehttp "GET / HTTP/1.1" 200 31769
+INFO 2025-10-26 03:24:23,737 basehttp "GET /editor/dashboard/ HTTP/1.1" 200 30011
+INFO 2025-10-26 03:24:35,148 basehttp "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-10-26 03:24:35,308 basehttp "GET / HTTP/1.1" 200 29655
+INFO 2025-10-26 03:24:35,839 basehttp "GET /accounts/register/ HTTP/1.1" 200 28921
+INFO 2025-10-26 03:24:36,432 basehttp "GET /accounts/login/ HTTP/1.1" 200 27576
+INFO 2025-10-26 03:24:38,986 basehttp "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-10-26 03:24:39,037 basehttp "GET / HTTP/1.1" 200 31775
+INFO 2025-10-26 03:24:41,057 basehttp "GET /editor/dashboard/ HTTP/1.1" 200 30017
+INFO 2025-10-26 03:24:43,670 basehttp "GET /admin/ HTTP/1.1" 200 16548
+INFO 2025-10-26 03:24:46,576 basehttp "GET /admin/wiki/articlemedia/ HTTP/1.1" 200 16003
+INFO 2025-10-26 03:24:46,744 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-10-26 03:24:47,731 basehttp "GET /admin/ HTTP/1.1" 200 16548
+INFO 2025-10-26 03:25:04,909 basehttp "GET /moderation/ HTTP/1.1" 200 29443
+INFO 2025-10-26 03:25:06,276 basehttp "GET /editor/dashboard/ HTTP/1.1" 200 30017
+INFO 2025-10-26 03:25:07,667 basehttp "GET /liked-articles/ HTTP/1.1" 200 42340
+INFO 2025-10-26 03:25:09,801 basehttp "GET /moderation/ HTTP/1.1" 200 29443
+INFO 2025-10-26 03:25:11,078 basehttp "GET /editor/dashboard/ HTTP/1.1" 200 30017
+INFO 2025-10-26 03:25:11,546 basehttp "GET /admin/ HTTP/1.1" 200 16548
+INFO 2025-10-26 03:25:15,436 basehttp "GET /editor/dashboard/ HTTP/1.1" 200 30017
+INFO 2025-10-26 03:25:22,300 basehttp "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-10-26 03:25:22,346 basehttp "GET / HTTP/1.1" 200 29655
+INFO 2025-10-26 03:25:23,051 basehttp "GET /accounts/login/ HTTP/1.1" 200 27576
+INFO 2025-10-26 03:25:27,444 basehttp "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-10-26 03:25:27,611 basehttp "GET / HTTP/1.1" 200 30875
+INFO 2025-10-26 03:25:28,721 basehttp "GET /search/ HTTP/1.1" 200 31442
+INFO 2025-10-26 03:25:34,005 basehttp "GET /my-articles/ HTTP/1.1" 200 31383
+INFO 2025-10-26 03:50:10,136 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\models.py changed, reloading.
+INFO 2025-10-26 03:50:10,798 autoreload Watching for file changes with StatReloader
+INFO 2025-10-26 03:50:27,778 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-10-26 03:50:28,276 autoreload Watching for file changes with StatReloader
+INFO 2025-10-26 03:51:19,399 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\urls.py changed, reloading.
+INFO 2025-10-26 03:51:19,906 autoreload Watching for file changes with StatReloader
+INFO 2025-10-26 04:08:01,821 autoreload Watching for file changes with StatReloader
+INFO 2025-10-26 04:08:03,689 basehttp "GET / HTTP/1.1" 200 30875
+INFO 2025-10-26 04:08:13,146 basehttp "GET /article/kaer-morkhen/ HTTP/1.1" 200 47708
+INFO 2025-10-26 04:08:13,261 basehttp "GET /media/article_media/video_2025-10-24_04-00-59.mp4 HTTP/1.1" 304 0
+INFO 2025-10-26 04:08:13,262 basehttp "GET /media/article_media/video_2025-10-24_04-01-06.mp4 HTTP/1.1" 304 0
+INFO 2025-10-26 04:08:13,268 basehttp "GET /media/article_media/video_2025-10-24_04-01-03.mp4 HTTP/1.1" 304 0
+INFO 2025-10-26 04:08:29,328 basehttp "POST /article/kaer-morkhen/ HTTP/1.1" 200 47708
+INFO 2025-10-26 04:08:34,293 basehttp "POST /article/kaer-morkhen/ HTTP/1.1" 200 47708
+ERROR 2025-10-26 04:08:39,361 log Internal Server Error: /search/
+Traceback (most recent call last):
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py", line 129, in search
+    popular_queries = SearchQuery.objects.all().order_by('-count', '-last_searched')[:10]
+                      ^^^^^^^^^^^
+NameError: name 'SearchQuery' is not defined. Did you mean: 'SearchForm'?
+ERROR 2025-10-26 04:08:39,364 basehttp "GET /search/ HTTP/1.1" 500 74454
+INFO 2025-10-26 04:08:40,940 basehttp "GET /category/characters/ HTTP/1.1" 200 28901
+INFO 2025-10-26 04:08:41,935 basehttp "GET /category/monsters/ HTTP/1.1" 200 28303
+INFO 2025-10-26 04:08:42,601 basehttp "GET /category/locations/ HTTP/1.1" 200 28868
+INFO 2025-10-26 04:08:43,379 basehttp "GET /my-articles/ HTTP/1.1" 200 31383
+INFO 2025-10-26 04:08:44,016 basehttp "GET /liked-articles/ HTTP/1.1" 200 39819
+INFO 2025-10-26 04:08:44,699 basehttp "GET /category/characters/ HTTP/1.1" 200 28901
+INFO 2025-10-26 04:08:45,459 basehttp "GET /category/monsters/ HTTP/1.1" 200 28303
+INFO 2025-10-26 04:08:46,083 basehttp "GET /category/locations/ HTTP/1.1" 200 28868
+INFO 2025-10-26 04:08:46,784 basehttp "GET /category/monsters/ HTTP/1.1" 200 28303
+INFO 2025-10-26 04:08:47,336 basehttp "GET /my-articles/ HTTP/1.1" 200 31383
+INFO 2025-10-26 04:08:47,736 basehttp "GET /liked-articles/ HTTP/1.1" 200 39819
+INFO 2025-10-26 04:08:48,809 basehttp "GET /my-articles/ HTTP/1.1" 200 31383
+INFO 2025-10-26 04:08:50,271 basehttp "GET / HTTP/1.1" 200 30875
+ERROR 2025-10-26 04:08:52,116 log Internal Server Error: /search/
+Traceback (most recent call last):
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py", line 129, in search
+    popular_queries = SearchQuery.objects.all().order_by('-count', '-last_searched')[:10]
+                      ^^^^^^^^^^^
+NameError: name 'SearchQuery' is not defined. Did you mean: 'SearchForm'?
+ERROR 2025-10-26 04:08:52,119 basehttp "GET /search/ HTTP/1.1" 500 74433
+INFO 2025-10-26 04:09:43,498 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-10-26 04:09:44,017 autoreload Watching for file changes with StatReloader
+INFO 2025-10-26 04:09:47,303 autoreload Watching for file changes with StatReloader
+INFO 2025-10-26 04:09:48,505 basehttp "GET / HTTP/1.1" 200 30875
+INFO 2025-10-26 04:09:48,654 basehttp "GET /static/css/style.css HTTP/1.1" 304 0
+ERROR 2025-10-26 04:09:50,674 log Internal Server Error: /search/
+Traceback (most recent call last):
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py", line 129, in search
+    popular_queries = SearchForm.objects.all().order_by('-count', '-last_searched')[:10]
+                      ^^^^^^^^^^^^^^^^^^
+AttributeError: type object 'SearchForm' has no attribute 'objects'
+ERROR 2025-10-26 04:09:50,676 basehttp "GET /search/ HTTP/1.1" 500 74587
+INFO 2025-10-26 04:10:06,578 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-10-26 04:10:07,059 autoreload Watching for file changes with StatReloader
+INFO 2025-10-26 04:10:09,608 autoreload Watching for file changes with StatReloader
+INFO 2025-10-26 04:10:10,803 basehttp "GET / HTTP/1.1" 200 30875
+INFO 2025-10-26 04:10:15,520 basehttp "GET /article/kaer-morkhen/ HTTP/1.1" 200 47708
+INFO 2025-10-26 04:10:20,302 basehttp "POST /article/kaer-morkhen/ HTTP/1.1" 200 47708
+ERROR 2025-10-26 04:10:36,047 log Internal Server Error: /search/
+Traceback (most recent call last):
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py", line 129, in search
+    popular_queries = SearchQuery.objects.all().order_by('-count', '-last_searched')[:10]
+                      ^^^^^^^^^^^
+NameError: name 'SearchQuery' is not defined. Did you mean: 'SearchForm'?
+ERROR 2025-10-26 04:10:36,050 basehttp "GET /search/ HTTP/1.1" 500 74454
+INFO 2025-10-26 04:11:14,548 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-10-26 04:11:15,041 autoreload Watching for file changes with StatReloader
+INFO 2025-10-26 04:11:16,906 basehttp "GET / HTTP/1.1" 200 30875
+INFO 2025-10-26 04:11:18,110 basehttp "GET /search/ HTTP/1.1" 200 31302
+INFO 2025-10-26 04:11:22,111 basehttp "GET /search/?q=%D0%A6%D0%B8%D1%80%D0%B8 HTTP/1.1" 200 31668
+INFO 2025-10-26 04:11:23,864 basehttp "GET /search/?q=%D0%99%D0%B5%D0%BD%D0%BD%D0%B8%D1%84%D1%8D%D1%80 HTTP/1.1" 200 30745
+INFO 2025-10-26 04:11:25,957 basehttp "GET /search/?q=%D0%9A%D0%B0%D1%8D%D1%80%20%D0%9C%D0%BE%D1%80%D1%85%D0%B5%D0%BD HTTP/1.1" 200 31681
+INFO 2025-10-26 04:11:28,340 basehttp "GET /search/?q=%D0%92%D0%B5%D0%B4%D1%8C%D0%BC%D0%B0%D0%BA HTTP/1.1" 200 31674
+INFO 2025-10-26 04:11:32,077 basehttp "GET / HTTP/1.1" 200 30875
+INFO 2025-10-26 04:11:33,312 basehttp "GET /article/kaer-morkhen/ HTTP/1.1" 200 47708
+INFO 2025-10-26 04:11:37,631 basehttp "POST /article/kaer-morkhen/ HTTP/1.1" 200 47708
+INFO 2025-10-26 04:11:43,935 basehttp "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-10-26 04:11:44,096 basehttp "GET / HTTP/1.1" 200 29655
+INFO 2025-10-26 04:11:44,889 basehttp "GET /accounts/login/ HTTP/1.1" 200 27576
+INFO 2025-10-26 04:11:47,880 basehttp "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-10-26 04:11:48,052 basehttp "GET / HTTP/1.1" 200 31775
+INFO 2025-10-26 04:11:50,509 basehttp "GET /article/geralt-iz-rivii/ HTTP/1.1" 200 46739
+INFO 2025-10-26 04:11:50,676 basehttp "GET /media/article_media/64bef9d5ce5d0eee72c96ae43edcbef7.jpg HTTP/1.1" 304 0
+INFO 2025-10-26 04:12:06,060 basehttp "POST /article/geralt-iz-rivii/ HTTP/1.1" 200 46739
+INFO 2025-10-26 04:12:13,534 basehttp "GET /editor/dashboard/ HTTP/1.1" 200 30017
+INFO 2025-10-26 04:12:17,639 basehttp "GET /my-articles/ HTTP/1.1" 200 33448
+INFO 2025-10-26 04:12:42,361 basehttp "GET /category/characters/ HTTP/1.1" 200 29702
+INFO 2025-10-26 04:12:43,647 basehttp "GET /category/monsters/ HTTP/1.1" 200 29104
+INFO 2025-10-26 04:12:44,541 basehttp "GET /category/locations/ HTTP/1.1" 200 29669
+INFO 2025-10-26 04:12:45,042 basehttp "GET /my-articles/ HTTP/1.1" 200 33448
+INFO 2025-10-26 04:12:45,797 basehttp "GET /liked-articles/ HTTP/1.1" 200 42340
+INFO 2025-10-26 04:12:49,364 basehttp "GET /accounts/profile/ HTTP/1.1" 200 44144
+INFO 2025-10-26 04:12:49,444 basehttp "GET /media/avatars/avatars/avatars/avatars/avatars/user_2/avatar.png HTTP/1.1" 304 0
+INFO 2025-10-26 04:13:10,247 basehttp "GET / HTTP/1.1" 200 31775
+INFO 2025-10-26 04:13:14,238 basehttp "GET /article/kaer-morkhen/ HTTP/1.1" 200 48636
+INFO 2025-10-26 04:13:19,619 basehttp "POST /article/kaer-morkhen/ HTTP/1.1" 200 48636
+INFO 2025-10-26 04:15:11,676 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-10-26 04:15:12,213 autoreload Watching for file changes with StatReloader
+INFO 2025-10-26 04:19:58,582 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-10-26 04:19:59,176 autoreload Watching for file changes with StatReloader
+INFO 2025-10-26 04:20:06,905 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-10-26 04:20:07,482 autoreload Watching for file changes with StatReloader
+INFO 2025-10-26 04:20:10,680 basehttp "GET / HTTP/1.1" 200 31775
+INFO 2025-10-26 04:20:13,429 basehttp "GET /article/kaer-morkhen/ HTTP/1.1" 200 50458
+INFO 2025-10-26 04:20:37,495 basehttp "POST /article/kaer-morkhen/ HTTP/1.1" 200 54412
+INFO 2025-10-26 04:20:43,627 basehttp "POST /comment/2/delete/ HTTP/1.1" 200 17
+INFO 2025-10-26 04:20:47,372 basehttp "POST /comment/1/delete/ HTTP/1.1" 200 17
+INFO 2025-10-26 04:20:48,336 basehttp "POST /article/kaer-morkhen/ HTTP/1.1" 200 54410
+INFO 2025-10-26 04:20:56,323 basehttp "POST /article/kaer-morkhen/ HTTP/1.1" 200 58240
+INFO 2025-10-26 04:21:02,588 basehttp "POST /comment/3/delete/ HTTP/1.1" 200 17
+INFO 2025-10-26 04:21:04,165 basehttp "POST /comment/4/delete/ HTTP/1.1" 200 17
+INFO 2025-10-26 04:21:05,578 basehttp "POST /comment/5/delete/ HTTP/1.1" 200 17

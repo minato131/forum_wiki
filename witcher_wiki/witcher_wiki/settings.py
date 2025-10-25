@@ -50,6 +50,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'wiki.context_processors.user_permissions',
             ],
         },
     },
@@ -244,3 +245,6 @@ CACHES = {
         'LOCATION': 'app_cache_table',
     }
 }
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # Для разработки - вывод в консоль
+DEFAULT_FROM_EMAIL = 'noreply@witcher-forum.ru'
+SITE_URL = 'http://127.0.0.1:8000'

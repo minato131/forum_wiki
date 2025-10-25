@@ -179,19 +179,28 @@
                 <p><strong>Поиск по различным критериям</strong><br>
                 Поиск ведется по заголовкам, содержанию и тегам.</p>
             </div>
-            <h4>Популярные запросы:</h4>
-            <div class="popular-searches">
-                <a href="{% url 'wiki:search' %}?q=Геральт" class="search-tag">Геральт</a>
-                <a href="{% url 'wiki:search' %}?q=Цири" class="search-tag">Цири</a>
-                <a href="{% url 'wiki:search' %}?q=Йеннифэр" class="search-tag">Йеннифэр</a>
-                <a href="{% url 'wiki:search' %}?q=Трисс" class="search-tag">Трисс</a>
-                <a href="{% url 'wiki:search' %}?q=Веланд" class="search-tag">Веланд</a>
-                <a href="{% url 'wiki:search' %}?q=Каэр Морхен" class="search-tag">Каэр Морхен</a>
-                <a href="{% url 'wiki:search' %}?q=Новиград" class="search-tag">Новиград</a>
-                <a href="{% url 'wiki:search' %}?q=Ведьмак" class="search-tag">Ведьмак</a>
-                <a href="{% url 'wiki:search' %}?q=Заклинание" class="search-tag">Заклинание</a>
-                <a href="{% url 'wiki:search' %}?q=Гвинт" class="search-tag">Гвинт</a>
-            </div>
+
+<h4>🔥 Популярные запросы:</h4>
+<div class="popular-searches">
+    {% for popular_query in popular_queries %}
+    <a href="{% url 'wiki:search' %}?q={{ popular_query.query|urlencode }}"
+       class="search-tag"
+       title="Искали {{ popular_query.count }} раз">
+        {{ popular_query.query }} ({{ popular_query.count }})
+    </a>
+    {% empty %}
+    <a href="{% url 'wiki:search' %}?q=Геральт" class="search-tag">Геральт</a>
+    <a href="{% url 'wiki:search' %}?q=Цири" class="search-tag">Цири</a>
+    <a href="{% url 'wiki:search' %}?q=Йеннифэр" class="search-tag">Йеннифэр</a>
+    <a href="{% url 'wiki:search' %}?q=Трисс" class="search-tag">Трисс</a>
+    <a href="{% url 'wiki:search' %}?q=Веланд" class="search-tag">Веланд</a>
+    <a href="{% url 'wiki:search' %}?q=Каэр Морхен" class="search-tag">Каэр Морхен</a>
+    <a href="{% url 'wiki:search' %}?q=Новиград" class="search-tag">Новиград</a>
+    <a href="{% url 'wiki:search' %}?q=Ведьмак" class="search-tag">Ведьмак</a>
+    <a href="{% url 'wiki:search' %}?q=Заклинание" class="search-tag">Заклинание</a>
+    <a href="{% url 'wiki:search' %}?q=Гвинт" class="search-tag">Гвинт</a>
+    {% endfor %}
+</div>
         </div>
     {% endif %}
 </div>

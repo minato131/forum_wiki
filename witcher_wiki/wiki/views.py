@@ -8,14 +8,13 @@ from django.utils import timezone
 import os
 import re
 from .forms import ArticleForm, CommentForm, SearchForm, CategoryForm, ProfileUpdateForm
-from .models import Article, Category, Comment, ArticleMedia, UserProfile, User, ArticleLike
+from .models import Article, Category, Comment, ArticleMedia, UserProfile, User, ArticleLike, ModerationComment, SearchQuery
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 import json
 from django.utils import timezone
 from django.contrib import messages
 from django.http import JsonResponse
-
 
 def clean_latex_from_content(content):
     """
@@ -84,6 +83,8 @@ def category_detail(request, slug):
     return render(request, 'wiki/category_detail.html', context)
 
 
+# views.py - ОБНОВИТЬ функцию search
+
 def search(request):
     query = request.GET.get('q', '').strip()
     category_filter = request.GET.get('category', '')
@@ -91,10 +92,15 @@ def search(request):
     total_count = 0
 
     if query:
+        # Сохраняем поисковый запрос
+        search_query_obj, created = SearchQuery.objects.get_or_create(query=query)
+        if not created:
+            search_query_obj.increment()
+
         # Улучшенный поиск
         search_query = Q(title__icontains=query) | Q(content__icontains=query) | Q(excerpt__icontains=query)
 
-        # Поиск по тегам если они есть
+        # Поиск по тегам
         try:
             search_query |= Q(tags__name__icontains=query)
         except:
@@ -108,7 +114,7 @@ def search(request):
 
         total_count = results.count()
 
-        # Сортировка по релевантности (приоритет заголовку)
+        # Сортировка по релевантности
         title_matches = results.filter(title__icontains=query)
         other_matches = results.exclude(title__icontains=query)
         results = list(title_matches) + list(other_matches)
@@ -117,6 +123,9 @@ def search(request):
         paginator = Paginator(results, 10)
         page_number = request.GET.get('page')
         results = paginator.get_page(page_number)
+
+    # Получаем популярные запросы (топ-10)
+    popular_queries = SearchQuery.objects.all().order_by('-count', '-last_searched')[:10]
 
     # Получаем категории для фильтра
     categories = Category.objects.all()
@@ -127,6 +136,7 @@ def search(request):
         'results': results,
         'total_count': total_count,
         'categories': categories,
+        'popular_queries': popular_queries,
     }
     return render(request, 'wiki/search.html', context)
 
@@ -291,10 +301,7 @@ def article_create(request):
 
 def article_detail(request, slug):
     article = get_object_or_404(Article, slug=slug)
-    # Используй правильное название поля - скорее всего views_count
-    if hasattr(article, 'views_count'):
-        article.views_count += 1
-    article.save()
+
     # Проверяем права на просмотр
     if article.status != 'published' and not article.can_edit(request.user):
         return render(request, 'wiki/access_denied.html', {
@@ -309,9 +316,71 @@ def article_detail(request, slug):
     # Получаем медиафайлы статьи с сортировкой
     media_files = article.media_files.all().order_by('display_order', 'uploaded_at')
 
+    # Получаем комментарии к статье
+    comments = article.comments.filter(is_approved=True, parent__isnull=True).order_by('created_at')
+
+    # Форма для добавления комментария
+    comment_form = CommentForm()
+    print(f"DEBUG: Article: {article.title}")
+    print(f"DEBUG: Comments count: {article.comments.count()}")
+    if request.method == 'POST' and request.user.is_authenticated:
+        print(f"DEBUG: POST request received from {request.user.username}")
+        comment_form = CommentForm(request.POST)
+        if comment_form.is_valid():
+            print(f"DEBUG: Form is valid")
+            comment = comment_form.save(commit=False)
+            comment.article = article
+            comment.author = request.user
+            print(f"DEBUG: Comment content: {comment.content}")
+
+            # ... остальной код ...
+
+            comment.save()
+            print(f"DEBUG: Comment saved with ID: {comment.id}")
+            messages.success(request, 'Комментарий добавлен!')
+
+            # После сохранения перезагружаем комментарии
+            comments = article.comments.filter(is_approved=True, parent__isnull=True).order_by('created_at')
+            print(f"DEBUG: Comments after save: {comments.count()}")
+
+            # Очищаем форму
+            comment_form = CommentForm()
+        else:
+            print(f"DEBUG: Form errors: {comment_form.errors}")
+            messages.error(request, 'Ошибка при добавлении комментария. Проверьте форму.')
+
+    if request.method == 'POST' and request.user.is_authenticated:
+        comment_form = CommentForm(request.POST)
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            comment.article = article
+            comment.author = request.user
+
+            # Обработка родительского комментария (для ответов)
+            parent_id = request.POST.get('parent_id')
+            if parent_id:
+                try:
+                    parent_comment = Comment.objects.get(id=parent_id)
+                    comment.parent = parent_comment
+                except Comment.DoesNotExist:
+                    pass
+
+            comment.save()
+            messages.success(request, 'Комментарий добавлен!')
+
+            # После сохранения перезагружаем комментарии
+            comments = article.comments.filter(is_approved=True, parent__isnull=True).order_by('created_at')
+
+            # Очищаем форму
+            comment_form = CommentForm()
+        else:
+            messages.error(request, 'Ошибка при добавлении комментария. Проверьте форму.')
+
     context = {
         'article': article,
         'media_files': media_files,
+        'comments': comments,
+        'comment_form': comment_form,
         'can_edit': article.can_edit(request.user),
         'can_moderate': article.can_moderate(request.user),
     }
@@ -514,28 +583,6 @@ def article_moderate(request, slug):
         'moderation_comments': moderation_comments,
     }
     return render(request, 'wiki/article_moderate.html', context)
-
-
-@login_required
-def moderation_queue(request):
-    """Очередь статей на модерацию"""
-    if not (request.user.is_staff or
-            request.user.groups.filter(name__in=['Модератор', 'Администратор']).exists()):
-        return render(request, 'wiki/access_denied.html', {
-            'message': 'У вас нет прав для модерации статей.'
-        })
-
-    # Статьи на модерации
-    pending_articles = Article.objects.filter(status='review').order_by('-created_at')
-
-    # Недавно отклоненные статьи
-    rejected_articles = Article.objects.filter(status='rejected').order_by('-moderated_at')[:10]
-
-    context = {
-        'pending_articles': pending_articles,
-        'rejected_articles': rejected_articles,
-    }
-    return render(request, 'wiki/moderation_queue.html', context)
 
 
 # В views.py ДОБАВИТЬ новые функции модерации
@@ -741,27 +788,6 @@ def delete_media(request, media_id):
         return JsonResponse({'success': True})
     except Exception as e:
         return JsonResponse({'success': False, 'error': str(e)})
-
-
-# Существующие представления для управления категориями остаются без изменений
-@login_required
-def category_management(request):
-    """Страница управления категориями"""
-    if not (request.user.is_staff or
-            request.user.groups.filter(name__in=['Модератор', 'Администратор']).exists()):
-        return render(request, 'wiki/access_denied.html', {
-            'message': 'У вас нет прав для управления категориями.'
-        })
-
-    categories = Category.objects.all().annotate(
-        article_count=Count('articles'),
-        children_count=Count('children')
-    ).order_by('display_order', 'name')
-
-    context = {
-        'categories': categories,
-    }
-    return render(request, 'wiki/category_management.html', context)
 
 
 @login_required
@@ -1207,3 +1233,135 @@ def author_review(request, slug):
         'article': article,
     }
     return render(request, 'wiki/author_review.html', context)
+# views.py - ОБНОВИТЬ функции проверки прав
+
+def can_moderate(user):
+    """Проверяет, может ли пользователь модерировать статьи"""
+    return (user.is_staff or
+            user.groups.filter(name__in=['Модератор', 'Администратор']).exists())
+
+def can_edit_content(user):
+    """Проверяет, может ли пользователь редактировать контент как редактор"""
+    return (user.is_staff or
+            user.groups.filter(name__in=['Редактор', 'Модератор', 'Администратор']).exists())
+
+# Обновим функцию moderation_queue
+@login_required
+def moderation_queue(request):
+    """Очередь статей на модерацию - только для модераторов"""
+    if not can_moderate(request.user):
+        return render(request, 'wiki/access_denied.html', {
+            'message': 'У вас нет прав для модерации статей.'
+        })
+
+    # Статьи на модерации
+    pending_articles = Article.objects.filter(status='review').order_by('-created_at')
+
+    # Статьи для редактора
+    editor_articles = Article.objects.filter(status='editor_review').order_by('-created_at')
+
+    # Недавно отклоненные статьи
+    rejected_articles = Article.objects.filter(status='rejected').order_by('-moderated_at')[:10]
+
+    context = {
+        'pending_articles': pending_articles,
+        'editor_articles': editor_articles,
+        'rejected_articles': rejected_articles,
+        'user_can_moderate': can_moderate(request.user),
+        'user_can_edit': can_edit_content(request.user),
+    }
+    return render(request, 'wiki/moderation_queue.html', context)
+
+# Обновим функцию editor_review
+@login_required
+def editor_review(request, slug):
+    """Страница для редактора - только для редакторов"""
+    article = get_object_or_404(Article, slug=slug)
+
+    # Проверяем права редактора
+    if not can_edit_content(request.user):
+        return render(request, 'wiki/access_denied.html', {
+            'message': 'У вас нет прав редактора.'
+        })
+
+    if request.method == 'POST':
+        corrected_content = request.POST.get('corrected_content', '')
+        editor_notes = request.POST.get('editor_notes', '')
+
+        if corrected_content:
+            # Сохраняем исправленную версию
+            article.content = corrected_content
+            article.editor_notes = editor_notes
+            article.status = 'author_review'
+            article.save()
+
+            # Отправляем уведомление автору
+            send_moderation_notification(article, 'editor_correction')
+            messages.success(request, 'Исправленная версия отправлена автору на согласование.')
+            return redirect('wiki:moderation_queue')
+
+    context = {
+        'article': article,
+    }
+    return render(request, 'wiki/editor_review.html', context)
+
+# Обновим функцию category_management
+@login_required
+def category_management(request):
+    """Страница управления категориями - только для модераторов"""
+    if not can_moderate(request.user):
+        return render(request, 'wiki/access_denied.html', {
+            'message': 'У вас нет прав для управления категориями.'
+        })
+
+    categories = Category.objects.all().annotate(
+        article_count=Count('articles'),
+        children_count=Count('children')
+    ).order_by('display_order', 'name')
+
+    context = {
+        'categories': categories,
+    }
+    return render(request, 'wiki/category_management.html', context)
+
+
+# views.py - ДОБАВИТЬ новую функцию
+@login_required
+def editor_dashboard(request):
+    """Панель редактора - только для редакторов"""
+    if not can_edit_content(request.user):
+        return render(request, 'wiki/access_denied.html', {
+            'message': 'У вас нет прав редактора.'
+        })
+
+    # Статьи для редактуры
+    editor_articles = Article.objects.filter(status='editor_review').order_by('-created_at')
+
+    # Статистика
+    waiting_count = editor_articles.count()
+    edited_count = Article.objects.filter(
+        status='author_review',
+        editor_notes__isnull=False
+    ).count()
+
+    context = {
+        'editor_articles': editor_articles,
+        'waiting_count': waiting_count,
+        'edited_count': edited_count,
+    }
+    return render(request, 'wiki/editor_dashboard.html', context)
+
+@login_required
+def delete_comment(request, comment_id):
+    """Удаление комментария"""
+    comment = get_object_or_404(Comment, id=comment_id)
+
+    # Проверяем права: автор комментария или модератор
+    if comment.author != request.user and not comment.article.can_moderate(request.user):
+        return JsonResponse({'success': False, 'error': 'Нет прав для удаления комментария'})
+
+    try:
+        comment.delete()
+        return JsonResponse({'success': True})
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)})

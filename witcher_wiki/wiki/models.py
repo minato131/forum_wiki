@@ -1,3 +1,4 @@
+# models.py - ЗАМЕНИТЬ весь файл на этот вариант
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
@@ -61,19 +62,20 @@ class Article(models.Model):
         ('archived', 'Архив'),
     ]
 
-    # Сначала все поля модели
+    # Основные поля
     title = models.CharField('Заголовок', max_length=200)
     slug = models.SlugField('URL', unique=True, max_length=200)
     content = CKEditor5Field('Содержание', config_name='extends')
     excerpt = models.TextField('Краткое описание', max_length=500, blank=True)
     featured_image = models.ImageField('Главное изображение', upload_to='articles/', blank=True, null=True)
 
-
+    # Поля для системы модерации
     editor_notes = models.TextField('Заметки редактора', blank=True)
     author_notes = models.TextField('Заметки автора', blank=True)
     correction_deadline = models.DateTimeField('Срок исправления', null=True, blank=True)
     highlighted_corrections = models.JSONField('Выделенные правки', blank=True, null=True,
                                                help_text='JSON с выделенными фрагментами и замечаниями')
+
     # Метаданные
     meta_title = models.CharField('Meta Title', max_length=60, blank=True)
     meta_description = models.CharField('Meta Description', max_length=160, blank=True)
@@ -98,7 +100,6 @@ class Article(models.Model):
 
     # Статистика
     views_count = models.PositiveIntegerField('Просмотры', default=0)
-
 
     class Meta:
         verbose_name = 'Статья'
@@ -126,18 +127,7 @@ class Article(models.Model):
         self.views_count += 1
         self.save(update_fields=['views_count'])
 
-    def can_edit(self, user):
-        """Проверяет, может ли пользователь редактировать статью"""
-        return (user == self.author or
-                user.is_staff or
-                user.groups.filter(name__in=['Модератор', 'Администратор']).exists())
-
-    def can_moderate(self, user):
-        """Проверяет, может ли пользователь модерировать статью"""
-        return (user.is_staff or
-                user.groups.filter(name__in=['Модератор', 'Администратор']).exists())
-
-    # МЕТОДЫ ДЛЯ ЛАЙКОВ ДОЛЖНЫ БЫТЬ ПОСЛЕ ВСЕХ ПОЛЕЙ
+    # Методы для лайков
     def get_likes_count(self):
         """Возвращает количество лайков статьи"""
         return self.likes.count()
@@ -163,10 +153,57 @@ class Article(models.Model):
             return False  # Лайк убран
         return True  # Лайк добавлен
 
+    # Новые методы для модерации
+    def get_status_display_with_icon(self):
+        """Возвращает статус с иконкой"""
+        icons = {
+            'draft': '📝',
+            'review': '⏳',
+            'needs_correction': '✏️',
+            'editor_review': '📝',
+            'author_review': '📋',
+            'published': '✅',
+            'rejected': '❌'
+        }
+        return f"{icons.get(self.status, '📄')} {self.get_status_display()}"
 
-# В models.py ДОБАВИТЬ после модели Article:
+    def can_be_edited_by_author(self):
+        """Может ли автор редактировать статью в текущем статусе"""
+        return self.status in ['draft', 'rejected', 'needs_correction']
 
-# В models.py ДОБАВИТЬ после модели Article:
+    def is_awaiting_author_review(self):
+        """Ожидает ли статья согласования автора"""
+        return self.status == 'author_review'
+
+    def get_moderation_comments_count(self):
+        """Количество непросмотренных комментариев модерации"""
+        return self.moderation_comments.filter(resolved=False).count()
+
+    # Методы для проверки прав доступа
+    def can_edit(self, user):
+        """Проверяет, может ли пользователь редактировать статью"""
+        if not user.is_authenticated:
+            return False
+
+        # Автор может редактировать свои статьи в определенных статусах
+        if user == self.author and self.status in ['draft', 'rejected', 'needs_correction']:
+            return True
+
+        # Редакторы и модераторы могут редактировать
+        if (user.is_staff or
+                user.groups.filter(name__in=['Редактор', 'Модератор', 'Администратор']).exists()):
+            return True
+
+        return False
+
+    def can_moderate(self, user):
+        """Проверяет, может ли пользователь модерировать статью"""
+        if not user.is_authenticated:
+            return False
+
+        return (user.is_staff or
+                user.groups.filter(name__in=['Модератор', 'Администратор']).exists())
+
 
 class ModerationComment(models.Model):
     """Комментарии модератора к конкретным фрагментам текста"""
@@ -188,35 +225,6 @@ class ModerationComment(models.Model):
     def __str__(self):
         return f'Комментарий к статье "{self.article.title}"'
 
-
-# В модели Article ОБНОВИТЬ STATUS_CHOICES и добавить новые поля:
-
-class Article(models.Model):
-    STATUS_CHOICES = [
-        ('draft', 'Черновик'),
-        ('review', 'На модерации'),
-        ('needs_correction', 'Требует правок'),
-        ('editor_review', 'На проверке у редактора'),
-        ('author_review', 'На согласовании у автора'),
-        ('published', 'Опубликовано'),
-        ('rejected', 'Отклонено'),
-        ('archived', 'Архив'),
-    ]
-
-    # Существующие поля остаются...
-
-    # ДОБАВИТЬ эти новые поля:
-    editor_notes = models.TextField('Заметки редактора', blank=True)
-    author_notes = models.TextField('Заметки автора', blank=True)
-    correction_deadline = models.DateTimeField('Срок исправления', null=True, blank=True)
-
-    # Поле для хранения выделенных фрагментов с замечаниями
-    highlighted_corrections = models.JSONField('Выделенные правки', blank=True, null=True)
-
-    class Meta:
-        verbose_name = 'Статья'
-        verbose_name_plural = 'Статьи'
-        ordering = ['-created_at']
 
 class ArticleMedia(models.Model):
     """Медиафайлы для статей"""
@@ -420,6 +428,8 @@ class MediaLibrary(models.Model):
 
     def __str__(self):
         return self.title
+
+
 class ArticleLike(models.Model):
     """Модель для лайков статей"""
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь')
@@ -436,24 +446,22 @@ class ArticleLike(models.Model):
         return f'{self.user.username} лайкнул {self.article.title}'
 
 
-# В models.py ДОБАВИТЬ после существующих моделей
-
-class ModerationComment(models.Model):
-    """Комментарии модератора к конкретным фрагментам текста"""
-    article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='moderation_comments')
-    moderator = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Модератор')
-    highlighted_text = models.TextField('Выделенный текст')
-    comment = models.TextField('Замечание')
-    start_position = models.IntegerField('Начальная позиция', default=0)
-    end_position = models.IntegerField('Конечная позиция', default=0)
+class SearchQuery(models.Model):
+    """Модель для хранения поисковых запросов"""
+    query = models.CharField('Запрос', max_length=255)
+    count = models.PositiveIntegerField('Количество', default=1)
+    last_searched = models.DateTimeField('Последний поиск', auto_now=True)
     created_at = models.DateTimeField('Создано', auto_now_add=True)
-    resolved = models.BooleanField('Исправлено', default=False)
-    resolved_at = models.DateTimeField('Время исправления', null=True, blank=True)
 
     class Meta:
-        verbose_name = 'Комментарий модератора'
-        verbose_name_plural = 'Комментарии модераторов'
-        ordering = ['created_at']
+        verbose_name = 'Поисковый запрос'
+        verbose_name_plural = 'Поисковые запросы'
+        ordering = ['-count', '-last_searched']
 
     def __str__(self):
-        return f'Комментарий к статье "{self.article.title}"'
+        return f'{self.query} ({self.count})'
+
+    def increment(self):
+        """Увеличивает счетчик запроса"""
+        self.count += 1
+        self.save()

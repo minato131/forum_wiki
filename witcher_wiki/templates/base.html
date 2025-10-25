@@ -154,6 +154,18 @@
             color: #888;
         }
 
+        .role-moderator {
+            color: #ffc107;
+        }
+
+        .role-editor {
+            color: #17a2b8;
+        }
+
+        .role-admin {
+            color: #dc3545;
+        }
+
         /* МОДАЛЬНОЕ ОКНО ПОДТВЕРЖДЕНИЯ */
         .confirmation-modal {
             display: none;
@@ -306,9 +318,20 @@
                 <a href="{% url 'wiki:liked_articles' %}">❤️ Понравившиеся</a>
             {% endif %}
 
-            {% if user.is_staff %}
+            <!-- Пункты меню для модераторов -->
+            {% if user_can_moderate %}
                 <a href="{% url 'wiki:moderation_queue' %}">⚖️ Модерация</a>
                 <a href="{% url 'wiki:category_management' %}">📁 Управление категориями</a>
+            {% endif %}
+
+            <!-- Пункты меню для редакторов -->
+            {% if user_can_edit %}
+                <a href="{% url 'wiki:editor_dashboard' %}">📝 Редактура</a>
+            {% endif %}
+
+            <!-- Пункты меню для админов -->
+            {% if user.is_staff %}
+                <a href="/admin/">⚙️ Админ-панель</a>
             {% endif %}
         </div>
 
@@ -317,11 +340,17 @@
                 <div class="user-dropdown">
                     <button class="user-btn" onclick="toggleMenu()">
                         👤 {{ user.username }}
-                        {% if user.is_staff %}
-                            <span class="user-role">(Админ)</span>
-                        {% else %}
-                            <span class="user-role">(Пользователь)</span>
-                        {% endif %}
+                        <span class="user-role
+                            {% if user.is_staff %}role-admin
+                            {% elif user_can_moderate %}role-moderator
+                            {% elif user_can_edit %}role-editor
+                            {% endif %}">
+                            {% if user.is_staff %}(Админ)
+                            {% elif user_can_moderate %}(Модератор)
+                            {% elif user_can_edit %}(Редактор)
+                            {% else %}(Пользователь)
+                            {% endif %}
+                        </span>
                         ▼
                     </button>
                     <div class="dropdown-content" id="userDropdown">
@@ -329,11 +358,23 @@
                         <a href="{% url 'wiki:article_create' %}">✍️ Создать статью</a>
                         <a href="{% url 'wiki:my_articles' %}">📝 Мои статьи</a>
                         <a href="{% url 'wiki:liked_articles' %}">❤️ Понравившиеся</a>
-                        {% if user.is_staff %}
+
+                        <!-- Пункты для модераторов -->
+                        {% if user_can_moderate %}
                             <a href="{% url 'wiki:category_management' %}">📁 Управление категориями</a>
                             <a href="{% url 'wiki:moderation_queue' %}">⚖️ Модерация</a>
+                        {% endif %}
+
+                        <!-- Пункты для редакторов -->
+                        {% if user_can_edit %}
+                            <a href="{% url 'wiki:editor_dashboard' %}">📝 Редактура</a>
+                        {% endif %}
+
+                        <!-- Пункты для админов -->
+                        {% if user.is_staff %}
                             <a href="/admin/">⚙️ Админ-панель</a>
                         {% endif %}
+
                         <button type="button" class="logout-form-btn" onclick="confirmLogout()">
                             🚪 Выйти
                         </button>
@@ -360,6 +401,10 @@
     </div>
 
     <script>
+        // Определяем переменные для проверки прав (добавляются через контекстный процессор)
+        const userCanModerate = {% if user_can_moderate %}true{% else %}false{% endif %};
+        const userCanEdit = {% if user_can_edit %}true{% else %}false{% endif %};
+
         function toggleMenu() {
             const dropdown = document.getElementById('userDropdown');
             dropdown.classList.toggle('show');
@@ -478,6 +523,56 @@
                     form.submit();
                 },
                 { type: 'warning', icon: '⚖️', title: 'Отправка на модерацию', confirmText: 'Отправить' }
+            );
+            return false;
+        }
+
+        // Функция для подтверждения действий модератора
+        function confirmModerationAction(action, articleTitle) {
+            const actions = {
+                'approve': {
+                    message: `Вы уверены, что хотите одобрить статью "${articleTitle}"?`,
+                    icon: '✅',
+                    title: 'Одобрение статьи',
+                    confirmText: 'Одобрить'
+                },
+                'reject': {
+                    message: `Вы уверены, что хотите отклонить статью "${articleTitle}"?`,
+                    icon: '❌',
+                    title: 'Отклонение статьи',
+                    confirmText: 'Отклонить',
+                    type: 'danger'
+                },
+                'needs_correction': {
+                    message: `Вы уверены, что хотите отправить статью "${articleTitle}" на доработку?`,
+                    icon: '✏️',
+                    title: 'Отправка на доработку',
+                    confirmText: 'Отправить'
+                },
+                'send_to_editor': {
+                    message: `Вы уверены, что хотите отправить статью "${articleTitle}" редактору?`,
+                    icon: '📝',
+                    title: 'Отправка редактору',
+                    confirmText: 'Отправить'
+                }
+            };
+
+            const actionConfig = actions[action] || actions['approve'];
+
+            showConfirmationModal(
+                actionConfig.message,
+                function() {
+                    // Находим форму и устанавливаем действие
+                    const form = document.querySelector('form.moderation-form');
+                    if (form) {
+                        const actionInput = form.querySelector('input[name="action"]');
+                        if (actionInput) {
+                            actionInput.value = action;
+                        }
+                        form.submit();
+                    }
+                },
+                actionConfig
             );
             return false;
         }
@@ -629,6 +724,17 @@
                 form.onsubmit = function(event) {
                     event.preventDefault();
                     confirmSubmitForModeration(this);
+                };
+            });
+
+            // Привязка кнопок модерации
+            const moderationButtons = document.querySelectorAll('[data-moderation-action]');
+            moderationButtons.forEach(button => {
+                button.onclick = function(event) {
+                    event.preventDefault();
+                    const action = this.getAttribute('data-moderation-action');
+                    const articleTitle = this.getAttribute('data-article-title') || 'эту статью';
+                    confirmModerationAction(action, articleTitle);
                 };
             });
         });

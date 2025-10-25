@@ -47,4 +47,6 @@ urlpatterns = [
     path('debug/article-like/<slug:slug>/', views.debug_article_like, name='debug_article_like'),
 
     path('clean-latex/', views.clean_all_articles_latex, name='clean_latex'),
+    path('editor/dashboard/', views.editor_dashboard, name='editor_dashboard'),
+    path('comment/<int:comment_id>/delete/', views.delete_comment, name='delete_comment'),
 ]

@@ -1,4 +1,4 @@
-<!-- СОЗДАТЬ ФАЙЛ: templates/wiki/article_moderate.html -->
+<!-- article_moderate.html - ОБНОВИТЬ существующий файл -->
 {% extends 'base.html' %}
 {% load static %}
 
@@ -7,19 +7,21 @@
 {% block content %}
 <style>
     .moderation-container {
-        max-width: 1000px;
+        max-width: 1200px;
         margin: 0 auto;
         padding: 20px;
     }
+
     .article-preview {
         background: #2d2d2d;
         border: 1px solid #444;
         border-radius: 10px;
         padding: 25px;
         margin-bottom: 25px;
-        max-height: 400px;
+        max-height: 500px;
         overflow-y: auto;
     }
+
     .moderation-tools {
         background: rgba(212, 175, 55, 0.1);
         border: 1px solid #D4AF37;
@@ -27,35 +29,39 @@
         padding: 20px;
         margin-bottom: 25px;
     }
-    .highlight-tool {
-        margin-bottom: 15px;
-    }
+
     .highlight-instruction {
         color: #D4AF37;
         font-size: 0.9em;
         margin-bottom: 10px;
     }
+
     .text-highlighter {
         background: #1a1a1a;
         border: 1px solid #444;
         border-radius: 5px;
         padding: 10px;
         color: #e8e8e8;
-        min-height: 80px;
+        min-height: 60px;
         margin-bottom: 10px;
+        font-style: italic;
     }
+
     .highlighted-text {
         background: rgba(255, 193, 7, 0.3);
         padding: 2px 4px;
         border-radius: 3px;
         cursor: pointer;
+        border: 1px dashed #ffc107;
     }
+
     .moderation-actions {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
         gap: 15px;
         margin-top: 25px;
     }
+
     .action-btn {
         padding: 12px 20px;
         border: none;
@@ -67,30 +73,16 @@
         align-items: center;
         justify-content: center;
         gap: 8px;
+        font-size: 1em;
     }
-    .btn-approve {
-        background: #28a745;
-        color: white;
-    }
-    .btn-correction {
-        background: #ffc107;
-        color: #1a1a1a;
-    }
-    .btn-editor {
-        background: #17a2b8;
-        color: white;
-    }
-    .btn-reject {
-        background: #dc3545;
-        color: white;
-    }
-    .action-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    }
-    .moderation-comments {
-        margin-top: 25px;
-    }
+
+    .btn-approve { background: #28a745; color: white; }
+    .btn-correction { background: #ffc107; color: #1a1a1a; }
+    .btn-editor { background: #17a2b8; color: white; }
+    .btn-reject { background: #dc3545; color: white; }
+
+    .action-btn:hover { transform: translateY(-2px); }
+
     .comment-item {
         background: rgba(255, 193, 7, 0.1);
         border-left: 3px solid #ffc107;
@@ -98,13 +90,12 @@
         margin-bottom: 10px;
         border-radius: 5px;
     }
-    .comment-text {
-        color: #e8e8e8;
-        margin-bottom: 5px;
-    }
-    .comment-meta {
-        color: #888;
-        font-size: 0.8em;
+
+    .article-info {
+        background: rgba(212, 175, 55, 0.1);
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 20px;
     }
 </style>
 
@@ -113,13 +104,20 @@
         ⚖️ Модерация статьи
     </h1>
 
-    <div class="article-preview">
-        <h2 style="color: #D4AF37; margin-bottom: 15px;">{{ article.title }}</h2>
-        <div style="color: #888; margin-bottom: 15px;">
-            Автор: {{ article.author.username }} |
-            Создана: {{ article.created_at|date:"d.m.Y H:i" }}
+    <!-- Информация о статье -->
+    <div class="article-info">
+        <h2 style="color: #D4AF37; margin: 0;">{{ article.title }}</h2>
+        <div style="color: #888; margin-top: 10px;">
+            👤 Автор: {{ article.author.username }} |
+            📅 Создана: {{ article.created_at|date:"d.m.Y H:i" }} |
+            🏷️ Категории: {% for category in article.categories.all %}{{ category.name }}{% if not forloop.last %}, {% endif %}{% endfor %}
         </div>
-        <div class="article-content">
+    </div>
+
+    <!-- Предпросмотр статьи -->
+    <div class="article-preview">
+        <h3 style="color: #D4AF37; margin-bottom: 15px;">📖 Содержание статьи:</h3>
+        <div class="article-content" id="articleContent">
             {{ article.content|safe }}
         </div>
     </div>
@@ -130,7 +128,7 @@
 
         <div class="highlight-tool">
             <div class="highlight-instruction">
-                📝 Выделите текст в статье выше и добавьте замечание:
+                📝 <strong>Как работать:</strong> Выделите текст в статье выше → добавьте замечание → нажмите "Добавить замечание"
             </div>
             <div id="highlightedTextDisplay" class="text-highlighter">
                 Выделенный текст появится здесь...
@@ -139,7 +137,7 @@
                      placeholder="Введите замечание к выделенному тексту..."
                      style="width: 100%; height: 80px; background: #1a1a1a; color: #e8e8e8; border: 1px solid #444; border-radius: 5px; padding: 10px; margin-bottom: 10px;"></textarea>
             <button onclick="addModerationComment()"
-                   style="background: #D4AF37; color: #1a1a1a; border: none; padding: 8px 16px; border-radius: 5px; cursor: pointer;">
+                   style="background: #D4AF37; color: #1a1a1a; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold;">
                 ➕ Добавить замечание
             </button>
         </div>
@@ -148,17 +146,25 @@
     <!-- Существующие комментарии -->
     {% if moderation_comments %}
     <div class="moderation-comments">
-        <h3 style="color: #D4AF37; margin-bottom: 15px;">📋 Замечания модератора</h3>
+        <h3 style="color: #D4AF37; margin-bottom: 15px;">
+            📋 Замечания модератора ({{ moderation_comments|length }})
+        </h3>
         {% for comment in moderation_comments %}
         <div class="comment-item">
-            <div class="comment-text">
-                <strong>Текст:</strong> "{{ comment.highlighted_text }}"
+            <div style="color: #ffc107; margin-bottom: 8px;">
+                <strong>📍 Выделенный текст:</strong>
             </div>
-            <div class="comment-text">
-                <strong>Замечание:</strong> {{ comment.comment }}
+            <div style="background: rgba(255,255,255,0.05); padding: 8px; border-radius: 3px; margin-bottom: 10px; font-style: italic;">
+                "{{ comment.highlighted_text }}"
             </div>
-            <div class="comment-meta">
-                Добавлено: {{ comment.created_at|date:"d.m.Y H:i" }}
+            <div style="color: #e8e8e8; margin-bottom: 5px;">
+                <strong>💬 Замечание:</strong> {{ comment.comment }}
+            </div>
+            <div style="color: #888; font-size: 0.8em;">
+                📅 Добавлено: {{ comment.created_at|date:"d.m.Y H:i" }}
+                {% if comment.resolved %}
+                | ✅ Исправлено: {{ comment.resolved_at|date:"d.m.Y H:i" }}
+                {% endif %}
             </div>
         </div>
         {% endfor %}
@@ -170,9 +176,18 @@
         {% csrf_token %}
         <input type="hidden" id="highlightedCorrections" name="highlighted_corrections">
 
+        <div style="margin-bottom: 20px;">
+            <label style="color: #D4AF37; display: block; margin-bottom: 8px; font-weight: bold;">
+                📝 Общие замечания к статье:
+            </label>
+            <textarea name="moderation_notes"
+                     style="width: 100%; height: 100px; background: #1a1a1a; color: #e8e8e8; border: 1px solid #444; border-radius: 5px; padding: 10px;"
+                     placeholder="Общие замечания, рекомендации, пояснения...">{{ article.moderation_notes }}</textarea>
+        </div>
+
         <div class="moderation-actions">
             <button type="submit" name="action" value="approve" class="action-btn btn-approve">
-                ✅ Одобрить
+                ✅ Одобрить и опубликовать
             </button>
             <button type="submit" name="action" value="needs_correction" class="action-btn btn-correction">
                 ✏️ Требует правок
@@ -184,20 +199,12 @@
                 ❌ Отклонить
             </button>
         </div>
-
-        <div style="margin-top: 20px;">
-            <label style="color: #D4AF37; display: block; margin-bottom: 8px;">
-                Общие замечания:
-            </label>
-            <textarea name="moderation_notes"
-                     style="width: 100%; height: 100px; background: #1a1a1a; color: #e8e8e8; border: 1px solid #444; border-radius: 5px; padding: 10px;"
-                     placeholder="Общие замечания к статье..."></textarea>
-        </div>
     </form>
 </div>
 
 <script>
 let currentSelection = null;
+let highlights = [];
 
 // Обработка выделения текста в статье
 document.addEventListener('selectionchange', function() {
@@ -205,32 +212,42 @@ document.addEventListener('selectionchange', function() {
     if (selection.toString().trim()) {
         currentSelection = selection;
         document.getElementById('highlightedTextDisplay').textContent = selection.toString();
+
+        // Подсветка выделенного текста
+        highlightSelectedText(selection);
     }
 });
 
+function highlightSelectedText(selection) {
+    // Временная подсветка выделенного текста
+    const range = selection.getRangeAt(0);
+    const selectedText = range.extractContents();
+    const span = document.createElement('span');
+    span.style.backgroundColor = 'rgba(255, 193, 7, 0.3)';
+    span.style.border = '1px dashed #ffc107';
+    span.style.borderRadius = '2px';
+    span.appendChild(selectedText);
+    range.insertNode(span);
+}
+
 function addModerationComment() {
     if (!currentSelection || !currentSelection.toString().trim()) {
-        alert('Пожалуйста, выделите текст в статье');
+        alert('❌ Пожалуйста, выделите текст в статье');
         return;
     }
 
     const comment = document.getElementById('moderationComment').value.trim();
     if (!comment) {
-        alert('Пожалуйста, введите замечание');
+        alert('❌ Пожалуйста, введите замечание');
         return;
     }
 
-    const range = currentSelection.getRangeAt(0);
-    const articleContent = document.querySelector('.article-content');
-    const startPosition = getTextPosition(articleContent, range.startContainer, range.startOffset);
-    const endPosition = getTextPosition(articleContent, range.endContainer, range.endOffset);
+    const highlightedText = currentSelection.toString();
 
     // Отправка AJAX запроса
     const formData = new FormData();
-    formData.append('highlighted_text', currentSelection.toString());
+    formData.append('highlighted_text', highlightedText);
     formData.append('comment', comment);
-    formData.append('start_position', startPosition);
-    formData.append('end_position', endPosition);
     formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
 
     fetch('{% url "wiki:add_moderation_comment" article.slug %}', {
@@ -243,52 +260,40 @@ function addModerationComment() {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            alert('Замечание добавлено!');
+            alert('✅ Замечание добавлено!');
             document.getElementById('moderationComment').value = '';
             document.getElementById('highlightedTextDisplay').textContent = 'Выделенный текст появится здесь...';
             currentSelection = null;
             // Перезагрузка страницы для отображения нового комментария
             location.reload();
         } else {
-            alert('Ошибка: ' + data.error);
+            alert('❌ Ошибка: ' + data.error);
         }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('❌ Ошибка при отправке замечания');
     });
-}
-
-function getTextPosition(container, node, offset) {
-    // Упрощенная функция для определения позиции в тексте
-    const walker = document.createTreeWalker(
-        container,
-        NodeFilter.SHOW_TEXT,
-        null,
-        false
-    );
-
-    let position = 0;
-    let found = false;
-
-    while (walker.nextNode()) {
-        const textNode = walker.currentNode;
-        if (textNode === node) {
-            position += offset;
-            found = true;
-            break;
-        }
-        position += textNode.textContent.length;
-    }
-
-    return found ? position : -1;
 }
 
 // Сохранение выделенных правок при отправке формы
 document.querySelector('.moderation-form').addEventListener('submit', function() {
     const corrections = [];
     document.querySelectorAll('.comment-item').forEach(item => {
-        corrections.push({
-            text: item.querySelector('strong:first-child').nextSibling.textContent.replace(/^: "/, '').replace(/"$/, ''),
-            comment: item.querySelector('strong:last-child').nextSibling.textContent
-        });
+        const textElement = item.querySelector('div[style*="background: rgba(255,255,255,0.05)"]');
+        const commentElement = item.querySelector('div[style*="color: #e8e8e8"]');
+
+        if (textElement && commentElement) {
+            const text = textElement.textContent.replace(/^"|"$/g, '').trim();
+            const comment = commentElement.textContent.replace('💬 Замечание:', '').trim();
+
+            corrections.push({
+                text: text,
+                comment: comment
+            });
+        }
     });
+
     document.getElementById('highlightedCorrections').value = JSON.stringify(corrections);
 });
 </script>

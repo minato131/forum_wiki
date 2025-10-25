@@ -1,6 +1,7 @@
+# admin.py - ИСПРАВЛЕННАЯ ВЕРСИЯ
 from django.contrib import admin
-from .models import Category, Article, ArticleRevision, Comment
-
+from django.contrib.auth.models import Group
+from .models import Article, Category, Comment, UserProfile, ArticleMedia, ModerationComment, ArticleRevision
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
@@ -8,7 +9,6 @@ class CategoryAdmin(admin.ModelAdmin):
     list_filter = ['parent', 'created_at']
     search_fields = ['name', 'description']
     prepopulated_fields = {'slug': ('name',)}
-
 
 @admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):
@@ -39,14 +39,12 @@ class ArticleAdmin(admin.ModelAdmin):
         }),
     )
 
-
 @admin.register(ArticleRevision)
 class ArticleRevisionAdmin(admin.ModelAdmin):
     list_display = ['article', 'author', 'created_at', 'comment']
     list_filter = ['created_at', 'author']
     search_fields = ['article__title', 'comment']
     readonly_fields = ['created_at']
-
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
@@ -57,10 +55,21 @@ class CommentAdmin(admin.ModelAdmin):
 
     def approve_comments(self, request, queryset):
         queryset.update(is_approved=True)
-
     approve_comments.short_description = "Одобрить выбранные комментарии"
 
     def disapprove_comments(self, request, queryset):
         queryset.update(is_approved=False)
-
     disapprove_comments.short_description = "Отклонить выбранные комментарии"
+
+def create_groups(sender, **kwargs):
+    groups = ['Модератор', 'Редактор', 'Пользователь']
+    for group_name in groups:
+        Group.objects.get_or_create(name=group_name)
+
+# Регистрируем сигнал
+from django.db.models.signals import post_migrate
+post_migrate.connect(create_groups)
+
+admin.site.register(UserProfile)
+admin.site.register(ArticleMedia)
+admin.site.register(ModerationComment)
