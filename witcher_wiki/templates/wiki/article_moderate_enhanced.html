@@ -563,13 +563,13 @@
             <div class="stats-grid">
                 <div class="stat-item">
                     <div class="stat-number" id="openCommentsCount">
-                        {{ moderation_comments.filter.status='open'|length }}
+                        {{ open_comments_count }}
                     </div>
                     <div class="stat-label">Открытые</div>
                 </div>
                 <div class="stat-item">
                     <div class="stat-number" id="resolvedCommentsCount">
-                        {{ moderation_comments.filter.status='resolved'|length }}
+                        {{ resolved_comments_count }}
                     </div>
                     <div class="stat-label">Исправлены</div>
                 </div>
@@ -825,5 +825,67 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+// Функции для работы с комментариями модерации
+function highlightCommentText(startPos, endPos) {
+    const contentArea = document.getElementById('contentArea');
+    const contentText = contentArea.textContent || contentArea.innerText;
+
+    // Здесь должна быть логика подсветки текста по позициям
+    console.log(`Highlight text from ${startPos} to ${endPos}`);
+}
+
+function resolveComment(commentId, event) {
+    event.stopPropagation();
+
+    fetch(`/moderation/comment/${commentId}/resolve/`, {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': '{{ csrf_token }}',
+            'X-Requested-With': 'XMLHttpRequest',
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            loadComments();
+            showNotification('Замечание помечено как исправленное!', 'success');
+        } else {
+            showNotification('Ошибка: ' + data.error, 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showNotification('Ошибка при обновлении замечания', 'error');
+    });
+}
+
+function deleteComment(commentId, event) {
+    event.stopPropagation();
+
+    if (!confirm('Вы уверены, что хотите удалить это замечание?')) {
+        return;
+    }
+
+    fetch(`/moderation/comment/${commentId}/delete/`, {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': '{{ csrf_token }}',
+            'X-Requested-With': 'XMLHttpRequest',
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            loadComments();
+            showNotification('Замечание удалено!', 'success');
+        } else {
+            showNotification('Ошибка: ' + data.error, 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showNotification('Ошибка при удалении замечания', 'error');
+    });
+}
 </script>
 {% endblock %}

@@ -515,3 +515,77 @@ body {
   animation: spin 2s linear infinite;
   margin: 20px auto;
 }
+/* Стили для кнопок */
+.btn {
+    display: inline-block;
+    padding: 8px 16px;
+    background: #D4AF37;
+    color: #1a1a1a;
+    text-decoration: none;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    margin: 5px;
+    transition: all 0.3s ease;
+    font-size: 0.9em;
+    text-align: center;
+}
+
+.btn:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(212, 175, 55, 0.3);
+}
+
+.btn-danger {
+    background: #ef4444;
+    color: white;
+}
+
+.btn-danger:hover {
+    background: #dc2626;
+    box-shadow: 0 4px 8px rgba(239, 68, 68, 0.3);
+}
+
+.btn-success {
+    background: #22c55e;
+    color: white;
+}
+
+.btn-success:hover {
+    background: #16a34a;
+    box-shadow: 0 4px 8px rgba(34, 197, 94, 0.3);
+}
+
+.btn-secondary {
+    background: #6b7280;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: #4b5563;
+    box-shadow: 0 4px 8px rgba(107, 114, 128, 0.3);
+}
+
+/* Размеры кнопок */
+.btn-sm {
+    padding: 6px 12px;
+    font-size: 0.8em;
+}
+
+.btn-lg {
+    padding: 12px 24px;
+    font-size: 1.1em;
+}
+
+/* Кнопки в строках таблиц */
+.btn-group {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.btn-group .btn {
+    margin: 2px;
+}

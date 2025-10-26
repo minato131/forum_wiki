@@ -203,6 +203,16 @@
         transform: translateY(-2px);
     }
 
+    .btn-danger {
+        background: #ef4444;
+        color: white;
+    }
+
+    .btn-danger:hover {
+        background: #dc2626;
+        transform: translateY(-2px);
+    }
+
     .alert {
         padding: 15px 20px;
         border-radius: 8px;
@@ -267,6 +277,19 @@
     .submit-info h4 {
         color: #f59e0b;
         margin-bottom: 10px;
+    }
+
+    .danger-zone {
+        margin-top: 30px;
+        padding: 20px;
+        background: rgba(239, 68, 68, 0.1);
+        border: 1px solid #ef4444;
+        border-radius: 8px;
+    }
+
+    .danger-zone h3 {
+        color: #ef4444;
+        margin-bottom: 15px;
     }
 
     @media (max-width: 768px) {
@@ -355,7 +378,7 @@
                 <h4 style="color: #D4AF37; margin-bottom: 15px;">📁 Прикрепленные файлы:</h4>
                 <div class="media-grid">
                     {% for media in media_files %}
-                    <div class="media-item">
+                    <div class="media-item" id="media-{{ media.id }}">
                         {% if media.file_type == 'image' %}
                             <img src="{{ media.file.url }}" alt="{{ media.title }}">
                         {% elif media.file_type == 'video' %}
@@ -418,6 +441,20 @@
             </p>
         </div>
         {% endif %}
+
+        <div class="danger-zone">
+            <h3>⚠️ Опасная зона</h3>
+            {% if article.can_delete request.user %}
+            <button onclick="deleteArticle('{{ article.slug }}')" class="btn btn-danger">
+                🗑️ Удалить статью
+            </button>
+            <p style="color: #888; font-size: 0.9em; margin-top: 8px;">
+                Это действие нельзя отменить. Статья и все связанные файлы будут удалены.
+            </p>
+            {% else %}
+            <p style="color: #888;">У вас нет прав для удаления этой статьи.</p>
+            {% endif %}
+        </div>
     </div>
 </div>
 
@@ -477,41 +514,92 @@
     }
 
     function deleteMedia(mediaId) {
-        if (confirm('Вы уверены, что хотите удалить этот файл?')) {
-            fetch(`/media/${mediaId}/delete/`, {
-                method: 'POST',
-                headers: {
-                    'X-CSRFToken': getCookie('csrftoken'),
-                    'Content-Type': 'application/json'
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    location.reload();
-                } else {
-                    alert('Ошибка удаления: ' + data.error);
-                }
-            })
-            .catch(error => {
-                alert('Ошибка: ' + error);
-            });
+        if (!confirm('Вы уверены, что хотите удалить этот файл?')) {
+            return;
         }
+
+        const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+        fetch(`/media/${mediaId}/delete/`, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': csrfToken,
+                'X-Requested-With': 'XMLHttpRequest',
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `csrfmiddlewaretoken=${encodeURIComponent(csrfToken)}`
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const mediaElement = document.getElementById(`media-${mediaId}`);
+                if (mediaElement) {
+                    mediaElement.remove();
+                }
+                showNotification('Файл успешно удален!', 'success');
+            } else {
+                showNotification('Ошибка: ' + data.error, 'error');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            showNotification('Ошибка при удалении файла', 'error');
+        });
     }
 
-    function getCookie(name) {
-        let cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            const cookies = document.cookie.split(';');
-            for (let i = 0; i < cookies.length; i++) {
-                const cookie = cookies[i].trim();
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
+    function deleteArticle(slug) {
+        if (!confirm('ВНИМАНИЕ! Вы собираетесь удалить статью. Это действие нельзя отменить. Все медиафайлы и комментарии также будут удалены. Продолжить?')) {
+            return;
         }
-        return cookieValue;
+
+        const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+        fetch(`/article/${slug}/delete/`, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': csrfToken,
+                'X-Requested-With': 'XMLHttpRequest',
+            },
+            body: `csrfmiddlewaretoken=${encodeURIComponent(csrfToken)}`
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                showNotification(data.message, 'success');
+                if (data.redirect_url) {
+                    setTimeout(() => {
+                        window.location.href = data.redirect_url;
+                    }, 1500);
+                }
+            } else {
+                showNotification('Ошибка: ' + data.error, 'error');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            showNotification('Ошибка при удалении статьи', 'error');
+        });
+    }
+
+    function showNotification(message, type) {
+        const notification = document.createElement('div');
+        notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 12px 20px;
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+            z-index: 10000;
+            background: ${type === 'success' ? '#22c55e' : '#ef4444'};
+        `;
+        notification.textContent = message;
+        document.body.appendChild(notification);
+
+        setTimeout(() => {
+            notification.remove();
+        }, 3000);
     }
 
     // Подтверждение отправки на модерацию

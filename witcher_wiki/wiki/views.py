@@ -1524,3 +1524,155 @@ def get_unread_count(request):
         return JsonResponse({'unread_count': count})
 
     return JsonResponse({'error': 'Invalid request'})
+
+
+@login_required
+def article_moderate_enhanced(request, slug):
+    """Расширенная модерация статьи с системой выделения текста"""
+    article = get_object_or_404(Article, slug=slug)
+
+    if not article.can_moderate(request.user):
+        return render(request, 'wiki/access_denied.html', {
+            'message': 'У вас нет прав для модерации статей.'
+        })
+
+    if request.method == 'POST':
+        action = request.POST.get('action')
+        moderation_notes = request.POST.get('moderation_notes', '').strip()
+
+        if action == 'approve':
+            article.status = 'published'
+            article.published_at = timezone.now()
+            article.moderated_by = request.user
+            article.moderated_at = timezone.now()
+            article.moderation_notes = moderation_notes
+            article.save()
+
+            send_moderation_notification(article, 'approved')
+            messages.success(request, f'Статья "{article.title}" одобрена и опубликована.')
+            return redirect('wiki:moderation_queue')
+
+        elif action == 'needs_correction':
+            article.status = 'needs_correction'
+            article.moderated_by = request.user
+            article.moderated_at = timezone.now()
+            article.moderation_notes = moderation_notes
+            article.correction_deadline = timezone.now() + timezone.timedelta(days=7)
+            article.save()
+
+            send_moderation_notification(article, 'needs_correction')
+            messages.success(request, f'Статья "{article.title}" отправлена на доработку.')
+            return redirect('wiki:moderation_queue')
+
+        elif action == 'send_to_editor':
+            article.status = 'editor_review'
+            article.moderated_by = request.user
+            article.moderated_at = timezone.now()
+            article.moderation_notes = moderation_notes
+            article.save()
+
+            messages.success(request, f'Статья "{article.title}" отправлена редактору.')
+            return redirect('wiki:moderation_queue')
+
+        elif action == 'reject':
+            article.status = 'rejected'
+            article.moderated_by = request.user
+            article.moderated_at = timezone.now()
+            article.moderation_notes = moderation_notes
+            article.save()
+
+            send_moderation_notification(article, 'rejected')
+            messages.success(request, f'Статья "{article.title}" отклонена.')
+            return redirect('wiki:moderation_queue')
+
+    # Получаем существующие комментарии модерации
+    moderation_comments = article.moderation_comments.all().order_by('-created_at')
+
+    # Считаем количество открытых и исправленных комментариев
+    open_comments_count = moderation_comments.filter(status='open').count()
+    resolved_comments_count = moderation_comments.filter(status='resolved').count()
+
+    context = {
+        'article': article,
+        'moderation_comments': moderation_comments,
+        'open_comments_count': open_comments_count,
+        'resolved_comments_count': resolved_comments_count,
+    }
+
+    # Проверяем, это частичный запрос для AJAX
+    if request.GET.get('partial') == 'comments':
+        return render(request, 'wiki/moderation_comment_item.html', context)
+
+    return render(request, 'wiki/article_moderate_enhanced.html', context)
+
+
+@login_required
+def resolve_moderation_comment(request, comment_id):
+    """Помечает комментарий модерации как исправленный"""
+    if request.method == 'POST' and request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        comment = get_object_or_404(ModerationComment, id=comment_id)
+
+        if not comment.article.can_moderate(request.user):
+            return JsonResponse({'success': False, 'error': 'Нет прав для модерации'})
+
+        comment.mark_as_resolved(request.user)
+        return JsonResponse({'success': True})
+
+    return JsonResponse({'success': False, 'error': 'Неверный запрос'})
+
+
+@login_required
+def delete_moderation_comment(request, comment_id):
+    """Удаляет комментарий модерации"""
+    if request.method == 'POST' and request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        comment = get_object_or_404(ModerationComment, id=comment_id)
+
+        if not comment.article.can_moderate(request.user):
+            return JsonResponse({'success': False, 'error': 'Нет прав для модерации'})
+
+        comment.delete()
+        return JsonResponse({'success': True})
+
+    return JsonResponse({'success': False, 'error': 'Неверный запрос'})
+
+
+@login_required
+def article_delete(request, slug):
+    """Удаление статьи"""
+    article = get_object_or_404(Article, slug=slug)
+
+    if not article.can_delete(request.user):
+        return JsonResponse({'success': False, 'error': 'У вас нет прав для удаления этой статьи'})
+
+    if request.method == 'POST':
+        try:
+            article_title = article.title
+
+            # Удаляем связанные медиафайлы
+            for media in article.media_files.all():
+                media_file_path = media.file.path
+                media.delete()
+                # Удаляем физический файл
+                if os.path.exists(media_file_path):
+                    os.remove(media_file_path)
+
+            article.delete()
+
+            if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+                return JsonResponse({
+                    'success': True,
+                    'message': f'Статья "{article_title}" удалена',
+                    'redirect_url': reverse('wiki:my_articles')
+                })
+            else:
+                messages.success(request, f'Статья "{article_title}" удалена')
+                return redirect('wiki:my_articles')
+
+        except Exception as e:
+            if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+                return JsonResponse({'success': False, 'error': str(e)})
+            else:
+                messages.error(request, f'Ошибка при удалении статьи: {str(e)}')
+                return redirect('wiki:article_detail', slug=slug)
+
+    return JsonResponse({'success': False, 'error': 'Неверный метод запроса'})

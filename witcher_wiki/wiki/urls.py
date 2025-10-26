@@ -18,6 +18,7 @@ urlpatterns = [
     path('article/<slug:slug>/edit/', views.article_edit, name='article_edit'),
     path('article/<slug:slug>/moderate/', views.article_moderate, name='article_moderate'),
     path('article/<slug:slug>/like/', views.toggle_article_like, name='toggle_article_like'),
+    path('article/<slug:slug>/delete/', views.article_delete, name='article_delete'),
 
     # Модерация
     path('moderation/', views.moderation_queue, name='moderation_queue'),
@@ -64,4 +65,7 @@ urlpatterns = [
     path('messages/unread-count/', views.get_unread_count, name='get_unread_count'),
 
     path('article/<slug:slug>/moderate-enhanced/', views.article_moderate_enhanced, name='article_moderate_enhanced'),
+
+    path('moderation/comment/<int:comment_id>/resolve/', views.resolve_moderation_comment, name='resolve_moderation_comment'),
+    path('moderation/comment/<int:comment_id>/delete/', views.delete_moderation_comment, name='delete_moderation_comment'),
 ]

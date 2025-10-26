@@ -1,3 +1,4 @@
+{% for comment in moderation_comments %}
 <div class="comment-item {% if comment.status == 'resolved' %}resolved{% endif %}"
      data-comment-id="{{ comment.id }}"
      onclick="highlightCommentText({{ comment.start_position }}, {{ comment.end_position }})">
@@ -39,3 +40,9 @@
         </button>
     </div>
 </div>
+{% empty %}
+<div style="text-align: center; color: #888; padding: 20px;">
+    <i class="fas fa-inbox" style="font-size: 2em; margin-bottom: 10px;"></i>
+    <p>Пока нет замечаний</p>
+</div>
+{% endfor %}

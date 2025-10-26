@@ -102,6 +102,38 @@
         flex-wrap: wrap;
     }
 
+    .btn {
+        display: inline-block;
+        padding: 8px 16px;
+        background: #D4AF37;
+        color: #1a1a1a;
+        text-decoration: none;
+        border-radius: 6px;
+        border: none;
+        cursor: pointer;
+        font-weight: bold;
+        margin: 5px;
+        transition: all 0.3s ease;
+        font-size: 0.9em;
+        text-align: center;
+    }
+
+    .btn:hover {
+        opacity: 0.9;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(212, 175, 55, 0.3);
+    }
+
+    .btn-danger {
+        background: #ef4444;
+        color: white;
+    }
+
+    .btn-danger:hover {
+        background: #dc2626;
+        box-shadow: 0 4px 8px rgba(239, 68, 68, 0.3);
+    }
+
     .btn-sm {
         padding: 6px 12px;
         border: none;
@@ -303,6 +335,12 @@
                 </a>
                 {% endif %}
 
+                {% if article.can_delete request.user %}
+                <button onclick="deleteArticle('{{ article.slug }}')" class="btn-sm btn-danger" title="Удалить">
+                    🗑️
+                </button>
+                {% endif %}
+
                 {% if article.status == 'author_review' %}
                 <a href="{% url 'wiki:author_review' article.slug %}" class="btn-sm btn-review" title="Согласовать правки редактора">
                     📋
@@ -332,10 +370,7 @@
             <div style="font-size: 4em; margin-bottom: 20px;">📝</div>
             <h3 style="color: #D4AF37; margin-bottom: 15px;">У вас пока нет статей</h3>
             <p style="margin-bottom: 20px;">Создайте свою первую статью и поделитесь знаниями о вселенной Ведьмака!</p>
-            <a href="{% url 'wiki:article_create' %}"
-               style="background: linear-gradient(135deg, #D4AF37 0%, #FFD700 100%);
-                      color: #1a1a1a; padding: 12px 24px; border-radius: 8px;
-                      text-decoration: none; font-weight: bold;">
+            <a href="{% url 'wiki:article_create' %}" class="btn">
                 ➕ Создать статью
             </a>
         </div>
@@ -371,5 +406,60 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
+function deleteArticle(slug) {
+    if (!confirm('Вы уверены, что хотите удалить эту статью? Это действие нельзя отменить.')) {
+        return;
+    }
+
+    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+    fetch(`/article/${slug}/delete/`, {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': csrfToken,
+            'X-Requested-With': 'XMLHttpRequest',
+        },
+        body: `csrfmiddlewaretoken=${encodeURIComponent(csrfToken)}`
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showNotification(data.message, 'success');
+            if (data.redirect_url) {
+                setTimeout(() => {
+                    window.location.href = data.redirect_url;
+                }, 1500);
+            }
+        } else {
+            showNotification('Ошибка: ' + data.error, 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showNotification('Ошибка при удалении статьи', 'error');
+    });
+}
+
+function showNotification(message, type) {
+    const notification = document.createElement('div');
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 12px 20px;
+        border-radius: 8px;
+        color: white;
+        font-weight: bold;
+        z-index: 10000;
+        background: ${type === 'success' ? '#22c55e' : '#ef4444'};
+    `;
+    notification.textContent = message;
+    document.body.appendChild(notification);
+
+    setTimeout(() => {
+        notification.remove();
+    }, 3000);
+}
 </script>
 {% endblock %}
