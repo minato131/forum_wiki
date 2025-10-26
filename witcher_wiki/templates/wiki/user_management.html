@@ -1,0 +1,351 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Управление пользователями{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <!-- Заголовок -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="d-flex align-items-center mb-3">
+                <div class="me-3">
+                    <i class="fas fa-users-cog fa-2x text-warning"></i>
+                </div>
+                <div>
+                    <h2 class="mb-1 text-gold">Управление пользователями</h2>
+                    <p class="text-muted mb-0">Назначение ролей и управление доступом</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if messages %}
+    <div class="row mb-4">
+        <div class="col-12">
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                <i class="fas
+                    {% if message.tags == 'success' %}fa-check-circle
+                    {% elif message.tags == 'error' %}fa-exclamation-circle
+                    {% else %}fa-info-circle{% endif %} me-2"></i>
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Статистика -->
+    <div class="row mb-4">
+        <div class="col-md-3 mb-3">
+            <div class="card bg-dark border-secondary">
+                <div class="card-body text-center">
+                    <div class="text-primary mb-2">
+                        <i class="fas fa-users fa-2x"></i>
+                    </div>
+                    <h3 class="text-white">{{ users.count }}</h3>
+                    <p class="text-muted mb-0">Всего пользователей</p>
+                </div>
+            </div>
+        </div>
+        {% for group_name, count in group_stats.items %}
+        <div class="col-md-3 mb-3">
+            <div class="card bg-dark border-
+                {% if group_name == 'Администратор' %}danger
+                {% elif group_name == 'Модератор' %}warning
+                {% elif group_name == 'Редактор' %}info
+                {% else %}secondary{% endif %}">
+                <div class="card-body text-center">
+                    <div class="mb-2">
+                        {% if group_name == 'Администратор' %}
+                            <i class="fas fa-crown fa-2x text-danger"></i>
+                        {% elif group_name == 'Модератор' %}
+                            <i class="fas fa-shield-alt fa-2x text-warning"></i>
+                        {% elif group_name == 'Редактор' %}
+                            <i class="fas fa-edit fa-2x text-info"></i>
+                        {% else %}
+                            <i class="fas fa-user fa-2x text-secondary"></i>
+                        {% endif %}
+                    </div>
+                    <h3 class="text-white">{{ count }}</h3>
+                    <p class="text-muted mb-0">{{ group_name }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Фильтры и поиск -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card bg-dark border-secondary">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input type="text" id="userSearch" class="form-control bg-dark text-white border-secondary"
+                                   placeholder="🔍 Поиск пользователей...">
+                        </div>
+                        <div class="col-md-6">
+                            <select id="roleFilter" class="form-select bg-dark text-white border-secondary">
+                                <option value="">Все роли</option>
+                                {% for group in groups %}
+                                <option value="{{ group.name }}">{{ group.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Таблица пользователей -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card bg-dark border-secondary">
+                <div class="card-header bg-darker border-secondary">
+                    <h5 class="card-title mb-0 text-gold">
+                        <i class="fas fa-list me-2"></i>
+                        Список пользователей
+                    </h5>
+                </div>
+                <div class="card-body p-0">
+                    {% if users %}
+                    <div class="table-responsive">
+                        <table class="table table-dark table-hover mb-0" id="usersTable">
+                            <thead class="table-secondary">
+                                <tr>
+                                    <th width="25%">Пользователь</th>
+                                    <th width="15%">Контакты</th>
+                                    <th width="20%">Роли</th>
+                                    <th width="15%">Статистика</th>
+                                    <th width="15%">Активность</th>
+                                    <th width="10%">Действия</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for user in users %}
+                                <tr class="user-row" data-username="{{ user.username|lower }}" data-roles="{{ user.groups.all|join:', '|lower }}">
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="position-relative me-3">
+                                                {% if user.profile.avatar %}
+                                                    <img src="{{ user.profile.avatar.url }}" alt="{{ user.username }}"
+                                                         class="rounded-circle" width="45" height="45">
+                                                {% else %}
+                                                    <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center"
+                                                         style="width: 45px; height: 45px;">
+                                                        <i class="fas fa-user text-white"></i>
+                                                    </div>
+                                                {% endif %}
+                                                {% if user.is_active %}
+                                                    <span class="position-absolute bottom-0 end-0 bg-success rounded-circle"
+                                                          style="width: 12px; height: 12px; border: 2px solid #1a1a1a;"></span>
+                                                {% endif %}
+                                            </div>
+                                            <div>
+                                                <strong class="text-white">{{ user.username }}</strong>
+                                                {% if user.get_full_name %}
+                                                <br>
+                                                <small class="text-muted">{{ user.get_full_name }}</small>
+                                                {% endif %}
+                                                {% if user.is_staff %}
+                                                <div>
+                                                    <small class="badge bg-primary">Персонал</small>
+                                                </div>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="text-truncate" title="{{ user.email }}">
+                                            {{ user.email|default:"—" }}
+                                        </div>
+                                        {% if user.profile.telegram or user.profile.vk %}
+                                        <div class="mt-1">
+                                            {% if user.profile.telegram %}
+                                                <a href="{{ user.profile.telegram }}" class="text-info me-2" title="Telegram">
+                                                    <i class="fab fa-telegram"></i>
+                                                </a>
+                                            {% endif %}
+                                            {% if user.profile.vk %}
+                                                <a href="{{ user.profile.vk }}" class="text-primary" title="VK">
+                                                    <i class="fab fa-vk"></i>
+                                                </a>
+                                            {% endif %}
+                                        </div>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <div class="role-badges">
+                                            {% for group in user.groups.all %}
+                                                <span class="badge mb-1
+                                                    {% if group.name == 'Администратор' %}bg-danger
+                                                    {% elif group.name == 'Модератор' %}bg-warning
+                                                    {% elif group.name == 'Редактор' %}bg-info
+                                                    {% else %}bg-secondary{% endif %}">
+                                                    {{ group.name }}
+                                                    <form method="post" class="d-inline ms-1">
+                                                        {% csrf_token %}
+                                                        <input type="hidden" name="user_id" value="{{ user.id }}">
+                                                        <input type="hidden" name="group_id" value="{{ group.id }}">
+                                                        <button type="submit" name="action" value="remove"
+                                                                class="btn-close btn-close-white"
+                                                                style="font-size: 0.7em;"
+                                                                onclick="return confirm('Убрать роль {{ group.name }}?')"></button>
+                                                    </form>
+                                                </span>
+                                            {% empty %}
+                                                <span class="text-muted">—</span>
+                                            {% endfor %}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="small">
+                                            <div class="text-muted">Статьи:</div>
+                                            <strong class="text-white">{{ user.articles.count }}</strong>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="small">
+                                            <div class="text-muted">Регистрация:</div>
+                                            <div class="text-white">{{ user.date_joined|date:"d.m.Y" }}</div>
+                                            <div class="text-muted">Последний вход:</div>
+                                            <div class="text-white">{{ user.last_login|date:"d.m.Y H:i"|default:"—" }}</div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="dropdown">
+                                            <button class="btn btn-sm btn-outline-warning dropdown-toggle"
+                                                    type="button" data-bs-toggle="dropdown">
+                                                <i class="fas fa-cog"></i>
+                                            </button>
+                                            <div class="dropdown-menu dropdown-menu-dark">
+                                                <h6 class="dropdown-header text-gold">Назначить роль</h6>
+                                                {% for group in groups %}
+                                                    {% if group not in user.groups.all %}
+                                                    <form method="post" class="dropdown-item p-0">
+                                                        {% csrf_token %}
+                                                        <input type="hidden" name="user_id" value="{{ user.id }}">
+                                                        <input type="hidden" name="group_id" value="{{ group.id }}">
+                                                        <button type="submit" name="action" value="add"
+                                                                class="btn btn-link dropdown-item text-success">
+                                                            <i class="fas fa-plus me-2"></i>
+                                                            {{ group.name }}
+                                                        </button>
+                                                    </form>
+                                                    {% endif %}
+                                                {% endfor %}
+                                                {% if user.groups.all %}
+                                                <div class="dropdown-divider"></div>
+                                                <h6 class="dropdown-header text-gold">Быстрые действия</h6>
+                                                <a class="dropdown-item text-info" href="#">
+                                                    <i class="fas fa-envelope me-2"></i>
+                                                    Написать
+                                                </a>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% else %}
+                    <div class="text-center py-5">
+                        <i class="fas fa-users fa-3x text-muted mb-3"></i>
+                        <p class="text-muted">Нет пользователей для отображения</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.text-gold {
+    color: #D4AF37 !important;
+}
+
+.bg-darker {
+    background-color: #1a1a1a !important;
+}
+
+.card {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.role-badges .badge {
+    font-size: 0.75em;
+    position: relative;
+}
+
+.role-badges .btn-close {
+    padding: 0;
+    margin-left: 4px;
+    opacity: 0.7;
+}
+
+.role-badges .btn-close:hover {
+    opacity: 1;
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(212, 175, 55, 0.1) !important;
+}
+
+.dropdown-menu-dark {
+    background: #2d2d2d;
+    border: 1px solid #D4AF37;
+}
+
+.dropdown-menu-dark .dropdown-item {
+    color: #e8e8e8;
+}
+
+.dropdown-menu-dark .dropdown-item:hover {
+    background: rgba(212, 175, 55, 0.2);
+    color: #D4AF37;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('userSearch');
+    const roleFilter = document.getElementById('roleFilter');
+    const userRows = document.querySelectorAll('.user-row');
+
+    function filterUsers() {
+        const searchTerm = searchInput.value.toLowerCase();
+        const roleTerm = roleFilter.value.toLowerCase();
+
+        userRows.forEach(row => {
+            const username = row.getAttribute('data-username');
+            const roles = row.getAttribute('data-roles');
+
+            const matchesSearch = username.includes(searchTerm);
+            const matchesRole = !roleTerm || roles.includes(roleTerm);
+
+            row.style.display = (matchesSearch && matchesRole) ? '' : 'none';
+        });
+    }
+
+    searchInput.addEventListener('input', filterUsers);
+    roleFilter.addEventListener('change', filterUsers);
+
+    // Подтверждение удаления роли
+    const removeButtons = document.querySelectorAll('button[name="action"][value="remove"]');
+    removeButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            if (!confirm('Вы уверены, что хотите убрать эту роль у пользователя?')) {
+                e.preventDefault();
+            }
+        });
+    });
+});
+</script>
+{% endblock %}

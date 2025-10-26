@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-
+from .views import user_management
 app_name = 'wiki'
 
 urlpatterns = [
@@ -49,4 +49,6 @@ urlpatterns = [
     path('clean-latex/', views.clean_all_articles_latex, name='clean_latex'),
     path('editor/dashboard/', views.editor_dashboard, name='editor_dashboard'),
     path('comment/<int:comment_id>/delete/', views.delete_comment, name='delete_comment'),
+
+    path('user-management/', user_management, name='user_management'),
 ]

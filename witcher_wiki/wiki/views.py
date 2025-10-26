@@ -3,8 +3,6 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q, Count, Sum
 from django.core.paginator import Paginator
 from django.utils.text import slugify
-from django.contrib import messages
-from django.utils import timezone
 import os
 import re
 from .forms import ArticleForm, CommentForm, SearchForm, CategoryForm, ProfileUpdateForm
@@ -13,8 +11,12 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 import json
 from django.utils import timezone
-from django.contrib import messages
 from django.http import JsonResponse
+from .utils import user_can_moderate, user_can_edit_content, user_is_admin
+from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.models import User, Group
+from django.contrib.auth.decorators import user_passes_test
+from django.contrib import messages
 
 def clean_latex_from_content(content):
     """
@@ -1349,3 +1351,47 @@ def delete_comment(request, comment_id):
         return JsonResponse({'success': True})
     except Exception as e:
         return JsonResponse({'success': False, 'error': str(e)})
+
+
+def user_is_admin(user):
+    """Проверяет, является ли пользователь администратором"""
+    return user.is_staff or user.groups.filter(name='Администратор').exists()
+
+
+@user_passes_test(user_is_admin)
+def user_management(request):
+    """Страница управления пользователями для администраторов"""
+    users = User.objects.all().select_related('profile')
+    groups = Group.objects.all()
+
+    if request.method == 'POST':
+        user_id = request.POST.get('user_id')
+        group_id = request.POST.get('group_id')
+        action = request.POST.get('action')
+
+        if user_id and group_id:
+            try:
+                user = User.objects.get(id=user_id)
+                group = Group.objects.get(id=group_id)
+
+                if action == 'add':
+                    user.groups.add(group)
+                    messages.success(request, f'✅ Пользователь {user.username} добавлен в группу {group.name}')
+                elif action == 'remove':
+                    user.groups.remove(group)
+                    messages.success(request, f'🗑️ Пользователь {user.username} удален из группы {group.name}')
+
+            except (User.DoesNotExist, Group.DoesNotExist):
+                messages.error(request, '❌ Ошибка: пользователь или группа не найдены')
+
+    # Статистика по группам
+    group_stats = {}
+    for group in groups:
+        group_stats[group.name] = group.user_set.count()
+
+    context = {
+        'users': users,
+        'groups': groups,
+        'group_stats': group_stats,
+    }
+    return render(request, 'wiki/user_management.html', context)

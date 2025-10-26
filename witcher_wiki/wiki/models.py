@@ -105,6 +105,11 @@ class Article(models.Model):
         verbose_name = 'Статья'
         verbose_name_plural = 'Статьи'
         ordering = ['-created_at']
+        permissions = [
+            ("can_moderate", "Может модерировать статьи"),
+            ("can_edit_content", "Может редактировать контент"),
+            ("can_manage_categories", "Может управлять категориями"),
+        ]
 
     def __str__(self):
         return self.title

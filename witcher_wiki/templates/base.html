@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <title>{% block title %}Форум по Вселенной Ведьмака{% endblock %}</title>
     <style>
         /* RESET */
@@ -331,6 +332,7 @@
 
             <!-- Пункты меню для админов -->
             {% if user.is_staff %}
+                <a href="{% url 'wiki:user_management' %}">👥 Управление пользователями</a>
                 <a href="/admin/">⚙️ Админ-панель</a>
             {% endif %}
         </div>
@@ -364,7 +366,6 @@
                             <a href="{% url 'wiki:category_management' %}">📁 Управление категориями</a>
                             <a href="{% url 'wiki:moderation_queue' %}">⚖️ Модерация</a>
                         {% endif %}
-
                         <!-- Пункты для редакторов -->
                         {% if user_can_edit %}
                             <a href="{% url 'wiki:editor_dashboard' %}">📝 Редактура</a>
@@ -372,6 +373,7 @@
 
                         <!-- Пункты для админов -->
                         {% if user.is_staff %}
+                            <a href="{% url 'wiki:user_management' %}">👥 Управление пользователями</a>
                             <a href="/admin/">⚙️ Админ-панель</a>
                         {% endif %}
 
