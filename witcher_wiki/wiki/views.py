@@ -392,61 +392,75 @@ def article_edit(request, slug):
     success_message = ""
 
     if request.method == 'POST':
-        title = request.POST.get('title', '').strip()
-        content = request.POST.get('content', '').strip()
-        excerpt = request.POST.get('excerpt', '').strip()
-        category_ids = request.POST.getlist('categories')
+        # Проверяем, это отправка на модерацию или сохранение
+        action = request.POST.get('action', 'save')
 
-        # Очищаем контент от LaTeX
-        content = clean_latex_from_content(content)
-        excerpt = clean_latex_from_content(excerpt)
-
-        if title and content:
-            article.title = title
-            article.content = content
-            article.excerpt = excerpt
-
-            # Если статья была отклонена, возвращаем ее на модерацию после редактирования
-            if article.status == 'rejected':
-                article.status = 'review'
-                article.moderation_notes = ''
-                success_message = "Статья отправлена на повторную модерацию."
-
-            article.save()
-
-            # Обновляем категории
-            if category_ids:
-                categories = Category.objects.filter(id__in=category_ids)
-                article.categories.set(categories)
+        if action == 'submit_moderation':
+            # Отправка на модерацию
+            if article.submit_for_moderation():
+                messages.success(request, '✅ Статья отправлена на модерацию!')
+                return redirect('wiki:my_articles')
             else:
-                article.categories.clear()
+                messages.error(request, '❌ Не удалось отправить статью на модерацию.')
 
-            # Обрабатываем загруженные медиафайлы
-            media_files = request.FILES.getlist('media_files')
-            for media_file in media_files:
-                if media_file:
-                    # Определяем тип файла
-                    file_name = media_file.name.lower()
-                    if any(ext in file_name for ext in ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.webp']):
-                        file_type = 'image'
-                    elif any(ext in file_name for ext in ['.mp4', '.avi', '.mov', '.wmv', '.flv', '.webm']):
-                        file_type = 'video'
-                    elif any(ext in file_name for ext in ['.mp3', '.wav', '.ogg', '.flac']):
-                        file_type = 'audio'
-                    else:
-                        file_type = 'document'
-
-                    ArticleMedia.objects.create(
-                        article=article,
-                        file=media_file,
-                        file_type=file_type,
-                        title=media_file.name,
-                        uploaded_by=request.user
-                    )
-
-            return redirect('wiki:article_detail', slug=article.slug)
         else:
-            error_message = "Пожалуйста, заполните все обязательные поля."
+            # Обычное сохранение
+            title = request.POST.get('title', '').strip()
+            content = request.POST.get('content', '').strip()
+            excerpt = request.POST.get('excerpt', '').strip()
+            category_ids = request.POST.getlist('categories')
+
+            # Очищаем контент от LaTeX
+            content = clean_latex_from_content(content)
+            excerpt = clean_latex_from_content(excerpt)
+
+            if title and content:
+                article.title = title
+                article.content = content
+                article.excerpt = excerpt
+
+                # Если статья была отклонена, возвращаем ее на модерацию после редактирования
+                if article.status == 'rejected':
+                    article.status = 'review'
+                    article.moderation_notes = ''
+                    success_message = "Статья отправлена на повторную модерацию."
+
+                article.save()
+
+                # Обновляем категории
+                if category_ids:
+                    categories = Category.objects.filter(id__in=category_ids)
+                    article.categories.set(categories)
+                else:
+                    article.categories.clear()
+
+                # Обрабатываем загруженные медиафайлы
+                media_files = request.FILES.getlist('media_files')
+                for media_file in media_files:
+                    if media_file:
+                        # Определяем тип файла
+                        file_name = media_file.name.lower()
+                        if any(ext in file_name for ext in ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.webp']):
+                            file_type = 'image'
+                        elif any(ext in file_name for ext in ['.mp4', '.avi', '.mov', '.wmv', '.flv', '.webm']):
+                            file_type = 'video'
+                        elif any(ext in file_name for ext in ['.mp3', '.wav', '.ogg', '.flac']):
+                            file_type = 'audio'
+                        else:
+                            file_type = 'document'
+
+                        ArticleMedia.objects.create(
+                            article=article,
+                            file=media_file,
+                            file_type=file_type,
+                            title=media_file.name,
+                            uploaded_by=request.user
+                        )
+
+                messages.success(request, '✅ Изменения сохранены!')
+                return redirect('wiki:article_detail', slug=article.slug)
+            else:
+                error_message = "Пожалуйста, заполните все обязательные поля."
 
     # Получаем все категории для формы
     categories = Category.objects.all()
@@ -492,92 +506,6 @@ def clean_all_articles_latex(request):
     except Exception as e:
         return JsonResponse({'success': False, 'error': str(e)})
 
-
-@login_required
-def article_moderate(request, slug):
-    """Расширенная модерация статьи с возможностью выделения текста"""
-    article = get_object_or_404(Article, slug=slug)
-
-    if not article.can_moderate(request.user):
-        return render(request, 'wiki/access_denied.html', {
-            'message': 'У вас нет прав для модерации статей.'
-        })
-
-    if request.method == 'POST':
-        action = request.POST.get('action')
-        moderation_notes = request.POST.get('moderation_notes', '').strip()
-        highlighted_corrections = request.POST.get('highlighted_corrections', '')
-
-        if action == 'approve':
-            article.status = 'published'
-            article.published_at = timezone.now()
-            article.moderated_by = request.user
-            article.moderated_at = timezone.now()
-            article.moderation_notes = moderation_notes
-            article.save()
-
-            # Отправка уведомления автору
-            send_moderation_notification(article, 'approved')
-            messages.success(request, f'Статья "{article.title}" одобрена и опубликована.')
-
-        elif action == 'needs_correction':
-            article.status = 'needs_correction'
-            article.moderated_by = request.user
-            article.moderated_at = timezone.now()
-            article.moderation_notes = moderation_notes
-
-            # Сохраняем выделенные правки если есть
-            if highlighted_corrections:
-                try:
-                    article.highlighted_corrections = json.loads(highlighted_corrections)
-                except json.JSONDecodeError:
-                    pass
-
-            # Устанавливаем срок исправления (7 дней по умолчанию)
-            article.correction_deadline = timezone.now() + timezone.timedelta(days=7)
-            article.save()
-
-            # Отправка уведомления автору
-            send_moderation_notification(article, 'needs_correction')
-            messages.success(request, f'Статья "{article.title}" отправлена на доработку.')
-
-        elif action == 'send_to_editor':
-            article.status = 'editor_review'
-            article.moderated_by = request.user
-            article.moderated_at = timezone.now()
-            article.moderation_notes = moderation_notes
-
-            if highlighted_corrections:
-                try:
-                    article.highlighted_corrections = json.loads(highlighted_corrections)
-                except json.JSONDecodeError:
-                    pass
-
-            article.save()
-            messages.success(request, f'Статья "{article.title}" отправлена редактору.')
-
-        elif action == 'reject':
-            article.status = 'rejected'
-            article.moderated_by = request.user
-            article.moderated_at = timezone.now()
-            article.moderation_notes = moderation_notes
-            article.save()
-            messages.success(request, f'Статья "{article.title}" отклонена.')
-
-        return redirect('wiki:moderation_queue')
-
-    # Получаем существующие комментарии модерации
-    moderation_comments = article.moderation_comments.filter(resolved=False)
-
-    context = {
-        'article': article,
-        'moderation_comments': moderation_comments,
-    }
-    return render(request, 'wiki/article_moderate.html', context)
-
-
-# В views.py ДОБАВИТЬ новые функции модерации
-
 @login_required
 def article_moderate(request, slug):
     """Расширенная модерация статьи с возможностью выделения текста"""
@@ -644,13 +572,13 @@ def article_moderate(request, slug):
         return redirect('wiki:moderation_queue')
 
     # Получаем существующие комментарии модерации
-    moderation_comments = article.moderation_comments.filter(resolved=False)
+    moderation_comments = article.moderation_comments.all().order_by('-created_at')
 
     context = {
         'article': article,
         'moderation_comments': moderation_comments,
     }
-    return render(request, 'wiki/article_moderate.html', context)
+    return render(request, 'wiki/article_moderate_enhanced.html', context)
 
 
 @login_required
@@ -732,31 +660,48 @@ def author_review(request, slug):
     """Страница для автора - согласование исправлений"""
     article = get_object_or_404(Article, slug=slug)
 
-    if request.user != article.author:
+    # Проверяем права автора и статус статьи
+    if not article.can_accept_revisions(request.user):
         return render(request, 'wiki/access_denied.html', {
-            'message': 'Вы не автор этой статьи.'
+            'message': 'У вас нет прав для согласования правок этой статьи.'
         })
 
     if request.method == 'POST':
         action = request.POST.get('action')
+        author_notes = request.POST.get('author_notes', '').strip()
 
         if action == 'accept':
-            article.status = 'published'
-            article.published_at = timezone.now()
-            article.author_notes = 'Исправления редактора приняты'
-            article.save()
-            messages.success(request, 'Статья опубликована с исправлениями редактора.')
+            article.accept_editor_revisions()
+            messages.success(request, '✅ Статья опубликована с исправлениями редактора.')
 
         elif action == 'reject':
+            if not author_notes:
+                messages.error(request, '❌ Пожалуйста, укажите причину отклонения правок.')
+                context = {
+                    'article': article,
+                    'author_notes': author_notes,
+                }
+                return render(request, 'wiki/author_review.html', context)
+
+            article.reject_editor_revisions(author_notes)
+            messages.success(request, '📝 Исправления отклонены. Статья возвращена в черновики для доработки.')
+
+        elif action == 'edit':
+            # Автор хочет самостоятельно редактировать статью
             article.status = 'draft'
-            article.author_notes = request.POST.get('author_notes', '')
+            article.author_notes = author_notes
             article.save()
-            messages.success(request, 'Исправления отклонены. Статья возвращена в черновики.')
+            messages.success(request, '✏️ Статья возвращена в черновики для самостоятельного редактирования.')
+            return redirect('wiki:article_edit', slug=article.slug)
 
         return redirect('wiki:my_articles')
 
+    # Получаем историю изменений если есть
+    revisions = article.revisions.all().order_by('-created_at')[:5]
+
     context = {
         'article': article,
+        'revisions': revisions,
     }
     return render(request, 'wiki/author_review.html', context)
 
@@ -1197,40 +1142,6 @@ def editor_review(request, slug):
     }
     return render(request, 'wiki/editor_review.html', context)
 
-
-@login_required
-def author_review(request, slug):
-    """Страница для автора - согласование исправлений"""
-    article = get_object_or_404(Article, slug=slug)
-
-    if request.user != article.author:
-        return render(request, 'wiki/access_denied.html', {
-            'message': 'Вы не автор этой статьи.'
-        })
-
-    if request.method == 'POST':
-        action = request.POST.get('action')
-
-        if action == 'accept':
-            article.status = 'published'
-            article.published_at = timezone.now()
-            article.author_notes = 'Исправления редактора приняты'
-            article.save()
-            messages.success(request, 'Статья опубликована с исправлениями редактора.')
-
-        elif action == 'reject':
-            article.status = 'draft'
-            article.author_notes = request.POST.get('author_notes', '')
-            article.save()
-            messages.success(request, 'Исправления отклонены. Статья возвращена в черновики.')
-
-        return redirect('wiki:my_articles')
-
-    context = {
-        'article': article,
-    }
-    return render(request, 'wiki/author_review.html', context)
-# views.py - ОБНОВИТЬ функции проверки прав
 
 def can_moderate(user):
     """Проверяет, может ли пользователь модерировать статьи"""

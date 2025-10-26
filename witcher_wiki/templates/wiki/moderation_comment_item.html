@@ -1,0 +1,41 @@
+<div class="comment-item {% if comment.status == 'resolved' %}resolved{% endif %}"
+     data-comment-id="{{ comment.id }}"
+     onclick="highlightCommentText({{ comment.start_position }}, {{ comment.end_position }})">
+
+    <div class="comment-header">
+        <div class="comment-severity" style="color: {{ comment.get_severity_color }};">
+            {{ comment.get_severity_icon }} {{ comment.get_severity_display }}
+        </div>
+        <div style="color: #888; font-size: 0.8em;">
+            {{ comment.created_at|date:"d.m.Y H:i" }}
+        </div>
+    </div>
+
+    <div class="comment-text">{{ comment.comment }}</div>
+
+    {% if comment.selection_context %}
+    <div class="comment-context">
+        "{{ comment.selection_context }}"
+    </div>
+    {% endif %}
+
+    <div class="comment-meta">
+        <span>Модератор: {{ comment.moderator.username }}</span>
+        {% if comment.status == 'resolved' %}
+        <span>Исправлено: {{ comment.resolved_by.username }}</span>
+        {% endif %}
+    </div>
+
+    <div class="comment-actions">
+        {% if comment.status != 'resolved' %}
+        <button class="btn-sm btn-resolve"
+                onclick="resolveComment({{ comment.id }}, event)">
+            <i class="fas fa-check"></i> Исправлено
+        </button>
+        {% endif %}
+        <button class="btn-sm btn-delete"
+                onclick="deleteComment({{ comment.id }}, event)">
+            <i class="fas fa-trash"></i> Удалить
+        </button>
+    </div>
+</div>

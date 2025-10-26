@@ -91,11 +91,15 @@
     .status-review { background: #f59e0b; color: white; }
     .status-published { background: #22c55e; color: white; }
     .status-rejected { background: #ef4444; color: white; }
+    .status-author_review { background: #8b5cf6; color: white; }
+    .status-needs_correction { background: #f97316; color: white; }
+    .status-editor_review { background: #06b6d4; color: white; }
 
     .action-buttons {
         display: flex;
         gap: 8px;
         justify-content: flex-end;
+        flex-wrap: wrap;
     }
 
     .btn-sm {
@@ -105,6 +109,9 @@
         text-decoration: none;
         font-size: 0.85em;
         transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
     }
 
     .btn-edit {
@@ -129,10 +136,67 @@
         color: #1a1a1a;
     }
 
+    .btn-review {
+        background: rgba(139, 92, 246, 0.2);
+        color: #8b5cf6;
+        border: 1px solid #8b5cf6;
+    }
+
+    .btn-review:hover {
+        background: #8b5cf6;
+        color: white;
+    }
+
+    .btn-warning {
+        background: rgba(245, 158, 11, 0.2);
+        color: #f59e0b;
+        border: 1px solid #f59e0b;
+    }
+
+    .btn-warning:hover {
+        background: #f59e0b;
+        color: white;
+    }
+
+    .btn-success {
+        background: rgba(34, 197, 94, 0.2);
+        color: #22c55e;
+        border: 1px solid #22c55e;
+    }
+
+    .btn-success:hover {
+        background: #22c55e;
+        color: white;
+    }
+
     .empty-state {
         text-align: center;
         padding: 60px 20px;
         color: #888;
+    }
+
+    .moderation-notes {
+        background: rgba(239, 68, 68, 0.1);
+        border: 1px solid #ef4444;
+        border-radius: 6px;
+        padding: 10px;
+        margin-top: 8px;
+        font-size: 0.8em;
+        color: #ef4444;
+    }
+
+    .editor-notes {
+        background: rgba(23, 162, 184, 0.1);
+        border: 1px solid #17a2b8;
+        border-radius: 6px;
+        padding: 10px;
+        margin-top: 8px;
+        font-size: 0.8em;
+        color: #17a2b8;
+    }
+
+    .submit-form {
+        display: inline;
     }
 
     @media (max-width: 768px) {
@@ -188,6 +252,20 @@
                 {% if article.excerpt %}
                 <div class="article-excerpt">{{ article.excerpt|truncatewords:15 }}</div>
                 {% endif %}
+
+                <!-- Показываем заметки модератора для отклоненных статей -->
+                {% if article.status == 'rejected' and article.moderation_notes %}
+                <div class="moderation-notes">
+                    <strong>💬 Модератор:</strong> {{ article.moderation_notes|truncatewords:20 }}
+                </div>
+                {% endif %}
+
+                <!-- Показываем заметки редактора для статей на согласовании -->
+                {% if article.status == 'author_review' and article.editor_notes %}
+                <div class="editor-notes">
+                    <strong>📝 Редактор:</strong> {{ article.editor_notes|truncatewords:20 }}
+                </div>
+                {% endif %}
             </div>
 
             <div>
@@ -195,7 +273,10 @@
                     {% if article.status == 'draft' %}📝
                     {% elif article.status == 'review' %}⏳
                     {% elif article.status == 'published' %}✅
-                    {% elif article.status == 'rejected' %}❌{% endif %}
+                    {% elif article.status == 'rejected' %}❌
+                    {% elif article.status == 'author_review' %}📋
+                    {% elif article.status == 'needs_correction' %}✏️
+                    {% elif article.status == 'editor_review' %}📝{% endif %}
                     {{ article.get_status_display }}
                 </span>
             </div>
@@ -211,12 +292,39 @@
             </div>
 
             <div class="action-buttons">
-                <a href="{% url 'wiki:article_detail' article.slug %}" class="btn-sm btn-view">
+                <a href="{% url 'wiki:article_detail' article.slug %}" class="btn-sm btn-view" title="Просмотреть">
                     👁️
                 </a>
-                <a href="{% url 'wiki:article_edit' article.slug %}" class="btn-sm btn-edit">
+
+                <!-- Упрощенная проверка прав редактирования -->
+                {% if article.status == 'draft' or article.status == 'rejected' or article.status == 'needs_correction' or article.status == 'author_review' %}
+                <a href="{% url 'wiki:article_edit' article.slug %}" class="btn-sm btn-edit" title="Редактировать">
                     ✏️
                 </a>
+                {% endif %}
+
+                {% if article.status == 'author_review' %}
+                <a href="{% url 'wiki:author_review' article.slug %}" class="btn-sm btn-review" title="Согласовать правки редактора">
+                    📋
+                </a>
+                {% endif %}
+
+                {% if article.status == 'needs_correction' %}
+                <a href="{% url 'wiki:article_edit' article.slug %}" class="btn-sm btn-warning" title="Внести исправления">
+                    ✏️ Исправить
+                </a>
+                {% endif %}
+
+                <!-- Кнопка отправки на модерацию для черновиков -->
+                {% if article.status == 'draft' %}
+                <form method="post" action="{% url 'wiki:article_edit' article.slug %}" class="submit-form">
+                    {% csrf_token %}
+                    <button type="submit" name="action" value="submit_moderation" class="btn-sm btn-success"
+                            title="Отправить на модерацию" onclick="return confirm('Вы уверены, что хотите отправить статью на модерацию?')">
+                        📤
+                    </button>
+                </form>
+                {% endif %}
             </div>
         </div>
         {% empty %}
@@ -234,4 +342,34 @@
         {% endfor %}
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Подсветка статей, требующих внимания
+    const articleRows = document.querySelectorAll('.article-row');
+    articleRows.forEach(row => {
+        const statusBadge = row.querySelector('.status-badge');
+        if (statusBadge) {
+            const status = statusBadge.className.includes('status-author_review') ||
+                          statusBadge.className.includes('status-needs_correction') ||
+                          statusBadge.className.includes('status-rejected');
+
+            if (status) {
+                row.style.background = 'rgba(245, 158, 11, 0.05)';
+                row.style.borderLeft = '3px solid #f59e0b';
+            }
+        }
+    });
+
+    // Обработка отправки на модерацию
+    const submitForms = document.querySelectorAll('.submit-form');
+    submitForms.forEach(form => {
+        form.addEventListener('submit', function(e) {
+            if (!confirm('Вы уверены, что хотите отправить статью на модерацию? После отправки вы не сможете редактировать статью до завершения проверки.')) {
+                e.preventDefault();
+            }
+        });
+    });
+});
+</script>
 {% endblock %}

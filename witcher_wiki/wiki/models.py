@@ -116,6 +116,45 @@ class Article(models.Model):
             ("can_manage_categories", "Может управлять категориями"),
         ]
 
+    def can_edit(self, user):
+        """Проверяет, может ли пользователь редактировать статью"""
+        if not user.is_authenticated:
+            return False
+
+        # Автор может редактировать свои статьи в определенных статусах
+        if user == self.author and self.status in ['draft', 'rejected', 'needs_correction', 'author_review']:
+            return True
+
+        # Редакторы и модераторы могут редактировать
+        if (user.is_staff or
+                user.groups.filter(name__in=['Редактор', 'Модератор', 'Администратор']).exists()):
+            return True
+
+        return False
+
+    def can_accept_revisions(self, user):
+        """Проверяет, может ли пользователь принимать/отклонять правки редактора"""
+        if not user.is_authenticated:
+            return False
+
+        # Только автор может принимать/отклонять правки в статусе author_review
+        return (user == self.author and self.status == 'author_review')
+
+    def accept_editor_revisions(self):
+        """Принимает правки редактора и публикует статью"""
+        if self.status == 'author_review':
+            self.status = 'published'
+            self.published_at = timezone.now()
+            self.author_notes = 'Исправления редактора приняты'
+            self.save()
+
+    def reject_editor_revisions(self, author_notes=''):
+        """Отклоняет правки редактора и возвращает в черновики"""
+        if self.status == 'author_review':
+            self.status = 'draft'
+            self.author_notes = author_notes
+            self.save()
+
     def __str__(self):
         return self.title
 
@@ -214,26 +253,95 @@ class Article(models.Model):
         return (user.is_staff or
                 user.groups.filter(name__in=['Модератор', 'Администратор']).exists())
 
+    def submit_for_moderation(self):
+        """Отправляет статью на модерацию"""
+        if self.status == 'draft':
+            self.status = 'review'
+            self.save()
+            return True
+        return False
 
+    def can_submit_for_moderation(self, user):
+        """Проверяет, может ли пользователь отправить статью на модерацию"""
+        if not user.is_authenticated:
+            return False
+        return (user == self.author and self.status == 'draft')
+
+
+# models.py - ОБНОВИТЬ модель ModerationComment
 class ModerationComment(models.Model):
     """Комментарии модератора к конкретным фрагментам текста"""
     article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='moderation_comments')
     moderator = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Модератор')
+
+    # Основные поля для выделения текста
     highlighted_text = models.TextField('Выделенный текст')
     comment = models.TextField('Замечание')
+
+    # Позиции в тексте
     start_position = models.IntegerField('Начальная позиция', default=0)
     end_position = models.IntegerField('Конечная позиция', default=0)
+
+    # Дополнительные поля для лучшего UX
+    selection_context = models.TextField('Контекст выделения', blank=True,
+                                         help_text='Текст вокруг выделенного фрагмента')
+    severity = models.CharField('Важность', max_length=20,
+                                choices=[
+                                    ('low', 'Низкая'),
+                                    ('medium', 'Средняя'),
+                                    ('high', 'Высокая'),
+                                    ('critical', 'Критическая')
+                                ], default='medium')
+
+    # Статус комментария
+    STATUS_CHOICES = [
+        ('open', 'Открыто'),
+        ('in_progress', 'В работе'),
+        ('resolved', 'Исправлено'),
+        ('wont_fix', 'Не будет исправлено'),
+    ]
+    status = models.CharField('Статус', max_length=20, choices=STATUS_CHOICES, default='open')
+
     created_at = models.DateTimeField('Создано', auto_now_add=True)
-    resolved = models.BooleanField('Исправлено', default=False)
+    updated_at = models.DateTimeField('Обновлено', auto_now=True)
     resolved_at = models.DateTimeField('Время исправления', null=True, blank=True)
+    resolved_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True,
+                                    related_name='resolved_comments', verbose_name='Исправил')
 
     class Meta:
         verbose_name = 'Комментарий модератора'
         verbose_name_plural = 'Комментарии модераторов'
-        ordering = ['created_at']
+        ordering = ['-created_at']
 
     def __str__(self):
         return f'Комментарий к статье "{self.article.title}"'
+
+    def mark_as_resolved(self, user):
+        """Пометить комментарий как исправленный"""
+        self.status = 'resolved'
+        self.resolved_at = timezone.now()
+        self.resolved_by = user
+        self.save()
+
+    def get_severity_color(self):
+        """Возвращает цвет для отображения важности"""
+        colors = {
+            'low': '#6b7280',
+            'medium': '#f59e0b',
+            'high': '#ef4444',
+            'critical': '#dc2626'
+        }
+        return colors.get(self.severity, '#6b7280')
+
+    def get_severity_icon(self):
+        """Возвращает иконку для отображения важности"""
+        icons = {
+            'low': '💡',
+            'medium': '⚠️',
+            'high': '🚨',
+            'critical': '💥'
+        }
+        return icons.get(self.severity, '💡')
 
 
 class ArticleMedia(models.Model):
