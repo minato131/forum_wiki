@@ -1,0 +1,305 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Новое сообщение{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="message-create-header">
+        <div class="header-content">
+            <div class="header-icon">
+                <i class="fas fa-edit"></i>
+            </div>
+            <div class="header-text">
+                <h1>Новое сообщение</h1>
+                <p>Написать сообщение пользователю</p>
+            </div>
+        </div>
+
+        <div class="header-actions">
+            <a href="{% url 'wiki:messages_list' 'inbox' %}" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Назад к сообщениям
+            </a>
+        </div>
+    </div>
+
+    <div class="message-form-container">
+        <form method="post" class="message-form">
+            {% csrf_token %}
+
+            {% if form.non_field_errors %}
+            <div class="alert alert-error">
+                {% for error in form.non_field_errors %}
+                <p>{{ error }}</p>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <div class="form-group">
+                <label for="{{ form.recipient.id_for_label }}">Получатель:</label>
+                {{ form.recipient }}
+                {% if form.recipient.errors %}
+                <div class="field-errors">
+                    {% for error in form.recipient.errors %}
+                    <span class="error">{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.subject.id_for_label }}">Тема:</label>
+                {{ form.subject }}
+                {% if form.subject.errors %}
+                <div class="field-errors">
+                    {% for error in form.subject.errors %}
+                    <span class="error">{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.content.id_for_label }}">Сообщение:</label>
+                {{ form.content }}
+                {% if form.content.errors %}
+                <div class="field-errors">
+                    {% for error in form.content.errors %}
+                    <span class="error">{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                <div class="char-counter">
+                    <span id="charCount">0</span> / 1000 символов
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-paper-plane"></i> Отправить сообщение
+                </button>
+                <a href="{% url 'wiki:messages_list' 'inbox' %}" class="btn btn-cancel">
+                    Отмена
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+.message-create-header {
+    background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+    border: 1px solid #D4AF37;
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+}
+
+.header-icon {
+    font-size: 2.5em;
+    color: #D4AF37;
+    margin-right: 15px;
+}
+
+.header-text h1 {
+    color: #D4AF37;
+    font-family: 'Cinzel', serif;
+    margin: 0 0 5px 0;
+    font-size: 1.8em;
+}
+
+.header-text p {
+    color: #e8e8e8;
+    margin: 0;
+    opacity: 0.8;
+}
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-secondary {
+    background: #6c757d;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: #5a6268;
+    color: white;
+}
+
+.btn-primary {
+    background: #D4AF37;
+    color: #1a1a1a;
+}
+
+.btn-primary:hover {
+    background: #c19b2e;
+}
+
+.btn-cancel {
+    background: #444;
+    color: #e8e8e8;
+}
+
+.btn-cancel:hover {
+    background: #555;
+    color: #e8e8e8;
+}
+
+.message-form-container {
+    background: #2d2d2d;
+    border: 1px solid #444;
+    border-radius: 10px;
+    padding: 30px;
+}
+
+.message-form {
+    max-width: 800px;
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-group label {
+    display: block;
+    color: #D4AF37;
+    font-weight: 600;
+    margin-bottom: 8px;
+    font-size: 1.1em;
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px 15px;
+    background: #1a1a1a;
+    border: 1px solid #444;
+    border-radius: 6px;
+    color: #e8e8e8;
+    font-size: 14px;
+    transition: all 0.3s;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #D4AF37;
+    box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
+}
+
+.form-control[readonly] {
+    background: #2d2d2d;
+    color: #888;
+}
+
+.field-errors {
+    margin-top: 5px;
+}
+
+.error {
+    color: #dc3545;
+    font-size: 0.9em;
+}
+
+.char-counter {
+    text-align: right;
+    color: #888;
+    font-size: 0.9em;
+    margin-top: 5px;
+}
+
+.form-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: flex-start;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #444;
+}
+
+.alert {
+    padding: 15px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+}
+
+.alert-error {
+    background: rgba(220, 53, 69, 0.1);
+    border: 1px solid #dc3545;
+    color: #dc3545;
+}
+
+@media (max-width: 768px) {
+    .message-create-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .header-actions {
+        width: 100%;
+    }
+
+    .btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const contentField = document.getElementById('{{ form.content.id_for_label }}');
+    const charCount = document.getElementById('charCount');
+
+    function updateCharCount() {
+        const length = contentField.value.length;
+        charCount.textContent = length;
+
+        if (length > 1000) {
+            charCount.style.color = '#dc3545';
+        } else if (length > 800) {
+            charCount.style.color = '#ffc107';
+        } else {
+            charCount.style.color = '#28a745';
+        }
+    }
+
+    contentField.addEventListener('input', updateCharCount);
+    updateCharCount(); // Initial count
+
+    // Автоподстановка темы при ответе
+    const urlParams = new URLSearchParams(window.location.search);
+    const replyTo = urlParams.get('reply_to');
+
+    if (replyTo) {
+        const subjectField = document.getElementById('{{ form.subject.id_for_label }}');
+        if (subjectField && !subjectField.value) {
+            subjectField.value = 'Re: ' + replyTo;
+        }
+    }
+});
+</script>
+{% endblock %}

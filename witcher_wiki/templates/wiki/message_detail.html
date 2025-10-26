@@ -1,0 +1,267 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ message.subject }}{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="message-detail-header">
+        <div class="header-content">
+            <a href="{% url 'wiki:messages_list' 'inbox' %}" class="back-btn">
+                <i class="fas fa-arrow-left"></i>
+                Назад к сообщениям
+            </a>
+            <h1>{{ message.subject }}</h1>
+        </div>
+
+        <div class="message-actions">
+            {% if message.recipient == user %}
+            <a href="{% url 'wiki:message_create' message.sender.id %}" class="btn btn-primary">
+                <i class="fas fa-reply"></i> Ответить
+            </a>
+            {% endif %}
+            <form method="post" action="{% url 'wiki:message_delete' message.id %}" class="delete-form">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger" onclick="return confirm('Удалить это сообщение?')">
+                    <i class="fas fa-trash"></i> Удалить
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div class="message-detail-container">
+        <div class="message-meta">
+            <div class="sender-info">
+                <div class="sender-avatar">
+                    {% if message.sender.profile.avatar %}
+                        <img src="{{ message.sender.profile.avatar.url }}" alt="{{ message.sender.username }}">
+                    {% else %}
+                        <div class="avatar-placeholder">
+                            <i class="fas fa-user"></i>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="sender-details">
+                    <div class="sender-name">
+                        <strong>От:</strong>
+                        <a href="{% url 'wiki:user_public_profile' message.sender.username %}">
+                            {{ message.sender.username }}
+                        </a>
+                    </div>
+                    <div class="recipient-name">
+                        <strong>Кому:</strong>
+                        <a href="{% url 'wiki:user_public_profile' message.recipient.username %}">
+                            {{ message.recipient.username }}
+                        </a>
+                    </div>
+                    <div class="message-date">
+                        <strong>Дата:</strong> {{ message.created_at|date:"d.m.Y H:i" }}
+                    </div>
+                    {% if message.is_read and message.read_at %}
+                    <div class="read-date">
+                        <strong>Прочитано:</strong> {{ message.read_at|date:"d.m.Y H:i" }}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="message-content">
+            {{ message.content|linebreaks }}
+        </div>
+
+        {% if message.recipient == user %}
+        <div class="reply-section">
+            <a href="{% url 'wiki:message_create' message.sender.id %}" class="btn btn-primary btn-large">
+                <i class="fas fa-reply"></i> Ответить на сообщение
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<style>
+.message-detail-header {
+    background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+    border: 1px solid #D4AF37;
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.header-content {
+    flex: 1;
+}
+
+.back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #D4AF37;
+    text-decoration: none;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.back-btn:hover {
+    color: #FFD700;
+}
+
+.header-content h1 {
+    color: #D4AF37;
+    font-family: 'Cinzel', serif;
+    margin: 0;
+    font-size: 1.8em;
+    word-break: break-word;
+}
+
+.message-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-primary {
+    background: #D4AF37;
+    color: #1a1a1a;
+}
+
+.btn-primary:hover {
+    background: #c19b2e;
+}
+
+.btn-danger {
+    background: #dc3545;
+    color: white;
+}
+
+.btn-danger:hover {
+    background: #c82333;
+}
+
+.btn-large {
+    padding: 12px 25px;
+    font-size: 1.1em;
+}
+
+.message-detail-container {
+    background: #2d2d2d;
+    border: 1px solid #444;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.message-meta {
+    padding: 25px;
+    border-bottom: 1px solid #444;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.sender-info {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.sender-avatar img, .sender-avatar .avatar-placeholder {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 2px solid #D4AF37;
+}
+
+.avatar-placeholder {
+    background: linear-gradient(135deg, #8B4513, #D4AF37);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.5em;
+}
+
+.sender-details {
+    flex: 1;
+}
+
+.sender-details div {
+    margin-bottom: 8px;
+    color: #e8e8e8;
+}
+
+.sender-details strong {
+    color: #D4AF37;
+}
+
+.sender-details a {
+    color: #17a2b8;
+    text-decoration: none;
+}
+
+.sender-details a:hover {
+    color: #138496;
+    text-decoration: underline;
+}
+
+.message-content {
+    padding: 30px;
+    color: #e8e8e8;
+    line-height: 1.6;
+    font-size: 1.1em;
+    white-space: pre-wrap;
+}
+
+.message-content p {
+    margin-bottom: 1em;
+}
+
+.message-content p:last-child {
+    margin-bottom: 0;
+}
+
+.reply-section {
+    padding: 25px;
+    border-top: 1px solid #444;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+@media (max-width: 768px) {
+    .message-detail-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .message-actions {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .sender-info {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .sender-avatar {
+        align-self: center;
+    }
+}
+</style>
+{% endblock %}

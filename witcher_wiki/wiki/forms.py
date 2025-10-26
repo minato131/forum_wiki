@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth.models import User
 from django.db.models import Q
 
 from .models import Article, Comment, Category
@@ -7,19 +8,80 @@ from django import forms
 from .models import Article, Comment, Category, ArticleMedia
 from .models import UserProfile
 from django.core.validators import FileExtensionValidator
+from .models import Message
 
 
 class ArticleForm(forms.ModelForm):
+    tags_input = forms.CharField(
+        required=False,
+        label='Хештеги',
+        help_text='Введите хештеги через запятую. Например: ведьмак, монстры, магия',
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'ведьмак, монстры, магия...'
+        })
+    )
+
     class Meta:
         model = Article
-        fields = ['title', 'content', 'excerpt', 'categories', 'tags', 'status', 'featured_image']
+        fields = ['title', 'slug', 'excerpt', 'content', 'featured_image', 'categories', 'status']
         widgets = {
-            'title': forms.TextInput(attrs={'class': 'form-control'}),
-            'excerpt': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
-            'status': forms.Select(attrs={'class': 'form-control'}),
-            'featured_image': forms.FileInput(attrs={'class': 'form-control'}),
+            'title': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Введите заголовок статьи...'
+            }),
+            'slug': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'url-адрес-статьи'
+            }),
+            'excerpt': forms.Textarea(attrs={
+                'class': 'form-control',
+                'rows': 3,
+                'placeholder': 'Краткое описание статьи...'
+            }),
+            'content': CKEditor5Widget(attrs={
+                'class': 'django_ckeditor_5'
+            }, config_name='extends'),
+            'featured_image': forms.FileInput(attrs={
+                'class': 'form-control',
+                'accept': 'image/*'
+            }),
+            'categories': forms.CheckboxSelectMultiple(attrs={
+                'class': 'form-check-input'
+            }),
+            'status': forms.Select(attrs={
+                'class': 'form-control'
+            }),
         }
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Делаем slug необязательным для пользователя
+        self.fields['slug'].required = False
+
+        # Если редактируем существующую статью, показываем текущие теги
+        if self.instance and self.instance.pk:
+            self.fields['tags_input'].initial = ', '.join(tag.name for tag in self.instance.tags.all())
+
+        self.fields['slug'].help_text = 'Оставьте пустым для автоматической генерации'
+        self.fields['excerpt'].help_text = 'Краткое описание для поисковых систем'
+        self.fields['content'].help_text = 'Используйте редактор для форматирования текста'
+
+    def save(self, commit=True):
+        article = super().save(commit=False)
+
+        if commit:
+            article.save()
+            self.save_m2m()
+
+            # Сохраняем хештеги
+            tags_input = self.cleaned_data.get('tags_input', '')
+            if tags_input:
+                # Очищаем и форматируем теги
+                tags_list = [tag.strip().lower() for tag in tags_input.split(',') if tag.strip()]
+                article.tags.set(*tags_list)
+
+        return article
 
 class CommentForm(forms.ModelForm):
     class Meta:
@@ -83,43 +145,6 @@ class ArticleMediaForm(forms.ModelForm):
             'file_type': forms.Select(attrs={'class': 'form-control'}),
             'display_order': forms.NumberInput(attrs={'class': 'form-control'}),
         }
-class ArticleForm(forms.ModelForm):
-    class Meta:
-        model = Article
-        fields = ['title', 'slug', 'excerpt', 'content', 'featured_image', 'categories', 'tags', 'status']
-        widgets = {
-            'title': forms.TextInput(attrs={
-                'class': 'form-control',
-                'placeholder': 'Введите заголовок статьи...'
-            }),
-            'slug': forms.TextInput(attrs={
-                'class': 'form-control',
-                'placeholder': 'url-адрес-статьи'
-            }),
-            'excerpt': forms.Textarea(attrs={
-                'class': 'form-control',
-                'rows': 3,
-                'placeholder': 'Краткое описание статьи...'
-            }),
-            'content': CKEditor5Widget(attrs={
-                'class': 'django_ckeditor_5'
-            }, config_name='extends'),
-            'featured_image': forms.FileInput(attrs={
-                'class': 'form-control',
-                'accept': 'image/*'
-            }),
-            'categories': forms.CheckboxSelectMultiple(attrs={
-                'class': 'form-check-input'
-            }),
-            'tags': forms.TextInput(attrs={
-                'class': 'form-control',
-                'placeholder': 'Теги через запятую: ведьмак, геральт, монстры'
-            }),
-            'status': forms.Select(attrs={
-                'class': 'form-control'
-            }),
-        }
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         # Делаем slug необязательным для пользователя
@@ -417,3 +442,52 @@ class ProfileUpdateForm(forms.ModelForm):
             profile.save()
 
         return profile
+
+
+class MessageForm(forms.ModelForm):
+    class Meta:
+        model = Message
+        fields = ['recipient', 'subject', 'content']
+        widgets = {
+            'recipient': forms.Select(attrs={
+                'class': 'form-control',
+                'placeholder': 'Выберите получателя'
+            }),
+            'subject': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Тема сообщения'
+            }),
+            'content': forms.Textarea(attrs={
+                'class': 'form-control',
+                'rows': 6,
+                'placeholder': 'Текст сообщения...'
+            }),
+        }
+
+    def __init__(self, *args, **kwargs):
+        self.sender = kwargs.pop('sender', None)
+        super().__init__(*args, **kwargs)
+
+        # Фильтруем получателей - нельзя отправлять себе
+        if self.sender:
+            self.fields['recipient'].queryset = User.objects.exclude(id=self.sender.id)
+
+        self.fields['recipient'].label = 'Получатель'
+        self.fields['subject'].label = 'Тема'
+        self.fields['content'].label = 'Сообщение'
+
+
+class QuickMessageForm(forms.Form):
+    """Форма для быстрой отправки сообщения"""
+    content = forms.CharField(
+        widget=forms.Textarea(attrs={
+            'class': 'form-control',
+            'rows': 4,
+            'placeholder': 'Введите ваше сообщение...'
+        }),
+        label='Сообщение'
+    )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['content'].help_text = 'Максимум 1000 символов'

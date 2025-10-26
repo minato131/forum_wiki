@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views
 from .views import user_management
+
 app_name = 'wiki'
 
 urlpatterns = [
@@ -50,5 +51,15 @@ urlpatterns = [
     path('editor/dashboard/', views.editor_dashboard, name='editor_dashboard'),
     path('comment/<int:comment_id>/delete/', views.delete_comment, name='delete_comment'),
 
-    path('user-management/', user_management, name='user_management'),
+    # Управление пользователями - ПРАВИЛЬНЫЙ ПУТЬ
+    path('user-management/', views.user_management, name='user_management'),
+    # Сообщения
+    path('messages/', views.messages_list, name='messages_list'),
+    path('messages/<str:folder>/', views.messages_list, name='messages_list'),
+    path('message/create/', views.message_create, name='message_create'),
+    path('message/create/<int:recipient_id>/', views.message_create, name='message_create'),
+    path('message/<int:message_id>/', views.message_detail, name='message_detail'),
+    path('message/<int:message_id>/delete/', views.message_delete, name='message_delete'),
+    path('message/send-quick/<int:user_id>/', views.send_quick_message, name='send_quick_message'),
+    path('messages/unread-count/', views.get_unread_count, name='get_unread_count'),
 ]

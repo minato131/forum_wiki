@@ -5,18 +5,16 @@ from django.core.paginator import Paginator
 from django.utils.text import slugify
 import os
 import re
-from .forms import ArticleForm, CommentForm, SearchForm, CategoryForm, ProfileUpdateForm
-from .models import Article, Category, Comment, ArticleMedia, UserProfile, User, ArticleLike, ModerationComment, SearchQuery
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 import json
 from django.utils import timezone
 from django.http import JsonResponse
-from .utils import user_can_moderate, user_can_edit_content, user_is_admin
-from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.models import User, Group
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib import messages
+from .models import Article, Category, Comment, ArticleMedia, UserProfile, ArticleLike, ModerationComment, SearchQuery, Message
+from .forms import ArticleForm, CommentForm, SearchForm, CategoryForm, ProfileUpdateForm, MessageForm, QuickMessageForm
 
 def clean_latex_from_content(content):
     """
@@ -90,23 +88,29 @@ def category_detail(request, slug):
 def search(request):
     query = request.GET.get('q', '').strip()
     category_filter = request.GET.get('category', '')
+    tag_filter = request.GET.get('tag', '')  # Новый параметр для фильтрации по тегам
     results = []
     total_count = 0
 
-    if query:
+    if query or tag_filter:
         # Сохраняем поисковый запрос
-        search_query_obj, created = SearchQuery.objects.get_or_create(query=query)
-        if not created:
-            search_query_obj.increment()
+        if query:
+            search_query_obj, created = SearchQuery.objects.get_or_create(query=query)
+            if not created:
+                search_query_obj.increment()
 
         # Улучшенный поиск
-        search_query = Q(title__icontains=query) | Q(content__icontains=query) | Q(excerpt__icontains=query)
+        search_query = Q()
 
-        # Поиск по тегам
-        try:
-            search_query |= Q(tags__name__icontains=query)
-        except:
-            pass
+        if query:
+            search_query = (Q(title__icontains=query) |
+                            Q(content__icontains=query) |
+                            Q(excerpt__icontains=query) |
+                            Q(tags__name__icontains=query))
+
+        # Поиск по хештегам
+        if tag_filter:
+            search_query = Q(tags__name__iexact=tag_filter)
 
         results = Article.objects.filter(search_query, status='published').distinct()
 
@@ -116,10 +120,11 @@ def search(request):
 
         total_count = results.count()
 
-        # Сортировка по релевантности
-        title_matches = results.filter(title__icontains=query)
-        other_matches = results.exclude(title__icontains=query)
-        results = list(title_matches) + list(other_matches)
+        # Сортировка по релевантности (только для текстового поиска)
+        if query and not tag_filter:
+            title_matches = results.filter(title__icontains=query)
+            other_matches = results.exclude(title__icontains=query)
+            results = list(title_matches) + list(other_matches)
 
         # Пагинация
         paginator = Paginator(results, 10)
@@ -129,16 +134,22 @@ def search(request):
     # Получаем популярные запросы (топ-10)
     popular_queries = SearchQuery.objects.all().order_by('-count', '-last_searched')[:10]
 
+    # Получаем популярные хештеги
+    from django.db.models import Count
+    popular_tags = Article.tags.most_common()[:15]
+
     # Получаем категории для фильтра
     categories = Category.objects.all()
 
     context = {
         'query': query,
         'category_filter': category_filter,
+        'tag_filter': tag_filter,
         'results': results,
         'total_count': total_count,
         'categories': categories,
         'popular_queries': popular_queries,
+        'popular_tags': popular_tags,
     }
     return render(request, 'wiki/search.html', context)
 
@@ -1361,7 +1372,7 @@ def user_is_admin(user):
 @user_passes_test(user_is_admin)
 def user_management(request):
     """Страница управления пользователями для администраторов"""
-    users = User.objects.all().select_related('profile')
+    users = User.objects.all().select_related('profile').prefetch_related('groups', 'articles')
     groups = Group.objects.all()
 
     if request.method == 'POST':
@@ -1394,4 +1405,211 @@ def user_management(request):
         'groups': groups,
         'group_stats': group_stats,
     }
+
+    # Если это AJAX запрос, возвращаем JSON
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        from django.core import serializers
+        users_data = []
+        for user in users:
+            users_data.append({
+                'id': user.id,
+                'username': user.username,
+                'email': user.email,
+                'is_active': user.is_active,
+                'is_staff': user.is_staff,
+                'date_joined': user.date_joined.strftime('%d.%m.%Y'),
+                'last_login': user.last_login.strftime('%d.%m.%Y %H:%M') if user.last_login else '—',
+                'groups': [group.name for group in user.groups.all()],
+                'articles_count': user.articles.count(),
+                'avatar_url': user.profile.avatar.url if user.profile.avatar else None,
+            })
+        return JsonResponse({'users': users_data})
+
     return render(request, 'wiki/user_management.html', context)
+
+
+@login_required
+def messages_list(request, folder='inbox'):
+    """Список сообщений пользователя"""
+    if folder == 'inbox':
+        messages = Message.objects.filter(
+            recipient=request.user,
+            recipient_deleted=False
+        ).select_related('sender', 'recipient')
+        title = 'Входящие сообщения'
+    elif folder == 'sent':
+        messages = Message.objects.filter(
+            sender=request.user,
+            sender_deleted=False
+        ).select_related('sender', 'recipient')
+        title = 'Отправленные сообщения'
+    else:
+        messages = Message.objects.none()
+        title = 'Сообщения'
+
+    # Пагинация
+    paginator = Paginator(messages, 15)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    # Подсчет непрочитанных
+    unread_count = Message.objects.filter(
+        recipient=request.user,
+        is_read=False,
+        recipient_deleted=False
+    ).count()
+
+    context = {
+        'messages': page_obj,
+        'title': title,
+        'folder': folder,
+        'unread_count': unread_count,
+        'page_obj': page_obj,
+    }
+    return render(request, 'wiki/messages_list.html', context)
+
+
+@login_required
+def message_detail(request, message_id):
+    """Просмотр конкретного сообщения"""
+    message = get_object_or_404(Message, id=message_id)
+
+    # Проверяем права доступа
+    if not message.can_view(request.user):
+        return render(request, 'wiki/access_denied.html', {
+            'message': 'У вас нет прав для просмотра этого сообщения.'
+        })
+
+    # Помечаем как прочитанное если получатель
+    if message.recipient == request.user and not message.is_read:
+        message.mark_as_read()
+
+    context = {
+        'message': message,
+    }
+    return render(request, 'wiki/message_detail.html', context)
+
+
+@login_required
+def message_create(request, recipient_id=None):
+    """Создание нового сообщения"""
+    recipient = None
+    if recipient_id:
+        recipient = get_object_or_404(User, id=recipient_id)
+        # Проверяем, что не отправляем себе
+        if recipient == request.user:
+            messages.error(request, 'Нельзя отправлять сообщение самому себе.')
+            return redirect('wiki:messages_list')
+
+    if request.method == 'POST':
+        form = MessageForm(request.POST, sender=request.user)
+        if form.is_valid():
+            message = form.save(commit=False)
+            message.sender = request.user
+            message.save()
+
+            messages.success(request, f'Сообщение отправлено пользователю {message.recipient.username}')
+            return redirect('wiki:messages_list', folder='sent')
+        else:
+            messages.error(request, 'Пожалуйста, исправьте ошибки в форме.')
+    else:
+        initial = {}
+        if recipient:
+            initial['recipient'] = recipient
+        form = MessageForm(initial=initial, sender=request.user)
+
+    context = {
+        'form': form,
+        'recipient': recipient,
+    }
+    return render(request, 'wiki/message_create.html', context)
+
+
+@login_required
+def send_quick_message(request, user_id):
+    """Быстрая отправка сообщения через AJAX"""
+    if request.method == 'POST' and request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        recipient = get_object_or_404(User, id=user_id)
+
+        # Проверяем, что не отправляем себе
+        if recipient == request.user:
+            return JsonResponse({
+                'success': False,
+                'error': 'Нельзя отправлять сообщение самому себе.'
+            })
+
+        content = request.POST.get('content', '').strip()
+
+        if not content:
+            return JsonResponse({
+                'success': False,
+                'error': 'Введите текст сообщения.'
+            })
+
+        if len(content) > 1000:
+            return JsonResponse({
+                'success': False,
+                'error': 'Сообщение слишком длинное (максимум 1000 символов).'
+            })
+
+        # Создаем сообщение
+        message = Message.objects.create(
+            sender=request.user,
+            recipient=recipient,
+            subject=f'Сообщение от {request.user.username}',
+            content=content
+        )
+
+        return JsonResponse({
+            'success': True,
+            'message': 'Сообщение успешно отправлено!',
+            'message_id': message.id
+        })
+
+    return JsonResponse({'success': False, 'error': 'Неверный запрос'})
+
+
+@login_required
+def message_delete(request, message_id):
+    """Удаление сообщения"""
+    message = get_object_or_404(Message, id=message_id)
+
+    if not message.can_delete(request.user):
+        return JsonResponse({'success': False, 'error': 'Нет прав для удаления сообщения'})
+
+    if request.method == 'POST':
+        # Помечаем сообщение как удаленное для текущего пользователя
+        if request.user == message.sender:
+            message.sender_deleted = True
+        else:
+            message.recipient_deleted = True
+
+        message.save()
+
+        # Если сообщение удалено обоими пользователями, удаляем его полностью
+        if message.sender_deleted and message.recipient_deleted:
+            message.delete()
+            messages.success(request, 'Сообщение полностью удалено.')
+        else:
+            messages.success(request, 'Сообщение перемещено в корзину.')
+
+        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            return JsonResponse({'success': True})
+
+        return redirect('wiki:messages_list')
+
+    return JsonResponse({'success': False, 'error': 'Неверный метод'})
+
+
+@login_required
+def get_unread_count(request):
+    """Получение количества непрочитанных сообщений (для AJAX)"""
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        count = Message.objects.filter(
+            recipient=request.user,
+            is_read=False,
+            recipient_deleted=False
+        ).count()
+        return JsonResponse({'unread_count': count})
+
+    return JsonResponse({'error': 'Invalid request'})

@@ -100,7 +100,12 @@ class Article(models.Model):
 
     # Статистика
     views_count = models.PositiveIntegerField('Просмотры', default=0)
-
+    # Хештеги (используем taggit)
+    tags = TaggableManager(
+        verbose_name='Хештеги',
+        blank=True,
+        help_text='Введите хештеги через запятую. Например: #ведьмак #монстры #магия'
+    )
     class Meta:
         verbose_name = 'Статья'
         verbose_name_plural = 'Статьи'
@@ -267,8 +272,15 @@ class ArticleMedia(models.Model):
         return self.file_type == 'video'
 
     def get_file_extension(self):
-        return self.file.name.split('.')[-1].lower()
-
+        """Возвращает расширение файла в нижнем регистре"""
+        if self.file and hasattr(self.file, 'name'):
+            return self.file.name.split('.')[-1].lower() if '.' in self.file.name else ''
+        return ''
+    def get_clean_filename(self):
+        """Возвращает чистое имя файла без пути"""
+        if self.file and hasattr(self.file, 'name'):
+            return self.file.name.split('/')[-1]
+        return self.title or f'Файл {self.id}'
 
 class ArticleRevision(models.Model):
     article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='revisions', verbose_name='Статья')
@@ -470,3 +482,55 @@ class SearchQuery(models.Model):
         """Увеличивает счетчик запроса"""
         self.count += 1
         self.save()
+
+
+class Message(models.Model):
+    """Модель для личных сообщений между пользователями"""
+    sender = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='sent_messages',
+        verbose_name='Отправитель'
+    )
+    recipient = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='received_messages',
+        verbose_name='Получатель'
+    )
+    subject = models.CharField('Тема', max_length=200)
+    content = models.TextField('Сообщение')
+
+    # Статус сообщения
+    is_read = models.BooleanField('Прочитано', default=False)
+    sender_deleted = models.BooleanField('Удалено отправителем', default=False)
+    recipient_deleted = models.BooleanField('Удалено получателем', default=False)
+
+    created_at = models.DateTimeField('Создано', auto_now_add=True)
+    read_at = models.DateTimeField('Прочитано', null=True, blank=True)
+
+    class Meta:
+        verbose_name = 'Сообщение'
+        verbose_name_plural = 'Сообщения'
+        ordering = ['-created_at']
+        permissions = [
+            ("can_message_users", "Может отправлять сообщения пользователям"),
+        ]
+
+    def __str__(self):
+        return f'{self.sender.username} → {self.recipient.username}: {self.subject}'
+
+    def mark_as_read(self):
+        """Пометить сообщение как прочитанное"""
+        if not self.is_read:
+            self.is_read = True
+            self.read_at = timezone.now()
+            self.save(update_fields=['is_read', 'read_at'])
+
+    def can_view(self, user):
+        """Проверяет, может ли пользователь просматривать сообщение"""
+        return user in [self.sender, self.recipient]
+
+    def can_delete(self, user):
+        """Проверяет, может ли пользователь удалить сообщение"""
+        return user in [self.sender, self.recipient]

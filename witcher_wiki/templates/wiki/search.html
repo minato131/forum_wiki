@@ -1,231 +1,798 @@
 {% extends 'base.html' %}
+{% load static %}
 
-{% block title %}Поиск | Форум по Вселенной Ведьмака{% endblock %}
+{% block title %}Поиск по статьям{% endblock %}
 
 {% block content %}
+<div class="container mt-4">
+    <!-- Заголовок -->
+    <div class="search-header">
+        <div class="header-content">
+            <div class="header-icon">
+                <i class="fas fa-search"></i>
+            </div>
+            <div class="header-text">
+                <h1>🔍 Поиск по статьям</h1>
+                <p>Найдите интересующие вас материалы по ключевым словам или хештегам</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Форма поиска -->
+    <div class="search-form-container">
+        <form method="get" class="search-form">
+            <div class="search-input-group">
+                <div class="input-with-icon">
+                    <i class="fas fa-search"></i>
+                    <input type="text"
+                           name="q"
+                           value="{{ query }}"
+                           placeholder="Введите ключевые слова или хештеги..."
+                           class="search-input"
+                           autocomplete="off">
+                </div>
+                <button type="submit" class="search-btn">
+                    <i class="fas fa-search"></i>
+                    Найти
+                </button>
+            </div>
+
+            <div class="search-filters">
+                <div class="filter-group">
+                    <label>📁 Категория:</label>
+                    <select name="category" class="filter-select">
+                        <option value="">Все категории</option>
+                        {% for category in categories %}
+                        <option value="{{ category.slug }}"
+                                {% if category_filter == category.slug %}selected{% endif %}>
+                            {{ category.name }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Популярные хештеги -->
+    {% if popular_tags %}
+    <div class="popular-tags-section">
+        <h3 class="section-title">
+            <i class="fas fa-hashtag"></i>
+            Популярные хештеги
+        </h3>
+        <div class="tags-cloud">
+            {% for tag in popular_tags %}
+            <a href="{% url 'wiki:search' %}?tag={{ tag.name|urlencode }}"
+               class="tag-link {% if tag_filter == tag.name %}active{% endif %}"
+               style="font-size: {{ tag.num_times|add:10 }}px;">
+                #{{ tag.name }}
+                <span class="tag-count">{{ tag.num_times }}</span>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Результаты поиска -->
+    {% if query or tag_filter %}
+    <div class="search-results-section">
+        <div class="results-header">
+            <h3 class="section-title">
+                {% if query and tag_filter %}
+                🔍 Результаты поиска по "{{ query }}" и хештегу #{{ tag_filter }}
+                {% elif query %}
+                🔍 Результаты поиска по "{{ query }}"
+                {% elif tag_filter %}
+                🔍 Статьи с хештегом #{{ tag_filter }}
+                {% endif %}
+            </h3>
+
+            {% if total_count > 0 %}
+            <div class="results-count">
+                Найдено статей: <strong>{{ total_count }}</strong>
+            </div>
+            {% endif %}
+        </div>
+
+        {% if results %}
+        <div class="articles-grid">
+            {% for article in results %}
+            <div class="article-card">
+                <div class="article-card-header">
+                    {% if article.featured_image %}
+                    <img src="{{ article.featured_image.url }}"
+                         alt="{{ article.title }}"
+                         class="article-image">
+                    {% else %}
+                    <div class="article-image-placeholder">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    {% endif %}
+
+                    <div class="article-categories">
+                        {% for category in article.categories.all|slice:":2" %}
+                        <span class="category-badge">{{ category.name }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="article-card-body">
+                    <h4 class="article-title">
+                        <a href="{% url 'wiki:article_detail' article.slug %}">
+                            {{ article.title }}
+                        </a>
+                    </h4>
+
+                    {% if article.excerpt %}
+                    <p class="article-excerpt">{{ article.excerpt|truncatewords:20 }}</p>
+                    {% endif %}
+
+                    <div class="article-meta">
+                        <div class="author-info">
+                            <i class="fas fa-user"></i>
+                            {{ article.author.username }}
+                        </div>
+                        <div class="date-info">
+                            <i class="fas fa-calendar"></i>
+                            {{ article.created_at|date:"d.m.Y" }}
+                        </div>
+                    </div>
+
+                    <!-- Хештеги статьи -->
+                    {% if article.tags.all %}
+                    <div class="article-tags">
+                        {% for tag in article.tags.all|slice:":3" %}
+                        <a href="{% url 'wiki:search' %}?tag={{ tag.name|urlencode }}"
+                           class="article-tag">
+                            #{{ tag.name }}
+                        </a>
+                        {% endfor %}
+                        {% if article.tags.count > 3 %}
+                        <span class="more-tags">+{{ article.tags.count|add:"-3" }}</span>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="article-card-footer">
+                    <div class="article-stats">
+                        <span class="views">
+                            <i class="fas fa-eye"></i>
+                            {{ article.views_count|default:0 }}
+                        </span>
+                        <span class="likes">
+                            <i class="fas fa-heart"></i>
+                            {{ article.get_likes_count|default:0 }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Пагинация -->
+        {% if results.has_other_pages %}
+        <div class="pagination">
+            {% if results.has_previous %}
+            <a href="?{% if query %}q={{ query }}&{% endif %}{% if tag_filter %}tag={{ tag_filter }}&{% endif %}{% if category_filter %}category={{ category_filter }}&{% endif %}page={{ results.previous_page_number }}"
+               class="page-link">
+                <i class="fas fa-chevron-left"></i>
+            </a>
+            {% endif %}
+
+            {% for num in results.paginator.page_range %}
+                {% if results.number == num %}
+                <span class="page-link active">{{ num }}</span>
+                {% else %}
+                <a href="?{% if query %}q={{ query }}&{% endif %}{% if tag_filter %}tag={{ tag_filter }}&{% endif %}{% if category_filter %}category={{ category_filter }}&{% endif %}page={{ num }}"
+                   class="page-link">{{ num }}</a>
+                {% endif %}
+            {% endfor %}
+
+            {% if results.has_next %}
+            <a href="?{% if query %}q={{ query }}&{% endif %}{% if tag_filter %}tag={{ tag_filter }}&{% endif %}{% if category_filter %}category={{ category_filter }}&{% endif %}page={{ results.next_page_number }}"
+               class="page-link">
+                <i class="fas fa-chevron-right"></i>
+            </a>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        {% else %}
+        <div class="no-results">
+            <div class="no-results-icon">
+                <i class="fas fa-search"></i>
+            </div>
+            <h3>Ничего не найдено</h3>
+            <p>
+                {% if query and tag_filter %}
+                По запросу "{{ query }}" и хештегу #{{ tag_filter }} ничего не найдено.
+                {% elif query %}
+                По запросу "{{ query }}" ничего не найдено.
+                {% elif tag_filter %}
+                Статьи с хештегом #{{ tag_filter }} не найдены.
+                {% endif %}
+            </p>
+            <div class="suggestions">
+                <p>Попробуйте:</p>
+                <ul>
+                    <li>Использовать другие ключевые слова</li>
+                    <li>Проверить правописание</li>
+                    <li>Выбрать другую категорию</li>
+                    <li>Использовать популярные хештеги из списка выше</li>
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    <!-- Популярные запросы -->
+    {% if popular_queries and not query and not tag_filter %}
+    <div class="popular-queries-section">
+        <h3 class="section-title">
+            <i class="fas fa-chart-line"></i>
+            Популярные поисковые запросы
+        </h3>
+        <div class="queries-list">
+            {% for popular_query in popular_queries %}
+            <a href="{% url 'wiki:search' %}?q={{ popular_query.query|urlencode }}"
+               class="query-link">
+                {{ popular_query.query }}
+                <span class="query-count">{{ popular_query.count }}</span>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+</div>
+
 <style>
-    .search-page-title {
-        text-align: center;
-        color: #D4AF37;
-        font-family: 'Cinzel', serif;
-        margin-bottom: 30px;
-        font-size: 2.5em;
+.search-header {
+    background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+    border: 1px solid #D4AF37;
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 25px;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+}
+
+.header-icon {
+    font-size: 2.5em;
+    color: #D4AF37;
+    margin-right: 15px;
+}
+
+.header-text h1 {
+    color: #D4AF37;
+    font-family: 'Cinzel', serif;
+    margin: 0 0 5px 0;
+    font-size: 1.8em;
+}
+
+.header-text p {
+    color: #e8e8e8;
+    margin: 0;
+    opacity: 0.8;
+}
+
+.search-form-container {
+    background: #2d2d2d;
+    border: 1px solid #444;
+    border-radius: 10px;
+    padding: 25px;
+    margin-bottom: 25px;
+}
+
+.search-input-group {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.input-with-icon {
+    position: relative;
+    flex: 1;
+}
+
+.input-with-icon i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #D4AF37;
+}
+
+.search-input {
+    width: 100%;
+    padding: 15px 20px 15px 45px;
+    background: #1a1a1a;
+    border: 1px solid #444;
+    border-radius: 8px;
+    color: #e8e8e8;
+    font-size: 16px;
+    transition: all 0.3s;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: #D4AF37;
+    box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
+}
+
+.search-btn {
+    background: #D4AF37;
+    color: #1a1a1a;
+    border: none;
+    border-radius: 8px;
+    padding: 15px 25px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.search-btn:hover {
+    background: #c19b2e;
+    transform: translateY(-2px);
+}
+
+.search-filters {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.filter-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.filter-group label {
+    color: #D4AF37;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.filter-select {
+    background: #1a1a1a;
+    border: 1px solid #444;
+    border-radius: 6px;
+    color: #e8e8e8;
+    padding: 8px 12px;
+    min-width: 200px;
+}
+
+.section-title {
+    color: #D4AF37;
+    font-family: 'Cinzel', serif;
+    margin-bottom: 20px;
+    font-size: 1.4em;
+    border-bottom: 2px solid #D4AF37;
+    padding-bottom: 10px;
+}
+
+/* Облако тегов */
+.popular-tags-section {
+    background: #2d2d2d;
+    border: 1px solid #444;
+    border-radius: 10px;
+    padding: 25px;
+    margin-bottom: 25px;
+}
+
+.tags-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    justify-content: center;
+}
+
+.tag-link {
+    background: rgba(23, 162, 184, 0.2);
+    color: #17a2b8;
+    padding: 8px 15px;
+    border-radius: 20px;
+    text-decoration: none;
+    transition: all 0.3s;
+    border: 1px solid rgba(23, 162, 184, 0.3);
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.tag-link:hover {
+    background: #17a2b8;
+    color: white;
+    transform: translateY(-2px);
+}
+
+.tag-link.active {
+    background: #D4AF37;
+    color: #1a1a1a;
+    border-color: #D4AF37;
+}
+
+.tag-count {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border-radius: 10px;
+    padding: 2px 6px;
+    font-size: 0.7em;
+    font-weight: 600;
+}
+
+/* Результаты поиска */
+.search-results-section {
+    background: #2d2d2d;
+    border: 1px solid #444;
+    border-radius: 10px;
+    padding: 25px;
+    margin-bottom: 25px;
+}
+
+.results-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.results-count {
+    color: #D4AF37;
+    font-weight: 600;
+    font-size: 1.1em;
+}
+
+.articles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 25px;
+    margin-bottom: 30px;
+}
+
+.article-card {
+    background: #1a1a1a;
+    border: 1px solid #444;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: all 0.3s;
+}
+
+.article-card:hover {
+    transform: translateY(-5px);
+    border-color: #D4AF37;
+    box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
+}
+
+.article-card-header {
+    position: relative;
+    height: 180px;
+    overflow: hidden;
+}
+
+.article-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.article-image-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #8B4513, #D4AF37);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 2em;
+}
+
+.article-categories {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    display: flex;
+    gap: 5px;
+}
+
+.category-badge {
+    background: rgba(212, 175, 55, 0.9);
+    color: #1a1a1a;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.7em;
+    font-weight: 600;
+}
+
+.article-card-body {
+    padding: 20px;
+}
+
+.article-title {
+    margin: 0 0 12px 0;
+    font-size: 1.2em;
+    line-height: 1.4;
+}
+
+.article-title a {
+    color: #e8e8e8;
+    text-decoration: none;
+}
+
+.article-title a:hover {
+    color: #D4AF37;
+}
+
+.article-excerpt {
+    color: #888;
+    margin: 0 0 15px 0;
+    line-height: 1.5;
+    font-size: 0.9em;
+}
+
+.article-meta {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+    font-size: 0.85em;
+    color: #666;
+}
+
+.author-info, .date-info {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.article-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 15px;
+}
+
+.article-tag {
+    background: rgba(23, 162, 184, 0.2);
+    color: #17a2b8;
+    padding: 3px 8px;
+    border-radius: 10px;
+    font-size: 0.75em;
+    text-decoration: none;
+    border: 1px solid rgba(23, 162, 184, 0.3);
+}
+
+.article-tag:hover {
+    background: #17a2b8;
+    color: white;
+}
+
+.more-tags {
+    color: #666;
+    font-size: 0.75em;
+    font-style: italic;
+}
+
+.article-card-footer {
+    padding: 15px 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border-top: 1px solid #444;
+}
+
+.article-stats {
+    display: flex;
+    gap: 15px;
+    color: #666;
+    font-size: 0.85em;
+}
+
+.views, .likes {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Пагинация */
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 30px;
+}
+
+.page-link {
+    padding: 10px 15px;
+    background: #1a1a1a;
+    border: 1px solid #444;
+    border-radius: 6px;
+    color: #e8e8e8;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.page-link:hover {
+    border-color: #D4AF37;
+    color: #D4AF37;
+}
+
+.page-link.active {
+    background: #D4AF37;
+    color: #1a1a1a;
+    border-color: #D4AF37;
+}
+
+/* Нет результатов */
+.no-results {
+    text-align: center;
+    padding: 60px 20px;
+    color: #888;
+}
+
+.no-results-icon {
+    font-size: 4em;
+    margin-bottom: 20px;
+    opacity: 0.5;
+}
+
+.no-results h3 {
+    color: #e8e8e8;
+    margin-bottom: 15px;
+}
+
+.suggestions {
+    margin-top: 25px;
+    text-align: left;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.suggestions ul {
+    text-align: left;
+    margin-top: 10px;
+}
+
+.suggestions li {
+    margin-bottom: 8px;
+}
+
+/* Популярные запросы */
+.popular-queries-section {
+    background: #2d2d2d;
+    border: 1px solid #444;
+    border-radius: 10px;
+    padding: 25px;
+}
+
+.queries-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.query-link {
+    background: rgba(212, 175, 55, 0.1);
+    color: #D4AF37;
+    padding: 8px 15px;
+    border-radius: 20px;
+    text-decoration: none;
+    transition: all 0.3s;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.query-link:hover {
+    background: #D4AF37;
+    color: #1a1a1a;
+}
+
+.query-count {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border-radius: 10px;
+    padding: 2px 6px;
+    font-size: 0.7em;
+    font-weight: 600;
+}
+
+@media (max-width: 768px) {
+    .search-input-group {
+        flex-direction: column;
     }
 
-    .search-form {
-        margin-bottom: 30px;
-        text-align: center;
+    .search-filters {
+        flex-direction: column;
     }
-    .search-controls {
-        display: flex;
-        gap: 10px;
-        justify-content: center;
-        flex-wrap: wrap;
-        margin-bottom: 15px;
+
+    .filter-group {
+        flex-direction: column;
+        align-items: flex-start;
     }
-    .search-form input[type="text"] {
-        padding: 12px;
-        width: 300px;
-        max-width: 100%;
-        border: 2px solid #D4AF37;
-        border-radius: 5px;
-        background: #1a1a1a;
-        color: #e8e8e8;
-        font-size: 16px;
+
+    .filter-select {
+        min-width: 100%;
     }
-    .search-form select {
-        padding: 12px;
-        border: 2px solid #D4AF37;
-        border-radius: 5px;
-        background: #1a1a1a;
-        color: #e8e8e8;
-        font-size: 16px;
+
+    .articles-grid {
+        grid-template-columns: 1fr;
     }
-    .search-form button {
-        padding: 12px 20px;
-        background: #D4AF37;
-        color: #1a1a1a;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-weight: bold;
+
+    .results-header {
+        flex-direction: column;
+        align-items: flex-start;
     }
-    .search-results {
-        margin-bottom: 30px;
-    }
-    .search-result {
-        background: rgba(212, 175, 55, 0.1);
-        padding: 20px;
-        border-radius: 10px;
-        border-left: 4px solid #D4AF37;
-        margin-bottom: 15px;
-    }
-    .search-result h3 {
-        margin: 0 0 10px 0;
-        color: #D4AF37;
-    }
-    .search-result h3 a {
-        color: #D4AF37;
-        text-decoration: none;
-    }
-    .excerpt {
-        color: #ccc;
-        margin-bottom: 10px;
-        line-height: 1.5;
-    }
-    .meta {
-        display: flex;
-        gap: 15px;
-        font-size: 0.9em;
-        color: #888;
-        flex-wrap: wrap;
-    }
-    .no-results, .search-help {
-        text-align: center;
-        color: #ccc;
-        padding: 40px 20px;
-    }
-    .popular-searches {
-        display: flex;
-        gap: 10px;
-        justify-content: center;
-        flex-wrap: wrap;
-        margin-top: 15px;
-    }
-    .search-tag {
-        background: rgba(212, 175, 55, 0.2);
-        color: #D4AF37;
-        padding: 5px 10px;
-        border-radius: 15px;
-        text-decoration: none;
-        font-size: 0.9em;
-    }
-    .search-tag:hover {
-        background: #D4AF37;
-        color: #1a1a1a;
-    }
-    .pagination {
-        display: flex;
-        justify-content: center;
-        gap: 10px;
-        margin-top: 30px;
-        flex-wrap: wrap;
-    }
-    .results-count {
-        text-align: center;
-        color: #888;
-        margin-bottom: 20px;
-        font-style: italic;
-    }
+}
 </style>
 
-<!-- ЗАГОЛОВОК ПОИСКА ТЕПЕРЬ ЦЕНТРИРОВАН -->
-<h1 class="search-page-title">🔍 Поиск по Форуму по Вселенной Ведьмака</h1>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Автодополнение хештегов в поиске
+    const searchInput = document.querySelector('input[name="q"]');
+    const popularTags = document.querySelectorAll('.tag-link');
 
-<form class="search-form" method="get" action="{% url 'wiki:search' %}">
-    <div class="search-controls">
-        <input type="text" name="q" value="{{ query }}" placeholder="Поиск по названию, содержанию, тегам...">
-        <select name="category">
-            <option value="">Все категории</option>
-            {% for cat in categories %}
-            <option value="{{ cat.slug }}" {% if category_filter == cat.slug %}selected{% endif %}>{{ cat.name }}</option>
-            {% endfor %}
-        </select>
-        <button type="submit">🔍 Искать</button>
-    </div>
-</form>
+    popularTags.forEach(tag => {
+        tag.addEventListener('click', function(e) {
+            e.preventDefault();
+            const tagName = this.textContent.trim().replace('#', '').split(' ')[0];
+            window.location.href = this.href;
+        });
+    });
 
-<!-- Остальной код остается без изменений -->
-{% if query %}
-<div class="results-count">Найдено результатов: {{ total_count }}</div>
-{% endif %}
+    // Быстрый поиск при вводе хештега
+    searchInput.addEventListener('input', function() {
+        const value = this.value.trim();
+        if (value.startsWith('#') && value.length > 1) {
+            const tagName = value.substring(1);
+            // Можно добавить подсказки для хештегов
+            showTagSuggestions(tagName);
+        }
+    });
 
-<div class="search-results">
-    {% if results %}
-        {% for article in results %}
-        <div class="search-result">
-            <h3><a href="{% url 'wiki:article_detail' article.slug %}">📖 {{ article.title }}</a></h3>
-            <p class="excerpt">{{ article.excerpt|truncatechars:200|default:"Описание отсутствует" }}...</p>
-            <div class="meta">
-                <span>👤
-                    <a href="{% url 'wiki:user_public_profile' article.author.username %}"
-                       style="color: #D4AF37; text-decoration: none;">
-                        {{ article.author.username }}
-                    </a>
-                </span>
-                <span>📅 {{ article.created_at|date:"d.m.Y" }}</span>
-                <span>📂 {% for cat in article.categories.all %}{{ cat.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</span>
-            </div>
-        </div>
-        {% endfor %}
-    {% elif query %}
-        <div class="no-results">
-            <h3>❌ По запросу "{{ query }}" ничего не найдено</h3>
-            <p>Попробуйте:</p>
-            <ul>
-                <li>Проверить правильность написания</li>
-                <li>Использовать более общие термины</li>
-                <li>Попробовать синонимы</li>
-                <li>Убрать фильтр по категории</li>
-            </ul>
-        </div>
-    {% else %}
-        <div class="search-help">
-            <h3>🔍 Как искать в Форуме по Вселенной Ведьмака?</h3>
-            <div class="help-content">
-                <p><strong>Внешнее название персонажа, места или события</strong><br>
-                Используйте полную номенклатуру для точного поиска.</p>
+    // Обработка отправки формы с хештегами
+    const searchForm = document.querySelector('.search-form');
+    searchForm.addEventListener('submit', function(e) {
+        const searchValue = searchInput.value.trim();
+        if (searchValue.startsWith('#') && searchValue.length > 1) {
+            const tagName = searchValue.substring(1);
+            // Перенаправляем на поиск по хештегу
+            e.preventDefault();
+            window.location.href = `{% url 'wiki:search' %}?tag=${encodeURIComponent(tagName)}`;
+        }
+    });
+});
 
-                <p><strong>Поиск по различным критериям</strong><br>
-                Поиск ведется по заголовкам, содержанию и тегам.</p>
-            </div>
+function showTagSuggestions(tagName) {
+    // Здесь можно добавить логику для подсказок хештегов
+    // Например, фильтрация популярных тегов
+    const popularTags = document.querySelectorAll('.tag-link');
+    popularTags.forEach(tag => {
+        const fullTagName = tag.textContent.trim().replace('#', '').split(' ')[0];
+        if (fullTagName.toLowerCase().includes(tagName.toLowerCase())) {
+            tag.style.backgroundColor = 'rgba(212, 175, 55, 0.3)';
+        } else {
+            tag.style.backgroundColor = '';
+        }
+    });
+}
 
-<h4>🔥 Популярные запросы:</h4>
-<div class="popular-searches">
-    {% for popular_query in popular_queries %}
-    <a href="{% url 'wiki:search' %}?q={{ popular_query.query|urlencode }}"
-       class="search-tag"
-       title="Искали {{ popular_query.count }} раз">
-        {{ popular_query.query }} ({{ popular_query.count }})
-    </a>
-    {% empty %}
-    <a href="{% url 'wiki:search' %}?q=Геральт" class="search-tag">Геральт</a>
-    <a href="{% url 'wiki:search' %}?q=Цири" class="search-tag">Цири</a>
-    <a href="{% url 'wiki:search' %}?q=Йеннифэр" class="search-tag">Йеннифэр</a>
-    <a href="{% url 'wiki:search' %}?q=Трисс" class="search-tag">Трисс</a>
-    <a href="{% url 'wiki:search' %}?q=Веланд" class="search-tag">Веланд</a>
-    <a href="{% url 'wiki:search' %}?q=Каэр Морхен" class="search-tag">Каэр Морхен</a>
-    <a href="{% url 'wiki:search' %}?q=Новиград" class="search-tag">Новиград</a>
-    <a href="{% url 'wiki:search' %}?q=Ведьмак" class="search-tag">Ведьмак</a>
-    <a href="{% url 'wiki:search' %}?q=Заклинание" class="search-tag">Заклинание</a>
-    <a href="{% url 'wiki:search' %}?q=Гвинт" class="search-tag">Гвинт</a>
-    {% endfor %}
-</div>
-        </div>
-    {% endif %}
-</div>
-
-{% if results.has_other_pages %}
-<div class="pagination">
-    {% if results.has_previous %}
-        <a href="?q={{ query }}&category={{ category_filter }}&page={{ results.previous_page_number }}" class="page-btn">← Предыдущая</a>
-    {% endif %}
-
-    {% for num in results.paginator.page_range %}
-        {% if num == results.number %}
-            <span class="page-current">{{ num }}</span>
-        {% else %}
-            <a href="?q={{ query }}&category={{ category_filter }}&page={{ num }}" class="page-btn">{{ num }}</a>
-        {% endif %}
-    {% endfor %}
-
-    {% if results.has_next %}
-        <a href="?q={{ query }}&category={{ category_filter }}&page={{ results.next_page_number }}" class="page-btn">Следующая →</a>
-    {% endif %}
-</div>
-{% endif %}
-
-<div style="text-align: center; margin-top: 30px;">
-    <a href="{% url 'wiki:home' %}" class="btn">🏠 На главную</a>
-</div>
+// Функция для быстрого копирования хештега
+function copyHashtag(tagName) {
+    navigator.clipboard.writeText(`#${tagName}`).then(() => {
+        showNotification(`Хештег #${tagName} скопирован!`, 'success');
+    });
+}
+</script>
 {% endblock %}

@@ -320,6 +320,94 @@
         </form>
     </div>
 </div>
+<!-- Поле для хештегов -->
+<div class="form-group">
+    <label for="{{ form.tags_input.id_for_label }}">🏷️ Хештеги:</label>
+    {{ form.tags_input }}
+    <div class="form-help">{{ form.tags_input.help_text }}</div>
+    {% if form.tags_input.errors %}
+    <div class="field-errors">
+        {% for error in form.tags_input.errors %}
+        <span class="error">{{ error }}</span>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+
+<!-- Подсказки по хештегам -->
+<div class="hashtag-suggestions">
+    <h4>💡 Популярные хештеги:</h4>
+    <div class="suggested-tags">
+        <span class="suggested-tag" onclick="addHashtag('ведьмак')">#ведьмак</span>
+        <span class="suggested-tag" onclick="addHashtag('геральт')">#геральт</span>
+        <span class="suggested-tag" onclick="addHashtag('цири')">#цири</span>
+        <span class="suggested-tag" onclick="addHashtag('монстры')">#монстры</span>
+        <span class="suggested-tag" onclick="addHashtag('магия')">#магия</span>
+        <span class="suggested-tag" onclick="addHashtag('алхимия')">#алхимия</span>
+        <span class="suggested-tag" onclick="addHashtag('кровь')">#кровь</span>
+        <span class="suggested-tag" onclick="addHashtag('ведьма')">#ведьма</span>
+        <span class="suggested-tag" onclick="addHashtag('чудовища')">#чудовища</span>
+    </div>
+</div>
+
+<style>
+.hashtag-suggestions {
+    background: rgba(212, 175, 55, 0.1);
+    padding: 15px;
+    border-radius: 8px;
+    margin: 15px 0;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+.hashtag-suggestions h4 {
+    color: #D4AF37;
+    margin-bottom: 10px;
+    font-size: 1em;
+}
+
+.suggested-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.suggested-tag {
+    background: rgba(23, 162, 184, 0.2);
+    color: #17a2b8;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 0.85em;
+    cursor: pointer;
+    transition: all 0.3s;
+    border: 1px solid rgba(23, 162, 184, 0.3);
+}
+
+.suggested-tag:hover {
+    background: #17a2b8;
+    color: white;
+    transform: translateY(-2px);
+}
+</style>
+
+<script>
+function addHashtag(tagName) {
+    const tagsInput = document.getElementById('{{ form.tags_input.id_for_label }}');
+    const currentValue = tagsInput.value.trim();
+    const newTag = tagName.toLowerCase();
+
+    if (currentValue === '') {
+        tagsInput.value = newTag;
+    } else {
+        // Проверяем, нет ли уже такого тега
+        const tags = currentValue.split(',').map(tag => tag.trim());
+        if (!tags.includes(newTag)) {
+            tagsInput.value = currentValue + ', ' + newTag;
+        }
+    }
+
+    tagsInput.focus();
+}
+</script>
 
 <script>
     document.getElementById('mediaFiles').addEventListener('change', function(e) {

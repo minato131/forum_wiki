@@ -6,279 +6,240 @@
 {% block content %}
 <div class="container mt-4">
     <!-- Заголовок и статистика -->
-    <div class="row mb-4">
-        <div class="col-12">
-            <div class="d-flex align-items-center justify-content-between mb-4">
-                <div class="d-flex align-items-center">
-                    <div class="me-3">
-                        <i class="fas fa-users-cog fa-2x text-warning"></i>
-                    </div>
-                    <div>
-                        <h2 class="mb-1 text-gold">Управление пользователями</h2>
-                        <p class="text-muted mb-0">Назначение ролей и управление доступом</p>
-                    </div>
-                </div>
-                <div class="text-end">
-                    <div class="btn-group">
-                        <button class="btn btn-outline-warning active view-toggle" data-view="grid">
-                            <i class="fas fa-th-large"></i>
-                        </button>
-                        <button class="btn btn-outline-warning view-toggle" data-view="list">
-                            <i class="fas fa-list"></i>
-                        </button>
-                    </div>
-                </div>
+    <div class="admin-header">
+        <div class="header-content">
+            <div class="header-icon">
+                <i class="fas fa-users-cog"></i>
+            </div>
+            <div class="header-text">
+                <h1>Управление пользователями</h1>
+                <p>Назначение ролей и управление доступом</p>
             </div>
         </div>
-    </div>
 
-    {% if messages %}
-    <div class="row mb-4">
-        <div class="col-12">
-            {% for message in messages %}
-            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-                <i class="fas
-                    {% if message.tags == 'success' %}fa-check-circle
-                    {% elif message.tags == 'error' %}fa-exclamation-circle
-                    {% else %}fa-info-circle{% endif %} me-2"></i>
-                {{ message }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <!-- Статистика в реальном времени -->
+        <div class="stats-grid">
+            <div class="stat-card total-users">
+                <div class="stat-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-info">
+                    <span class="stat-number">{{ users.count }}</span>
+                    <span class="stat-label">Всего пользователей</span>
+                </div>
+            </div>
+
+            {% for group_name, count in group_stats.items %}
+            <div class="stat-card role-{{ group_name|lower }}">
+                <div class="stat-icon">
+                    {% if group_name == 'Администратор' %}
+                        <i class="fas fa-crown"></i>
+                    {% elif group_name == 'Модератор' %}
+                        <i class="fas fa-shield-alt"></i>
+                    {% elif group_name == 'Редактор' %}
+                        <i class="fas fa-edit"></i>
+                    {% else %}
+                        <i class="fas fa-user"></i>
+                    {% endif %}
+                </div>
+                <div class="stat-info">
+                    <span class="stat-number">{{ count }}</span>
+                    <span class="stat-label">{{ group_name }}</span>
+                </div>
             </div>
             {% endfor %}
         </div>
     </div>
-    {% endif %}
 
-    <!-- Статистика в карточках -->
-    <div class="row mb-4">
-        <div class="col-xl-2 col-md-4 col-6 mb-3">
-            <div class="card stat-card bg-dark border-secondary h-100">
-                <div class="card-body text-center p-3">
-                    <div class="text-primary mb-2">
-                        <i class="fas fa-users fa-2x"></i>
-                    </div>
-                    <h3 class="text-white mb-1">{{ users.count }}</h3>
-                    <p class="text-muted mb-0 small">Всего</p>
-                </div>
+    {% if messages %}
+    <div class="messages-container">
+        {% for message in messages %}
+        <div class="alert-message {{ message.tags }}">
+            <div class="alert-icon">
+                {% if message.tags == 'success' %}
+                    <i class="fas fa-check-circle"></i>
+                {% elif message.tags == 'error' %}
+                    <i class="fas fa-exclamation-circle"></i>
+                {% else %}
+                    <i class="fas fa-info-circle"></i>
+                {% endif %}
             </div>
-        </div>
-        {% for group_name, count in group_stats.items %}
-        <div class="col-xl-2 col-md-4 col-6 mb-3">
-            <div class="card stat-card bg-dark border-
-                {% if group_name == 'Администратор' %}danger
-                {% elif group_name == 'Модератор' %}warning
-                {% elif group_name == 'Редактор' %}info
-                {% else %}secondary{% endif %} h-100">
-                <div class="card-body text-center p-3">
-                    <div class="mb-2">
-                        {% if group_name == 'Администратор' %}
-                            <i class="fas fa-crown fa-2x text-danger"></i>
-                        {% elif group_name == 'Модератор' %}
-                            <i class="fas fa-shield-alt fa-2x text-warning"></i>
-                        {% elif group_name == 'Редактор' %}
-                            <i class="fas fa-edit fa-2x text-info"></i>
-                        {% else %}
-                            <i class="fas fa-user fa-2x text-secondary"></i>
-                        {% endif %}
-                    </div>
-                    <h3 class="text-white mb-1">{{ count }}</h3>
-                    <p class="text-muted mb-0 small">{{ group_name }}</p>
-                </div>
-            </div>
+            <div class="alert-text">{{ message }}</div>
+            <button class="alert-close" onclick="this.parentElement.remove()">
+                <i class="fas fa-times"></i>
+            </button>
         </div>
         {% endfor %}
     </div>
+    {% endif %}
 
     <!-- Панель управления -->
-    <div class="row mb-4">
-        <div class="col-12">
-            <div class="card bg-dark border-secondary">
-                <div class="card-body">
-                    <div class="row g-3 align-items-center">
-                        <div class="col-md-4">
-                            <div class="input-group">
-                                <span class="input-group-text bg-darker border-secondary text-gold">
-                                    <i class="fas fa-search"></i>
-                                </span>
-                                <input type="text" id="userSearch" class="form-control bg-dark text-white border-secondary"
-                                       placeholder="Поиск пользователей...">
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <select id="roleFilter" class="form-select bg-dark text-white border-secondary">
-                                <option value="">Все роли</option>
-                                {% for group in groups %}
-                                <option value="{{ group.name }}">{{ group.name }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                        <div class="col-md-3">
-                            <select id="statusFilter" class="form-select bg-dark text-white border-secondary">
-                                <option value="">Все статусы</option>
-                                <option value="active">Активные</option>
-                                <option value="inactive">Неактивные</option>
-                                <option value="staff">Персонал</option>
-                            </select>
-                        </div>
-                        <div class="col-md-2">
-                            <button id="clearFilters" class="btn btn-outline-secondary w-100">
-                                <i class="fas fa-times me-1"></i> Сбросить
-                            </button>
-                        </div>
-                    </div>
-                </div>
+    <div class="control-panel">
+        <div class="search-section">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="userSearch" placeholder="Поиск по имени пользователя или email...">
+            </div>
+
+            <div class="filters">
+                <select id="roleFilter" class="filter-select">
+                    <option value="">Все роли</option>
+                    {% for group in groups %}
+                    <option value="{{ group.name }}">{{ group.name }}</option>
+                    {% endfor %}
+                </select>
+
+                <select id="statusFilter" class="filter-select">
+                    <option value="">Все статусы</option>
+                    <option value="active">Активные</option>
+                    <option value="inactive">Неактивные</option>
+                    <option value="staff">Персонал</option>
+                </select>
+
+                <button id="clearFilters" class="clear-btn">
+                    <i class="fas fa-times"></i> Сбросить
+                </button>
             </div>
         </div>
     </div>
 
     <!-- Сетка пользователей -->
-    <div id="usersGrid" class="row view-content">
+    <div class="users-grid" id="usersGrid">
         {% for user in users %}
-        <div class="col-xl-3 col-lg-4 col-md-6 mb-4 user-card"
+        <div class="user-card"
              data-username="{{ user.username|lower }}"
+             data-email="{{ user.email|lower }}"
              data-roles="{{ user.groups.all|join:', '|lower }}"
              data-status="{% if user.is_active %}active{% else %}inactive{% endif %}{% if user.is_staff %} staff{% endif %}">
-            <div class="card user-card-inner bg-dark border-secondary h-100">
-                <!-- Заголовок карточки -->
-                <div class="card-header bg-darker border-secondary pb-2">
-                    <div class="d-flex align-items-center">
-                        <div class="position-relative me-3">
-                            {% if user.profile.avatar %}
-                                <img src="{{ user.profile.avatar.url }}" alt="{{ user.username }}"
-                                     class="rounded-circle" width="50" height="50">
-                            {% else %}
-                                <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center"
-                                     style="width: 50px; height: 50px;">
-                                    <i class="fas fa-user text-white"></i>
-                                </div>
-                            {% endif %}
-                            {% if user.is_active %}
-                                <span class="position-absolute bottom-0 end-0 bg-success rounded-circle"
-                                      style="width: 12px; height: 12px; border: 2px solid #1a1a1a;"></span>
-                            {% else %}
-                                <span class="position-absolute bottom-0 end-0 bg-danger rounded-circle"
-                                      style="width: 12px; height: 12px; border: 2px solid #1a1a1a;"></span>
-                            {% endif %}
+
+            <!-- Заголовок карточки -->
+            <div class="user-card-header">
+                <div class="user-avatar">
+                    {% if user.profile.avatar %}
+                        <img src="{{ user.profile.avatar.url }}" alt="{{ user.username }}" class="avatar-img">
+                    {% else %}
+                        <div class="avatar-placeholder">
+                            <i class="fas fa-user"></i>
                         </div>
-                        <div class="flex-grow-1">
-                            <h6 class="mb-0 text-white">{{ user.username }}</h6>
-                            <small class="text-muted">
-                                {{ user.date_joined|date:"d.m.Y" }}
-                                {% if user.is_staff %}
-                                <span class="badge bg-primary ms-1">Персонал</span>
-                                {% endif %}
-                            </small>
-                        </div>
-                    </div>
+                    {% endif %}
+                    <div class="status-indicator {% if user.is_active %}online{% else %}offline{% endif %}"></div>
                 </div>
 
-                <!-- Контент карточки -->
-                <div class="card-body">
-                    <!-- Контактная информация -->
-                    <div class="mb-3">
-                        {% if user.email %}
-                        <div class="d-flex align-items-center mb-2">
-                            <i class="fas fa-envelope text-muted me-2" style="width: 16px;"></i>
-                            <small class="text-truncate text-muted">{{ user.email }}</small>
-                        </div>
+                <div class="user-info">
+                    <h3 class="username">{{ user.username }}</h3>
+                    <div class="user-meta">
+                        <span class="join-date">Присоединился: {{ user.date_joined|date:"d.m.Y" }}</span>
+                        {% if user.is_staff %}
+                        <span class="staff-badge">Персонал</span>
                         {% endif %}
-
-                        {% if user.profile.telegram or user.profile.vk %}
-                        <div class="d-flex align-items-center">
-                            <i class="fas fa-share-alt text-muted me-2" style="width: 16px;"></i>
-                            <div>
-                                {% if user.profile.telegram %}
-                                    <a href="{{ user.profile.telegram }}" class="text-info me-2" title="Telegram">
-                                        <i class="fab fa-telegram"></i>
-                                    </a>
-                                {% endif %}
-                                {% if user.profile.vk %}
-                                    <a href="{{ user.profile.vk }}" class="text-primary" title="VK">
-                                        <i class="fab fa-vk"></i>
-                                    </a>
-                                {% endif %}
-                            </div>
-                        </div>
-                        {% endif %}
-                    </div>
-
-                    <!-- Роли пользователя -->
-                    <div class="mb-3">
-                        <h6 class="text-gold small mb-2">Роли:</h6>
-                        <div class="role-chips">
-                            {% for group in user.groups.all %}
-                                <div class="role-chip {% if group.name == 'Администратор' %}role-admin
-                                                    {% elif group.name == 'Модератор' %}role-moderator
-                                                    {% elif group.name == 'Редактор' %}role-editor
-                                                    {% else %}role-user{% endif %}">
-                                    <span>{{ group.name }}</span>
-                                    <form method="post" class="d-inline">
-                                        {% csrf_token %}
-                                        <input type="hidden" name="user_id" value="{{ user.id }}">
-                                        <input type="hidden" name="group_id" value="{{ group.id }}">
-                                        <button type="submit" name="action" value="remove"
-                                                class="btn-remove-role" title="Убрать роль">
-                                            <i class="fas fa-times"></i>
-                                        </button>
-                                    </form>
-                                </div>
-                            {% empty %}
-                                <span class="text-muted small">Нет ролей</span>
-                            {% endfor %}
-                        </div>
-                    </div>
-
-                    <!-- Статистика -->
-                    <div class="user-stats">
-                        <div class="row text-center g-2">
-                            <div class="col-6">
-                                <div class="bg-darker rounded p-2">
-                                    <div class="text-white fw-bold">{{ user.articles.count }}</div>
-                                    <small class="text-muted">Статьи</small>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="bg-darker rounded p-2">
-                                    <div class="text-white fw-bold">{{ user.last_login|date:"d.m"|default:"—" }}</div>
-                                    <small class="text-muted">Был в сети</small>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
+            </div>
 
-                <!-- Футер карточки -->
-                <div class="card-footer bg-darker border-secondary">
-                    <div class="dropdown">
-                        <button class="btn btn-sm btn-outline-warning w-100 dropdown-toggle"
-                                type="button" data-bs-toggle="dropdown">
-                            <i class="fas fa-user-cog me-1"></i> Управление
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-dark">
-                            <h6 class="dropdown-header text-gold">Назначить роль</h6>
+            <!-- Контактная информация -->
+            <div class="user-contact">
+                {% if user.email %}
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span class="contact-text" title="{{ user.email }}">{{ user.email }}</span>
+                </div>
+                {% endif %}
+
+                {% if user.profile.telegram or user.profile.vk %}
+                <div class="social-links">
+                    {% if user.profile.telegram %}
+                    <a href="{{ user.profile.telegram }}" class="social-link telegram" title="Telegram">
+                        <i class="fab fa-telegram"></i>
+                    </a>
+                    {% endif %}
+                    {% if user.profile.vk %}
+                    <a href="{{ user.profile.vk }}" class="social-link vk" title="VK">
+                        <i class="fab fa-vk"></i>
+                    </a>
+                    {% endif %}
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Роли пользователя -->
+            <div class="user-roles">
+                <h4>Роли пользователя:</h4>
+                <div class="roles-list">
+                    {% for group in user.groups.all %}
+                    <div class="role-tag role-{{ group.name|lower }}">
+                        <span class="role-name">{{ group.name }}</span>
+                        <form method="post" class="remove-role-form">
+                            {% csrf_token %}
+                            <input type="hidden" name="user_id" value="{{ user.id }}">
+                            <input type="hidden" name="group_id" value="{{ group.id }}">
+                            <button type="submit" name="action" value="remove" class="remove-role-btn"
+                                    title="Удалить роль" onclick="return confirmRemoveRole('{{ group.name }}')">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </form>
+                    </div>
+                    {% empty %}
+                    <span class="no-roles">Нет назначенных ролей</span>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Статистика -->
+            <div class="user-stats">
+                <div class="stat-item">
+                    <div class="stat-value">{{ user.articles.count }}</div>
+                    <div class="stat-label">Статьи</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">{{ user.last_login|date:"d.m"|default:"—" }}</div>
+                    <div class="stat-label">Был в сети</div>
+                </div>
+            </div>
+
+            <!-- Действия -->
+            <div class="user-actions">
+                <div class="dropdown">
+                    <button class="action-btn dropdown-toggle">
+                        <i class="fas fa-user-cog"></i>
+                        Управление
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+
+                    <div class="dropdown-menu">
+                        <div class="dropdown-section">
+                            <h5>Назначить роль</h5>
                             {% for group in groups %}
                                 {% if group not in user.groups.all %}
-                                <form method="post" class="dropdown-item p-0">
+                                <form method="post" class="role-form">
                                     {% csrf_token %}
                                     <input type="hidden" name="user_id" value="{{ user.id }}">
                                     <input type="hidden" name="group_id" value="{{ group.id }}">
-                                    <button type="submit" name="action" value="add"
-                                            class="btn btn-link dropdown-item text-success w-100 text-start">
-                                        <i class="fas fa-plus me-2"></i>
+                                    <button type="submit" name="action" value="add" class="dropdown-item add-role">
+                                        <i class="fas fa-plus"></i>
                                         {{ group.name }}
                                     </button>
                                 </form>
                                 {% endif %}
                             {% endfor %}
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item text-info" href="#">
-                                <i class="fas fa-envelope me-2"></i>
+                        </div>
+
+                        <div class="dropdown-divider"></div>
+
+                        <div class="dropdown-section">
+                            <a href="#" class="dropdown-item" onclick="sendMessageToUser('{{ user.id }}', '{{ user.username }}')">
+                                <i class="fas fa-envelope"></i>
                                 Написать сообщение
                             </a>
-                            <a class="dropdown-item text-warning" href="#">
-                                <i class="fas fa-chart-bar me-2"></i>
-                                Статистика
+                            <a href="{% url 'wiki:user_public_profile' user.username %}" class="dropdown-item">
+                                <i class="fas fa-eye"></i>
+                                Просмотр профиля
                             </a>
+                            {% if user.articles.count > 0 %}
+                            <a href="?filter=user:{{ user.id }}" class="dropdown-item">
+                                <i class="fas fa-file-alt"></i>
+                                Показать статьи
+                            </a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -287,214 +248,981 @@
         {% endfor %}
     </div>
 
-    <!-- Представление списком (скрыто по умолчанию) -->
-    <div id="usersList" class="view-content d-none">
-        <div class="card bg-dark border-secondary">
-            <div class="card-header bg-darker border-secondary">
-                <h6 class="mb-0 text-gold"><i class="fas fa-list me-2"></i>Список пользователей</h6>
-            </div>
-            <div class="card-body p-0">
-                <div class="table-responsive">
-                    <table class="table table-dark table-hover mb-0">
-                        <thead class="table-secondary">
-                            <tr>
-                                <th>Пользователь</th>
-                                <th>Email</th>
-                                <th>Роли</th>
-                                <th>Статьи</th>
-                                <th>Активность</th>
-                                <th>Действия</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for user in users %}
-                            <tr>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        {% if user.profile.avatar %}
-                                            <img src="{{ user.profile.avatar.url }}" alt="{{ user.username }}"
-                                                 class="rounded-circle me-2" width="32" height="32">
-                                        {% else %}
-                                            <div class="rounded-circle bg-secondary me-2 d-flex align-items-center justify-content-center"
-                                                 style="width: 32px; height: 32px;">
-                                                <i class="fas fa-user text-white"></i>
-                                            </div>
-                                        {% endif %}
-                                        <div>
-                                            <div class="fw-bold">{{ user.username }}</div>
-                                            <small class="text-muted">{{ user.date_joined|date:"d.m.Y" }}</small>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>{{ user.email|default:"—" }}</td>
-                                <td>
-                                    {% for group in user.groups.all %}
-                                        <span class="badge bg-{% if group.name == 'Администратор' %}danger
-                                                            {% elif group.name == 'Модератор' %}warning
-                                                            {% elif group.name == 'Редактор' %}info
-                                                            {% else %}secondary{% endif %} me-1">
-                                            {{ group.name }}
-                                        </span>
-                                    {% endfor %}
-                                </td>
-                                <td>{{ user.articles.count }}</td>
-                                <td>
-                                    {% if user.is_active %}
-                                        <span class="badge bg-success">Активен</span>
-                                    {% else %}
-                                        <span class="badge bg-danger">Неактивен</span>
-                                    {% endif %}
-                                </td>
-                                <td>
-                                    <button class="btn btn-sm btn-outline-warning">
-                                        <i class="fas fa-cog"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+    <!-- Сообщение если нет пользователей -->
+    {% if not users %}
+    <div class="empty-state">
+        <div class="empty-icon">
+            <i class="fas fa-users-slash"></i>
+        </div>
+        <h3>Пользователи не найдены</h3>
+        <p>Попробуйте изменить параметры поиска или фильтры</p>
+    </div>
+    {% endif %}
+</div>
+
+<!-- Модальное окно для отправки сообщений -->
+<div id="messageModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 id="modalUserName">Отправить сообщение</h3>
+            <button class="modal-close" onclick="closeMessageModal()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <textarea id="messageText" placeholder="Введите ваше сообщение..." rows="6"></textarea>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-cancel" onclick="closeMessageModal()">Отмена</button>
+            <button class="btn btn-send" onclick="sendMessage()">Отправить</button>
         </div>
     </div>
 </div>
 
 <style>
-.text-gold { color: #D4AF37 !important; }
-.bg-darker { background-color: #1a1a1a !important; }
+/* Основные стили */
+.admin-header {
+    background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+    border: 1px solid #D4AF37;
+    border-radius: 15px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.header-icon {
+    font-size: 3em;
+    color: #D4AF37;
+    margin-right: 20px;
+}
+
+.header-text h1 {
+    color: #D4AF37;
+    font-family: 'Cinzel', serif;
+    margin: 0 0 5px 0;
+    font-size: 2.2em;
+}
+
+.header-text p {
+    color: #e8e8e8;
+    margin: 0;
+    opacity: 0.8;
+}
+
+/* Статистика */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
 
 .stat-card {
-    transition: transform 0.2s, box-shadow 0.2s;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
     cursor: pointer;
 }
 
 .stat-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
-}
-
-.user-card-inner {
-    transition: all 0.3s ease;
-    border: 1px solid #444;
-}
-
-.user-card-inner:hover {
+    transform: translateY(-3px);
     border-color: #D4AF37;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
+    box-shadow: 0 6px 20px rgba(212, 175, 55, 0.2);
 }
 
-.role-chips {
+.stat-icon {
+    font-size: 2em;
+    margin-right: 15px;
+    width: 50px;
+    text-align: center;
+}
+
+.total-users .stat-icon { color: #17a2b8; }
+.role-администратор .stat-icon { color: #dc3545; }
+.role-модератор .stat-icon { color: #ffc107; }
+.role-редактор .stat-icon { color: #28a745; }
+
+.stat-info {
     display: flex;
-    flex-wrap: wrap;
-    gap: 4px;
+    flex-direction: column;
 }
 
-.role-chip {
-    display: inline-flex;
+.stat-number {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: #fff;
+    line-height: 1;
+}
+
+.stat-label {
+    color: #e8e8e8;
+    opacity: 0.8;
+    font-size: 0.9em;
+    margin-top: 5px;
+}
+
+/* Сообщения */
+.messages-container {
+    margin-bottom: 25px;
+}
+
+.alert-message {
+    display: flex;
     align-items: center;
+    padding: 15px 20px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    border: 1px solid transparent;
+}
+
+.alert-message.success {
+    background: rgba(40, 167, 69, 0.1);
+    border-color: #28a745;
+    color: #28a745;
+}
+
+.alert-message.error {
+    background: rgba(220, 53, 69, 0.1);
+    border-color: #dc3545;
+    color: #dc3545;
+}
+
+.alert-icon {
+    margin-right: 12px;
+    font-size: 1.2em;
+}
+
+.alert-text {
+    flex: 1;
+}
+
+.alert-close {
+    background: none;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+    padding: 5px;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.alert-close:hover {
+    opacity: 1;
+}
+
+/* Панель управления */
+.control-panel {
+    background: #2d2d2d;
+    border: 1px solid #444;
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 30px;
+}
+
+.search-section {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.search-box {
+    flex: 1;
+    min-width: 300px;
+    position: relative;
+}
+
+.search-box i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #D4AF37;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 12px 20px 12px 45px;
+    background: #1a1a1a;
+    border: 1px solid #444;
+    border-radius: 8px;
+    color: #e8e8e8;
+    font-size: 14px;
+    transition: all 0.3s;
+}
+
+.search-box input:focus {
+    outline: none;
+    border-color: #D4AF37;
+    box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
+}
+
+.filters {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.filter-select {
+    padding: 12px 15px;
+    background: #1a1a1a;
+    border: 1px solid #444;
+    border-radius: 8px;
+    color: #e8e8e8;
+    min-width: 150px;
+    cursor: pointer;
+}
+
+.filter-select:focus {
+    outline: none;
+    border-color: #D4AF37;
+}
+
+.clear-btn {
+    padding: 12px 20px;
+    background: transparent;
+    border: 1px solid #6c757d;
+    border-radius: 8px;
+    color: #6c757d;
+    cursor: pointer;
+    transition: all 0.3s;
+    white-space: nowrap;
+}
+
+.clear-btn:hover {
+    border-color: #dc3545;
+    color: #dc3545;
+}
+
+/* Сетка пользователей */
+.users-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+.user-card {
+    background: #2d2d2d;
+    border: 1px solid #444;
+    border-radius: 15px;
+    padding: 25px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.user-card:hover {
+    border-color: #D4AF37;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
+}
+
+.user-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #D4AF37, #8B4513);
+}
+
+/* Заголовок карточки */
+.user-card-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.user-avatar {
+    position: relative;
+    margin-right: 15px;
+}
+
+.avatar-img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #D4AF37;
+}
+
+.avatar-placeholder {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #8B4513, #D4AF37);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.5em;
+    border: 2px solid #D4AF37;
+}
+
+.status-indicator {
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 2px solid #2d2d2d;
+}
+
+.status-indicator.online {
+    background: #28a745;
+}
+
+.status-indicator.offline {
+    background: #6c757d;
+}
+
+.user-info {
+    flex: 1;
+}
+
+.username {
+    color: #fff;
+    margin: 0 0 5px 0;
+    font-size: 1.3em;
+    font-weight: 600;
+}
+
+.user-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.join-date {
+    color: #888;
+    font-size: 0.85em;
+}
+
+.staff-badge {
+    background: #dc3545;
+    color: white;
     padding: 2px 8px;
     border-radius: 12px;
     font-size: 0.75em;
     font-weight: 500;
 }
 
-.role-admin { background: rgba(220, 53, 69, 0.2); color: #dc3545; border: 1px solid #dc3545; }
-.role-moderator { background: rgba(255, 193, 7, 0.2); color: #ffc107; border: 1px solid #ffc107; }
-.role-editor { background: rgba(23, 162, 184, 0.2); color: #17a2b8; border: 1px solid #17a2b8; }
-.role-user { background: rgba(108, 117, 125, 0.2); color: #6c757d; border: 1px solid #6c757d; }
+/* Контактная информация */
+.user-contact {
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #444;
+}
 
-.btn-remove-role {
+.contact-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    color: #e8e8e8;
+}
+
+.contact-item i {
+    color: #D4AF37;
+    margin-right: 10px;
+    width: 16px;
+}
+
+.contact-text {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.social-links {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.social-link {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: all 0.3s;
+    border: 1px solid transparent;
+}
+
+.social-link.telegram {
+    background: #0088cc;
+    color: white;
+}
+
+.social-link.vk {
+    background: #4c75a3;
+    color: white;
+}
+
+.social-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Роли пользователя */
+.user-roles {
+    margin-bottom: 20px;
+}
+
+.user-roles h4 {
+    color: #D4AF37;
+    margin: 0 0 12px 0;
+    font-size: 1em;
+    font-weight: 600;
+}
+
+.roles-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.role-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.85em;
+    font-weight: 500;
+    border: 1px solid;
+}
+
+.role-администратор {
+    background: rgba(220, 53, 69, 0.2);
+    border-color: #dc3545;
+    color: #dc3545;
+}
+
+.role-модератор {
+    background: rgba(255, 193, 7, 0.2);
+    border-color: #ffc107;
+    color: #ffc107;
+}
+
+.role-редактор {
+    background: rgba(23, 162, 184, 0.2);
+    border-color: #17a2b8;
+    color: #17a2b8;
+}
+
+.role-user {
+    background: rgba(108, 117, 125, 0.2);
+    border-color: #6c757d;
+    color: #6c757d;
+}
+
+.remove-role-form {
+    display: inline;
+    margin-left: 5px;
+}
+
+.remove-role-btn {
     background: none;
     border: none;
     color: inherit;
-    margin-left: 4px;
-    padding: 0;
-    font-size: 0.7em;
-    opacity: 0.7;
     cursor: pointer;
-}
-
-.btn-remove-role:hover {
-    opacity: 1;
-}
-
-.view-toggle.active {
-    background-color: #D4AF37 !important;
-    border-color: #D4AF37 !important;
-    color: #1a1a1a !important;
-}
-
-.user-stats .bg-darker {
-    transition: background-color 0.2s;
-}
-
-.user-stats .bg-darker:hover {
-    background-color: #2d2d2d !important;
-}
-
-.dropdown-menu-dark {
-    background: #2d2d2d;
-    border: 1px solid #D4AF37;
-}
-
-.dropdown-menu-dark .dropdown-item {
-    color: #e8e8e8;
+    padding: 2px;
+    margin-left: 4px;
+    opacity: 0.7;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7em;
     transition: all 0.2s;
 }
 
-.dropdown-menu-dark .dropdown-item:hover {
+.remove-role-btn:hover {
+    opacity: 1;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.no-roles {
+    color: #6c757d;
+    font-style: italic;
+    font-size: 0.9em;
+}
+
+/* Статистика */
+.user-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 20px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-value {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #D4AF37;
+    margin-bottom: 5px;
+}
+
+.stat-label {
+    color: #888;
+    font-size: 0.85em;
+}
+
+/* Действия */
+.user-actions {
+    position: relative;
+    z-index: 10; /* ДОБАВИЛИ */
+}
+
+.action-btn {
+    width: 100%;
+    padding: 12px 20px;
+    background: linear-gradient(135deg, #D4AF37, #8B4513);
+    border: none;
+    border-radius: 8px;
+    color: #1a1a1a;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.action-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+}
+
+.dropdown {
+    position: relative;
+}
+
+.dropdown-menu {
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    right: 0;
+    background: #1a1a1a;
+    border: 1px solid #D4AF37;
+    border-radius: 8px;
+    padding: 10px 0;
+    margin-bottom: 10px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.3s;
+    z-index: 1000;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-section {
+    padding: 0 15px;
+}
+
+.dropdown-section h5 {
+    color: #D4AF37;
+    margin: 10px 0 5px 0;
+    font-size: 0.9em;
+    font-weight: 600;
+}
+
+.dropdown-item {
+    display: block;
+    width: 100%;
+    padding: 8px 12px;
+    background: none;
+    border: none;
+    color: #e8e8e8;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.2s;
+    border-radius: 4px;
+    margin: 2px 0;
+    text-decoration: none;
+    font-size: 0.9em;
+}
+
+.dropdown-item:hover {
     background: rgba(212, 175, 55, 0.2);
     color: #D4AF37;
+}
+
+.add-role {
+    color: #28a745;
+}
+
+.add-role:hover {
+    background: rgba(40, 167, 69, 0.2);
+}
+
+.dropdown-divider {
+    height: 1px;
+    background: #444;
+    margin: 8px 0;
+}
+
+/* Состояние пустого списка */
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #888;
+}
+
+.empty-icon {
+    font-size: 4em;
+    margin-bottom: 20px;
+    opacity: 0.5;
+}
+
+.empty-state h3 {
+    color: #e8e8e8;
+    margin-bottom: 10px;
+}
+
+/* Модальное окно */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 10000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal-content {
+    background: #2d2d2d;
+    margin: 5% auto;
+    border: 2px solid #D4AF37;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 500px;
+    animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 25px;
+    border-bottom: 1px solid #444;
+}
+
+.modal-header h3 {
+    color: #D4AF37;
+    margin: 0;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    color: #e8e8e8;
+    font-size: 1.2em;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.modal-body {
+    padding: 25px;
+}
+
+#messageText {
+    width: 100%;
+    padding: 15px;
+    background: #1a1a1a;
+    border: 1px solid #444;
+    border-radius: 8px;
+    color: #e8e8e8;
+    font-family: inherit;
+    resize: vertical;
+}
+
+#messageText:focus {
+    outline: none;
+    border-color: #D4AF37;
+}
+
+.modal-footer {
+    display: flex;
+    gap: 15px;
+    justify-content: flex-end;
+    padding: 20px 25px;
+    border-top: 1px solid #444;
+}
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.btn-cancel {
+    background: #6c757d;
+    color: white;
+}
+
+.btn-cancel:hover {
+    background: #5a6268;
+}
+
+.btn-send {
+    background: #D4AF37;
+    color: #1a1a1a;
+}
+
+.btn-send:hover {
+    background: #c19b2e;
+    transform: translateY(-2px);
+}
+
+/* Уведомления */
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 10000;
+    animation: slideInRight 0.3s ease-out;
+}
+
+.notification-content {
+    background: #2d2d2d;
+    border: 1px solid;
+    border-radius: 8px;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    min-width: 300px;
+}
+
+.notification.success {
+    border-color: #28a745;
+}
+
+.notification.success .notification-content {
+    background: rgba(40, 167, 69, 0.1);
+    color: #28a745;
+}
+
+.notification.error {
+    border-color: #dc3545;
+}
+
+.notification.error .notification-content {
+    background: rgba(220, 53, 69, 0.1);
+    color: #dc3545;
+}
+
+.notification-close {
+    background: none;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+    padding: 5px;
+    margin-left: auto;
+    opacity: 0.7;
+}
+
+.notification-close:hover {
+    opacity: 1;
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Анимации */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.user-card {
+    animation: fadeIn 0.5s ease-out;
+}
+
+.user-card:nth-child(even) {
+    animation-delay: 0.1s;
+}
+
+.user-card:nth-child(odd) {
+    animation-delay: 0.2s;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .admin-header {
+        padding: 20px;
+    }
+
+    .header-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .header-icon {
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
+
+    .search-section {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .search-box {
+        min-width: auto;
+    }
+
+    .filters {
+        justify-content: center;
+    }
+
+    .users-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .user-card-header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .user-avatar {
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
 }
 </style>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Переключение вида
-    const viewToggles = document.querySelectorAll('.view-toggle');
-    const viewContents = document.querySelectorAll('.view-content');
-
-    viewToggles.forEach(toggle => {
-        toggle.addEventListener('click', function() {
-            const viewType = this.getAttribute('data-view');
-
-            // Активируем кнопку
-            viewToggles.forEach(t => t.classList.remove('active'));
-            this.classList.add('active');
-
-            // Показываем соответствующий контент
-            viewContents.forEach(content => content.classList.add('d-none'));
-            document.getElementById(`users${viewType.charAt(0).toUpperCase() + viewType.slice(1)}`).classList.remove('d-none');
-        });
-    });
-
-    // Фильтрация
+    // Элементы DOM
     const searchInput = document.getElementById('userSearch');
     const roleFilter = document.getElementById('roleFilter');
     const statusFilter = document.getElementById('statusFilter');
     const clearFilters = document.getElementById('clearFilters');
     const userCards = document.querySelectorAll('.user-card');
 
+    // Глобальные переменные для модального окна
+    let currentUserId = null;
+    let currentUsername = null;
+
+    // Функция фильтрации
     function filterUsers() {
-        const searchTerm = searchInput.value.toLowerCase();
+        const searchTerm = searchInput.value.toLowerCase().trim();
         const roleTerm = roleFilter.value.toLowerCase();
         const statusTerm = statusFilter.value;
 
+        let visibleCount = 0;
+
         userCards.forEach(card => {
             const username = card.getAttribute('data-username');
+            const email = card.getAttribute('data-email');
             const roles = card.getAttribute('data-roles');
             const status = card.getAttribute('data-status');
 
-            const matchesSearch = username.includes(searchTerm);
+            // Проверяем соответствие фильтрам
+            const matchesSearch = !searchTerm ||
+                                username.includes(searchTerm) ||
+                                email.includes(searchTerm);
             const matchesRole = !roleTerm || roles.includes(roleTerm);
             const matchesStatus = !statusTerm || status.includes(statusTerm);
 
-            card.style.display = (matchesSearch && matchesRole && matchesStatus) ? '' : 'none';
+            // Показываем/скрываем карточку
+            if (matchesSearch && matchesRole && matchesStatus) {
+                card.style.display = 'block';
+                visibleCount++;
+
+                // Анимация появления
+                card.style.animation = 'fadeIn 0.5s ease-out';
+            } else {
+                card.style.display = 'none';
+            }
         });
+
+        // Показываем сообщение если нет результатов
+        showNoResultsMessage(visibleCount === 0);
     }
 
+    // Функция показа сообщения об отсутствии результатов
+    function showNoResultsMessage(show) {
+        let message = document.getElementById('noResultsMessage');
+
+        if (show && !message) {
+            message = document.createElement('div');
+            message.id = 'noResultsMessage';
+            message.className = 'empty-state';
+            message.innerHTML = `
+                <div class="empty-icon">
+                    <i class="fas fa-search"></i>
+                </div>
+                <h3>Пользователи не найдены</h3>
+                <p>Попробуйте изменить параметры поиска или фильтры</p>
+            `;
+            document.getElementById('usersGrid').appendChild(message);
+        } else if (!show && message) {
+            message.remove();
+        }
+    }
+
+    // Обработчики событий
     searchInput.addEventListener('input', filterUsers);
     roleFilter.addEventListener('change', filterUsers);
     statusFilter.addEventListener('change', filterUsers);
@@ -504,28 +1232,149 @@ document.addEventListener('DOMContentLoaded', function() {
         roleFilter.value = '';
         statusFilter.value = '';
         filterUsers();
+
+        // Анимация сброса
+        this.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+            this.style.transform = 'scale(1)';
+        }, 150);
     });
 
     // Подтверждение удаления роли
-    const removeButtons = document.querySelectorAll('.btn-remove-role');
-    removeButtons.forEach(button => {
-        button.addEventListener('click', function(e) {
-            if (!confirm('Вы уверены, что хотите убрать эту роль у пользователя?')) {
-                e.preventDefault();
+    window.confirmRemoveRole = function(roleName) {
+        return confirm(`Вы уверены, что хотите удалить роль "${roleName}" у пользователя?`);
+    };
+
+    // Клик по карточке статистики для фильтрации
+    const statCards = document.querySelectorAll('.stat-card');
+    statCards.forEach(card => {
+        card.style.cursor = 'pointer';
+        card.addEventListener('click', function() {
+            const statLabel = this.querySelector('.stat-label').textContent;
+
+            if (statLabel === 'Всего пользователей') {
+                // Сброс всех фильтров
+                searchInput.value = '';
+                roleFilter.value = '';
+                statusFilter.value = '';
+            } else {
+                // Фильтр по роли
+                roleFilter.value = statLabel;
             }
+
+            filterUsers();
+
+            // Анимация клика
+            this.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                this.style.transform = '';
+            }, 150);
         });
     });
 
-    // Анимация карточек статистики
-    const statCards = document.querySelectorAll('.stat-card');
-    statCards.forEach(card => {
-        card.addEventListener('click', function() {
-            const role = this.querySelector('p').textContent.trim();
-            if (role !== 'Всего') {
-                roleFilter.value = role;
-                filterUsers();
+    // Функции для модального окна сообщений
+    window.openMessageModal = function(userId, username) {
+        currentUserId = userId;
+        currentUsername = username;
+
+        document.getElementById('modalUserName').textContent = `Отправить сообщение ${username}`;
+        document.getElementById('messageText').value = '';
+        document.getElementById('messageModal').style.display = 'block';
+    }
+
+    window.closeMessageModal = function() {
+        document.getElementById('messageModal').style.display = 'none';
+        currentUserId = null;
+        currentUsername = null;
+    }
+
+ window.sendMessage = function() {
+    const message = document.getElementById('messageText').value.trim();
+
+    if (!message) {
+        showNotification('Введите текст сообщения', 'error');
+        return;
+    }
+
+    if (message.length > 1000) {
+        showNotification('Сообщение слишком длинное (максимум 1000 символов)', 'error');
+        return;
+    }
+
+    // Отправка AJAX запроса
+    fetch(`/message/send-quick/${currentUserId}/`, {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': '{{ csrf_token }}',
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `content=${encodeURIComponent(message)}`
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showNotification(`Сообщение отправлено пользователю ${currentUsername}`, 'success');
+            closeMessageModal();
+        } else {
+            showNotification(data.error || 'Ошибка при отправке сообщения', 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showNotification('Ошибка при отправке сообщения', 'error');
+    });
+};
+
+
+    // Обновленная функция отправки сообщения (использует модальное окно)
+    window.sendMessageToUser = function(userId, username) {
+        openMessageModal(userId, username);
+    };
+
+    // Функция показа уведомлений
+    function showNotification(message, type = 'info') {
+        const notification = document.createElement('div');
+        notification.className = `notification ${type}`;
+        notification.innerHTML = `
+            <div class="notification-content">
+                <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+                <span>${message}</span>
+                <button class="notification-close" onclick="this.parentElement.parentElement.remove()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        `;
+
+        document.body.appendChild(notification);
+
+        // Автоматическое скрытие через 5 секунд
+        setTimeout(() => {
+            if (notification.parentElement) {
+                notification.remove();
             }
-        });
+        }, 5000);
+    }
+
+    // Закрытие модального окна при клике вне его
+    window.addEventListener('click', function(event) {
+        const modal = document.getElementById('messageModal');
+        if (event.target === modal) {
+            closeMessageModal();
+        }
+    });
+
+    // Инициализация фильтрации
+    filterUsers();
+
+    // Добавляем обработчики для dropdown меню
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.dropdown')) {
+            document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                menu.style.opacity = '0';
+                menu.style.visibility = 'hidden';
+                menu.style.transform = 'translateY(10px)';
+            });
+        }
     });
 });
 </script>

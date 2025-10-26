@@ -1,0 +1,564 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <!-- Заголовок и навигация -->
+    <div class="messages-header">
+        <div class="header-content">
+            <div class="header-icon">
+                <i class="fas fa-envelope"></i>
+            </div>
+            <div class="header-text">
+                <h1>Мои сообщения</h1>
+                <p>Управление личными сообщениями</p>
+            </div>
+        </div>
+        
+        <!-- Навигация по папкам -->
+        <div class="messages-nav">
+            <a href="{% url 'wiki:messages_list' 'inbox' %}" 
+               class="nav-item {% if folder == 'inbox' %}active{% endif %}">
+                <i class="fas fa-inbox"></i>
+                Входящие
+                {% if folder == 'inbox' and unread_count > 0 %}
+                <span class="badge">{{ unread_count }}</span>
+                {% endif %}
+            </a>
+            <a href="{% url 'wiki:messages_list' 'sent' %}" 
+               class="nav-item {% if folder == 'sent' %}active{% endif %}">
+                <i class="fas fa-paper-plane"></i>
+                Отправленные
+            </a>
+            <a href="{% url 'wiki:message_create' %}" class="nav-item new-message">
+                <i class="fas fa-plus"></i>
+                Новое сообщение
+            </a>
+        </div>
+    </div>
+
+    {% if page_obj %}
+    <div class="messages-container">
+        {% for message_obj in page_obj %}
+        <div class="message-item {% if not message_obj.is_read and folder == 'inbox' %}unread{% endif %}" data-message-id="{{ message_obj.id }}">
+            <div class="message-checkbox">
+                <input type="checkbox" name="message_ids" value="{{ message_obj.id }}">
+            </div>
+
+            <div class="message-sender">
+                {% if folder == 'inbox' %}
+                <div class="sender-avatar">
+                    {% if message_obj.sender.profile.avatar %}
+                        <img src="{{ message_obj.sender.profile.avatar.url }}" alt="{{ message_obj.sender.username }}">
+                    {% else %}
+                        <div class="avatar-placeholder">
+                            <i class="fas fa-user"></i>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="sender-info">
+                    <strong>{{ message_obj.sender.username }}</strong>
+                    <small>{{ message_obj.created_at|date:"d.m.Y H:i" }}</small>
+                </div>
+                {% else %}
+                <div class="sender-avatar">
+                    {% if message_obj.recipient.profile.avatar %}
+                        <img src="{{ message_obj.recipient.profile.avatar.url }}" alt="{{ message_obj.recipient.username }}">
+                    {% else %}
+                        <div class="avatar-placeholder">
+                            <i class="fas fa-user"></i>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="sender-info">
+                    <strong>{{ message_obj.recipient.username }}</strong>
+                    <small>{{ message_obj.created_at|date:"d.m.Y H:i" }}</small>
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="message-preview">
+                <a href="{% url 'wiki:message_detail' message_obj.id %}" class="message-subject">
+                    {{ message_obj.subject }}
+                </a>
+                <p class="message-excerpt">
+                    {{ message_obj.content|truncatewords:30 }}
+                </p>
+            </div>
+
+            <div class="message-actions">
+                {% if folder == 'inbox' and not message_obj.is_read %}
+                <span class="unread-indicator" title="Непрочитанное"></span>
+                {% endif %}
+
+                <div class="dropdown-container">
+                    <button class="action-btn" onclick="toggleDropdown('dropdown-{{ message_obj.id }}')">
+                        <i class="fas fa-ellipsis-v"></i>
+                    </button>
+                    <div class="dropdown-menu" id="dropdown-{{ message_obj.id }}">
+                        <a href="{% url 'wiki:message_detail' message_obj.id %}" class="dropdown-item">
+                            <i class="fas fa-eye"></i> Просмотреть
+                        </a>
+                        {% if folder == 'inbox' %}
+                        <a href="{% url 'wiki:message_create' message_obj.sender.id %}" class="dropdown-item">
+                            <i class="fas fa-reply"></i> Ответить
+                        </a>
+                        {% endif %}
+                        <form method="post" action="{% url 'wiki:message_delete' message_obj.id %}" class="delete-form">
+                            {% csrf_token %}
+                            <button type="submit" class="dropdown-item delete-btn" onclick="return confirm('Удалить это сообщение?')">
+                                <i class="fas fa-trash"></i> Удалить
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Пагинация -->
+    {% if page_obj.has_other_pages %}
+    <div class="pagination">
+        {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}" class="page-link">
+            <i class="fas fa-chevron-left"></i>
+        </a>
+        {% endif %}
+
+        {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+            <span class="page-link active">{{ num }}</span>
+            {% else %}
+            <a href="?page={{ num }}" class="page-link">{{ num }}</a>
+            {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}" class="page-link">
+            <i class="fas fa-chevron-right"></i>
+        </a>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    {% else %}
+    <div class="empty-state">
+        <div class="empty-icon">
+            <i class="fas fa-envelope-open"></i>
+        </div>
+        <h3>Сообщений нет</h3>
+        <p>
+            {% if folder == 'inbox' %}
+            У вас пока нет входящих сообщений.
+            {% else %}
+            Вы еще не отправляли сообщений.
+            {% endif %}
+        </p>
+        <a href="{% url 'wiki:message_create' %}" class="btn btn-primary">
+            <i class="fas fa-plus"></i> Написать сообщение
+        </a>
+    </div>
+    {% endif %}
+</div>
+
+<style>
+.messages-header {
+    background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+    border: 1px solid #D4AF37;
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 25px;
+}
+
+.messages-nav {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid transparent;
+    border-radius: 8px;
+    color: #e8e8e8;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.nav-item:hover {
+    background: rgba(212, 175, 55, 0.1);
+    border-color: #D4AF37;
+}
+
+.nav-item.active {
+    background: #D4AF37;
+    color: #1a1a1a;
+    font-weight: 600;
+}
+
+.nav-item.new-message {
+    background: #28a745;
+    color: white;
+    margin-left: auto;
+}
+
+.nav-item.new-message:hover {
+    background: #218838;
+}
+
+.badge {
+    background: #dc3545;
+    color: white;
+    border-radius: 10px;
+    padding: 2px 8px;
+    font-size: 0.8em;
+    font-weight: 600;
+}
+
+.messages-container {
+    background: #2d2d2d;
+    border: 1px solid #444;
+    border-radius: 10px;
+    overflow: visible; /* ИЗМЕНИЛИ с hidden на visible */
+}
+
+.message-item {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid #444;
+    transition: background-color 0.2s;
+    position: relative;
+}
+
+.message-item:last-child {
+    border-bottom: none;
+}
+
+.message-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.message-item.unread {
+    background: rgba(23, 162, 184, 0.1);
+    border-left: 3px solid #17a2b8;
+}
+
+.message-checkbox {
+    margin-right: 15px;
+}
+
+.message-sender {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 200px;
+}
+
+.sender-avatar img, .sender-avatar .avatar-placeholder {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.avatar-placeholder {
+    background: linear-gradient(135deg, #8B4513, #D4AF37);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.sender-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.sender-info strong {
+    color: #fff;
+}
+
+.sender-info small {
+    color: #888;
+    font-size: 0.8em;
+}
+
+.message-preview {
+    flex: 1;
+    margin: 0 20px;
+}
+
+.message-subject {
+    color: #e8e8e8;
+    font-weight: 600;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.message-subject:hover {
+    color: #D4AF37;
+}
+
+.message-excerpt {
+    color: #888;
+    margin: 0;
+    font-size: 0.9em;
+    line-height: 1.4;
+}
+
+.message-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+}
+
+.unread-indicator {
+    width: 8px;
+    height: 8px;
+    background: #17a2b8;
+    border-radius: 50%;
+}
+
+.action-btn {
+    background: none;
+    border: none;
+    color: #888;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 4px;
+    transition: all 0.3s;
+}
+
+.action-btn:hover {
+    color: #D4AF37;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* НОВЫЕ СТИЛИ ДЛЯ DROPDOWN */
+.dropdown-container {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-menu {
+    position: fixed; /* ИЗМЕНИЛИ с absolute на fixed */
+    background: #1a1a1a;
+    border: 1px solid #D4AF37;
+    border-radius: 6px;
+    padding: 8px 0;
+    min-width: 160px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    z-index: 9999; /* ОЧЕНЬ ВЫСОКИЙ z-index */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+    pointer-events: none;
+}
+
+.dropdown-menu.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: all;
+}
+
+.dropdown-item {
+    display: block;
+    width: 100%;
+    padding: 10px 16px;
+    background: none;
+    border: none;
+    color: #e8e8e8;
+    text-align: left;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 0.9em;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+
+.dropdown-item:hover {
+    background: rgba(212, 175, 55, 0.2);
+    color: #D4AF37;
+}
+
+.delete-form {
+    margin: 0;
+    width: 100%;
+}
+
+.delete-btn {
+    color: #dc3545;
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
+    padding: 10px 16px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: all 0.2s;
+}
+
+.delete-btn:hover {
+    background: rgba(220, 53, 69, 0.2);
+    color: #dc3545;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    margin-top: 25px;
+}
+
+.page-link {
+    padding: 8px 12px;
+    background: #2d2d2d;
+    border: 1px solid #444;
+    border-radius: 6px;
+    color: #e8e8e8;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.page-link:hover {
+    border-color: #D4AF37;
+    color: #D4AF37;
+}
+
+.page-link.active {
+    background: #D4AF37;
+    color: #1a1a1a;
+    border-color: #D4AF37;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #888;
+}
+
+.empty-icon {
+    font-size: 4em;
+    margin-bottom: 20px;
+    opacity: 0.5;
+}
+
+.empty-state h3 {
+    color: #e8e8e8;
+    margin-bottom: 10px;
+}
+
+.btn-primary {
+    background: #D4AF37;
+    color: #1a1a1a;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-block;
+    margin-top: 15px;
+}
+
+.btn-primary:hover {
+    background: #c19b2e;
+    color: #1a1a1a;
+}
+
+/* Overlay для закрытия dropdown */
+.dropdown-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    z-index: 9998;
+    display: none;
+}
+
+.dropdown-overlay.active {
+    display: block;
+}
+</style>
+
+<script>
+let activeDropdown = null;
+let overlay = null;
+
+function createOverlay() {
+    if (!overlay) {
+        overlay = document.createElement('div');
+        overlay.className = 'dropdown-overlay';
+        overlay.addEventListener('click', closeAllDropdowns);
+        document.body.appendChild(overlay);
+    }
+    return overlay;
+}
+
+function toggleDropdown(dropdownId) {
+    const dropdown = document.getElementById(dropdownId);
+    const button = event.currentTarget;
+
+    if (activeDropdown === dropdown) {
+        closeAllDropdowns();
+        return;
+    }
+
+    // Закрываем предыдущий dropdown
+    closeAllDropdowns();
+
+    // Показываем overlay
+    const overlay = createOverlay();
+    overlay.classList.add('active');
+
+    // Позиционируем dropdown относительно кнопки
+    const rect = button.getBoundingClientRect();
+    dropdown.style.left = (rect.left - 140) + 'px';
+    dropdown.style.top = (rect.bottom + 5) + 'px';
+
+    // Показываем dropdown
+    dropdown.classList.add('active');
+    activeDropdown = dropdown;
+
+    event.stopPropagation();
+}
+
+function closeAllDropdowns() {
+    if (activeDropdown) {
+        activeDropdown.classList.remove('active');
+        activeDropdown = null;
+    }
+
+    if (overlay) {
+        overlay.classList.remove('active');
+    }
+}
+
+// Закрытие dropdown при клике вне его
+document.addEventListener('click', function(e) {
+    if (!e.target.closest('.dropdown-container') && !e.target.closest('.dropdown-menu')) {
+        closeAllDropdowns();
+    }
+});
+
+// Закрытие при нажатии ESC
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeAllDropdowns();
+    }
+});
+</script>
+{% endblock %}

@@ -360,6 +360,12 @@
                         <a href="{% url 'wiki:article_create' %}">✍️ Создать статью</a>
                         <a href="{% url 'wiki:my_articles' %}">📝 Мои статьи</a>
                         <a href="{% url 'wiki:liked_articles' %}">❤️ Понравившиеся</a>
+                        <a href="{% url 'wiki:messages_list' 'inbox' %}">
+                            📧 Мои сообщения
+                            {% if user.is_authenticated %}
+                            <span id="unreadMessagesCount" class="badge" style="display: none;"></span>
+                            {% endif %}
+                        </a>
 
                         <!-- Пункты для модераторов -->
                         {% if user_can_moderate %}
@@ -740,6 +746,26 @@
                 };
             });
         });
+function updateUnreadCount() {
+    if ({% if user.is_authenticated %}true{% else %}false{% endif %}) {
+        fetch('{% url "wiki:get_unread_count" %}')
+            .then(response => response.json())
+            .then(data => {
+                const badge = document.getElementById('unreadMessagesCount');
+                if (badge && data.unread_count > 0) {
+                    badge.textContent = data.unread_count;
+                    badge.style.display = 'inline';
+                } else if (badge) {
+                    badge.style.display = 'none';
+                }
+            })
+            .catch(error => console.error('Error fetching unread count:', error));
+    }
+}
+
+// Обновляем каждые 30 секунд
+setInterval(updateUnreadCount, 30000);
+updateUnreadCount(); // Initial load
     </script>
 </body>
 </html>

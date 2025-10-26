@@ -179,6 +179,272 @@
         transform: translateY(-2px);
         box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
     }
+
+    /* НОВЫЕ СТИЛИ ДЛЯ МЕДИАФАЙЛОВ */
+    .article-media-section {
+        margin: 30px 0;
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 10px;
+        border: 1px solid #444;
+    }
+
+    .media-section-title {
+        color: #D4AF37;
+        font-family: 'Cinzel', serif;
+        margin-bottom: 20px;
+        font-size: 1.5em;
+        border-bottom: 2px solid #D4AF37;
+        padding-bottom: 10px;
+    }
+
+    .media-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+    }
+
+    .media-item {
+        position: relative;
+        background: #2d2d2d;
+        border: 1px solid #444;
+        border-radius: 8px;
+        overflow: hidden;
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .media-item:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(212, 175, 55, 0.2);
+    }
+
+    /* Стили для изображений */
+    .image-container {
+        text-align: center;
+    }
+
+    .media-image {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        border-radius: 6px 6px 0 0;
+    }
+
+    /* Стили для видео */
+    .video-container {
+        position: relative;
+        width: 100%;
+    }
+
+    .media-video {
+        width: 100%;
+        height: auto;
+        max-height: 400px;
+        border-radius: 6px 6px 0 0;
+        background: #000;
+    }
+
+    /* Скрываем стандартные контролы видео и создаем кастомные */
+    .video-container video::-webkit-media-controls {
+        display: none !important;
+    }
+
+    .video-container video {
+        -webkit-appearance: none;
+        appearance: none;
+    }
+
+    /* Кастомные контролы для видео */
+    .custom-video-controls {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(transparent, rgba(0,0,0,0.7));
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        opacity: 0;
+        transition: opacity 0.3s;
+        z-index: 10;
+    }
+
+    .video-container:hover .custom-video-controls {
+        opacity: 1;
+    }
+
+    .custom-video-controls button {
+        background: none;
+        border: none;
+        color: white;
+        cursor: pointer;
+        padding: 5px;
+        border-radius: 3px;
+        font-size: 14px;
+    }
+
+    .custom-video-controls button:hover {
+        background: rgba(255, 255, 255, 0.2);
+    }
+
+    .progress-bar {
+        flex: 1;
+        height: 4px;
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 2px;
+        overflow: hidden;
+        cursor: pointer;
+    }
+
+    .progress {
+        height: 100%;
+        background: #D4AF37;
+        width: 0%;
+        transition: width 0.1s;
+    }
+
+    /* Стили для аудио */
+    .audio-container {
+        padding: 20px;
+        text-align: center;
+    }
+
+    .media-audio {
+        width: 100%;
+        max-width: 400px;
+    }
+
+    /* Стили для документов */
+    .document-container {
+        padding: 30px 20px;
+        text-align: center;
+    }
+
+    .document-icon {
+        color: #D4AF37;
+        margin-bottom: 15px;
+    }
+
+    .document-link {
+        display: block;
+        color: #17a2b8;
+        text-decoration: none;
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
+
+    .document-link:hover {
+        color: #138496;
+        text-decoration: underline;
+    }
+
+    /* Подписи к медиа */
+    .media-caption {
+        padding: 10px 15px;
+        background: rgba(255, 255, 255, 0.05);
+        color: #e8e8e8;
+        font-size: 0.9em;
+        border-top: 1px solid #444;
+    }
+
+    /* Действия с медиа */
+    .media-actions {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        opacity: 0;
+        transition: opacity 0.3s;
+        z-index: 20;
+    }
+
+    .media-item:hover .media-actions {
+        opacity: 1;
+    }
+
+    .delete-media {
+        background: rgba(220, 53, 69, 0.8);
+        border: none;
+        border-radius: 4px;
+        color: white;
+        padding: 5px 8px;
+        cursor: pointer;
+        font-size: 0.8em;
+    }
+
+    .delete-media:hover {
+        background: #dc3545;
+    }
+
+    /* Скрываем технические элементы редактора */
+    .article-content .django-ckeditor-widget,
+    .article-content .cke_chrome,
+    .article-content .cke_inner,
+    .article-content .cke_top,
+    .article-content .cke_bottom {
+        display: none !important;
+    }
+
+    [class*="cke_"],
+    [class*="django-ckeditor"] {
+        display: none !important;
+    }
+
+    /* Лайтбокс */
+    .lightbox {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.9);
+        align-items: center;
+        justify-content: center;
+    }
+
+    .lightbox-content {
+        max-width: 90%;
+        max-height: 90%;
+        border-radius: 8px;
+    }
+
+    .lightbox-close {
+        position: absolute;
+        top: 20px;
+        right: 30px;
+        color: white;
+        font-size: 40px;
+        font-weight: bold;
+        cursor: pointer;
+        background: none;
+        border: none;
+        z-index: 10000;
+    }
+
+    .lightbox-nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        color: white;
+        font-size: 30px;
+        font-weight: bold;
+        cursor: pointer;
+        background: rgba(0,0,0,0.5);
+        border: none;
+        padding: 10px 15px;
+        border-radius: 5px;
+    }
+
+    .lightbox-prev {
+        left: 30px;
+    }
+
+    .lightbox-next {
+        right: 30px;
+    }
+
     @media (max-width: 768px) {
         .article-title {
             font-size: 1.8em;
@@ -198,6 +464,18 @@
         .btn {
             width: 100%;
             justify-content: center;
+        }
+        .media-grid {
+            grid-template-columns: 1fr;
+        }
+        .lightbox-nav {
+            font-size: 20px;
+            padding: 8px 12px;
+        }
+        .lightbox-close {
+            font-size: 30px;
+            top: 10px;
+            right: 15px;
         }
     }
 </style>
@@ -265,20 +543,70 @@
         {{ article.content|safe }}
     </div>
 
-    <!-- Теги/хештеги -->
-    {% if article.tags.all %}
-    <div class="tags-section" style="text-align: center; margin: 15px 0;">
-        <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 8px;">
-            {% for tag in article.tags.all %}
-            <a href="{% url 'wiki:search' %}?q={{ tag.name|urlencode }}"
-               class="tag"
-               style="background: rgba(23, 162, 184, 0.2); color: #17a2b8; padding: 5px 10px; border-radius: 15px; text-decoration: none; font-size: 0.85em; border: 1px solid rgba(23, 162, 184, 0.3);">
-                #{{ tag.name }}
-            </a>
-            {% endfor %}
-        </div>
+<!-- Хештеги статьи -->
+{% if article.tags.all %}
+<div class="article-hashtags">
+    <h4 class="hashtags-title">🏷️ Хештеги статьи:</h4>
+    <div class="hashtags-list">
+        {% for tag in article.tags.all %}
+        <a href="{% url 'wiki:search' %}?tag={{ tag.name|urlencode }}"
+           class="hashtag-link"
+           title="Найти статьи с хештегом #{{ tag.name }}">
+            #{{ tag.name }}
+        </a>
+        {% endfor %}
     </div>
-    {% endif %}
+</div>
+
+<style>
+.article-hashtags {
+    background: rgba(23, 162, 184, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px 0;
+    border: 1px solid rgba(23, 162, 184, 0.3);
+}
+
+.hashtags-title {
+    color: #17a2b8;
+    margin-bottom: 12px;
+    font-size: 1.1em;
+    font-weight: 600;
+}
+
+.hashtags-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.hashtag-link {
+    background: rgba(23, 162, 184, 0.2);
+    color: #17a2b8;
+    padding: 8px 15px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s;
+    border: 1px solid rgba(23, 162, 184, 0.3);
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.hashtag-link:hover {
+    background: #17a2b8;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(23, 162, 184, 0.3);
+}
+
+.hashtag-link::before {
+    content: "#";
+    font-weight: bold;
+}
+</style>
+{% endif %}
 
     <!-- Блок лайков -->
     <div class="like-section">
@@ -296,79 +624,86 @@
         </span>
     </div>
 
-
-{% if media_files %}
-<div class="media-gallery" style="margin: 40px 0;">
-    <div class="media-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; justify-items: center;">
-        {% for media in media_files %}
-        <div class="media-item" id="media-{{ media.id }}"
-             style="background: #2d2d2d; border: 2px solid #D4AF37; border-radius: 12px; padding: 15px; max-width: 100%; display: flex; justify-content: center; align-items: center;">
-
-            {% if media.file_type == 'image' %}
-                <div class="media-image-container" style="text-align: center;">
-                    <img src="{{ media.file.url }}" alt="{{ media.title|default:'' }}"
+    <!-- Медиафайлы статьи -->
+    {% if media_files %}
+    <div class="article-media-section">
+        <h3 class="media-section-title">📁 Медиафайлы</h3>
+        <div class="media-grid">
+            {% for media in media_files %}
+            <div class="media-item" data-media-type="{{ media.file_type }}">
+                {% if media.file_type == 'image' %}
+                <div class="image-container">
+                    <img src="{{ media.file.url }}"
+                         alt="{{ media.title|default:'Изображение' }}"
                          class="media-image"
-                         style="max-width: 100%; max-height: 400px; border-radius: 8px; cursor: pointer;"
+                         loading="lazy"
                          onclick="openLightbox('{{ media.file.url }}', '{{ media.title|default:"" }}')">
-                    {% if media.title %}
-                    <div class="media-caption" style="color: #D4AF37; margin-top: 10px; font-size: 0.9em;">
-                        {{ media.title }}
-                    </div>
+                    {% if media.description %}
+                    <div class="media-caption">{{ media.description }}</div>
                     {% endif %}
                 </div>
 
-            {% elif media.file_type == 'video' %}
-                <div class="media-video-container" style="text-align: center; width: 100%;">
-                    <div class="video-wrapper"
-                         onclick="playVideo(this, '{{ media.file.url }}', {{ media.id }})"
-                         style="position: relative; cursor: pointer; background: #1a1a1a; border-radius: 8px; padding: 10px;">
-                        <video class="media-video-preview" preload="metadata" muted loop
-                               style="max-width: 100%; max-height: 300px; border-radius: 6px;">
-                            <source src="{{ media.file.url }}" type="video/mp4">
-                        </video>
-                        <div class="video-play-icon" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(212, 175, 55, 0.8); color: #1a1a1a; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5em; font-weight: bold;">
-                            ▶
+                {% elif media.file_type == 'video' %}
+                <div class="video-container">
+                    <video class="media-video" preload="metadata">
+                        <source src="{{ media.file.url }}" type="video/{{ media.get_file_extension }}">
+                        Ваш браузер не поддерживает видео.
+                    </video>
+                    <div class="custom-video-controls">
+                        <button class="play-pause-btn" onclick="toggleVideoPlay(this)">
+                            <i class="fas fa-play"></i>
+                        </button>
+                        <div class="progress-bar" onclick="seekVideo(event, this)">
+                            <div class="progress"></div>
                         </div>
+                        <button class="fullscreen-btn" onclick="toggleFullscreen(this)">
+                            <i class="fas fa-expand"></i>
+                        </button>
                     </div>
-                    {% if media.title %}
-                    <div class="media-caption" style="color: #D4AF37; margin-top: 10px; font-size: 0.9em;">
-                        {{ media.title }}
-                    </div>
+                    {% if media.description %}
+                    <div class="media-caption">{{ media.description }}</div>
                     {% endif %}
                 </div>
 
-            {% elif media.file_type == 'audio' %}
-                <div class="media-audio" style="text-align: center; width: 100%;">
-                    <div style="background: #1a1a1a; padding: 20px; border-radius: 8px;">
-                        <div style="color: #D4AF37; font-size: 2em; margin-bottom: 10px;">🎵</div>
-                        <audio controls style="width: 100%; max-width: 300px;">
-                            <source src="{{ media.file.url }}" type="audio/mpeg">
-                        </audio>
-                    </div>
-                    {% if media.title %}
-                    <div class="media-caption" style="color: #D4AF37; margin-top: 10px; font-size: 0.9em;">
-                        {{ media.title }}
-                    </div>
+                {% elif media.file_type == 'audio' %}
+                <div class="audio-container">
+                    <audio controls class="media-audio">
+                        <source src="{{ media.file.url }}" type="audio/{{ media.get_file_extension }}">
+                        Ваш браузер не поддерживает аудио.
+                    </audio>
+                    {% if media.description %}
+                    <div class="media-caption">{{ media.description }}</div>
                     {% endif %}
                 </div>
 
-            {% else %}
-                <div class="media-document" style="text-align: center; width: 100%;">
-                    <div style="background: #1a1a1a; padding: 30px; border-radius: 8px;">
-                        <div style="color: #D4AF37; font-size: 3em; margin-bottom: 10px;">📄</div>
-                        <div style="color: #D4AF37; font-weight: bold; margin-bottom: 10px;">Документ</div>
-                        {% if media.title %}
-                        <div style="color: #e8e8e8; font-size: 0.9em;">{{ media.title }}</div>
-                        {% endif %}
+                {% else %}
+                <div class="document-container">
+                    <div class="document-icon">
+                        <i class="fas fa-file-download fa-2x"></i>
                     </div>
+                    <a href="{{ media.file.url }}" class="document-link" download>
+                        Скачать {{ media.title|default:'файл' }}
+                    </a>
+                    {% if media.description %}
+                    <div class="media-caption">{{ media.description }}</div>
+                    {% endif %}
                 </div>
-            {% endif %}
+                {% endif %}
 
+                {% if can_edit %}
+                <div class="media-actions">
+                    <button class="delete-media"
+                            data-media-id="{{ media.id }}"
+                            title="Удалить файл">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
         </div>
-        {% endfor %}
     </div>
-</div>
-{% endif %}
+    {% endif %}
 
     <!-- Секция комментариев -->
     <div class="comments-section" style="margin-top: 40px;">
@@ -504,88 +839,111 @@ function changeImage(direction) {
     showImage(currentImageIndex);
 }
 
-// ВОСПРОИЗВЕДЕНИЕ ВИДЕО НА МЕСТЕ
-// ВОСПРОИЗВЕДЕНИЕ ВИДЕО НА МЕСТЕ
-function playVideo(container, videoSrc, mediaId) {
-    // Останавливаем все другие видео
-    stopAllVideos();
+// Кастомные контролы для видео
+function toggleVideoPlay(button) {
+    const video = button.closest('.video-container').querySelector('.media-video');
+    const icon = button.querySelector('i');
 
-    // Сохраняем оригинальный HTML для возможности восстановления
-    const originalHTML = container.innerHTML;
-    const videoWrapper = container.closest('.video-wrapper');
-
-    // Создаем новый видеоплеер
-    const videoHTML = `
-        <video controls autoplay class="video-playing"
-               style="max-width: 100%; max-height: 400px; border-radius: 8px;">
-            <source src="${videoSrc}" type="video/mp4">
-            Ваш браузер не поддерживает видео.
-        </video>
-        <button class="video-close-btn"
-                onclick="restoreVideoPreview(this, '${originalHTML.replace(/'/g, "\\'")}')"
-                style="position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.7); color: white; border: none; border-radius: 50%; width: 30px; height: 30px; cursor: pointer; font-weight: bold;">
-            ×
-        </button>
-    `;
-
-    // Заменяем содержимое контейнера
-    container.innerHTML = videoHTML;
-    container.style.position = 'relative';
-
-    // Добавляем класс к родительскому элементу для стилизации
-    const mediaItem = document.getElementById(`media-${mediaId}`);
-    if (mediaItem) {
-        mediaItem.classList.add('video-playing');
+    if (video.paused) {
+        video.play();
+        icon.className = 'fas fa-pause';
+    } else {
+        video.pause();
+        icon.className = 'fas fa-play';
     }
 }
 
-// Функция восстановления превью видео
-function restoreVideoPreview(closeBtn, originalHTML) {
-    const container = closeBtn.parentElement;
-    container.innerHTML = originalHTML;
+function seekVideo(event, progressBar) {
+    const video = progressBar.closest('.video-container').querySelector('.media-video');
+    const rect = progressBar.getBoundingClientRect();
+    const percent = (event.clientX - rect.left) / rect.width;
+    video.currentTime = percent * video.duration;
+}
 
-    // Перезапускаем превью видео
-    const preview = container.querySelector('.media-video-preview');
-    if (preview) {
-        preview.play().catch(e => {});
-    }
-
-    // Убираем класс playing
-    const mediaItem = container.closest('.media-item');
-    if (mediaItem) {
-        mediaItem.classList.remove('video-playing');
+function toggleFullscreen(button) {
+    const videoContainer = button.closest('.video-container');
+    if (videoContainer.requestFullscreen) {
+        videoContainer.requestFullscreen();
+    } else if (videoContainer.webkitRequestFullscreen) {
+        videoContainer.webkitRequestFullscreen();
+    } else if (videoContainer.msRequestFullscreen) {
+        videoContainer.msRequestFullscreen();
     }
 }
 
-// Остановка всех видео
-function stopAllVideos() {
-    document.querySelectorAll('video').forEach(video => {
-        if (!video.parentElement.classList.contains('media-video-container')) {
-            video.pause();
-        }
-    });
-}
-
-// Закрытие по клику на фон
-document.getElementById('lightbox').addEventListener('click', function(e) {
-    if (e.target === this) closeLightbox();
-});
-
-// Навигация по клавиатуре
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-        closeLightbox();
-    }
-    if (document.getElementById('lightbox').style.display === 'flex') {
-        if (e.key === 'ArrowLeft') changeImage(-1);
-        if (e.key === 'ArrowRight') changeImage(1);
-    }
-});
-
-// Автозапуск превью видео в галерее
+// Обновление прогресса видео
 document.addEventListener('DOMContentLoaded', function() {
-    document.querySelectorAll('.media-video-preview').forEach(preview => {
-        preview.play().catch(e => {});
+    document.querySelectorAll('.media-video').forEach(video => {
+        const progress = video.closest('.video-container').querySelector('.progress');
+
+        video.addEventListener('timeupdate', function() {
+            if (progress && video.duration) {
+                const percent = (video.currentTime / video.duration) * 100;
+                progress.style.width = percent + '%';
+            }
+        });
+
+        // Автоматическое скрытие контролов
+        let controlsTimeout;
+        const container = video.closest('.video-container');
+        const controls = container.querySelector('.custom-video-controls');
+
+        container.addEventListener('mousemove', function() {
+            if (controls) {
+                controls.style.opacity = '1';
+                clearTimeout(controlsTimeout);
+                controlsTimeout = setTimeout(() => {
+                    if (!video.paused) {
+                        controls.style.opacity = '0';
+                    }
+                }, 3000);
+            }
+        });
+
+        // События видео
+        video.addEventListener('play', function() {
+            const icon = container.querySelector('.play-pause-btn i');
+            if (icon) icon.className = 'fas fa-pause';
+        });
+
+        video.addEventListener('pause', function() {
+            const icon = container.querySelector('.play-pause-btn i');
+            if (icon) icon.className = 'fas fa-play';
+        });
+    });
+
+    // Удаление медиафайлов
+    document.querySelectorAll('.delete-media').forEach(button => {
+        button.addEventListener('click', function() {
+            const mediaId = this.getAttribute('data-media-id');
+            const mediaItem = this.closest('.media-item');
+
+            if (confirm('Вы уверены, что хотите удалить этот файл?')) {
+                fetch(`/media/${mediaId}/delete/`, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}',
+                        'Content-Type': 'application/json',
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        mediaItem.style.opacity = '0';
+                        setTimeout(() => {
+                            mediaItem.remove();
+                            showNotification('Файл успешно удален', 'success');
+                        }, 300);
+                    } else {
+                        showNotification('Ошибка при удалении файла', 'error');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    showNotification('Ошибка при удалении файла', 'error');
+                });
+            }
+        });
     });
 });
 
@@ -635,32 +993,6 @@ function toggleArticleLike() {
                 likeButton.classList.remove('liked');
             }
             likesCount.textContent = data.likes_count;
-
-            // Проверяем, находится ли пользователь на странице "Понравившиеся"
-            const isOnLikedPage = window.location.pathname.includes('/liked-articles/');
-
-            // Если пользователь убрал лайк и находится на странице "Понравившиеся"
-            if (isOnLikedPage && data.was_liked && !data.liked) {
-                // Находим карточку статьи и удаляем её с анимацией
-                const articleCard = document.querySelector(`[data-article-slug="${articleSlug}"]`);
-                if (articleCard) {
-                    // Добавляем анимацию исчезновения
-                    articleCard.style.transition = 'all 0.3s ease';
-                    articleCard.style.opacity = '0';
-                    articleCard.style.transform = 'translateX(-100%)';
-
-                    // Удаляем карточку после анимации
-                    setTimeout(() => {
-                        articleCard.remove();
-
-                        // Обновляем счетчик статей
-                        updateLikedArticlesCount();
-
-                        // Показываем сообщение, если статей не осталось
-                        checkEmptyState();
-                    }, 300);
-                }
-            }
         }
     })
     .catch(error => {
@@ -670,42 +1002,6 @@ function toggleArticleLike() {
     .finally(() => {
         likeButton.disabled = false;
     });
-}
-
-// Функция обновления счетчика статей на странице "Понравившиеся"
-function updateLikedArticlesCount() {
-    const articlesCountElement = document.getElementById('liked-articles-count');
-    const articlesGrid = document.querySelector('.articles-grid');
-
-    if (articlesCountElement && articlesGrid) {
-        const currentCount = parseInt(articlesCountElement.textContent);
-        articlesCountElement.textContent = currentCount - 1;
-    }
-}
-
-// Функция проверки пустого состояния
-function checkEmptyState() {
-    const articlesGrid = document.querySelector('.articles-grid');
-    const emptyState = document.querySelector('.no-articles');
-
-    if (articlesGrid && articlesGrid.children.length === 0) {
-        if (!emptyState) {
-            const emptyHTML = `
-                <div class="no-articles" style="text-align: center; padding: 60px 20px; color: #888;">
-                    <div style="font-size: 4em; margin-bottom: 20px;">📚</div>
-                    <h3 style="color: #D4AF37; margin-bottom: 15px;">Понравившиеся статьи отсутствуют</h3>
-                    <p style="margin-bottom: 25px; font-size: 1.1em;">
-                        Статьи, которые вам понравятся, будут появляться здесь.
-                    </p>
-                    <a href="{% url 'wiki:home' %}" class="btn"
-                       style="background: #D4AF37; color: #1a1a1a; text-decoration: none; padding: 12px 24px; border-radius: 8px; font-weight: bold;">
-                        🔍 Найти интересные статьи
-                    </a>
-                </div>
-            `;
-            articlesGrid.innerHTML = emptyHTML;
-        }
-    }
 }
 
 // Функция для ответа на комментарий
@@ -759,17 +1055,48 @@ function deleteComment(commentId) {
     }
 }
 
-// Автофокус на поле комментария после отправки
-document.addEventListener('DOMContentLoaded', function() {
-    const commentForm = document.getElementById('comment-form');
-    if (commentForm) {
-        commentForm.addEventListener('submit', function() {
-            // Очищаем поле после отправки
-            setTimeout(function() {
-                document.getElementById('comment-content').value = '';
-                cancelReply();
-            }, 100);
-        });
+// Уведомления
+function showNotification(message, type) {
+    const notification = document.createElement('div');
+    notification.className = `alert alert-${type}`;
+    notification.textContent = message;
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 15px 20px;
+        border-radius: 8px;
+        color: white;
+        z-index: 10000;
+        animation: slideInRight 0.3s ease-out;
+    `;
+
+    if (type === 'success') {
+        notification.style.background = '#28a745';
+    } else {
+        notification.style.background = '#dc3545';
+    }
+
+    document.body.appendChild(notification);
+
+    setTimeout(() => {
+        notification.remove();
+    }, 3000);
+}
+
+// Закрытие лайтбокса по клику на фон
+document.getElementById('lightbox').addEventListener('click', function(e) {
+    if (e.target === this) closeLightbox();
+});
+
+// Навигация по клавиатуре
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeLightbox();
+    }
+    if (document.getElementById('lightbox').style.display === 'flex') {
+        if (e.key === 'ArrowLeft') changeImage(-1);
+        if (e.key === 'ArrowRight') changeImage(1);
     }
 });
 </script>
