@@ -7397,3 +7397,16 @@ INFO 2025-10-26 05:02:55,431 basehttp "GET /article/kaer-morkhen/ HTTP/1.1" 200 
 INFO 2025-10-26 05:44:24,293 autoreload Watching for file changes with StatReloader
 INFO 2025-10-26 05:44:25,515 basehttp "GET / HTTP/1.1" 200 30974
 INFO 2025-10-26 05:44:27,054 basehttp "GET /article/kaer-morkhen/ HTTP/1.1" 200 60661
+INFO 2025-10-26 20:23:34,223 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\witcher_wiki\settings.py changed, reloading.
+INFO 2025-10-26 20:23:34,741 autoreload Watching for file changes with StatReloader
+INFO 2025-10-26 20:23:36,984 basehttp "GET / HTTP/1.1" 200 30974
+INFO 2025-10-26 20:23:40,977 basehttp "GET /accounts/profile/ HTTP/1.1" 200 42854
+INFO 2025-10-26 20:23:41,038 basehttp "GET /media/avatars/avatars/user_3/avatar.png HTTP/1.1" 304 0
+INFO 2025-10-26 20:23:45,925 basehttp "GET /my-articles/ HTTP/1.1" 200 31383
+INFO 2025-10-26 20:23:47,588 basehttp "GET /category/locations/ HTTP/1.1" 200 28869
+INFO 2025-10-26 20:23:48,249 basehttp "GET /category/monsters/ HTTP/1.1" 200 28303
+INFO 2025-10-26 20:23:48,855 basehttp "GET /category/characters/ HTTP/1.1" 200 28901
+INFO 2025-10-26 20:23:49,398 basehttp "GET /search/ HTTP/1.1" 200 31219
+INFO 2025-10-26 20:23:50,741 basehttp "GET / HTTP/1.1" 200 30974
+INFO 2025-10-26 20:23:51,953 basehttp "GET /article/kaer-morkhen/ HTTP/1.1" 200 60662
+INFO 2025-10-26 20:23:54,685 basehttp "GET /user/yondaime_hokage/ HTTP/1.1" 200 36162
