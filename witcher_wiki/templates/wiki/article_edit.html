@@ -151,66 +151,18 @@
         cursor: pointer;
     }
 
-    .action-buttons {
-        display: flex;
-        gap: 15px;
-        justify-content: space-between;
-        margin-top: 30px;
-        flex-wrap: wrap;
-    }
-
-    .btn {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        padding: 12px 24px;
-        border: none;
-        border-radius: 8px;
-        font-weight: bold;
-        cursor: pointer;
-        text-decoration: none;
-        transition: all 0.3s;
-        font-size: 1em;
-    }
-
     .btn-primary {
         background: linear-gradient(135deg, #D4AF37 0%, #FFD700 100%);
         color: #1a1a1a;
-    }
-
-    .btn-primary:hover {
-        background: linear-gradient(135deg, #c19b2e 0%, #e6c200 100%);
-        transform: translateY(-2px);
-    }
-
-    .btn-success {
-        background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
-        color: white;
-    }
-
-    .btn-success:hover {
-        background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
-        transform: translateY(-2px);
-    }
-
-    .btn-secondary {
-        background: #6b7280;
-        color: white;
-    }
-
-    .btn-secondary:hover {
-        background: #4b5563;
-        transform: translateY(-2px);
-    }
-
-    .btn-danger {
-        background: #ef4444;
-        color: white;
-    }
-
-    .btn-danger:hover {
-        background: #dc2626;
-        transform: translateY(-2px);
+        border: none;
+        padding: 15px 30px;
+        border-radius: 8px;
+        font-weight: bold;
+        cursor: pointer;
+        font-size: 1.1em;
+        font-family: 'Cinzel', serif;
+        width: 100%;
+        margin-top: 20px;
     }
 
     .alert {
@@ -224,12 +176,6 @@
         background: rgba(239, 68, 68, 0.1);
         border-color: #ef4444;
         color: #ef4444;
-    }
-
-    .alert-success {
-        background: rgba(34, 197, 94, 0.1);
-        border-color: #22c55e;
-        color: #22c55e;
     }
 
     .article-status {
@@ -264,44 +210,6 @@
         gap: 15px;
         margin-top: 15px;
     }
-
-    .submit-info {
-        background: rgba(245, 158, 11, 0.1);
-        border: 1px solid #f59e0b;
-        border-radius: 8px;
-        padding: 15px;
-        margin-top: 20px;
-        text-align: center;
-    }
-
-    .submit-info h4 {
-        color: #f59e0b;
-        margin-bottom: 10px;
-    }
-
-    .danger-zone {
-        margin-top: 30px;
-        padding: 20px;
-        background: rgba(239, 68, 68, 0.1);
-        border: 1px solid #ef4444;
-        border-radius: 8px;
-    }
-
-    .danger-zone h3 {
-        color: #ef4444;
-        margin-bottom: 15px;
-    }
-
-    @media (max-width: 768px) {
-        .action-buttons {
-            flex-direction: column;
-        }
-
-        .btn {
-            width: 100%;
-            justify-content: center;
-        }
-    }
 </style>
 
 <div class="article-create">
@@ -321,16 +229,6 @@
     </div>
     {% endif %}
 
-    {% if messages %}
-    <div class="messages-container">
-        {% for message in messages %}
-        <div class="alert alert-{{ message.tags }}">
-            {% if message.tags == 'success' %}✅{% else %}❌{% endif %} {{ message }}
-        </div>
-        {% endfor %}
-    </div>
-    {% endif %}
-
     {% if error_message %}
     <div class="alert alert-error">
         ❌ {{ error_message }}
@@ -339,6 +237,7 @@
 
     <div class="form-container">
         <form method="post" enctype="multipart/form-data" id="articleForm">
+            <form method="post" class="article-edit-form confirmable-form">
             {% csrf_token %}
 
             <div class="form-group">
@@ -378,7 +277,7 @@
                 <h4 style="color: #D4AF37; margin-bottom: 15px;">📁 Прикрепленные файлы:</h4>
                 <div class="media-grid">
                     {% for media in media_files %}
-                    <div class="media-item" id="media-{{ media.id }}">
+                    <div class="media-item">
                         {% if media.file_type == 'image' %}
                             <img src="{{ media.file.url }}" alt="{{ media.title }}">
                         {% elif media.file_type == 'video' %}
@@ -412,51 +311,103 @@
                 <div class="media-preview" id="mediaPreview"></div>
             </div>
 
-            <!-- Кнопки действий -->
-            <div class="action-buttons">
-                <div>
-                    <button type="submit" name="action" value="save" class="btn btn-primary">
-                        💾 Сохранить изменения
-                    </button>
-
-                    <a href="{% url 'wiki:article_detail' article.slug %}" class="btn btn-secondary">
-                        ↩️ Отмена
-                    </a>
-                </div>
-
-                {% if article.status == 'draft' %}
-                <button type="submit" name="action" value="submit_moderation" class="btn btn-success">
-                    📤 Отправить на модерацию
-                </button>
+            <button type="submit" class="btn-primary">
+                💾 Сохранить изменения
+                {% if article.status == 'rejected' %}
+                и отправить на повторную модерацию
                 {% endif %}
-            </div>
-        </form>
-
-        {% if article.status == 'draft' %}
-        <div class="submit-info">
-            <h4>💡 Готовы опубликовать статью?</h4>
-            <p style="color: #ccc; margin: 0;">
-                После отправки на модерацию вы не сможете редактировать статью до завершения проверки.
-                Убедитесь, что всё готово!
-            </p>
-        </div>
-        {% endif %}
-
-        <div class="danger-zone">
-            <h3>⚠️ Опасная зона</h3>
-            {% if article.can_delete request.user %}
-            <button onclick="deleteArticle('{{ article.slug }}')" class="btn btn-danger">
-                🗑️ Удалить статью
             </button>
-            <p style="color: #888; font-size: 0.9em; margin-top: 8px;">
-                Это действие нельзя отменить. Статья и все связанные файлы будут удалены.
-            </p>
-            {% else %}
-            <p style="color: #888;">У вас нет прав для удаления этой статьи.</p>
-            {% endif %}
-        </div>
+        </form>
     </div>
 </div>
+<!-- Поле для хештегов -->
+<div class="form-group">
+    <label for="{{ form.tags_input.id_for_label }}">🏷️ Хештеги:</label>
+    {{ form.tags_input }}
+    <div class="form-help">{{ form.tags_input.help_text }}</div>
+    {% if form.tags_input.errors %}
+    <div class="field-errors">
+        {% for error in form.tags_input.errors %}
+        <span class="error">{{ error }}</span>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+
+<!-- Подсказки по хештегам -->
+<div class="hashtag-suggestions">
+    <h4>💡 Популярные хештеги:</h4>
+    <div class="suggested-tags">
+        <span class="suggested-tag" onclick="addHashtag('ведьмак')">#ведьмак</span>
+        <span class="suggested-tag" onclick="addHashtag('геральт')">#геральт</span>
+        <span class="suggested-tag" onclick="addHashtag('цири')">#цири</span>
+        <span class="suggested-tag" onclick="addHashtag('монстры')">#монстры</span>
+        <span class="suggested-tag" onclick="addHashtag('магия')">#магия</span>
+        <span class="suggested-tag" onclick="addHashtag('алхимия')">#алхимия</span>
+        <span class="suggested-tag" onclick="addHashtag('кровь')">#кровь</span>
+        <span class="suggested-tag" onclick="addHashtag('ведьма')">#ведьма</span>
+        <span class="suggested-tag" onclick="addHashtag('чудовища')">#чудовища</span>
+    </div>
+</div>
+
+<style>
+.hashtag-suggestions {
+    background: rgba(212, 175, 55, 0.1);
+    padding: 15px;
+    border-radius: 8px;
+    margin: 15px 0;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+.hashtag-suggestions h4 {
+    color: #D4AF37;
+    margin-bottom: 10px;
+    font-size: 1em;
+}
+
+.suggested-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.suggested-tag {
+    background: rgba(23, 162, 184, 0.2);
+    color: #17a2b8;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 0.85em;
+    cursor: pointer;
+    transition: all 0.3s;
+    border: 1px solid rgba(23, 162, 184, 0.3);
+}
+
+.suggested-tag:hover {
+    background: #17a2b8;
+    color: white;
+    transform: translateY(-2px);
+}
+</style>
+
+<script>
+function addHashtag(tagName) {
+    const tagsInput = document.getElementById('{{ form.tags_input.id_for_label }}');
+    const currentValue = tagsInput.value.trim();
+    const newTag = tagName.toLowerCase();
+
+    if (currentValue === '') {
+        tagsInput.value = newTag;
+    } else {
+        // Проверяем, нет ли уже такого тега
+        const tags = currentValue.split(',').map(tag => tag.trim());
+        if (!tags.includes(newTag)) {
+            tagsInput.value = currentValue + ', ' + newTag;
+        }
+    }
+
+    tagsInput.focus();
+}
+</script>
 
 <script>
     document.getElementById('mediaFiles').addEventListener('change', function(e) {
@@ -514,104 +465,41 @@
     }
 
     function deleteMedia(mediaId) {
-        if (!confirm('Вы уверены, что хотите удалить этот файл?')) {
-            return;
-        }
-
-        const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
-
-        fetch(`/media/${mediaId}/delete/`, {
-            method: 'POST',
-            headers: {
-                'X-CSRFToken': csrfToken,
-                'X-Requested-With': 'XMLHttpRequest',
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: `csrfmiddlewaretoken=${encodeURIComponent(csrfToken)}`
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                const mediaElement = document.getElementById(`media-${mediaId}`);
-                if (mediaElement) {
-                    mediaElement.remove();
+        if (confirm('Вы уверены, что хотите удалить этот файл?')) {
+            fetch(`/media/${mediaId}/delete/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': getCookie('csrftoken'),
+                    'Content-Type': 'application/json'
                 }
-                showNotification('Файл успешно удален!', 'success');
-            } else {
-                showNotification('Ошибка: ' + data.error, 'error');
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            showNotification('Ошибка при удалении файла', 'error');
-        });
-    }
-
-    function deleteArticle(slug) {
-        if (!confirm('ВНИМАНИЕ! Вы собираетесь удалить статью. Это действие нельзя отменить. Все медиафайлы и комментарии также будут удалены. Продолжить?')) {
-            return;
-        }
-
-        const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
-
-        fetch(`/article/${slug}/delete/`, {
-            method: 'POST',
-            headers: {
-                'X-CSRFToken': csrfToken,
-                'X-Requested-With': 'XMLHttpRequest',
-            },
-            body: `csrfmiddlewaretoken=${encodeURIComponent(csrfToken)}`
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                showNotification(data.message, 'success');
-                if (data.redirect_url) {
-                    setTimeout(() => {
-                        window.location.href = data.redirect_url;
-                    }, 1500);
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    location.reload();
+                } else {
+                    alert('Ошибка удаления: ' + data.error);
                 }
-            } else {
-                showNotification('Ошибка: ' + data.error, 'error');
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            showNotification('Ошибка при удалении статьи', 'error');
-        });
-    }
-
-    function showNotification(message, type) {
-        const notification = document.createElement('div');
-        notification.style.cssText = `
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 12px 20px;
-            border-radius: 8px;
-            color: white;
-            font-weight: bold;
-            z-index: 10000;
-            background: ${type === 'success' ? '#22c55e' : '#ef4444'};
-        `;
-        notification.textContent = message;
-        document.body.appendChild(notification);
-
-        setTimeout(() => {
-            notification.remove();
-        }, 3000);
-    }
-
-    // Подтверждение отправки на модерацию
-    document.addEventListener('DOMContentLoaded', function() {
-        const submitBtn = document.querySelector('button[value="submit_moderation"]');
-        if (submitBtn) {
-            submitBtn.addEventListener('click', function(e) {
-                if (!confirm('Вы уверены, что хотите отправить статью на модерацию? После отправки вы не сможете редактировать статью до завершения проверки.')) {
-                    e.preventDefault();
-                }
+            })
+            .catch(error => {
+                alert('Ошибка: ' + error);
             });
         }
-    });
+    }
+
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
 </script>
 {% endblock %}

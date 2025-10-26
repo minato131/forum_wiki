@@ -14,35 +14,36 @@
 
     <div class="comment-text">{{ comment.comment }}</div>
 
-    {% if comment.selection_context %}
+    {% if comment.highlighted_text %}
     <div class="comment-context">
-        "{{ comment.selection_context }}"
+        <strong>Выделенный текст:</strong> "{{ comment.highlighted_text }}"
     </div>
     {% endif %}
 
     <div class="comment-meta">
         <span>Модератор: {{ comment.moderator.username }}</span>
         {% if comment.status == 'resolved' %}
-        <span>Исправлено: {{ comment.resolved_by.username }}</span>
+        <span class="text-success">✓ Исправлено: {{ comment.resolved_by.username }}</span>
         {% endif %}
     </div>
 
     <div class="comment-actions">
         {% if comment.status != 'resolved' %}
-        <button class="btn-sm btn-resolve"
+        <button class="btn btn-resolve"
                 onclick="resolveComment({{ comment.id }}, event)">
             <i class="fas fa-check"></i> Исправлено
         </button>
         {% endif %}
-        <button class="btn-sm btn-delete"
+        <button class="btn btn-delete"
                 onclick="deleteComment({{ comment.id }}, event)">
             <i class="fas fa-trash"></i> Удалить
         </button>
     </div>
 </div>
 {% empty %}
-<div style="text-align: center; color: #888; padding: 20px;">
-    <i class="fas fa-inbox" style="font-size: 2em; margin-bottom: 10px;"></i>
+<div class="empty-state">
+    <i class="fas fa-inbox"></i>
     <p>Пока нет замечаний</p>
+    <small>Добавьте первое замечание, выделив текст в статье</small>
 </div>
 {% endfor %}

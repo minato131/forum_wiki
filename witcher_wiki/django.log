@@ -9441,3 +9441,463 @@ INFO 2025-10-27 01:11:32,494 basehttp "GET /messages/unread-count/ HTTP/1.1" 200
 INFO 2025-10-27 01:11:33,338 basehttp "GET /article/utopets/moderate/ HTTP/1.1" 200 53066
 INFO 2025-10-27 01:11:33,505 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
 INFO 2025-10-27 01:12:03,757 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 01:29:11,242 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 01:29:12,217 basehttp "GET / HTTP/1.1" 200 33479
+INFO 2025-10-27 01:29:12,514 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 01:29:13,631 basehttp "GET /moderation/ HTTP/1.1" 200 31270
+INFO 2025-10-27 01:29:13,702 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 01:29:14,671 basehttp "GET /article/utopets/moderate/ HTTP/1.1" 200 59097
+INFO 2025-10-27 01:29:14,848 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 01:29:25,015 basehttp "GET /my-articles/ HTTP/1.1" 200 37642
+INFO 2025-10-27 01:29:25,083 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 01:29:28,771 basehttp "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-10-27 01:29:28,817 basehttp "GET / HTTP/1.1" 200 31241
+INFO 2025-10-27 01:29:29,592 basehttp "GET /accounts/login/ HTTP/1.1" 200 28431
+INFO 2025-10-27 01:29:32,652 basehttp "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-10-27 01:29:32,712 basehttp "GET / HTTP/1.1" 200 32860
+INFO 2025-10-27 01:29:32,784 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36108
+INFO 2025-10-27 01:29:33,750 basehttp "GET /my-articles/ HTTP/1.1" 200 41872
+INFO 2025-10-27 01:29:33,826 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36108
+INFO 2025-10-27 01:29:40,703 basehttp "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-10-27 01:29:40,748 basehttp "GET / HTTP/1.1" 200 31241
+INFO 2025-10-27 01:29:41,398 basehttp "GET /accounts/login/ HTTP/1.1" 200 28431
+INFO 2025-10-27 01:29:43,981 basehttp "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-10-27 01:29:44,037 basehttp "GET / HTTP/1.1" 200 33879
+INFO 2025-10-27 01:29:44,117 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-10-27 01:29:46,528 basehttp "GET /article/volkolak/ HTTP/1.1" 200 56375
+INFO 2025-10-27 01:29:46,698 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+ERROR 2025-10-27 01:29:48,429 log Internal Server Error: /article/volkolak/edit/
+Traceback (most recent call last):
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py", line 476, in article_edit
+    return render(request, 'wiki/article_edit.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+           ^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+               ^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader_tags.py", line 299, in do_extends
+    nodelist = parser.parse()
+               ^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\defaulttags.py", line 961, in do_if
+    condition = TemplateIfParser(parser, bits).parse()
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\smartif.py", line 198, in parse
+    raise self.error_class(
+django.template.exceptions.TemplateSyntaxError: Unused 'request.user' at end of if expression.
+ERROR 2025-10-27 01:29:48,434 basehttp "GET /article/volkolak/edit/ HTTP/1.1" 500 209219
+INFO 2025-10-27 01:30:02,752 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-10-27 01:31:02,851 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-10-27 01:32:02,859 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-10-27 01:32:31,457 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 01:32:32,866 basehttp "GET / HTTP/1.1" 200 33879
+INFO 2025-10-27 01:32:33,283 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-10-27 01:32:37,088 basehttp "GET /categories/ HTTP/1.1" 200 39243
+INFO 2025-10-27 01:32:37,154 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-10-27 01:32:38,001 basehttp "GET /my-articles/ HTTP/1.1" 200 43047
+INFO 2025-10-27 01:32:38,068 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-10-27 01:32:40,599 basehttp "GET / HTTP/1.1" 200 33879
+INFO 2025-10-27 01:32:40,664 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-10-27 01:32:41,875 basehttp "GET /article/volkolak/ HTTP/1.1" 200 56375
+INFO 2025-10-27 01:32:41,940 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-10-27 01:32:43,830 basehttp "GET /article/volkolak/edit/ HTTP/1.1" 200 36136
+INFO 2025-10-27 01:32:43,897 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-10-27 01:33:12,752 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-10-27 01:33:42,744 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-10-27 01:33:49,781 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\urls.py changed, reloading.
+INFO 2025-10-27 01:33:50,521 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 01:33:55,495 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 01:33:58,369 basehttp "GET / HTTP/1.1" 200 33879
+INFO 2025-10-27 01:33:58,672 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-10-27 01:34:00,822 basehttp "GET /article/volkolak/ HTTP/1.1" 200 56375
+INFO 2025-10-27 01:34:00,893 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-10-27 01:34:03,773 basehttp "GET /my-articles/ HTTP/1.1" 200 43047
+INFO 2025-10-27 01:34:03,840 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-10-27 01:34:07,644 basehttp "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-10-27 01:34:07,793 basehttp "GET / HTTP/1.1" 200 31241
+INFO 2025-10-27 01:34:08,579 basehttp "GET /accounts/login/ HTTP/1.1" 200 28431
+INFO 2025-10-27 01:34:14,248 basehttp "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-10-27 01:34:14,309 basehttp "GET / HTTP/1.1" 200 33479
+INFO 2025-10-27 01:34:14,382 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 01:34:15,232 basehttp "GET /my-articles/ HTTP/1.1" 200 37642
+INFO 2025-10-27 01:34:15,399 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 01:34:16,417 basehttp "GET /category/locations/ HTTP/1.1" 200 31288
+INFO 2025-10-27 01:34:16,493 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 01:34:16,847 basehttp "GET /category/monsters/ HTTP/1.1" 200 30645
+INFO 2025-10-27 01:34:16,918 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 01:34:17,371 basehttp "GET /category/characters/ HTTP/1.1" 200 31366
+INFO 2025-10-27 01:34:17,554 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 01:34:17,803 basehttp "GET /search/ HTTP/1.1" 200 43966
+INFO 2025-10-27 01:34:17,876 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 01:34:19,033 basehttp "GET /liked-articles/ HTTP/1.1" 200 44336
+INFO 2025-10-27 01:34:19,105 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 01:34:19,680 basehttp "GET /moderation/ HTTP/1.1" 200 31270
+INFO 2025-10-27 01:34:19,755 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 01:34:20,326 basehttp "GET /categories/ HTTP/1.1" 200 38843
+INFO 2025-10-27 01:34:20,394 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 01:34:20,994 basehttp "GET /editor/dashboard/ HTTP/1.1" 200 30990
+INFO 2025-10-27 01:34:21,066 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 01:34:22,867 basehttp "GET /categories/ HTTP/1.1" 200 38843
+INFO 2025-10-27 01:34:22,940 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 01:34:25,088 basehttp "GET /moderation/ HTTP/1.1" 200 31270
+INFO 2025-10-27 01:34:25,268 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 01:34:27,365 basehttp "GET /article/utopets/moderate/ HTTP/1.1" 200 53066
+INFO 2025-10-27 01:34:27,438 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 01:34:57,432 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 01:35:27,761 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 01:35:57,752 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 01:36:27,755 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 01:36:57,754 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 01:37:27,768 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 01:37:57,747 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 01:38:15,168 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 01:38:16,286 basehttp "GET / HTTP/1.1" 200 33479
+INFO 2025-10-27 01:38:16,606 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 01:38:18,297 basehttp "GET /article/volkolak/ HTTP/1.1" 200 55975
+INFO 2025-10-27 01:38:18,487 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+ERROR 2025-10-27 01:38:19,867 log Internal Server Error: /article/volkolak/edit/
+Traceback (most recent call last):
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py", line 476, in article_edit
+    return render(request, 'wiki/article_edit.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+           ^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+               ^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader_tags.py", line 299, in do_extends
+    nodelist = parser.parse()
+               ^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\defaulttags.py", line 961, in do_if
+    condition = TemplateIfParser(parser, bits).parse()
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\smartif.py", line 198, in parse
+    raise self.error_class(
+django.template.exceptions.TemplateSyntaxError: Unused 'request.user' at end of if expression.
+ERROR 2025-10-27 01:38:19,873 basehttp "GET /article/volkolak/edit/ HTTP/1.1" 500 209213
+INFO 2025-10-27 01:38:30,734 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 01:38:31,714 basehttp "GET / HTTP/1.1" 200 33479
+INFO 2025-10-27 01:38:32,039 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 01:38:34,680 basehttp "GET /article/volkolak/ HTTP/1.1" 200 55975
+INFO 2025-10-27 01:38:34,750 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 01:38:36,148 basehttp "GET /article/volkolak/edit/ HTTP/1.1" 200 35736
+INFO 2025-10-27 01:38:36,222 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 01:39:06,228 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 01:39:36,223 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 01:40:06,224 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 01:40:36,759 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 01:41:06,756 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 01:41:36,754 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 01:41:42,824 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 01:41:43,837 basehttp "GET / HTTP/1.1" 200 33479
+INFO 2025-10-27 01:41:44,234 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 01:41:45,688 basehttp "GET /article/volkolak/ HTTP/1.1" 200 55975
+INFO 2025-10-27 01:41:45,757 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+ERROR 2025-10-27 01:41:47,516 log Internal Server Error: /article/volkolak/edit/
+Traceback (most recent call last):
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py", line 476, in article_edit
+    return render(request, 'wiki/article_edit.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+           ^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+               ^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader_tags.py", line 299, in do_extends
+    nodelist = parser.parse()
+               ^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\defaulttags.py", line 961, in do_if
+    condition = TemplateIfParser(parser, bits).parse()
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\smartif.py", line 198, in parse
+    raise self.error_class(
+django.template.exceptions.TemplateSyntaxError: Unused 'request.user' at end of if expression.
+ERROR 2025-10-27 01:41:47,521 basehttp "GET /article/volkolak/edit/ HTTP/1.1" 500 213642
+INFO 2025-10-27 01:41:58,598 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 01:41:59,947 basehttp "GET / HTTP/1.1" 200 33479
+INFO 2025-10-27 01:42:00,353 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 01:42:01,581 basehttp "GET /article/volkolak/ HTTP/1.1" 200 55976
+INFO 2025-10-27 01:42:01,650 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+ERROR 2025-10-27 01:42:03,344 log Internal Server Error: /article/volkolak/edit/
+Traceback (most recent call last):
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py", line 476, in article_edit
+    return render(request, 'wiki/article_edit.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+           ^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+               ^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader_tags.py", line 299, in do_extends
+    nodelist = parser.parse()
+               ^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\defaulttags.py", line 961, in do_if
+    condition = TemplateIfParser(parser, bits).parse()
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\smartif.py", line 198, in parse
+    raise self.error_class(
+django.template.exceptions.TemplateSyntaxError: Unused 'request.user' at end of if expression.
+ERROR 2025-10-27 01:42:03,350 basehttp "GET /article/volkolak/edit/ HTTP/1.1" 500 209213
+INFO 2025-10-27 01:42:31,743 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 01:42:32,880 basehttp "GET / HTTP/1.1" 200 33479
+INFO 2025-10-27 01:42:33,285 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 01:42:36,377 basehttp "GET /article/volkolak/ HTTP/1.1" 200 55976
+INFO 2025-10-27 01:42:36,452 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 01:42:37,937 basehttp "GET /article/volkolak/edit/ HTTP/1.1" 200 35736
+INFO 2025-10-27 01:42:38,005 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 01:42:52,903 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 01:42:53,998 basehttp "GET / HTTP/1.1" 200 33479
+INFO 2025-10-27 01:42:54,301 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 01:42:55,828 basehttp "GET /article/volkolak/ HTTP/1.1" 200 55976
+INFO 2025-10-27 01:42:56,130 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 01:42:57,487 basehttp "GET /article/volkolak/edit/ HTTP/1.1" 200 45103
+INFO 2025-10-27 01:42:57,710 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 01:43:04,535 basehttp "GET /editor/dashboard/ HTTP/1.1" 200 30990
+INFO 2025-10-27 01:43:04,604 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 01:43:05,933 basehttp "GET /categories/ HTTP/1.1" 200 38843
+INFO 2025-10-27 01:43:06,118 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 01:43:06,492 basehttp "GET /moderation/ HTTP/1.1" 200 31270
+INFO 2025-10-27 01:43:06,565 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 01:43:07,480 basehttp "GET /article/utopets/moderate/ HTTP/1.1" 200 49239
+INFO 2025-10-27 01:43:07,554 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 01:43:11,551 basehttp "GET /category/locations/ HTTP/1.1" 200 31288
+INFO 2025-10-27 01:43:11,626 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 01:43:11,775 basehttp "GET /category/monsters/ HTTP/1.1" 200 30646
+INFO 2025-10-27 01:43:11,849 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 01:43:12,180 basehttp "GET /category/characters/ HTTP/1.1" 200 31366
+INFO 2025-10-27 01:43:12,354 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 01:43:12,558 basehttp "GET /search/ HTTP/1.1" 200 43966
+INFO 2025-10-27 01:43:12,728 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 01:43:12,995 basehttp "GET / HTTP/1.1" 200 33479
+INFO 2025-10-27 01:43:13,069 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 01:43:14,402 basehttp "GET /search/ HTTP/1.1" 200 43966
+INFO 2025-10-27 01:43:14,580 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 01:43:43,168 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 01:44:13,759 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 01:44:43,760 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 01:45:13,747 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 01:45:43,757 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 01:46:03,956 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 01:46:06,414 basehttp "GET / HTTP/1.1" 200 33479
+INFO 2025-10-27 01:46:06,736 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 01:46:08,142 basehttp "GET /moderation/ HTTP/1.1" 200 31270
+INFO 2025-10-27 01:46:08,325 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 01:46:09,301 basehttp "GET /article/utopets/moderate/ HTTP/1.1" 200 49239
+INFO 2025-10-27 01:46:09,477 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 01:46:39,365 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 01:47:09,853 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 01:47:19,534 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 01:47:20,455 basehttp "GET / HTTP/1.1" 200 33479
+INFO 2025-10-27 01:47:20,768 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 01:47:22,065 basehttp "GET /moderation/ HTTP/1.1" 200 31270
+INFO 2025-10-27 01:47:22,237 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 01:47:23,354 basehttp "GET /article/utopets/moderate/ HTTP/1.1" 200 52123
+INFO 2025-10-27 01:47:23,425 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
