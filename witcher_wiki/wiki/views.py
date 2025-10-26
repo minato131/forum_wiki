@@ -1588,15 +1588,17 @@ def article_moderate_enhanced(request, slug):
     # Получаем существующие комментарии модерации
     moderation_comments = article.moderation_comments.all().order_by('-created_at')
 
-    # Считаем количество открытых и исправленных комментариев
+    # Считаем количество комментариев по статусам
     open_comments_count = moderation_comments.filter(status='open').count()
     resolved_comments_count = moderation_comments.filter(status='resolved').count()
+    total_comments_count = moderation_comments.count()
 
     context = {
         'article': article,
         'moderation_comments': moderation_comments,
         'open_comments_count': open_comments_count,
         'resolved_comments_count': resolved_comments_count,
+        'total_comments_count': total_comments_count,
     }
 
     # Проверяем, это частичный запрос для AJAX

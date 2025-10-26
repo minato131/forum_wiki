@@ -116,9 +116,9 @@ class Article(models.Model):
             ("can_manage_categories", "Может управлять категориями"),
         ]
 
-    def can_delete(self, user):
+    def can_delete(self, user=None):
         """Проверяет, может ли пользователь удалить статью"""
-        if not user.is_authenticated:
+        if user is None:
             return False
 
         # Автор может удалять свои статьи в определенных статусах

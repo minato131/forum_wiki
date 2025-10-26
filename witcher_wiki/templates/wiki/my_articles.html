@@ -335,7 +335,8 @@
                 </a>
                 {% endif %}
 
-                {% if article.can_delete request.user %}
+                <!-- Исправленная проверка прав удаления -->
+                {% if article.can_delete %}
                 <button onclick="deleteArticle('{{ article.slug }}')" class="btn-sm btn-danger" title="Удалить">
                     🗑️
                 </button>
