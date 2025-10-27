@@ -1068,107 +1068,62 @@ document.addEventListener('DOMContentLoaded', function() {
         const highlightedText = formData.get('highlighted_text');
         const commentText = formData.get('comment');
 
-        if (!highlightedText || highlightedText === '') {
-            showNotification('Пожалуйста, выделите текст в статье перед добавлением замечания.', 'warning');
-            return;
-        }
-
         if (!commentText.trim()) {
-            showNotification('Пожалуйста, введите комментарий.', 'warning');
+            showNotification('Пожалуйста, введите комментарий', 'error');
             return;
         }
 
-        // Показываем индикатор загрузки
-        const submitBtn = commentForm.querySelector('button[type="submit"]');
-        const originalText = submitBtn.innerHTML;
-        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Добавление...';
-        submitBtn.disabled = true;
-
-        // AJAX отправка формы
-        fetch('{% url "wiki:add_moderation_comment" article.slug %}', {
+        // AJAX запрос для сохранения комментария
+        fetch('{% url "add_moderation_comment" article.id %}', {
             method: 'POST',
+            body: formData,
             headers: {
-                'X-CSRFToken': '{{ csrf_token }}',
                 'X-Requested-With': 'XMLHttpRequest',
-            },
-            body: formData
+            }
         })
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                // Очищаем форму
+                showNotification('Замечание успешно добавлено', 'success');
                 commentForm.reset();
                 selectedTextPreview.textContent = 'Выделите текст в статье...';
-                severityInput.value = 'medium';
-                severityOptions.forEach(opt => {
-                    if (opt.dataset.severity === 'medium') {
-                        opt.classList.add('selected');
-                    } else {
-                        opt.classList.remove('selected');
-                    }
-                });
-
-                // Обновляем список комментариев
-                location.reload();
-                showNotification('Замечание добавлено!', 'success');
+                updateCommentsList();
+                updateStats();
             } else {
-                showNotification('Ошибка: ' + data.error, 'error');
+                showNotification('Ошибка при добавлении замечания', 'error');
             }
         })
         .catch(error => {
             console.error('Error:', error);
             showNotification('Ошибка при добавлении замечания', 'error');
-        })
-        .finally(() => {
-            // Восстанавливаем кнопку
-            submitBtn.innerHTML = originalText;
-            submitBtn.disabled = false;
         });
     });
 
+    // Утилиты
     function showNotification(message, type) {
-        const notification = document.createElement('div');
-        notification.style.cssText = `
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 16px 24px;
-            border-radius: 12px;
-            color: white;
-            font-weight: 600;
-            z-index: 10000;
-            animation: slideInRight 0.3s ease-out;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            max-width: 400px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
-            font-size: 1em;
-        `;
+        // Реализация уведомлений
+        console.log(`${type}: ${message}`);
+    }
 
-        const bgColor = type === 'success' ? '#22c55e' :
-                       type === 'error' ? '#ef4444' :
-                       type === 'warning' ? '#f59e0b' : '#3b82f6';
+    function updateCommentsList() {
+        // Обновление списка комментариев через AJAX
+        fetch('{% url "get_moderation_comments" article.id %}')
+            .then(response => response.json())
+            .then(data => {
+                // Обновляем список комментариев
+                const commentsList = document.getElementById('commentsList');
+                commentsList.innerHTML = data.html;
+            });
+    }
 
-        notification.style.background = bgColor;
-
-        const icon = type === 'success' ? '✅' :
-                    type === 'error' ? '❌' :
-                    type === 'warning' ? '⚠️' : 'ℹ️';
-
-        notification.innerHTML = `
-            <span style="font-size: 1.3em;">${icon}</span>
-            <span>${message}</span>
-        `;
-
-        document.body.appendChild(notification);
-
-        setTimeout(() => {
-            notification.style.animation = 'slideOutRight 0.3s ease-in';
-            setTimeout(() => {
-                notification.remove();
-            }, 300);
-        }, 4000);
+    function updateStats() {
+        // Обновление статистики
+        fetch('{% url "get_moderation_stats" article.id %}')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('openCommentsCount').textContent = data.total;
+                document.getElementById('resolvedCommentsCount').textContent = data.resolved;
+            });
     }
 
     // Закрытие инструментов при клике вне их
@@ -1177,103 +1132,39 @@ document.addEventListener('DOMContentLoaded', function() {
             hideHighlightTools();
         }
     });
-
-    // Обработка клавиш
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
-            isHighlightMode = false;
-            contentArea.classList.remove('highlight-mode');
-            highlightStatus.textContent = 'Выделение отключено';
-            highlightStatus.style.color = 'var(--text-muted)';
-            toggleHighlightBtn.classList.remove('active');
-            toggleHighlightBtn.innerHTML = '<i class="fas fa-highlighter"></i><span>Режим выделения</span>';
-            hideHighlightTools();
-        }
-    });
-
-    // Анимации для уведомлений
-    const style = document.createElement('style');
-    style.textContent = `
-        @keyframes slideInRight {
-            from {
-                opacity: 0;
-                transform: translateX(100%);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-        @keyframes slideOutRight {
-            from {
-                opacity: 1;
-                transform: translateX(0);
-            }
-            to {
-                opacity: 0;
-                transform: translateX(100%);
-            }
-        }
-    `;
-    document.head.appendChild(style);
 });
 
-// Глобальные функции для работы с комментариями
 function resolveComment(commentId) {
-    fetch(`{% url "wiki:resolve_moderation_comment" 0 %}`.replace('0', commentId), {
-        method: 'POST',
-        headers: {
-            'X-CSRFToken': '{{ csrf_token }}',
-            'X-Requested-With': 'XMLHttpRequest',
-        }
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            location.reload();
-            showNotification('Замечание помечено как исправленное!', 'success');
-        } else {
-            showNotification('Ошибка: ' + data.error, 'error');
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        showNotification('Ошибка при обновлении замечания', 'error');
-    });
+    if (confirm('Отметить замечание как исправленное?')) {
+        fetch(`/moderation/comment/${commentId}/resolve/`, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                location.reload();
+            }
+        });
+    }
 }
 
 function deleteComment(commentId) {
-    if (!confirm('Вы уверены, что хотите удалить это замечание?')) return;
-
-    fetch(`{% url "wiki:delete_moderation_comment" 0 %}`.replace('0', commentId), {
-        method: 'POST',
-        headers: {
-            'X-CSRFToken': '{{ csrf_token }}',
-            'X-Requested-With': 'XMLHttpRequest',
-        }
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            location.reload();
-            showNotification('Замечание удалено!', 'success');
-        } else {
-            showNotification('Ошибка: ' + data.error, 'error');
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        showNotification('Ошибка при удалении замечания', 'error');
-    });
-}
-
-function showNotification(message, type) {
-    // Используем существующую функцию showNotification из основного скрипта
-    if (typeof showNotification === 'function') {
-        window.showNotification(message, type);
-    } else {
-        // Простая реализация, если функция не определена
-        alert(message);
+    if (confirm('Удалить это замечание?')) {
+        fetch(`/moderation/comment/${commentId}/delete/`, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                location.reload();
+            }
+        });
     }
 }
 </script>

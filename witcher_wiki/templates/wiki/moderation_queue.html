@@ -158,7 +158,7 @@
             {% endif %}
 
             <div class="action-buttons">
-                <a href="{% url 'wiki:article_moderate' article.slug %}" class="btn btn-moderate">
+                <a href="{% url 'wiki:article_moderate_enhanced' article.slug %}" class="btn-moderate">
                     ⚖️ Модерировать
                 </a>
                 <a href="{% url 'wiki:article_detail' article.slug %}" class="btn btn-view">

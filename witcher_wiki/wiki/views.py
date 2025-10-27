@@ -1678,3 +1678,5 @@ def article_delete(request, slug):
                 return redirect('wiki:article_detail', slug=slug)
 
     return JsonResponse({'success': False, 'error': 'Неверный метод запроса'})
+
+

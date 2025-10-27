@@ -332,32 +332,36 @@ class ModerationComment(models.Model):
     def __str__(self):
         return f'Комментарий к статье "{self.article.title}"'
 
+    def get_severity_color(self):
+        """Возвращает цвет для важности"""
+        if self.severity == 'low':
+            return '#6b7280'
+        elif self.severity == 'medium':
+            return '#f59e0b'
+        elif self.severity == 'high':
+            return '#ef4444'
+        elif self.severity == 'critical':
+            return '#dc2626'
+        return '#f59e0b'
+
+    def get_severity_display(self):
+        """Возвращает название важности"""
+        if self.severity == 'low':
+            return 'Низкая'
+        elif self.severity == 'medium':
+            return 'Средняя'
+        elif self.severity == 'high':
+            return 'Высокая'
+        elif self.severity == 'critical':
+            return 'Критическая'
+        return 'Средняя'
+
     def mark_as_resolved(self, user):
-        """Пометить комментарий как исправленный"""
+        """Пометить как исправленный"""
         self.status = 'resolved'
         self.resolved_at = timezone.now()
         self.resolved_by = user
         self.save()
-
-    def get_severity_color(self):
-        """Возвращает цвет для отображения важности"""
-        colors = {
-            'low': '#6b7280',
-            'medium': '#f59e0b',
-            'high': '#ef4444',
-            'critical': '#dc2626'
-        }
-        return colors.get(self.severity, '#6b7280')
-
-    def get_severity_icon(self):
-        """Возвращает иконку для отображения важности"""
-        icons = {
-            'low': '💡',
-            'medium': '⚠️',
-            'high': '🚨',
-            'critical': '💥'
-        }
-        return icons.get(self.severity, '💡')
 
 
 class ArticleMedia(models.Model):

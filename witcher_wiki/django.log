@@ -10472,3 +10472,330 @@ django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is
 ERROR 2025-10-27 21:17:13,512 basehttp "GET /article/kaer-morkhen/ HTTP/1.1" 500 191822
 INFO 2025-10-27 21:17:15,372 basehttp "GET / HTTP/1.1" 200 31241
 INFO 2025-10-27 21:17:36,461 basehttp "GET /accounts/register/ HTTP/1.1" 200 29776
+INFO 2025-10-27 21:27:47,733 basehttp "GET /accounts/login/ HTTP/1.1" 200 28252
+INFO 2025-10-27 21:27:51,198 basehttp "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-10-27 21:27:51,265 basehttp "GET / HTTP/1.1" 200 33479
+INFO 2025-10-27 21:27:51,347 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 21:31:02,238 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 21:31:03,240 basehttp "GET / HTTP/1.1" 200 33479
+INFO 2025-10-27 21:31:03,562 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 21:31:05,089 basehttp "GET /moderation/ HTTP/1.1" 200 31270
+INFO 2025-10-27 21:31:05,160 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 21:31:06,091 basehttp "GET /article/utopets/moderate/ HTTP/1.1" 200 49239
+INFO 2025-10-27 21:31:06,161 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 21:31:22,433 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 21:31:36,216 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 21:31:52,210 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 21:32:06,323 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 21:32:22,216 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 21:32:36,318 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 21:33:00,222 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 21:33:06,214 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 21:33:36,219 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 21:34:00,216 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 21:34:06,228 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 21:34:36,214 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 21:35:00,218 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 21:35:37,223 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 21:36:00,324 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 21:36:38,331 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 21:37:00,218 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 21:37:39,334 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 21:38:00,221 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 21:38:40,208 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 21:39:00,208 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 21:39:41,217 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 21:39:56,764 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\models.py changed, reloading.
+INFO 2025-10-27 21:39:57,283 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 21:40:00,351 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 21:40:42,210 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 21:40:55,383 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 21:40:56,445 basehttp "GET / HTTP/1.1" 200 33479
+INFO 2025-10-27 21:40:56,755 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 21:40:58,186 basehttp "GET /moderation/ HTTP/1.1" 200 31311
+INFO 2025-10-27 21:40:58,361 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 21:41:00,224 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 21:41:01,131 basehttp "GET /article/utopets/moderate/enhanced/ HTTP/1.1" 200 49805
+INFO 2025-10-27 21:41:01,303 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 21:41:09,116 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 21:41:29,214 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 21:41:59,213 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 21:42:03,846 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 21:42:06,642 basehttp "GET / HTTP/1.1" 200 33479
+INFO 2025-10-27 21:42:06,976 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 21:42:08,518 basehttp "GET /moderation/ HTTP/1.1" 200 31275
+INFO 2025-10-27 21:42:08,589 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 21:42:12,047 basehttp "GET /article/utopets/moderate/enhanced/ HTTP/1.1" 200 49805
+INFO 2025-10-27 21:42:12,121 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 21:42:42,307 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 21:43:12,116 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 21:43:42,219 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 21:44:12,212 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 21:44:42,222 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 21:45:12,939 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 21:45:42,214 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 21:46:43,223 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 21:47:05,975 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\models.py changed, reloading.
+INFO 2025-10-27 21:47:06,479 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 21:47:39,194 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\models.py changed, reloading.
+INFO 2025-10-27 21:47:39,739 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 21:47:44,335 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 21:48:15,721 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\urls.py changed, reloading.
+INFO 2025-10-27 21:48:16,282 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 21:48:19,764 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 21:48:28,544 basehttp "GET / HTTP/1.1" 200 33479
+INFO 2025-10-27 21:48:28,840 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 21:48:29,764 basehttp "GET /moderation/ HTTP/1.1" 200 31339
+INFO 2025-10-27 21:48:29,836 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 21:48:31,600 basehttp "GET /article/utopets/moderate/enhanced/ HTTP/1.1" 200 49805
+INFO 2025-10-27 21:48:31,670 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 21:48:45,319 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 21:48:53,324 basehttp "GET /article/utopets/moderate/enhanced/ HTTP/1.1" 200 49805
+INFO 2025-10-27 21:48:53,499 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 21:49:24,215 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 21:49:46,221 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 21:49:54,318 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 21:50:24,211 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 21:53:32,147 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 21:53:44,346 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 21:54:00,320 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 21:54:03,394 basehttp "GET / HTTP/1.1" 200 33479
+INFO 2025-10-27 21:54:03,693 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 21:54:05,727 basehttp "GET /moderation/ HTTP/1.1" 200 31339
+INFO 2025-10-27 21:54:05,796 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 21:54:06,663 basehttp "GET /article/utopets/moderate/enhanced/ HTTP/1.1" 200 41969
+INFO 2025-10-27 21:54:06,843 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 21:54:30,881 basehttp "GET /article/utopets/moderate/enhanced/ HTTP/1.1" 200 41969
+INFO 2025-10-27 21:54:30,953 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 21:55:01,220 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 21:55:31,319 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 21:55:57,212 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-10-27 21:55:57,701 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 21:56:01,240 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 21:56:31,217 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 22:03:31,694 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 22:03:34,450 basehttp "GET / HTTP/1.1" 200 33479
+INFO 2025-10-27 22:03:34,878 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 22:03:36,123 basehttp "GET /moderation/ HTTP/1.1" 200 31339
+INFO 2025-10-27 22:03:36,198 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 22:03:37,318 basehttp "GET /article/utopets/moderate/enhanced/ HTTP/1.1" 200 52234
+INFO 2025-10-27 22:03:37,491 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 22:03:37,522 basehttp "GET /media/article_media/%D0%B8%D0%B7%D0%BE%D0%B1%D1%80%D0%B0%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5_2025-10-27_003804674.png HTTP/1.1" 200 3099506
+INFO 2025-10-27 22:04:08,219 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 22:04:32,948 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-10-27 22:04:33,512 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 22:04:38,342 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 22:05:08,223 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 22:05:38,310 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 22:06:08,322 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 22:06:38,225 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 22:07:08,225 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 22:08:00,338 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 22:09:00,223 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 22:10:00,329 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 22:10:03,309 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 22:10:04,460 basehttp "GET / HTTP/1.1" 200 33479
+INFO 2025-10-27 22:10:04,607 basehttp "GET /static/css/style.css HTTP/1.1" 304 0
+INFO 2025-10-27 22:10:04,786 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 22:10:06,421 basehttp "GET /moderation/ HTTP/1.1" 200 31339
+INFO 2025-10-27 22:10:06,599 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 22:10:07,286 basehttp "GET /article/utopets/moderate/enhanced/ HTTP/1.1" 200 51520
+INFO 2025-10-27 22:10:07,361 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 22:10:20,368 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 22:10:21,631 basehttp "GET / HTTP/1.1" 200 33479
+INFO 2025-10-27 22:10:21,970 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 22:10:23,080 basehttp "GET /moderation/ HTTP/1.1" 200 31339
+INFO 2025-10-27 22:10:23,152 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 22:10:24,398 basehttp "GET /article/utopets/moderate/enhanced/ HTTP/1.1" 200 41969
+INFO 2025-10-27 22:10:24,470 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 22:10:53,206 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 22:10:54,236 basehttp "GET / HTTP/1.1" 200 33479
+INFO 2025-10-27 22:10:54,547 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 22:10:55,231 basehttp - Broken pipe from ('127.0.0.1', 57873)
+INFO 2025-10-27 22:10:55,891 basehttp "GET /moderation/ HTTP/1.1" 200 31312
+INFO 2025-10-27 22:10:56,075 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 22:10:59,828 basehttp "GET /article/utopets/moderate/enhanced/ HTTP/1.1" 200 41969
+INFO 2025-10-27 22:10:59,897 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 22:11:00,218 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 22:11:12,061 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 22:11:13,098 basehttp "GET / HTTP/1.1" 200 33479
+INFO 2025-10-27 22:11:13,405 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 22:11:14,542 basehttp "GET /moderation/ HTTP/1.1" 200 31275
+INFO 2025-10-27 22:11:14,614 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 22:11:16,200 basehttp "GET /article/utopets/moderate/enhanced/ HTTP/1.1" 200 41969
+INFO 2025-10-27 22:11:16,270 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 22:11:45,219 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 22:12:00,325 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 22:12:07,888 basehttp "GET / HTTP/1.1" 200 33479
+INFO 2025-10-27 22:12:07,963 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 22:12:18,346 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 22:12:38,220 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 22:13:08,310 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 22:13:38,324 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 22:14:08,220 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 22:14:09,875 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\admin.py changed, reloading.
+INFO 2025-10-27 22:14:10,566 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 22:14:38,240 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 22:15:05,248 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 22:15:08,240 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 22:15:14,213 basehttp "GET / HTTP/1.1" 200 32803
+INFO 2025-10-27 22:15:14,644 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 22:15:39,758 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 22:15:40,021 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 22:15:41,617 basehttp "GET / HTTP/1.1" 200 32803
+INFO 2025-10-27 22:15:41,906 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 22:15:48,138 basehttp "GET /categories/ HTTP/1.1" 200 38843
+INFO 2025-10-27 22:15:48,205 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 22:16:07,650 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 22:16:09,277 basehttp "GET / HTTP/1.1" 200 33479
+INFO 2025-10-27 22:16:09,574 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 22:16:12,211 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 22:16:12,827 basehttp "GET /category/monsters/ HTTP/1.1" 200 30646
+INFO 2025-10-27 22:16:12,896 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 22:16:14,534 basehttp "GET /category/characters/ HTTP/1.1" 200 31366
+INFO 2025-10-27 22:16:14,600 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 22:16:40,316 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 22:16:42,209 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 22:17:10,225 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 22:17:12,209 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 22:17:40,220 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 22:17:42,216 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 22:17:49,334 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 22:17:51,853 basehttp "GET / HTTP/1.1" 200 34105
+INFO 2025-10-27 22:17:52,147 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 22:17:56,736 basehttp "GET /category/magic/ HTTP/1.1" 200 30069
+INFO 2025-10-27 22:17:56,902 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 22:17:58,306 basehttp "GET /category/events/ HTTP/1.1" 200 30077
+INFO 2025-10-27 22:17:58,376 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 22:18:10,217 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 22:18:12,221 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 22:18:22,157 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 22:18:30,295 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 22:18:31,295 basehttp "GET / HTTP/1.1" 200 33949
+INFO 2025-10-27 22:18:31,613 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 22:19:09,240 basehttp "GET / HTTP/1.1" 200 33949
+INFO 2025-10-27 22:19:09,651 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 22:19:16,363 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 22:19:33,834 basehttp "GET / HTTP/1.1" 200 32772
+INFO 2025-10-27 22:19:34,231 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 22:19:37,191 basehttp "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:19:37,349 basehttp "GET / HTTP/1.1" 200 30534
+INFO 2025-10-27 22:19:38,391 basehttp "GET /accounts/login/ HTTP/1.1" 200 28431
+INFO 2025-10-27 22:19:42,770 basehttp "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:19:42,830 basehttp "GET / HTTP/1.1" 200 33172
+INFO 2025-10-27 22:19:43,006 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-10-27 22:19:45,265 basehttp "GET /admin/ HTTP/1.1" 200 16570
+INFO 2025-10-27 22:19:46,830 basehttp "GET /admin/wiki/category/ HTTP/1.1" 200 19119
+INFO 2025-10-27 22:19:46,860 basehttp "GET /static/admin/css/changelists.css HTTP/1.1" 304 0
+INFO 2025-10-27 22:19:46,862 basehttp "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 304 0
+INFO 2025-10-27 22:19:46,862 basehttp "GET /static/admin/js/jquery.init.js HTTP/1.1" 304 0
+INFO 2025-10-27 22:19:46,863 basehttp "GET /static/admin/js/urlify.js HTTP/1.1" 304 0
+INFO 2025-10-27 22:19:46,864 basehttp "GET /static/admin/js/core.js HTTP/1.1" 304 0
+INFO 2025-10-27 22:19:46,864 basehttp "GET /static/admin/js/actions.js HTTP/1.1" 304 0
+INFO 2025-10-27 22:19:46,865 basehttp "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 304 0
+INFO 2025-10-27 22:19:46,865 basehttp "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 304 0
+INFO 2025-10-27 22:19:46,865 basehttp "GET /static/admin/js/prepopulate.js HTTP/1.1" 304 0
+INFO 2025-10-27 22:19:46,933 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-10-27 22:19:46,995 basehttp "GET /static/admin/img/search.svg HTTP/1.1" 304 0
+INFO 2025-10-27 22:19:46,997 basehttp "GET /static/admin/js/filters.js HTTP/1.1" 304 0
+INFO 2025-10-27 22:19:47,009 basehttp "GET /static/admin/img/tooltag-add.svg HTTP/1.1" 304 0
+INFO 2025-10-27 22:19:47,009 basehttp "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 304 0
+INFO 2025-10-27 22:19:47,043 basehttp "GET /static/admin/img/sorting-icons.svg HTTP/1.1" 200 1097
+INFO 2025-10-27 22:19:50,286 basehttp "GET /admin/wiki/category/3/change/ HTTP/1.1" 200 20874
+INFO 2025-10-27 22:19:50,302 basehttp "GET /static/admin/css/forms.css HTTP/1.1" 304 0
+INFO 2025-10-27 22:19:50,302 basehttp "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 304 0
+INFO 2025-10-27 22:19:50,307 basehttp "GET /static/admin/js/change_form.js HTTP/1.1" 304 0
+INFO 2025-10-27 22:19:50,307 basehttp "GET /static/admin/css/widgets.css HTTP/1.1" 304 0
+INFO 2025-10-27 22:19:50,347 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-10-27 22:19:50,370 basehttp "GET /static/admin/img/tooltag-arrowright.svg HTTP/1.1" 200 280
+INFO 2025-10-27 22:19:58,629 basehttp "GET /admin/wiki/category/add/ HTTP/1.1" 200 20532
+INFO 2025-10-27 22:19:58,688 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-10-27 22:20:04,846 basehttp "GET /admin/wiki/category/ HTTP/1.1" 200 19119
+INFO 2025-10-27 22:20:04,902 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-10-27 22:20:06,360 basehttp "GET /admin/wiki/category/3/change/ HTTP/1.1" 200 20874
+INFO 2025-10-27 22:20:06,415 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-10-27 22:20:10,876 basehttp "POST /admin/wiki/category/3/change/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:20:11,037 basehttp "GET /admin/wiki/category/3/change/ HTTP/1.1" 200 21187
+INFO 2025-10-27 22:20:11,200 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-10-27 22:20:11,213 basehttp "GET /static/admin/img/icon-yes.svg HTTP/1.1" 304 0
+INFO 2025-10-27 22:20:13,292 basehttp "GET /admin/wiki/category/3/change/ HTTP/1.1" 200 20882
+INFO 2025-10-27 22:20:15,131 basehttp "GET /admin/wiki/category/ HTTP/1.1" 200 19119
+INFO 2025-10-27 22:20:15,188 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-10-27 22:20:16,858 basehttp "GET /admin/wiki/category/5/change/ HTTP/1.1" 200 20854
+INFO 2025-10-27 22:20:16,915 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-10-27 22:20:18,846 basehttp "POST /admin/wiki/category/5/change/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:20:19,014 basehttp "GET /admin/wiki/category/ HTTP/1.1" 200 19343
+INFO 2025-10-27 22:20:19,072 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-10-27 22:20:23,758 basehttp "GET /admin/wiki/category/ HTTP/1.1" 200 19119
+INFO 2025-10-27 22:20:23,820 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-10-27 22:20:25,472 basehttp "GET /admin/wiki/category/2/change/ HTTP/1.1" 200 20873
+INFO 2025-10-27 22:20:25,628 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-10-27 22:20:28,002 basehttp "POST /admin/wiki/category/2/change/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:20:28,058 basehttp "GET /admin/wiki/category/ HTTP/1.1" 200 19347
+INFO 2025-10-27 22:20:28,114 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-10-27 22:20:30,547 basehttp "GET /admin/wiki/category/ HTTP/1.1" 200 19119
+INFO 2025-10-27 22:20:30,603 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-10-27 22:20:31,748 basehttp "GET /admin/wiki/category/1/change/ HTTP/1.1" 200 20891
+INFO 2025-10-27 22:20:31,803 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-10-27 22:20:34,134 basehttp "POST /admin/wiki/category/1/change/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:20:34,193 basehttp "GET /admin/wiki/category/ HTTP/1.1" 200 19351
+INFO 2025-10-27 22:20:34,249 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-10-27 22:20:37,392 basehttp "GET /admin/wiki/category/ HTTP/1.1" 200 19119
+INFO 2025-10-27 22:20:37,562 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-10-27 22:20:38,324 basehttp "GET /admin/wiki/category/4/change/ HTTP/1.1" 200 20871
+INFO 2025-10-27 22:20:38,486 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-10-27 22:20:40,172 basehttp "POST /admin/wiki/category/4/change/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:20:40,341 basehttp "GET /admin/wiki/category/ HTTP/1.1" 200 19347
+INFO 2025-10-27 22:20:40,403 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-10-27 22:20:42,194 basehttp "GET / HTTP/1.1" 200 34080
+INFO 2025-10-27 22:20:42,258 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-10-27 22:20:44,610 basehttp "GET /category/events/ HTTP/1.1" 200 30477
+INFO 2025-10-27 22:20:44,673 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-10-27 22:20:46,263 basehttp "GET /category/characters/ HTTP/1.1" 200 31766
+INFO 2025-10-27 22:20:46,326 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-10-27 22:20:48,171 basehttp "GET /category/monsters/ HTTP/1.1" 200 31046
+INFO 2025-10-27 22:20:48,339 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-10-27 22:20:49,647 basehttp "GET /category/magic/ HTTP/1.1" 200 30469
+INFO 2025-10-27 22:20:49,712 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-10-27 22:20:50,733 basehttp "GET /category/monsters/ HTTP/1.1" 200 31046
+INFO 2025-10-27 22:20:50,897 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-10-27 22:20:54,028 basehttp "GET /category/locations/ HTTP/1.1" 200 31688
+INFO 2025-10-27 22:20:54,204 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-10-27 22:21:07,057 basehttp "GET /editor/dashboard/ HTTP/1.1" 200 31390
+INFO 2025-10-27 22:21:07,124 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-10-27 22:21:09,074 basehttp "GET /moderation/ HTTP/1.1" 200 31675
+INFO 2025-10-27 22:21:09,140 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-10-27 22:21:10,570 basehttp "GET /article/utopets/moderate/enhanced/ HTTP/1.1" 200 42369
+INFO 2025-10-27 22:21:10,637 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-10-27 22:21:32,153 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 22:21:37,226 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-10-27 22:21:48,615 basehttp "GET / HTTP/1.1" 200 34080
+INFO 2025-10-27 22:21:49,044 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-10-27 22:22:07,206 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-10-27 22:22:37,206 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-10-27 22:23:07,214 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-10-27 22:23:37,206 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-10-27 22:24:07,208 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-10-27 22:24:21,160 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 22:24:26,560 basehttp "GET / HTTP/1.1" 200 34080
+INFO 2025-10-27 22:24:26,853 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-10-27 22:24:29,032 basehttp "GET /category/events/ HTTP/1.1" 200 30477
+INFO 2025-10-27 22:24:29,196 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-10-27 22:24:30,491 basehttp "GET /category/characters/ HTTP/1.1" 200 31766
+INFO 2025-10-27 22:24:30,556 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-10-27 22:24:57,214 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-10-27 22:25:27,215 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-10-27 22:25:29,189 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 22:25:48,647 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 22:25:57,265 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-10-27 22:26:01,673 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 22:26:12,510 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 22:26:15,992 basehttp "GET / HTTP/1.1" 200 34080
+INFO 2025-10-27 22:26:16,386 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-10-27 22:26:47,320 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-10-27 22:27:17,218 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-10-27 22:27:28,052 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 22:27:36,175 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 22:27:47,234 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-10-27 22:27:55,176 basehttp "GET / HTTP/1.1" 200 34080
+INFO 2025-10-27 22:27:55,572 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127

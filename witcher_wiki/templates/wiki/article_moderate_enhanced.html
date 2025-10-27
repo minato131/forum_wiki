@@ -3,622 +3,157 @@
 
 {% block title %}Модерация: {{ article.title }} | Форум по Вселенной Ведьмака{% endblock %}
 
-{% block extra_css %}
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-<style>
-    .moderation-container {
-        max-width: 1400px;
-        margin: 0 auto;
-        padding: 20px;
-        display: grid;
-        grid-template-columns: 1fr 400px;
-        gap: 30px;
-    }
-
-    @media (max-width: 1200px) {
-        .moderation-container {
-            grid-template-columns: 1fr;
-        }
-    }
-
-    /* Панель контента */
-    .content-panel {
-        background: #2d2d2d;
-        border: 1px solid #444;
-        border-radius: 10px;
-        padding: 25px;
-    }
-
-    .article-header {
-        text-align: center;
-        margin-bottom: 25px;
-        padding-bottom: 20px;
-        border-bottom: 2px solid #D4AF37;
-    }
-
-    .article-title {
-        color: #D4AF37;
-        font-family: 'Cinzel', serif;
-        font-size: 2em;
-        margin-bottom: 10px;
-    }
-
-    .article-meta {
-        color: #888;
-        font-size: 0.9em;
-    }
-
-    /* Область текста для выделения */
-    .content-area {
-        background: #1a1a1a;
-        border: 2px solid #444;
-        border-radius: 8px;
-        padding: 25px;
-        min-height: 600px;
-        max-height: 70vh;
-        overflow-y: auto;
-        line-height: 1.7;
-        font-size: 1.1em;
-        position: relative;
-        cursor: text;
-    }
-
-    .content-area.highlight-mode {
-        border-color: #D4AF37;
-        box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.3);
-    }
-
-    /* Выделенный текст */
-    .highlighted-text {
-        background: rgba(212, 175, 55, 0.3);
-        border: 1px solid #D4AF37;
-        border-radius: 3px;
-        padding: 2px 1px;
-        cursor: pointer;
-        transition: all 0.3s;
-        position: relative;
-    }
-
-    .highlighted-text:hover {
-        background: rgba(212, 175, 55, 0.5);
-    }
-
-    .highlighted-text.active {
-        background: rgba(212, 175, 55, 0.7);
-        box-shadow: 0 0 5px rgba(212, 175, 55, 0.5);
-    }
-
-    /* Панель комментариев */
-    .comments-panel {
-        background: #2d2d2d;
-        border: 1px solid #444;
-        border-radius: 10px;
-        padding: 25px;
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-    }
-
-    .panel-section {
-        background: #1a1a1a;
-        border: 1px solid #444;
-        border-radius: 8px;
-        padding: 20px;
-    }
-
-    .section-title {
-        color: #D4AF37;
-        font-family: 'Cinzel', serif;
-        font-size: 1.3em;
-        margin-bottom: 15px;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-
-    /* Форма добавления комментария */
-    .comment-form {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-    }
-
-    .form-group {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-    }
-
-    .form-label {
-        color: #D4AF37;
-        font-weight: 600;
-        font-size: 0.9em;
-    }
-
-    .form-control {
-        background: #2d2d2d;
-        border: 1px solid #444;
-        border-radius: 6px;
-        padding: 10px 12px;
-        color: #e8e8e8;
-        font-size: 0.9em;
-        resize: vertical;
-    }
-
-    textarea.form-control {
-        min-height: 80px;
-    }
-
-    .severity-selector {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 8px;
-    }
-
-    .severity-option {
-        padding: 8px 12px;
-        border: 1px solid #444;
-        border-radius: 6px;
-        text-align: center;
-        cursor: pointer;
-        transition: all 0.3s;
-        font-size: 0.85em;
-    }
-
-    .severity-option:hover {
-        border-color: #D4AF37;
-    }
-
-    .severity-option.selected {
-        border-color: #D4AF37;
-        background: rgba(212, 175, 55, 0.1);
-    }
-
-    .severity-low { color: #6b7280; }
-    .severity-medium { color: #f59e0b; }
-    .severity-high { color: #ef4444; }
-    .severity-critical { color: #dc2626; }
-
-    /* Список комментариев */
-    .comments-list {
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-        max-height: 400px;
-        overflow-y: auto;
-    }
-
-    .comment-item {
-        background: #2d2d2d;
-        border: 1px solid #444;
-        border-radius: 8px;
-        padding: 15px;
-        position: relative;
-    }
-
-    .comment-item.resolved {
-        opacity: 0.7;
-        background: rgba(34, 197, 94, 0.05);
-        border-color: #22c55e;
-    }
-
-    .comment-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 8px;
-    }
-
-    .comment-severity {
-        display: flex;
-        align-items: center;
-        gap: 5px;
-        font-size: 0.8em;
-        font-weight: 600;
-    }
-
-    .comment-text {
-        color: #e8e8e8;
-        margin-bottom: 8px;
-        line-height: 1.4;
-    }
-
-    .comment-context {
-        color: #888;
-        font-size: 0.85em;
-        font-style: italic;
-        margin-bottom: 8px;
-        padding: 8px;
-        background: rgba(255, 255, 255, 0.05);
-        border-radius: 4px;
-    }
-
-    .comment-meta {
-        color: #666;
-        font-size: 0.8em;
-        display: flex;
-        justify-content: space-between;
-    }
-
-    .comment-actions {
-        display: flex;
-        gap: 8px;
-        margin-top: 10px;
-    }
-
-    .btn-sm {
-        padding: 4px 8px;
-        border: none;
-        border-radius: 4px;
-        font-size: 0.8em;
-        cursor: pointer;
-        transition: all 0.3s;
-    }
-
-    .btn-resolve {
-        background: rgba(34, 197, 94, 0.2);
-        color: #22c55e;
-        border: 1px solid #22c55e;
-    }
-
-    .btn-resolve:hover {
-        background: #22c55e;
-        color: white;
-    }
-
-    .btn-delete {
-        background: rgba(239, 68, 68, 0.2);
-        color: #ef4444;
-        border: 1px solid #ef4444;
-    }
-
-    .btn-delete:hover {
-        background: #ef4444;
-        color: white;
-    }
-
-    /* Панель действий модерации */
-    .moderation-actions {
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-    }
-
-    .action-btn {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        padding: 12px 16px;
-        border: none;
-        border-radius: 8px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.3s;
-        text-decoration: none;
-        justify-content: center;
-    }
-
-    .btn-approve {
-        background: linear-gradient(135deg, #22c55e, #16a34a);
-        color: white;
-    }
-
-    .btn-approve:hover {
-        background: linear-gradient(135deg, #16a34a, #15803d);
-        transform: translateY(-2px);
-    }
-
-    .btn-reject {
-        background: linear-gradient(135deg, #ef4444, #dc2626);
-        color: white;
-    }
-
-    .btn-reject:hover {
-        background: linear-gradient(135deg, #dc2626, #b91c1c);
-        transform: translateY(-2px);
-    }
-
-    .btn-correction {
-        background: linear-gradient(135deg, #f59e0b, #d97706);
-        color: white;
-    }
-
-    .btn-correction:hover {
-        background: linear-gradient(135deg, #d97706, #b45309);
-        transform: translateY(-2px);
-    }
-
-    .btn-editor {
-        background: linear-gradient(135deg, #3b82f6, #2563eb);
-        color: white;
-    }
-
-    .btn-editor:hover {
-        background: linear-gradient(135deg, #2563eb, #1d4ed8);
-        transform: translateY(-2px);
-    }
-
-    /* Инструменты выделения */
-    .highlight-tools {
-        position: fixed;
-        background: #2d2d2d;
-        border: 1px solid #D4AF37;
-        border-radius: 8px;
-        padding: 10px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-        z-index: 1000;
-        display: none;
-        flex-direction: column;
-        gap: 8px;
-        min-width: 200px;
-    }
-
-    .highlight-tools.show {
-        display: flex;
-    }
-
-    .tools-header {
-        color: #D4AF37;
-        font-weight: 600;
-        font-size: 0.9em;
-        text-align: center;
-        padding-bottom: 5px;
-        border-bottom: 1px solid #444;
-    }
-
-    .selected-text-preview {
-        background: rgba(212, 175, 55, 0.1);
-        border: 1px solid rgba(212, 175, 55, 0.3);
-        border-radius: 4px;
-        padding: 8px;
-        font-size: 0.85em;
-        max-height: 60px;
-        overflow-y: auto;
-    }
-
-    /* Статистика */
-    .stats-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 10px;
-        margin-top: 15px;
-    }
-
-    .stat-item {
-        text-align: center;
-        padding: 8px;
-        background: rgba(255, 255, 255, 0.05);
-        border-radius: 6px;
-    }
-
-    .stat-number {
-        color: #D4AF37;
-        font-weight: bold;
-        font-size: 1.2em;
-    }
-
-    .stat-label {
-        color: #888;
-        font-size: 0.8em;
-    }
-
-    /* Анимации */
-    @keyframes highlightPulse {
-        0% { background-color: rgba(212, 175, 55, 0.3); }
-        50% { background-color: rgba(212, 175, 55, 0.6); }
-        100% { background-color: rgba(212, 175, 55, 0.3); }
-    }
-
-    .highlight-pulse {
-        animation: highlightPulse 2s infinite;
-    }
-</style>
-{% endblock %}
-
 {% block content %}
 <div class="moderation-container">
-    <!-- Левая панель - контент статьи -->
-    <div class="content-panel">
-        <div class="article-header">
-            <h1 class="article-title">{{ article.title }}</h1>
-            <div class="article-meta">
-                Автор: {{ article.author.username }} |
-                Создано: {{ article.created_at|date:"d.m.Y H:i" }} |
-                Статус: {{ article.get_status_display }}
-            </div>
-        </div>
-
-        <div class="content-controls" style="margin-bottom: 15px; display: flex; gap: 10px; align-items: center;">
-            <button id="toggleHighlight" class="btn-sm" style="background: #D4AF37; color: #1a1a1a; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer;">
-                🖊️ Режим выделения
-            </button>
-            <span id="highlightStatus" style="color: #888; font-size: 0.9em;">
-                Выделение отключено
-            </span>
-        </div>
-
-        <div id="contentArea" class="content-area">
-            {{ article.content|safe }}
-        </div>
+    <!-- Заголовок -->
+    <div style="text-align: center; margin-bottom: 30px; padding: 20px; background: #2d2d2d; border-radius: 10px; border: 2px solid #D4AF37;">
+        <h1 style="color: #D4AF37; margin-bottom: 10px;">🎯 УЛУЧШЕННАЯ МОДЕРАЦИЯ</h1>
+        <h2 style="color: white;">{{ article.title }}</h2>
+        <p style="color: #888;">Автор: {{ article.author.username }} | Статус: {{ article.get_status_display }}</p>
     </div>
 
-    <!-- Правая панель - комментарии и действия -->
-    <div class="comments-panel">
-        <!-- Форма добавления комментария -->
-        <div class="panel-section">
-            <h3 class="section-title">
-                <i class="fas fa-comment-medical"></i>
-                Новое замечание
-            </h3>
-            <form id="commentForm" class="comment-form">
-                {% csrf_token %}
-                <input type="hidden" id="highlightedText" name="highlighted_text">
-                <input type="hidden" id="startPosition" name="start_position">
-                <input type="hidden" id="endPosition" name="end_position">
-                <input type="hidden" id="selectionContext" name="selection_context">
+    <div style="display: grid; grid-template-columns: 1fr 400px; gap: 30px;">
+        <!-- Левая панель - контент -->
+        <div style="background: #2d2d2d; padding: 25px; border-radius: 10px; border: 1px solid #444;">
+            <h3 style="color: #D4AF37; margin-bottom: 15px;">📖 Содержание статьи</h3>
 
-                <div class="form-group">
-                    <label class="form-label">Выделенный текст:</label>
-                    <div id="selectedTextPreview" class="selected-text-preview" style="min-height: 40px;">
-                        Выделите текст в статье...
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Важность:</label>
-                    <div class="severity-selector">
-                        <div class="severity-option severity-low" data-severity="low">
-                            💡 Низкая
-                        </div>
-                        <div class="severity-option severity-medium selected" data-severity="medium">
-                            ⚠️ Средняя
-                        </div>
-                        <div class="severity-option severity-high" data-severity="high">
-                            🚨 Высокая
-                        </div>
-                        <div class="severity-option severity-critical" data-severity="critical">
-                            💥 Критическая
-                        </div>
-                    </div>
-                    <input type="hidden" id="severity" name="severity" value="medium">
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="comment">Комментарий:</label>
-                    <textarea id="comment" name="comment" class="form-control"
-                              placeholder="Опишите проблему или предложение..." required></textarea>
-                </div>
-
-                <button type="submit" class="action-btn" style="background: #D4AF37; color: #1a1a1a;">
-                    <i class="fas fa-plus"></i>
-                    Добавить замечание
+            <div style="margin-bottom: 20px; display: flex; gap: 10px; align-items: center;">
+                <button id="toggleHighlight" style="background: #D4AF37; color: #1a1a1a; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; font-weight: bold;">
+                    🖊️ Включить выделение
                 </button>
-            </form>
-        </div>
+                <span id="highlightStatus" style="color: #888;">Выделение отключено</span>
+            </div>
 
-        <!-- Список комментариев -->
-        <div class="panel-section">
-            <h3 class="section-title">
-                <i class="fas fa-comments"></i>
-                Замечания ({{ moderation_comments.count }})
-            </h3>
-            <div class="comments-list" id="commentsList">
-                {% for comment in moderation_comments %}
-                    {% include 'wiki/moderation_comment_item.html' with comment=comment %}
-                {% empty %}
-                    <div style="text-align: center; color: #888; padding: 20px;">
-                        <i class="fas fa-inbox" style="font-size: 2em; margin-bottom: 10px;"></i>
-                        <p>Пока нет замечаний</p>
-                    </div>
-                {% endfor %}
+            <div id="contentArea" style="background: #1a1a1a; border: 2px solid #444; border-radius: 8px; padding: 20px; min-height: 500px; line-height: 1.6;">
+                {{ article.content|safe }}
             </div>
         </div>
 
-        <!-- Действия модерации -->
-        <div class="panel-section">
-            <h3 class="section-title">
-                <i class="fas fa-gavel"></i>
-                Решение по статье
-            </h3>
-            <div class="moderation-actions">
-                <form method="post" class="moderation-form">
-                    {% csrf_token %}
-                    <input type="hidden" name="action" id="moderationAction">
+        <!-- Правая панель - действия -->
+        <div style="display: flex; flex-direction: column; gap: 20px;">
+            <!-- Форма комментария -->
+            <div style="background: #2d2d2d; padding: 20px; border-radius: 10px; border: 1px solid #444;">
+                <h3 style="color: #D4AF37; margin-bottom: 15px;">💬 Новое замечание</h3>
 
-                    <div class="form-group">
-                        <label class="form-label" for="moderation_notes">Общие заметки:</label>
-                        <textarea name="moderation_notes" class="form-control"
-                                  placeholder="Общие замечания по статье...">{{ article.moderation_notes }}</textarea>
+                <form id="commentForm">
+                    {% csrf_token %}
+                    <div style="margin-bottom: 15px;">
+                        <label style="color: #D4AF37; display: block; margin-bottom: 5px;">Выделенный текст:</label>
+                        <div id="selectedTextPreview" style="background: rgba(212, 175, 55, 0.1); border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 5px; padding: 10px; min-height: 40px; color: #888;">
+                            Выделите текст в статье...
+                        </div>
                     </div>
 
-                    <button type="submit" name="action" value="approve" class="action-btn btn-approve">
-                        <i class="fas fa-check"></i>
-                        Одобрить статью
-                    </button>
+                    <div style="margin-bottom: 15px;">
+                        <label style="color: #D4AF37; display: block; margin-bottom: 5px;">Важность:</label>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                            <div class="severity-option" data-severity="low" style="padding: 10px; border: 1px solid #444; border-radius: 5px; text-align: center; cursor: pointer; color: #6b7280;">
+                                💡 Низкая
+                            </div>
+                            <div class="severity-option selected" data-severity="medium" style="padding: 10px; border: 1px solid #D4AF37; border-radius: 5px; text-align: center; cursor: pointer; color: #f59e0b; background: rgba(212, 175, 55, 0.1);">
+                                ⚠️ Средняя
+                            </div>
+                            <div class="severity-option" data-severity="high" style="padding: 10px; border: 1px solid #444; border-radius: 5px; text-align: center; cursor: pointer; color: #ef4444;">
+                                🚨 Высокая
+                            </div>
+                            <div class="severity-option" data-severity="critical" style="padding: 10px; border: 1px solid #444; border-radius: 5px; text-align: center; cursor: pointer; color: #dc2626;">
+                                💥 Критическая
+                            </div>
+                        </div>
+                        <input type="hidden" id="severity" name="severity" value="medium">
+                    </div>
 
-                    <button type="submit" name="action" value="needs_correction" class="action-btn btn-correction">
-                        <i class="fas fa-edit"></i>
-                        Отправить на доработку
-                    </button>
+                    <div style="margin-bottom: 15px;">
+                        <label style="color: #D4AF37; display: block; margin-bottom: 5px;">Комментарий:</label>
+                        <textarea name="comment" style="width: 100%; background: #1a1a1a; border: 1px solid #444; color: white; padding: 10px; border-radius: 5px; min-height: 80px;" placeholder="Опишите проблему..."></textarea>
+                    </div>
 
-                    <button type="submit" name="action" value="send_to_editor" class="action-btn btn-editor">
-                        <i class="fas fa-user-edit"></i>
-                        Передать редактору
-                    </button>
-
-                    <button type="submit" name="action" value="reject" class="action-btn btn-reject">
-                        <i class="fas fa-times"></i>
-                        Отклонить статью
+                    <button type="submit" style="width: 100%; background: #D4AF37; color: #1a1a1a; border: none; padding: 12px; border-radius: 5px; cursor: pointer; font-weight: bold;">
+                        ➕ Добавить замечание
                     </button>
                 </form>
             </div>
-        </div>
 
-        <!-- Статистика -->
-        <div class="panel-section">
-            <h3 class="section-title">
-                <i class="fas fa-chart-bar"></i>
-                Статистика
-            </h3>
-            <div class="stats-grid">
-                <div class="stat-item">
-                    <div class="stat-number" id="openCommentsCount">
-                        {{ open_comments_count }}
+            <!-- Действия модерации -->
+            <div style="background: #2d2d2d; padding: 20px; border-radius: 10px; border: 1px solid #444;">
+                <h3 style="color: #D4AF37; margin-bottom: 15px;">⚖️ Решение по статье</h3>
+
+                <form method="post">
+                    {% csrf_token %}
+                    <div style="margin-bottom: 15px;">
+                        <label style="color: #D4AF37; display: block; margin-bottom: 5px;">Общие заметки:</label>
+                        <textarea name="moderation_notes" style="width: 100%; background: #1a1a1a; border: 1px solid #444; color: white; padding: 10px; border-radius: 5px; min-height: 60px;">{{ article.moderation_notes }}</textarea>
                     </div>
-                    <div class="stat-label">Открытые</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number" id="resolvedCommentsCount">
-                        {{ resolved_comments_count }}
+
+                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                        <button type="submit" name="action" value="approve" style="background: linear-gradient(135deg, #22c55e, #16a34a); color: white; border: none; padding: 12px; border-radius: 5px; cursor: pointer;">
+                            ✅ Одобрить статью
+                        </button>
+                        <button type="submit" name="action" value="needs_correction" style="background: linear-gradient(135deg, #f59e0b, #d97706); color: white; border: none; padding: 12px; border-radius: 5px; cursor: pointer;">
+                            ✏️ Отправить на доработку
+                        </button>
+                        <button type="submit" name="action" value="reject" style="background: linear-gradient(135deg, #ef4444, #dc2626); color: white; border: none; padding: 12px; border-radius: 5px; cursor: pointer;">
+                            ❌ Отклонить статью
+                        </button>
                     </div>
-                    <div class="stat-label">Исправлены</div>
+                </form>
+            </div>
+
+            <!-- Статистика -->
+            <div style="background: #2d2d2d; padding: 20px; border-radius: 10px; border: 1px solid #444;">
+                <h3 style="color: #D4AF37; margin-bottom: 15px;">📊 Статистика</h3>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <div style="text-align: center; padding: 15px; background: #1a1a1a; border-radius: 5px;">
+                        <div style="color: #D4AF37; font-size: 24px; font-weight: bold;">{{ moderation_comments.count }}</div>
+                        <div style="color: #888; font-size: 14px;">Всего замечаний</div>
+                    </div>
+                    <div style="text-align: center; padding: 15px; background: #1a1a1a; border-radius: 5px;">
+                        <div style="color: #D4AF37; font-size: 24px; font-weight: bold;">{{ open_comments_count }}</div>
+                        <div style="color: #888; font-size: 14px;">Активные</div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Панель инструментов выделения -->
-<div id="highlightTools" class="highlight-tools">
-    <div class="tools-header">Добавить замечание</div>
-    <div id="toolsTextPreview" class="selected-text-preview"></div>
-    <button id="addCommentBtn" class="btn-sm" style="background: #D4AF37; color: #1a1a1a; border: none; padding: 8px; border-radius: 4px; cursor: pointer;">
-        <i class="fas fa-plus"></i> Добавить замечание
+<!-- Инструменты выделения -->
+<div id="highlightTools" style="position: fixed; background: #2d2d2d; border: 1px solid #D4AF37; border-radius: 8px; padding: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.5); z-index: 1000; display: none;">
+    <div style="color: #D4AF37; font-weight: bold; text-align: center; margin-bottom: 10px;">Добавить замечание</div>
+    <div id="toolsTextPreview" style="background: rgba(212, 175, 55, 0.1); border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 4px; padding: 8px; margin-bottom: 10px; font-size: 14px;"></div>
+    <button id="addCommentBtn" style="width: 100%; background: #D4AF37; color: #1a1a1a; border: none; padding: 8px; border-radius: 4px; cursor: pointer; font-weight: bold;">
+        ➕ Добавить замечание
     </button>
 </div>
 
 <script>
-// Основной JavaScript код для системы выделения и комментариев
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('Улучшенная модерация загружена!');
+
     const contentArea = document.getElementById('contentArea');
     const toggleHighlightBtn = document.getElementById('toggleHighlight');
     const highlightStatus = document.getElementById('highlightStatus');
     const highlightTools = document.getElementById('highlightTools');
-    const toolsTextPreview = document.getElementById('toolsTextPreview');
-    const addCommentBtn = document.getElementById('addCommentBtn');
-    const commentForm = document.getElementById('commentForm');
-    const selectedTextPreview = document.getElementById('selectedTextPreview');
-    const severityOptions = document.querySelectorAll('.severity-option');
-    const severityInput = document.getElementById('severity');
 
     let isHighlightMode = false;
-    let currentSelection = null;
 
     // Переключение режима выделения
     toggleHighlightBtn.addEventListener('click', function() {
         isHighlightMode = !isHighlightMode;
 
         if (isHighlightMode) {
-            contentArea.classList.add('highlight-mode');
-            highlightStatus.textContent = 'Выделение включено - выделяйте текст';
+            contentArea.style.borderColor = '#D4AF37';
+            highlightStatus.textContent = 'Выделение включено';
             highlightStatus.style.color = '#D4AF37';
             toggleHighlightBtn.innerHTML = '🖊️ Выключить выделение';
+            toggleHighlightBtn.style.background = '#22c55e';
         } else {
-            contentArea.classList.remove('highlight-mode');
+            contentArea.style.borderColor = '#444';
             highlightStatus.textContent = 'Выделение отключено';
             highlightStatus.style.color = '#888';
-            toggleHighlightBtn.innerHTML = '🖊️ Режим выделения';
-            hideHighlightTools();
+            toggleHighlightBtn.innerHTML = '🖊️ Включить выделение';
+            toggleHighlightBtn.style.background = '#D4AF37';
+            highlightTools.style.display = 'none';
         }
     });
 
@@ -629,263 +164,56 @@ document.addEventListener('DOMContentLoaded', function() {
         const selection = window.getSelection();
         const selectedText = selection.toString().trim();
 
-        if (selectedText.length > 0 && selectedText.length < 1000) {
-            currentSelection = selection;
-            showHighlightTools(e.pageX, e.pageY, selectedText);
+        if (selectedText.length > 0) {
+            // Показываем инструменты
+            highlightTools.style.left = (e.pageX + 10) + 'px';
+            highlightTools.style.top = (e.pageY + 10) + 'px';
+            highlightTools.style.display = 'block';
 
-            // Заполняем форму
-            document.getElementById('highlightedText').value = selectedText;
-            document.getElementById('startPosition').value = getSelectionPosition(selection).start;
-            document.getElementById('endPosition').value = getSelectionPosition(selection).end;
-
-            // Получаем контекст
-            const context = getSelectionContext(selection, 50);
-            document.getElementById('selectionContext').value = context;
-
-            selectedTextPreview.textContent = selectedText;
-            toolsTextPreview.textContent = selectedText;
-        } else if (selectedText.length >= 1000) {
-            alert('Слишком длинный выделенный текст. Максимум 1000 символов.');
-            selection.removeAllRanges();
+            // Заполняем превью
+            document.getElementById('toolsTextPreview').textContent = selectedText;
+            document.getElementById('selectedTextPreview').textContent = selectedText;
         }
     });
 
-    // Показ инструментов выделения
-    function showHighlightTools(x, y, text) {
-        highlightTools.style.left = (x + 10) + 'px';
-        highlightTools.style.top = (y + 10) + 'px';
-        highlightTools.classList.add('show');
-    }
-
-    function hideHighlightTools() {
-        highlightTools.classList.remove('show');
-        if (currentSelection) {
-            currentSelection.removeAllRanges();
-            currentSelection = null;
-        }
-    }
-
-    // Кнопка добавления комментария из инструментов
-    addCommentBtn.addEventListener('click', function() {
-        hideHighlightTools();
-        // Прокручиваем к форме комментария
-        document.querySelector('.comments-panel').scrollIntoView({ behavior: 'smooth' });
-        document.getElementById('comment').focus();
+    // Кнопка добавления комментария
+    document.getElementById('addCommentBtn').addEventListener('click', function() {
+        highlightTools.style.display = 'none';
+        document.querySelector('textarea[name="comment"]').focus();
     });
 
     // Выбор важности
-    severityOptions.forEach(option => {
+    document.querySelectorAll('.severity-option').forEach(option => {
         option.addEventListener('click', function() {
-            severityOptions.forEach(opt => opt.classList.remove('selected'));
-            this.classList.add('selected');
-            severityInput.value = this.dataset.severity;
-        });
-    });
-
-    // Отправка формы комментария
-    commentForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-
-        const formData = new FormData(this);
-        const highlightedText = formData.get('highlighted_text');
-
-        if (!highlightedText || highlightedText === '') {
-            alert('Пожалуйста, выделите текст в статье перед добавлением замечания.');
-            return;
-        }
-
-        // AJAX отправка формы
-        fetch('{% url "wiki:add_moderation_comment" article.slug %}', {
-            method: 'POST',
-            headers: {
-                'X-CSRFToken': '{{ csrf_token }}',
-                'X-Requested-With': 'XMLHttpRequest',
-            },
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                // Очищаем форму
-                commentForm.reset();
-                selectedTextPreview.textContent = 'Выделите текст в статье...';
-                severityInput.value = 'medium';
-                severityOptions.forEach(opt => {
-                    if (opt.dataset.severity === 'medium') {
-                        opt.classList.add('selected');
-                    } else {
-                        opt.classList.remove('selected');
-                    }
-                });
-
-                // Обновляем список комментариев
-                loadComments();
-                showNotification('Замечание добавлено!', 'success');
-            } else {
-                showNotification('Ошибка: ' + data.error, 'error');
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            showNotification('Ошибка при добавлении замечания', 'error');
-        });
-    });
-
-    // Вспомогательные функции
-    function getSelectionPosition(selection) {
-        const range = selection.getRangeAt(0);
-        const content = contentArea.textContent || contentArea.innerText;
-        const preSelectionRange = range.cloneRange();
-        preSelectionRange.selectNodeContents(contentArea);
-        preSelectionRange.setEnd(range.startContainer, range.startOffset);
-
-        return {
-            start: preSelectionRange.toString().length,
-            end: preSelectionRange.toString().length + selection.toString().length
-        };
-    }
-
-    function getSelectionContext(selection, charsAround) {
-        const range = selection.getRangeAt(0);
-        const content = contentArea.textContent || contentArea.innerText;
-        const start = getSelectionPosition(selection).start;
-
-        const contextStart = Math.max(0, start - charsAround);
-        const contextEnd = Math.min(content.length, start + selection.toString().length + charsAround);
-
-        let context = content.substring(contextStart, contextEnd);
-
-        // Добавляем многоточия если обрезали
-        if (contextStart > 0) context = '...' + context;
-        if (contextEnd < content.length) context = context + '...';
-
-        return context;
-    }
-
-    function loadComments() {
-        // Загрузка обновленного списка комментариев через AJAX
-        fetch(`{% url "wiki:article_moderate" article.slug %}?partial=comments`)
-            .then(response => response.text())
-            .then(html => {
-                document.getElementById('commentsList').innerHTML = html;
-                updateStats();
+            document.querySelectorAll('.severity-option').forEach(opt => {
+                opt.style.borderColor = '#444';
+                opt.style.background = 'transparent';
             });
-    }
+            this.style.borderColor = '#D4AF37';
+            this.style.background = 'rgba(212, 175, 55, 0.1)';
+            document.getElementById('severity').value = this.dataset.severity;
+        });
+    });
 
-    function updateStats() {
-        // Обновление статистики
-        const openCount = document.querySelectorAll('.comment-item:not(.resolved)').length;
-        const resolvedCount = document.querySelectorAll('.comment-item.resolved').length;
-
-        document.getElementById('openCommentsCount').textContent = openCount;
-        document.getElementById('resolvedCommentsCount').textContent = resolvedCount;
-    }
-
-    function showNotification(message, type) {
-        // Показ уведомления
-        const notification = document.createElement('div');
-        notification.style.cssText = `
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 12px 20px;
-            border-radius: 8px;
-            color: white;
-            font-weight: bold;
-            z-index: 10000;
-            animation: slideInRight 0.3s ease-out;
-        `;
-
-        notification.style.background = type === 'success' ? '#22c55e' : '#ef4444';
-        notification.textContent = message;
-
-        document.body.appendChild(notification);
-
-        setTimeout(() => {
-            notification.remove();
-        }, 3000);
-    }
-
-    // Закрытие инструментов при клике вне их
+    // Закрытие инструментов при клике вне
     document.addEventListener('click', function(e) {
         if (!highlightTools.contains(e.target) && e.target !== contentArea) {
-            hideHighlightTools();
+            highlightTools.style.display = 'none';
         }
     });
 
-    // Обработка клавиш
+    // Обработка Escape
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
             isHighlightMode = false;
-            contentArea.classList.remove('highlight-mode');
+            contentArea.style.borderColor = '#444';
             highlightStatus.textContent = 'Выделение отключено';
             highlightStatus.style.color = '#888';
-            toggleHighlightBtn.innerHTML = '🖊️ Режим выделения';
-            hideHighlightTools();
+            toggleHighlightBtn.innerHTML = '🖊️ Включить выделение';
+            toggleHighlightBtn.style.background = '#D4AF37';
+            highlightTools.style.display = 'none';
         }
     });
 });
-// Функции для работы с комментариями модерации
-function highlightCommentText(startPos, endPos) {
-    const contentArea = document.getElementById('contentArea');
-    const contentText = contentArea.textContent || contentArea.innerText;
-
-    // Здесь должна быть логика подсветки текста по позициям
-    console.log(`Highlight text from ${startPos} to ${endPos}`);
-}
-
-function resolveComment(commentId, event) {
-    event.stopPropagation();
-
-    fetch(`/moderation/comment/${commentId}/resolve/`, {
-        method: 'POST',
-        headers: {
-            'X-CSRFToken': '{{ csrf_token }}',
-            'X-Requested-With': 'XMLHttpRequest',
-        }
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            loadComments();
-            showNotification('Замечание помечено как исправленное!', 'success');
-        } else {
-            showNotification('Ошибка: ' + data.error, 'error');
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        showNotification('Ошибка при обновлении замечания', 'error');
-    });
-}
-
-function deleteComment(commentId, event) {
-    event.stopPropagation();
-
-    if (!confirm('Вы уверены, что хотите удалить это замечание?')) {
-        return;
-    }
-
-    fetch(`/moderation/comment/${commentId}/delete/`, {
-        method: 'POST',
-        headers: {
-            'X-CSRFToken': '{{ csrf_token }}',
-            'X-Requested-With': 'XMLHttpRequest',
-        }
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            loadComments();
-            showNotification('Замечание удалено!', 'success');
-        } else {
-            showNotification('Ошибка: ' + data.error, 'error');
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        showNotification('Ошибка при удалении замечания', 'error');
-    });
-}
 </script>
 {% endblock %}

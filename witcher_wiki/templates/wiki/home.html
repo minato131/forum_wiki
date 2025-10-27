@@ -121,22 +121,16 @@
         </ul>
     </div>
 
-    <div class="card">
-        <h2>📂 Основные категории</h2>
-        <div class="category-grid">
-            <a href="/category/characters/" class="category-card">
-                <h3>👥 Персонажи</h3>
-                <p>Статьи о людях, эльфах, магах и других разумных существах</p>
-            </a>
-            <a href="/category/monsters/" class="category-card">
-                <h3>🐺 Монстры</h3>
-                <p>Bestiary чудовищ и существ Континента</p>
-            </a>
-            <a href="/category/locations/" class="category-card">
-                <h3>🏰 Локации</h3>
-                <p>Королевства, города и важные места</p>
-            </a>
-        </div>
+<div class="card">
+    <h2>📂 Основные категории</h2>
+    <div class="category-grid">
+        {% for category in featured_categories %}
+        <a href="{% url 'wiki:category_detail' category.slug %}" class="category-card">
+            <h3>{{ category.icon }} {{ category.name }}</h3>
+            <p>{{ category.description }}</p>
+            <small>{{ category.article_count }} статей</small>
+        </a>
+        {% endfor %}
     </div>
 </div>
 

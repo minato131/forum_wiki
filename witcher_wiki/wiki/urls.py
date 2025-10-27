@@ -71,4 +71,5 @@ urlpatterns = [
     path('message/<int:message_id>/delete/', views.message_delete, name='message_delete'),
     path('message/send-quick/<int:user_id>/', views.send_quick_message, name='send_quick_message'),
     path('messages/unread-count/', views.get_unread_count, name='get_unread_count'),
+
 ]
