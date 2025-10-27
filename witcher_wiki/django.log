@@ -10799,3 +10799,25 @@ INFO 2025-10-27 22:27:36,175 autoreload Watching for file changes with StatReloa
 INFO 2025-10-27 22:27:47,234 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
 INFO 2025-10-27 22:27:55,176 basehttp "GET / HTTP/1.1" 200 34080
 INFO 2025-10-27 22:27:55,572 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-10-27 22:35:08,454 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 22:35:15,015 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\manage.py changed, reloading.
+INFO 2025-10-27 22:35:15,693 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 22:35:17,235 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-10-27 22:35:36,048 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 22:36:00,260 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-10-27 22:36:45,277 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\admin.py changed, reloading.
+INFO 2025-10-27 22:36:45,986 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 22:36:50,011 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 22:36:54,524 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\admin.py changed, reloading.
+INFO 2025-10-27 22:36:55,170 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 22:37:00,235 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-10-27 22:37:00,889 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\admin.py changed, reloading.
+INFO 2025-10-27 22:37:01,429 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 22:37:02,870 basehttp "GET / HTTP/1.1" 200 34349
+INFO 2025-10-27 22:37:03,172 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-10-27 22:37:05,981 basehttp "GET /category/events/ HTTP/1.1" 200 30477
+INFO 2025-10-27 22:37:06,149 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-10-27 22:37:07,402 basehttp "GET /category/magic/ HTTP/1.1" 200 30469
+INFO 2025-10-27 22:37:07,467 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-10-27 22:37:23,428 basehttp "GET /category/characters/ HTTP/1.1" 200 31766
+INFO 2025-10-27 22:37:23,597 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127

@@ -73,29 +73,3 @@ post_migrate.connect(create_groups)
 admin.site.register(UserProfile)
 admin.site.register(ArticleMedia)
 admin.site.register(ModerationComment)
-
-# Создаем категорию "Магия"
-magic_category, created = Category.objects.get_or_create(
-    name='Магия',
-    defaults={
-        'slug': 'magic',
-        'description': 'Статьи о магии, заклинаниях, знаках и магических существах',
-        'is_featured': True,
-        'display_order': 4,
-        'icon': '🔮'
-    }
-)
-
-# Создаем категорию "События"
-events_category, created = Category.objects.get_or_create(
-    name='События',
-    defaults={
-        'slug': 'events',
-        'description': 'Важные события, битвы, исторические моменты вселенной Ведьмака',
-        'is_featured': True,
-        'display_order': 5,
-        'icon': '📜'
-    }
-)
-
-print("Категории созданы!")

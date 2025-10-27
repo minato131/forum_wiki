@@ -1679,4 +1679,3 @@ def article_delete(request, slug):
 
     return JsonResponse({'success': False, 'error': 'Неверный метод запроса'})
 
-
