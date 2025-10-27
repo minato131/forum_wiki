@@ -170,6 +170,37 @@
             </div>
             {% endfor %}
         </div>
+                {% for article in results %}
+        <div class="search-result-item">
+            <h4>
+                <a href="{% url 'wiki:article_detail' article.slug %}">
+                    {{ article.title }}
+                    {% if query and query|lower in article.title|lower %}
+                        <span class="priority-badge" title="Совпадение в названии">🏆</span>
+                    {% endif %}
+                </a>
+            </h4>
+
+            {% if article.excerpt %}
+                <p class="article-excerpt">{{ article.excerpt|truncatewords:30 }}</p>
+            {% else %}
+                <p class="article-content-preview">
+                    {{ article.content|striptags|truncatewords:30 }}
+                </p>
+            {% endif %}
+
+            <div class="search-meta">
+                <span class="search-category">
+                    📁
+                    {% for category in article.categories.all %}
+                        <a href="{% url 'wiki:category_detail' category.slug %}">{{ category.name }}</a>{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                </span>
+                <span class="search-date">📅 {{ article.created_at|date:"d.m.Y" }}</span>
+                <span class="search-author">👤 {{ article.author.username }}</span>
+            </div>
+        </div>
+        {% endfor %}
 
         <!-- Пагинация -->
         {% if results.has_other_pages %}

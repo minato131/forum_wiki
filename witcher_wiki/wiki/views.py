@@ -89,7 +89,7 @@ def category_detail(request, slug):
 def search(request):
     query = request.GET.get('q', '').strip()
     category_filter = request.GET.get('category', '')
-    tag_filter = request.GET.get('tag', '')  # Новый параметр для фильтрации по тегам
+    tag_filter = request.GET.get('tag', '')
     results = []
     total_count = 0
 
@@ -100,10 +100,11 @@ def search(request):
             if not created:
                 search_query_obj.increment()
 
-        # Улучшенный поиск
+        # Улучшенный поиск с приоритетом
         search_query = Q()
 
         if query:
+            # Разделяем поиск на совпадения в названии и контенте
             search_query = (Q(title__icontains=query) |
                             Q(content__icontains=query) |
                             Q(excerpt__icontains=query) |
@@ -121,11 +122,33 @@ def search(request):
 
         total_count = results.count()
 
-        # Сортировка по релевантности (только для текстового поиска)
+        # УЛУЧШЕННАЯ СОРТИРОВКА ПО ПРИОРИТЕТУ
         if query and not tag_filter:
-            title_matches = results.filter(title__icontains=query)
-            other_matches = results.exclude(title__icontains=query)
-            results = list(title_matches) + list(other_matches)
+            # Статьи с точным совпадением в названии (высший приоритет)
+            exact_title_matches = results.filter(title__iexact=query)
+
+            # Статьи с совпадением в начале названия
+            start_title_matches = results.filter(title__istartswith=query).exclude(title__iexact=query)
+
+            # Статьи с совпадением в названии (любая позиция)
+            any_title_matches = results.filter(title__icontains=query).exclude(
+                title__istartswith=query
+            ).exclude(title__iexact=query)
+
+            # Статьи с совпадением только в контенте (низший приоритет)
+            content_only_matches = results.filter(
+                content__icontains=query
+            ).exclude(
+                Q(title__icontains=query) | Q(excerpt__icontains=query)
+            )
+
+            # Объединяем результаты с приоритетом
+            results = list(exact_title_matches) + list(start_title_matches) + \
+                      list(any_title_matches) + list(content_only_matches)
+
+        elif tag_filter:
+            # Для хештегов сортируем по дате создания
+            results = results.order_by('-created_at')
 
         # Пагинация
         paginator = Paginator(results, 10)

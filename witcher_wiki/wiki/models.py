@@ -476,6 +476,17 @@ class UserProfile(models.Model):
             elif '@' in self.telegram:
                 return self.telegram.replace('@', '')
         return None
+    def get_safe_email_display(self, requesting_user):
+        """Безопасное отображение email (только для владельца и админов)"""
+        if requesting_user == self.user or requesting_user.is_staff:
+            return self.user.email
+        else:
+            # Показываем только часть email для безопасности
+            if self.user.email:
+                username, domain = self.user.email.split('@')
+                hidden_username = username[:2] + '***' + username[-1:]
+                return f"{hidden_username}@{domain}"
+            return "Скрыто"
 
     def get_vk_username(self):
         """Извлекает username из ссылки VK"""
