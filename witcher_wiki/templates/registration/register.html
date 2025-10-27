@@ -6,33 +6,51 @@
 {% block content %}
 <div class="auth-container">
     <div class="auth-form">
-        <h2>📝 Регистрация</h2>
+        <h2>⚔️ Регистрация</h2>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
 
         <form method="post">
             {% csrf_token %}
-            
-            {% for field in form %}
+
             <div class="form-group">
-                <label for="{{ field.id_for_label }}">{{ field.label }}:</label>
-                {{ field }}
-                {% if field.errors %}
-                    <div class="error-list">
-                        {% for error in field.errors %}
-                            <span class="error">{{ error }}</span>
-                        {% endfor %}
-                    </div>
-                {% endif %}
-                {% if field.help_text %}
-                    <small class="help-text">{{ field.help_text }}</small>
-                {% endif %}
+                <label for="id_username">👤 Имя пользователя:</label>
+                <input type="text" id="id_username" name="username" required class="form-control"
+                       value="{{ form.username.value|default:'' }}"
+                       maxlength="150"
+                       autocomplete="username">
+                <small class="form-text">Обязательное поле. Не более 150 символов. Только буквы, цифры и @/./+/-/_.</small>
             </div>
-            {% endfor %}
-            
-            <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+
+            <div class="form-group">
+                <label for="id_password1">🔒 Пароль:</label>
+                <input type="password" id="id_password1" name="password1" required class="form-control"
+                       autocomplete="new-password">
+                <small class="form-text">
+                    • Не менее 8 символов<br>
+                    • Не должен быть слишком простым<br>
+                    • Не должен состоять только из цифр
+                </small>
+            </div>
+
+            <div class="form-group">
+                <label for="id_password2">🔒 Подтверждение пароля:</label>
+                <input type="password" id="id_password2" name="password2" required class="form-control"
+                       autocomplete="new-password">
+                <small class="form-text">Введите тот же пароль, что и выше, для проверки.</small>
+            </div>
+
+            <button type="submit" class="btn">🚀 Зарегистрироваться</button>
         </form>
-        
+
         <div class="auth-links">
-            <p>Уже есть аккаунт? <a href="{% url 'accounts:login' %}">Войдите</a></p>
+            <p>Уже есть аккаунт? <a href="{% url 'wiki:login' %}">🔐 Войти</a></p>
         </div>
     </div>
 </div>
@@ -52,7 +70,7 @@
     border-radius: 15px;
     border: 2px solid #D4AF37;
     width: 100%;
-    max-width: 400px;
+    max-width: 450px;
     box-shadow: 0 8px 32px rgba(0,0,0,0.3);
 }
 
@@ -61,6 +79,7 @@
     text-align: center;
     margin-bottom: 30px;
     font-family: 'Cinzel', serif;
+    font-size: 1.8em;
 }
 
 .form-group {
@@ -74,7 +93,7 @@
     font-weight: bold;
 }
 
-.form-group input {
+.form-control {
     width: 100%;
     padding: 12px;
     border: 1px solid #444;
@@ -82,28 +101,20 @@
     background: #1a1a1a;
     color: #e8e8e8;
     font-size: 16px;
+    transition: all 0.3s;
 }
 
-.form-group input:focus {
+.form-control:focus {
     outline: none;
     border-color: #D4AF37;
     box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
 }
 
-.error-list {
-    margin-top: 5px;
-}
-
-.error {
-    color: #dc3545;
-    font-size: 0.9em;
-}
-
-.help-text {
+.form-text {
     color: #888;
-    font-size: 0.8em;
+    font-size: 0.85em;
     margin-top: 5px;
-    display: block;
+    line-height: 1.4;
 }
 
 .btn {
@@ -117,26 +128,65 @@
     font-weight: bold;
     cursor: pointer;
     transition: all 0.3s;
+    margin-top: 10px;
 }
 
 .btn:hover {
     background: #FFD700;
     transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+}
+
+.alert {
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.alert-error {
+    background: rgba(220, 53, 69, 0.2);
+    border: 1px solid #dc3545;
+    color: #dc3545;
+}
+
+.alert-success {
+    background: rgba(40, 167, 69, 0.2);
+    border: 1px solid #28a745;
+    color: #28a745;
 }
 
 .auth-links {
     text-align: center;
-    margin-top: 20px;
+    margin-top: 25px;
     color: #888;
+    border-top: 1px solid rgba(212, 175, 55, 0.2);
+    padding-top: 20px;
 }
 
 .auth-links a {
     color: #D4AF37;
     text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
 }
 
 .auth-links a:hover {
+    color: #FFD700;
     text-decoration: underline;
+}
+
+/* Адаптивность */
+@media (max-width: 480px) {
+    .auth-form {
+        padding: 30px 20px;
+        margin: 10px;
+    }
+
+    .auth-form h2 {
+        font-size: 1.5em;
+    }
 }
 </style>
 {% endblock %}

@@ -24,9 +24,7 @@ INSTALLED_APPS = [
     'taggit',
     'django_ckeditor_5',
 ]
-# Добавьте в конец settings.py
-LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/'
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -114,7 +112,7 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
 # Session settings
-SESSION_COOKIE_AGE = 86400  # 24 hours
+SESSION_COOKIE_AGE = 1209600  # 2 недели в секундах
 SESSION_SAVE_EVERY_REQUEST = True
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 

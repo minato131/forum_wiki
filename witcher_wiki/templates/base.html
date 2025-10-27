@@ -389,10 +389,10 @@
                     </div>
                 </div>
             {% else %}
-                <div class="auth-buttons">
-                    <a href="/accounts/login/" class="btn-outline-light">🚪 Войти</a>
-                    <a href="/accounts/register/" class="btn-outline-light">📝 Регистрация</a>
-                </div>
+                    <div class="auth-buttons">
+                        <a href="{% url 'wiki:login' %}" class="btn-outline-light">🔐 Войти</a>
+                        <a href="{% url 'wiki:register' %}" class="btn-outline-light">📝 Регистрация</a>
+                    </div>
             {% endif %}
         </div>
     </div>

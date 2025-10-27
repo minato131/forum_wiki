@@ -10821,3 +10821,689 @@ INFO 2025-10-27 22:37:07,402 basehttp "GET /category/magic/ HTTP/1.1" 200 30469
 INFO 2025-10-27 22:37:07,467 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
 INFO 2025-10-27 22:37:23,428 basehttp "GET /category/characters/ HTTP/1.1" 200 31766
 INFO 2025-10-27 22:37:23,597 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-10-27 22:42:36,104 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-10-27 22:42:36,601 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 22:42:39,078 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-10-27 22:42:39,575 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 22:43:02,770 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\urls.py changed, reloading.
+INFO 2025-10-27 22:43:03,276 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 22:43:51,081 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\urls.py changed, reloading.
+INFO 2025-10-27 22:43:51,664 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 22:45:52,141 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 22:45:53,625 basehttp "GET / HTTP/1.1" 200 34349
+INFO 2025-10-27 22:45:54,023 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-10-27 22:45:56,467 basehttp "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:45:56,513 basehttp "GET / HTTP/1.1" 200 31711
+ERROR 2025-10-27 22:45:57,535 log Internal Server Error: /accounts/login/
+Traceback (most recent call last):
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\accounts\views.py", line 21, in login_view
+    return render(request, 'registration/login.html')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'register' not found. 'register' is not a valid view function or pattern name.
+ERROR 2025-10-27 22:45:57,539 basehttp "GET /accounts/login/ HTTP/1.1" 500 160839
+INFO 2025-10-27 22:47:53,302 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-10-27 22:47:53,848 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 22:48:10,877 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-10-27 22:48:11,352 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 22:48:59,023 autoreload Watching for file changes with StatReloader
+ERROR 2025-10-27 22:49:00,139 log Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py", line 67, in home
+    return render(request, 'wiki/home.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\defaulttags.py", line 327, in render
+    return nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'register' not found. 'register' is not a valid view function or pattern name.
+ERROR 2025-10-27 22:49:00,144 basehttp "GET / HTTP/1.1" 500 174626
+INFO 2025-10-27 22:49:49,170 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\urls.py changed, reloading.
+INFO 2025-10-27 22:49:49,712 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 22:50:20,877 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\urls.py changed, reloading.
+INFO 2025-10-27 22:50:21,463 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 22:51:25,142 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 22:51:26,283 basehttp "GET / HTTP/1.1" 200 31709
+ERROR 2025-10-27 22:51:28,383 log Internal Server Error: /login/
+Traceback (most recent call last):
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: wiki/login.html
+ERROR 2025-10-27 22:51:28,384 basehttp "GET /login/ HTTP/1.1" 500 89496
+INFO 2025-10-27 22:53:29,081 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-10-27 22:53:29,599 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 22:53:30,604 basehttp "GET / HTTP/1.1" 200 31709
+ERROR 2025-10-27 22:53:31,826 log Internal Server Error: /login/
+Traceback (most recent call last):
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: wiki/login.html
+ERROR 2025-10-27 22:53:31,828 basehttp "GET /login/ HTTP/1.1" 500 89496
+ERROR 2025-10-27 22:53:33,381 log Internal Server Error: /register/
+Traceback (most recent call last):
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py", line 944, in register
+    return render(request, 'wiki/register.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+ERROR 2025-10-27 22:53:33,385 basehttp "GET /register/ HTTP/1.1" 500 161479
+INFO 2025-10-27 22:55:34,529 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\urls.py changed, reloading.
+INFO 2025-10-27 22:55:35,078 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 22:55:40,636 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\urls.py changed, reloading.
+INFO 2025-10-27 22:55:41,144 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 22:57:40,892 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 22:57:41,803 basehttp "GET / HTTP/1.1" 200 31709
+INFO 2025-10-27 22:57:42,960 basehttp "GET /login/ HTTP/1.1" 200 29118
+ERROR 2025-10-27 22:57:46,967 log Internal Server Error: /register/
+Traceback (most recent call last):
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py", line 944, in register
+    return render(request, 'wiki/register.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+ERROR 2025-10-27 22:57:46,971 basehttp "GET /register/ HTTP/1.1" 500 161485
+INFO 2025-10-27 22:58:43,624 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-10-27 22:58:44,201 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 22:58:48,620 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 22:58:49,586 basehttp "GET / HTTP/1.1" 200 31709
+INFO 2025-10-27 22:58:51,325 basehttp "GET /register/ HTTP/1.1" 200 30055
+INFO 2025-10-27 22:58:58,115 basehttp "GET /login/ HTTP/1.1" 200 29118
+INFO 2025-10-27 22:58:59,562 basehttp "GET /register/ HTTP/1.1" 200 30055
+INFO 2025-10-27 22:59:01,278 basehttp "GET /login/ HTTP/1.1" 200 29118
+INFO 2025-10-27 22:59:04,051 basehttp "GET / HTTP/1.1" 200 31709
+INFO 2025-10-27 22:59:05,832 basehttp "GET /article/volkolak/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:05,837 basehttp "GET /login/?next=/article/volkolak/ HTTP/1.1" 200 29426
+INFO 2025-10-27 22:59:09,138 basehttp "GET /category/characters/ HTTP/1.1" 200 29225
+INFO 2025-10-27 22:59:11,358 basehttp "GET /category/characters/ HTTP/1.1" 200 29225
+INFO 2025-10-27 22:59:12,167 basehttp "GET /article/iennifer-iz-vengerberga/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:12,171 basehttp "GET /login/?next=/article/iennifer-iz-vengerberga/ HTTP/1.1" 200 29441
+INFO 2025-10-27 22:59:14,401 basehttp "GET /category/monsters/ HTTP/1.1" 200 28505
+INFO 2025-10-27 22:59:14,798 basehttp "GET /category/characters/ HTTP/1.1" 200 29225
+INFO 2025-10-27 22:59:15,327 basehttp "GET / HTTP/1.1" 200 31709
+INFO 2025-10-27 22:59:15,952 basehttp "GET /login/ HTTP/1.1" 200 29118
+INFO 2025-10-27 22:59:18,092 basehttp "POST /login/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:18,144 basehttp "GET / HTTP/1.1" 200 34349
+INFO 2025-10-27 22:59:18,214 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-10-27 22:59:24,877 basehttp "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:25,034 basehttp "GET / HTTP/1.1" 200 31709
+INFO 2025-10-27 22:59:25,608 basehttp "GET /login/ HTTP/1.1" 200 29297
+INFO 2025-10-27 22:59:30,044 basehttp "POST /login/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:30,101 basehttp "GET / HTTP/1.1" 200 33949
+INFO 2025-10-27 22:59:30,173 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 22:59:30,819 basehttp "GET /my-articles/ HTTP/1.1" 200 37642
+INFO 2025-10-27 22:59:30,893 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 22:59:32,017 basehttp "GET /moderation/ HTTP/1.1" 200 31275
+INFO 2025-10-27 22:59:32,187 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 22:59:33,285 basehttp "GET /article/utopets/moderate/enhanced/ HTTP/1.1" 200 41969
+INFO 2025-10-27 22:59:33,359 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 22:59:38,504 basehttp "POST /article/utopets/moderate/enhanced/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:38,657 basehttp "GET /moderation/ HTTP/1.1" 200 30756
+INFO 2025-10-27 22:59:38,729 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-10-27 22:59:41,575 basehttp "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:41,624 basehttp "GET / HTTP/1.1" 200 31930
+INFO 2025-10-27 22:59:42,143 basehttp "GET /login/ HTTP/1.1" 200 29297
+INFO 2025-10-27 22:59:44,966 basehttp "POST /login/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:45,023 basehttp "GET / HTTP/1.1" 200 33551
+INFO 2025-10-27 22:59:45,194 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36108
+INFO 2025-10-27 22:59:45,875 basehttp "GET /my-articles/ HTTP/1.1" 200 41876
+INFO 2025-10-27 22:59:45,946 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36108
+INFO 2025-10-27 22:59:47,959 basehttp "GET /article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:48,002 basehttp "GET /login/?next=/article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:48,161 basehttp "GET /article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:48,207 basehttp "GET /login/?next=/article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:48,254 basehttp "GET /article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:48,300 basehttp "GET /login/?next=/article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:48,456 basehttp "GET /article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:48,501 basehttp "GET /login/?next=/article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:48,547 basehttp "GET /article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:48,590 basehttp "GET /login/?next=/article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:48,635 basehttp "GET /article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:48,679 basehttp "GET /login/?next=/article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:48,835 basehttp "GET /article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:48,882 basehttp "GET /login/?next=/article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:49,038 basehttp "GET /article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:49,080 basehttp "GET /login/?next=/article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:49,127 basehttp "GET /article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:49,172 basehttp "GET /login/?next=/article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:49,220 basehttp "GET /article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:49,267 basehttp "GET /login/?next=/article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:50,409 basehttp "GET /login/?next=/article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:50,493 basehttp "GET /article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:50,559 basehttp "GET /login/?next=/article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:50,627 basehttp "GET /article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:50,684 basehttp "GET /login/?next=/article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:50,835 basehttp "GET /article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:50,988 basehttp "GET /login/?next=/article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:51,149 basehttp "GET /article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:51,193 basehttp "GET /login/?next=/article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:51,239 basehttp "GET /article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:51,283 basehttp "GET /login/?next=/article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:51,330 basehttp "GET /article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:51,374 basehttp "GET /login/?next=/article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:51,524 basehttp "GET /article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:51,593 basehttp "GET /login/?next=/article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:51,642 basehttp "GET /article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:51,808 basehttp "GET /login/?next=/article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:51,862 basehttp "GET /article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:52,018 basehttp "GET /login/?next=/article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:52,064 basehttp "GET /article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:56,427 basehttp "GET /article/iennifer-iz-vengerberga/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:56,472 basehttp "GET /login/?next=/article/iennifer-iz-vengerberga/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:56,518 basehttp "GET /article/iennifer-iz-vengerberga/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:56,560 basehttp "GET /login/?next=/article/iennifer-iz-vengerberga/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:56,606 basehttp "GET /article/iennifer-iz-vengerberga/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:56,648 basehttp "GET /login/?next=/article/iennifer-iz-vengerberga/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:56,802 basehttp "GET /article/iennifer-iz-vengerberga/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:56,846 basehttp "GET /login/?next=/article/iennifer-iz-vengerberga/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:56,890 basehttp "GET /article/iennifer-iz-vengerberga/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:56,936 basehttp "GET /login/?next=/article/iennifer-iz-vengerberga/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:56,981 basehttp "GET /article/iennifer-iz-vengerberga/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:57,025 basehttp "GET /login/?next=/article/iennifer-iz-vengerberga/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:57,070 basehttp "GET /article/iennifer-iz-vengerberga/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:57,114 basehttp "GET /login/?next=/article/iennifer-iz-vengerberga/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:57,160 basehttp "GET /article/iennifer-iz-vengerberga/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:57,307 basehttp "GET /login/?next=/article/iennifer-iz-vengerberga/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:57,354 basehttp "GET /article/iennifer-iz-vengerberga/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:57,510 basehttp "GET /login/?next=/article/iennifer-iz-vengerberga/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:57,663 basehttp "GET /article/iennifer-iz-vengerberga/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:57,707 basehttp "GET /login/?next=/article/iennifer-iz-vengerberga/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:58,892 basehttp "GET /login/?next=/article/iennifer-iz-vengerberga/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:59,047 basehttp "GET /article/iennifer-iz-vengerberga/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:59,089 basehttp "GET /login/?next=/article/iennifer-iz-vengerberga/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:59,134 basehttp "GET /article/iennifer-iz-vengerberga/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:59,178 basehttp "GET /login/?next=/article/iennifer-iz-vengerberga/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:59,330 basehttp "GET /article/iennifer-iz-vengerberga/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:59,482 basehttp "GET /login/?next=/article/iennifer-iz-vengerberga/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:59,528 basehttp "GET /article/iennifer-iz-vengerberga/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:59,681 basehttp "GET /login/?next=/article/iennifer-iz-vengerberga/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:59,729 basehttp "GET /article/iennifer-iz-vengerberga/ HTTP/1.1" 302 0
+INFO 2025-10-27 22:59:59,882 basehttp "GET /login/?next=/article/iennifer-iz-vengerberga/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:00,046 basehttp "GET /article/iennifer-iz-vengerberga/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:00,091 basehttp "GET /login/?next=/article/iennifer-iz-vengerberga/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:00,139 basehttp "GET /article/iennifer-iz-vengerberga/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:00,185 basehttp "GET /login/?next=/article/iennifer-iz-vengerberga/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:00,229 basehttp "GET /article/iennifer-iz-vengerberga/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:00,272 basehttp "GET /login/?next=/article/iennifer-iz-vengerberga/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:00,317 basehttp "GET /article/iennifer-iz-vengerberga/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:00,360 basehttp "GET /login/?next=/article/iennifer-iz-vengerberga/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:00,406 basehttp "GET /article/iennifer-iz-vengerberga/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:02,058 basehttp "GET / HTTP/1.1" 200 33551
+INFO 2025-10-27 23:00:02,129 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36108
+INFO 2025-10-27 23:00:03,777 basehttp "GET /my-articles/ HTTP/1.1" 200 41876
+INFO 2025-10-27 23:00:03,951 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36108
+INFO 2025-10-27 23:00:05,740 basehttp "GET /article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:05,801 basehttp "GET /login/?next=/article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:05,860 basehttp "GET /article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:06,013 basehttp "GET /login/?next=/article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:06,164 basehttp "GET /article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:06,314 basehttp "GET /login/?next=/article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:06,473 basehttp "GET /article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:06,519 basehttp "GET /login/?next=/article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:06,564 basehttp "GET /article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:06,608 basehttp "GET /login/?next=/article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:06,654 basehttp "GET /article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:06,698 basehttp "GET /login/?next=/article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:06,745 basehttp "GET /article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:06,791 basehttp "GET /login/?next=/article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:06,839 basehttp "GET /article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:06,885 basehttp "GET /login/?next=/article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:06,933 basehttp "GET /article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:06,979 basehttp "GET /login/?next=/article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:07,135 basehttp "GET /article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:07,180 basehttp "GET /login/?next=/article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:09,170 basehttp "GET /my-articles/ HTTP/1.1" 200 41876
+INFO 2025-10-27 23:00:09,237 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36108
+INFO 2025-10-27 23:00:09,944 basehttp "GET /article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:09,987 basehttp "GET /login/?next=/article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:10,034 basehttp "GET /article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:10,078 basehttp "GET /login/?next=/article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:10,125 basehttp "GET /article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:10,168 basehttp "GET /login/?next=/article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:10,327 basehttp "GET /article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:10,479 basehttp "GET /login/?next=/article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:10,526 basehttp "GET /article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:10,570 basehttp "GET /login/?next=/article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:10,720 basehttp "GET /article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:10,767 basehttp "GET /login/?next=/article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:10,815 basehttp "GET /article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:10,861 basehttp "GET /login/?next=/article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:10,911 basehttp "GET /article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:10,956 basehttp "GET /login/?next=/article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:11,001 basehttp "GET /article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:11,046 basehttp "GET /login/?next=/article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:11,091 basehttp "GET /article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:11,247 basehttp "GET /login/?next=/article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:12,428 basehttp - Broken pipe from ('127.0.0.1', 59519)
+INFO 2025-10-27 23:00:18,046 basehttp "GET / HTTP/1.1" 200 33551
+INFO 2025-10-27 23:00:18,115 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36108
+INFO 2025-10-27 23:00:19,482 basehttp "GET /article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:19,527 basehttp "GET /login/?next=/article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:19,575 basehttp "GET /article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:19,622 basehttp "GET /login/?next=/article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:19,671 basehttp "GET /article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:19,715 basehttp "GET /login/?next=/article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:19,874 basehttp "GET /article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:19,917 basehttp "GET /login/?next=/article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:19,963 basehttp "GET /article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:20,006 basehttp "GET /login/?next=/article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:20,155 basehttp "GET /article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:20,242 basehttp "GET /login/?next=/article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:20,330 basehttp "GET /article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:20,400 basehttp "GET /login/?next=/article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:20,472 basehttp "GET /article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:20,645 basehttp "GET /login/?next=/article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:20,713 basehttp "GET /article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:20,768 basehttp "GET /login/?next=/article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:20,935 basehttp "GET /article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:20,988 basehttp "GET /login/?next=/article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:22,590 basehttp "GET /article/kaer-morkhen/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:22,633 basehttp "GET /login/?next=/article/kaer-morkhen/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:22,680 basehttp "GET /article/kaer-morkhen/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:22,826 basehttp "GET /login/?next=/article/kaer-morkhen/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:22,871 basehttp "GET /article/kaer-morkhen/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:22,915 basehttp "GET /login/?next=/article/kaer-morkhen/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:22,961 basehttp "GET /article/kaer-morkhen/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:23,006 basehttp "GET /login/?next=/article/kaer-morkhen/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:23,158 basehttp "GET /article/kaer-morkhen/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:23,202 basehttp "GET /login/?next=/article/kaer-morkhen/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:23,247 basehttp "GET /article/kaer-morkhen/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:23,403 basehttp "GET /login/?next=/article/kaer-morkhen/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:23,451 basehttp "GET /article/kaer-morkhen/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:23,606 basehttp "GET /login/?next=/article/kaer-morkhen/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:23,652 basehttp "GET /article/kaer-morkhen/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:23,695 basehttp "GET /login/?next=/article/kaer-morkhen/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:23,740 basehttp "GET /article/kaer-morkhen/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:23,887 basehttp "GET /login/?next=/article/kaer-morkhen/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:23,933 basehttp "GET /article/kaer-morkhen/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:23,977 basehttp "GET /login/?next=/article/kaer-morkhen/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:25,052 basehttp "GET /login/?next=/article/kaer-morkhen/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:25,098 basehttp "GET /article/kaer-morkhen/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:25,144 basehttp "GET /login/?next=/article/kaer-morkhen/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:25,302 basehttp "GET /article/kaer-morkhen/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:25,347 basehttp "GET /login/?next=/article/kaer-morkhen/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:25,502 basehttp - Broken pipe from ('127.0.0.1', 59598)
+INFO 2025-10-27 23:00:29,052 basehttp "GET / HTTP/1.1" 200 33551
+INFO 2025-10-27 23:00:29,118 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36108
+INFO 2025-10-27 23:00:31,973 basehttp "GET /article/geralt-iz-rivii/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:32,018 basehttp "GET /login/?next=/article/geralt-iz-rivii/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:32,064 basehttp "GET /article/geralt-iz-rivii/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:32,108 basehttp "GET /login/?next=/article/geralt-iz-rivii/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:32,254 basehttp "GET /article/geralt-iz-rivii/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:32,299 basehttp "GET /login/?next=/article/geralt-iz-rivii/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:32,347 basehttp "GET /article/geralt-iz-rivii/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:32,393 basehttp "GET /login/?next=/article/geralt-iz-rivii/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:32,443 basehttp "GET /article/geralt-iz-rivii/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:32,489 basehttp "GET /login/?next=/article/geralt-iz-rivii/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:32,536 basehttp "GET /article/geralt-iz-rivii/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:32,688 basehttp "GET /login/?next=/article/geralt-iz-rivii/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:32,733 basehttp "GET /article/geralt-iz-rivii/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:32,877 basehttp "GET /login/?next=/article/geralt-iz-rivii/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:32,926 basehttp "GET /article/geralt-iz-rivii/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:32,972 basehttp "GET /login/?next=/article/geralt-iz-rivii/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:33,021 basehttp "GET /article/geralt-iz-rivii/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:33,175 basehttp "GET /login/?next=/article/geralt-iz-rivii/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:33,334 basehttp "GET /article/geralt-iz-rivii/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:33,482 basehttp "GET /login/?next=/article/geralt-iz-rivii/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:34,559 basehttp "GET /login/?next=/article/geralt-iz-rivii/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:34,610 basehttp "GET /article/geralt-iz-rivii/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:34,654 basehttp "GET /login/?next=/article/geralt-iz-rivii/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:34,701 basehttp "GET /article/geralt-iz-rivii/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:34,745 basehttp "GET /login/?next=/article/geralt-iz-rivii/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:34,899 basehttp "GET /article/geralt-iz-rivii/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:34,944 basehttp "GET /login/?next=/article/geralt-iz-rivii/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:34,990 basehttp "GET /article/geralt-iz-rivii/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:35,033 basehttp "GET /login/?next=/article/geralt-iz-rivii/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:35,078 basehttp "GET /article/geralt-iz-rivii/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:35,245 basehttp "GET /login/?next=/article/geralt-iz-rivii/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:35,437 basehttp - Broken pipe from ('127.0.0.1', 59716)
+INFO 2025-10-27 23:00:38,099 basehttp "GET /category/characters/ HTTP/1.1" 200 30747
+INFO 2025-10-27 23:00:38,269 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36108
+INFO 2025-10-27 23:00:39,445 basehttp "GET /article/iennifer-iz-vengerberga/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:39,490 basehttp "GET /login/?next=/article/iennifer-iz-vengerberga/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:39,536 basehttp "GET /article/iennifer-iz-vengerberga/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:39,691 basehttp "GET /login/?next=/article/iennifer-iz-vengerberga/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:39,737 basehttp "GET /article/iennifer-iz-vengerberga/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:39,895 basehttp "GET /login/?next=/article/iennifer-iz-vengerberga/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:40,052 basehttp "GET /article/iennifer-iz-vengerberga/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:40,095 basehttp "GET /login/?next=/article/iennifer-iz-vengerberga/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:40,140 basehttp "GET /article/iennifer-iz-vengerberga/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:40,184 basehttp "GET /login/?next=/article/iennifer-iz-vengerberga/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:40,336 basehttp "GET /article/iennifer-iz-vengerberga/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:40,489 basehttp "GET /login/?next=/article/iennifer-iz-vengerberga/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:40,647 basehttp "GET /article/iennifer-iz-vengerberga/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:40,692 basehttp "GET /login/?next=/article/iennifer-iz-vengerberga/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:40,850 basehttp "GET /article/iennifer-iz-vengerberga/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:41,003 basehttp "GET /login/?next=/article/iennifer-iz-vengerberga/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:41,051 basehttp "GET /article/iennifer-iz-vengerberga/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:41,096 basehttp "GET /login/?next=/article/iennifer-iz-vengerberga/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:41,254 basehttp "GET /article/iennifer-iz-vengerberga/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:41,299 basehttp "GET /login/?next=/article/iennifer-iz-vengerberga/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:00:59,226 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36108
+INFO 2025-10-27 23:01:29,221 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36108
+INFO 2025-10-27 23:01:59,213 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36108
+INFO 2025-10-27 23:02:29,316 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36108
+INFO 2025-10-27 23:02:59,340 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36108
+INFO 2025-10-27 23:03:29,211 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36108
+INFO 2025-10-27 23:03:45,633 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-10-27 23:03:46,153 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 23:03:56,936 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-10-27 23:03:57,436 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 23:03:59,231 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36108
+INFO 2025-10-27 23:04:04,191 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-10-27 23:04:04,658 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 23:04:47,469 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-10-27 23:04:47,967 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 23:05:00,239 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36108
+INFO 2025-10-27 23:05:27,839 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\witcher_wiki\settings.py changed, reloading.
+INFO 2025-10-27 23:05:28,383 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 23:05:45,306 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\witcher_wiki\settings.py changed, reloading.
+INFO 2025-10-27 23:05:45,826 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 23:06:00,342 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36108
+INFO 2025-10-27 23:06:29,965 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\witcher_wiki\settings.py changed, reloading.
+INFO 2025-10-27 23:06:30,513 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 23:06:36,574 autoreload Watching for file changes with StatReloader
+INFO 2025-10-27 23:06:37,704 basehttp "GET / HTTP/1.1" 200 33551
+INFO 2025-10-27 23:06:38,115 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36108
+INFO 2025-10-27 23:06:39,453 basehttp "GET /article/utopets/ HTTP/1.1" 200 56010
+INFO 2025-10-27 23:06:39,627 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36108
+INFO 2025-10-27 23:06:47,143 basehttp "GET /my-articles/ HTTP/1.1" 200 41876
+INFO 2025-10-27 23:06:47,325 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36108
+INFO 2025-10-27 23:06:48,201 basehttp "GET /article/utopets/ HTTP/1.1" 200 56010
+INFO 2025-10-27 23:06:48,273 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36108
+INFO 2025-10-27 23:06:51,004 basehttp "GET /article/iennifer-iz-vengerberga/ HTTP/1.1" 200 58165
+INFO 2025-10-27 23:06:51,080 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36108
+INFO 2025-10-27 23:06:51,110 basehttp "GET /media/article_media/video_2025-10-26_23-40-51.mp4 HTTP/1.1" 200 1275041
+INFO 2025-10-27 23:06:54,943 basehttp "GET /liked-articles/ HTTP/1.1" 200 45434
+INFO 2025-10-27 23:06:55,118 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36108
+INFO 2025-10-27 23:06:55,194 basehttp "GET /my-articles/ HTTP/1.1" 200 41876
+INFO 2025-10-27 23:06:55,267 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36108
+INFO 2025-10-27 23:06:55,669 basehttp "GET /category/locations/ HTTP/1.1" 200 30669
+INFO 2025-10-27 23:06:55,745 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36108
+INFO 2025-10-27 23:06:56,115 basehttp "GET /category/monsters/ HTTP/1.1" 200 30443
+INFO 2025-10-27 23:06:56,188 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36108
+INFO 2025-10-27 23:06:56,706 basehttp "GET /category/characters/ HTTP/1.1" 200 30747
+INFO 2025-10-27 23:06:56,883 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36108
+INFO 2025-10-27 23:06:57,038 basehttp "GET /search/ HTTP/1.1" 200 43347
+INFO 2025-10-27 23:06:57,111 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36108
+INFO 2025-10-27 23:06:57,444 basehttp "GET / HTTP/1.1" 200 33551
+INFO 2025-10-27 23:06:57,516 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36108
+INFO 2025-10-27 23:06:59,434 basehttp "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:06:59,487 basehttp "GET / HTTP/1.1" 200 31930
+INFO 2025-10-27 23:07:00,021 basehttp "GET /login/ HTTP/1.1" 200 29297
+INFO 2025-10-27 23:07:02,854 basehttp "POST /login/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:07:03,013 basehttp "GET / HTTP/1.1" 200 34570
+INFO 2025-10-27 23:07:03,181 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-10-27 23:07:06,617 basehttp "GET /editor/dashboard/ HTTP/1.1" 200 31390
+INFO 2025-10-27 23:07:06,683 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-10-27 23:07:07,241 basehttp "GET /categories/ HTTP/1.1" 200 39263
+INFO 2025-10-27 23:07:07,307 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-10-27 23:07:07,772 basehttp "GET /moderation/ HTTP/1.1" 200 30816
+INFO 2025-10-27 23:07:07,966 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-10-27 23:07:08,269 basehttp "GET /liked-articles/ HTTP/1.1" 200 48237
+INFO 2025-10-27 23:07:08,446 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-10-27 23:07:08,788 basehttp "GET /my-articles/ HTTP/1.1" 200 43047
+INFO 2025-10-27 23:07:08,950 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-10-27 23:07:09,312 basehttp "GET /category/monsters/ HTTP/1.1" 200 31462
+INFO 2025-10-27 23:07:09,378 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-10-27 23:07:09,759 basehttp "GET /category/locations/ HTTP/1.1" 200 31688
+INFO 2025-10-27 23:07:09,829 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-10-27 23:07:10,380 basehttp "GET /user-management/ HTTP/1.1" 200 81373
+INFO 2025-10-27 23:07:10,451 basehttp "GET /media/avatars/avatars/user_3/avatar.png HTTP/1.1" 304 0
+INFO 2025-10-27 23:07:10,456 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-10-27 23:07:14,362 basehttp "GET /admin/ HTTP/1.1" 200 16580
+INFO 2025-10-27 23:07:19,300 basehttp "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:07:19,350 basehttp "GET / HTTP/1.1" 200 31930
+INFO 2025-10-27 23:07:20,339 basehttp "GET / HTTP/1.1" 200 31930
+INFO 2025-10-27 23:07:21,616 basehttp "GET /article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:07:21,620 basehttp "GET /login/?next=/article/utopets/ HTTP/1.1" 200 29582
+INFO 2025-10-27 23:07:26,282 basehttp "POST /login/?next=/article/utopets/ HTTP/1.1" 302 0
+INFO 2025-10-27 23:07:26,459 basehttp "GET /article/utopets/ HTTP/1.1" 200 57474
+INFO 2025-10-27 23:07:26,535 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-10-27 23:07:57,317 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127

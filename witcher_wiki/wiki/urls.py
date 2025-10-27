@@ -1,6 +1,8 @@
 from django.urls import path
 from . import views
 from .views import user_management
+from django.contrib.auth import views as auth_views
+from .views import register
 
 app_name = 'wiki'
 
@@ -71,5 +73,16 @@ urlpatterns = [
     path('message/<int:message_id>/delete/', views.message_delete, name='message_delete'),
     path('message/send-quick/<int:user_id>/', views.send_quick_message, name='send_quick_message'),
     path('messages/unread-count/', views.get_unread_count, name='get_unread_count'),
+    # Аутентификация
+    path('login/', auth_views.LoginView.as_view(
+        template_name='registration/login.html',  # ИЗМЕНИТЬ путь
+        redirect_authenticated_user=True
+    ), name='login'),
+    path('login/', auth_views.LoginView.as_view(
+        template_name='registration/login.html',  # ИЗМЕНИТЬ путь
+        redirect_authenticated_user=True
+    ), name='login'),
 
+    path('logout/', auth_views.LogoutView.as_view(next_page='wiki:home'), name='logout'),
+    path('register/', register, name='register'),
 ]

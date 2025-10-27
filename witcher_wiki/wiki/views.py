@@ -15,6 +15,7 @@ from django.contrib.auth.decorators import user_passes_test
 from django.contrib import messages
 from .models import Article, Category, Comment, ArticleMedia, UserProfile, ArticleLike, ModerationComment, SearchQuery, Message
 from .forms import ArticleForm, CommentForm, SearchForm, CategoryForm, ProfileUpdateForm, MessageForm, QuickMessageForm
+from django.urls import reverse
 
 def clean_latex_from_content(content):
     """
@@ -313,14 +314,25 @@ def article_create(request):
 
 
 def article_detail(request, slug):
+    print(f"DEBUG: article_detail called for slug: {slug}")
+    print(f"DEBUG: User authenticated: {request.user.is_authenticated}")
+    print(f"DEBUG: User: {request.user}")
     article = get_object_or_404(Article, slug=slug)
+
+    # Проверяем авторизацию пользователя - ИСПРАВЛЕННАЯ ПРОВЕРКА
+    if not request.user.is_authenticated:
+        print(f"DEBUG: User not authenticated, redirecting to login")
+        messages.warning(request, 'Для просмотра статей необходимо авторизоваться.')
+        # Используем reverse для получения URL
+        login_url = reverse('wiki:login')
+        return redirect(f'{login_url}?next={request.path}')
 
     # Проверяем права на просмотр
     if article.status != 'published' and not article.can_edit(request.user):
         return render(request, 'wiki/access_denied.html', {
             'message': 'У вас нет прав для просмотра этой статьи.'
         })
-
+    print(f"DEBUG: User is authenticated, proceeding to article")
     # Увеличиваем счетчик просмотров только для опубликованных статей
     if article.status == 'published' and hasattr(article, 'views_count'):
         article.views_count += 1
@@ -335,16 +347,13 @@ def article_detail(request, slug):
     # Форма для добавления комментария
     comment_form = CommentForm()
 
-    # Обработка добавления комментария (ТОЛЬКО ОДНА обработка POST)
+    # Обработка добавления комментария
     if request.method == 'POST' and request.user.is_authenticated:
-        print(f"DEBUG: POST request received from {request.user.username}")
         comment_form = CommentForm(request.POST)
         if comment_form.is_valid():
-            print(f"DEBUG: Form is valid")
             comment = comment_form.save(commit=False)
             comment.article = article
             comment.author = request.user
-            print(f"DEBUG: Comment content: {comment.content}")
 
             # Обработка родительского комментария (для ответов)
             parent_id = request.POST.get('parent_id')
@@ -352,19 +361,13 @@ def article_detail(request, slug):
                 try:
                     parent_comment = Comment.objects.get(id=parent_id)
                     comment.parent = parent_comment
-                    print(f"DEBUG: Reply to comment {parent_id}")
                 except Comment.DoesNotExist:
-                    print(f"DEBUG: Parent comment {parent_id} not found")
                     pass
 
             comment.save()
-            print(f"DEBUG: Comment saved with ID: {comment.id}")
             messages.success(request, 'Комментарий добавлен!')
-
-            # После сохранения перезагружаем страницу чтобы показать новый комментарий
             return redirect('wiki:article_detail', slug=article.slug)
         else:
-            print(f"DEBUG: Form errors: {comment_form.errors}")
             messages.error(request, 'Ошибка при добавлении комментария. Проверьте форму.')
 
     context = {
@@ -933,7 +936,7 @@ def register(request):
     context = {
         'form': form,
     }
-    return render(request, 'wiki/register.html', context)
+    return render(request, 'accounts/register.html', context)
 
 
 def user_public_profile(request, username):
