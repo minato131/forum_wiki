@@ -29,6 +29,14 @@
             </div>
 
             <div class="form-group">
+                <label for="id_email">📧 Email:</label>
+                <input type="email" id="id_email" name="email" required class="form-control"
+                       value="{{ form.email.value|default:'' }}"
+                       autocomplete="email">
+                <small class="form-text">На этот email будут приходить уведомления о модерации статей.</small>
+            </div>
+
+            <div class="form-group">
                 <label for="id_password1">🔒 Пароль:</label>
                 <input type="password" id="id_password1" name="password1" required class="form-control"
                        autocomplete="new-password">
