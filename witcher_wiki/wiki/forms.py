@@ -11,6 +11,10 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 import re
+from .models import EmailVerification, TelegramVerification
+from django.core.mail import send_mail
+from django.conf import settings
+
 
 
 class ArticleForm(forms.ModelForm):
@@ -486,6 +490,13 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 import re
 
+# В forms.py ДОБАВЬТЕ:
+from django import forms
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
+import re
+
 
 class CustomUserCreationForm(UserCreationForm):
     email = forms.EmailField(
@@ -535,3 +546,155 @@ class QuickMessageForm(forms.Form):
         super().__init__(*args, **kwargs)
         self.fields['content'].help_text = 'Максимум 1000 символов'
 
+
+class EmailVerificationForm(forms.Form):
+    email = forms.EmailField(
+        required=True,
+        widget=forms.EmailInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'your@email.com'
+        })
+    )
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if User.objects.filter(email=email).exists():
+            raise ValidationError('Пользователь с таким email уже существует.')
+        return email
+
+    def send_verification_code(self, purpose='registration'):
+        email = self.cleaned_data['email']
+        # Деактивируем старые коды для этого email
+        EmailVerification.objects.filter(email=email, purpose=purpose).update(is_used=True)
+
+        # Создаем новый код
+        verification = EmailVerification.objects.create(
+            email=email,
+            purpose=purpose
+        )
+
+        # Отправляем email
+        subject = 'Код подтверждения для регистрации' if purpose == 'registration' else 'Код восстановления пароля'
+        message = f'''
+        Ваш код подтверждения: {verification.code}
+
+        Код действителен в течение 15 минут.
+
+        Если вы не запрашивали этот код, проигнорируйте это сообщение.
+        '''
+
+        send_mail(
+            subject,
+            message,
+            settings.DEFAULT_FROM_EMAIL,
+            [email],
+            fail_silently=False,
+        )
+
+        return verification
+
+
+class CodeVerificationForm(forms.Form):
+    code = forms.CharField(
+        max_length=6,
+        min_length=6,
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': '123456',
+            'maxlength': '6'
+        })
+    )
+
+    def __init__(self, *args, **kwargs):
+        self.email = kwargs.pop('email', None)
+        self.purpose = kwargs.pop('purpose', 'registration')
+        super().__init__(*args, **kwargs)
+
+    def clean_code(self):
+        code = self.cleaned_data.get('code')
+        if self.email:
+            try:
+                verification = EmailVerification.objects.get(
+                    email=self.email,
+                    code=code,
+                    purpose=self.purpose,
+                    is_used=False
+                )
+                if not verification.is_valid():
+                    raise ValidationError('Код устарел или недействителен.')
+                self.verification = verification
+            except EmailVerification.DoesNotExist:
+                raise ValidationError('Неверный код подтверждения.')
+        return code
+
+
+class CompleteRegistrationForm(UserCreationForm):
+    email = forms.EmailField(required=True, widget=forms.HiddenInput())
+    code = forms.CharField(max_length=6, widget=forms.HiddenInput())
+
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'password1', 'password2')
+
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+        if User.objects.filter(username=username).exists():
+            raise ValidationError('Пользователь с таким именем уже существует.')
+        return username
+
+
+class PasswordResetRequestForm(forms.Form):
+    email = forms.EmailField(
+        required=True,
+        widget=forms.EmailInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'your@email.com'
+        })
+    )
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if not User.objects.filter(email=email).exists():
+            raise ValidationError('Пользователь с таким email не найден.')
+        return email
+
+
+class PasswordResetForm(forms.Form):
+    new_password1 = forms.CharField(
+        widget=forms.PasswordInput(attrs={'class': 'form-control'}),
+        min_length=8
+    )
+    new_password2 = forms.CharField(
+        widget=forms.PasswordInput(attrs={'class': 'form-control'})
+    )
+    code = forms.CharField(max_length=6, widget=forms.HiddenInput())
+
+    def clean(self):
+        cleaned_data = super().clean()
+        password1 = cleaned_data.get('new_password1')
+        password2 = cleaned_data.get('new_password2')
+
+        if password1 and password2 and password1 != password2:
+            raise ValidationError('Пароли не совпадают.')
+
+        return cleaned_data
+
+
+class TelegramLoginForm(forms.Form):
+    """Форма для входа через Telegram"""
+    telegram_init_data = forms.CharField(
+        widget=forms.HiddenInput(attrs={'id': 'telegram-init-data'})
+    )
+
+    def clean_telegram_init_data(self):
+        data = self.cleaned_data.get('telegram_init_data')
+        if not data:
+            raise ValidationError('Данные Telegram не получены')
+        return data
+
+
+class TelegramConnectForm(forms.Form):
+    """Форма для привязки Telegram к существующему аккаунту"""
+    telegram_init_data = forms.CharField(
+        widget=forms.HiddenInput(attrs={'id': 'telegram-connect-data'})
+    )

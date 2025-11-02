@@ -43,6 +43,50 @@
                     {% endif %}
                 </p>
                 <p class="join-date">📅 Зарегистрирован: {{ user.date_joined|date:"d.m.Y" }}</p>
+                <!-- После формы профиля добавьте: -->
+<div class="telegram-section" style="margin-top: 30px; padding: 20px; background: rgba(212, 175, 55, 0.1); border-radius: 10px;">
+    <h3 style="color: #D4AF37; margin-bottom: 15px;">🔗 Привязка Telegram</h3>
+
+    {% if user.telegram_account %}
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div>
+                <p style="margin: 0; color: #e8e8e8;">
+                    <strong>Telegram:</strong>
+                    {% if user.telegram_account.telegram_username %}
+                        @{{ user.telegram_account.telegram_username }}
+                    {% else %}
+                        ID: {{ user.telegram_account.telegram_id }}
+                    {% endif %}
+                </p>
+                <p style="margin: 5px 0 0 0; color: #888; font-size: 0.9em;">
+                    Привязан: {{ user.telegram_account.created_at|date:"d.m.Y" }}
+                </p>
+            </div>
+            <form method="post" action="{% url 'wiki:telegram_disconnect' %}" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn" style="background: #dc3545; color: white; padding: 8px 15px;">
+                    Отвязать
+                </button>
+            </form>
+        </div>
+    {% else %}
+        <p style="color: #888; margin-bottom: 15px;">
+            Привяжите Telegram для быстрого входа без пароля
+        </p>
+
+        <!-- Telegram Connect Widget -->
+        <div id="telegram-connect-widget" style="text-align: center;">
+            <script
+                async
+                src="https://telegram.org/js/telegram-widget.js?22"
+                data-telegram-login="{{ TELEGRAM_BOT_USERNAME }}"
+                data-size="large"
+                data-auth-url="{% url 'wiki:telegram_connect' %}"
+                data-request-access="write"
+            ></script>
+        </div>
+    {% endif %}
+</div>
 
                 <!-- Соцсети -->
                 <div class="social-links">

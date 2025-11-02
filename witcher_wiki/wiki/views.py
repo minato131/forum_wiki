@@ -1,3 +1,5 @@
+from django.conf import settings
+from django.core.mail import send_mail
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q, Count, Sum
@@ -13,9 +15,13 @@ from django.http import JsonResponse
 from django.contrib.auth.models import User, Group
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib import messages
-from .models import Article, Category, Comment, ArticleMedia, UserProfile, ArticleLike, ModerationComment, SearchQuery, Message
-from .forms import ArticleForm, CommentForm, SearchForm, CategoryForm, ProfileUpdateForm, MessageForm, QuickMessageForm
+from .models import Article, Category, Comment, ArticleMedia, UserProfile, ArticleLike, ModerationComment, SearchQuery, \
+    Message, EmailVerification
+from .forms import ArticleForm, CommentForm, SearchForm, CategoryForm, ProfileUpdateForm, MessageForm, QuickMessageForm, \
+    CustomUserCreationForm, CodeVerificationForm, PasswordResetRequestForm, EmailVerificationForm, PasswordResetForm, \
+    CompleteRegistrationForm
 from django.urls import reverse
+from .models import TelegramUser
 
 def clean_latex_from_content(content):
     """
@@ -640,13 +646,6 @@ def add_moderation_comment(request, slug):
     return JsonResponse({'success': False, 'error': 'Неверный запрос'})
 
 
-def send_moderation_notification(article, action_type):
-    """Отправка уведомления автору о результате модерации"""
-    # В реальном проекте здесь будет отправка email или уведомлений в системе
-    # Пока просто логируем
-    print(f"Уведомление для {article.author.username}: Статья '{article.title}' - {action_type}")
-
-
 @login_required
 def editor_review(request, slug):
     """Страница для редактора"""
@@ -945,16 +944,22 @@ def get_categories_json(request):
 def register(request):
     """Регистрация нового пользователя"""
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = CustomUserCreationForm(request.POST)  # ИСПОЛЬЗУЕМ КАСТОМНУЮ ФОРМУ
         if form.is_valid():
             user = form.save()
-            login(request, user)  # Автоматически входим после регистрации
+
+            # Создаем профиль пользователя
+            UserProfile.objects.get_or_create(user=user)
+
+            login(request, user)
             messages.success(request, f'✅ Аккаунт создан! Добро пожаловать, {user.username}!')
             return redirect('wiki:home')
         else:
-            messages.error(request, '❌ Пожалуйста, исправьте ошибки в форме.')
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, f'❌ {error}')
     else:
-        form = UserCreationForm()
+        form = CustomUserCreationForm()
 
     context = {
         'form': form,
@@ -1705,3 +1710,222 @@ def article_delete(request, slug):
 
     return JsonResponse({'success': False, 'error': 'Неверный метод запроса'})
 
+
+def register_start(request):
+    """Начало регистрации - ввод email"""
+    if request.method == 'POST':
+        form = EmailVerificationForm(request.POST)
+        if form.is_valid():
+            try:
+                verification = form.send_verification_code('registration')
+                request.session['registration_email'] = form.cleaned_data['email']
+                messages.success(request, '📧 Код подтверждения отправлен на вашу почту!')
+                return redirect('wiki:register_verify')
+            except Exception as e:
+                messages.error(request, f'❌ Ошибка отправки email: {str(e)}')
+    else:
+        form = EmailVerificationForm()
+
+    context = {
+        'form': form,
+        'step': 1
+    }
+    return render(request, 'accounts/register_start.html', context)
+
+
+def register_verify(request):
+    """Ввод кода подтверждения"""
+    email = request.session.get('registration_email')
+    if not email:
+        messages.error(request, '❌ Сначала укажите email')
+        return redirect('wiki:register_start')
+
+    if request.method == 'POST':
+        form = CodeVerificationForm(request.POST, email=email, purpose='registration')
+        if form.is_valid():
+            verification = form.verification
+            verification.is_used = True
+            verification.save()
+            request.session['verified_email'] = email
+            request.session['verification_code'] = verification.code
+            messages.success(request, '✅ Email подтвержден!')
+            return redirect('wiki:register_complete')
+    else:
+        form = CodeVerificationForm(email=email, purpose='registration')
+
+    context = {
+        'form': form,
+        'email': email,
+        'step': 2
+    }
+    return render(request, 'accounts/register_verify.html', context)
+
+
+def register_complete(request):
+    """Завершение регистрации - ввод username и пароля"""
+    email = request.session.get('verified_email')
+    code = request.session.get('verification_code')
+
+    if not email or not code:
+        messages.error(request, '❌ Сначала подтвердите email')
+        return redirect('wiki:register_start')
+
+    if request.method == 'POST':
+        form = CompleteRegistrationForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.email = email
+            user.is_active = True
+            user.save()
+
+            # Создаем профиль
+            UserProfile.objects.get_or_create(user=user)
+
+            # Очищаем сессию
+            request.session.pop('registration_email', None)
+            request.session.pop('verified_email', None)
+            request.session.pop('verification_code', None)
+
+            login(request, user)
+            messages.success(request, f'✅ Регистрация завершена! Добро пожаловать, {user.username}!')
+            return redirect('wiki:home')
+    else:
+        form = CompleteRegistrationForm(initial={'email': email, 'code': code})
+
+    context = {
+        'form': form,
+        'step': 3
+    }
+    return render(request, 'accounts/register_complete.html', context)
+
+
+def password_reset_request(request):
+    """Запрос на восстановление пароля"""
+    if request.method == 'POST':
+        form = PasswordResetRequestForm(request.POST)
+        if form.is_valid():
+            try:
+                email = form.cleaned_data['email']
+
+                # Деактивируем старые коды для этого email
+                EmailVerification.objects.filter(email=email, purpose='password_reset').update(is_used=True)
+
+                # Создаем новый код
+                verification = EmailVerification.objects.create(
+                    email=email,
+                    purpose='password_reset'
+                )
+
+                # Отправляем email
+                subject = 'Код восстановления пароля'
+                message = f'''
+                Ваш код восстановления пароля: {verification.code}
+
+                Код действителен в течение 15 минут.
+
+                Если вы не запрашивали восстановление пароля, проигнорируйте это сообщение.
+                '''
+
+                try:
+                    send_mail(
+                        subject,
+                        message,
+                        settings.DEFAULT_FROM_EMAIL,
+                        [email],
+                        fail_silently=False,
+                    )
+
+                    request.session['reset_email'] = email
+                    messages.success(request, '📧 Код восстановления отправлен на вашу почту!')
+                    return redirect('wiki:password_reset_verify')
+
+                except Exception as e:
+                    messages.error(request, f'❌ Ошибка отправки email: {str(e)}')
+                    # Очищаем созданный код если отправка не удалась
+                    verification.delete()
+
+            except Exception as e:
+                messages.error(request, f'❌ Ошибка: {str(e)}')
+        else:
+            # Показываем ошибки формы
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, f'❌ {error}')
+    else:
+        form = PasswordResetRequestForm()
+
+    context = {
+        'form': form
+    }
+    return render(request, 'accounts/password_reset_request.html', context)
+
+
+def password_reset_verify(request):
+    """Подтверждение кода для восстановления пароля"""
+    email = request.session.get('reset_email')
+    if not email:
+        messages.error(request, '❌ Сначала укажите email')
+        return redirect('wiki:password_reset_request')
+
+    if request.method == 'POST':
+        form = CodeVerificationForm(request.POST, email=email, purpose='password_reset')
+        if form.is_valid():
+            verification = form.verification
+            verification.is_used = True
+            verification.save()
+            request.session['verified_reset_email'] = email
+            request.session['reset_code'] = verification.code
+            messages.success(request, '✅ Код подтвержден!')
+            return redirect('wiki:password_reset_complete')
+        else:
+            # Показываем ошибки формы
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, f'❌ {error}')
+    else:
+        form = CodeVerificationForm(email=email, purpose='password_reset')
+
+    context = {
+        'form': form,
+        'email': email
+    }
+    return render(request, 'accounts/password_reset_verify.html', context)
+
+
+def password_reset_complete(request):
+    """Установка нового пароля"""
+    email = request.session.get('verified_reset_email')
+    code = request.session.get('reset_code')
+
+    if not email or not code:
+        messages.error(request, '❌ Сначала подтвердите email')
+        return redirect('wiki:password_reset_request')
+
+    try:
+        user = User.objects.get(email=email)
+    except User.DoesNotExist:
+        messages.error(request, '❌ Пользователь не найден')
+        return redirect('wiki:password_reset_request')
+
+    if request.method == 'POST':
+        form = PasswordResetForm(request.POST)
+        if form.is_valid():
+            new_password = form.cleaned_data['new_password1']
+            user.set_password(new_password)
+            user.save()
+
+            # Очищаем сессию
+            request.session.pop('reset_email', None)
+            request.session.pop('verified_reset_email', None)
+            request.session.pop('reset_code', None)
+
+            messages.success(request, '✅ Пароль успешно изменен! Теперь вы можете войти.')
+            return redirect('wiki:login')
+    else:
+        form = PasswordResetForm(initial={'code': code})
+
+    context = {
+        'form': form,
+        'email': email
+    }
+    return render(request, 'accounts/password_reset_complete.html', context)

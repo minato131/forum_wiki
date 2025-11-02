@@ -85,4 +85,14 @@ urlpatterns = [
 
     path('logout/', auth_views.LogoutView.as_view(next_page='wiki:home'), name='logout'),
     path('register/', register, name='register'),
+
+    # Восстановление пароля
+    path('password-reset/', views.password_reset_request, name='password_reset_request'),
+    path('password-reset/verify/', views.password_reset_verify, name='password_reset_verify'),
+    path('password-reset/complete/', views.password_reset_complete, name='password_reset_complete'),
+
+    # Telegram Auth
+    path('auth/telegram/login/', views.telegram_login, name='telegram_login'),
+    path('auth/telegram/connect/', views.telegram_connect, name='telegram_connect'),
+    path('auth/telegram/disconnect/', views.telegram_disconnect, name='telegram_disconnect'),
 ]

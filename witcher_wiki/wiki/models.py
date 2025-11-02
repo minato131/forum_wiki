@@ -1,11 +1,13 @@
-# models.py - ЗАМЕНИТЬ весь файл на этот вариант
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
 from django.utils.text import slugify
-from django.utils import timezone
 from django_ckeditor_5.fields import CKEditor5Field
 from taggit.managers import TaggableManager
+import random
+import string
+from django.utils import timezone
+from datetime import timedelta
 
 
 class Category(models.Model):
@@ -461,6 +463,18 @@ class UserProfile(models.Model):
         verbose_name = 'Профиль пользователя'
         verbose_name_plural = 'Профили пользователей'
 
+    def get_safe_email_display(self, requesting_user):
+        """Безопасное отображение email (только для владельца и админов)"""
+        if requesting_user == self.user or requesting_user.is_staff:
+            return self.user.email
+        else:
+            # Показываем только часть email для безопасности
+            if self.user.email:
+                username, domain = self.user.email.split('@')
+                hidden_username = username[:2] + '***' + username[-1:]
+                return f"{hidden_username}@{domain}"
+            return "Скрыто"
+
     def __str__(self):
         return f'Профиль пользователя {self.user.username}'
 
@@ -476,17 +490,6 @@ class UserProfile(models.Model):
             elif '@' in self.telegram:
                 return self.telegram.replace('@', '')
         return None
-    def get_safe_email_display(self, requesting_user):
-        """Безопасное отображение email (только для владельца и админов)"""
-        if requesting_user == self.user or requesting_user.is_staff:
-            return self.user.email
-        else:
-            # Показываем только часть email для безопасности
-            if self.user.email:
-                username, domain = self.user.email.split('@')
-                hidden_username = username[:2] + '***' + username[-1:]
-                return f"{hidden_username}@{domain}"
-            return "Скрыто"
 
     def get_vk_username(self):
         """Извлекает username из ссылки VK"""
@@ -673,3 +676,85 @@ class Message(models.Model):
     def can_delete(self, user):
         """Проверяет, может ли пользователь удалить сообщение"""
         return user in [self.sender, self.recipient]
+
+class EmailVerification(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)  # ДОБАВЬТЕ null=True, blank=True
+    email = models.EmailField()
+    code = models.CharField(max_length=6)
+    created_at = models.DateTimeField(auto_now_add=True)
+    is_used = models.BooleanField(default=False)
+    purpose = models.CharField(max_length=20, choices=[
+        ('registration', 'Регистрация'),
+        ('password_reset', 'Восстановление пароля'),
+    ])
+
+    def is_valid(self):
+        """Проверяет, действителен ли код (15 минут)"""
+        return (timezone.now() - self.created_at) < timedelta(minutes=15) and not self.is_used
+
+    def generate_code(self):
+        """Генерирует 6-значный цифровой код"""
+        return ''.join(random.choices(string.digits, k=6))
+
+    def save(self, *args, **kwargs):
+        if not self.code:
+            self.code = self.generate_code()
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f"{self.email} - {self.code}"
+
+class TelegramVerification(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    telegram_id = models.BigIntegerField(unique=True)
+    telegram_username = models.CharField(max_length=32, blank=True)
+    code = models.CharField(max_length=6)
+    created_at = models.DateTimeField(auto_now_add=True)
+    is_used = models.BooleanField(default=False)
+
+    def is_valid(self):
+        return (timezone.now() - self.created_at) < timedelta(minutes=15) and not self.is_used
+
+    def generate_code(self):
+        return ''.join(random.choices(string.digits, k=6))
+
+    def save(self, *args, **kwargs):
+        if not self.code:
+            self.code = self.generate_code()
+        super().save(*args, **kwargs)
+
+
+class TelegramUser(models.Model):
+    """Модель для связи пользователя с Telegram аккаунтом"""
+    user = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+        related_name='telegram_account'
+    )
+    telegram_id = models.BigIntegerField(unique=True, verbose_name='ID в Telegram')
+    telegram_username = models.CharField(
+        max_length=32,
+        blank=True,
+        verbose_name='Username в Telegram'
+    )
+    first_name = models.CharField(max_length=64, blank=True, verbose_name='Имя в Telegram')
+    last_name = models.CharField(max_length=64, blank=True, verbose_name='Фамилия в Telegram')
+    photo_url = models.URLField(blank=True, verbose_name='Фото профиля')
+    is_verified = models.BooleanField(default=True, verbose_name='Подтвержден')
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата привязки')
+
+    class Meta:
+        verbose_name = 'Telegram пользователь'
+        verbose_name_plural = 'Telegram пользователи'
+
+    def __str__(self):
+        return f"@{self.telegram_username}" if self.telegram_username else f"ID: {self.telegram_id}"
+
+    def get_full_name(self):
+        """Возвращает полное имя"""
+        parts = []
+        if self.first_name:
+            parts.append(self.first_name)
+        if self.last_name:
+            parts.append(self.last_name)
+        return ' '.join(parts) if parts else 'Пользователь Telegram'
