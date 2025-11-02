@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Вход через Telegram{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card witcher-card">
+                <div class="card-header">
+                    <h4 class="mb-0">🔐 Вход через Telegram</h4>
+                </div>
+                <div class="card-body text-center">
+                    <p class="mb-4">Для входа через Telegram:</p>
+                    
+                    <!-- Telegram Login Widget -->
+                    <script async src="https://telegram.org/js/telegram-widget.js?22" 
+                            data-telegram-login="{{ telegram_bot_username }}" 
+                            data-size="large" 
+                            data-auth-url="{% url 'wiki:telegram_callback' %}" 
+                            data-request-access="write"></script>
+                    
+                    <div class="mt-4">
+                        <p class="text-muted small">
+                            Нажмите кнопку выше для авторизации через Telegram.<br>
+                            Бот: @{{ telegram_bot_username }}
+                        </p>
+                    </div>
+                    
+                    <div class="mt-3">
+                        <a href="{% url 'wiki:login' %}" class="btn btn-secondary">
+                            ← Назад к обычному входу
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.witcher-card {
+    background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+    border: 2px solid #D4AF37;
+    border-radius: 15px;
+    color: #e8e8e8;
+}
+
+.witcher-card .card-header {
+    background: linear-gradient(135deg, #8B4513 0%, #D4AF37 50%, #8B4513 100%);
+    color: #1a1a1a;
+    border-bottom: 2px solid #D4AF37;
+    font-family: 'Cinzel', serif;
+}
+
+.btn-secondary {
+    background: #6c757d;
+    border: 2px solid #D4AF37;
+    color: #e8e8e8;
+}
+
+.btn-secondary:hover {
+    background: #5a6268;
+    color: #fff;
+}
+
+.text-muted {
+    color: #888 !important;
+}
+</style>
+{% endblock %}

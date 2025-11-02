@@ -31,6 +31,27 @@
                     </div>
                 {% endif %}
             </div>
+                        <div class="card mt-4">
+                <div class="card-header">
+                    <h5>🔗 Привязанные аккаунты</h5>
+                </div>
+                <div class="card-body">
+                    {% if user.telegram_account %}
+                        <p>Telegram: @{{ user.telegram_account.telegram_username }}</p>
+                        <form method="post" action="{% url 'wiki:telegram_disconnect %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-warning btn-sm">
+                                Отвязать Telegram
+                            </button>
+                        </form>
+                    {% else %}
+                        <p>Telegram: не привязан</p>
+                        <a href="{% url 'wiki:telegram_login' %}" class="btn btn-primary btn-sm">
+                            Привязать Telegram
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
 
             <div style="text-align: center;">
                 <h3 style="color: #D4AF37; margin-bottom: 15px;">{{ user.username }}</h3>

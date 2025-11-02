@@ -95,4 +95,9 @@ urlpatterns = [
     path('auth/telegram/login/', views.telegram_login, name='telegram_login'),
     path('auth/telegram/connect/', views.telegram_connect, name='telegram_connect'),
     path('auth/telegram/disconnect/', views.telegram_disconnect, name='telegram_disconnect'),
+
+    path('auth/telegram/', views.telegram_login, name='telegram_login'),
+    path('auth/telegram/callback/', views.telegram_callback, name='telegram_callback'),
+    path('auth/telegram/connect/', views.telegram_connect, name='telegram_connect'),
+    path('auth/telegram/disconnect/', views.telegram_disconnect, name='telegram_disconnect'),
 ]

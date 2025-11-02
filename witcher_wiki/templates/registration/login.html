@@ -50,29 +50,22 @@
         </div>
     </div>
 </div>
-<!-- Telegram Auth Section -->
-<div class="telegram-auth-section" style="margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(212, 175, 55, 0.2);">
-    <p style="text-align: center; color: #888; margin-bottom: 15px;">Или войдите через</p>
-
     <!-- Кастомная кнопка Telegram -->
-    <div style="text-align: center;">
-        <a href="https://t.me/{{ TELEGRAM_BOT_USERNAME }}?start=auth"
-           class="telegram-btn"
-           style="display: inline-flex; align-items: center; justify-content: center; gap: 10px; background: #0088cc; color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: bold; transition: all 0.3s;">
-            <span style="font-size: 1.2em;">📱</span>
-            Войти через Telegram
-        </a>
-    </div>
-
-    <p style="text-align: center; font-size: 0.9em; color: #666; margin-top: 10px;">
-        Быстрый вход без пароля
-    </p>
-
+                    <div class="text-center">
+                        <p class="mb-2">Или войдите через:</p>
+                        <a href="{% url 'wiki:telegram_login' %}" class="btn telegram-btn w-100">
+                            <i class="fab fa-telegram"></i> Telegram
+                        </a>
+                    </div>
 <style>
+.telegram-btn {
+    background: #0088cc;
+    color: white;
+    border: none;
+}
 .telegram-btn:hover {
-    background: #0077b3 !important;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 136, 204, 0.3);
+    background: #0077b3;
+    color: white;
 }
 </style>
 

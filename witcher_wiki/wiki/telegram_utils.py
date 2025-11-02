@@ -1,13 +1,8 @@
 import hashlib
 import hmac
 import json
-import requests
-from datetime import datetime, timedelta
-from django.conf import settings
 from django.contrib.auth.models import User
-from django.utils import timezone
-from .models import TelegramUser, TelegramVerification
-
+from .models import TelegramUser, UserProfile
 
 class TelegramAuth:
     """Класс для аутентификации через Telegram"""
@@ -26,11 +21,12 @@ class TelegramAuth:
             hash_value = None
 
             for pair in data_pairs:
-                key, value = pair.split('=')
-                if key == 'hash':
-                    hash_value = value
-                else:
-                    data_dict[key] = value
+                if '=' in pair:
+                    key, value = pair.split('=', 1)
+                    if key == 'hash':
+                        hash_value = value
+                    else:
+                        data_dict[key] = value
 
             if not hash_value:
                 return False, "Hash not found"
@@ -59,7 +55,8 @@ class TelegramAuth:
                 return False, "Invalid hash"
 
             # Парсим user данные
-            user_data = json.loads(data_dict.get('user', '{}'))
+            user_data_str = data_dict.get('user', '{}')
+            user_data = json.loads(user_data_str)
             return True, user_data
 
         except Exception as e:
@@ -100,6 +97,9 @@ class TelegramAuth:
                 email=f"{django_username}@telegram.user",
                 password=None  # Пароль не нужен для Telegram входа
             )
+            user.first_name = first_name
+            user.last_name = last_name
+            user.save()
 
             # Создаем профиль Telegram
             telegram_user = TelegramUser.objects.create(
@@ -111,13 +111,7 @@ class TelegramAuth:
                 photo_url=photo_url
             )
 
-            # Создаем UserProfile если нужно
-            from .models import UserProfile
+            # Создаем UserProfile
             UserProfile.objects.get_or_create(user=user)
 
             return user, True  # Новый пользователь
-
-
-def get_telegram_bot_token():
-    """Получает токен бота из настроек"""
-    return getattr(settings, 'TELEGRAM_BOT_TOKEN', '')

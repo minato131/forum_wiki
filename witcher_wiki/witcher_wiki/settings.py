@@ -237,13 +237,6 @@ LOGGING = {
 DATA_UPLOAD_MAX_MEMORY_SIZE = 5242880  # 5MB
 FILE_UPLOAD_MAX_MEMORY_SIZE = 5242880  # 5MB
 
-# Cache configuration (optional, для производительности)
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
-        'LOCATION': 'app_cache_table',
-    }
-}
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
@@ -258,4 +251,4 @@ TELEGRAM_BOT_TOKEN = '8536807582:AAFRhIBzueLRS6x-nNMBj4D_qJ0o7OOWHi4'  # Зам�
 TELEGRAM_BOT_USERNAME = 'Witcher_forum_bot'  # Username вашего бота без @
 
 # Telegram Web App Settings
-TELEGRAM_WEB_APP_URL = 'https://127.0.0.1:8000'  # URL вашего сайта
+TELEGRAM_WEB_APP_URL = 'http://127.0.0.1:8000'  # URL вашего сайта
