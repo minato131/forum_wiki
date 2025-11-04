@@ -1,0 +1,262 @@
+<!-- Witcher Wiki Custom Styles -->
+<style>
+/* Witcher Wiki Custom Styles */
+
+:root {
+  --primary-color: #d4af37;
+  --secondary-color: #1a202c;
+  --text-color: #2d3748;
+  --light-bg: #f7fafc;
+  --border-color: #e2e8f0;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+/* Header */
+.header {
+  background: var(--secondary-color);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+  font-family: "Cinzel", serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--primary-color) !important;
+  text-decoration: none;
+}
+
+/* Hero Section */
+.hero-section {
+  background: linear-gradient(135deg, var(--secondary-color) 0%, #2d3748 100%);
+  color: white;
+  padding: 80px 0;
+}
+
+.hero-title {
+  font-family: "Cinzel", serif;
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.hero-subtitle {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  opacity: 0.9;
+}
+
+.hero-search .form-control {
+  border-radius: 25px 0 0 25px;
+  border: none;
+  padding: 12px 20px;
+}
+
+.hero-search .btn {
+  border-radius: 0 25px 25px 0;
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+  padding: 12px 30px;
+}
+
+/* Section Titles */
+.section-title {
+  font-family: "Cinzel", serif;
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--secondary-color);
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+/* Cards */
+.article-card {
+  border: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  height: 100%;
+}
+
+.article-card:hover {
+  transform: translateY(-5px);
+}
+
+.category-card {
+  border: 2px solid var(--border-color);
+  transition: all 0.3s ease;
+  height: 100%;
+}
+
+.category-card:hover {
+  border-color: var(--primary-color);
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.2);
+}
+
+.category-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Article Detail */
+.article-title {
+  font-family: "Cinzel", serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--secondary-color);
+}
+
+.article-meta {
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 1rem;
+  margin-bottom: 2rem;
+}
+
+.article-content {
+  font-size: 1.1rem;
+  line-height: 1.8;
+}
+
+.article-content h2 {
+  font-family: "Cinzel", serif;
+  color: var(--secondary-color);
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.article-content h3 {
+  color: var(--secondary-color);
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+/* Comments */
+.comment {
+  border-left: 3px solid var(--primary-color);
+  padding-left: 1rem;
+  background: var(--light-bg);
+  padding: 1rem;
+  border-radius: 0 8px 8px 0;
+}
+
+/* Footer */
+.footer {
+  background: var(--secondary-color);
+  color: white;
+  padding: 2rem 0;
+  margin-top: 4rem;
+}
+
+/* Buttons */
+.btn-primary {
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.btn-primary:hover {
+  background: #b8941f;
+  border-color: #b8941f;
+}
+
+/* Forms */
+.form-control:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 0.2rem rgba(212, 175, 55, 0.25);
+}
+
+/* Editor Styles */
+.editor-header {
+  background: #FFFFFF;
+  border-bottom: 1px solid var(--border-color);
+  padding: 16px 0;
+}
+
+.editor-title {
+  font-family: "Cinzel", serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--secondary-color);
+}
+
+.editor-content {
+  background: #FFFFFF;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.editor-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.editor-tab {
+  padding: 12px 24px;
+  background: none;
+  border: none;
+  font-size: 14px;
+  font-weight: 500;
+  color: #718096;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.editor-tab.active {
+  color: var(--primary-color);
+  border-bottom-color: var(--primary-color);
+}
+
+.rich-editor {
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.editor-toolbar {
+  background: #F7FAFC;
+  border-bottom: 1px solid var(--border-color);
+  padding: 8px 12px;
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.editor-area {
+  min-height: 400px;
+  padding: 16px;
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-color);
+  outline: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+  }
+
+  .editor-nav {
+    flex-direction: column;
+    gap: 12px;
+    align-items: stretch;
+  }
+
+  .editor-actions {
+    justify-content: center;
+  }
+}
+</style>

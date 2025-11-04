@@ -27,6 +27,9 @@ from django.conf import settings
 from .models import TelegramUser, UserProfile
 import json
 
+from .telegram_utils import TelegramAuth
+
+
 def clean_latex_from_content(content):
     """
     Удаляет LaTeX-команды из контента
@@ -191,40 +194,56 @@ def search(request):
 @login_required
 def profile(request):
     """Страница профиля пользователя с возможностью редактирования"""
+    print(f"=== CUSTOM PROFILE VIEW CALLED ===")
+    print(f"User: {request.user}")
+
     # Получаем или создаем профиль пользователя
     user_profile, created = UserProfile.objects.get_or_create(user=request.user)
+    print(f"UserProfile created: {created}")
 
+    # Обработка POST запросов из формы
     if request.method == 'POST':
-        form = ProfileUpdateForm(
-            request.POST,
-            request.FILES,
-            instance=user_profile,
-            user=request.user
-        )
-        if form.is_valid():
-            form.save()
-            messages.success(request, '✅ Ваш профиль был успешно обновлен!')
+        print(f"POST data: {request.POST}")
+
+        # Обработка обновления аватара
+        if 'update_avatar' in request.POST and request.FILES.get('avatar'):
+            user_profile.avatar = request.FILES['avatar']
+            user_profile.save()
+            messages.success(request, '✅ Аватар обновлен!')
             return redirect('wiki:profile')
-        else:
-            messages.error(request, '❌ Пожалуйста, исправьте ошибки в форме.')
-    else:
-        form = ProfileUpdateForm(instance=user_profile, user=request.user)
 
-    # Статистика пользователя
-    user_articles_count = request.user.articles.count()
-    published_articles_count = request.user.articles.filter(status='published').count()
+        # Обработка обновления профиля
+        elif 'update_profile' in request.POST:
+            user_profile.vk = request.POST.get('vk', '')
+            user_profile.telegram = request.POST.get('telegram', '')
+            user_profile.discord = request.POST.get('discord', '')
+            user_profile.youtube = request.POST.get('youtube', '')
+            user_profile.bio = request.POST.get('bio', '')
+            user_profile.save()
+            messages.success(request, '✅ Настройки профиля сохранены!')
+            return redirect('wiki:profile')
 
-    # Количество лайков пользователя
+    # Статистика пользователя - ИСПРАВЛЕННЫЕ ЗАПРОСЫ
+    user_articles_count = Article.objects.filter(author=request.user).count()
+    published_articles_count = Article.objects.filter(author=request.user, status='published').count()
+
+    # Исправленный запрос для лайков
     liked_articles_count = ArticleLike.objects.filter(user=request.user).count()
 
-    # Общее количество просмотров статей пользователя
-    total_views = request.user.articles.aggregate(total_views=Sum('views_count'))['total_views'] or 0
+    # Исправленный запрос для просмотров
+    total_views = Article.objects.filter(author=request.user).aggregate(
+        total_views=Sum('views_count')
+    )['total_views'] or 0
 
-    # Последние статьи пользователя
-    recent_articles = request.user.articles.filter(status='published').order_by('-created_at')[:5]
+    # Последние статьи (все статусы)
+    recent_articles = Article.objects.filter(author=request.user).order_by('-created_at')[:5]
+
+    print(f"=== STATS ===")
+    print(f"Articles: {user_articles_count}, Published: {published_articles_count}")
+    print(f"Likes: {liked_articles_count}, Views: {total_views}")
+    print(f"Recent articles: {recent_articles.count()}")
 
     context = {
-        'form': form,
         'user': request.user,
         'user_profile': user_profile,
         'user_articles_count': user_articles_count,
@@ -232,8 +251,10 @@ def profile(request):
         'liked_articles_count': liked_articles_count,
         'total_views': total_views,
         'recent_articles': recent_articles,
+        'TELEGRAM_BOT_USERNAME': getattr(settings, 'TELEGRAM_BOT_USERNAME', ''),
     }
-    return render(request, 'wiki/profile.html', context)
+
+    return render(request, 'accounts/profile.html', context)
 
 
 @login_required
@@ -2035,3 +2056,4 @@ def telegram_disconnect(request):
         messages.error(request, '❌ Telegram аккаунт не привязан')
 
     return redirect('wiki:profile')
+

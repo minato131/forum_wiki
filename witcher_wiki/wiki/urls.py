@@ -51,6 +51,7 @@ urlpatterns = [
     # Пользовательские профили
     path('user/<str:username>/', views.user_public_profile, name='user_public_profile'),
     path('liked-articles/', views.liked_articles, name='liked_articles'),
+    path('accounts/profile/', views.profile, name='profile'),
 
     # Отладка
     path('debug/test-like/', views.debug_test_like, name='debug_test_like'),
