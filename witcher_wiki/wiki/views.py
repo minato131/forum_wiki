@@ -29,7 +29,7 @@ import json
 from .telegram_auth_manager import TelegramAuthManager
 from .telegram_bot_sync import sync_bot
 from .telegram_utils import TelegramAuth
-
+from django.contrib.auth import login as auth_login
 
 def clean_latex_from_content(content):
     """
@@ -2076,3 +2076,94 @@ def telegram_link_with_code(request):
         return redirect('wiki:profile')
 
     return redirect('wiki:profile')
+
+
+# В views.py ДОБАВИТЬ новые функции:
+
+def telegram_webapp_login(request):
+    """Страница входа через Telegram Web App"""
+    if request.user.is_authenticated:
+        return redirect('wiki:home')
+
+    return render(request, 'wiki/telegram_webapp_login.html', {
+        'telegram_bot_username': getattr(settings, 'TELEGRAM_BOT_USERNAME', ''),
+    })
+
+
+def telegram_webapp_callback(request):
+    """Обработка callback от Telegram Web App для входа"""
+    if request.method == 'POST':
+        try:
+            init_data = request.POST.get('initData', '')
+
+            if not init_data:
+                return JsonResponse({'success': False, 'error': 'Не удалось получить данные от Telegram'})
+
+            # Проверяем данные Telegram
+            telegram_auth = TelegramAuth(settings.TELEGRAM_BOT_TOKEN)
+            is_valid, user_data = telegram_auth.verify_telegram_webapp_data(init_data)
+
+            if not is_valid:
+                return JsonResponse({'success': False, 'error': 'Неверные данные авторизации'})
+
+            # Аутентифицируем пользователя
+            user, is_new = telegram_auth.authenticate_user(request, user_data)
+
+            if user:
+                response_data = {
+                    'success': True,
+                    'is_new': is_new,
+                    'username': user.username,
+                    'redirect_url': reverse('wiki:home')
+                }
+
+                if is_new:
+                    response_data['message'] = f'Добро пожаловать, {user.username}! Аккаунт создан автоматически.'
+                else:
+                    response_data['message'] = f'С возвращением, {user.username}!'
+
+                return JsonResponse(response_data)
+            else:
+                return JsonResponse({'success': False, 'error': 'Ошибка аутентификации'})
+
+        except Exception as e:
+            return JsonResponse({'success': False, 'error': f'Ошибка авторизации: {str(e)}'})
+
+    return JsonResponse({'success': False, 'error': 'Неверный метод запроса'})
+
+
+# В views.py ЗАМЕНИТЬ функцию telegram_quick_login:
+
+def telegram_quick_login(request):
+    """Простой быстрый вход через Telegram"""
+    if request.user.is_authenticated:
+        return redirect('wiki:home')
+
+    # Получаем параметры из URL
+    telegram_id = request.GET.get('tg_id')
+    username = request.GET.get('username')
+
+    if telegram_id:
+        try:
+            # Ищем пользователя по telegram_id
+            telegram_user = TelegramUser.objects.get(telegram_id=telegram_id)
+            user = telegram_user.user
+
+            # Логиним пользователя
+            auth_login(request, user)
+
+            messages.success(request, f'✅ Добро пожаловать, {user.username}!')
+
+            # Перенаправляем на главную
+            return redirect('wiki:home')
+
+        except TelegramUser.DoesNotExist:
+            messages.error(request,
+                           '❌ Аккаунт не привязан. Сначала привяжите Telegram аккаунт через команду /auth в боте.')
+        except Exception as e:
+            messages.error(request, f'❌ Ошибка входа: {str(e)}')
+
+    # Показываем инструкцию
+    return render(request, 'wiki/telegram_quick_login.html', {
+        'telegram_bot_username': getattr(settings, 'TELEGRAM_BOT_USERNAME', ''),
+    })

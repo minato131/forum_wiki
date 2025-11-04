@@ -743,17 +743,20 @@ class TelegramUser(models.Model):
     photo_url = models.URLField(blank=True, verbose_name='Фото профиля')
     auth_date = models.DateTimeField(
         verbose_name='Дата авторизации',
-        default=timezone.now  # ДОБАВЛЕНО default значение
+        default=timezone.now
     )
     hash = models.CharField(
         max_length=255,
         verbose_name='Хеш авторизации',
-        blank=True,  # ДОБАВЛЕНО blank=True для существующих записей
-        default=''   # ДОБАВЛЕНО default значение
+        blank=True,
+        default=''
     )
     is_verified = models.BooleanField(default=True, verbose_name='Подтвержден')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата привязки')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Обновлено')
+
+    # Новое поле для Web App авторизации
+    web_app_data = models.JSONField('Данные Web App', blank=True, null=True)
 
     class Meta:
         verbose_name = 'Telegram пользователь'
@@ -771,7 +774,6 @@ class TelegramUser(models.Model):
             parts.append(self.last_name)
         return ' '.join(parts) if parts else 'Пользователь Telegram'
 
-
 class AuthCode(models.Model):
     """Модель для хранения кодов авторизации Telegram"""
     code = models.CharField('Код', max_length=6, unique=True)
@@ -781,8 +783,8 @@ class AuthCode(models.Model):
 
     # Статус использования
     is_used = models.BooleanField('Использован', default=False)
-    used_by = models.ForeignKey('User', on_delete=models.SET_NULL, null=True, blank=True,
-                                verbose_name='Использован пользователем')
+    used_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True,
+                                verbose_name='Использован пользователем', related_name='used_auth_codes')
     used_at = models.DateTimeField('Время использования', null=True, blank=True)
 
     # Срок действия
@@ -800,3 +802,25 @@ class AuthCode(models.Model):
     def is_expired(self):
         import time
         return time.time() > self.expires_at
+
+
+class TelegramLoginToken(models.Model):
+    """Временные токены для быстрого входа через Telegram"""
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь')
+    token = models.CharField('Токен', max_length=64, unique=True)
+    telegram_user_id = models.BigIntegerField('ID пользователя Telegram')
+    created_at = models.DateTimeField('Создан', auto_now_add=True)
+    expires_at = models.DateTimeField('Истекает')
+    is_used = models.BooleanField('Использован', default=False)
+
+    class Meta:
+        verbose_name = 'Токен входа Telegram'
+        verbose_name_plural = 'Токены входа Telegram'
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"Токен для {self.user.username}"
+
+    def is_valid(self):
+        """Проверяет, действителен ли токен"""
+        return not self.is_used and timezone.now() < self.expires_at

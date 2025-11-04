@@ -1,0 +1,313 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Быстрый вход через Telegram{% endblock %}
+
+{% block content %}
+<div class="quick-login-container">
+    <div class="quick-login-card">
+        <div class="login-header">
+            <div class="login-icon">⚔️</div>
+            <h1>Быстрый вход</h1>
+            <p>Через Telegram бот</p>
+        </div>
+
+        <div class="login-content">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            {% if not user.is_authenticated %}
+                <div class="login-instructions">
+                    <h3>📋 Как войти:</h3>
+                    <ol>
+                        <li>Откройте нашего бота в Telegram</li>
+                        <li>Отправьте команду <code>/login</code></li>
+                        <li>Нажмите кнопку "Войти на сайт" в боте</li>
+                        <li>Вы будете автоматически авторизованы</li>
+                    </ol>
+
+                    <div class="note">
+                        <strong>💡 Примечание:</strong> Ссылка для входа действительна 10 минут
+                    </div>
+                </div>
+
+                <div class="bot-actions">
+                    <a href="https://t.me/{{ telegram_bot_username }}?start=login" target="_blank" class="btn btn-telegram">
+                        📱 Открыть бота
+                    </a>
+                    <a href="{% url 'wiki:telegram_auth' %}" class="btn btn-outline">
+                        🔐 Другие способы
+                    </a>
+                </div>
+
+                <div class="qr-code-section">
+                    <h4>📲 Или отсканируйте QR-код:</h4>
+                    <div class="qr-container">
+                        <div id="qrcode"></div>
+                    </div>
+                    <p class="qr-note">Наведите камеру телефона на QR-код чтобы открыть бота</p>
+                </div>
+            {% else %}
+                <div class="success-message">
+                    <div style="text-align: center; padding: 30px;">
+                        <div style="font-size: 4em; margin-bottom: 20px;">✅</div>
+                        <h3 style="color: #22c55e;">Успешный вход!</h3>
+                        <p style="color: #e8e8e8;">Добро пожаловать, {{ user.username }}!</p>
+                        <div class="success-actions">
+                            <a href="{% url 'wiki:home' %}" class="btn btn-primary">
+                                🏠 На главную
+                            </a>
+                            <a href="{% url 'wiki:profile' %}" class="btn btn-outline">
+                                👤 Профиль
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<style>
+.quick-login-container {
+    max-width: 500px;
+    margin: 30px auto;
+    padding: 20px;
+}
+
+.quick-login-card {
+    background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+    padding: 40px 30px;
+    border-radius: 20px;
+    border: 2px solid #D4AF37;
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.login-icon {
+    font-size: 4em;
+    margin-bottom: 15px;
+}
+
+.login-header h1 {
+    color: #D4AF37;
+    margin-bottom: 10px;
+    font-family: 'Cinzel', serif;
+}
+
+.login-header p {
+    color: #e8e8e8;
+    opacity: 0.8;
+}
+
+.alert {
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    border-left: 4px solid;
+}
+
+.alert-success {
+    background: rgba(34, 197, 94, 0.1);
+    border-color: #22c55e;
+    color: #22c55e;
+}
+
+.alert-error {
+    background: rgba(239, 68, 68, 0.1);
+    border-color: #ef4444;
+    color: #ef4444;
+}
+
+.login-instructions {
+    background: rgba(212, 175, 55, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    border-left: 4px solid #D4AF37;
+}
+
+.login-instructions h3 {
+    color: #D4AF37;
+    margin-bottom: 15px;
+}
+
+.login-instructions ol {
+    color: #e8e8e8;
+    padding-left: 20px;
+    margin-bottom: 15px;
+}
+
+.login-instructions li {
+    margin-bottom: 10px;
+}
+
+.login-instructions code {
+    background: rgba(212, 175, 55, 0.2);
+    color: #D4AF37;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: monospace;
+}
+
+.note {
+    background: rgba(59, 130, 246, 0.1);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    padding: 12px;
+    border-radius: 8px;
+    color: #3b82f6;
+    font-size: 0.9em;
+}
+
+.bot-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.qr-code-section {
+    text-align: center;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}
+
+.qr-code-section h4 {
+    color: #D4AF37;
+    margin-bottom: 15px;
+}
+
+.qr-container {
+    display: inline-block;
+    padding: 15px;
+    background: white;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.qr-note {
+    color: #888;
+    font-size: 0.9em;
+}
+
+.success-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 20px;
+    background: #D4AF37;
+    color: #1a1a1a;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: all 0.3s;
+    border: 2px solid #D4AF37;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.btn-telegram {
+    background: #0088cc;
+    color: white;
+    border-color: #0088cc;
+}
+
+.btn-telegram:hover {
+    background: #0077b3;
+    border-color: #0077b3;
+}
+
+.btn-outline {
+    background: transparent;
+    color: #D4AF37;
+}
+
+.btn-outline:hover {
+    background: #D4AF37;
+    color: #1a1a1a;
+}
+
+.btn-primary {
+    background: #D4AF37;
+    color: #1a1a1a;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+}
+
+@media (max-width: 768px) {
+    .quick-login-container {
+        margin: 15px auto;
+        padding: 10px;
+    }
+
+    .quick-login-card {
+        padding: 25px 20px;
+    }
+
+    .bot-actions, .success-actions {
+        flex-direction: column;
+    }
+
+    .qr-container {
+        padding: 10px;
+    }
+}
+</style>
+
+<!-- Подключаем библиотеку для QR-кода -->
+<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Генерируем QR-код для бота
+    const botUrl = 'https://t.me/{{ telegram_bot_username }}?start=login';
+    const qrContainer = document.getElementById('qrcode');
+
+    if (qrContainer) {
+        QRCode.toCanvas(qrContainer, botUrl, {
+            width: 200,
+            height: 200,
+            colorDark: '#1a1a1a',
+            colorLight: '#ffffff',
+            margin: 1
+        }, function(error) {
+            if (error) {
+                console.error('QR code error:', error);
+                qrContainer.innerHTML = '<p style="color: #ef4444;">Ошибка генерации QR-кода</p>';
+            }
+        });
+    }
+
+    // Автоматическое скрытие сообщений через 5 секунд
+    setTimeout(function() {
+        const alerts = document.querySelectorAll('.alert');
+        alerts.forEach(function(alert) {
+            alert.style.opacity = '0';
+            alert.style.transition = 'opacity 0.5s';
+            setTimeout(function() {
+                alert.remove();
+            }, 500);
+        });
+    }, 5000);
+});
+</script>
+{% endblock %}

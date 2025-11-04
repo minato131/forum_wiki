@@ -24,6 +24,7 @@ def user_permissions(request):
 def telegram_settings(request):
     """Добавляет настройки Telegram в контекст шаблонов"""
     return {
+        'telegram_bot_username': getattr(settings, 'TELEGRAM_BOT_USERNAME', ''),
         'TELEGRAM_BOT_USERNAME': getattr(settings, 'TELEGRAM_BOT_USERNAME', ''),
-        'TELEGRAM_BOT_TOKEN': getattr(settings, 'TELEGRAM_BOT_TOKEN', ''),
+        'TELEGRAM_WEB_APP_URL': getattr(settings, 'TELEGRAM_WEB_APP_URL', ''),
     }

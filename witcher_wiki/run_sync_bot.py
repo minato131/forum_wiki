@@ -3,7 +3,7 @@ import os
 import sys
 import logging
 
-# Настройка пути
+# Настройка пути - исправляем путь к проекту
 project_path = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, project_path)
 
@@ -26,6 +26,9 @@ try:
     print("✅ Синхронный бот импортирован успешно")
 except ImportError as e:
     print(f"❌ Ошибка импорта: {e}")
+    # Покажем подробную информацию об ошибке
+    import traceback
+    traceback.print_exc()
     sys.exit(1)
 
 # Настройка логирования
@@ -35,4 +38,5 @@ logging.basicConfig(
 )
 
 if __name__ == '__main__':
+    print("🚀 Запуск бота...")
     sync_bot.run()

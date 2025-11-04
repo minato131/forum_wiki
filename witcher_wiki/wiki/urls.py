@@ -99,5 +99,10 @@ urlpatterns = [
     path('auth/telegram/code/', views.telegram_auth_code, name='telegram_auth_code'),
     path('auth/telegram/generate-code/', views.telegram_generate_test_code, name='telegram_generate_test_code'),
     path('auth/telegram/link/', views.telegram_link_with_code, name='telegram_link_with_code'),
-
+    # Telegram Web App Auth
+    path('auth/telegram/webapp/', views.telegram_webapp_login, name='telegram_webapp_login'),
+    path('auth/telegram/webapp/callback/', views.telegram_webapp_callback, name='telegram_webapp_callback'),
+    path('auth/telegram/quick/', views.telegram_quick_login, name='telegram_quick_login'),
+    # В urls.py ДОБАВИТЬ:
+    path('auth/telegram/quick/', views.telegram_quick_login, name='telegram_quick_login'),
 ]

@@ -1,9 +1,10 @@
-# telegram_utils.py
+# wiki/telegram_utils.py - ОБНОВЛЕННАЯ ВЕРСИЯ
 import hashlib
 import hmac
 import json
 from urllib.parse import parse_qs
 from django.contrib.auth.models import User
+from django.contrib.auth import login
 from django.utils import timezone
 from .models import TelegramUser, UserProfile
 import secrets
@@ -15,7 +16,7 @@ class TelegramAuth:
 
     def verify_telegram_webapp_data(self, init_data):
         """
-        Проверяет подпись данных от Telegram Web App (новый метод)
+        Проверяет подпись данных от Telegram Web App
         """
         try:
             # Парсим данные
@@ -67,48 +68,69 @@ class TelegramAuth:
             print(f"Telegram WebApp auth error: {e}")
             return False, None
 
-    def create_or_get_user(self, user_data):
+    def authenticate_user(self, request, user_data):
         """
-        Создает или получает пользователя на основе данных Telegram
+        Аутентифицирует пользователя на основе данных Telegram
         """
-        telegram_id = user_data['id']
-
-        # Проверяем, существует ли уже привязка
         try:
-            telegram_user = TelegramUser.objects.get(telegram_id=telegram_id)
-            return telegram_user.user, False  # Пользователь существует
+            telegram_id = user_data['id']
 
-        except TelegramUser.DoesNotExist:
-            # Создаем нового пользователя
-            username = self.generate_username(user_data)
-            email = f"telegram_{telegram_id}@witcher.wiki"
+            # Ищем пользователя по telegram_id
+            telegram_user = TelegramUser.objects.filter(telegram_id=telegram_id).first()
 
-            # Создаем пользователя Django
-            user = User.objects.create_user(
-                username=username,
-                email=email,
-                password=secrets.token_urlsafe(16)  # Случайный пароль
-            )
-            user.first_name = user_data.get('first_name', '')[:30]
-            user.last_name = user_data.get('last_name', '')[:30]
-            user.save()
+            if telegram_user:
+                # Пользователь найден - логиним его
+                user = telegram_user.user
+                login(request, user)
 
-            # Создаем профиль пользователя
-            UserProfile.objects.get_or_create(user=user)
+                # Обновляем данные
+                telegram_user.telegram_username = user_data.get('username', '')
+                telegram_user.first_name = user_data.get('first_name', '')
+                telegram_user.last_name = user_data.get('last_name', '')
+                telegram_user.photo_url = user_data.get('photo_url', '')
+                telegram_user.auth_date = timezone.datetime.fromtimestamp(user_data['auth_date'], tz=timezone.utc)
+                telegram_user.hash = user_data.get('hash', '')
+                telegram_user.web_app_data = user_data
+                telegram_user.save()
 
-            # Создаем привязку к Telegram
-            telegram_user = TelegramUser.objects.create(
-                user=user,
-                telegram_id=telegram_id,
-                telegram_username=user_data.get('username', ''),
-                first_name=user_data.get('first_name', ''),
-                last_name=user_data.get('last_name', ''),
-                photo_url=user_data.get('photo_url', ''),
-                auth_date=timezone.datetime.fromtimestamp(user_data['auth_date'], tz=timezone.utc),
-                hash=user_data.get('hash', '')
-            )
+                return user, False  # Существующий пользователь
+            else:
+                # Пользователь не найден - создаем нового
+                username = self.generate_username(user_data)
+                email = f"telegram_{telegram_id}@witcher.wiki"
 
-            return user, True
+                # Создаем пользователя Django
+                user = User.objects.create_user(
+                    username=username,
+                    email=email,
+                    password=secrets.token_urlsafe(16)  # Случайный пароль
+                )
+                user.first_name = user_data.get('first_name', '')[:30]
+                user.last_name = user_data.get('last_name', '')[:30]
+                user.save()
+
+                # Создаем профиль пользователя
+                UserProfile.objects.get_or_create(user=user)
+
+                # Создаем привязку к Telegram
+                telegram_user = TelegramUser.objects.create(
+                    user=user,
+                    telegram_id=telegram_id,
+                    telegram_username=user_data.get('username', ''),
+                    first_name=user_data.get('first_name', ''),
+                    last_name=user_data.get('last_name', ''),
+                    photo_url=user_data.get('photo_url', ''),
+                    auth_date=timezone.datetime.fromtimestamp(user_data['auth_date'], tz=timezone.utc),
+                    hash=user_data.get('hash', ''),
+                    web_app_data=user_data
+                )
+
+                login(request, user)
+                return user, True  # Новый пользователь
+
+        except Exception as e:
+            print(f"Authentication error: {e}")
+            return None, False
 
     def generate_username(self, user_data):
         """
@@ -148,7 +170,8 @@ class TelegramAuth:
             last_name=user_data.get('last_name', ''),
             photo_url=user_data.get('photo_url', ''),
             auth_date=timezone.datetime.fromtimestamp(user_data['auth_date'], tz=timezone.utc),
-            hash=user_data.get('hash', '')
+            hash=user_data.get('hash', ''),
+            web_app_data=user_data
         )
 
         return telegram_user

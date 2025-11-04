@@ -390,6 +390,9 @@
                 </div>
             {% else %}
                     <div class="auth-buttons">
+                        <a href="{% url 'wiki:telegram_webapp_login' %}" class="btn-outline-light" style="background: #0088cc; border-color: #0088cc;">
+        📱 Войти через Telegram
+                        </a>
                         <a href="{% url 'wiki:login' %}" class="btn-outline-light">🔐 Войти</a>
                         <a href="{% url 'wiki:register' %}" class="btn-outline-light">📝 Регистрация</a>
                     </div>

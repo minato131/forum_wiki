@@ -13776,3 +13776,641 @@ INFO 2025-11-04 21:32:21,728 basehttp "GET /messages/unread-count/ HTTP/1.1" 200
 INFO 2025-11-04 21:32:51,845 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
 INFO 2025-11-04 21:33:21,731 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
 INFO 2025-11-04 21:33:51,838 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-04 21:56:59,134 autoreload Watching for file changes with StatReloader
+INFO 2025-11-04 22:07:59,174 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\models.py changed, reloading.
+INFO 2025-11-04 22:07:59,729 autoreload Watching for file changes with StatReloader
+INFO 2025-11-04 22:08:25,635 autoreload Watching for file changes with StatReloader
+INFO 2025-11-04 22:08:29,853 basehttp "GET / HTTP/1.1" 200 34570
+INFO 2025-11-04 22:08:30,162 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+ERROR 2025-11-04 22:08:34,062 log Internal Server Error: /accounts/profile/
+Traceback (most recent call last):
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py", line 258, in profile
+    return render(request, 'accounts/profile.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\defaulttags.py", line 327, in render
+    return nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'telegram_login' not found. 'telegram_login' is not a valid view function or pattern name.
+ERROR 2025-11-04 22:08:34,068 basehttp "GET /accounts/profile/ HTTP/1.1" 500 199136
+INFO 2025-11-04 22:09:20,733 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-04 22:10:04,150 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-04 22:10:21,738 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-04 22:10:51,823 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-04 22:11:25,145 autoreload Watching for file changes with StatReloader
+INFO 2025-11-04 22:11:27,010 basehttp "GET / HTTP/1.1" 200 34570
+INFO 2025-11-04 22:11:27,473 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-04 22:11:28,804 basehttp "GET /accounts/profile/ HTTP/1.1" 200 49192
+INFO 2025-11-04 22:11:28,880 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+ERROR 2025-11-04 22:11:31,279 log Internal Server Error: /auth/telegram/
+Traceback (most recent call last):
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py", line 1964, in telegram_auth
+    return render(request, 'wiki/telegram_auth.html', {
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: wiki/telegram_auth.html
+ERROR 2025-11-04 22:11:31,282 basehttp "GET /auth/telegram/ HTTP/1.1" 500 91409
+INFO 2025-11-04 22:11:52,721 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-04 22:12:22,041 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-04 22:12:51,737 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-04 22:13:32,744 autoreload Watching for file changes with StatReloader
+INFO 2025-11-04 22:13:34,619 basehttp "GET / HTTP/1.1" 200 34570
+INFO 2025-11-04 22:13:34,929 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+ERROR 2025-11-04 22:13:36,205 log Internal Server Error: /accounts/profile/
+Traceback (most recent call last):
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py", line 258, in profile
+    return render(request, 'accounts/profile.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\defaulttags.py", line 327, in render
+    return nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'telegram_login' not found. 'telegram_login' is not a valid view function or pattern name.
+ERROR 2025-11-04 22:13:36,210 basehttp "GET /accounts/profile/ HTTP/1.1" 500 199136
+INFO 2025-11-04 22:17:42,193 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\telegram_bot_sync.py changed, reloading.
+INFO 2025-11-04 22:17:42,728 autoreload Watching for file changes with StatReloader
+INFO 2025-11-04 22:18:43,772 autoreload Watching for file changes with StatReloader
+INFO 2025-11-04 22:18:45,581 basehttp "GET / HTTP/1.1" 200 34570
+INFO 2025-11-04 22:18:45,901 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+ERROR 2025-11-04 22:18:47,172 log Internal Server Error: /accounts/profile/
+Traceback (most recent call last):
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py", line 258, in profile
+    return render(request, 'accounts/profile.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\defaulttags.py", line 327, in render
+    return nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'telegram_login' not found. 'telegram_login' is not a valid view function or pattern name.
+ERROR 2025-11-04 22:18:47,177 basehttp "GET /accounts/profile/ HTTP/1.1" 500 199136
+INFO 2025-11-04 22:20:33,286 autoreload Watching for file changes with StatReloader
+INFO 2025-11-04 22:20:35,265 basehttp "GET / HTTP/1.1" 200 34570
+INFO 2025-11-04 22:20:35,702 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+ERROR 2025-11-04 22:20:37,087 log Internal Server Error: /accounts/profile/
+Traceback (most recent call last):
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py", line 258, in profile
+    return render(request, 'accounts/profile.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\defaulttags.py", line 327, in render
+    return nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'telegram_login' not found. 'telegram_login' is not a valid view function or pattern name.
+ERROR 2025-11-04 22:20:37,092 basehttp "GET /accounts/profile/ HTTP/1.1" 500 199136
+INFO 2025-11-04 22:20:57,550 autoreload Watching for file changes with StatReloader
+INFO 2025-11-04 22:20:59,197 basehttp "GET / HTTP/1.1" 200 34570
+INFO 2025-11-04 22:20:59,516 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-04 22:21:01,237 basehttp "GET /accounts/profile/ HTTP/1.1" 200 49192
+INFO 2025-11-04 22:21:01,320 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-04 22:21:04,060 basehttp "GET /auth/telegram/ HTTP/1.1" 200 42633
+INFO 2025-11-04 22:21:04,133 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-04 22:21:34,142 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-04 22:22:04,244 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-04 22:22:34,248 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-04 22:22:59,698 basehttp "GET / HTTP/1.1" 200 34570
+INFO 2025-11-04 22:23:00,017 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-04 22:23:02,632 basehttp "GET /accounts/profile/ HTTP/1.1" 200 49192
+INFO 2025-11-04 22:23:02,707 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-04 22:23:04,691 basehttp "GET /auth/telegram/code/ HTTP/1.1" 200 39417
+INFO 2025-11-04 22:23:04,841 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-04 22:23:04,892 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-04 22:23:11,080 basehttp "POST /auth/telegram/code/ HTTP/1.1" 302 0
+INFO 2025-11-04 22:23:11,144 basehttp "GET /accounts/profile/ HTTP/1.1" 200 48990
+INFO 2025-11-04 22:23:11,218 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-04 22:23:19,228 basehttp "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-11-04 22:23:19,281 basehttp "GET / HTTP/1.1" 200 31930
+ERROR 2025-11-04 22:23:20,385 log Internal Server Error: /login/
+Traceback (most recent call last):
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'telegram_login' not found. 'telegram_login' is not a valid view function or pattern name.
+ERROR 2025-11-04 22:23:20,389 basehttp "GET /login/ HTTP/1.1" 500 163637
+INFO 2025-11-04 22:23:34,676 basehttp "GET /messages/unread-count/ HTTP/1.1" 302 0
+ERROR 2025-11-04 22:23:34,714 log Internal Server Error: /accounts/login/
+Traceback (most recent call last):
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\accounts\views.py", line 21, in login_view
+    return render(request, 'registration/login.html')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'telegram_login' not found. 'telegram_login' is not a valid view function or pattern name.
+ERROR 2025-11-04 22:23:34,717 basehttp "GET /accounts/login/?next=/messages/unread-count/ HTTP/1.1" 500 162858
+INFO 2025-11-04 22:24:00,180 autoreload Watching for file changes with StatReloader
+INFO 2025-11-04 22:24:04,697 basehttp "GET /messages/unread-count/ HTTP/1.1" 302 0
+INFO 2025-11-04 22:24:04,706 basehttp "GET /accounts/login/?next=/messages/unread-count/ HTTP/1.1" 200 29867
+INFO 2025-11-04 22:24:10,950 basehttp "GET / HTTP/1.1" 200 31930
+INFO 2025-11-04 22:24:12,182 basehttp "GET /login/ HTTP/1.1" 200 29772
+INFO 2025-11-04 22:24:13,289 basehttp "GET /auth/telegram/ HTTP/1.1" 200 40092
+INFO 2025-11-04 22:52:34,839 autoreload Watching for file changes with StatReloader
+INFO 2025-11-04 22:52:37,221 basehttp "GET / HTTP/1.1" 200 31930
+WARNING 2025-11-04 22:52:37,505 log Not Found: /favicon.ico
+WARNING 2025-11-04 22:52:37,505 basehttp "GET /favicon.ico HTTP/1.1" 404 18424
+INFO 2025-11-04 22:52:40,809 basehttp "GET /login/ HTTP/1.1" 200 29772
+INFO 2025-11-04 22:52:42,507 basehttp "POST /login/ HTTP/1.1" 302 0
+INFO 2025-11-04 22:52:42,667 basehttp "GET / HTTP/1.1" 200 34570
+INFO 2025-11-04 22:52:42,755 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-04 22:52:44,580 basehttp "GET /accounts/profile/ HTTP/1.1" 200 48990
+INFO 2025-11-04 22:52:44,654 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-04 22:52:59,339 basehttp "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-11-04 22:52:59,389 basehttp "GET / HTTP/1.1" 200 31930
+INFO 2025-11-04 22:53:00,357 basehttp "GET /login/ HTTP/1.1" 200 29951
+INFO 2025-11-04 22:53:01,365 basehttp "GET /auth/telegram/ HTTP/1.1" 200 40092
+INFO 2025-11-04 23:12:18,927 basehttp "GET /login/ HTTP/1.1" 200 29772
+INFO 2025-11-04 23:12:20,053 basehttp "GET /auth/telegram/ HTTP/1.1" 200 40092
+INFO 2025-11-05 00:24:24,253 autoreload Watching for file changes with StatReloader
+INFO 2025-11-05 00:25:23,434 basehttp "GET / HTTP/1.1" 200 31930
+INFO 2025-11-05 00:25:24,969 basehttp "GET /login/ HTTP/1.1" 200 29772
+INFO 2025-11-05 00:25:26,193 basehttp "GET /auth/telegram/ HTTP/1.1" 200 40092
+INFO 2025-11-05 00:25:53,026 basehttp "GET /my-articles/ HTTP/1.1" 302 0
+INFO 2025-11-05 00:25:53,030 basehttp "GET /accounts/login/?next=/my-articles/ HTTP/1.1" 200 29857
+INFO 2025-11-05 00:26:00,967 basehttp "GET /login/ HTTP/1.1" 200 29772
+INFO 2025-11-05 00:26:02,785 basehttp "POST /login/ HTTP/1.1" 302 0
+INFO 2025-11-05 00:26:02,841 basehttp "GET / HTTP/1.1" 200 34570
+INFO 2025-11-05 00:26:02,938 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-05 00:26:04,090 basehttp "GET /accounts/profile/ HTTP/1.1" 200 48990
+INFO 2025-11-05 00:26:04,164 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-05 00:26:34,210 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-05 00:27:04,313 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-05 00:27:34,206 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-05 00:28:04,218 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-05 00:28:34,305 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-05 00:29:04,207 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-05 00:29:34,311 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-05 00:30:24,209 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-05 00:31:24,338 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-05 00:31:34,208 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-05 00:32:04,214 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-05 00:33:05,320 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-05 00:33:34,218 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-05 00:33:57,674 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\models.py changed, reloading.
+INFO 2025-11-05 00:33:58,236 autoreload Watching for file changes with StatReloader
+INFO 2025-11-05 00:34:04,235 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-05 00:34:06,938 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\telegram_utils.py changed, reloading.
+INFO 2025-11-05 00:34:07,510 autoreload Watching for file changes with StatReloader
+INFO 2025-11-05 00:34:34,343 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-05 00:35:04,210 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-05 00:36:05,326 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-05 00:36:05,637 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-11-05 00:36:06,401 autoreload Watching for file changes with StatReloader
+INFO 2025-11-05 00:36:40,170 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\urls.py changed, reloading.
+INFO 2025-11-05 00:36:40,777 autoreload Watching for file changes with StatReloader
+INFO 2025-11-05 00:36:43,995 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\urls.py changed, reloading.
+INFO 2025-11-05 00:36:44,530 autoreload Watching for file changes with StatReloader
+INFO 2025-11-05 00:37:06,343 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-05 00:37:47,346 autoreload Watching for file changes with StatReloader
+INFO 2025-11-05 00:37:49,119 basehttp "GET / HTTP/1.1" 200 34570
+INFO 2025-11-05 00:37:49,439 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-05 00:37:52,758 basehttp "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-11-05 00:37:52,811 basehttp "GET / HTTP/1.1" 200 32139
+INFO 2025-11-05 00:37:54,747 basehttp "GET /auth/telegram/webapp/ HTTP/1.1" 200 33914
+INFO 2025-11-05 00:38:45,448 basehttp "GET / HTTP/1.1" 200 32139
+INFO 2025-11-05 00:38:47,149 basehttp "GET /auth/telegram/webapp/ HTTP/1.1" 200 33914
+INFO 2025-11-05 00:45:57,295 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\telegram_bot_sync.py changed, reloading.
+INFO 2025-11-05 00:45:57,833 autoreload Watching for file changes with StatReloader
+INFO 2025-11-05 00:47:20,373 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\urls.py changed, reloading.
+INFO 2025-11-05 00:47:20,944 autoreload Watching for file changes with StatReloader
+INFO 2025-11-05 00:48:07,097 autoreload Watching for file changes with StatReloader
+INFO 2025-11-05 00:48:09,246 basehttp "GET / HTTP/1.1" 200 32139
+INFO 2025-11-05 00:48:10,512 basehttp "GET /auth/telegram/webapp/ HTTP/1.1" 200 33914
+INFO 2025-11-05 00:49:14,787 autoreload Watching for file changes with StatReloader
+INFO 2025-11-05 00:49:16,617 basehttp "GET / HTTP/1.1" 200 32139
+INFO 2025-11-05 00:49:18,223 basehttp "GET /auth/telegram/webapp/ HTTP/1.1" 200 33914
+INFO 2025-11-05 00:49:29,095 basehttp "GET /auth/telegram/quick/?token=a13f7177211d562a&user_id=2 HTTP/1.1" 200 29296
+INFO 2025-11-05 00:49:58,896 basehttp "GET /auth/telegram/quick/?token=a3b7b25d130a56ce&user_id=2 HTTP/1.1" 200 29296
+INFO 2025-11-05 00:50:26,107 basehttp "GET /search/ HTTP/1.1" 200 42703
+INFO 2025-11-05 00:50:31,134 basehttp "GET /login/ HTTP/1.1" 200 30160
+INFO 2025-11-05 00:50:33,197 basehttp "POST /login/ HTTP/1.1" 302 0
+INFO 2025-11-05 00:50:33,365 basehttp "GET / HTTP/1.1" 200 34570
+INFO 2025-11-05 00:50:33,446 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-05 00:50:35,476 basehttp "GET /accounts/profile/ HTTP/1.1" 200 48990
+INFO 2025-11-05 00:50:35,547 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-05 00:50:40,183 basehttp "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-11-05 00:50:40,234 basehttp "GET / HTTP/1.1" 200 32139
+INFO 2025-11-05 00:50:41,397 basehttp "GET /auth/telegram/webapp/ HTTP/1.1" 200 33914
+INFO 2025-11-05 00:50:45,637 basehttp "GET /login/ HTTP/1.1" 200 30160
+INFO 2025-11-05 00:50:46,592 basehttp "GET /auth/telegram/ HTTP/1.1" 200 40301
+INFO 2025-11-05 00:51:46,779 basehttp "GET /auth/telegram/webapp/ HTTP/1.1" 200 33914
+INFO 2025-11-05 00:51:47,698 basehttp "GET /login/ HTTP/1.1" 200 29981
+INFO 2025-11-05 00:51:48,506 basehttp "GET /auth/telegram/webapp/ HTTP/1.1" 200 33914
+INFO 2025-11-05 00:51:49,218 basehttp "GET /login/ HTTP/1.1" 200 29981
+INFO 2025-11-05 00:51:49,804 basehttp "GET /auth/telegram/webapp/ HTTP/1.1" 200 33914
+INFO 2025-11-05 00:52:00,861 basehttp "GET /auth/telegram/quick/?token=d077d92916ac21e2&user_id=2 HTTP/1.1" 200 29296
+INFO 2025-11-05 00:53:53,152 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\models.py changed, reloading.
+INFO 2025-11-05 00:53:53,729 autoreload Watching for file changes with StatReloader
+INFO 2025-11-05 01:09:13,403 autoreload Watching for file changes with StatReloader
+INFO 2025-11-05 01:09:27,999 basehttp "GET / HTTP/1.1" 200 32139
+INFO 2025-11-05 01:09:30,120 basehttp "GET /auth/telegram/webapp/ HTTP/1.1" 200 32385
+INFO 2025-11-05 01:09:46,167 basehttp "GET /auth/telegram/quick/?token=jdSJNlfmJWVNxqSVPqyMBTS7X58omrFpzqna3iy28aU HTTP/1.1" 200 29296
+INFO 2025-11-05 01:10:04,699 basehttp "GET /auth/telegram/quick/?token=raSM9PNncdpJHBNBs867Qa1pS3Iu5L63jq1_OEVrjVE HTTP/1.1" 200 29296
+INFO 2025-11-05 01:10:07,840 basehttp "GET /login/ HTTP/1.1" 200 30355
+INFO 2025-11-05 01:10:09,375 basehttp "GET /auth/telegram/ HTTP/1.1" 200 40301
+INFO 2025-11-05 01:12:34,477 basehttp "GET /auth/telegram/quick/?token=qgYsj0917VZzRERpSCjbSI9dohi6TiouNlOf4M3aw84 HTTP/1.1" 200 29296
+INFO 2025-11-05 01:13:08,042 basehttp "GET /login/ HTTP/1.1" 200 30179
+INFO 2025-11-05 01:13:09,381 basehttp "GET /auth/telegram/ HTTP/1.1" 200 40301
+INFO 2025-11-05 01:14:24,183 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-11-05 01:14:24,774 autoreload Watching for file changes with StatReloader
+INFO 2025-11-05 01:15:45,116 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\telegram_bot_sync.py changed, reloading.
+INFO 2025-11-05 01:15:45,628 autoreload Watching for file changes with StatReloader
+INFO 2025-11-05 01:15:47,237 basehttp "GET / HTTP/1.1" 200 32139
+INFO 2025-11-05 01:15:48,243 basehttp "GET /auth/telegram/webapp/ HTTP/1.1" 200 32385
+INFO 2025-11-05 01:15:56,574 basehttp "GET /auth/telegram/quick/?token=bpqZRXwfp8duBn1DqjX3vG3mwn0eX6yb6rnP2yy2L2k HTTP/1.1" 200 29296
+INFO 2025-11-05 01:16:01,873 basehttp "GET /my-articles/ HTTP/1.1" 302 0
+INFO 2025-11-05 01:16:01,878 basehttp "GET /accounts/login/?next=/my-articles/ HTTP/1.1" 200 30066
+INFO 2025-11-05 01:16:11,478 basehttp "GET /my-articles/ HTTP/1.1" 302 0
+INFO 2025-11-05 01:16:11,482 basehttp "GET /accounts/login/?next=/my-articles/ HTTP/1.1" 200 30066
+INFO 2025-11-05 01:16:58,570 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\telegram_bot_sync.py changed, reloading.
+INFO 2025-11-05 01:16:59,137 autoreload Watching for file changes with StatReloader
+INFO 2025-11-05 01:18:59,510 autoreload Watching for file changes with StatReloader
+INFO 2025-11-05 01:19:01,535 basehttp "GET / HTTP/1.1" 200 32139
+INFO 2025-11-05 01:19:06,264 basehttp "GET /auth/telegram/webapp/ HTTP/1.1" 200 32385
+INFO 2025-11-05 01:19:12,755 basehttp "GET /auth/telegram/quick/?tg_id=1131530753 HTTP/1.1" 200 32010
+INFO 2025-11-05 01:19:32,282 basehttp "GET / HTTP/1.1" 200 32139
+INFO 2025-11-05 01:19:33,272 basehttp "GET /auth/telegram/webapp/ HTTP/1.1" 200 32385
+INFO 2025-11-05 01:19:39,807 basehttp "GET /auth/telegram/quick/?tg_id=1131530753 HTTP/1.1" 200 32010
+INFO 2025-11-05 01:20:17,030 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-11-05 01:20:17,535 autoreload Watching for file changes with StatReloader
+INFO 2025-11-05 01:20:27,637 autoreload Watching for file changes with StatReloader
+INFO 2025-11-05 01:20:33,199 basehttp "GET / HTTP/1.1" 200 32139
+INFO 2025-11-05 01:20:34,370 basehttp "GET /auth/telegram/webapp/ HTTP/1.1" 200 32385
+INFO 2025-11-05 01:20:39,148 basehttp "GET /auth/telegram/quick/?tg_id=1131530753 HTTP/1.1" 302 0
+INFO 2025-11-05 01:20:39,215 basehttp "GET / HTTP/1.1" 200 34570
+INFO 2025-11-05 01:20:39,546 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-05 01:21:10,212 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-05 01:21:40,314 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
