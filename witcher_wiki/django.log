@@ -13476,3 +13476,303 @@ INFO 2025-11-04 20:08:35,218 basehttp "GET /messages/unread-count/ HTTP/1.1" 200
 INFO 2025-11-04 20:09:05,725 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
 INFO 2025-11-04 20:09:35,824 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
 INFO 2025-11-04 20:10:05,826 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-04 20:24:06,544 autoreload Watching for file changes with StatReloader
+INFO 2025-11-04 20:24:07,880 basehttp "GET / HTTP/1.1" 200 34570
+INFO 2025-11-04 20:24:08,221 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-04 20:24:11,539 basehttp "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-11-04 20:24:11,599 basehttp "GET / HTTP/1.1" 200 31930
+INFO 2025-11-04 20:24:12,324 basehttp "GET /login/ HTTP/1.1" 200 29951
+INFO 2025-11-04 20:24:13,812 basehttp "GET /auth/telegram/ HTTP/1.1" 200 32335
+INFO 2025-11-04 20:24:31,824 basehttp "GET /login/ HTTP/1.1" 200 29772
+INFO 2025-11-04 20:24:33,366 basehttp "GET /register/ HTTP/1.1" 200 30498
+INFO 2025-11-04 20:24:42,762 basehttp "GET /login/ HTTP/1.1" 200 29772
+INFO 2025-11-04 20:27:02,782 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\models.py changed, reloading.
+INFO 2025-11-04 20:27:03,788 autoreload Watching for file changes with StatReloader
+INFO 2025-11-04 20:28:03,505 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\telegram_utils.py changed, reloading.
+INFO 2025-11-04 20:28:04,085 autoreload Watching for file changes with StatReloader
+INFO 2025-11-04 20:28:45,256 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-11-04 20:28:46,016 autoreload Watching for file changes with StatReloader
+INFO 2025-11-04 20:30:00,590 autoreload Watching for file changes with StatReloader
+INFO 2025-11-04 20:30:01,920 basehttp "GET / HTTP/1.1" 200 31930
+INFO 2025-11-04 20:30:03,185 basehttp "GET /login/ HTTP/1.1" 200 29772
+INFO 2025-11-04 20:30:04,510 basehttp "GET /auth/telegram/ HTTP/1.1" 200 32861
+INFO 2025-11-04 20:30:08,544 basehttp "GET /login/ HTTP/1.1" 200 29772
+INFO 2025-11-04 20:30:09,531 basehttp "GET /register/ HTTP/1.1" 200 30498
+INFO 2025-11-04 20:30:11,802 basehttp "GET /login/ HTTP/1.1" 200 29772
+INFO 2025-11-04 20:30:13,057 basehttp "GET /login/ HTTP/1.1" 200 29772
+INFO 2025-11-04 20:30:23,409 basehttp "GET /login/ HTTP/1.1" 200 29772
+INFO 2025-11-04 20:30:24,681 basehttp "POST /login/ HTTP/1.1" 302 0
+INFO 2025-11-04 20:30:24,738 basehttp "GET / HTTP/1.1" 200 34570
+INFO 2025-11-04 20:30:24,817 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-04 20:30:25,686 basehttp "GET /accounts/profile/ HTTP/1.1" 200 47956
+INFO 2025-11-04 20:30:25,760 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-04 20:30:34,541 basehttp "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-11-04 20:30:34,710 basehttp "GET / HTTP/1.1" 200 31930
+INFO 2025-11-04 20:30:35,380 basehttp "GET /login/ HTTP/1.1" 200 29951
+INFO 2025-11-04 20:30:36,958 basehttp "GET /auth/telegram/ HTTP/1.1" 200 32861
+INFO 2025-11-04 20:31:06,585 basehttp "GET /login/ HTTP/1.1" 200 29772
+INFO 2025-11-04 20:31:07,584 basehttp "GET /auth/telegram/ HTTP/1.1" 200 32861
+INFO 2025-11-04 20:39:21,705 basehttp "GET / HTTP/1.1" 200 31930
+INFO 2025-11-04 20:39:23,919 basehttp "GET /login/ HTTP/1.1" 200 29772
+INFO 2025-11-04 20:39:25,385 basehttp "GET /auth/telegram/ HTTP/1.1" 200 32861
+INFO 2025-11-04 20:42:13,435 autoreload Watching for file changes with StatReloader
+INFO 2025-11-04 20:42:14,963 basehttp "GET / HTTP/1.1" 200 31930
+INFO 2025-11-04 20:42:16,106 basehttp "GET /login/ HTTP/1.1" 200 29772
+INFO 2025-11-04 20:42:17,423 basehttp "GET /auth/telegram/ HTTP/1.1" 200 39151
+INFO 2025-11-04 20:52:16,265 autoreload Watching for file changes with StatReloader
+INFO 2025-11-04 20:52:18,067 basehttp "GET / HTTP/1.1" 200 31930
+INFO 2025-11-04 20:52:19,503 basehttp "GET /login/ HTTP/1.1" 200 29772
+INFO 2025-11-04 20:52:20,413 basehttp "GET /auth/telegram/ HTTP/1.1" 200 41642
+INFO 2025-11-04 21:01:59,314 autoreload Watching for file changes with StatReloader
+INFO 2025-11-04 21:02:00,675 basehttp "GET / HTTP/1.1" 200 31930
+INFO 2025-11-04 21:02:02,179 basehttp "GET /login/ HTTP/1.1" 200 29772
+INFO 2025-11-04 21:02:03,345 basehttp "GET /auth/telegram/ HTTP/1.1" 200 40092
+INFO 2025-11-04 21:02:23,235 basehttp "GET /login/ HTTP/1.1" 200 29772
+INFO 2025-11-04 21:02:26,617 basehttp "GET /auth/telegram/ HTTP/1.1" 200 40092
+INFO 2025-11-04 21:06:37,728 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-11-04 21:06:38,291 autoreload Watching for file changes with StatReloader
+INFO 2025-11-04 21:06:59,526 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\urls.py changed, reloading.
+INFO 2025-11-04 21:07:00,049 autoreload Watching for file changes with StatReloader
+INFO 2025-11-04 21:07:22,225 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\urls.py changed, reloading.
+INFO 2025-11-04 21:07:23,018 autoreload Watching for file changes with StatReloader
+INFO 2025-11-04 21:07:54,066 autoreload Watching for file changes with StatReloader
+INFO 2025-11-04 21:07:56,799 basehttp "GET / HTTP/1.1" 200 31930
+INFO 2025-11-04 21:07:57,911 basehttp "GET /login/ HTTP/1.1" 200 29772
+INFO 2025-11-04 21:07:59,093 basehttp "GET /auth/telegram/ HTTP/1.1" 200 40092
+INFO 2025-11-04 21:09:24,857 autoreload Watching for file changes with StatReloader
+INFO 2025-11-04 21:09:26,032 basehttp "GET / HTTP/1.1" 200 31930
+INFO 2025-11-04 21:09:27,340 basehttp "GET /login/ HTTP/1.1" 200 29772
+INFO 2025-11-04 21:09:28,596 basehttp "GET /auth/telegram/ HTTP/1.1" 200 40092
+INFO 2025-11-04 21:20:19,617 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-11-04 21:20:20,196 autoreload Watching for file changes with StatReloader
+INFO 2025-11-04 21:21:52,202 autoreload Watching for file changes with StatReloader
+INFO 2025-11-04 21:21:54,359 basehttp "GET / HTTP/1.1" 200 31930
+INFO 2025-11-04 21:21:56,116 basehttp "GET /login/ HTTP/1.1" 200 29772
+INFO 2025-11-04 21:21:57,502 basehttp "GET /auth/telegram/ HTTP/1.1" 200 40092
+INFO 2025-11-04 21:22:19,695 basehttp "GET / HTTP/1.1" 200 31930
+INFO 2025-11-04 21:22:23,269 basehttp "GET /login/ HTTP/1.1" 200 29772
+INFO 2025-11-04 21:22:24,922 basehttp "POST /login/ HTTP/1.1" 302 0
+INFO 2025-11-04 21:22:24,982 basehttp "GET / HTTP/1.1" 200 34570
+INFO 2025-11-04 21:22:25,067 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+ERROR 2025-11-04 21:22:26,285 log Internal Server Error: /accounts/profile/
+Traceback (most recent call last):
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py", line 258, in profile
+    return render(request, 'accounts/profile.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\defaulttags.py", line 327, in render
+    return nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'telegram_auth' not found. 'telegram_auth' is not a valid view function or pattern name.
+ERROR 2025-11-04 21:22:26,291 basehttp "GET /accounts/profile/ HTTP/1.1" 500 198795
+INFO 2025-11-04 21:22:53,952 autoreload Watching for file changes with StatReloader
+INFO 2025-11-04 21:22:55,752 basehttp "GET / HTTP/1.1" 200 34570
+INFO 2025-11-04 21:22:56,075 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-04 21:22:59,095 basehttp "GET /accounts/profile/ HTTP/1.1" 200 49192
+INFO 2025-11-04 21:22:59,171 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+ERROR 2025-11-04 21:23:05,585 log Internal Server Error: /auth/telegram/code/
+Traceback (most recent call last):
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py", line 2085, in telegram_auth_code
+    return render(request, 'wiki/telegram_auth_code.html')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: wiki/telegram_auth_code.html
+ERROR 2025-11-04 21:23:05,588 basehttp "GET /auth/telegram/code/ HTTP/1.1" 500 96352
+INFO 2025-11-04 21:27:21,169 autoreload Watching for file changes with StatReloader
+INFO 2025-11-04 21:27:22,932 basehttp "GET / HTTP/1.1" 200 34570
+INFO 2025-11-04 21:27:23,246 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-04 21:27:25,112 basehttp "GET /accounts/profile/ HTTP/1.1" 200 49192
+INFO 2025-11-04 21:27:25,182 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+ERROR 2025-11-04 21:27:28,122 log Internal Server Error: /auth/telegram/code/
+Traceback (most recent call last):
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py", line 2085, in telegram_auth_code
+    return render(request, 'wiki/telegram_auth_code.html')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'telegram_auth' not found. 'telegram_auth' is not a valid view function or pattern name.
+ERROR 2025-11-04 21:27:28,127 basehttp "GET /auth/telegram/code/ HTTP/1.1" 500 166212
+INFO 2025-11-04 21:27:53,526 autoreload Watching for file changes with StatReloader
+INFO 2025-11-04 21:27:55,305 basehttp "GET / HTTP/1.1" 200 34570
+INFO 2025-11-04 21:27:55,741 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-04 21:27:57,238 basehttp "GET /accounts/profile/ HTTP/1.1" 200 49192
+INFO 2025-11-04 21:27:57,316 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-04 21:28:01,125 basehttp "GET /auth/telegram/code/ HTTP/1.1" 200 37883
+INFO 2025-11-04 21:28:01,296 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-04 21:28:09,848 basehttp "POST /auth/telegram/code/ HTTP/1.1" 302 0
+INFO 2025-11-04 21:28:09,913 basehttp "GET /accounts/profile/ HTTP/1.1" 200 49192
+INFO 2025-11-04 21:28:09,989 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-04 21:28:23,940 basehttp "GET /auth/telegram/ HTTP/1.1" 200 42633
+INFO 2025-11-04 21:28:24,388 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-04 21:28:34,099 basehttp "GET /accounts/profile/ HTTP/1.1" 200 49192
+INFO 2025-11-04 21:28:34,207 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-04 21:28:37,037 basehttp "GET /auth/telegram/ HTTP/1.1" 200 42633
+INFO 2025-11-04 21:28:37,112 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-04 21:28:54,484 basehttp "GET /accounts/profile/ HTTP/1.1" 200 49192
+INFO 2025-11-04 21:28:54,553 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-04 21:28:56,299 basehttp "GET /auth/telegram/code/ HTTP/1.1" 200 37883
+INFO 2025-11-04 21:28:56,472 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-04 21:29:03,690 basehttp "POST /auth/telegram/code/ HTTP/1.1" 302 0
+INFO 2025-11-04 21:29:03,751 basehttp "GET /accounts/profile/ HTTP/1.1" 200 49192
+INFO 2025-11-04 21:29:03,822 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-04 21:29:10,302 basehttp "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-11-04 21:29:10,455 basehttp "GET / HTTP/1.1" 200 31930
+INFO 2025-11-04 21:29:11,469 basehttp "GET /login/ HTTP/1.1" 200 30271
+INFO 2025-11-04 21:29:15,096 basehttp "GET /login/ HTTP/1.1" 200 29772
+INFO 2025-11-04 21:29:16,676 basehttp "GET /auth/telegram/ HTTP/1.1" 200 40092
+INFO 2025-11-04 21:29:38,445 basehttp "GET /auth/telegram/ HTTP/1.1" 200 40092
+INFO 2025-11-04 21:29:59,947 basehttp "GET /login/ HTTP/1.1" 200 29772
+INFO 2025-11-04 21:30:01,818 basehttp "POST /login/ HTTP/1.1" 302 0
+INFO 2025-11-04 21:30:01,872 basehttp "GET / HTTP/1.1" 200 34570
+INFO 2025-11-04 21:30:01,945 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-04 21:30:04,798 basehttp "GET /accounts/profile/ HTTP/1.1" 200 49192
+INFO 2025-11-04 21:30:04,871 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-04 21:30:12,203 basehttp "GET /auth/telegram/code/ HTTP/1.1" 200 37883
+INFO 2025-11-04 21:30:12,272 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-04 21:30:21,539 basehttp "POST /auth/telegram/code/ HTTP/1.1" 302 0
+INFO 2025-11-04 21:30:21,611 basehttp "GET /accounts/profile/ HTTP/1.1" 200 49192
+INFO 2025-11-04 21:30:21,788 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-04 21:30:51,730 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-04 21:31:21,835 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-04 21:31:51,861 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-04 21:32:21,728 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-04 21:32:51,845 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-04 21:33:21,731 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-04 21:33:51,838 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127

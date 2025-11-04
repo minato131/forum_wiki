@@ -161,6 +161,55 @@
             <button type="submit" name="update_profile" class="btn btn-primary">💾 Сохранить настройки</button>
         </form>
     </div>
+    <div class="telegram-link-section" style="margin-top: 30px; padding: 20px; background: rgba(212, 175, 55, 0.1); border-radius: 10px;">
+    <h3 style="color: #D4AF37; margin-bottom: 15px;">🔗 Привязка Telegram</h3>
+
+    {% if not user.telegram_account %}
+    <p style="color: #e8e8e8; margin-bottom: 15px;">
+        Привяжите Telegram для быстрого входа и уведомлений
+    </p>
+
+    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+        <a href="{% url 'wiki:telegram_login' %}" class="btn" style="background: #0088cc;">
+            📱 Авторизоваться
+        </a>
+        <a href="{% url 'wiki:telegram_auth_code' %}" class="btn btn-outline">
+            🔢 Ввести код
+        </a>
+    </div>
+
+    <div style="margin-top: 15px; color: #888; font-size: 0.9em;">
+        <strong>Инструкция:</strong>
+        <ol style="margin: 10px 0; padding-left: 20px;">
+            <li>Напишите боту <strong>@Witcher_forum_bot</strong> команду <code>/auth</code></li>
+            <li>Получите код авторизации</li>
+            <li>Введите код на сайте или используйте быструю авторизацию</li>
+        </ol>
+    </div>
+    {% else %}
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div>
+            <p style="color: #e8e8e8; margin: 0;">
+                <strong>Telegram:</strong>
+                {% if user.telegram_account.telegram_username %}
+                    @{{ user.telegram_account.telegram_username }}
+                {% else %}
+                    ID: {{ user.telegram_account.telegram_id }}
+                {% endif %}
+            </p>
+            <p style="color: #888; margin: 5px 0 0 0; font-size: 0.9em;">
+                Привязан: {{ user.telegram_account.created_at|date:"d.m.Y" }}
+            </p>
+        </div>
+        <form method="post" action="{% url 'wiki:telegram_disconnect' %}">
+            {% csrf_token %}
+            <button type="submit" class="btn" style="background: #dc3545;">
+                Отвязать
+            </button>
+        </form>
+    </div>
+    {% endif %}
+</div>
 
     <!-- Последние статьи -->
     <div class="recent-articles-section">

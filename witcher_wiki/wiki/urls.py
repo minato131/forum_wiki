@@ -93,12 +93,11 @@ urlpatterns = [
     path('password-reset/complete/', views.password_reset_complete, name='password_reset_complete'),
 
     # Telegram Auth
-    path('auth/telegram/login/', views.telegram_login, name='telegram_login'),
-    path('auth/telegram/connect/', views.telegram_connect, name='telegram_connect'),
-    path('auth/telegram/disconnect/', views.telegram_disconnect, name='telegram_disconnect'),
-
-    path('auth/telegram/', views.telegram_login, name='telegram_login'),
+    path('auth/telegram/', views.telegram_auth, name='telegram_auth'),
     path('auth/telegram/callback/', views.telegram_callback, name='telegram_callback'),
-    path('auth/telegram/connect/', views.telegram_connect, name='telegram_connect'),
     path('auth/telegram/disconnect/', views.telegram_disconnect, name='telegram_disconnect'),
+    path('auth/telegram/code/', views.telegram_auth_code, name='telegram_auth_code'),
+    path('auth/telegram/generate-code/', views.telegram_generate_test_code, name='telegram_generate_test_code'),
+    path('auth/telegram/link/', views.telegram_link_with_code, name='telegram_link_with_code'),
+
 ]

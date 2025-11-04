@@ -1,0 +1,395 @@
+<!-- wiki/telegram_auth_code.html -->
+{% extends 'base.html' %}
+
+{% block title %}Ввод кода авторизации Telegram | Форум по Вселенной Ведьмака{% endblock %}
+
+{% block content %}
+<div class="auth-code-container">
+    <div class="auth-code-card">
+        <div class="auth-header">
+            <div class="auth-icon">🔐</div>
+            <h1>Ввод кода авторизации</h1>
+            <p>Привяжите ваш Telegram аккаунт</p>
+        </div>
+
+        <div class="auth-instructions">
+            <h3>📋 Инструкция:</h3>
+            <ol>
+                <li>Напишите боту <strong>@Witcher_forum_bot</strong> команду <code>/auth</code></li>
+                <li>Получите 6-значный код авторизации</li>
+                <li>Введите код в поле ниже</li>
+                <li>Нажмите "Привязать аккаунт"</li>
+            </ol>
+
+            <div class="note">
+                <strong>💡 Примечание:</strong> Код действителен в течение 10 минут
+            </div>
+        </div>
+
+        <form method="post" class="auth-form">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label for="code" class="form-label">6-значный код:</label>
+                <input type="text"
+                       id="code"
+                       name="code"
+                       class="form-control"
+                       placeholder="123456"
+                       maxlength="6"
+                       pattern="[0-9]{6}"
+                       required>
+                <div class="form-help">Введите код, полученный от бота</div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">
+                🔗 Привязать аккаунт
+            </button>
+        </form>
+
+        <div class="auth-alternatives">
+            <div class="divider">
+                <span>или</span>
+            </div>
+
+            <div class="alternative-actions">
+                <a href="{% url 'wiki:telegram_login' %}" class="btn btn-outline">
+                    📱 Быстрая авторизация
+                </a>
+                <a href="{% url 'wiki:profile' %}" class="btn btn-outline">
+                    ↩️ Назад в профиль
+                </a>
+            </div>
+        </div>
+
+        <div class="auth-troubleshoot">
+            <h4>❌ Возникли проблемы?</h4>
+            <ul>
+                <li>Убедитесь, что бот <strong>@Witcher_forum_bot</strong> запущен</li>
+                <li>Проверьте, что ввели код без пробелов</li>
+                <li>Если код не работает, запросите новый через <code>/auth</code></li>
+                <li>Код действителен только 10 минут</li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% if active_codes %}
+<div class="debug-info" style="background: rgba(139, 69, 19, 0.1); padding: 15px; border-radius: 8px; border: 1px solid rgba(139, 69, 19, 0.3); margin-bottom: 20px;">
+    <h4 style="color: #8B4513; margin-bottom: 10px;">🧪 Активные коды (для тестирования):</h4>
+    <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+        {% for auth_code in active_codes %}
+        <div style="background: rgba(212, 175, 55, 0.2); padding: 10px; border-radius: 5px; border: 1px solid #D4AF37;">
+            <strong style="color: #D4AF37;">{{ auth_code.code }}</strong>
+            <div style="font-size: 0.8em; color: #888;">
+                Для: {{ auth_code.telegram_username|default:auth_code.telegram_id }}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+<!-- Обновите форму для тестирования -->
+<div style="background: rgba(59, 130, 246, 0.1); padding: 15px; border-radius: 8px; border: 1px solid rgba(59, 130, 246, 0.3); margin-top: 20px;">
+    <p style="color: #3b82f6; margin: 0 0 10px 0; font-size: 0.9em;">
+        <strong>🧪 Тестовый режим:</strong> Сгенерировать тестовый код
+    </p>
+    <form method="post" action="{% url 'wiki:telegram_generate_test_code' %}" style="display: inline;">
+        {% csrf_token %}
+        <button type="submit" class="btn" style="background: #3b82f6; padding: 8px 15px; font-size: 0.9em;">
+            🧪 Сгенерировать тестовый код
+        </button>
+    </form>
+</div>
+<style>
+.auth-code-container {
+    max-width: 500px;
+    margin: 30px auto;
+    padding: 20px;
+}
+
+.auth-code-card {
+    background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+    padding: 40px 30px;
+    border-radius: 20px;
+    border: 2px solid #D4AF37;
+}
+
+.auth-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.auth-icon {
+    font-size: 4em;
+    margin-bottom: 15px;
+}
+
+.auth-header h1 {
+    color: #D4AF37;
+    margin-bottom: 10px;
+    font-family: 'Cinzel', serif;
+}
+
+.auth-header p {
+    color: #e8e8e8;
+    opacity: 0.8;
+}
+
+.auth-instructions {
+    background: rgba(212, 175, 55, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    border-left: 4px solid #D4AF37;
+}
+
+.auth-instructions h3 {
+    color: #D4AF37;
+    margin-bottom: 15px;
+}
+
+.auth-instructions ol {
+    color: #e8e8e8;
+    padding-left: 20px;
+    margin-bottom: 15px;
+}
+
+.auth-instructions li {
+    margin-bottom: 8px;
+}
+
+.auth-instructions code {
+    background: rgba(212, 175, 55, 0.2);
+    color: #D4AF37;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: monospace;
+}
+
+.note {
+    background: rgba(59, 130, 246, 0.1);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    padding: 12px;
+    border-radius: 8px;
+    color: #3b82f6;
+    font-size: 0.9em;
+}
+
+.auth-form {
+    margin-bottom: 30px;
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-label {
+    display: block;
+    color: #D4AF37;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px 15px;
+    background: #1a1a1a;
+    border: 1px solid #D4AF37;
+    border-radius: 8px;
+    color: #e8e8e8;
+    font-size: 1.2em;
+    text-align: center;
+    letter-spacing: 3px;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #FFD700;
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.3);
+}
+
+.form-help {
+    color: #888;
+    font-size: 0.9em;
+    margin-top: 5px;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 25px;
+    background: #D4AF37;
+    color: #1a1a1a;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: all 0.3s;
+    border: 2px solid #D4AF37;
+    cursor: pointer;
+    width: 100%;
+    font-size: 1.1em;
+}
+
+.btn-primary {
+    background: #D4AF37;
+    color: #1a1a1a;
+}
+
+.btn-outline {
+    background: transparent;
+    color: #D4AF37;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+}
+
+.auth-alternatives {
+    margin-bottom: 30px;
+}
+
+.divider {
+    position: relative;
+    text-align: center;
+    margin: 25px 0;
+}
+
+.divider::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: rgba(212, 175, 55, 0.3);
+}
+
+.divider span {
+    background: #2d2d2d;
+    padding: 0 15px;
+                color: #D4AF37;
+                font-weight: bold;
+            }
+
+            .alternative-actions {
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .auth-troubleshoot {
+                background: rgba(239, 68, 68, 0.1);
+                padding: 20px;
+                border-radius: 10px;
+                border: 1px solid rgba(239, 68, 68, 0.3);
+            }
+
+            .auth-troubleshoot h4 {
+                color: #ef4444;
+                margin-bottom: 15px;
+            }
+
+            .auth-troubleshoot ul {
+                color: #e8e8e8;
+                padding-left: 20px;
+                margin: 0;
+            }
+
+            .auth-troubleshoot li {
+                margin-bottom: 8px;
+                font-size: 0.9em;
+            }
+
+            .auth-troubleshoot code {
+                background: rgba(239, 68, 68, 0.2);
+                color: #ef4444;
+                padding: 2px 6px;
+                border-radius: 4px;
+                font-family: monospace;
+            }
+
+            /* Сообщения об ошибках/успехе */
+            .alert {
+                padding: 15px 20px;
+                border-radius: 8px;
+                margin-bottom: 20px;
+                border-left: 4px solid;
+            }
+
+            .alert-success {
+                background: rgba(34, 197, 94, 0.1);
+                border-color: #22c55e;
+                color: #22c55e;
+            }
+
+            .alert-error {
+                background: rgba(239, 68, 68, 0.1);
+                border-color: #ef4444;
+                color: #ef4444;
+            }
+
+            @media (max-width: 768px) {
+                .auth-code-container {
+                    margin: 15px auto;
+                    padding: 10px;
+                }
+
+                .auth-code-card {
+                    padding: 25px 20px;
+                }
+
+                .auth-icon {
+                    font-size: 3em;
+                }
+
+                .alternative-actions {
+                    flex-direction: column;
+                }
+
+                .btn {
+                    min-width: auto;
+                }
+            }
+        </style>
+
+        <script>
+            // Автофокус на поле ввода кода
+            document.addEventListener('DOMContentLoaded', function() {
+                const codeInput = document.getElementById('code');
+                if (codeInput) {
+                    codeInput.focus();
+                }
+
+                // Автопереход при вводе 6 цифр
+                codeInput.addEventListener('input', function(e) {
+                    const value = e.target.value.replace(/\D/g, '');
+                    e.target.value = value;
+
+                    if (value.length === 6) {
+                        // Можно автоматически отправить форму
+                        // document.querySelector('.auth-form').submit();
+                    }
+                });
+
+                // Подтверждение перед отправкой
+                document.querySelector('.auth-form').addEventListener('submit', function(e) {
+                    const code = document.getElementById('code').value;
+                    if (code.length !== 6) {
+                        e.preventDefault();
+                        alert('❌ Пожалуйста, введите 6-значный код');
+                        return false;
+                    }
+
+                    // Показываем индикатор загрузки
+                    const submitBtn = this.querySelector('button[type="submit"]');
+                    submitBtn.innerHTML = '⏳ Привязка...';
+                    submitBtn.disabled = true;
+                });
+            });
+        </script>
+    </div>
+</div>
+{% endblock %}

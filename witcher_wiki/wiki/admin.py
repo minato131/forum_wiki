@@ -2,6 +2,8 @@
 from django.contrib import admin
 from django.contrib.auth.models import Group
 from .models import Article, Category, Comment, UserProfile, ArticleMedia, ModerationComment, ArticleRevision
+from django.contrib import admin
+from .models import AuthCode
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
@@ -73,3 +75,10 @@ post_migrate.connect(create_groups)
 admin.site.register(UserProfile)
 admin.site.register(ArticleMedia)
 admin.site.register(ModerationComment)
+
+@admin.register(AuthCode)
+class AuthCodeAdmin(admin.ModelAdmin):
+    list_display = ['code', 'telegram_username', 'telegram_id', 'is_used', 'created_at']
+    list_filter = ['is_used', 'created_at']
+    search_fields = ['code', 'telegram_username']
+    readonly_fields = ['created_at']

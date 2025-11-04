@@ -7,14 +7,104 @@ import json
 from django.conf import settings
 from django.db.models import Q, Sum
 
-# Настройка Django
+# Настройка Django ДО импорта моделей
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'witcher_wiki.settings')
 django.setup()
 
-from wiki.models import TelegramUser, Article
+# Теперь импортируем модели
+from wiki.models import TelegramUser, Article, User
 
 logger = logging.getLogger(__name__)
+class SyncTelegramBot:
+    def __init__(self):
+        self.token = getattr(settings, 'TELEGRAM_BOT_TOKEN', '')
+        if not self.token:
+            logger.error("❌ TELEGRAM_BOT_TOKEN не настроен в settings.py")
+            return
 
+        self.base_url = f"https://api.telegram.org/bot{self.token}"
+        self.last_update_id = 0
+        self.error_count = 0
+        self.max_errors = 5
+
+class TelegramAuthManager:
+    """Менеджер авторизации Telegram через базу данных"""
+
+    @classmethod
+    def generate_auth_code(cls, telegram_user_data):
+        """Генерирует код авторизации и сохраняет в базу"""
+        from wiki.models import AuthCode
+        import time
+
+        code = str(secrets.randbelow(900000) + 100000)  # 6-значный код
+
+        # Сохраняем в базу
+        auth_code = AuthCode.objects.create(
+            code=code,
+            telegram_id=telegram_user_data['id'],
+            telegram_username=telegram_user_data.get('username', ''),
+            first_name=telegram_user_data.get('first_name', ''),
+            expires_at=time.time() + 600  # 10 минут
+        )
+
+        return code
+
+    @classmethod
+    def verify_auth_code(cls, code, django_user):
+        """Проверяет код и привязывает аккаунт"""
+        from wiki.models import AuthCode
+        import time
+
+        try:
+            auth_code = AuthCode.objects.get(
+                code=code,
+                is_used=False
+            )
+
+            # Проверяем срок действия
+            if time.time() > auth_code.expires_at:
+                auth_code.delete()
+                return False, "Срок действия кода истек"
+
+            # Привязываем Telegram аккаунт
+            with transaction.atomic():
+                # Создаем или обновляем привязку
+                telegram_user, created = TelegramUser.objects.get_or_create(
+                    telegram_id=auth_code.telegram_id,
+                    defaults={
+                        'user': django_user,
+                        'telegram_username': auth_code.telegram_username,
+                        'first_name': auth_code.first_name,
+                        'auth_date': time.time()
+                    }
+                )
+
+                if not created:
+                    # Если аккаунт уже привязан к другому пользователю
+                    if telegram_user.user != django_user:
+                        return False, "Этот Telegram аккаунт уже привязан к другому пользователю"
+
+                # Помечаем код как использованный
+                auth_code.is_used = True
+                auth_code.used_by = django_user
+                auth_code.used_at = time.time()
+                auth_code.save()
+
+                return True, "Аккаунт успешно привязан"
+
+        except AuthCode.DoesNotExist:
+            return False, "Неверный код авторизации"
+
+    @classmethod
+    def get_pending_codes(cls):
+        """Возвращает активные коды авторизации"""
+        from wiki.models import AuthCode
+        import time
+
+        # Удаляем просроченные коды
+        AuthCode.objects.filter(expires_at__lt=time.time()).delete()
+
+        return AuthCode.objects.filter(is_used=False)
 
 class SyncTelegramBot:
     def __init__(self):
@@ -27,6 +117,9 @@ class SyncTelegramBot:
         self.last_update_id = 0
         self.error_count = 0
         self.max_errors = 5
+
+        # Хранилище временных кодов авторизации
+        self.auth_codes = {}  # {user_id: {'code': '123456', 'timestamp': time.time()}}
 
         # Проверим токен при инициализации
         self.check_bot_token()
@@ -143,6 +236,45 @@ class SyncTelegramBot:
 
         return {'inline_keyboard': keyboard}
 
+    def generate_auth_code(self, user_id):
+        """Генерирует уникальный код авторизации"""
+        code = secrets.randbelow(900000) + 100000  # 6-значный код
+        self.auth_codes[user_id] = {
+            'code': str(code),
+            'timestamp': time.time()
+        }
+        return str(code)
+
+    def process_auth_command(self, message):
+        """Обрабатывает команду /auth"""
+        chat_id = message['chat']['id']
+        user_id = message['from']['id']
+
+        code = self.generate_auth_code(user_id)
+
+        auth_text = f"""🔐 <b>Авторизация на сайте</b>
+
+Ваш код авторизации: <code>{code}</code>
+
+<b>Инструкция:</b>
+1. Перейдите на сайт: {settings.TELEGRAM_WEB_APP_URL}
+2. Войдите в свой аккаунт (или зарегистрируйтесь)
+3. Перейдите в профиль → Настройки
+4. Введите код: <code>{code}</code>
+
+⏰ Код действителен 10 минут
+
+Или используйте быструю ссылку:
+{settings.TELEGRAM_WEB_APP_URL}/auth/telegram/"""
+
+        buttons = [
+            [{'text': '🌐 Открыть сайт', 'url': settings.TELEGRAM_WEB_APP_URL}],
+            [{'text': '🚀 Быстрая авторизация', 'url': f"{settings.TELEGRAM_WEB_APP_URL}/auth/telegram/"}],
+        ]
+        keyboard = self.create_inline_keyboard(buttons)
+
+        self.send_message(chat_id, auth_text, keyboard)
+
     def process_message(self, message):
         """Обрабатывает входящее сообщение"""
         chat_id = message['chat']['id']
@@ -153,6 +285,7 @@ class SyncTelegramBot:
         if text.startswith('/start'):
             buttons = [
                 [{'text': '🌐 Открыть сайт', 'url': settings.TELEGRAM_WEB_APP_URL}],
+                [{'text': '🔐 Авторизация', 'callback_data': 'auth'}],
                 [{'text': '📝 Мои статьи', 'callback_data': 'my_articles'}],
                 [{'text': '🔍 Поиск статей', 'callback_data': 'search'}],
             ]
@@ -162,26 +295,36 @@ class SyncTelegramBot:
 
 Я бот для Форума по Вселенной Ведьмака ⚔️
 
-Команды:
+<b>Команды:</b>
 /start - Главное меню
+/auth - Авторизация на сайте
 /articles - Последние статьи
 /search - Поиск статей
 /profile - Мой профиль
-/help - Помощь"""
+/help - Помощь
+
+🌐 <b>Сайт:</b> {settings.TELEGRAM_WEB_APP_URL}"""
 
             self.send_message(chat_id, welcome_text, keyboard)
 
+        elif text.startswith('/auth'):
+            self.process_auth_command(message)
+
         elif text.startswith('/help'):
-            help_text = """🤖 Команды бота:
+            help_text = """🤖 <b>Команды бота:</b>
 
 /start - Главное меню
+/auth - Авторизация на сайте
 /articles - Последние статьи  
 /search <запрос> - Поиск статей
 /profile - Информация о профиле
 /help - Эта справка
 
-🌐 Веб-версия:
-Для полного доступа ко всем функциям используйте веб-версию сайта."""
+🔐 <b>Авторизация:</b>
+Используйте /auth для получения кода авторизации
+
+🌐 <b>Веб-версия:</b>
+{settings.TELEGRAM_WEB_APP_URL}"""
 
             self.send_message(chat_id, help_text)
 
@@ -193,9 +336,9 @@ class SyncTelegramBot:
                     self.send_message(chat_id, "📝 Пока нет опубликованных статей.")
                     return
 
-                articles_text = "📚 Последние статьи:\n\n"
+                articles_text = "📚 <b>Последние статьи:</b>\n\n"
                 for article in recent_articles:
-                    articles_text += f"• {article.title}\n"
+                    articles_text += f"• <b>{article.title}</b>\n"
                     articles_text += f"  👤 {article.author.username}\n"
                     articles_text += f"  📅 {article.created_at.strftime('%d.%m.%Y')}\n"
                     articles_text += f"  🔗 {settings.TELEGRAM_WEB_APP_URL}/article/{article.slug}/\n\n"
@@ -216,7 +359,8 @@ class SyncTelegramBot:
             query = text.replace('/search', '').strip()
 
             if not query:
-                self.send_message(chat_id, "🔍 Использование: /search <запрос>\n\nПример: /search Геральт")
+                self.send_message(chat_id,
+                                  "🔍 <b>Использование:</b> /search &lt;запрос&gt;\n\n<b>Пример:</b> /search Геральт")
                 return
 
             try:
@@ -229,9 +373,9 @@ class SyncTelegramBot:
                     self.send_message(chat_id, f"❌ По запросу '{query}' ничего не найдено.")
                     return
 
-                search_text = f"🔍 Результаты поиска по '{query}':\n\n"
+                search_text = f"🔍 <b>Результаты поиска по '{query}':</b>\n\n"
                 for article in articles:
-                    search_text += f"• {article.title}\n"
+                    search_text += f"• <b>{article.title}</b>\n"
                     search_text += f"  👤 {article.author.username}\n"
                     search_text += f"  🔗 {settings.TELEGRAM_WEB_APP_URL}/article/{article.slug}/\n\n"
 
@@ -257,27 +401,28 @@ class SyncTelegramBot:
                 total_views = Article.objects.filter(author=django_user).aggregate(Sum('views_count'))[
                                   'views_count__sum'] or 0
 
-                profile_text = f"""👤 Ваш профиль:
+                profile_text = f"""👤 <b>Ваш профиль</b>
 
-Имя: {django_user.username}
-Статей опубликовано: {articles_count}
-Всего просмотров: {total_views}
-Telegram: @{message['from'].get('username', 'не указан')}
+<b>Имя:</b> {django_user.username}
+<b>Статей опубликовано:</b> {articles_count}
+<b>Всего просмотров:</b> {total_views}
+<b>Telegram:</b> @{message['from'].get('username', 'не указан')}
 
-Ссылки:
+<b>Ссылки:</b>
 🌐 {settings.TELEGRAM_WEB_APP_URL}/user/{django_user.username}/
 📝 {settings.TELEGRAM_WEB_APP_URL}/my-articles/  
 ✍️ {settings.TELEGRAM_WEB_APP_URL}/article/create/"""
 
             except TelegramUser.DoesNotExist:
-                profile_text = f"""👤 Вы еще не зарегистрированы на сайте
+                profile_text = f"""👤 <b>Вы еще не авторизованы на сайте</b>
 
-Для доступа ко всем функциям:
-🌐 {settings.TELEGRAM_WEB_APP_URL}/login/"""
+Для доступа ко всем функциям используйте команду /auth
+
+🌐 <b>Сайт:</b> {settings.TELEGRAM_WEB_APP_URL}/login/"""
 
             buttons = [
                 [{'text': '🌐 Открыть сайт', 'url': settings.TELEGRAM_WEB_APP_URL}],
-                [{'text': '📝 Мои статьи', 'callback_data': 'my_articles'}],
+                [{'text': '🔐 Авторизация', 'callback_data': 'auth'}],
             ]
             keyboard = self.create_inline_keyboard(buttons)
 
@@ -293,28 +438,30 @@ Telegram: @{message['from'].get('username', 'не указан')}
 
         logger.info(f"🔄 Callback query: {data} от {chat_id}")
 
-        if data == "my_articles":
+        if data == "auth":
+            self.process_auth_command({'chat': {'id': chat_id}, 'from': callback_query['from']})
+
+        elif data == "my_articles":
             user_id = callback_query['from']['id']
             try:
                 telegram_user = TelegramUser.objects.get(telegram_id=user_id)
                 url = f"{settings.TELEGRAM_WEB_APP_URL}/my-articles/"
                 self.send_message(
                     chat_id,
-                    "📝 Ваши статьи\n\nПерейдите по ссылке чтобы увидеть ваши статьи:",
+                    "📝 <b>Ваши статьи</b>\n\nПерейдите по ссылке чтобы увидеть ваши статьи:",
                     self.create_inline_keyboard([[{'text': '📖 Мои статьи', 'url': url}]])
                 )
             except TelegramUser.DoesNotExist:
                 self.send_message(
                     chat_id,
-                    "❌ Вы еще не авторизованы на сайте.\n\nНажмите кнопку ниже чтобы войти:",
-                    self.create_inline_keyboard(
-                        [[{'text': '🌐 Войти', 'url': f"{settings.TELEGRAM_WEB_APP_URL}/login/"}]])
+                    "❌ <b>Вы еще не авторизованы на сайте.</b>\n\nИспользуйте команду /auth для авторизации:",
+                    self.create_inline_keyboard([[{'text': '🔐 Авторизация', 'callback_data': 'auth'}]])
                 )
 
         elif data == "search":
             self.send_message(
                 chat_id,
-                "🔍 Поиск статей\n\nИспользуйте команду /search <запрос>\n\nПример: /search ведьмак"
+                "🔍 <b>Поиск статей</b>\n\nИспользуйте команду /search &lt;запрос&gt;\n\n<b>Пример:</b> /search ведьмак"
             )
 
     def run(self):
@@ -341,6 +488,15 @@ Telegram: @{message['from'].get('username', 'не указан')}
                         self.process_message(update['message'])
                     elif 'callback_query' in update:
                         self.process_callback_query(update['callback_query'])
+
+                # Очищаем устаревшие коды авторизации
+                current_time = time.time()
+                expired_users = [
+                    user_id for user_id, auth_data in self.auth_codes.items()
+                    if current_time - auth_data['timestamp'] > 600  # 10 минут
+                ]
+                for user_id in expired_users:
+                    del self.auth_codes[user_id]
 
                 time.sleep(0.5)
 

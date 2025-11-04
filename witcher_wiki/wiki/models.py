@@ -724,6 +724,7 @@ class TelegramVerification(models.Model):
         super().save(*args, **kwargs)
 
 
+# models.py - обновленная модель TelegramUser
 class TelegramUser(models.Model):
     """Модель для связи пользователя с Telegram аккаунтом"""
     user = models.OneToOneField(
@@ -740,8 +741,19 @@ class TelegramUser(models.Model):
     first_name = models.CharField(max_length=64, blank=True, verbose_name='Имя в Telegram')
     last_name = models.CharField(max_length=64, blank=True, verbose_name='Фамилия в Telegram')
     photo_url = models.URLField(blank=True, verbose_name='Фото профиля')
+    auth_date = models.DateTimeField(
+        verbose_name='Дата авторизации',
+        default=timezone.now  # ДОБАВЛЕНО default значение
+    )
+    hash = models.CharField(
+        max_length=255,
+        verbose_name='Хеш авторизации',
+        blank=True,  # ДОБАВЛЕНО blank=True для существующих записей
+        default=''   # ДОБАВЛЕНО default значение
+    )
     is_verified = models.BooleanField(default=True, verbose_name='Подтвержден')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата привязки')
+    updated_at = models.DateTimeField(auto_now=True, verbose_name='Обновлено')
 
     class Meta:
         verbose_name = 'Telegram пользователь'
@@ -758,3 +770,33 @@ class TelegramUser(models.Model):
         if self.last_name:
             parts.append(self.last_name)
         return ' '.join(parts) if parts else 'Пользователь Telegram'
+
+
+class AuthCode(models.Model):
+    """Модель для хранения кодов авторизации Telegram"""
+    code = models.CharField('Код', max_length=6, unique=True)
+    telegram_id = models.BigIntegerField('ID Telegram')
+    telegram_username = models.CharField('Username Telegram', max_length=32, blank=True)
+    first_name = models.CharField('Имя', max_length=64, blank=True)
+
+    # Статус использования
+    is_used = models.BooleanField('Использован', default=False)
+    used_by = models.ForeignKey('User', on_delete=models.SET_NULL, null=True, blank=True,
+                                verbose_name='Использован пользователем')
+    used_at = models.DateTimeField('Время использования', null=True, blank=True)
+
+    # Срок действия
+    created_at = models.DateTimeField('Создан', auto_now_add=True)
+    expires_at = models.FloatField('Истекает')  # Unix timestamp
+
+    class Meta:
+        verbose_name = 'Код авторизации'
+        verbose_name_plural = 'Коды авторизации'
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"Код {self.code} для {self.telegram_username or self.telegram_id}"
+
+    def is_expired(self):
+        import time
+        return time.time() > self.expires_at

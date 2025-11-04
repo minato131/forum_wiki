@@ -1,38 +1,110 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Вход через Telegram{% endblock %}
+{% block title %}Авторизация через Telegram | Форум по Вселенной Ведьмака{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card witcher-card">
-                <div class="card-header">
-                    <h4 class="mb-0">🔐 Вход через Telegram</h4>
+<div class="telegram-auth-container">
+    <div class="telegram-auth-card">
+        <div class="telegram-header">
+            <div class="telegram-icon">⚔️</div>
+            <h1>Авторизация через Telegram</h1>
+            <p>Форум по Вселенной Ведьмака</p>
+        </div>
+
+        <div class="auth-content">
+            <div class="auth-steps">
+                <div class="step active">
+                    <div class="step-number">1</div>
+                    <div class="step-info">
+                        <h3>Нажмите кнопку ниже</h3>
+                        <p>Откроется Telegram для авторизации</p>
+                    </div>
                 </div>
-                <div class="card-body text-center">
-                    <p class="mb-4">Для входа через Telegram:</p>
-                    
-                    <!-- Telegram Login Widget -->
-                    <script async src="https://telegram.org/js/telegram-widget.js?22" 
-                            data-telegram-login="{{ telegram_bot_username }}" 
-                            data-size="large" 
-                            data-auth-url="{% url 'wiki:telegram_callback' %}" 
-                            data-request-access="write"></script>
-                    
-                    <div class="mt-4">
-                        <p class="text-muted small">
-                            Нажмите кнопку выше для авторизации через Telegram.<br>
-                            Бот: @{{ telegram_bot_username }}
-                        </p>
+
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-info">
+                        <h3>Подтвердите вход</h3>
+                        <p>В приложении Telegram</p>
                     </div>
-                    
-                    <div class="mt-3">
-                        <a href="{% url 'wiki:login' %}" class="btn btn-secondary">
-                            ← Назад к обычному входу
-                        </a>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-info">
+                        <h3>Готово!</h3>
+                        <p>Вы будете автоматически авторизованы</p>
                     </div>
+                </div>
+            </div>
+
+            <div class="telegram-widget-section">
+                <div id="telegram-login-widget">
+                    {% if telegram_bot_username and telegram_bot_username != 'your_bot_username' %}
+                    <!-- Загрузочное состояние -->
+                    <div id="widget-loading" style="text-align: center; padding: 30px; color: #D4AF37;">
+                        <div style="font-size: 2em; margin-bottom: 15px;">⏳</div>
+                        <p>Загрузка виджета Telegram...</p>
+                    </div>
+                    {% else %}
+                    <div class="alert alert-error">
+                        <div style="text-align: center; padding: 20px;">
+                            <div style="font-size: 2em; margin-bottom: 10px;">❌</div>
+                            <h3>Telegram бот не настроен</h3>
+                            <p>Обратитесь к администратору для настройки бота</p>
+                            <div style="margin-top: 15px;">
+                                <a href="{% url 'wiki:login' %}" class="btn">
+                                    🔐 Войти по паролю
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="auth-features">
+                <h3>📋 Что вы получите после авторизации:</h3>
+                <div class="features-grid">
+                    <div class="feature">
+                        <span class="feature-icon">✍️</span>
+                        <span class="feature-text">Создание статей</span>
+                    </div>
+                    <div class="feature">
+                        <span class="feature-icon">❤️</span>
+                        <span class="feature-text">Лайки и комментарии</span>
+                    </div>
+                    <div class="feature">
+                        <span class="feature-icon">📚</span>
+                        <span class="feature-text">Личная библиотека</span>
+                    </div>
+                    <div class="feature">
+                        <span class="feature-icon">🔔</span>
+                        <span class="feature-text">Уведомления</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="auth-footer">
+            <div class="security-info">
+                <div class="security-icon">🔒</div>
+                <div class="security-text">
+                    <strong>Безопасная авторизация</strong><br>
+                    Ваши данные защищены сквозным шифрованием
+                </div>
+            </div>
+
+            <div class="alternative-auth">
+                <p>Или используйте другой способ входа:</p>
+                <div class="auth-buttons">
+                    <a href="{% url 'wiki:login' %}" class="btn btn-outline">
+                        🔐 Войти по паролю
+                    </a>
+                    <a href="{% url 'wiki:register' %}" class="btn btn-outline">
+                        📝 Регистрация
+                    </a>
                 </div>
             </div>
         </div>
@@ -40,33 +112,413 @@
 </div>
 
 <style>
-.witcher-card {
+/* Стили остаются такими же как в предыдущем шаблоне */
+.telegram-auth-container {
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 20px;
+}
+
+.telegram-auth-card {
     background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+    padding: 40px;
+    border-radius: 20px;
     border: 2px solid #D4AF37;
-    border-radius: 15px;
-    color: #e8e8e8;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
-.witcher-card .card-header {
-    background: linear-gradient(135deg, #8B4513 0%, #D4AF37 50%, #8B4513 100%);
-    color: #1a1a1a;
-    border-bottom: 2px solid #D4AF37;
+.telegram-header {
+    text-align: center;
+    margin-bottom: 40px;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+    padding-bottom: 20px;
+}
+
+.telegram-icon {
+    font-size: 4em;
+    margin-bottom: 15px;
+}
+
+.telegram-header h1 {
+    color: #D4AF37;
+    margin-bottom: 10px;
     font-family: 'Cinzel', serif;
+    font-size: 2.2em;
 }
 
-.btn-secondary {
-    background: #6c757d;
-    border: 2px solid #D4AF37;
+.telegram-header p {
     color: #e8e8e8;
+    font-size: 1.2em;
+    opacity: 0.8;
 }
 
-.btn-secondary:hover {
-    background: #5a6268;
-    color: #fff;
+.auth-steps {
+    margin-bottom: 40px;
 }
 
-.text-muted {
-    color: #888 !important;
+.step {
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px;
+    padding: 15px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    transition: all 0.3s;
+}
+
+.step.active {
+    background: rgba(212, 175, 55, 0.1);
+    border-left: 4px solid #D4AF37;
+}
+
+.step-number {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #D4AF37;
+    color: #1a1a1a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-right: 20px;
+    flex-shrink: 0;
+}
+
+.step-info h3 {
+    color: #D4AF37;
+    margin-bottom: 5px;
+    font-size: 1.1em;
+}
+
+.step-info p {
+    color: #e8e8e8;
+    opacity: 0.8;
+    margin: 0;
+    font-size: 0.9em;
+}
+
+.telegram-widget-section {
+    text-align: center;
+    margin: 40px 0;
+    padding: 30px;
+    background: rgba(212, 175, 55, 0.05);
+    border-radius: 15px;
+    border: 1px dashed #D4AF37;
+}
+
+.auth-features {
+    margin: 40px 0;
+}
+
+.auth-features h3 {
+    color: #D4AF37;
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 1.3em;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 15px;
+}
+
+.feature {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    transition: transform 0.3s;
+}
+
+.feature:hover {
+    transform: translateY(-3px);
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.feature-icon {
+    font-size: 2em;
+    margin-bottom: 8px;
+}
+
+.feature-text {
+    color: #e8e8e8;
+    font-size: 0.9em;
+    font-weight: 500;
+}
+
+.auth-footer {
+    border-top: 1px solid rgba(212, 175, 55, 0.3);
+    padding-top: 30px;
+}
+
+.security-info {
+    display: flex;
+    align-items: center;
+    background: rgba(34, 197, 94, 0.1);
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.security-icon {
+    font-size: 2em;
+    margin-right: 15px;
+}
+
+.security-text {
+    color: #e8e8e8;
+    font-size: 0.9em;
+}
+
+.alternative-auth {
+    text-align: center;
+}
+
+.alternative-auth p {
+    color: #e8e8e8;
+    margin-bottom: 15px;
+    opacity: 0.8;
+}
+
+.auth-buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 20px;
+    background: #D4AF37;
+    color: #1a1a1a;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: all 0.3s;
+    border: 2px solid #D4AF37;
+    min-width: 150px;
+    cursor: pointer;
+    border: none;
+    font-family: inherit;
+}
+
+.btn-outline {
+    background: transparent;
+    color: #D4AF37;
+}
+
+.btn-outline:hover {
+    background: #D4AF37;
+    color: #1a1a1a;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+}
+
+.alert-error {
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #ef4444;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .telegram-auth-container {
+        margin: 15px auto;
+        padding: 10px;
+    }
+
+    .telegram-auth-card {
+        padding: 25px 20px;
+    }
+
+    .telegram-icon {
+        font-size: 3em;
+    }
+
+    .telegram-header h1 {
+        font-size: 1.8em;
+    }
+
+    .step {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .step-number {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .auth-buttons {
+        flex-direction: column;
+    }
+
+    .btn {
+        min-width: auto;
+    }
 }
 </style>
+
+<script>
+// Глобальная функция для обработки авторизации Telegram
+function onTelegramAuth(user) {
+    console.log('Telegram auth data:', user);
+
+    const widget = document.getElementById('telegram-login-widget');
+    widget.innerHTML = '<div style="color: #D4AF37; padding: 20px; text-align: center;">⏳ Выполняется авторизация...</div>';
+
+    // Отправляем данные на сервер
+    const formData = new FormData();
+    formData.append('initData', JSON.stringify(user));
+
+    fetch('{% url "wiki:telegram_callback" %}', {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-CSRFToken': '{{ csrf_token }}',
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            widget.innerHTML = '<div style="color: #22c55e; padding: 20px; text-align: center;">✅ Авторизация успешна! Перенаправление...</div>';
+            setTimeout(() => {
+                window.location.href = '{% url "wiki:home" %}';
+            }, 1000);
+        } else {
+            widget.innerHTML = `
+                <div style="color: #ef4444; padding: 20px; text-align: center;">
+                    ❌ Ошибка: ${data.error}
+                    <div style="margin-top: 15px;">
+                        <button onclick="initTelegramWidget()" class="btn">🔄 Попробовать снова</button>
+                    </div>
+                </div>
+            `;
+        }
+    })
+    .catch(error => {
+        widget.innerHTML = `
+            <div style="color: #ef4444; padding: 20px; text-align: center;">
+                ❌ Ошибка сети
+                <div style="margin-top: 15px;">
+                    <button onclick="initTelegramWidget()" class="btn">🔄 Попробовать снова</button>
+                </div>
+            </div>
+        `;
+    });
+}
+
+// Функция для создания fallback кнопки
+function createFallbackButton() {
+    const widget = document.getElementById('telegram-login-widget');
+
+    const fallbackHtml = `
+        <div style="text-align: center; padding: 20px;">
+            <div style="margin-bottom: 20px;">
+                <div style="font-size: 3em; margin-bottom: 15px;">📱</div>
+                <h3 style="color: #D4AF37; margin-bottom: 10px;">Telegram Авторизация</h3>
+                <p style="color: #e8e8e8; margin-bottom: 20px;">Нажмите кнопку для входа через Telegram</p>
+            </div>
+
+            <button onclick="openTelegramAuth()"
+                    class="btn"
+                    style="background: #0088cc; color: white; border: none;">
+                <span>🔐 Войти через Telegram</span>
+            </button>
+
+            <div style="margin-top: 20px; color: #888; font-size: 0.9em;">
+                Бот: <strong>@{{ telegram_bot_username }}</strong>
+            </div>
+        </div>
+    `;
+
+    widget.innerHTML = fallbackHtml;
+}
+
+// Альтернативный метод авторизации
+function openTelegramAuth() {
+    const botUsername = '{{ telegram_bot_username }}';
+    const webAppUrl = '{{ request.scheme }}://{{ request.get_host }}';
+
+    // Открываем ссылку для авторизации
+    const authUrl = `https://t.me/${botUsername}?start=auth_${btoa(webAppUrl).replace(/=/g, '')}`;
+    window.open(authUrl, '_blank');
+
+    // Показываем инструкцию
+    document.getElementById('telegram-login-widget').innerHTML = `
+        <div style="text-align: center; padding: 30px; color: #D4AF37;">
+            <div style="font-size: 3em; margin-bottom: 15px;">📨</div>
+            <h3>Открыт Telegram</h3>
+            <p>Нажмите "START" в боте для завершения авторизации</p>
+            <div style="margin-top: 20px;">
+                <button onclick="initTelegramWidget()"
+                        class="btn"
+                        style="padding: 10px 20px;">
+                    🔄 Вернуться
+                </button>
+            </div>
+        </div>
+    `;
+}
+
+// Основная функция инициализации виджета
+function initTelegramWidget() {
+    const widget = document.getElementById('telegram-login-widget');
+
+    // Сначала пытаемся загрузить официальный виджет
+    const script = document.createElement('script');
+    script.src = 'https://telegram.org/js/telegram-widget.js?22';
+    script.async = true;
+    script.setAttribute('data-telegram-login', '{{ telegram_bot_username }}');
+    script.setAttribute('data-size', 'large');
+    script.setAttribute('data-onauth', 'onTelegramAuth(user)');
+    script.setAttribute('data-request-access', 'write');
+
+    widget.innerHTML = '<div style="color: #D4AF37; padding: 20px; text-align: center;">⏳ Загрузка виджета Telegram...</div>';
+    widget.appendChild(script);
+
+    // Если виджет не загрузился за 5 секунд, показываем fallback
+    setTimeout(() => {
+        if (!window.Telegram || !widget.querySelector('.telegram-login')) {
+            console.log('Telegram widget not loaded, showing fallback');
+            createFallbackButton();
+        }
+    }, 5000);
+}
+
+// Инициализация при загрузке страницы
+document.addEventListener('DOMContentLoaded', function() {
+    {% if telegram_bot_username and telegram_bot_username != 'your_bot_username' %}
+    initTelegramWidget();
+    {% endif %}
+
+    // Анимация для шагов
+    const steps = document.querySelectorAll('.step');
+    steps.forEach((step, index) => {
+        setTimeout(() => {
+            step.style.opacity = '1';
+            step.style.transform = 'translateX(0)';
+        }, index * 300);
+    });
+});
+</script>
 {% endblock %}

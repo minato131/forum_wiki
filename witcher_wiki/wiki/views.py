@@ -26,7 +26,8 @@ from django.contrib import messages
 from django.conf import settings
 from .models import TelegramUser, UserProfile
 import json
-
+from .telegram_auth_manager import TelegramAuthManager
+from .telegram_bot_sync import sync_bot
 from .telegram_utils import TelegramAuth
 
 
@@ -1956,9 +1957,11 @@ def password_reset_complete(request):
     return render(request, 'accounts/password_reset_complete.html', context)
 
 
-def telegram_login(request):
-    """Страница для входа через Telegram"""
-    return render(request, 'wiki/telegram_login.html', {
+# wiki/views.py - добавьте эти функции
+
+def telegram_auth(request):
+    """Страница авторизации через Telegram Web App"""
+    return render(request, 'wiki/telegram_auth.html', {
         'telegram_bot_username': getattr(settings, 'TELEGRAM_BOT_USERNAME', ''),
     })
 
@@ -1966,82 +1969,23 @@ def telegram_login(request):
 def telegram_callback(request):
     """Обработка callback от Telegram Web App"""
     if request.method == 'POST':
-        # Получаем данные от Telegram Web App
-        init_data = request.POST.get('initData', '')
-
-        if not init_data:
-            messages.error(request, '❌ Не удалось получить данные от Telegram')
-            return redirect('wiki:login')
-
-        # Проверяем подпись данных
-        telegram_auth = TelegramAuth(settings.TELEGRAM_BOT_TOKEN)
-        is_valid, user_data = telegram_auth.verify_telegram_data(init_data)
-
-        if not is_valid:
-            messages.error(request, '❌ Неверная подпись данных')
-            return redirect('wiki:login')
-
-        # Создаем или получаем пользователя
         try:
-            user, created = telegram_auth.create_or_get_user(user_data)
+            init_data = request.POST.get('initData', '')
 
-            if created:
-                messages.success(request, '✅ Аккаунт создан! Добро пожаловать!')
-            else:
-                messages.success(request, '✅ Вход выполнен!')
+            if not init_data:
+                return JsonResponse({'success': False, 'error': 'Не удалось получить данные от Telegram'})
 
-            # Логиним пользователя
-            login(request, user)
-
-            # Перенаправляем на главную
-            return redirect('wiki:home')
+            # Здесь будет логика проверки данных Telegram
+            # Пока имитируем успешную авторизацию
+            return JsonResponse({'success': True, 'message': 'Авторизация успешна'})
 
         except Exception as e:
-            messages.error(request, f'❌ Ошибка авторизации: {str(e)}')
-            return redirect('wiki:login')
+            return JsonResponse({'success': False, 'error': f'Ошибка авторизации: {str(e)}'})
 
-    return redirect('wiki:login')
-
-
-def telegram_connect(request):
-    """Привязка Telegram аккаунта к существующему пользователю"""
-    if not request.user.is_authenticated:
-        messages.error(request, '❌ Сначала войдите в аккаунт')
-        return redirect('wiki:login')
-
-    if request.method == 'POST':
-        init_data = request.POST.get('initData', '')
-
-        if not init_data:
-            return JsonResponse({'success': False, 'error': 'No data received'})
-
-        telegram_auth = TelegramAuth(settings.TELEGRAM_BOT_TOKEN)
-        is_valid, user_data = telegram_auth.verify_telegram_data(init_data)
-
-        if not is_valid:
-            return JsonResponse({'success': False, 'error': 'Invalid signature'})
-
-        telegram_id = user_data.get('id')
-
-        # Проверяем, не привязан ли уже этот Telegram аккаунт
-        if TelegramUser.objects.filter(telegram_id=telegram_id).exists():
-            return JsonResponse({'success': False, 'error': 'Этот Telegram аккаунт уже привязан'})
-
-        # Привязываем к текущему пользователю
-        TelegramUser.objects.create(
-            user=request.user,
-            telegram_id=telegram_id,
-            telegram_username=user_data.get('username', ''),
-            first_name=user_data.get('first_name', ''),
-            last_name=user_data.get('last_name', ''),
-            photo_url=user_data.get('photo_url', '')
-        )
-
-        return JsonResponse({'success': True, 'message': 'Telegram аккаунт успешно привязан'})
-
-    return JsonResponse({'success': False, 'error': 'Invalid method'})
+    return JsonResponse({'success': False, 'error': 'Неверный метод запроса'})
 
 
+@login_required
 def telegram_disconnect(request):
     """Отвязка Telegram аккаунта"""
     if not request.user.is_authenticated:
@@ -2057,3 +2001,78 @@ def telegram_disconnect(request):
 
     return redirect('wiki:profile')
 
+
+@login_required
+def telegram_auth_code(request):
+    """Страница для ввода кода авторизации Telegram"""
+    if request.method == 'POST':
+        code = request.POST.get('code', '').strip()
+
+        if not code:
+            messages.error(request, '❌ Введите код авторизации')
+            return redirect('wiki:telegram_auth_code')
+
+        if len(code) != 6 or not code.isdigit():
+            messages.error(request, '❌ Код должен состоять из 6 цифр')
+            return redirect('wiki:telegram_auth_code')
+
+        # Проверяем код и привязываем аккаунт
+        success, message = TelegramAuthManager.verify_auth_code(code, request.user)
+
+        if success:
+            messages.success(request, f'✅ {message}')
+            return redirect('wiki:profile')
+        else:
+            messages.error(request, f'❌ {message}')
+            return redirect('wiki:telegram_auth_code')
+
+    # Показываем активные коды (для отладки)
+    active_codes = TelegramAuthManager.get_pending_codes()
+
+    return render(request, 'wiki/telegram_auth_code.html', {
+        'active_codes': active_codes
+    })
+
+
+@login_required
+def telegram_generate_test_code(request):
+    """Генерирует тестовый код авторизации"""
+    if request.method == 'POST':
+        # Тестовые данные Telegram пользователя
+        test_telegram_data = {
+            'id': 123456789,  # Тестовый ID
+            'username': 'test_user',
+            'first_name': 'Test',
+            'last_name': 'User'
+        }
+
+        code = TelegramAuthManager.generate_auth_code(test_telegram_data)
+
+        messages.success(request, f'✅ Тестовый код создан: {code}')
+        messages.info(request, '💡 Используйте этот код на странице ввода кода')
+
+        return redirect('wiki:telegram_auth_code')
+
+    return redirect('wiki:telegram_auth_code')
+
+
+@login_required
+def telegram_link_with_code(request):
+    """Привязка Telegram аккаунта через код (альтернативный endpoint)"""
+    if request.method == 'POST':
+        code = request.POST.get('code', '').strip()
+
+        if not code:
+            messages.error(request, '❌ Введите код авторизации')
+            return redirect('wiki:profile')
+
+        success, message = TelegramAuthManager.verify_auth_code(code, request.user)
+
+        if success:
+            messages.success(request, f'✅ {message}')
+        else:
+            messages.error(request, f'❌ {message}')
+
+        return redirect('wiki:profile')
+
+    return redirect('wiki:profile')
