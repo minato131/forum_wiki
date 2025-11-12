@@ -1,0 +1,231 @@
+{% if current_tutorial %}
+<div id="tutorial-overlay" class="tutorial-overlay" data-tutorial-key="{{ current_tutorial.key }}">
+    <div class="tutorial-modal tutorial-{{ current_tutorial.data.position }}">
+        <div class="tutorial-header">
+            <h3>{{ current_tutorial.data.title }}</h3>
+            <div class="tutorial-progress">
+                Прогресс: {{ tutorial_progress }}%
+            </div>
+        </div>
+        
+        <div class="tutorial-content">
+            {{ current_tutorial.data.content|safe }}
+        </div>
+        
+        <div class="tutorial-actions">
+            <button type="button" class="tutorial-skip-btn">
+                Пропустить обучение
+            </button>
+            <button type="button" class="tutorial-next-btn">
+                {% if current_tutorial.data.next_tutorial %}
+                    Понятно, дальше
+                {% else %}
+                    Завершить обучение
+                {% endif %}
+            </button>
+        </div>
+        
+        <div class="tutorial-arrow"></div>
+    </div>
+</div>
+
+<style>
+.tutorial-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tutorial-modal {
+    background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+    border: 2px solid #D4AF37;
+    border-radius: 15px;
+    padding: 25px;
+    max-width: 500px;
+    color: #e8e8e8;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.tutorial-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #D4AF37;
+    padding-bottom: 15px;
+}
+
+.tutorial-header h3 {
+    color: #D4AF37;
+    margin: 0;
+    font-family: 'Cinzel', serif;
+    font-size: 1.3em;
+}
+
+.tutorial-progress {
+    background: rgba(212, 175, 55, 0.2);
+    color: #D4AF37;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 0.9em;
+    font-weight: 600;
+}
+
+.tutorial-content {
+    margin-bottom: 25px;
+    line-height: 1.6;
+}
+
+.tutorial-content ul {
+    margin: 15px 0;
+    padding-left: 20px;
+}
+
+.tutorial-content li {
+    margin-bottom: 8px;
+}
+
+.tutorial-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: flex-end;
+}
+
+.tutorial-skip-btn, .tutorial-next-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.tutorial-skip-btn {
+    background: #6b7280;
+    color: white;
+}
+
+.tutorial-next-btn {
+    background: #D4AF37;
+    color: #1a1a1a;
+}
+
+.tutorial-skip-btn:hover {
+    background: #4b5563;
+}
+
+.tutorial-next-btn:hover {
+    background: #c19b2e;
+}
+
+.tutorial-arrow {
+    position: absolute;
+    width: 0;
+    height: 0;
+}
+
+/* Позиционирование модальных окон */
+.tutorial-center {
+    margin: auto;
+}
+
+.tutorial-bottom-right {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    margin: 0;
+}
+
+.tutorial-bottom-left {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    margin: 0;
+}
+
+.tutorial-top-right {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    margin: 0;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const overlay = document.getElementById('tutorial-overlay');
+    const tutorialKey = overlay.getAttribute('data-tutorial-key');
+    const nextBtn = document.querySelector('.tutorial-next-btn');
+    const skipBtn = document.querySelector('.tutorial-skip-btn');
+
+    // Обработка кнопки "Дальше"
+    nextBtn.addEventListener('click', function() {
+        completeTutorial(tutorialKey);
+    });
+
+    // Обработка кнопки "Пропустить"
+    skipBtn.addEventListener('click', function() {
+        if (confirm('Вы уверены, что хотите пропустить обучение? Вы сможете пройти его позже в настройках профиля.')) {
+            completeTutorial(tutorialKey, true);
+        }
+    });
+
+    function completeTutorial(key, skipAll = false) {
+        const formData = new FormData();
+        formData.append('tutorial_key', key);
+        
+        if (skipAll) {
+            formData.append('skip_all', 'true');
+        }
+
+        fetch('{% url "wiki:complete_tutorial" %}', {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': getCookie('csrftoken'),
+            },
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                overlay.remove();
+                
+                // Если есть следующая подсказка и не пропускаем все
+                if (data.next_tutorial && !skipAll) {
+                    // Можно добавить автоматический показ следующей подсказки
+                    // или обновить страницу
+                    location.reload();
+                }
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            overlay.remove();
+        });
+    }
+
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+});
+</script>
+{% endif %}

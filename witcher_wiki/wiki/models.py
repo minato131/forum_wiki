@@ -824,3 +824,25 @@ class TelegramLoginToken(models.Model):
     def is_valid(self):
         """Проверяет, действителен ли токен"""
         return not self.is_used and timezone.now() < self.expires_at
+
+class UserTutorial(models.Model):
+    """Модель для отслеживания показанных подсказок пользователю"""
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь')
+    tutorial_key = models.CharField('Ключ подсказки', max_length=100)
+    is_completed = models.BooleanField('Просмотрено', default=False)
+    completed_at = models.DateTimeField('Время просмотра', null=True, blank=True)
+    created_at = models.DateTimeField('Создано', auto_now_add=True)
+
+    class Meta:
+        verbose_name = 'Обучение пользователя'
+        verbose_name_plural = 'Обучение пользователей'
+        unique_together = ['user', 'tutorial_key']
+
+    def __str__(self):
+        return f'{self.user.username} - {self.tutorial_key}'
+
+    def mark_as_completed(self):
+        """Пометить подсказку как просмотренную"""
+        self.is_completed = True
+        self.completed_at = timezone.now()
+        self.save()
