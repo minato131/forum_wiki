@@ -14414,3 +14414,797 @@ INFO 2025-11-05 01:20:39,215 basehttp "GET / HTTP/1.1" 200 34570
 INFO 2025-11-05 01:20:39,546 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
 INFO 2025-11-05 01:21:10,212 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
 INFO 2025-11-05 01:21:40,314 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-06 20:18:55,503 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-11-06 20:18:56,271 autoreload Watching for file changes with StatReloader
+INFO 2025-11-06 20:19:08,704 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-11-06 20:19:09,272 autoreload Watching for file changes with StatReloader
+INFO 2025-11-06 20:19:12,448 basehttp "GET / HTTP/1.1" 200 34570
+INFO 2025-11-06 20:19:12,773 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-06 20:19:16,370 basehttp "GET /admin/ HTTP/1.1" 200 17000
+INFO 2025-11-06 20:19:18,544 basehttp "GET /admin/wiki/article/ HTTP/1.1" 200 22341
+INFO 2025-11-06 20:19:18,610 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-11-06 20:19:19,595 basehttp "GET /admin/ HTTP/1.1" 200 17000
+INFO 2025-11-06 20:19:22,679 basehttp "GET / HTTP/1.1" 200 34570
+INFO 2025-11-06 20:19:22,749 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-06 20:19:24,216 basehttp "GET /article/geralt-iz-rivii/ HTTP/1.1" 200 61492
+INFO 2025-11-06 20:19:24,284 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-06 20:19:47,171 basehttp "GET /search/?tag=%D0%99%D0%B5%D0%BD%D0%BD%D0%B8%D1%84%D0%B5%D1%80 HTTP/1.1" 200 47673
+INFO 2025-11-06 20:19:47,240 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-06 20:19:50,831 basehttp "GET /search/?tag=%D0%9C%D0%BE%D0%BD%D1%81%D1%82%D1%80%D1%8B HTTP/1.1" 200 46602
+INFO 2025-11-06 20:19:50,899 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-06 20:19:53,511 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-06 20:19:55,369 basehttp "GET /search/ HTTP/1.1" 200 45298
+INFO 2025-11-06 20:19:55,443 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-06 20:20:00,129 basehttp "GET /search/?q=%D0%92%D0%B5%D0%B4%D1%8C%D0%BC%D0%B0%D0%BA HTTP/1.1" 200 44299
+INFO 2025-11-06 20:20:00,204 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-06 20:20:05,870 basehttp "GET / HTTP/1.1" 200 34570
+INFO 2025-11-06 20:20:06,040 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-06 20:20:08,323 basehttp "GET /article/geralt-iz-rivii/ HTTP/1.1" 200 61492
+INFO 2025-11-06 20:20:08,393 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-06 20:20:30,844 basehttp "GET /search/ HTTP/1.1" 200 45298
+INFO 2025-11-06 20:20:31,017 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-06 20:20:33,144 basehttp "GET /search/?q=%D0%B3%D0%B5%D1%80%D0%B0%D0%BB%D1%8C HTTP/1.1" 200 51456
+INFO 2025-11-06 20:20:33,215 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-06 20:20:40,311 basehttp "GET /search/?q=&category=magic HTTP/1.1" 200 45306
+INFO 2025-11-06 20:20:40,382 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-06 20:20:44,140 basehttp "GET /search/?q=&category=monsters HTTP/1.1" 200 45306
+INFO 2025-11-06 20:20:44,309 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-06 20:20:51,750 basehttp "GET /category/monsters/ HTTP/1.1" 200 31463
+INFO 2025-11-06 20:20:51,818 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-06 20:20:54,891 basehttp "GET /category/monsters/ HTTP/1.1" 200 31463
+INFO 2025-11-06 20:20:54,957 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-06 20:20:55,739 basehttp "GET /category/locations/ HTTP/1.1" 200 31689
+INFO 2025-11-06 20:20:55,811 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-06 20:20:57,379 basehttp "GET /category/monsters/ HTTP/1.1" 200 31463
+INFO 2025-11-06 20:20:57,449 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-06 20:20:59,486 basehttp "GET /search/ HTTP/1.1" 200 45298
+INFO 2025-11-06 20:20:59,559 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-06 20:21:02,577 basehttp "GET /search/?q=&category=monsters HTTP/1.1" 200 45306
+INFO 2025-11-06 20:21:02,647 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-06 20:21:08,716 basehttp "GET /search/?q=&category=events HTTP/1.1" 200 45306
+INFO 2025-11-06 20:21:08,786 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-06 20:21:10,972 basehttp "GET /search/?q=&category=characters HTTP/1.1" 200 45306
+INFO 2025-11-06 20:21:11,150 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-06 20:21:41,635 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-06 20:22:11,634 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-06 20:22:41,727 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-06 20:23:11,628 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-06 20:23:15,495 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-11-06 20:23:16,051 autoreload Watching for file changes with StatReloader
+INFO 2025-11-06 20:23:41,646 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-06 20:24:11,636 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-06 20:24:30,864 autoreload Watching for file changes with StatReloader
+INFO 2025-11-06 20:24:32,653 basehttp "GET / HTTP/1.1" 200 34570
+INFO 2025-11-06 20:24:32,975 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-06 20:24:34,691 basehttp "GET /search/ HTTP/1.1" 200 45298
+INFO 2025-11-06 20:24:34,864 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-06 20:24:37,275 basehttp "GET /search/?q=&category=characters HTTP/1.1" 200 45306
+INFO 2025-11-06 20:24:37,347 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-06 20:24:43,728 basehttp "GET /search/?q=&category=locations HTTP/1.1" 200 45306
+INFO 2025-11-06 20:24:43,917 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-06 20:24:48,200 basehttp "GET /search/?q=&category=monsters HTTP/1.1" 200 45306
+INFO 2025-11-06 20:24:48,282 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-06 20:25:18,626 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-06 20:25:48,735 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-06 20:26:18,637 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-06 20:26:31,604 autoreload C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\urls.py changed, reloading.
+INFO 2025-11-06 20:26:32,215 autoreload Watching for file changes with StatReloader
+INFO 2025-11-06 20:26:48,644 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-06 20:27:18,627 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-06 20:27:48,630 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-06 20:28:18,631 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-06 20:29:17,627 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-06 20:30:17,622 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-06 20:31:17,635 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-06 20:32:17,731 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-06 20:32:31,460 autoreload Watching for file changes with StatReloader
+INFO 2025-11-06 20:32:33,230 basehttp "GET / HTTP/1.1" 200 34570
+INFO 2025-11-06 20:32:33,652 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+ERROR 2025-11-06 20:32:35,107 log Internal Server Error: /search/
+Traceback (most recent call last):
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\defaulttags.py", line 1035, in find_library
+    return parser.libraries[name]
+           ~~~~~~~~~~~~~~~~^^^^^^
+KeyError: 'custom_filters'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py", line 197, in search
+    return render(request, 'wiki/search.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+           ^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+               ^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader_tags.py", line 299, in do_extends
+    nodelist = parser.parse()
+               ^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\defaulttags.py", line 1097, in load
+    lib = find_library(parser, name)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\defaulttags.py", line 1037, in find_library
+    raise TemplateSyntaxError(
+django.template.exceptions.TemplateSyntaxError: 'custom_filters' is not a registered tag library. Must be one of:
+admin_list
+admin_modify
+admin_urls
+cache
+i18n
+l10n
+log
+static
+tz
+ERROR 2025-11-06 20:32:35,118 basehttp "GET /search/ HTTP/1.1" 500 244655
+INFO 2025-11-06 20:32:58,686 autoreload Watching for file changes with StatReloader
+INFO 2025-11-06 20:33:01,015 basehttp "GET / HTTP/1.1" 200 34570
+INFO 2025-11-06 20:33:01,426 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+ERROR 2025-11-06 20:33:02,531 log Internal Server Error: /search/
+Traceback (most recent call last):
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py", line 197, in search
+    return render(request, 'wiki/search.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+           ^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+               ^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader_tags.py", line 299, in do_extends
+    nodelist = parser.parse()
+               ^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\defaulttags.py", line 962, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\defaulttags.py", line 970, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 489, in parse
+    raise self.error(token, e)
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 487, in parse
+    filter_expression = self.compile_filter(token.contents)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 609, in compile_filter
+    return FilterExpression(token, self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 705, in __init__
+    filter_func = parser.find_filter(filter_name)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 615, in find_filter
+    raise TemplateSyntaxError("Invalid filter: '%s'" % filter_name)
+django.template.exceptions.TemplateSyntaxError: Invalid filter: 'slug_to_name'
+ERROR 2025-11-06 20:33:02,540 basehttp "GET /search/ HTTP/1.1" 500 352021
+INFO 2025-11-06 20:34:22,954 autoreload Watching for file changes with StatReloader
+INFO 2025-11-06 20:34:24,821 basehttp "GET / HTTP/1.1" 200 34570
+INFO 2025-11-06 20:34:25,136 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+ERROR 2025-11-06 20:34:26,032 log Internal Server Error: /search/
+Traceback (most recent call last):
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py", line 197, in search
+    return render(request, 'wiki/search.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+           ^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+               ^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader_tags.py", line 299, in do_extends
+    nodelist = parser.parse()
+               ^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\defaulttags.py", line 962, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\defaulttags.py", line 970, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\defaulttags.py", line 976, in do_if
+    nodelist = parser.parse(("endif",))
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\defaulttags.py", line 970, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 489, in parse
+    raise self.error(token, e)
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 487, in parse
+    filter_expression = self.compile_filter(token.contents)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 609, in compile_filter
+    return FilterExpression(token, self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 705, in __init__
+    filter_func = parser.find_filter(filter_name)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 615, in find_filter
+    raise TemplateSyntaxError("Invalid filter: '%s'" % filter_name)
+django.template.exceptions.TemplateSyntaxError: Invalid filter: 'slug_to_name'
+ERROR 2025-11-06 20:34:26,038 basehttp "GET /search/ HTTP/1.1" 500 305114
+INFO 2025-11-06 20:35:23,103 autoreload Watching for file changes with StatReloader
+INFO 2025-11-06 20:35:24,809 basehttp "GET / HTTP/1.1" 200 34570
+INFO 2025-11-06 20:35:25,226 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+ERROR 2025-11-06 20:35:25,901 log Internal Server Error: /search/
+Traceback (most recent call last):
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py", line 197, in search
+    return render(request, 'wiki/search.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+           ^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+               ^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader_tags.py", line 299, in do_extends
+    nodelist = parser.parse()
+               ^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\defaulttags.py", line 962, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\defaulttags.py", line 970, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\defaulttags.py", line 976, in do_if
+    nodelist = parser.parse(("endif",))
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\defaulttags.py", line 970, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 489, in parse
+    raise self.error(token, e)
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 487, in parse
+    filter_expression = self.compile_filter(token.contents)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 609, in compile_filter
+    return FilterExpression(token, self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 705, in __init__
+    filter_func = parser.find_filter(filter_name)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 615, in find_filter
+    raise TemplateSyntaxError("Invalid filter: '%s'" % filter_name)
+django.template.exceptions.TemplateSyntaxError: Invalid filter: 'slug_to_name'
+ERROR 2025-11-06 20:35:25,907 basehttp "GET /search/ HTTP/1.1" 500 305114
+INFO 2025-11-06 20:39:31,218 autoreload Watching for file changes with StatReloader
+INFO 2025-11-06 20:39:33,047 basehttp "GET / HTTP/1.1" 200 34570
+INFO 2025-11-06 20:39:33,397 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+ERROR 2025-11-06 20:39:34,695 log Internal Server Error: /search/
+Traceback (most recent call last):
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject\witcher_wiki\wiki\views.py", line 197, in search
+    return render(request, 'wiki/search.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+           ^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+               ^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader_tags.py", line 299, in do_extends
+    nodelist = parser.parse()
+               ^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\defaulttags.py", line 962, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\defaulttags.py", line 970, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 489, in parse
+    raise self.error(token, e)
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 487, in parse
+    filter_expression = self.compile_filter(token.contents)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 609, in compile_filter
+    return FilterExpression(token, self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 705, in __init__
+    filter_func = parser.find_filter(filter_name)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\PycharmProjects\pythonProject1\.venv\Lib\site-packages\django\template\base.py", line 615, in find_filter
+    raise TemplateSyntaxError("Invalid filter: '%s'" % filter_name)
+django.template.exceptions.TemplateSyntaxError: Invalid filter: 'slug_to_name'
+ERROR 2025-11-06 20:39:34,702 basehttp "GET /search/ HTTP/1.1" 500 352021
+INFO 2025-11-06 20:39:47,412 autoreload Watching for file changes with StatReloader
+INFO 2025-11-06 20:39:49,186 basehttp "GET / HTTP/1.1" 200 34570
+INFO 2025-11-06 20:39:49,522 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-06 20:39:50,568 basehttp "GET /search/ HTTP/1.1" 200 45298
+INFO 2025-11-06 20:39:50,637 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-09 14:28:18,957 autoreload Watching for file changes with StatReloader
+INFO 2025-11-09 14:28:29,395 basehttp "GET / HTTP/1.1" 200 34570
+INFO 2025-11-09 14:28:29,548 basehttp "GET /static/css/style.css HTTP/1.1" 304 0
+INFO 2025-11-09 14:28:29,818 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+WARNING 2025-11-09 14:28:29,925 log Not Found: /favicon.ico
+WARNING 2025-11-09 14:28:29,925 basehttp "GET /favicon.ico HTTP/1.1" 404 19286
+INFO 2025-11-09 14:28:35,763 basehttp "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-11-09 14:28:35,819 basehttp "GET / HTTP/1.1" 200 32139
+INFO 2025-11-09 14:28:56,887 basehttp "GET /login/ HTTP/1.1" 200 30160
+INFO 2025-11-09 14:29:00,221 basehttp "GET /auth/telegram/webapp/ HTTP/1.1" 200 32385
+INFO 2025-11-09 14:29:06,846 basehttp "GET /login/ HTTP/1.1" 200 29981
+INFO 2025-11-09 14:29:08,807 basehttp "POST /login/ HTTP/1.1" 302 0
+INFO 2025-11-09 14:29:08,964 basehttp "GET / HTTP/1.1" 200 34570
+INFO 2025-11-09 14:29:09,031 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-09 14:29:19,286 basehttp "GET /article/kaer-morkhen/ HTTP/1.1" 200 67096
+INFO 2025-11-09 14:29:19,361 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-09 14:29:19,388 basehttp "GET /media/article_media/video_2025-10-24_04-01-06.mp4 HTTP/1.1" 304 0
+INFO 2025-11-09 14:29:19,449 basehttp "GET /media/article_media/video_2025-10-24_04-01-03.mp4 HTTP/1.1" 200 8081085
+INFO 2025-11-09 14:29:49,353 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-09 14:30:09,328 basehttp "POST /article/kaer-morkhen/like/ HTTP/1.1" 200 94
+INFO 2025-11-09 14:30:10,244 basehttp "POST /article/kaer-morkhen/like/ HTTP/1.1" 200 94
+INFO 2025-11-09 14:30:10,782 basehttp "POST /article/kaer-morkhen/like/ HTTP/1.1" 200 94
+INFO 2025-11-09 14:30:11,352 basehttp "POST /article/kaer-morkhen/like/ HTTP/1.1" 200 94
+INFO 2025-11-09 14:30:13,234 basehttp "GET /liked-articles/ HTTP/1.1" 200 48237
+INFO 2025-11-09 14:30:13,306 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-09 14:30:21,216 basehttp "GET / HTTP/1.1" 200 34570
+INFO 2025-11-09 14:30:21,293 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-09 14:30:27,508 basehttp "GET /search/ HTTP/1.1" 200 45298
+INFO 2025-11-09 14:30:27,686 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-09 14:30:46,968 basehttp "GET /search/?q=%D1%83%D1%82%D0%BE%D0%BF%D0%B5%D1%86&category= HTTP/1.1" 200 46748
+INFO 2025-11-09 14:30:47,038 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-09 14:31:17,035 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-09 14:31:25,836 basehttp "GET /category/characters/ HTTP/1.1" 200 31766
+INFO 2025-11-09 14:31:26,018 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-09 14:31:33,158 basehttp "GET /category/monsters/ HTTP/1.1" 200 31463
+INFO 2025-11-09 14:31:33,230 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-09 14:31:56,182 basehttp "GET /category/locations/ HTTP/1.1" 200 31689
+INFO 2025-11-09 14:31:56,359 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-09 14:32:01,433 basehttp "GET /my-articles/ HTTP/1.1" 200 43047
+INFO 2025-11-09 14:32:01,502 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-09 14:32:14,861 basehttp "GET /moderation/ HTTP/1.1" 200 30816
+INFO 2025-11-09 14:32:14,931 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-09 14:32:18,523 basehttp "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-11-09 14:32:18,575 basehttp "GET / HTTP/1.1" 200 32139
+INFO 2025-11-09 14:32:19,902 basehttp "GET /login/ HTTP/1.1" 200 30160
+INFO 2025-11-09 14:32:23,148 basehttp "POST /login/ HTTP/1.1" 302 0
+INFO 2025-11-09 14:32:23,209 basehttp "GET / HTTP/1.1" 200 33551
+INFO 2025-11-09 14:32:23,386 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36108
+INFO 2025-11-09 14:32:27,581 basehttp "GET /article/create/ HTTP/1.1" 200 44389
+INFO 2025-11-09 14:32:27,658 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36108
+INFO 2025-11-09 14:32:44,922 basehttp "POST /article/create/ HTTP/1.1" 200 44592
+INFO 2025-11-09 14:32:45,103 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36108
+INFO 2025-11-09 14:32:51,898 basehttp "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-11-09 14:32:52,065 basehttp "GET / HTTP/1.1" 200 32139
+INFO 2025-11-09 14:32:52,684 basehttp "GET /login/ HTTP/1.1" 200 30160
+INFO 2025-11-09 14:32:55,313 basehttp "POST /login/ HTTP/1.1" 302 0
+INFO 2025-11-09 14:32:55,374 basehttp "GET / HTTP/1.1" 200 34170
+INFO 2025-11-09 14:32:55,450 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-11-09 14:32:56,784 basehttp "GET /moderation/ HTTP/1.1" 200 31199
+INFO 2025-11-09 14:32:56,867 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-11-09 14:33:01,284 basehttp "GET /article/1/moderate/enhanced/ HTTP/1.1" 200 40544
+INFO 2025-11-09 14:33:01,362 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-11-09 14:33:28,643 basehttp "GET /article/1/moderate/enhanced/?csrfmiddlewaretoken=F7kJLuYHKqSC15ULJycpohtE3ziySnfAbgd5tKGGGrI5T26MQheSLVkiby3GHiW0&severity=medium&comment=%D1%87%D1%82%D0%BE+%D0%B7%D0%B0+%D1%85%D1%83%D0%B9%D0%BD%D1%8F HTTP/1.1" 200 40544
+INFO 2025-11-09 14:33:28,716 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-11-09 14:33:32,291 basehttp "POST /article/1/moderate/enhanced/?csrfmiddlewaretoken=F7kJLuYHKqSC15ULJycpohtE3ziySnfAbgd5tKGGGrI5T26MQheSLVkiby3GHiW0&severity=medium&comment=%D1%87%D1%82%D0%BE+%D0%B7%D0%B0+%D1%85%D1%83%D0%B9%D0%BD%D1%8F HTTP/1.1" 302 0
+INFO 2025-11-09 14:33:32,460 basehttp "GET /moderation/ HTTP/1.1" 200 30745
+INFO 2025-11-09 14:33:32,639 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36727
+INFO 2025-11-09 14:33:36,108 basehttp "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-11-09 14:33:36,161 basehttp "GET / HTTP/1.1" 200 32139
+INFO 2025-11-09 14:33:36,921 basehttp "GET /login/ HTTP/1.1" 200 30160
+INFO 2025-11-09 14:33:40,513 basehttp "POST /login/ HTTP/1.1" 302 0
+INFO 2025-11-09 14:33:40,580 basehttp "GET / HTTP/1.1" 200 33781
+INFO 2025-11-09 14:33:40,656 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36338
+INFO 2025-11-09 14:33:41,444 basehttp "GET /editor/dashboard/ HTTP/1.1" 200 30601
+INFO 2025-11-09 14:33:41,519 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36338
+INFO 2025-11-09 14:33:44,407 basehttp "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-11-09 14:33:44,565 basehttp "GET / HTTP/1.1" 200 32139
+INFO 2025-11-09 14:33:45,260 basehttp "GET /login/ HTTP/1.1" 200 30160
+INFO 2025-11-09 14:33:47,667 basehttp "POST /login/ HTTP/1.1" 302 0
+INFO 2025-11-09 14:33:47,828 basehttp "GET / HTTP/1.1" 200 33551
+INFO 2025-11-09 14:33:48,006 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36108
+INFO 2025-11-09 14:33:48,611 basehttp "GET /my-articles/ HTTP/1.1" 200 43848
+INFO 2025-11-09 14:33:48,686 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36108
+INFO 2025-11-09 14:33:57,856 basehttp "GET /article/1/edit/ HTTP/1.1" 200 42449
+INFO 2025-11-09 14:33:57,930 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36108
+INFO 2025-11-09 14:33:59,703 basehttp "POST /article/1/edit/ HTTP/1.1" 302 0
+INFO 2025-11-09 14:33:59,774 basehttp "GET /article/1/ HTTP/1.1" 200 53814
+INFO 2025-11-09 14:33:59,851 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36108
+INFO 2025-11-09 14:34:03,700 basehttp "GET /article/1/edit/ HTTP/1.1" 200 42449
+INFO 2025-11-09 14:34:03,887 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36108
+INFO 2025-11-09 14:34:07,892 basehttp "POST /article/1/edit/ HTTP/1.1" 302 0
+INFO 2025-11-09 14:34:07,967 basehttp "GET /article/1/ HTTP/1.1" 200 53880
+INFO 2025-11-09 14:34:08,044 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36108
+INFO 2025-11-09 14:34:09,373 basehttp "GET /my-articles/ HTTP/1.1" 200 43848
+INFO 2025-11-09 14:34:09,452 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36108
+INFO 2025-11-09 14:34:10,901 basehttp "GET /article/1/ HTTP/1.1" 200 53471
+INFO 2025-11-09 14:34:10,982 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36108
+INFO 2025-11-09 14:34:22,407 basehttp "GET /article/1/edit/ HTTP/1.1" 200 42515
+INFO 2025-11-09 14:34:22,586 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36108
+INFO 2025-11-09 14:34:27,908 basehttp "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-11-09 14:34:27,960 basehttp "GET / HTTP/1.1" 200 32139
+INFO 2025-11-09 14:34:28,750 basehttp "GET /login/ HTTP/1.1" 200 30160
+INFO 2025-11-09 14:34:32,167 basehttp "POST /login/ HTTP/1.1" 302 0
+INFO 2025-11-09 14:34:32,220 basehttp "GET / HTTP/1.1" 200 34570
+INFO 2025-11-09 14:34:32,408 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-09 14:34:37,698 basehttp "GET /user-management/ HTTP/1.1" 200 87394
+INFO 2025-11-09 14:34:37,777 basehttp "GET /media/avatars/avatars/user_3/avatar.png HTTP/1.1" 304 0
+INFO 2025-11-09 14:34:37,778 basehttp "GET /media/avatars/avatars/avatars/avatars/avatars/user_2/avatar.png HTTP/1.1" 304 0
+INFO 2025-11-09 14:34:37,783 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-09 14:35:07,537 basehttp "GET /accounts/profile/ HTTP/1.1" 200 48990
+INFO 2025-11-09 14:35:07,610 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-09 14:35:08,837 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-09 14:35:09,784 basehttp "GET /admin/ HTTP/1.1" 200 17000
+INFO 2025-11-09 14:35:09,817 basehttp "GET /static/admin/css/dashboard.css HTTP/1.1" 200 441
+INFO 2025-11-09 14:35:09,818 basehttp "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 200 2810
+INFO 2025-11-09 14:35:09,818 basehttp "GET /static/admin/css/dark_mode.css HTTP/1.1" 200 2808
+INFO 2025-11-09 14:35:09,819 basehttp "GET /static/admin/css/responsive.css HTTP/1.1" 200 16565
+INFO 2025-11-09 14:35:09,819 basehttp "GET /static/admin/css/base.css HTTP/1.1" 200 22120
+INFO 2025-11-09 14:35:09,825 basehttp "GET /static/admin/js/theme.js HTTP/1.1" 200 1653
+INFO 2025-11-09 14:35:09,838 basehttp "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 200 3063
+INFO 2025-11-09 14:35:09,841 basehttp "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 331
+INFO 2025-11-09 14:35:09,841 basehttp "GET /static/admin/img/icon-deletelink.svg HTTP/1.1" 200 392
+INFO 2025-11-09 14:35:09,841 basehttp "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 200 380
+INFO 2025-11-09 14:35:17,970 basehttp "GET /accounts/profile/ HTTP/1.1" 200 48990
+INFO 2025-11-09 14:35:18,147 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-09 14:35:40,556 basehttp "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-11-09 14:35:40,609 basehttp "GET / HTTP/1.1" 200 32139
+INFO 2025-11-09 14:35:41,174 basehttp "GET /login/ HTTP/1.1" 200 30160
+INFO 2025-11-09 14:35:42,521 basehttp "GET /auth/telegram/webapp/ HTTP/1.1" 200 32385
+INFO 2025-11-09 14:36:05,673 basehttp "GET /auth/telegram/quick/?tg_id=1131530753 HTTP/1.1" 302 0
+INFO 2025-11-09 14:36:05,838 basehttp "GET / HTTP/1.1" 200 34570
+INFO 2025-11-09 14:36:06,148 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-09 14:36:36,051 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-09 14:37:06,738 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-09 14:37:33,532 basehttp "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-11-09 14:37:33,698 basehttp "GET / HTTP/1.1" 200 32139
+INFO 2025-11-09 14:37:34,900 basehttp "GET /auth/telegram/webapp/ HTTP/1.1" 200 32764
+INFO 2025-11-09 14:37:40,586 basehttp "GET /login/ HTTP/1.1" 200 29981
+INFO 2025-11-09 14:37:41,663 basehttp "GET /auth/telegram/ HTTP/1.1" 200 40301
+INFO 2025-11-09 14:37:57,791 basehttp "GET /login/ HTTP/1.1" 200 29981
+INFO 2025-11-09 14:38:01,383 basehttp "POST /login/ HTTP/1.1" 302 0
+INFO 2025-11-09 14:38:01,439 basehttp "GET / HTTP/1.1" 200 34570
+INFO 2025-11-09 14:38:01,512 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-09 14:38:31,504 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-09 14:38:41,980 basehttp "GET /user-management/ HTTP/1.1" 200 87394
+INFO 2025-11-09 14:38:42,057 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-09 14:38:55,200 basehttp "GET /user-management/ HTTP/1.1" 200 87394
+INFO 2025-11-09 14:38:55,280 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-09 14:39:01,424 basehttp "POST /message/send-quick/3/ HTTP/1.1" 200 116
+INFO 2025-11-09 14:39:03,648 basehttp "POST /message/send-quick/3/ HTTP/1.1" 200 116
+INFO 2025-11-09 14:39:04,314 basehttp "POST /message/send-quick/3/ HTTP/1.1" 200 116
+INFO 2025-11-09 14:39:09,451 basehttp "GET /user-management/ HTTP/1.1" 200 87394
+INFO 2025-11-09 14:39:09,618 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-09 14:39:18,862 basehttp "POST /message/send-quick/3/ HTTP/1.1" 200 116
+INFO 2025-11-09 14:39:21,469 basehttp "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-11-09 14:39:21,620 basehttp "GET / HTTP/1.1" 200 32139
+INFO 2025-11-09 14:39:22,406 basehttp "GET /login/ HTTP/1.1" 200 30160
+INFO 2025-11-09 14:39:25,606 basehttp "POST /login/ HTTP/1.1" 302 0
+INFO 2025-11-09 14:39:25,664 basehttp "GET / HTTP/1.1" 200 33551
+INFO 2025-11-09 14:39:25,737 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36108
+INFO 2025-11-09 14:39:27,918 basehttp "GET /messages/inbox/ HTTP/1.1" 200 40538
+INFO 2025-11-09 14:39:27,992 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36108
+INFO 2025-11-09 14:39:31,105 basehttp "GET /message/2/ HTTP/1.1" 200 32783
+INFO 2025-11-09 14:39:31,288 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36108
+INFO 2025-11-09 14:39:32,486 basehttp "GET /message/create/2/ HTTP/1.1" 200 33524
+INFO 2025-11-09 14:39:32,667 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36108
+INFO 2025-11-09 14:39:41,892 basehttp "POST /message/create/2/ HTTP/1.1" 302 0
+INFO 2025-11-09 14:39:41,950 basehttp "GET /messages/sent/ HTTP/1.1" 200 37931
+INFO 2025-11-09 14:39:42,027 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 36108
+INFO 2025-11-09 14:39:45,658 basehttp "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-11-09 14:39:45,708 basehttp "GET / HTTP/1.1" 200 32139
+INFO 2025-11-09 14:39:46,327 basehttp "GET /login/ HTTP/1.1" 200 30347
+INFO 2025-11-09 14:39:48,866 basehttp "POST /login/ HTTP/1.1" 302 0
+INFO 2025-11-09 14:39:48,922 basehttp "GET / HTTP/1.1" 200 34570
+INFO 2025-11-09 14:39:48,994 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-09 14:39:50,340 basehttp "GET /messages/inbox/ HTTP/1.1" 200 39277
+INFO 2025-11-09 14:39:50,410 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-09 14:39:52,603 basehttp "GET /messages/inbox/ HTTP/1.1" 200 39277
+INFO 2025-11-09 14:39:52,670 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-09 14:39:53,847 basehttp "GET /messages/inbox/ HTTP/1.1" 200 39277
+INFO 2025-11-09 14:39:54,015 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-09 14:39:54,066 basehttp "GET /messages/inbox/ HTTP/1.1" 200 39277
+INFO 2025-11-09 14:39:54,135 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-09 14:39:59,635 basehttp "GET /message/3/ HTTP/1.1" 200 33707
+INFO 2025-11-09 14:39:59,708 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-09 14:40:19,025 basehttp "GET /admin/ HTTP/1.1" 200 17000
+INFO 2025-11-09 14:40:24,239 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-09 14:40:30,635 basehttp "GET /admin/ HTTP/1.1" 200 17000
+INFO 2025-11-09 14:40:38,012 basehttp "GET /admin/wiki/articlerevision/ HTTP/1.1" 200 15387
+INFO 2025-11-09 14:40:38,048 basehttp "GET /static/admin/css/changelists.css HTTP/1.1" 200 6878
+INFO 2025-11-09 14:40:38,055 basehttp "GET /static/admin/js/jquery.init.js HTTP/1.1" 200 347
+INFO 2025-11-09 14:40:38,060 basehttp "GET /static/admin/js/core.js HTTP/1.1" 200 6208
+INFO 2025-11-09 14:40:38,060 basehttp "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 200 9777
+INFO 2025-11-09 14:40:38,069 basehttp "GET /static/admin/js/actions.js HTTP/1.1" 200 8076
+INFO 2025-11-09 14:40:38,071 basehttp "GET /static/admin/js/urlify.js HTTP/1.1" 200 7887
+INFO 2025-11-09 14:40:38,076 basehttp "GET /static/admin/js/prepopulate.js HTTP/1.1" 200 1531
+INFO 2025-11-09 14:40:38,078 basehttp "GET /static/admin/img/search.svg HTTP/1.1" 200 458
+INFO 2025-11-09 14:40:38,090 basehttp "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 285314
+INFO 2025-11-09 14:40:38,136 basehttp "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 325171
+INFO 2025-11-09 14:40:38,153 basehttp "GET /static/admin/js/filters.js HTTP/1.1" 200 978
+INFO 2025-11-09 14:40:38,221 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-11-09 14:40:38,251 basehttp "GET /static/admin/img/tooltag-add.svg HTTP/1.1" 200 331
+INFO 2025-11-09 14:40:38,251 basehttp "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 200 581
+INFO 2025-11-09 14:40:47,409 basehttp "GET /admin/wiki/category/ HTTP/1.1" 200 19576
+INFO 2025-11-09 14:40:47,472 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-11-09 14:40:47,499 basehttp "GET /static/admin/img/sorting-icons.svg HTTP/1.1" 200 1097
+INFO 2025-11-09 14:41:05,712 basehttp "GET /login/ HTTP/1.1" 302 0
+INFO 2025-11-09 14:41:05,880 basehttp "GET / HTTP/1.1" 200 34570
+INFO 2025-11-09 14:41:05,958 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-09 14:41:12,136 basehttp "GET /article/kaer-morkhen/ HTTP/1.1" 200 67096
+INFO 2025-11-09 14:41:12,212 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-09 14:41:42,205 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-09 14:41:48,207 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-09 14:41:48,978 basehttp "GET /article/geralt-iz-rivii/ HTTP/1.1" 200 61492
+INFO 2025-11-09 14:41:49,056 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-09 14:41:49,169 basehttp "GET /media/article_media/64bef9d5ce5d0eee72c96ae43edcbef7.jpg HTTP/1.1" 200 142066
+INFO 2025-11-09 14:42:07,185 basehttp "GET /search/?tag=%D0%9A%D0%B0%D1%8D%D1%80-%D0%9C%D0%BE%D1%80%D1%85%D0%B5%D0%BD HTTP/1.1" 200 51317
+INFO 2025-11-09 14:42:07,256 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-09 14:42:11,696 basehttp "GET / HTTP/1.1" 200 34570
+INFO 2025-11-09 14:42:11,768 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-12 19:04:02,285 autoreload Watching for file changes with StatReloader
+INFO 2025-11-12 19:04:10,881 basehttp "GET / HTTP/1.1" 200 34570
+INFO 2025-11-12 19:04:11,118 basehttp "GET /static/css/style.css HTTP/1.1" 200 11130
+INFO 2025-11-12 19:04:11,279 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+WARNING 2025-11-12 19:04:11,637 log Not Found: /favicon.ico
+WARNING 2025-11-12 19:04:11,638 basehttp "GET /favicon.ico HTTP/1.1" 404 19286
+INFO 2025-11-12 19:04:41,232 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-12 19:05:11,344 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-12 19:05:41,231 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127

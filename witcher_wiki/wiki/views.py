@@ -107,7 +107,7 @@ def search(request):
     results = []
     total_count = 0
 
-    if query or tag_filter:
+    if query or tag_filter or category_filter:  # ДОБАВЛЕНО category_filter
         # Сохраняем поисковый запрос
         if query:
             search_query_obj, created = SearchQuery.objects.get_or_create(query=query)
@@ -128,9 +128,14 @@ def search(request):
         if tag_filter:
             search_query = Q(tags__name__iexact=tag_filter)
 
-        results = Article.objects.filter(search_query, status='published').distinct()
+        # ИСПРАВЛЕНО: Базовая фильтрация по статусу
+        results = Article.objects.filter(status='published')
 
-        # Фильтр по категории
+        # Применяем поисковый запрос если есть query или tag_filter
+        if query or tag_filter:
+            results = results.filter(search_query).distinct()
+
+        # ИСПРАВЛЕНО: Фильтр по категории
         if category_filter:
             results = results.filter(categories__slug=category_filter)
 
@@ -160,8 +165,8 @@ def search(request):
             results = list(exact_title_matches) + list(start_title_matches) + \
                       list(any_title_matches) + list(content_only_matches)
 
-        elif tag_filter:
-            # Для хештегов сортируем по дате создания
+        elif tag_filter or category_filter:
+            # Для хештегов и категорий сортируем по дате создания
             results = results.order_by('-created_at')
 
         # Пагинация

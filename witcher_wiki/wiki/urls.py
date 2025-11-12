@@ -103,6 +103,4 @@ urlpatterns = [
     path('auth/telegram/webapp/', views.telegram_webapp_login, name='telegram_webapp_login'),
     path('auth/telegram/webapp/callback/', views.telegram_webapp_callback, name='telegram_webapp_callback'),
     path('auth/telegram/quick/', views.telegram_quick_login, name='telegram_quick_login'),
-    # В urls.py ДОБАВИТЬ:
-    path('auth/telegram/quick/', views.telegram_quick_login, name='telegram_quick_login'),
 ]
