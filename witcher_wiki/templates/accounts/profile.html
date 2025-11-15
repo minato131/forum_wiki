@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}Профиль - Форум по Вселенной Ведьмака{% endblock %}
-{% load custom_filters %}
+
 {% block content %}
 <div class="profile-container">
     <div class="profile-header">
@@ -158,7 +158,6 @@
                               class="form-control">{{ user.profile.bio|default:'' }}</textarea>
                 </div>
             </div>
-
             <button type="submit" name="update_profile" class="btn btn-primary">💾 Сохранить настройки</button>
         </form>
     </div>
@@ -211,121 +210,6 @@
     </div>
     {% endif %}
 </div>
- <!-- Секция обучения -->
-    <div class="profile-section" style="margin-top: 30px; padding: 20px; background: rgba(23, 162, 184, 0.1); border-radius: 10px; border: 1px solid rgba(23, 162, 184, 0.3);">
-        <h4 style="color: #17a2b8; margin-bottom: 15px;">🎓 Обучение</h4>
-
-        <div style="margin-bottom: 15px;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                <span style="color: #e8e8e8;">Прогресс обучения:</span>
-                <span style="color: #17a2b8; font-weight: bold; font-size: 1.1em;">{{ tutorial_progress }}%</span>
-            </div>
-
-            <!-- Прогресс-бар -->
-            <div style="background: #2d2d2d; border-radius: 10px; height: 10px; overflow: hidden; margin-bottom: 15px;">
-                <div style="background: linear-gradient(90deg, #17a2b8, #20c997); height: 100%; width: {{ tutorial_progress }}%; border-radius: 10px; transition: width 0.5s ease;"></div>
-            </div>
-        </div>
-
-        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-            <button type="button" class="btn" style="background: #17a2b8;" onclick="resetTutorials()">
-                🔄 Пройти обучение заново
-            </button>
-
-            {% if tutorial_progress < 100 %}
-            <button type="button" class="btn btn-outline" onclick="continueTutorial()">
-                ▶️ Продолжить обучение
-            </button>
-            {% else %}
-            <span style="color: #28a745; display: flex; align-items: center; gap: 5px;">
-                ✅ Обучение завершено
-            </span>
-            {% endif %}
-        </div>
-
-        {% if tutorial_progress < 100 %}
-        <div style="margin-top: 15px; color: #888; font-size: 0.9em;">
-            <p style="margin: 0;">💡 <strong>Осталось шагов:</strong> {{ 5|add:-tutorial_progress|divisibleby:20|add:1 }}</p>
-        </div>
-        {% endif %}
-    </div>
-
-    <script>
-    function resetTutorials() {
-        if (confirm('Вы уверены, что хотите сбросить прогресс обучения? Все подсказки будут показаны снова.')) {
-            fetch('{% url "wiki:reset_tutorials" %}', {
-                method: 'POST',
-                headers: {
-                    'X-CSRFToken': getCookie('csrftoken'),
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    showNotification('🎓 Обучение сброшено! Обновите страницу чтобы начать заново.', 'success');
-                    setTimeout(() => {
-                        location.reload();
-                    }, 1500);
-                } else {
-                    showNotification('❌ Ошибка при сбросе обучения', 'error');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                showNotification('❌ Ошибка при сбросе обучения', 'error');
-            });
-        }
-    }
-
-    function continueTutorial() {
-        // Просто обновляем страницу - подсказки появятся автоматически
-        location.reload();
-    }
-
-    function showNotification(message, type) {
-        const notification = document.createElement('div');
-        notification.className = `alert alert-${type}`;
-        notification.textContent = message;
-        notification.style.cssText = `
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 15px 20px;
-            border-radius: 8px;
-            color: white;
-            z-index: 10000;
-            animation: slideInRight 0.3s ease-out;
-            font-weight: 600;
-        `;
-
-        if (type === 'success') {
-            notification.style.background = '#28a745';
-        } else {
-            notification.style.background = '#dc3545';
-        }
-
-        document.body.appendChild(notification);
-
-        setTimeout(() => {
-            notification.remove();
-        }, 3000);
-    }
-
-    function getCookie(name) {
-        let cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            const cookies = document.cookie.split(';');
-            for (let i = 0; i < cookies.length; i++) {
-                const cookie = cookies[i].trim();
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
-        }
-        return cookieValue;
-    }
-    </script>
 
     <!-- Последние статьи -->
     <div class="recent-articles-section">

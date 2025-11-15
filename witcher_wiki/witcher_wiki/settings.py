@@ -50,7 +50,6 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'wiki.context_processors.user_permissions',
                 'wiki.context_processors.telegram_settings',
-                'wiki.context_processors.tutorials',
             ],
         },
     },

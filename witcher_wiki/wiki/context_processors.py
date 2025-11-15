@@ -1,5 +1,4 @@
 from django.conf import settings
-from .tutorials import TutorialManager
 def user_permissions(request):
     """Добавляет переменные прав пользователя в контекст"""
 
@@ -29,20 +28,3 @@ def telegram_settings(request):
         'TELEGRAM_BOT_USERNAME': getattr(settings, 'TELEGRAM_BOT_USERNAME', ''),
         'TELEGRAM_WEB_APP_URL': getattr(settings, 'TELEGRAM_WEB_APP_URL', ''),
     }
-
-
-def tutorials(request):
-    """Добавляет информацию о подсказках в контекст"""
-    context = {}
-
-    if request.user.is_authenticated:
-        next_tutorial = TutorialManager.get_next_tutorial(request.user)
-        if next_tutorial:
-            tutorial_data = TutorialManager.get_tutorial_data(next_tutorial)
-            context['current_tutorial'] = {
-                'key': next_tutorial,
-                'data': tutorial_data
-            }
-            context['tutorial_progress'] = TutorialManager.get_progress(request.user)
-
-    return context

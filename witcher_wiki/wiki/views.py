@@ -30,7 +30,6 @@ from .telegram_auth_manager import TelegramAuthManager
 from .telegram_bot_sync import sync_bot
 from .telegram_utils import TelegramAuth
 from django.contrib.auth import login as auth_login
-from .tutorials import TutorialManager
 
 def clean_latex_from_content(content):
     """
@@ -245,9 +244,6 @@ def profile(request):
     # Последние статьи (все статусы)
     recent_articles = Article.objects.filter(author=request.user).order_by('-created_at')[:5]
 
-    from .tutorials import TutorialManager
-    tutorial_progress = TutorialManager.get_progress(request.user)
-
     print(f"=== STATS ===")
     print(f"Articles: {user_articles_count}, Published: {published_articles_count}")
     print(f"Likes: {liked_articles_count}, Views: {total_views}")
@@ -262,7 +258,6 @@ def profile(request):
         'total_views': total_views,
         'recent_articles': recent_articles,
         'TELEGRAM_BOT_USERNAME': getattr(settings, 'TELEGRAM_BOT_USERNAME', ''),
-        'tutorial_progress': tutorial_progress,
     }
 
     return render(request, 'accounts/profile.html', context)
@@ -2177,39 +2172,3 @@ def telegram_quick_login(request):
     return render(request, 'wiki/telegram_quick_login.html', {
         'telegram_bot_username': getattr(settings, 'TELEGRAM_BOT_USERNAME', ''),
     })
-
-
-@login_required
-def complete_tutorial(request):
-    """Пометить подсказку как просмотренную"""
-    if request.method == 'POST':
-        tutorial_key = request.POST.get('tutorial_key')
-
-        if tutorial_key:
-            success = TutorialManager.mark_tutorial_completed(request.user, tutorial_key)
-
-            if success:
-                # Получаем следующую подсказку
-                next_tutorial = TutorialManager.get_next_tutorial(request.user)
-                next_tutorial_data = TutorialManager.get_tutorial_data(next_tutorial) if next_tutorial else None
-
-                return JsonResponse({
-                    'success': True,
-                    'next_tutorial': next_tutorial,
-                    'next_tutorial_data': next_tutorial_data,
-                    'progress': TutorialManager.get_progress(request.user)
-                })
-
-        return JsonResponse({'success': False})
-
-    return JsonResponse({'success': False, 'error': 'Invalid method'})
-
-
-@login_required
-def reset_tutorials(request):
-    """Сбросить все подсказки"""
-    if request.method == 'POST':
-        success = TutorialManager.reset_tutorials(request.user)
-        return JsonResponse({'success': success})
-
-    return JsonResponse({'success': False, 'error': 'Invalid method'})
