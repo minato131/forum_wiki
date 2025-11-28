@@ -1,4 +1,3 @@
-# wiki/telegram_bot_sync.py - ОБНОВЛЕННАЯ ВЕРСИЯ
 import os
 import django
 import logging

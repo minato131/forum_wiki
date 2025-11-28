@@ -1,4 +1,3 @@
-# wiki/telegram_auth_manager.py
 import secrets
 import time
 from django.db import transaction

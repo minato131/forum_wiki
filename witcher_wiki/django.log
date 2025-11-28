@@ -15277,3 +15277,42 @@ INFO 2025-11-13 17:20:20,501 basehttp "GET /messages/unread-count/ HTTP/1.1" 200
 INFO 2025-11-13 17:20:50,509 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
 INFO 2025-11-13 17:21:20,510 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
 INFO 2025-11-13 17:21:50,509 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-28 18:48:37,891 autoreload Watching for file changes with StatReloader
+INFO 2025-11-28 18:48:40,148 basehttp "GET / HTTP/1.1" 200 30722
+INFO 2025-11-28 18:48:40,253 basehttp "GET /static/css/style.css HTTP/1.1" 200 11130
+WARNING 2025-11-28 18:49:22,375 log Not Found: /favicon.ico
+WARNING 2025-11-28 18:49:22,376 basehttp "GET /favicon.ico HTTP/1.1" 404 19286
+INFO 2025-11-28 18:49:58,463 basehttp "GET /login/ HTTP/1.1" 200 29981
+INFO 2025-11-28 18:51:41,206 basehttp "GET / HTTP/1.1" 200 30722
+INFO 2025-11-28 18:52:44,157 basehttp "GET /admin HTTP/1.1" 301 0
+INFO 2025-11-28 18:52:44,167 basehttp "GET /admin/ HTTP/1.1" 302 0
+INFO 2025-11-28 18:52:44,267 basehttp "GET /admin/login/?next=/admin/ HTTP/1.1" 200 4378
+INFO 2025-11-28 18:52:44,292 basehttp "GET /static/admin/css/base.css HTTP/1.1" 200 22120
+INFO 2025-11-28 18:52:44,293 basehttp "GET /static/admin/css/login.css HTTP/1.1" 200 951
+INFO 2025-11-28 18:52:44,293 basehttp "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 200 2810
+INFO 2025-11-28 18:52:44,293 basehttp "GET /static/admin/css/dark_mode.css HTTP/1.1" 200 2808
+INFO 2025-11-28 18:52:44,294 basehttp "GET /static/admin/css/responsive.css HTTP/1.1" 200 16565
+INFO 2025-11-28 18:52:44,302 basehttp "GET /static/admin/js/theme.js HTTP/1.1" 200 1653
+INFO 2025-11-28 18:52:44,313 basehttp "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 200 3063
+INFO 2025-11-28 18:54:01,734 autoreload Watching for file changes with StatReloader
+INFO 2025-11-28 18:54:03,647 basehttp "GET / HTTP/1.1" 200 30722
+INFO 2025-11-28 18:54:14,562 basehttp "POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+INFO 2025-11-28 18:54:14,635 basehttp "GET /admin/ HTTP/1.1" 200 13463
+INFO 2025-11-28 18:54:14,682 basehttp "GET /static/admin/css/dashboard.css HTTP/1.1" 200 441
+INFO 2025-11-28 18:54:14,694 basehttp "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 200 380
+INFO 2025-11-28 18:54:14,694 basehttp "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 331
+INFO 2025-11-28 18:55:16,636 basehttp "GET / HTTP/1.1" 200 33153
+INFO 2025-11-28 18:55:58,783 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-28 18:56:02,431 basehttp "GET /search/ HTTP/1.1" 200 40705
+INFO 2025-11-28 18:56:44,544 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-28 18:57:15,596 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-28 18:57:22,251 basehttp "GET / HTTP/1.1" 200 33153
+INFO 2025-11-28 18:58:04,371 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-28 18:58:34,605 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-28 18:58:38,683 basehttp "GET /article/create/ HTTP/1.1" 200 42633
+INFO 2025-11-28 18:59:20,818 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-28 18:59:50,934 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-28 19:00:20,827 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-28 19:00:43,965 basehttp "GET /accounts/profile/ HTTP/1.1" 200 47336
+INFO 2025-11-28 19:01:26,152 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127
+INFO 2025-11-28 19:01:56,486 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 37127

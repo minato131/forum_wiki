@@ -1,4 +1,3 @@
-# wiki/telegram_utils.py - ОБНОВЛЕННАЯ ВЕРСИЯ
 import hashlib
 import hmac
 import json
