@@ -827,7 +827,7 @@
     <button class="lightbox-nav lightbox-next" onclick="changeImage(1)">›</button>
     <img id="lightbox-img" class="lightbox-content" src="" alt="">
 </div>
-{% if article.can_be_resubmitted user %}
+{% if article.can_be_resubmitted and user %}
 <div class="action-buttons" style="margin-top: 20px;">
     <form method="post" action="{% url 'wiki:article_resubmit' article.slug %}" style="display: inline;">
         {% csrf_token %}
@@ -838,7 +838,7 @@
 </div>
 {% endif %}
 
-{% if article.can_be_deleted_by_author user %}
+{% if article.can_be_deleted_by_author and user %}
 <div class="action-buttons" style="margin-top: 10px;">
     <form method="post" action="{% url 'wiki:article_delete_by_author' article.slug %}"
           class="delete-form" style="display: inline;">
