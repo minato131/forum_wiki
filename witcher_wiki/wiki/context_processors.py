@@ -1,5 +1,5 @@
 from django.conf import settings
-# wiki/context_processors.py
+from .models import Category
 from django.contrib.auth.models import Group
 
 
@@ -43,4 +43,15 @@ def telegram_settings(request):
         'telegram_bot_username': getattr(settings, 'TELEGRAM_BOT_USERNAME', ''),
         'TELEGRAM_BOT_USERNAME': getattr(settings, 'TELEGRAM_BOT_USERNAME', ''),
         'TELEGRAM_WEB_APP_URL': getattr(settings, 'TELEGRAM_WEB_APP_URL', ''),
+    }
+
+
+def categories_processor(request):
+    """Добавляет основные категории в контекст всех шаблонов"""
+    featured_categories = Category.objects.filter(
+        is_featured=True
+    ).order_by('display_order', 'name')[:5]
+
+    return {
+        'featured_categories': featured_categories,
     }

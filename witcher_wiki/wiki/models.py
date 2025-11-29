@@ -199,7 +199,7 @@ class Article(models.Model):
 
         # Можно удалять только после модерации и редактирования
         # (статья прошла модерацию, но автор не согласен с правками)
-        return self.status in ['author_review', 'published', 'rejected']
+        return self.status in ['draft', 'rejected', 'needs_correction', 'author_review']
 
     def resubmit_for_moderation(self):
         """Отправляет статью на повторную модерацию"""

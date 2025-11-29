@@ -22,10 +22,13 @@ urlpatterns = [
     path('article/<slug:slug>/moderate/enhanced/', views.article_moderate_enhanced, name='article_moderate_enhanced'),
     path('article/<slug:slug>/like/', views.toggle_article_like, name='toggle_article_like'),
     path('article/<slug:slug>/delete/', views.article_delete, name='article_delete'),
+    path('article/<slug:slug>/resubmit/', views.article_resubmit, name='article_resubmit'),
+    path('article/<slug:slug>/delete-by-author/', views.article_delete_by_author, name='article_delete_by_author'),
 
     # Модерация
     path('moderation/', views.moderation_queue, name='moderation_queue'),
     path('my-articles/', views.my_articles, name='my_articles'),
+    path('article/<slug:slug>/send-to-editor/', views.send_to_editor, name='send_to_editor'),
 
     # Модерация комментариев
     path('article/<slug:slug>/add-moderation-comment/', views.add_moderation_comment, name='add_moderation_comment'),

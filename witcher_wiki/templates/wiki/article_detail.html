@@ -445,6 +445,76 @@
         right: 30px;
     }
 
+    /* Стили для хештегов */
+    .article-hashtags {
+        background: rgba(23, 162, 184, 0.1);
+        padding: 20px;
+        border-radius: 10px;
+        margin: 20px 0;
+        border: 1px solid rgba(23, 162, 184, 0.3);
+    }
+
+    .hashtags-title {
+        color: #17a2b8;
+        margin-bottom: 12px;
+        font-size: 1.1em;
+        font-weight: 600;
+    }
+
+    .hashtags-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .hashtag-link {
+        background: rgba(23, 162, 184, 0.2);
+        color: #17a2b8;
+        padding: 8px 15px;
+        border-radius: 20px;
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s;
+        border: 1px solid rgba(23, 162, 184, 0.3);
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .hashtag-link:hover {
+        background: #17a2b8;
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(23, 162, 184, 0.3);
+    }
+
+    .hashtag-link::before {
+        content: "#";
+        font-weight: bold;
+    }
+
+    /* Стили для действий автора */
+    .author-actions {
+        margin: 25px 0;
+        padding: 20px;
+        background: rgba(212, 175, 55, 0.1);
+        border-radius: 10px;
+        border: 1px solid #D4AF37;
+    }
+
+    .action-buttons-group {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+
+    .status-info {
+        margin-top: 15px;
+        padding: 12px;
+        background: rgba(255,255,255,0.05);
+        border-radius: 6px;
+    }
+
     @media (max-width: 768px) {
         .article-title {
             font-size: 1.8em;
@@ -476,6 +546,9 @@
             font-size: 30px;
             top: 10px;
             right: 15px;
+        }
+        .action-buttons-group {
+            flex-direction: column;
         }
     }
 </style>
@@ -543,115 +616,75 @@
         {{ article.content|safe }}
     </div>
 
-<!-- Хештеги статьи -->
-{% if article.tags.all %}
-<div class="article-hashtags">
-    <h4 class="hashtags-title">🏷️ Хештеги статьи:</h4>
-    <div class="hashtags-list">
-        {% for tag in article.tags.all %}
-        <a href="{% url 'wiki:search' %}?tag={{ tag.name|urlencode }}"
-           class="hashtag-link"
-           title="Найти статьи с хештегом #{{ tag.name }}">
-            #{{ tag.name }}
-        </a>
-        {% endfor %}
+    <!-- Хештеги статьи -->
+    {% if article.tags.all %}
+    <div class="article-hashtags">
+        <h4 class="hashtags-title">🏷️ Хештеги статьи:</h4>
+        <div class="hashtags-list">
+            {% for tag in article.tags.all %}
+            <a href="{% url 'wiki:search' %}?tag={{ tag.name|urlencode }}"
+               class="hashtag-link"
+               title="Найти статьи с хештегом #{{ tag.name }}">
+                #{{ tag.name }}
+            </a>
+            {% endfor %}
+        </div>
     </div>
-</div>
-{% if user.is_authenticated and article.author == user %}
-<div class="author-actions" style="margin: 25px 0; padding: 20px; background: rgba(212, 175, 55, 0.1); border-radius: 10px; border: 1px solid #D4AF37;">
-    <h4 style="color: #D4AF37; margin-bottom: 15px; font-family: 'Cinzel', serif;">⚔️ Действия автора</h4>
+    {% endif %}
 
-    <div class="action-buttons-group" style="display: flex; gap: 12px; flex-wrap: wrap;">
-        <!-- Кнопка отправки на модерацию -->
-        {% if article.can_be_resubmitted %}
-        <form method="post" action="{% url 'wiki:article_resubmit' article.slug %}" style="display: inline;">
-            {% csrf_token %}
-            <button type="submit" class="btn" style="background: #17a2b8; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
-                📨 Отправить на модерацию
-            </button>
-        </form>
-        {% endif %}
+    <!-- Действия автора -->
+    {% if user.is_authenticated and article.author == user %}
+    <div class="author-actions">
+        <h4 style="color: #D4AF37; margin-bottom: 15px; font-family: 'Cinzel', serif;">⚔️ Действия автора</h4>
 
-        <!-- Кнопка удаления статьи -->
-        {% if article.can_be_deleted_by_author %}
-        <form method="post" action="{% url 'wiki:article_delete_by_author' article.slug %}"
-              style="display: inline;">
-            {% csrf_token %}
-            <button type="submit" class="btn" style="background: #dc3545; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer;"
-                    onclick="return confirm('Вы уверены, что хотите удалить эту статью?')">
-                🗑️ Удалить статью
-            </button>
-        </form>
-        {% endif %}
-
-        <!-- Кнопка редактирования -->
-        {% if article.can_edit %}
-        <a href="{% url 'wiki:article_edit' article.slug %}" class="btn" style="background: #D4AF37; color: #1a1a1a; text-decoration: none; padding: 10px 15px; border-radius: 5px;">
-            ✏️ Редактировать
-        </a>
-        {% endif %}
-    </div>
-
-    <!-- Информация о статусе -->
-    <div class="status-info" style="margin-top: 15px; padding: 12px; background: rgba(255,255,255,0.05); border-radius: 6px;">
-        <small style="color: #888;">
-            <strong>Статус:</strong> {{ article.get_status_display }}
-            {% if article.moderated_at %}
-            <br><strong>Модерация:</strong> {{ article.moderated_at|date:"d.m.Y H:i" }}
+        <div class="action-buttons-group">
+            <!-- Кнопка отправки на модерацию -->
+            {% if article.can_be_resubmitted %}
+            <form method="post" action="{% url 'wiki:article_resubmit' article.slug %}" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn" style="background: #17a2b8; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
+                    📨 Отправить на модерацию
+                </button>
+            </form>
             {% endif %}
-        </small>
+
+            <!-- Кнопка удаления статьи -->
+            {% if article.can_be_deleted_by_author %}
+            <form method="post" action="{% url 'wiki:article_delete_by_author' article.slug %}"
+                  style="display: inline;"
+                  onsubmit="return confirm('Вы уверены, что хотите удалить эту статью?')">
+                {% csrf_token %}
+                <button type="submit" class="btn" style="background: #dc3545; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
+                    🗑️ Удалить статью
+                </button>
+            </form>
+            {% endif %}
+
+            <!-- Кнопка редактирования -->
+            {% if article.can_edit %}
+            <a href="{% url 'wiki:article_edit' article.slug %}" class="btn" style="background: #D4AF37; color: #1a1a1a; text-decoration: none; padding: 10px 15px; border-radius: 5px;">
+                ✏️ Редактировать
+            </a>
+            {% endif %}
+        </div>
+
+        <!-- Информация о статусе -->
+        <div class="status-info">
+            <small style="color: #888;">
+                <strong>Статус:</strong> {{ article.get_status_display }}
+                {% if article.moderated_at %}
+                <br><strong>Модерация:</strong> {{ article.moderated_at|date:"d.m.Y H:i" }}
+                {% endif %}
+                {% if article.moderated_by %}
+                <br><strong>Модератор:</strong> {{ article.moderated_by.username }}
+                {% endif %}
+                {% if article.moderation_notes %}
+                <br><strong>Замечания:</strong> {{ article.moderation_notes }}
+                {% endif %}
+            </small>
+        </div>
     </div>
-</div>
-{% endif %}
-<style>
-.article-hashtags {
-    background: rgba(23, 162, 184, 0.1);
-    padding: 20px;
-    border-radius: 10px;
-    margin: 20px 0;
-    border: 1px solid rgba(23, 162, 184, 0.3);
-}
-
-.hashtags-title {
-    color: #17a2b8;
-    margin-bottom: 12px;
-    font-size: 1.1em;
-    font-weight: 600;
-}
-
-.hashtags-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-.hashtag-link {
-    background: rgba(23, 162, 184, 0.2);
-    color: #17a2b8;
-    padding: 8px 15px;
-    border-radius: 20px;
-    text-decoration: none;
-    font-weight: 500;
-    transition: all 0.3s;
-    border: 1px solid rgba(23, 162, 184, 0.3);
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.hashtag-link:hover {
-    background: #17a2b8;
-    color: white;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(23, 162, 184, 0.3);
-}
-
-.hashtag-link::before {
-    content: "#";
-    font-weight: bold;
-}
-</style>
-{% endif %}
+    {% endif %}
 
     <!-- Блок лайков -->
     <div class="like-section">
@@ -827,29 +860,7 @@
     <button class="lightbox-nav lightbox-next" onclick="changeImage(1)">›</button>
     <img id="lightbox-img" class="lightbox-content" src="" alt="">
 </div>
-{% if article.can_be_resubmitted and user %}
-<div class="action-buttons" style="margin-top: 20px;">
-    <form method="post" action="{% url 'wiki:article_resubmit' article.slug %}" style="display: inline;">
-        {% csrf_token %}
-        <button type="submit" class="btn btn-warning">
-            📤 Отправить на модерацию
-        </button>
-    </form>
-</div>
-{% endif %}
 
-{% if article.can_be_deleted_by_author and user %}
-<div class="action-buttons" style="margin-top: 10px;">
-    <form method="post" action="{% url 'wiki:article_delete_by_author' article.slug %}"
-          class="delete-form" style="display: inline;">
-        {% csrf_token %}
-        <button type="submit" class="btn btn-danger"
-                onclick="return confirm('Вы уверены, что хотите удалить эту статью?')">
-            🗑️ Удалить статью
-        </button>
-    </form>
-</div>
-{% endif %}
 <script>
 // Лайтбокс для изображений
 let currentImageIndex = 0;
@@ -1165,19 +1176,13 @@ document.addEventListener('keydown', function(e) {
         if (e.key === 'ArrowLeft') changeImage(-1);
         if (e.key === 'ArrowRight') changeImage(1);
     }
-    function confirmArticleDelete(articleSlug, articleTitle) {
-    showConfirmationModal(
-        `Вы уверены, что хотите удалить статью "${articleTitle}"? Это действие нельзя отменить.`,
-        function() {
-            deleteArticle(articleSlug);
-        },
-        {
-            type: 'danger',
-            icon: '🗑️',
-            title: 'Удаление статьи',
-            confirmText: 'Удалить'
-        }
-    );
+});
+
+// Функция для подтверждения удаления статьи
+function confirmArticleDelete(articleSlug, articleTitle) {
+    if (confirm(`Вы уверены, что хотите удалить статью "${articleTitle}"? Это действие нельзя отменить.`)) {
+        deleteArticle(articleSlug);
+    }
 }
 
 function deleteArticle(articleSlug) {
@@ -1193,19 +1198,18 @@ function deleteArticle(articleSlug) {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            showToast(data.message, 'success');
+            showNotification(data.message, 'success');
             setTimeout(() => {
                 window.location.href = data.redirect_url;
             }, 1500);
         } else {
-            showToast('Ошибка: ' + data.error, 'error');
+            showNotification('Ошибка: ' + data.error, 'error');
         }
     })
     .catch(error => {
         console.error('Error:', error);
-        showToast('Ошибка при удалении статьи', 'error');
+        showNotification('Ошибка при удалении статьи', 'error');
     });
 }
-});
 </script>
 {% endblock %}

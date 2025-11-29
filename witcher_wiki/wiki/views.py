@@ -425,7 +425,7 @@ def article_detail(request, slug):
         return redirect(f'{login_url}?next={request.path}')
 
     # Проверяем права на просмотр
-    if article.status != 'published' and not article.can_edit(request.user):
+    if article.status != 'published' and not article.can_edit(request.user) and not article.can_moderate(request.user):
         return render(request, 'wiki/access_denied.html', {
             'message': 'У вас нет прав для просмотра этой статьи.'
         })
@@ -2251,6 +2251,7 @@ def article_delete_by_author(request, slug):
     """Удаление статьи автором"""
     article = get_object_or_404(Article, slug=slug)
 
+    # Проверяем права на удаление
     if not article.can_be_deleted_by_author(request.user):
         if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
             return JsonResponse({
@@ -2275,6 +2276,12 @@ def article_delete_by_author(request, slug):
             # Удаляем связанные комментарии модерации
             article.moderation_comments.all().delete()
 
+            # Удаляем лайки
+            article.likes.all().delete()
+
+            # Удаляем комментарии
+            article.comments.all().delete()
+
             article.delete()
 
             if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
@@ -2298,3 +2305,23 @@ def article_delete_by_author(request, slug):
         return JsonResponse({'success': False, 'error': 'Неверный метод запроса'})
 
     return redirect('wiki:article_detail', slug=slug)
+
+
+@login_required
+def send_to_editor(request, slug):
+    """Отправка статьи редактору на доработку"""
+    article = get_object_or_404(Article, slug=slug)
+
+    if not article.can_moderate(request.user):
+        return JsonResponse({'success': False, 'error': 'Нет прав для модерации'})
+
+    if request.method == 'POST':
+        article.status = 'editor_review'
+        article.moderated_by = request.user
+        article.moderated_at = timezone.now()
+        article.save()
+
+        messages.success(request, f'Статья "{article.title}" отправлена редактору на доработку.')
+        return redirect('wiki:moderation_queue')
+
+    return redirect('wiki:article_moderate_enhanced', slug=slug)

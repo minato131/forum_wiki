@@ -310,9 +310,18 @@
         <div class="nav-links">
             <a href="{% url 'wiki:home' %}">🏠 Главная</a>
             <a href="{% url 'wiki:search' %}">🔍 Поиск</a>
-            <a href="{% url 'wiki:category_detail' 'characters' %}">👥 Персонажи</a>
-            <a href="{% url 'wiki:category_detail' 'monsters' %}">🐺 Монстры</a>
-            <a href="{% url 'wiki:category_detail' 'locations' %}">🏰 Локации</a>
+
+            <!-- Категории будут добавляться через контекстный процессор -->
+            {% for category in featured_categories|slice:":3" %}
+                <a href="{% url 'wiki:category_detail' category.slug %}">
+                    {% if category.icon %}{{ category.icon }}{% else %}📁{% endif %} {{ category.name }}
+                </a>
+            {% empty %}
+                <!-- Если категорий нет, показываем общие ссылки -->
+                <a href="{% url 'wiki:category_detail' 'characters' %}">👥 Персонажи</a>
+                <a href="{% url 'wiki:category_detail' 'monsters' %}">🐺 Монстры</a>
+                <a href="{% url 'wiki:category_detail' 'locations' %}">🏰 Локации</a>
+            {% endfor %}
 
             {% if user.is_authenticated %}
                 <a href="{% url 'wiki:my_articles' %}">📝 Мои статьи</a>
