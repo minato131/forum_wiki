@@ -1,26 +1,42 @@
 from django.conf import settings
+# wiki/context_processors.py
+from django.contrib.auth.models import Group
+
+
 def user_permissions(request):
-    """Добавляет переменные прав пользователя в контекст"""
+    """Добавляет информацию о правах пользователя в контекст"""
+    user_can_moderate = False
+    user_can_edit = False
+    user_can_manage_categories = False
 
-    def can_moderate(user):
-        return (user.is_authenticated and
-                (user.is_staff or
-                 user.groups.filter(name__in=['Модератор', 'Администратор']).exists()))
+    if request.user.is_authenticated:
+        user_groups = request.user.groups.all()
+        group_names = [group.name for group in user_groups]
 
-    def can_edit_content(user):
-        return (user.is_authenticated and
-                (user.is_staff or
-                 user.groups.filter(name__in=['Редактор', 'Модератор', 'Администратор']).exists()))
+        user_can_moderate = (
+                request.user.is_staff or
+                'Модератор' in group_names or
+                'Администратор' in group_names
+        )
 
-    def is_admin(user):
-        return user.is_authenticated and (user.is_staff or user.groups.filter(name='Администратор').exists())
+        user_can_edit = (
+                request.user.is_staff or
+                'Редактор' in group_names or
+                'Модератор' in group_names or
+                'Администратор' in group_names
+        )
+
+        user_can_manage_categories = (
+                request.user.is_staff or
+                'Модератор' in group_names or
+                'Администратор' in group_names
+        )
 
     return {
-        'user_can_moderate': can_moderate(request.user) if request.user.is_authenticated else False,
-        'user_can_edit': can_edit_content(request.user) if request.user.is_authenticated else False,
-        'user_is_admin': is_admin(request.user) if request.user.is_authenticated else False,
+        'user_can_moderate': user_can_moderate,
+        'user_can_edit': user_can_edit,
+        'user_can_manage_categories': user_can_manage_categories,
     }
-
 def telegram_settings(request):
     """Добавляет настройки Telegram в контекст шаблонов"""
     return {

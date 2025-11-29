@@ -103,4 +103,9 @@ urlpatterns = [
     path('auth/telegram/webapp/', views.telegram_webapp_login, name='telegram_webapp_login'),
     path('auth/telegram/webapp/callback/', views.telegram_webapp_callback, name='telegram_webapp_callback'),
     path('auth/telegram/quick/', views.telegram_quick_login, name='telegram_quick_login'),
+
+
+    path('admin/group-permissions/', views.group_permissions_info, name='group_permissions_info'),
+    path('article/<slug:slug>/resubmit/', views.article_resubmit, name='article_resubmit'),
+    path('article/<slug:slug>/delete-by-author/', views.article_delete_by_author, name='article_delete_by_author'),
 ]

@@ -30,6 +30,7 @@ from .telegram_auth_manager import TelegramAuthManager
 from .telegram_bot_sync import sync_bot
 from .telegram_utils import TelegramAuth
 from django.contrib.auth import login as auth_login
+from .permissions import GROUP_PERMISSIONS
 
 def clean_latex_from_content(content):
     """
@@ -268,6 +269,23 @@ def article_create(request):
     """Создание новой статьи"""
     error_message = ""
     success_message = ""
+
+    rules_accepted = request.session.get('article_rules_accepted', False)
+
+    if request.method == 'GET' and not rules_accepted:
+        # Первое посещение - показываем правила
+        return render(request, 'wiki/article_create_rules.html')
+
+    if request.method == 'POST':
+        # Проверяем, что правила приняты
+        if not rules_accepted and not request.POST.get('rules_accepted'):
+            messages.error(request, '❌ Для создания статьи необходимо принять правила.')
+            return render(request, 'wiki/article_create_rules.html')
+
+        # Если правила приняты через форму, сохраняем в сессии
+        if request.POST.get('rules_accepted'):
+            request.session['article_rules_accepted'] = True
+            request.session.set_expiry(60 * 60 * 24 * 30)  # 30 дней
 
     if request.method == 'POST':
         title = request.POST.get('title', '').strip()
@@ -2172,3 +2190,92 @@ def telegram_quick_login(request):
     return render(request, 'wiki/telegram_quick_login.html', {
         'telegram_bot_username': getattr(settings, 'TELEGRAM_BOT_USERNAME', ''),
     })
+
+
+@login_required
+def group_permissions_info(request):
+    """Страница с информацией о правах групп"""
+    if not request.user.is_staff:
+        return render(request, 'wiki/access_denied.html', {
+            'message': 'Только администраторы могут просматривать эту страницу.'
+        })
+
+    context = {
+        'group_permissions': GROUP_PERMISSIONS,
+    }
+    return render(request, 'wiki/group_permissions_info.html', context)
+
+
+@login_required
+def article_resubmit(request, slug):
+    """Отправка статьи на повторную модерацию"""
+    article = get_object_or_404(Article, slug=slug)
+
+    if not article.can_be_resubmitted(request.user):
+        messages.error(request, '❌ Вы не можете отправить эту статью на модерацию.')
+        return redirect('wiki:article_detail', slug=slug)
+
+    if request.method == 'POST':
+        if article.resubmit_for_moderation():
+            messages.success(request, '✅ Статья отправлена на модерацию! Ожидайте проверки.')
+
+            # Логируем действие
+            print(f"Пользователь {request.user.username} отправил статью '{article.title}' на модерацию")
+        else:
+            messages.error(request, '❌ Не удалось отправить статью на модерацию.')
+
+    return redirect('wiki:article_detail', slug=slug)
+
+
+@login_required
+def article_delete_by_author(request, slug):
+    """Удаление статьи автором"""
+    article = get_object_or_404(Article, slug=slug)
+
+    if not article.can_be_deleted_by_author(request.user):
+        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            return JsonResponse({
+                'success': False,
+                'error': 'У вас нет прав для удаления этой статьи'
+            })
+        messages.error(request, '❌ Вы не можете удалить эту статью.')
+        return redirect('wiki:article_detail', slug=slug)
+
+    if request.method == 'POST':
+        try:
+            article_title = article.title
+
+            # Удаляем связанные медиафайлы
+            for media in article.media_files.all():
+                media_file_path = media.file.path
+                media.delete()
+                # Удаляем физический файл
+                if os.path.exists(media_file_path):
+                    os.remove(media_file_path)
+
+            # Удаляем связанные комментарии модерации
+            article.moderation_comments.all().delete()
+
+            article.delete()
+
+            if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+                return JsonResponse({
+                    'success': True,
+                    'message': f'Статья "{article_title}" удалена',
+                    'redirect_url': reverse('wiki:my_articles')
+                })
+            else:
+                messages.success(request, f'✅ Статья "{article_title}" удалена')
+                return redirect('wiki:my_articles')
+
+        except Exception as e:
+            if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+                return JsonResponse({'success': False, 'error': str(e)})
+            else:
+                messages.error(request, f'❌ Ошибка при удалении статьи: {str(e)}')
+                return redirect('wiki:article_detail', slug=slug)
+
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        return JsonResponse({'success': False, 'error': 'Неверный метод запроса'})
+
+    return redirect('wiki:article_detail', slug=slug)

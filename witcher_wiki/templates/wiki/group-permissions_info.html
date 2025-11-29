@@ -1,0 +1,62 @@
+<!-- templates/wiki/group_permissions_info.html -->
+{% extends 'base.html' %}
+
+{% block title %}Права групп пользователей | Форум по Вселенной Ведьмака{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>⚖️ Права групп пользователей</h1>
+
+    {% for group_name, group_info in group_permissions.items %}
+    <div class="permission-card">
+        <h2>{{ group_name }}</h2>
+        <p class="group-description">{{ group_info.description }}</p>
+
+        <h3>Доступные права:</h3>
+        <ul class="permissions-list">
+            {% for permission in group_info.permissions %}
+            <li>✅ {{ permission }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endfor %}
+</div>
+
+<style>
+.permission-card {
+    background: rgba(212, 175, 55, 0.1);
+    border: 1px solid #D4AF37;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.permission-card h2 {
+    color: #D4AF37;
+    border-bottom: 2px solid #D4AF37;
+    padding-bottom: 10px;
+}
+
+.group-description {
+    font-style: italic;
+    color: #888;
+    margin-bottom: 15px;
+}
+
+.permissions-list {
+    columns: 2;
+    column-gap: 20px;
+}
+
+.permissions-list li {
+    margin-bottom: 8px;
+    break-inside: avoid;
+}
+
+@media (max-width: 768px) {
+    .permissions-list {
+        columns: 1;
+    }
+}
+</style>
+{% endblock %}

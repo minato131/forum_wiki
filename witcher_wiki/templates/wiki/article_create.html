@@ -261,7 +261,369 @@
         }
     }
 </style>
+<!-- Добавить в templates/wiki/article_create.html перед формой -->
+<div id="rulesModal" class="rules-modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>📝 Правила создания статей</h2>
+            <button class="close-btn" onclick="closeRulesModal()">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="rules-section">
+                <h3>⚖️ Общие правила:</h3>
+                <ul>
+                    <li>✅ Статьи должны соответствовать тематике Вселенной Ведьмака</li>
+                    <li>✅ Используйте достоверную информацию из книг, игр и официальных источников</li>
+                    <li>✅ Указывайте источники информации при необходимости</li>
+                    <li>✅ Соблюдайте авторские права</li>
+                </ul>
+            </div>
 
+            <div class="rules-section">
+                <h3>🚫 Запрещено:</h3>
+                <ul>
+                    <li>❌ Использование ненормативной лексики и оскорблений</li>
+                    <li>❌ Разжигание межнациональной розни</li>
+                    <li>❌ Пропаганда насилия и незаконной деятельности</li>
+                    <li>❌ Размещение личной информации других пользователей</li>
+                    <li>❌ Спам и реклама</li>
+                    <li>❌ Плагиат и нарушение авторских прав</li>
+                </ul>
+            </div>
+
+            <div class="rules-section">
+                <h3>📋 Требования к контенту:</h3>
+                <ul>
+                    <li>✅ Заголовок должен точно отражать содержание статьи</li>
+                    <li>✅ Используйте четкую структуру (заголовки, подзаголовки)</li>
+                    <li>✅ Проверяйте орфографию и пунктуацию</li>
+                    <li>✅ Добавляйте изображения и медиафайлы хорошего качества</li>
+                    <li>✅ Используйте соответствующие категории и теги</li>
+                </ul>
+            </div>
+
+            <div class="rules-section">
+                <h3>⏳ Модерация:</h3>
+                <ul>
+                    <li>📌 Все статьи проходят проверку модератором</li>
+                    <li>📌 Время модерации: от 1 до 24 часов</li>
+                    <li>📌 При отклонении статьи вы получите комментарий с пояснением</li>
+                    <li>📌 Вы можете редактировать статью после замечаний модератора</li>
+                </ul>
+            </div>
+
+            <div class="agreement-section">
+                <label class="checkbox-label">
+                    <input type="checkbox" id="rulesAgreement">
+                    <span class="checkmark"></span>
+                    Я ознакомлен(а) с правилами и обязуюсь их соблюдать
+                </label>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" onclick="closeRulesModal()">Отмена</button>
+            <button class="btn btn-primary" id="acceptRulesBtn" disabled onclick="acceptRules()">
+                Принять правила и продолжить
+            </button>
+        </div>
+    </div>
+</div>
+
+<style>
+.rules-modal {
+    display: none;
+    position: fixed;
+    z-index: 10000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+}
+
+.rules-modal .modal-content {
+    background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+    margin: 2% auto;
+    padding: 0;
+    border: 2px solid #D4AF37;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 800px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+.modal-header {
+    background: linear-gradient(135deg, #D4AF37 0%, #FFD700 100%);
+    color: #1a1a1a;
+    padding: 20px;
+    border-radius: 13px 13px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-family: 'Cinzel', serif;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: #1a1a1a;
+}
+
+.modal-body {
+    padding: 25px;
+}
+
+.rules-section {
+    margin-bottom: 25px;
+    padding: 20px;
+    background: rgba(212, 175, 55, 0.05);
+    border-radius: 10px;
+    border-left: 4px solid #D4AF37;
+}
+
+.rules-section h3 {
+    color: #D4AF37;
+    margin-bottom: 15px;
+    font-family: 'Cinzel', serif;
+}
+
+.rules-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.rules-section li {
+    padding: 8px 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.rules-section li::before {
+    font-size: 1.2em;
+    min-width: 25px;
+}
+
+.agreement-section {
+    margin-top: 30px;
+    padding: 20px;
+    background: rgba(34, 197, 94, 0.1);
+    border-radius: 10px;
+    border: 1px solid #22c55e;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    font-weight: 600;
+    color: #22c55e;
+}
+
+.checkbox-label input[type="checkbox"] {
+    display: none;
+}
+
+.checkmark {
+    width: 22px;
+    height: 22px;
+    border: 2px solid #22c55e;
+    border-radius: 4px;
+    position: relative;
+    transition: all 0.3s;
+}
+
+.checkbox-label input[type="checkbox"]:checked + .checkmark {
+    background: #22c55e;
+}
+
+.checkbox-label input[type="checkbox"]:checked + .checkmark::after {
+    content: '✓';
+    position: absolute;
+    color: white;
+    font-weight: bold;
+    left: 4px;
+    top: -2px;
+}
+
+.modal-footer {
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 0 0 13px 13px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+}
+
+.btn {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s;
+    font-family: 'Georgia', serif;
+}
+
+.btn-primary {
+    background: #D4AF37;
+    color: #1a1a1a;
+}
+
+.btn-primary:hover:not(:disabled) {
+    background: #FFD700;
+    transform: translateY(-2px);
+}
+
+.btn-primary:disabled {
+    background: #666;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.btn-secondary {
+    background: #6b7280;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: #4b5563;
+    transform: translateY(-2px);
+}
+
+/* Анимации */
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.rules-modal.show {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.rules-modal.show .modal-content {
+    animation: modalSlideIn 0.3s ease-out;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .rules-modal .modal-content {
+        width: 95%;
+        margin: 5% auto;
+    }
+
+    .modal-body {
+        padding: 15px;
+    }
+
+    .rules-section {
+        padding: 15px;
+    }
+
+    .modal-footer {
+        flex-direction: column;
+    }
+
+    .btn {
+        width: 100%;
+    }
+}
+</style>
+
+<script>
+let rulesAccepted = false;
+
+function showRulesModal() {
+    const modal = document.getElementById('rulesModal');
+    modal.classList.add('show');
+    document.body.style.overflow = 'hidden';
+
+    // Сбрасываем состояние
+    document.getElementById('rulesAgreement').checked = false;
+    document.getElementById('acceptRulesBtn').disabled = true;
+    rulesAccepted = false;
+}
+
+function closeRulesModal() {
+    const modal = document.getElementById('rulesModal');
+    modal.classList.remove('show');
+    document.body.style.overflow = 'auto';
+
+    if (!rulesAccepted) {
+        // Перенаправляем на главную, если правила не приняты
+        window.location.href = "{% url 'wiki:home' %}";
+    }
+}
+
+function acceptRules() {
+    rulesAccepted = true;
+    closeRulesModal();
+
+    // Показываем основную форму
+    document.querySelector('.form-container').style.display = 'block';
+
+    // Сохраняем в localStorage, что пользователь принял правила
+    localStorage.setItem('article_rules_accepted', 'true');
+}
+
+// Проверяем согласие с правилами
+document.getElementById('rulesAgreement').addEventListener('change', function() {
+    document.getElementById('acceptRulesBtn').disabled = !this.checked;
+});
+
+// Закрытие по клику вне модального окна
+document.getElementById('rulesModal').addEventListener('click', function(e) {
+    if (e.target === this) {
+        closeRulesModal();
+    }
+});
+
+// Закрытие по ESC
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeRulesModal();
+    }
+});
+
+// Проверяем при загрузке, принимал ли пользователь правила ранее
+document.addEventListener('DOMContentLoaded', function() {
+    const hasAcceptedRules = localStorage.getItem('article_rules_accepted');
+
+    if (!hasAcceptedRules) {
+        // Показываем модальное окно с правилами
+        showRulesModal();
+        // Скрываем основную форму до принятия правил
+        document.querySelector('.form-container').style.display = 'none';
+    }
+});
+
+// Предотвращаем отправку формы, если правила не приняты
+document.querySelector('form').addEventListener('submit', function(e) {
+    if (!rulesAccepted && !localStorage.getItem('article_rules_accepted')) {
+        e.preventDefault();
+        showRulesModal();
+        alert('Пожалуйста, ознакомьтесь с правилами создания статей перед отправкой.');
+    }
+});
+</script>
 <div class="article-create">
     <h1 class="section-title">✍️ Создать статью</h1>
 

@@ -108,14 +108,34 @@ class Article(models.Model):
         blank=True,
         help_text='Введите хештеги через запятую. Например: #ведьмак #монстры #магия'
     )
+
+    # wiki/models.py - в классе Article ОБНОВЛЯЕМ блок Meta
+
     class Meta:
         verbose_name = 'Статья'
         verbose_name_plural = 'Статьи'
         ordering = ['-created_at']
         permissions = [
+            # Базовые права
+            ("can_create_articles", "Может создавать статьи"),
+            ("can_edit_own_articles", "Может редактировать свои статьи"),
+            ("can_edit_any_articles", "Может редактировать любые статьи"),
+
+            # Права модерации
             ("can_moderate", "Может модерировать статьи"),
-            ("can_edit_content", "Может редактировать контент"),
             ("can_manage_categories", "Может управлять категориями"),
+
+            # Права редактора
+            ("can_edit_content", "Может редактировать контент"),
+            ("can_manage_media", "Может управлять медиафайлами"),
+
+            # Дополнительные права
+            ("can_delete_comments", "Может удалять комментарии"),
+            ("can_view_moderation_queue", "Может видеть очередь модерации"),
+            ("can_manage_users", "Может управлять пользователями"),
+            ("can_access_admin", "Доступ к админ-панели"),
+            ("can_view_logs", "Может просматривать логи"),
+            ("can_backup_data", "Может создавать бэкапы"),
         ]
 
     def can_delete(self, user=None):
@@ -132,6 +152,42 @@ class Article(models.Model):
                 user.groups.filter(name__in=['Модератор', 'Администратор']).exists()):
             return True
 
+        return False
+
+    def can_be_resubmitted(self, user=None):
+        """Проверяет, может ли статья быть отправлена на повторную модерацию"""
+        if user is None:
+            return False
+
+        # Только автор может отправлять на повторную модерацию
+        if user != self.author:
+            return False
+
+        # Можно отправлять только из определенных статусов
+        return self.status in ['draft', 'rejected', 'needs_correction']
+
+    def can_be_deleted_by_author(self, user=None):
+        """Проверяет, может ли автор удалить статью"""
+        if user is None:
+            return False
+
+        # Только автор может удалять свои статьи
+        if user != self.author:
+            return False
+
+        # Можно удалять только после модерации и редактирования
+        # (статья прошла модерацию, но автор не согласен с правками)
+        return self.status in ['author_review', 'published', 'rejected']
+
+    def resubmit_for_moderation(self):
+        """Отправляет статью на повторную модерацию"""
+        if self.status in ['draft', 'rejected', 'needs_correction']:
+            self.status = 'review'
+            self.moderation_notes = ''  # Очищаем предыдущие замечания
+            self.moderated_by = None
+            self.moderated_at = None
+            self.save()
+            return True
         return False
 
     def can_edit(self, user):

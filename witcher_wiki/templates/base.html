@@ -347,7 +347,7 @@
                             {% elif user_can_moderate %}role-moderator
                             {% elif user_can_edit %}role-editor
                             {% endif %}">
-                            {% if user.is_staff %}(Админ)
+                            {% if user.is_staff %}(Администратор)
                             {% elif user_can_moderate %}(Модератор)
                             {% elif user_can_edit %}(Редактор)
                             {% else %}(Пользователь)
@@ -657,6 +657,51 @@
                 // Убираем лайк с подтверждением
                 confirmUnlike(articleId, articleTitle);
             }
+        }
+        function confirmArticleDelete(articleSlug, articleTitle) {
+    showConfirmationModal(
+        `Вы уверены, что хотите удалить статью "${articleTitle}"? Это действие нельзя отменить.`,
+        function() {
+            deleteArticle(articleSlug);
+        },
+        {
+            type: 'danger',
+            icon: '🗑️',
+            title: 'Удаление статьи',
+            confirmText: 'Удалить'
+        }
+    );
+}
+
+        function deleteArticle(articleSlug) {
+            const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]')?.value;
+
+            fetch(`/article/${articleSlug}/delete-by-author/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': csrfToken,
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showToast(data.message, 'success');
+                    setTimeout(() => {
+                        if (data.redirect_url) {
+                            window.location.href = data.redirect_url;
+                        } else {
+                            location.reload();
+                        }
+                    }, 1500);
+                } else {
+                    showToast('Ошибка: ' + data.error, 'error');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showToast('Ошибка при удалении статьи', 'error');
+            });
         }
 
         // Функция для показа уведомлений

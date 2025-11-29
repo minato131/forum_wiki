@@ -1,10 +1,10 @@
-# admin.py - ИСПРАВЛЕННАЯ ВЕРСИЯ
-from django.contrib import admin
-from django.contrib.auth.models import Group
 from .models import Article, Category, Comment, UserProfile, ArticleMedia, ModerationComment, ArticleRevision
-from django.contrib import admin
 from .models import AuthCode
-
+from django.contrib.auth.models import Group
+from django.contrib import admin
+from django.contrib.auth.models import Group, Permission
+from django.contrib.auth.admin import GroupAdmin as BaseGroupAdmin
+from .permissions import GROUP_PERMISSIONS
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ['name', 'parent', 'created_at']
@@ -82,3 +82,49 @@ class AuthCodeAdmin(admin.ModelAdmin):
     list_filter = ['is_used', 'created_at']
     search_fields = ['code', 'telegram_username']
     readonly_fields = ['created_at']
+
+
+class CustomGroupAdmin(BaseGroupAdmin):
+    """Кастомная админка для групп с описанием прав"""
+
+    list_display = ['name', 'get_permissions_description', 'user_count']
+    list_filter = ['name']
+
+    def get_permissions_description(self, obj):
+        """Возвращает описание прав для группы"""
+        group_info = GROUP_PERMISSIONS.get(obj.name, {})
+        return group_info.get('description', 'Нет описания')
+
+    get_permissions_description.short_description = 'Описание прав'
+
+    def user_count(self, obj):
+        """Количество пользователей в группе"""
+        return obj.user_set.count()
+
+    user_count.short_description = 'Количество пользователей'
+
+    def get_fieldsets(self, request, obj=None):
+        """Добавляем описание прав в форму редактирования группы"""
+        fieldsets = super().get_fieldsets(request, obj)
+
+        if obj and obj.name in GROUP_PERMISSIONS:
+            group_info = GROUP_PERMISSIONS[obj.name]
+            description = f"""
+            <div style="background: #f8f9fa; padding: 15px; border-left: 4px solid #007cba; margin-bottom: 20px;">
+                <h3 style="margin-top: 0;">Права группы "{obj.name}"</h3>
+                <p><strong>Описание:</strong> {group_info['description']}</p>
+                <p><strong>Доступные права:</strong></p>
+                <ul style="margin-bottom: 0;">
+                    {''.join([f'<li>{perm}</li>' for perm in group_info['permissions']])}
+                </ul>
+            </div>
+            """
+
+            # Добавляем описание перед формой
+            from django.utils.safestring import mark_safe
+            self.description = mark_safe(description)
+
+        return fieldsets
+
+admin.site.unregister(Group)
+admin.site.register(Group, CustomGroupAdmin)
