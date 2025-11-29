@@ -42,7 +42,29 @@ class Category(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.name)
+            from django.utils.text import slugify
+            # Транслитерация для русских символов
+            translit_dict = {
+                'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd', 'е': 'e', 'ё': 'yo',
+                'ж': 'zh', 'з': 'z', 'и': 'i', 'й': 'y', 'к': 'k', 'л': 'l', 'м': 'm',
+                'н': 'n', 'о': 'o', 'п': 'p', 'р': 'r', 'с': 's', 'т': 't', 'у': 'u',
+                'ф': 'f', 'х': 'h', 'ц': 'ts', 'ч': 'ch', 'ш': 'sh', 'щ': 'sch',
+                'ъ': '', 'ы': 'y', 'ь': '', 'э': 'e', 'ю': 'yu', 'я': 'ya'
+            }
+
+            name_lower = self.name.lower()
+            for ru, en in translit_dict.items():
+                name_lower = name_lower.replace(ru, en)
+
+            self.slug = slugify(name_lower)
+
+        # Проверяем уникальность slug
+        original_slug = self.slug
+        counter = 1
+        while Category.objects.filter(slug=self.slug).exclude(pk=self.pk).exists():
+            self.slug = f"{original_slug}-{counter}"
+            counter += 1
+
         super().save(*args, **kwargs)
 
     def get_article_count(self):

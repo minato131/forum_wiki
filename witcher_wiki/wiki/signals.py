@@ -4,7 +4,9 @@ from django.contrib.auth.models import User
 from .models import UserProfile, Article
 from django.core.mail import send_mail
 from django.conf import settings
-
+from django.db.models.signals import post_migrate
+from django.dispatch import receiver
+from django.core.management import call_command
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
@@ -87,3 +89,14 @@ def send_article_status_notification(article, old_status):
             print(f"✅ Уведомление отправлено автору {article.author.email}")
         except Exception as e:
             print(f"❌ Ошибка отправки email: {e}")
+
+@receiver(post_migrate)
+def create_default_categories(sender, **kwargs):
+    """
+    Автоматически создает базовые категории после миграций
+    """
+    if sender.name == 'wiki':
+        from wiki.models import Category
+        # Проверяем, есть ли уже категории
+        if not Category.objects.exists():
+            call_command('create_default_categories')

@@ -270,15 +270,25 @@ def article_create(request):
     error_message = ""
     success_message = ""
 
-    rules_accepted = request.session.get('article_rules_accepted', False)
+    # Проверяем, принял ли пользователь правила через параметр URL
+    rules_accepted_param = request.GET.get('rules_accepted') == 'true'
 
-    if request.method == 'GET' and not rules_accepted:
-        # Первое посещение - показываем правила
+    # Проверяем сессию и localStorage
+    rules_accepted_session = request.session.get('article_rules_accepted', False)
+
+    # Если правила приняты через параметр, сохраняем в сессии
+    if rules_accepted_param and not rules_accepted_session:
+        request.session['article_rules_accepted'] = True
+        request.session.set_expiry(60 * 60 * 24 * 30)  # 30 дней
+        rules_accepted_session = True
+
+    # Если правила не приняты, показываем страницу с правилами
+    if request.method == 'GET' and not rules_accepted_session:
         return render(request, 'wiki/article_create_rules.html')
 
     if request.method == 'POST':
         # Проверяем, что правила приняты
-        if not rules_accepted and not request.POST.get('rules_accepted'):
+        if not rules_accepted_session and not request.POST.get('rules_accepted'):
             messages.error(request, '❌ Для создания статьи необходимо принять правила.')
             return render(request, 'wiki/article_create_rules.html')
 
@@ -286,24 +296,31 @@ def article_create(request):
         if request.POST.get('rules_accepted'):
             request.session['article_rules_accepted'] = True
             request.session.set_expiry(60 * 60 * 24 * 30)  # 30 дней
+            rules_accepted_session = True
 
     if request.method == 'POST':
         title = request.POST.get('title', '').strip()
         content = request.POST.get('content', '').strip()
         excerpt = request.POST.get('excerpt', '').strip()
         category_ids = request.POST.getlist('categories')
+        tags_input = request.POST.get('tags', '').strip()
 
-        # Очищаем контент от LaTeX
-        content = clean_latex_from_content(content)
-        excerpt = clean_latex_from_content(excerpt)
-
-        # Упрощенная проверка - только is_staff
-        if request.user.is_staff:
-            status = 'published'  # Админы публикуют сразу
+        # Проверка обязательных полей
+        if not title or not content:
+            error_message = "Пожалуйста, заполните заголовок и содержание статьи."
+        elif not category_ids:
+            error_message = "Пожалуйста, выберите хотя бы одну категорию."
         else:
-            status = 'review'  # Обычные пользователи отправляют на модерацию
+            # Очищаем контент от LaTeX
+            content = clean_latex_from_content(content)
+            excerpt = clean_latex_from_content(excerpt)
 
-        if title and content:
+            # Упрощенная проверка - только is_staff
+            if request.user.is_staff:
+                status = 'published'  # Админы публикуют сразу
+            else:
+                status = 'review'  # Обычные пользователи отправляют на модерацию
+
             # Создаем slug из заголовка
             try:
                 from unidecode import unidecode
@@ -342,9 +359,14 @@ def article_create(request):
             article.save()
 
             # Добавляем категории
-            if category_ids:
-                categories = Category.objects.filter(id__in=category_ids)
-                article.categories.set(categories)
+            categories = Category.objects.filter(id__in=category_ids)
+            article.categories.set(categories)
+
+            # Добавляем хештеги
+            if tags_input:
+                tags_list = [tag.strip().lower() for tag in tags_input.split(',') if tag.strip()]
+                for tag_name in tags_list:
+                    article.tags.add(tag_name)
 
             # Обрабатываем загруженные медиафайлы
             media_files = request.FILES.getlist('media_files')
@@ -370,15 +392,13 @@ def article_create(request):
                     )
 
             if status == 'review':
-                success_message = "Статья отправлена на модерацию. После проверки она будет опубликована."
+                success_message = "✅ Статья отправлена на модерацию. После проверки она будет опубликована."
                 return render(request, 'wiki/article_create.html', {
                     'categories': Category.objects.all(),
                     'success_message': success_message
                 })
             else:
                 return redirect('wiki:article_detail', slug=article.slug)
-        else:
-            error_message = "Пожалуйста, заполните все обязательные поля."
 
     # Получаем все категории для формы
     categories = Category.objects.all()
@@ -389,7 +409,6 @@ def article_create(request):
         'success_message': success_message,
     }
     return render(request, 'wiki/article_create.html', context)
-
 
 def article_detail(request, slug):
     print(f"DEBUG: article_detail called for slug: {slug}")
@@ -1641,7 +1660,7 @@ def article_moderate_enhanced(request, slug):
             article.save()
 
             send_moderation_notification(article, 'needs_correction')
-            messages.success(request, f'Статья "{article.title}" отправлена на доработку.')
+            messages.success(request, f'Статья "{article.title}" отправлена на доработку автору.')
             return redirect('wiki:moderation_queue')
 
         elif action == 'send_to_editor':

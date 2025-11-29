@@ -1,19 +1,14 @@
-<!-- templates/wiki/article_create_rules.html -->
 {% extends 'base.html' %}
 
 {% block title %}Правила создания статей | Форум по Вселенной Ведьмака{% endblock %}
 
 {% block content %}
-<div class="rules-container">
-    <div class="rules-header">
-        <h1>📝 Правила создания статей</h1>
-        <p>Перед созданием статьи ознакомьтесь с правилами сообщества</p>
-    </div>
+<div style="max-width: 800px; margin: 0 auto; padding: 20px;">
+    <h1 style="color: #D4AF37; text-align: center; margin-bottom: 30px;">📝 Правила создания статей</h1>
 
-    <div class="rules-content">
-        <!-- Тот же контент что и в модальном окне -->
-        <div class="rules-section">
-            <h3>⚖️ Общие правила:</h3>
+    <div style="background: rgba(212, 175, 55, 0.1); padding: 30px; border-radius: 15px; border: 2px solid #D4AF37;">
+        <div class="rules-section" style="margin-bottom: 25px;">
+            <h3 style="color: #D4AF37;">⚖️ Общие правила:</h3>
             <ul>
                 <li>✅ Статьи должны соответствовать тематике Вселенной Ведьмака</li>
                 <li>✅ Используйте достоверную информацию из книг, игр и официальных источников</li>
@@ -22,60 +17,36 @@
             </ul>
         </div>
 
-        <!-- ... остальные разделы правил ... -->
-    </div>
+        <div class="rules-section" style="margin-bottom: 25px;">
+            <h3 style="color: #D4AF37;">🚫 Запрещено:</h3>
+            <ul>
+                <li>❌ Использование ненормативной лексики и оскорблений</li>
+                <li>❌ Разжигание межнациональной розни</li>
+                <li>❌ Пропаганда насилия и незаконной деятельности</li>
+                <li>❌ Размещение личной информации других пользователей</li>
+                <li>❌ Спам и реклама</li>
+                <li>❌ Плагиат и нарушение авторских прав</li>
+            </ul>
+        </div>
 
-    <div class="rules-actions">
-        <form method="post" action="{% url 'wiki:article_create' %}">
+        <div class="rules-section" style="margin-bottom: 25px;">
+            <h3 style="color: #D4AF37;">📋 Требования к контенту:</h3>
+            <ul>
+                <li>✅ Заголовок должен точно отражать содержание статьи</li>
+                <li>✅ Используйте четкую структуру (заголовки, подзаголовки)</li>
+                <li>✅ Проверяйте орфографию и пунктуацию</li>
+                <li>✅ Добавляйте изображения и медиафайлы хорошего качества</li>
+                <li>✅ Используйте соответствующие категории и теги</li>
+            </ul>
+        </div>
+
+        <form method="post" style="text-align: center; margin-top: 30px;">
             {% csrf_token %}
             <input type="hidden" name="rules_accepted" value="true">
-            <button type="submit" class="btn btn-primary btn-large">
-                ✅ Принять правила и перейти к созданию статьи
+            <button type="submit" style="background: #D4AF37; color: #1a1a1a; border: none; padding: 15px 30px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 1.1em;">
+                ✅ Принять правила и продолжить
             </button>
         </form>
-        <a href="{% url 'wiki:home' %}" class="btn btn-secondary">
-            ❌ Отмена
-        </a>
     </div>
 </div>
-
-<style>
-.rules-container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-.rules-header {
-    text-align: center;
-    margin-bottom: 40px;
-    background: linear-gradient(135deg, #D4AF37 0%, #FFD700 100%);
-    color: #1a1a1a;
-    padding: 30px;
-    border-radius: 15px;
-}
-
-.rules-header h1 {
-    font-family: 'Cinzel', serif;
-    margin-bottom: 10px;
-}
-
-.rules-content {
-    margin-bottom: 40px;
-}
-
-.rules-actions {
-    text-align: center;
-    padding: 30px;
-    background: rgba(34, 197, 94, 0.1);
-    border-radius: 15px;
-    border: 2px solid #22c55e;
-}
-
-.btn-large {
-    padding: 15px 30px;
-    font-size: 1.1em;
-    margin-bottom: 15px;
-}
-</style>
 {% endblock %}
