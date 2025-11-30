@@ -377,12 +377,12 @@
                         </a>
 
                         <!-- Пункты для модераторов -->
-                        {% if user_can_moderate %}
+                        {% if user.groups.filter.name == 'Модератор' or user.is_staff %}
                             <a href="{% url 'wiki:category_management' %}">📁 Управление категориями</a>
                             <a href="{% url 'wiki:moderation_queue' %}">⚖️ Модерация</a>
                         {% endif %}
                         <!-- Пункты для редакторов -->
-                        {% if user_can_edit %}
+                        {% if user.groups.filter.name == 'Редактор' or user.is_staff %}
                             <a href="{% url 'wiki:editor_dashboard' %}">📝 Редактура</a>
                         {% endif %}
 

@@ -111,4 +111,5 @@ urlpatterns = [
     path('admin/group-permissions/', views.group_permissions_info, name='group_permissions_info'),
     path('article/<slug:slug>/resubmit/', views.article_resubmit, name='article_resubmit'),
     path('article/<slug:slug>/delete-by-author/', views.article_delete_by_author, name='article_delete_by_author'),
+    path('article/<slug:slug>/return-to-draft/', views.article_return_to_draft, name='article_return_to_draft'),
 ]

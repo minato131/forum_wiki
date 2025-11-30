@@ -75,30 +75,51 @@
             </div>
 
             <!-- Действия модерации -->
-            <div style="background: #2d2d2d; padding: 20px; border-radius: 10px; border: 1px solid #444;">
-                <h3 style="color: #D4AF37; margin-bottom: 15px;">⚖️ Решение по статье</h3>
+<!-- Действия модерации -->
+<div style="background: #2d2d2d; padding: 20px; border-radius: 10px; border: 1px solid #444; margin-bottom: 20px;">
+    <h3 style="color: #D4AF37; margin-bottom: 15px; text-align: center;">⚖️ РЕШЕНИЕ ПО СТАТЬЕ</h3>
 
-                <form method="post">
-                    {% csrf_token %}
-                    <div style="margin-bottom: 15px;">
-                        <label style="color: #D4AF37; display: block; margin-bottom: 5px;">Общие заметки:</label>
-                        <textarea name="moderation_notes" style="width: 100%; background: #1a1a1a; border: 1px solid #444; color: white; padding: 10px; border-radius: 5px; min-height: 60px;">{{ article.moderation_notes }}</textarea>
-                    </div>
+    <form method="post">
+        {% csrf_token %}
 
-                    <div style="display: flex; flex-direction: column; gap: 10px;">
-                        <button type="submit" name="action" value="approve" style="background: linear-gradient(135deg, #22c55e, #16a34a); color: white; border: none; padding: 12px; border-radius: 5px; cursor: pointer;">
-                            ✅ Одобрить статью
-                        </button>
-                        <button type="submit" name="action" value="needs_correction" style="background: linear-gradient(135deg, #f59e0b, #d97706); color: white; border: none; padding: 12px; border-radius: 5px; cursor: pointer;">
-                            ✏️ Отправить на доработку
-                        </button>
-                        <button type="submit" name="action" value="reject" style="background: linear-gradient(135deg, #ef4444, #dc2626); color: white; border: none; padding: 12px; border-radius: 5px; cursor: pointer;">
-                            ❌ Отклонить статью
-                        </button>
-                    </div>
-                </form>
-            </div>
+        <div style="margin-bottom: 20px;">
+            <label style="color: #D4AF37; display: block; margin-bottom: 8px; font-weight: bold;">📝 Общие заметки:</label>
+            <textarea name="moderation_notes"
+                     style="width: 100%; background: #1a1a1a; border: 1px solid #D4AF37; color: white; padding: 12px; border-radius: 8px; min-height: 80px; font-size: 14px;"
+                     placeholder="Опишите замечания или рекомендации...">{{ article.moderation_notes }}</textarea>
+        </div>
 
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+            <!-- ✅ ОДОБРИТЬ -->
+            <button type="submit" name="action" value="approve"
+                    style="background: linear-gradient(135deg, #22c55e, #16a34a); color: white; border: none; padding: 14px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 1em; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.3s ease;">
+                <span style="font-size: 1.2em;">✅</span>
+                Одобрить и опубликовать
+            </button>
+
+            <!-- ❌ ОТКЛОНИТЬ (автор исправит) -->
+            <button type="submit" name="action" value="needs_correction"
+                    style="background: linear-gradient(135deg, #f59e0b, #d97706); color: white; border: none; padding: 14px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 1em; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.3s ease;">
+                <span style="font-size: 1.2em;">✏️</span>
+                Отклонить (автор исправит)
+            </button>
+
+            <!-- 📝 ОТПРАВИТЬ РЕДАКТОРУ -->
+            <button type="submit" name="action" value="send_to_editor"
+                    style="background: linear-gradient(135deg, #3b82f6, #2563eb); color: white; border: none; padding: 14px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 1em; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.3s ease;">
+                <span style="font-size: 1.2em;">📝</span>
+                Отправить редактору
+            </button>
+
+            <!-- 🚫 ОТКЛОНИТЬ ОКОНЧАТЕЛЬНО -->
+            <button type="submit" name="action" value="reject"
+                    style="background: linear-gradient(135deg, #ef4444, #dc2626); color: white; border: none; padding: 14px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 1em; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.3s ease;">
+                <span style="font-size: 1.2em;">🚫</span>
+                Отклонить окончательно
+            </button>
+        </div>
+    </form>
+</div>
             <!-- Статистика -->
             <div style="background: #2d2d2d; padding: 20px; border-radius: 10px; border: 1px solid #444;">
                 <h3 style="color: #D4AF37; margin-bottom: 15px;">📊 Статистика</h3>
@@ -215,5 +236,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
 </script>
 {% endblock %}

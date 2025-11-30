@@ -198,7 +198,6 @@ class Article(models.Model):
             return False
 
         # Можно удалять только после модерации и редактирования
-        # (статья прошла модерацию, но автор не согласен с правками)
         return self.status in ['draft', 'rejected', 'needs_correction', 'author_review']
 
     def resubmit_for_moderation(self):
@@ -341,14 +340,6 @@ class Article(models.Model):
 
         return False
 
-    def can_moderate(self, user):
-        """Проверяет, может ли пользователь модерировать статью"""
-        if not user.is_authenticated:
-            return False
-
-        return (user.is_staff or
-                user.groups.filter(name__in=['Модератор', 'Администратор']).exists())
-
     def submit_for_moderation(self):
         """Отправляет статью на модерацию"""
         if self.status == 'draft':
@@ -363,6 +354,12 @@ class Article(models.Model):
             return False
         return (user == self.author and self.status == 'draft')
 
+def can_moderate(self, user):
+    """Проверяет, может ли пользователь модерировать статью"""
+    if not user.is_authenticated:
+        return False
+    return (user.is_staff or
+            user.groups.filter(name__in=['Модератор', 'Администратор']).exists())
 
 # models.py - ОБНОВИТЬ модель ModerationComment
 class ModerationComment(models.Model):

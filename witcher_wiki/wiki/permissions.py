@@ -124,3 +124,17 @@ GROUP_PERMISSIONS = {
         ]
     }
 }
+
+def user_can_moderate(user):
+    """Проверяет, может ли пользователь модерировать статьи"""
+    if not user.is_authenticated:
+        return False
+    return (user.is_staff or
+            user.groups.filter(name__in=['Модератор', 'Администратор']).exists())
+
+def user_can_edit_content(user):
+    """Проверяет, может ли пользователь редактировать контент как редактор"""
+    if not user.is_authenticated:
+        return False
+    return (user.is_staff or
+            user.groups.filter(name__in=['Редактор', 'Администратор']).exists())

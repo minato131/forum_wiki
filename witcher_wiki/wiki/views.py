@@ -31,6 +31,7 @@ from .telegram_bot_sync import sync_bot
 from .telegram_utils import TelegramAuth
 from django.contrib.auth import login as auth_login
 from .permissions import GROUP_PERMISSIONS
+from .permissions import user_can_moderate, user_can_edit_content
 
 def clean_latex_from_content(content):
     """
@@ -425,7 +426,8 @@ def article_detail(request, slug):
         return redirect(f'{login_url}?next={request.path}')
 
     # Проверяем права на просмотр
-    if article.status != 'published' and not article.can_edit(request.user) and not article.can_moderate(request.user):
+    if article.status != 'published' and not article.can_edit(request.user) and not (
+            request.user.is_staff or request.user.groups.filter(name__in=['Модератор', 'Администратор']).exists()):
         return render(request, 'wiki/access_denied.html', {
             'message': 'У вас нет прав для просмотра этой статьи.'
         })
@@ -473,7 +475,7 @@ def article_detail(request, slug):
         'comments': comments,
         'comment_form': comment_form,
         'can_edit': article.can_edit(request.user),
-        'can_moderate': article.can_moderate(request.user),
+        'can_moderate': request.user.is_staff or request.user.groups.filter(name__in=['Модератор', 'Администратор']).exists(),
     }
     return render(request, 'wiki/article_detail.html', context)
 
@@ -611,7 +613,7 @@ def article_moderate(request, slug):
     """Расширенная модерация статьи с возможностью выделения текста"""
     article = get_object_or_404(Article, slug=slug)
 
-    if not article.can_moderate(request.user):
+    if not (request.user.is_staff or request.user.groups.filter(name__in=['Модератор', 'Администратор']).exists()):
         return render(request, 'wiki/access_denied.html', {
             'message': 'У вас нет прав для модерации статей.'
         })
@@ -687,7 +689,7 @@ def add_moderation_comment(request, slug):
     if request.method == 'POST' and request.headers.get('X-Requested-With') == 'XMLHttpRequest':
         article = get_object_or_404(Article, slug=slug)
 
-        if not article.can_moderate(request.user):
+        if not (request.user.is_staff or request.user.groups.filter(name__in=['Модератор', 'Администратор']).exists()):
             return JsonResponse({'success': False, 'error': 'Нет прав для модерации'})
 
         highlighted_text = request.POST.get('highlighted_text', '')
@@ -1174,7 +1176,7 @@ def add_moderation_comment(request, slug):
     if request.method == 'POST' and request.headers.get('X-Requested-With') == 'XMLHttpRequest':
         article = get_object_or_404(Article, slug=slug)
 
-        if not article.can_moderate(request.user):
+        if not (request.user.is_staff or request.user.groups.filter(name__in=['Модератор', 'Администратор']).exists()):
             return JsonResponse({'success': False, 'error': 'Нет прав для модерации'})
 
         highlighted_text = request.POST.get('highlighted_text', '')
@@ -1244,19 +1246,21 @@ def editor_review(request, slug):
 
 def can_moderate(user):
     """Проверяет, может ли пользователь модерировать статьи"""
+    # Модераторы и админы
     return (user.is_staff or
             user.groups.filter(name__in=['Модератор', 'Администратор']).exists())
 
 def can_edit_content(user):
     """Проверяет, может ли пользователь редактировать контент как редактор"""
+    # ТОЛЬКО редакторы и админы, НЕ модераторы!
     return (user.is_staff or
-            user.groups.filter(name__in=['Редактор', 'Модератор', 'Администратор']).exists())
+            user.groups.filter(name__in=['Редактор', 'Администратор']).exists())
 
 # Обновим функцию moderation_queue
 @login_required
 def moderation_queue(request):
     """Очередь статей на модерацию - только для модераторов"""
-    if not can_moderate(request.user):
+    if not user_can_moderate(request.user):
         return render(request, 'wiki/access_denied.html', {
             'message': 'У вас нет прав для модерации статей.'
         })
@@ -1274,8 +1278,8 @@ def moderation_queue(request):
         'pending_articles': pending_articles,
         'editor_articles': editor_articles,
         'rejected_articles': rejected_articles,
-        'user_can_moderate': can_moderate(request.user),
-        'user_can_edit': can_edit_content(request.user),
+        'user_can_moderate': user_can_moderate(request.user),
+        'user_can_edit': user_can_edit_content(request.user),
     }
     return render(request, 'wiki/moderation_queue.html', context)
 
@@ -1627,10 +1631,10 @@ def get_unread_count(request):
 
 @login_required
 def article_moderate_enhanced(request, slug):
-    """Расширенная модерация статьи с системой выделения текста"""
+    """Расширенная модерация статьи"""
     article = get_object_or_404(Article, slug=slug)
 
-    if not article.can_moderate(request.user):
+    if not user_can_moderate(request.user):
         return render(request, 'wiki/access_denied.html', {
             'message': 'У вас нет прав для модерации статей.'
         })
@@ -1640,6 +1644,7 @@ def article_moderate_enhanced(request, slug):
         moderation_notes = request.POST.get('moderation_notes', '').strip()
 
         if action == 'approve':
+            # ✅ ОДОБРИТЬ - сразу публикуем
             article.status = 'published'
             article.published_at = timezone.now()
             article.moderated_by = request.user
@@ -1652,6 +1657,7 @@ def article_moderate_enhanced(request, slug):
             return redirect('wiki:moderation_queue')
 
         elif action == 'needs_correction':
+            # ❌ ОТКЛОНИТЬ - отправляем автору на исправление
             article.status = 'needs_correction'
             article.moderated_by = request.user
             article.moderated_at = timezone.now()
@@ -1660,20 +1666,22 @@ def article_moderate_enhanced(request, slug):
             article.save()
 
             send_moderation_notification(article, 'needs_correction')
-            messages.success(request, f'Статья "{article.title}" отправлена на доработку автору.')
+            messages.success(request, f'Статья "{article.title}" отправлена автору на доработку.')
             return redirect('wiki:moderation_queue')
 
         elif action == 'send_to_editor':
+            # 📝 ОТПРАВИТЬ РЕДАКТОРУ - передаем редактору
             article.status = 'editor_review'
             article.moderated_by = request.user
             article.moderated_at = timezone.now()
             article.moderation_notes = moderation_notes
             article.save()
 
-            messages.success(request, f'Статья "{article.title}" отправлена редактору.')
+            messages.success(request, f'Статья "{article.title}" отправлена редактору на доработку.')
             return redirect('wiki:moderation_queue')
 
         elif action == 'reject':
+            # 🚫 ОТКЛОНИТЬ ОКОНЧАТЕЛЬНО
             article.status = 'rejected'
             article.moderated_by = request.user
             article.moderated_at = timezone.now()
@@ -1687,23 +1695,10 @@ def article_moderate_enhanced(request, slug):
     # Получаем существующие комментарии модерации
     moderation_comments = article.moderation_comments.all().order_by('-created_at')
 
-    # Считаем количество комментариев по статусам
-    open_comments_count = moderation_comments.filter(status='open').count()
-    resolved_comments_count = moderation_comments.filter(status='resolved').count()
-    total_comments_count = moderation_comments.count()
-
     context = {
         'article': article,
         'moderation_comments': moderation_comments,
-        'open_comments_count': open_comments_count,
-        'resolved_comments_count': resolved_comments_count,
-        'total_comments_count': total_comments_count,
     }
-
-    # Проверяем, это частичный запрос для AJAX
-    if request.GET.get('partial') == 'comments':
-        return render(request, 'wiki/moderation_comment_item.html', context)
-
     return render(request, 'wiki/article_moderate_enhanced.html', context)
 
 
@@ -2230,6 +2225,7 @@ def article_resubmit(request, slug):
     """Отправка статьи на повторную модерацию"""
     article = get_object_or_404(Article, slug=slug)
 
+    # ПРАВИЛЬНАЯ проверка с передачей пользователя
     if not article.can_be_resubmitted(request.user):
         messages.error(request, '❌ Вы не можете отправить эту статью на модерацию.')
         return redirect('wiki:article_detail', slug=slug)
@@ -2237,11 +2233,8 @@ def article_resubmit(request, slug):
     if request.method == 'POST':
         if article.resubmit_for_moderation():
             messages.success(request, '✅ Статья отправлена на модерацию! Ожидайте проверки.')
-
-            # Логируем действие
-            print(f"Пользователь {request.user.username} отправил статью '{article.title}' на модерацию")
         else:
-            messages.error(request, '❌ Не удалось отправить статью на модерацию.')
+            messages.error(request, '❌ Не удалось отправить статью на модерацию. Проверьте статус статьи.')
 
     return redirect('wiki:article_detail', slug=slug)
 
@@ -2251,12 +2244,12 @@ def article_delete_by_author(request, slug):
     """Удаление статьи автором"""
     article = get_object_or_404(Article, slug=slug)
 
-    # Проверяем права на удаление
+    # ПРАВИЛЬНАЯ проверка с передачей пользователя
     if not article.can_be_deleted_by_author(request.user):
         if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
             return JsonResponse({
                 'success': False,
-                'error': 'У вас нет прав для удаления этой статьи'
+                'error': 'У вас нет прав для удаления этой статьи или статья не может быть удалена в текущем статусе'
             })
         messages.error(request, '❌ Вы не можете удалить эту статью.')
         return redirect('wiki:article_detail', slug=slug)
@@ -2264,24 +2257,6 @@ def article_delete_by_author(request, slug):
     if request.method == 'POST':
         try:
             article_title = article.title
-
-            # Удаляем связанные медиафайлы
-            for media in article.media_files.all():
-                media_file_path = media.file.path
-                media.delete()
-                # Удаляем физический файл
-                if os.path.exists(media_file_path):
-                    os.remove(media_file_path)
-
-            # Удаляем связанные комментарии модерации
-            article.moderation_comments.all().delete()
-
-            # Удаляем лайки
-            article.likes.all().delete()
-
-            # Удаляем комментарии
-            article.comments.all().delete()
-
             article.delete()
 
             if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
@@ -2301,10 +2276,7 @@ def article_delete_by_author(request, slug):
                 messages.error(request, f'❌ Ошибка при удалении статьи: {str(e)}')
                 return redirect('wiki:article_detail', slug=slug)
 
-    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-        return JsonResponse({'success': False, 'error': 'Неверный метод запроса'})
-
-    return redirect('wiki:article_detail', slug=slug)
+    return render(request, 'wiki/confirm_article_delete.html', {'article': article})
 
 
 @login_required
@@ -2312,7 +2284,7 @@ def send_to_editor(request, slug):
     """Отправка статьи редактору на доработку"""
     article = get_object_or_404(Article, slug=slug)
 
-    if not article.can_moderate(request.user):
+    if not (request.user.is_staff or request.user.groups.filter(name__in=['Модератор', 'Администратор']).exists()):
         return JsonResponse({'success': False, 'error': 'Нет прав для модерации'})
 
     if request.method == 'POST':
@@ -2325,3 +2297,21 @@ def send_to_editor(request, slug):
         return redirect('wiki:moderation_queue')
 
     return redirect('wiki:article_moderate_enhanced', slug=slug)
+
+
+@login_required
+def article_return_to_draft(request, slug):
+    """Возвращает статью в черновики из статуса 'требует правок'"""
+    article = get_object_or_404(Article, slug=slug)
+
+    # Проверяем, что пользователь - автор и статья в правильном статусе
+    if request.user != article.author or article.status != 'needs_correction':
+        messages.error(request, '❌ Вы не можете вернуть эту статью в черновики.')
+        return redirect('wiki:article_detail', slug=slug)
+
+    if request.method == 'POST':
+        article.status = 'draft'
+        article.save()
+        messages.success(request, '✅ Статья возвращена в черновики для редактирования.')
+
+    return redirect('wiki:article_detail', slug=slug)

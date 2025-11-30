@@ -633,39 +633,48 @@
     {% endif %}
 
     <!-- Действия автора -->
-    {% if user.is_authenticated and article.author == user %}
-    <div class="author-actions">
-        <h4 style="color: #D4AF37; margin-bottom: 15px; font-family: 'Cinzel', serif;">⚔️ Действия автора</h4>
+            {% if user.is_authenticated and user == article.author %}
+        <div class="author-actions">
+            <h4 style="color: #D4AF37; margin-bottom: 15px; font-family: 'Cinzel', serif;">⚔️ Действия автора</h4>
 
-        <div class="action-buttons-group">
-            <!-- Кнопка отправки на модерацию -->
-            {% if article.can_be_resubmitted %}
-            <form method="post" action="{% url 'wiki:article_resubmit' article.slug %}" style="display: inline;">
-                {% csrf_token %}
-                <button type="submit" class="btn" style="background: #17a2b8; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
-                    📨 Отправить на модерацию
-                </button>
-            </form>
-            {% endif %}
+            <div class="action-buttons-group">
+                <!-- Отправить на модерацию: ТОЛЬКО черновик или отклонено -->
+                {% if article.status == 'draft' or article.status == 'rejected' %}
+                <form method="post" action="{% url 'wiki:article_resubmit' article.slug %}" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn" style="background: #17a2b8; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer;"
+                            onclick="return confirm('Отправить статью на модерацию?')">
+                        📨 Отправить на модерацию
+                    </button>
+                </form>
+                {% endif %}
 
-            <!-- Кнопка удаления статьи -->
-            {% if article.can_be_deleted_by_author %}
-            <form method="post" action="{% url 'wiki:article_delete_by_author' article.slug %}"
-                  style="display: inline;"
-                  onsubmit="return confirm('Вы уверены, что хотите удалить эту статью?')">
-                {% csrf_token %}
-                <button type="submit" class="btn" style="background: #dc3545; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
+                <!-- Вернуть в черновики: ТОЛЬКО требует правок -->
+                {% if article.status == 'needs_correction' %}
+                <form method="post" action="{% url 'wiki:article_return_to_draft' article.slug %}" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn" style="background: #f59e0b; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer;"
+                            onclick="return confirm('Вернуть статью в черновики для редактирования?')">
+                        📝 Вернуть в черновик
+                    </button>
+                </form>
+                {% endif %}
+
+                <!-- Удалить статью: ТОЛЬКО черновик или отклонено -->
+                {% if article.status == 'draft' or article.status == 'rejected' %}
+                <button type="button" class="btn" style="background: #dc3545; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer;"
+                        onclick="confirmArticleDelete('{{ article.slug }}', '{{ article.title|escapejs }}')">
                     🗑️ Удалить статью
                 </button>
-            </form>
-            {% endif %}
+                {% endif %}
 
-            <!-- Кнопка редактирования -->
-            {% if article.can_edit %}
-            <a href="{% url 'wiki:article_edit' article.slug %}" class="btn" style="background: #D4AF37; color: #1a1a1a; text-decoration: none; padding: 10px 15px; border-radius: 5px;">
-                ✏️ Редактировать
-            </a>
-            {% endif %}
+                <!-- Редактировать: ТОЛЬКО черновик или отклонено -->
+                {% if article.status == 'draft' or article.status == 'rejected' %}
+                <a href="{% url 'wiki:article_edit' article.slug %}" class="btn" style="background: #D4AF37; color: #1a1a1a; text-decoration: none; padding: 10px 15px; border-radius: 5px;">
+                    ✏️ Редактировать
+                </a>
+                {% endif %}
+            </div>
         </div>
 
         <!-- Информация о статусе -->

@@ -302,14 +302,13 @@
 
             <div>
                 <span class="status-badge status-{{ article.status }}">
-                    {% if article.status == 'draft' %}📝
-                    {% elif article.status == 'review' %}⏳
-                    {% elif article.status == 'published' %}✅
-                    {% elif article.status == 'rejected' %}❌
-                    {% elif article.status == 'author_review' %}📋
-                    {% elif article.status == 'needs_correction' %}✏️
-                    {% elif article.status == 'editor_review' %}📝{% endif %}
-                    {{ article.get_status_display }}
+                    {% if article.status == 'draft' %}📝 Черновик
+                    {% elif article.status == 'review' %}⏳ На модерации
+                    {% elif article.status == 'published' %}✅ Опубликовано
+                    {% elif article.status == 'rejected' %}🚫 Отклонено
+                    {% elif article.status == 'needs_correction' %}❌ Требует правок
+                    {% elif article.status == 'editor_review' %}📝 У редактора
+                    {% elif article.status == 'author_review' %}📋 На согласовании{% endif %}
                 </span>
             </div>
 
@@ -328,41 +327,56 @@
                     👁️
                 </a>
 
-                <!-- Упрощенная проверка прав редактирования -->
-                {% if article.status == 'draft' or article.status == 'rejected' or article.status == 'needs_correction' or article.status == 'author_review' %}
+                <!-- Редактировать: ТОЛЬКО черновик или отклонено -->
+                {% if article.status == 'draft' or article.status == 'rejected' %}
                 <a href="{% url 'wiki:article_edit' article.slug %}" class="btn-sm btn-edit" title="Редактировать">
                     ✏️
                 </a>
                 {% endif %}
 
-                <!-- Исправленная проверка прав удаления -->
-                {% if article.can_delete %}
-                <button onclick="deleteArticle('{{ article.slug }}')" class="btn-sm btn-danger" title="Удалить">
+                <!-- Удалить: ТОЛЬКО черновик или отклонено -->
+                {% if article.status == 'draft' or article.status == 'rejected' %}
+                <button onclick="deleteArticleByAuthor('{{ article.slug }}', '{{ article.title|escapejs }}')" class="btn-sm btn-danger" title="Удалить">
                     🗑️
                 </button>
                 {% endif %}
 
+                <!-- Отправить на модерацию: ТОЛЬКО черновик или отклонено -->
+                {% if article.status == 'draft' or article.status == 'rejected' %}
+                <form method="post" action="{% url 'wiki:article_resubmit' article.slug %}" class="submit-form">
+                    {% csrf_token %}
+                    <button type="submit" class="btn-sm btn-success"
+                            title="Отправить на модерацию"
+                            onclick="return confirm('Отправить статью на модерацию?')">
+                        📤
+                    </button>
+                </form>
+                {% endif %}
+
+                <!-- Вернуть в черновики: ТОЛЬКО требует правок -->
+                {% if article.status == 'needs_correction' %}
+                <form method="post" action="{% url 'wiki:article_return_to_draft' article.slug %}" class="submit-form">
+                    {% csrf_token %}
+                    <button type="submit" class="btn-sm btn-warning"
+                            title="Вернуть в черновики"
+                            onclick="return confirm('Вернуть статью в черновики для редактирования?')">
+                        📝 В черновик
+                    </button>
+                </form>
+                {% endif %}
+
+                <!-- Согласовать правки редактора: ТОЛЬКО на согласовании у автора -->
                 {% if article.status == 'author_review' %}
                 <a href="{% url 'wiki:author_review' article.slug %}" class="btn-sm btn-review" title="Согласовать правки редактора">
                     📋
                 </a>
                 {% endif %}
 
+                <!-- Исправить: ТОЛЬКО требует правок -->
                 {% if article.status == 'needs_correction' %}
                 <a href="{% url 'wiki:article_edit' article.slug %}" class="btn-sm btn-warning" title="Внести исправления">
                     ✏️ Исправить
                 </a>
-                {% endif %}
-
-                <!-- Кнопка отправки на модерацию для черновиков -->
-                {% if article.status == 'draft' %}
-                <form method="post" action="{% url 'wiki:article_edit' article.slug %}" class="submit-form">
-                    {% csrf_token %}
-                    <button type="submit" name="action" value="submit_moderation" class="btn-sm btn-success"
-                            title="Отправить на модерацию" onclick="return confirm('Вы уверены, что хотите отправить статью на модерацию?')">
-                        📤
-                    </button>
-                </form>
                 {% endif %}
             </div>
         </div>
@@ -396,26 +410,16 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     });
-
-    // Обработка отправки на модерацию
-    const submitForms = document.querySelectorAll('.submit-form');
-    submitForms.forEach(form => {
-        form.addEventListener('submit', function(e) {
-            if (!confirm('Вы уверены, что хотите отправить статью на модерацию? После отправки вы не сможете редактировать статью до завершения проверки.')) {
-                e.preventDefault();
-            }
-        });
-    });
 });
 
-function deleteArticle(slug) {
-    if (!confirm('Вы уверены, что хотите удалить эту статью? Это действие нельзя отменить.')) {
+function deleteArticleByAuthor(articleSlug, articleTitle) {
+    if (!confirm(`Вы уверены, что хотите удалить статью "${articleTitle}"? Это действие нельзя отменить.`)) {
         return;
     }
 
-    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]')?.value;
 
-    fetch(`/article/${slug}/delete/`, {
+    fetch(`/article/${articleSlug}/delete-by-author/`, {
         method: 'POST',
         headers: {
             'X-CSRFToken': csrfToken,
@@ -427,6 +431,23 @@ function deleteArticle(slug) {
     .then(data => {
         if (data.success) {
             showNotification(data.message, 'success');
+            // Находим и удаляем строку статьи
+            const articleRows = document.querySelectorAll('.article-row');
+            articleRows.forEach(row => {
+                const titleElement = row.querySelector('.article-title');
+                if (titleElement && titleElement.textContent.trim() === articleTitle) {
+                    row.style.opacity = '0';
+                    setTimeout(() => {
+                        row.remove();
+                        // Если не осталось статей, показываем пустое состояние
+                        if (document.querySelectorAll('.article-row').length === 0) {
+                            window.location.reload();
+                        }
+                    }, 300);
+                }
+            });
+
+            // Если есть redirect_url, используем его
             if (data.redirect_url) {
                 setTimeout(() => {
                     window.location.href = data.redirect_url;
