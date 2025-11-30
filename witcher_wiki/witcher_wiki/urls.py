@@ -20,7 +20,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('wiki.urls')),  # ВКЛЮЧАЕМ URL-ы ПРИЛОЖЕНИЯ wiki
     path('ckeditor5/', include('django_ckeditor_5.urls')),
-    path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/', include('accounts.urls', namespace='accounts')),
     path('debug-urls/', debug_urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

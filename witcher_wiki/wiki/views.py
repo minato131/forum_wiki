@@ -2227,7 +2227,7 @@ def group_permissions_info(request):
 
 @login_required
 def article_resubmit(request, slug):
-    """Отправка статьи на повторную модерацию - УЛУЧШЕННАЯ ВЕРСИЯ"""
+    """Отправка статьи на повторную модерацию"""
     article = get_object_or_404(Article, slug=slug)
 
     if not article.can_be_resubmitted(request.user):
@@ -2238,17 +2238,17 @@ def article_resubmit(request, slug):
         if article.resubmit_for_moderation():
             messages.success(request, '✅ Статья отправлена на модерацию! Ожидайте проверки.')
 
-            # Логируем действие для будущей системы логирования
-            print(f"LOG: Пользователь {request.user.username} отправил статью '{article.title}' на модерацию")
+            # Логируем действие
+            print(f"Пользователь {request.user.username} отправил статью '{article.title}' на модерацию")
         else:
-            messages.error(request, '❌ Не удалось отправить статью на модерацию. Проверьте статус статьи.')
+            messages.error(request, '❌ Не удалось отправить статью на модерацию.')
 
     return redirect('wiki:article_detail', slug=slug)
 
 
 @login_required
 def article_delete_by_author(request, slug):
-    """Удаление статьи автором - УЛУЧШЕННАЯ ВЕРСИЯ"""
+    """Удаление статьи автором"""
     article = get_object_or_404(Article, slug=slug)
 
     # Проверяем права на удаление
@@ -2256,7 +2256,7 @@ def article_delete_by_author(request, slug):
         if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
             return JsonResponse({
                 'success': False,
-                'error': 'У вас нет прав для удаления этой статьи или статья не может быть удалена в текущем статусе'
+                'error': 'У вас нет прав для удаления этой статьи'
             })
         messages.error(request, '❌ Вы не можете удалить эту статью.')
         return redirect('wiki:article_detail', slug=slug)
@@ -2267,20 +2267,20 @@ def article_delete_by_author(request, slug):
 
             # Удаляем связанные медиафайлы
             for media in article.media_files.all():
-                try:
-                    media_file_path = media.file.path
-                    media.delete()
-                    # Удаляем физический файл
-                    if os.path.exists(media_file_path):
-                        os.remove(media_file_path)
-                except Exception as e:
-                    print(f"Ошибка при удалении медиафайла: {e}")
+                media_file_path = media.file.path
+                media.delete()
+                # Удаляем физический файл
+                if os.path.exists(media_file_path):
+                    os.remove(media_file_path)
 
-            # Удаляем связанные объекты
+            # Удаляем связанные комментарии модерации
             article.moderation_comments.all().delete()
+
+            # Удаляем лайки
             article.likes.all().delete()
+
+            # Удаляем комментарии
             article.comments.all().delete()
-            article.revisions.all().delete()
 
             article.delete()
 
@@ -2295,15 +2295,17 @@ def article_delete_by_author(request, slug):
                 return redirect('wiki:my_articles')
 
         except Exception as e:
-            error_msg = f'❌ Ошибка при удалении статьи: {str(e)}'
             if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-                return JsonResponse({'success': False, 'error': error_msg})
+                return JsonResponse({'success': False, 'error': str(e)})
             else:
-                messages.error(request, error_msg)
+                messages.error(request, f'❌ Ошибка при удалении статьи: {str(e)}')
                 return redirect('wiki:article_detail', slug=slug)
 
-    # Для GET запроса показываем страницу подтверждения
-    return render(request, 'wiki/confirm_article_delete.html', {'article': article})
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        return JsonResponse({'success': False, 'error': 'Неверный метод запроса'})
+
+    return redirect('wiki:article_detail', slug=slug)
+
 
 @login_required
 def send_to_editor(request, slug):
