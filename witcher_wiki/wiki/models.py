@@ -1,3 +1,5 @@
+import os
+
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
@@ -990,3 +992,110 @@ class ActionLog(models.Model):
             queryset = queryset.filter(action_type=action_type)
 
         return queryset
+
+
+class UserTutorial(models.Model):
+    """Упрощенная модель для хранения статуса показа подсказок"""
+
+    user = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+        related_name='tutorial_status'
+    )
+
+    # Основные подсказки которые показываются один раз
+    has_seen_welcome = models.BooleanField(default=False)
+    has_seen_article_create = models.BooleanField(default=False)
+    has_seen_search = models.BooleanField(default=False)
+    has_seen_profile = models.BooleanField(default=False)
+    has_seen_messages = models.BooleanField(default=False)
+    has_seen_categories = models.BooleanField(default=False)
+
+    # Общие настройки
+    tutorials_disabled = models.BooleanField(default=False)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = 'Статус подсказок пользователя'
+        verbose_name_plural = 'Статусы подсказок пользователей'
+
+    def __str__(self):
+        return f'Подсказки для {self.user.username}'
+
+    def disable_tutorials(self):
+        """Отключает все подсказки"""
+        self.tutorials_disabled = True
+        self.save()
+
+    def reset_tutorials(self):
+        """Сбрасывает все подсказки"""
+        self.has_seen_welcome = False
+        self.has_seen_article_create = False
+        self.has_seen_search = False
+        self.has_seen_profile = False
+        self.has_seen_messages = False
+        self.has_seen_categories = False
+        self.tutorials_disabled = False
+        self.save()
+
+
+class BackupLog(models.Model):
+    """Модель для хранения информации о созданных бэкапах"""
+
+    BACKUP_TYPES = [
+        ('all', 'Все логи'),
+        ('selected', 'Выбранные логи'),
+        ('period', 'За период'),
+    ]
+
+    FORMAT_CHOICES = [
+        ('json', 'JSON'),
+        ('pdf', 'PDF'),
+    ]
+
+    name = models.CharField('Название бэкапа', max_length=255)
+    backup_type = models.CharField('Тип бэкапа', max_length=20, choices=BACKUP_TYPES)
+    format = models.CharField('Формат', max_length=10, choices=FORMAT_CHOICES)
+
+    # Параметры бэкапа
+    start_date = models.DateTimeField('Начальная дата', null=True, blank=True)
+    end_date = models.DateTimeField('Конечная дата', null=True, blank=True)
+    selected_logs = models.JSONField('Выбранные логи', default=list, blank=True)
+
+    # Статистика
+    logs_count = models.PositiveIntegerField('Количество записей', default=0)
+    file_size = models.PositiveIntegerField('Размер файла (байт)', default=0)
+
+    # Файл бэкапа
+    backup_file = models.FileField(
+        'Файл бэкапа',
+        upload_to='backups/logs/',
+        null=True,
+        blank=True
+    )
+
+    created_by = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        verbose_name='Создал'
+    )
+    created_at = models.DateTimeField('Создан', auto_now_add=True)
+
+    class Meta:
+        verbose_name = 'Бэкап логов'
+        verbose_name_plural = 'Бэкапы логов'
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"{self.name} ({self.get_backup_type_display()})"
+
+    def get_file_size_display(self):
+        """Возвращает читаемый размер файла"""
+        if self.file_size < 1024:
+            return f"{self.file_size} B"
+        elif self.file_size < 1024 * 1024:
+            return f"{self.file_size / 1024:.1f} KB"
+        else:
+            return f"{self.file_size / (1024 * 1024):.1f} MB"

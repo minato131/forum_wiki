@@ -1,0 +1,14 @@
+<div class="tutorial-tooltip" id="{{ tutorial_id }}" style="display: none;">
+    <div class="tutorial-content">
+        <div class="tutorial-text">{{ text }}</div>
+        <div class="tutorial-actions">
+            <button class="tutorial-btn tutorial-btn-primary" onclick="markTutorialSeen('{{ tutorial_type }}')">
+                Понятно
+            </button>
+            <button class="tutorial-btn tutorial-btn-secondary" onclick="disableAllTutorials()">
+                Больше не показывать
+            </button>
+        </div>
+    </div>
+    <div class="tutorial-arrow"></div>
+</div>

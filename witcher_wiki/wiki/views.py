@@ -20,7 +20,7 @@ from .forms import ArticleForm, CommentForm, SearchForm, CategoryForm, ProfileUp
     CompleteRegistrationForm
 from django.urls import reverse
 from django.shortcuts import render, redirect
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.contrib.auth import login
 from django.contrib import messages
 from django.conf import settings
@@ -33,6 +33,10 @@ from django.contrib.auth import login as auth_login
 from .permissions import GROUP_PERMISSIONS
 from .permissions import user_can_moderate, user_can_edit_content
 from .logging_utils import log_article_creation, log_article_moderation, log_user_login, log_user_logout
+from django.contrib.admin.views.decorators import staff_member_required
+from django.core.paginator import Paginator
+from .models import ActionLog
+from .logging_utils import ActionLogger
 
 def clean_latex_from_content(content):
     """
@@ -116,7 +120,17 @@ def search(request):
             search_query_obj, created = SearchQuery.objects.get_or_create(query=query)
             if not created:
                 search_query_obj.increment()
-
+            ActionLogger.log_action(
+                request=request,
+                action_type='search',
+                description=f'Пользователь {request.user.username} выполнил поиск: "{query}"',
+                extra_data={
+                    'query': query,
+                    'category_filter': category_filter,
+                    'tag_filter': tag_filter,
+                    'results_count': total_count,
+                }
+            )
         # Улучшенный поиск с приоритетом
         search_query = Q()
 
@@ -360,6 +374,19 @@ def article_create(request):
             )
             article.save()
             log_article_creation(request, article)
+            ActionLogger.log_action(
+                request=request,
+                action_type='article_create',
+                description=f'Пользователь {request.user.username} создал статью "{article.title}"',
+                target_object=article,
+                extra_data={
+                    'article_title': article.title,
+                    'article_slug': article.slug,
+                    'status': article.status,
+                    'categories_count': len(category_ids),
+                    'tags_count': len(tags_list) if tags_input else 0,
+                }
+            )
             # Добавляем категории
             categories = Category.objects.filter(id__in=category_ids)
             article.categories.set(categories)
@@ -490,7 +517,12 @@ def article_edit(request, slug):
         return render(request, 'wiki/access_denied.html', {
             'message': 'У вас нет прав для редактирования этой статьи.'
         })
-
+    ActionLogger.log_action(
+        request=request,
+        action_type='article_edit_start',
+        description=f'Пользователь {request.user.username} начал редактирование статьи "{article.title}"',
+        target_object=article
+    )
     error_message = ""
     success_message = ""
 
@@ -521,7 +553,17 @@ def article_edit(request, slug):
                 article.title = title
                 article.content = content
                 article.excerpt = excerpt
-
+                ActionLogger.log_action(
+                    request=request,
+                    action_type='article_edit',
+                    description=f'Пользователь {request.user.username} отредактировал статью "{old_title}"',
+                    target_object=article,
+                    extra_data={
+                        'old_title': old_title,
+                        'new_title': title,
+                        'status_changed': article.status != old_status if 'old_status' in locals() else False,
+                    }
+                )
                 # Если статья была отклонена, возвращаем ее на модерацию после редактирования
                 if article.status == 'rejected':
                     article.status = 'review'
@@ -866,7 +908,17 @@ def category_create(request):
                 category.parent = parent
 
             category.save()
-
+            ActionLogger.log_action(
+                request=request,
+                action_type='category_create',
+                description=f'Пользователь {request.user.username} создал категорию "{name}"',
+                target_object=category,
+                extra_data={
+                    'category_name': name,
+                    'is_featured': is_featured,
+                    'has_parent': bool(parent_id),
+                }
+            )
             return JsonResponse({
                 'success': True,
                 'category': {
@@ -1024,7 +1076,12 @@ def register(request):
             # Создаем профиль пользователя
             UserProfile.objects.get_or_create(user=user)
 
-            login(request, user)
+            ActionLogger.log_action(
+                request=request,
+                action_type='user_register',
+                description=f'Зарегистрирован новый пользователь {user.username}',
+                target_object=user
+            )
             messages.success(request, f'✅ Аккаунт создан! Добро пожаловать, {user.username}!')
             return redirect('wiki:home')
         else:
@@ -1078,7 +1135,21 @@ def toggle_article_like(request, slug):
             # Переключаем лайк
             liked = article.toggle_like(request.user)
             likes_count = article.get_likes_count()
+            action = 'article_like_add' if liked else 'article_like_remove'
+            description = f'Пользователь {request.user.username} {"поставил" if liked else "убрал"} лайк статье "{article.title}"'
 
+            ActionLogger.log_action(
+                request=request,
+                action_type=action,
+                description=description,
+                target_object=article,
+                extra_data={
+                    'article_title': article.title,
+                    'was_liked': was_liked,
+                    'now_liked': liked,
+                    'total_likes': likes_count,
+                }
+            )
             return JsonResponse({
                 'success': True,
                 'liked': liked,
@@ -1524,7 +1595,17 @@ def message_create(request, recipient_id=None):
             message = form.save(commit=False)
             message.sender = request.user
             message.save()
-
+            ActionLogger.log_action(
+                request=request,
+                action_type='message_send',
+                description=f'Пользователь {request.user.username} отправил сообщение пользователю {message.recipient.username}',
+                target_object=message,
+                extra_data={
+                    'recipient': message.recipient.username,
+                    'subject': message.subject,
+                    'message_length': len(message.content),
+                }
+            )
             messages.success(request, f'Сообщение отправлено пользователю {message.recipient.username}')
             return redirect('wiki:messages_list', folder='sent')
         else:
@@ -1747,7 +1828,18 @@ def article_delete(request, slug):
     if request.method == 'POST':
         try:
             article_title = article.title
-
+            ActionLogger.log_action(
+                request=request,
+                action_type='article_delete',
+                description=f'Пользователь {request.user.username} удалил статью "{article_title}"',
+                target_object=article,
+                extra_data={
+                    'article_title': article_title,
+                    'article_slug': article.slug,
+                    'author': article.author.username,
+                    'status': article.status,
+                }
+            )
             # Удаляем связанные медиафайлы
             for media in article.media_files.all():
                 media_file_path = media.file.path
@@ -2319,3 +2411,429 @@ def article_return_to_draft(request, slug):
         messages.success(request, '✅ Статья возвращена в черновики для редактирования.')
 
     return redirect('wiki:article_detail', slug=slug)
+
+
+@staff_member_required
+def action_logs_view(request):
+    """Страница просмотра логов действий (альтернатива админке)"""
+    logs = ActionLog.objects.all().select_related('user').order_by('-created_at')
+
+    # Фильтрация
+    action_type = request.GET.get('action_type')
+    user_id = request.GET.get('user')
+    date_from = request.GET.get('date_from')
+    date_to = request.GET.get('date_to')
+
+    if action_type:
+        logs = logs.filter(action_type=action_type)
+    if user_id:
+        logs = logs.filter(user_id=user_id)
+    if date_from:
+        logs = logs.filter(created_at__gte=date_from)
+    if date_to:
+        logs = logs.filter(created_at__lte=date_to)
+
+    # Пагинация
+    paginator = Paginator(logs, 50)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    # Статистика
+    total_logs = logs.count()
+    users = User.objects.filter(actionlog__isnull=False).distinct()
+    action_types = ActionLog.ACTION_TYPES
+
+    context = {
+        'page_obj': page_obj,
+        'total_logs': total_logs,
+        'users': users,
+        'action_types': action_types,
+        'filters': {
+            'action_type': action_type,
+            'user_id': user_id,
+            'date_from': date_from,
+            'date_to': date_to,
+        }
+    }
+
+    return render(request, 'wiki/action_logs.html', context)
+
+
+@staff_member_required
+def export_logs_json(request):
+    """Экспорт логов в JSON"""
+    logs = ActionLog.objects.all().select_related('user').order_by('-created_at')
+
+    # Применяем фильтры как в основном view
+    action_type = request.GET.get('action_type')
+    user_id = request.GET.get('user')
+    date_from = request.GET.get('date_from')
+    date_to = request.GET.get('date_to')
+
+    if action_type:
+        logs = logs.filter(action_type=action_type)
+    if user_id:
+        logs = logs.filter(user_id=user_id)
+    if date_from:
+        logs = logs.filter(created_at__gte=date_from)
+    if date_to:
+        logs = logs.filter(created_at__lte=date_to)
+
+    logs_data = []
+    for log in logs:
+        logs_data.append({
+            'id': log.id,
+            'user': log.user.username if log.user else 'Аноним',
+            'action_type': log.action_type,
+            'action_type_display': log.get_action_type_display(),
+            'description': log.description,
+            'ip_address': log.ip_address,
+            'browser': log.browser,
+            'operating_system': log.operating_system,
+            'action_data': log.action_data,
+            'created_at': log.created_at.isoformat(),
+        })
+
+    response = HttpResponse(
+        json.dumps(logs_data, ensure_ascii=False, indent=2),
+        content_type='application/json; charset=utf-8'
+    )
+    response['Content-Disposition'] = 'attachment; filename="action_logs_export.json"'
+    return response
+
+
+@login_required
+def debug_create_log(request):
+    """Создание тестовой записи в логах для отладки"""
+    ActionLogger.log_action(
+        request=request,
+        action_type='system',
+        description=f'Тестовый лог от пользователя {request.user.username}'
+    )
+
+    messages.success(request, '✅ Тестовая запись в логах создана!')
+    return redirect('wiki:home')
+
+
+@login_required
+def debug_test_logs(request):
+    """Страница для тестирования логирования"""
+    if request.method == 'POST':
+        action_type = request.POST.get('action_type', 'system')
+        description = request.POST.get('description', 'Тестовое описание')
+
+        ActionLogger.log_action(
+            request=request,
+            action_type=action_type,
+            description=description,
+            extra_data={
+                'test_data': 'Это тестовые данные',
+                'user_agent': request.META.get('HTTP_USER_AGENT', ''),
+            }
+        )
+
+        messages.success(request, f'✅ Тестовый лог создан: {action_type}')
+        return redirect('wiki:debug_test_logs')
+
+    # Показываем последние логи
+    recent_logs = ActionLog.objects.all().order_by('-created_at')[:10]
+
+    return render(request, 'wiki/debug_test_logs.html', {
+        'recent_logs': recent_logs,
+        'action_types': ActionLog.ACTION_TYPES,
+    })
+
+
+@login_required
+def mark_tutorial_seen(request, tutorial_type):
+    """Отмечает подсказку как просмотренную"""
+    from .models import UserTutorial
+
+    tutorial, created = UserTutorial.objects.get_or_create(user=request.user)
+
+    # Проверяем валидность типа подсказки
+    valid_types = ['welcome', 'article_create', 'search', 'profile', 'messages', 'categories']
+    if tutorial_type in valid_types:
+        setattr(tutorial, f'has_seen_{tutorial_type}', True)
+        tutorial.save()
+
+        return JsonResponse({'success': True})
+
+    return JsonResponse({'success': False, 'error': 'Invalid tutorial type'})
+
+
+@login_required
+def disable_tutorials(request):
+    """Отключает все подсказки"""
+    from .models import UserTutorial
+
+    tutorial, created = UserTutorial.objects.get_or_create(user=request.user)
+    tutorial.tutorials_disabled = True
+    tutorial.save()
+
+    messages.success(request, 'Подсказки отключены')
+    return redirect(request.META.get('HTTP_REFERER', 'wiki:home'))
+
+
+@login_required
+def reset_tutorials(request):
+    """Сбрасывает все подсказки"""
+    from .models import UserTutorial
+
+    tutorial, created = UserTutorial.objects.get_or_create(user=request.user)
+    tutorial.has_seen_welcome = False
+    tutorial.has_seen_article_create = False
+    tutorial.has_seen_search = False
+    tutorial.has_seen_profile = False
+    tutorial.has_seen_messages = False
+    tutorial.has_seen_categories = False
+    tutorial.tutorials_disabled = False
+    tutorial.save()
+
+    messages.success(request, 'Подсказки сброшены')
+    return redirect(request.META.get('HTTP_REFERER', 'wiki:home'))
+
+
+@staff_member_required
+def backup_management(request):
+    """Страница управления бэкапами"""
+    from .forms import BackupForm
+    from .models import BackupLog
+
+    backups = BackupLog.objects.all().order_by('-created_at')
+
+    if request.method == 'POST':
+        form = BackupForm(request.POST)
+        if form.is_valid():
+            try:
+                backup = form.save(commit=False)
+                backup.created_by = request.user
+
+                # Создаем бэкап в зависимости от типа
+                backup_data = create_backup_file(backup)
+
+                if backup_data:
+                    backup.logs_count = backup_data['logs_count']
+                    backup.file_size = backup_data['file_size']
+                    backup.backup_file.save(backup_data['filename'], backup_data['content'])
+                    backup.save()
+
+                    # Логируем создание бэкапа
+                    ActionLogger.log_action(
+                        request=request,
+                        action_type='backup_create',
+                        description=f'Создан бэкап логов: {backup.name}',
+                        target_object=backup,
+                        extra_data={
+                            'backup_type': backup.backup_type,
+                            'format': backup.format,
+                            'logs_count': backup.logs_count,
+                            'file_size': backup.file_size,
+                        }
+                    )
+
+                    messages.success(request, f'✅ Бэкап "{backup.name}" успешно создан!')
+                    return redirect('wiki:backup_management')
+                else:
+                    messages.error(request, '❌ Ошибка при создании бэкапа')
+
+            except Exception as e:
+                messages.error(request, f'❌ Ошибка при создании бэкапа: {str(e)}')
+    else:
+        form = BackupForm(initial={
+            'name': f'Backup_{timezone.now().strftime("%Y%m%d_%H%M")}'
+        })
+
+    context = {
+        'form': form,
+        'backups': backups,
+        'total_backups': backups.count(),
+        'total_size': sum(b.file_size for b in backups),
+    }
+    return render(request, 'wiki/backup_management.html', context)
+
+
+def create_backup_file(backup):
+    """Создает файл бэкапа на основе параметров"""
+    from .models import ActionLog
+    import json
+    from io import BytesIO
+
+    # Фильтруем логи по типу бэкапа
+    if backup.backup_type == 'all':
+        logs = ActionLog.objects.all()
+    elif backup.backup_type == 'period':
+        logs = ActionLog.objects.filter(
+            created_at__gte=backup.start_date,
+            created_at__lte=backup.end_date
+        )
+    elif backup.backup_type == 'selected':
+        log_ids = backup.selected_logs
+        if isinstance(log_ids, str):
+            log_ids = json.loads(log_ids)
+        logs = ActionLog.objects.filter(id__in=log_ids)
+    else:
+        return None
+
+    logs = logs.select_related('user').order_by('-created_at')
+
+    if backup.format == 'json':
+        return create_json_backup(logs, backup.name)
+    elif backup.format == 'pdf':
+        return create_pdf_backup(logs, backup.name)
+
+    return None
+
+
+def create_json_backup(logs, backup_name):
+    """Создает JSON бэкап"""
+    from django.http import HttpResponse
+    import json
+    from io import BytesIO
+
+    logs_data = []
+    for log in logs:
+        logs_data.append({
+            'id': log.id,
+            'user': log.user.username if log.user else 'Аноним',
+            'action_type': log.action_type,
+            'action_type_display': log.get_action_type_display(),
+            'description': log.description,
+            'ip_address': log.ip_address,
+            'browser': log.browser,
+            'operating_system': log.operating_system,
+            'action_data': log.action_data,
+            'created_at': log.created_at.isoformat(),
+        })
+
+    json_data = json.dumps(logs_data, ensure_ascii=False, indent=2)
+    content = BytesIO(json_data.encode('utf-8'))
+
+    return {
+        'logs_count': len(logs_data),
+        'file_size': len(json_data),
+        'filename': f'{backup_name}.json',
+        'content': content,
+    }
+
+
+def create_pdf_backup(logs, backup_name):
+    """Создает PDF бэкап"""
+    from reportlab.pdfgen import canvas
+    from reportlab.lib.pagesizes import A4
+    from reportlab.lib import colors
+    from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph
+    from reportlab.lib.styles import getSampleStyleSheet
+    from io import BytesIO
+
+    buffer = BytesIO()
+    doc = SimpleDocTemplate(buffer, pagesize=A4)
+    elements = []
+    styles = getSampleStyleSheet()
+
+    # Заголовок
+    title = Paragraph(f"Бэкап логов: {backup_name}", styles['Title'])
+    elements.append(title)
+
+    # Информация о бэкапе
+    info_data = [
+        ['Дата создания:', timezone.now().strftime('%d.%m.%Y %H:%M')],
+        ['Количество записей:', str(len(logs))],
+        ['Период:',
+         f"{logs.last().created_at.strftime('%d.%m.%Y') if logs else 'N/A'} - {logs.first().created_at.strftime('%d.%m.%Y') if logs else 'N/A'}"],
+    ]
+
+    info_table = Table(info_data, colWidths=[150, 300])
+    info_table.setStyle(TableStyle([
+        ('FONTNAME', (0, 0), (-1, -1), 'Helvetica'),
+        ('FONTSIZE', (0, 0), (-1, -1), 10),
+        ('BACKGROUND', (0, 0), (0, -1), colors.lightgrey),
+    ]))
+    elements.append(info_table)
+
+    elements.append(Paragraph("<br/>", styles['Normal']))
+
+    # Данные логов
+    if logs:
+        data = [['Дата', 'Пользователь', 'Тип действия', 'Описание', 'IP']]
+
+        for log in logs:
+            data.append([
+                log.created_at.strftime('%d.%m.%Y %H:%M'),
+                log.user.username if log.user else 'Аноним',
+                log.get_action_type_display(),
+                log.description[:40] + '...' if len(log.description) > 40 else log.description,
+                log.ip_address or '-'
+            ])
+
+        table = Table(data, repeatRows=1)
+        table.setStyle(TableStyle([
+            ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
+            ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+            ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+            ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+            ('FONTSIZE', (0, 0), (-1, 0), 9),
+            ('BOTTOMPADDING', (0, 0), (-1, 0), 6),
+            ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
+            ('FONTNAME', (0, 1), (-1, -1), 'Helvetica'),
+            ('FONTSIZE', (0, 1), (-1, -1), 8),
+            ('GRID', (0, 0), (-1, -1), 0.5, colors.black)
+        ]))
+
+        elements.append(table)
+
+    doc.build(elements)
+    buffer.seek(0)
+
+    return {
+        'logs_count': len(logs),
+        'file_size': len(buffer.getvalue()),
+        'filename': f'{backup_name}.pdf',
+        'content': buffer,
+    }
+
+
+@staff_member_required
+def download_backup(request, backup_id):
+    """Скачивание бэкапа"""
+    from .models import BackupLog
+
+    backup = get_object_or_404(BackupLog, id=backup_id)
+
+    if backup.backup_file:
+        # Логируем скачивание
+        ActionLogger.log_action(
+            request=request,
+            action_type='backup_download',
+            description=f'Скачан бэкап: {backup.name}',
+            target_object=backup
+        )
+
+        response = HttpResponse(backup.backup_file, content_type='application/octet-stream')
+        response['Content-Disposition'] = f'attachment; filename="{backup.backup_file.name}"'
+        return response
+
+    messages.error(request, 'Файл бэкапа не найден')
+    return redirect('wiki:backup_management')
+
+
+@staff_member_required
+def delete_backup(request, backup_id):
+    """Удаление бэкапа"""
+    from .models import BackupLog
+
+    if request.method == 'POST':
+        backup = get_object_or_404(BackupLog, id=backup_id)
+        backup_name = backup.name
+
+        # Логируем удаление
+        ActionLogger.log_action(
+            request=request,
+            action_type='backup_delete',
+            description=f'Удален бэкап: {backup_name}'
+        )
+
+        backup.delete()
+        messages.success(request, f'✅ Бэкап "{backup_name}" удален')
+
+    return redirect('wiki:backup_management')

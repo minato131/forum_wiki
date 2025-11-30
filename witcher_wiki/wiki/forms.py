@@ -14,7 +14,8 @@ import re
 from .models import EmailVerification, TelegramVerification
 from django.core.mail import send_mail
 from django.conf import settings
-
+from django import forms
+from .models import BackupLog
 
 
 class ArticleForm(forms.ModelForm):
@@ -698,3 +699,71 @@ class TelegramConnectForm(forms.Form):
     telegram_init_data = forms.CharField(
         widget=forms.HiddenInput(attrs={'id': 'telegram-connect-data'})
     )
+
+
+class BackupForm(forms.ModelForm):
+    """Форма для создания бэкапа"""
+
+    BACKUP_CHOICES = [
+        ('all', '🔮 Все логи (полный бэкап)'),
+        ('selected', '🎯 Выбранные записи (вручную)'),
+        ('period', '📅 За период (по дате)'),
+    ]
+
+    FORMAT_CHOICES = [
+        ('json', '📄 JSON (рекомендуется)'),
+        ('pdf', '📊 PDF (для печати)'),
+    ]
+
+    backup_type = forms.ChoiceField(
+        choices=BACKUP_CHOICES,
+        widget=forms.RadioSelect,
+        label='Тип бэкапа'
+    )
+
+    format = forms.ChoiceField(
+        choices=FORMAT_CHOICES,
+        widget=forms.RadioSelect,
+        label='Формат экспорта'
+    )
+
+    start_date = forms.DateTimeField(
+        required=False,
+        widget=forms.DateTimeInput(attrs={'type': 'datetime-local'}),
+        label='С даты'
+    )
+
+    end_date = forms.DateTimeField(
+        required=False,
+        widget=forms.DateTimeInput(attrs={'type': 'datetime-local'}),
+        label='По дату'
+    )
+
+    selected_logs = forms.CharField(
+        required=False,
+        widget=forms.HiddenInput(),
+        label='Выбранные логи'
+    )
+
+    class Meta:
+        model = BackupLog
+        fields = ['name', 'backup_type', 'format', 'start_date', 'end_date', 'selected_logs']
+
+    def clean(self):
+        cleaned_data = super().clean()
+        backup_type = cleaned_data.get('backup_type')
+        start_date = cleaned_data.get('start_date')
+        end_date = cleaned_data.get('end_date')
+        selected_logs = cleaned_data.get('selected_logs')
+
+        if backup_type == 'period':
+            if not start_date or not end_date:
+                raise forms.ValidationError('Для бэкапа за период необходимо указать начальную и конечную дату.')
+            if start_date > end_date:
+                raise forms.ValidationError('Начальная дата не может быть больше конечной.')
+
+        elif backup_type == 'selected':
+            if not selected_logs:
+                raise forms.ValidationError('Для выборочного бэкапа необходимо выбрать хотя бы одну запись.')
+
+        return cleaned_data

@@ -1,4 +1,4 @@
-from .models import Article, Category, Comment, UserProfile, ArticleMedia, ModerationComment, ArticleRevision
+from .models import Article, Category, Comment, UserProfile, ArticleMedia, ModerationComment, ArticleRevision, BackupLog
 from .models import AuthCode
 from django.contrib.auth.models import Group
 from django.contrib import admin
@@ -8,6 +8,16 @@ from .permissions import GROUP_PERMISSIONS
 from django.contrib import admin
 from django.utils.html import format_html
 from .models import ActionLog
+import json
+from django.http import HttpResponse
+from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import A4
+from reportlab.lib import colors
+from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph
+from reportlab.lib.styles import getSampleStyleSheet
+from django.utils import timezone
+from datetime import datetime, timedelta
+import csv
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
@@ -172,7 +182,7 @@ class ActionLogAdmin(admin.ModelAdmin):
 
     date_hierarchy = 'created_at'
     ordering = ['-created_at']
-
+    actions = ['export_as_json', 'export_as_pdf', 'export_as_csv']
     def user_info(self, obj):
         if obj.user:
             return obj.user.username
@@ -241,5 +251,152 @@ class ActionLogAdmin(admin.ModelAdmin):
         }),
     )
 
+    def export_as_json(self, request, queryset):
+        """Экспорт выбранных логов в JSON"""
+        logs_data = []
+        for log in queryset:
+            logs_data.append({
+                'id': log.id,
+                'user': log.user.username if log.user else 'Аноним',
+                'action_type': log.action_type,
+                'action_type_display': log.get_action_type_display(),
+                'description': log.description,
+                'ip_address': log.ip_address,
+                'browser': log.browser,
+                'operating_system': log.operating_system,
+                'action_data': log.action_data,
+                'created_at': log.created_at.isoformat(),
+            })
+
+        response = HttpResponse(
+            json.dumps(logs_data, ensure_ascii=False, indent=2),
+            content_type='application/json; charset=utf-8'
+        )
+        response['Content-Disposition'] = 'attachment; filename="action_logs.json"'
+        return response
+
+    export_as_json.short_description = "📄 Экспорт выбранных логов в JSON"
+
+    def export_as_pdf(self, request, queryset):
+        """Экспорт выбранных логов в PDF"""
+        response = HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename="action_logs.pdf"'
+
+        doc = SimpleDocTemplate(response, pagesize=A4)
+        elements = []
+        styles = getSampleStyleSheet()
+
+        # Заголовок
+        title = Paragraph("Журнал действий пользователей", styles['Title'])
+        elements.append(title)
+
+        # Данные для таблицы
+        data = [['Дата', 'Пользователь', 'Тип действия', 'Описание', 'IP']]
+
+        for log in queryset:
+            data.append([
+                log.created_at.strftime('%d.%m.%Y %H:%M'),
+                log.user.username if log.user else 'Аноним',
+                log.get_action_type_display(),
+                log.description[:50] + '...' if len(log.description) > 50 else log.description,
+                log.ip_address or '-'
+            ])
+
+        # Создаем таблицу
+        table = Table(data)
+        table.setStyle(TableStyle([
+            ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
+            ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+            ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+            ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+            ('FONTSIZE', (0, 0), (-1, 0), 12),
+            ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+            ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
+            ('FONTNAME', (0, 1), (-1, -1), 'Helvetica'),
+            ('FONTSIZE', (0, 1), (-1, -1), 10),
+            ('GRID', (0, 0), (-1, -1), 1, colors.black)
+        ]))
+
+        elements.append(table)
+        doc.build(elements)
+        return response
+
+    export_as_pdf.short_description = "📊 Экспорт выбранных логов в PDF"
+
+
+    # Добавляем фильтры по дате
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+
+        # Фильтр по периоду
+        date_from = request.GET.get('date_from')
+        date_to = request.GET.get('date_to')
+
+        if date_from:
+            qs = qs.filter(created_at__gte=date_from)
+        if date_to:
+            qs = qs.filter(created_at__lte=date_to)
+
+        return qs
+
+    def changelist_view(self, request, extra_context=None):
+        # Добавляем форму фильтрации по дате
+        extra_context = extra_context or {}
+        extra_context['date_from'] = request.GET.get('date_from', '')
+        extra_context['date_to'] = request.GET.get('date_to', '')
+        return super().changelist_view(request, extra_context=extra_context)
+
+
+@admin.register(BackupLog)
+class BackupLogAdmin(admin.ModelAdmin):
+    """Админ-панель для бэкапов"""
+
+    list_display = [
+        'name',
+        'backup_type_display',
+        'format_display',
+        'logs_count',
+        'file_size_display',
+        'created_by',
+        'created_at'
+    ]
+
+    list_filter = [
+        'backup_type',
+        'format',
+        'created_at',
+        'created_by'
+    ]
+
+    readonly_fields = [
+        'logs_count',
+        'file_size',
+        'created_by',
+        'created_at',
+        'file_size_display'
+    ]
+
+    def backup_type_display(self, obj):
+        return obj.get_backup_type_display()
+
+    backup_type_display.short_description = 'Тип'
+
+    def format_display(self, obj):
+        return obj.get_format_display()
+
+    format_display.short_description = 'Формат'
+
+    def file_size_display(self, obj):
+        return obj.get_file_size_display()
+
+    file_size_display.short_description = 'Размер'
+
+    # Запрещаем добавление через админку
+    def has_add_permission(self, request):
+        return False
+
+    # Запрещаем изменение через админку
+    def has_change_permission(self, request, obj=None):
+        return False
 admin.site.unregister(Group)
 admin.site.register(Group, CustomGroupAdmin)

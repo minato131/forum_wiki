@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Тестирование логирования - Witcher Wiki{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="mb-4">🧪 Тестирование системы логирования</h1>
+            
+            <!-- Форма для создания тестового лога -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Создать тестовый лог</h5>
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="action_type" class="form-label">Тип действия</label>
+                            <select name="action_type" id="action_type" class="form-select">
+                                {% for action_type in action_types %}
+                                    <option value="{{ action_type.0 }}">{{ action_type.1 }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Описание</label>
+                            <input type="text" name="description" id="description" 
+                                   class="form-control" value="Тестовое действие для проверки логирования" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Создать тестовый лог</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Последние логи -->
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Последние 10 записей в логах</h5>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Дата</th>
+                                    <th>Пользователь</th>
+                                    <th>Тип</th>
+                                    <th>Описание</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for log in recent_logs %}
+                                <tr>
+                                    <td>{{ log.created_at|date:"d.m.Y H:i" }}</td>
+                                    <td>{{ log.user.username|default:"Аноним" }}</td>
+                                    <td><span class="badge bg-secondary">{{ log.get_action_type_display }}</span></td>
+                                    <td>{{ log.description }}</td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td colspan="4" class="text-center">Записи в логах отсутствуют</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

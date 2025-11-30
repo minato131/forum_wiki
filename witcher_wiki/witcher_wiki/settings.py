@@ -35,6 +35,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django_user_agents.middleware.UserAgentMiddleware',
+    'wiki.middleware.ActionLoggingMiddleware',
 ]
 
 ROOT_URLCONF = 'witcher_wiki.urls'
@@ -52,6 +53,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'wiki.context_processors.user_permissions',
                 'wiki.context_processors.telegram_settings',
+                'wiki.context_processors.tutorial_context',
             ],
         },
     },

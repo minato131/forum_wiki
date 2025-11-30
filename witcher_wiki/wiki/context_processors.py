@@ -55,3 +55,19 @@ def categories_processor(request):
     return {
         'featured_categories': featured_categories,
     }
+
+
+def tutorial_context(request):
+    """Добавляет информацию о статусе обучения в контекст шаблонов"""
+    context = {}
+
+    if request.user.is_authenticated:
+        from .models import UserTutorial
+        tutorial, created = UserTutorial.objects.get_or_create(user=request.user)
+        context['user_tutorial'] = tutorial
+        context['show_tutorials'] = not tutorial.tutorials_disabled
+    else:
+        context['user_tutorial'] = None
+        context['show_tutorials'] = False
+
+    return context

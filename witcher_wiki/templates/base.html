@@ -6,6 +6,7 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/tutorials.css' %}">
     <title>{% block title %}Форум по Вселенной Ведьмака{% endblock %}</title>
     <style>
         /* RESET */
@@ -284,6 +285,47 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Подключаем подсказки -->
+    {% if show_tutorials and not user_tutorial.tutorials_disabled %}
+        <!-- Основные подсказки -->
+        {% if not user_tutorial.has_seen_welcome %}
+            {% include "tutorials/welcome.html" %}
+        {% endif %}
+
+        {% if not user_tutorial.has_seen_article_create %}
+            {% include "tutorials/article_create.html" %}
+        {% endif %}
+
+        {% if not user_tutorial.has_seen_search %}
+            {% include "tutorials/search.html" %}
+        {% endif %}
+
+        {% if not user_tutorial.has_seen_profile %}
+            {% include "tutorials/profile.html" %}
+        {% endif %}
+
+        {% if not user_tutorial.has_seen_messages %}
+            {% include "tutorials/messages.html" %}
+        {% endif %}
+
+        {% if not user_tutorial.has_seen_categories %}
+            {% include "tutorials/categories.html" %}
+        {% endif %}
+
+        <script>
+            // Передаем статусы подсказок в JavaScript
+            window.showTutorials = true;
+            window.userHasSeenWelcome = {% if user_tutorial.has_seen_welcome %}true{% else %}false{% endif %};
+            window.userHasSeenArticleCreate = {% if user_tutorial.has_seen_article_create %}true{% else %}false{% endif %};
+            window.userHasSeenSearch = {% if user_tutorial.has_seen_search %}true{% else %}false{% endif %};
+            window.userHasSeenProfile = {% if user_tutorial.has_seen_profile %}true{% else %}false{% endif %};
+            window.userHasSeenMessages = {% if user_tutorial.has_seen_messages %}true{% else %}false{% endif %};
+            window.userHasSeenCategories = {% if user_tutorial.has_seen_categories %}true{% else %}false{% endif %};
+        </script>
+    {% endif %}
+
+        <!-- Подключаем JavaScript -->
+        <script src="{% static 'js/tutorials.js' %}"></script>
     <!-- Модальное окно подтверждения -->
     <div id="confirmationModal" class="confirmation-modal">
         <div class="modal-content">

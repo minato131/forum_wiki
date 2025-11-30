@@ -17918,3 +17918,684 @@ INFO 2025-11-30 22:27:10,749 autoreload Watching for file changes with StatReloa
 INFO 2025-11-30 22:27:19,005 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\witcher_wiki\settings.py changed, reloading.
 INFO 2025-11-30 22:27:19,363 autoreload Watching for file changes with StatReloader
 INFO 2025-11-30 22:37:48,027 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 00:18:50,605 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\witcher_wiki\settings.py changed, reloading.
+INFO 2025-12-01 00:18:51,106 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 00:29:07,404 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 00:29:09,188 basehttp "GET / HTTP/1.1" 200 36510
+INFO 2025-12-01 00:29:09,309 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39095
+INFO 2025-12-01 00:29:10,226 basehttp "GET /admin/ HTTP/1.1" 200 17788
+ERROR 2025-12-01 00:29:11,557 log Internal Server Error: /admin/wiki/actionlog/
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.errors.UndefinedTable: relation "wiki_actionlog" does not exist
+LINE 1: SELECT COUNT(*) AS "__count" FROM "wiki_actionlog"
+                                          ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\contrib\admin\options.py", line 719, in wrapper
+    return self.admin_site.admin_view(view)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\utils\decorators.py", line 192, in _view_wrapper
+    result = _process_exception(request, e)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\utils\decorators.py", line 190, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\views\decorators\cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\contrib\admin\sites.py", line 246, in inner
+    return view(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\admin.py", line 369, in changelist_view
+    return super().changelist_view(request, extra_context=extra_context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\utils\decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\utils\decorators.py", line 192, in _view_wrapper
+    result = _process_exception(request, e)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\utils\decorators.py", line 190, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\contrib\admin\options.py", line 2024, in changelist_view
+    cl = self.get_changelist_instance(request)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\contrib\admin\options.py", line 867, in get_changelist_instance
+    return ChangeList(
+           ^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\contrib\admin\views\main.py", line 146, in __init__
+    self.get_results(request)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\contrib\admin\views\main.py", line 313, in get_results
+    result_count = paginator.count
+                   ^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\utils\functional.py", line 47, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+                                         ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\core\paginator.py", line 110, in count
+    return c()
+           ^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\db\models\query.py", line 606, in count
+    return self.query.get_count(using=self.db)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\db\models\sql\query.py", line 644, in get_count
+    return obj.get_aggregation(using, {"__count": Count("*")})["__count"]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\db\models\sql\query.py", line 626, in get_aggregation
+    result = compiler.execute_sql(SINGLE)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\db\models\sql\compiler.py", line 1623, in execute_sql
+    cursor.execute(sql, params)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+django.db.utils.ProgrammingError: relation "wiki_actionlog" does not exist
+LINE 1: SELECT COUNT(*) AS "__count" FROM "wiki_actionlog"
+                                          ^
+
+ERROR 2025-12-01 00:29:11,563 basehttp "GET /admin/wiki/actionlog/ HTTP/1.1" 500 203648
+INFO 2025-12-01 00:29:28,023 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 00:29:29,859 basehttp "GET / HTTP/1.1" 200 36510
+INFO 2025-12-01 00:29:29,988 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39095
+INFO 2025-12-01 00:29:31,044 basehttp "GET /admin/ HTTP/1.1" 200 17788
+INFO 2025-12-01 00:29:32,144 basehttp "GET /admin/wiki/actionlog/ HTTP/1.1" 200 17726
+INFO 2025-12-01 00:29:32,198 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-01 00:29:35,164 basehttp "GET /admin/wiki/actionlog/?action_type__exact=login HTTP/1.1" 200 18235
+INFO 2025-12-01 00:29:35,204 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-01 00:29:35,897 basehttp "GET /admin/wiki/actionlog/? HTTP/1.1" 200 17726
+INFO 2025-12-01 00:29:35,939 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-01 00:29:46,124 basehttp "GET / HTTP/1.1" 200 36510
+INFO 2025-12-01 00:29:46,247 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39095
+INFO 2025-12-01 00:29:48,678 basehttp "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-12-01 00:29:48,720 basehttp "GET / HTTP/1.1" 200 34063
+INFO 2025-12-01 00:29:49,314 basehttp "GET /login/ HTTP/1.1" 200 32112
+INFO 2025-12-01 00:29:52,325 basehttp "POST /login/ HTTP/1.1" 302 0
+INFO 2025-12-01 00:29:52,370 basehttp "GET / HTTP/1.1" 200 35475
+INFO 2025-12-01 00:29:52,532 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 38060
+INFO 2025-12-01 00:29:55,372 basehttp "GET /admin/wiki/actionlog/? HTTP/1.1" 302 0
+INFO 2025-12-01 00:29:55,574 basehttp "GET /admin/login/?next=/admin/wiki/actionlog/ HTTP/1.1" 200 3978
+INFO 2025-12-01 00:29:55,617 basehttp "GET /static/admin/css/login.css HTTP/1.1" 200 951
+INFO 2025-12-01 00:29:58,946 basehttp "POST /admin/login/?next=/admin/wiki/actionlog/ HTTP/1.1" 302 0
+INFO 2025-12-01 00:29:58,997 basehttp "GET /admin/wiki/actionlog/ HTTP/1.1" 200 17726
+INFO 2025-12-01 00:29:59,050 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-01 00:30:04,919 basehttp "GET /admin/wiki/moderationcomment/ HTTP/1.1" 200 13746
+INFO 2025-12-01 00:30:05,061 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-01 00:30:06,102 basehttp "GET /admin/wiki/comment/ HTTP/1.1" 200 15509
+INFO 2025-12-01 00:30:06,145 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-01 00:30:07,585 basehttp "GET /admin/wiki/articlerevision/ HTTP/1.1" 200 15671
+INFO 2025-12-01 00:30:07,735 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-01 00:30:10,789 basehttp "GET /admin/wiki/article/ HTTP/1.1" 200 22426
+INFO 2025-12-01 00:30:10,830 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-01 00:30:13,822 basehttp "GET /admin/auth/user/ HTTP/1.1" 200 20252
+INFO 2025-12-01 00:30:13,863 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-01 00:30:15,685 basehttp "GET /admin/taggit/tag/ HTTP/1.1" 200 16384
+INFO 2025-12-01 00:30:15,726 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-01 00:30:21,925 basehttp "POST /admin/taggit/tag/ HTTP/1.1" 200 13759
+INFO 2025-12-01 00:30:21,953 basehttp "GET /static/admin/js/cancel.js HTTP/1.1" 200 884
+INFO 2025-12-01 00:30:22,758 basehttp "POST /admin/taggit/tag/ HTTP/1.1" 302 0
+INFO 2025-12-01 00:30:22,799 basehttp "GET /admin/taggit/tag/ HTTP/1.1" 200 14000
+INFO 2025-12-01 00:30:22,953 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-01 00:30:23,291 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39095
+INFO 2025-12-01 00:30:24,113 basehttp "GET /admin/auth/user/ HTTP/1.1" 200 20252
+INFO 2025-12-01 00:30:24,154 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-01 00:30:24,571 basehttp "GET /admin/auth/group/ HTTP/1.1" 200 18739
+INFO 2025-12-01 00:30:24,611 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-01 00:30:25,020 basehttp "GET /admin/wiki/article/ HTTP/1.1" 200 22426
+INFO 2025-12-01 00:30:25,162 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-01 00:30:25,537 basehttp "GET /admin/wiki/userprofile/ HTTP/1.1" 200 16223
+INFO 2025-12-01 00:30:25,690 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-01 00:30:26,917 basehttp "GET /admin/wiki/articlemedia/ HTTP/1.1" 200 13676
+INFO 2025-12-01 00:30:27,056 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-01 00:30:28,939 basehttp "GET /admin/wiki/actionlog/ HTTP/1.1" 200 17726
+INFO 2025-12-01 00:30:28,982 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-01 00:30:38,726 basehttp "GET /admin/wiki/actionlog/?created_at__gte=2025-12-01+00%3A00%3A00%2B08%3A00&created_at__lt=2026-01-01+00%3A00%3A00%2B08%3A00 HTTP/1.1" 200 20769
+INFO 2025-12-01 00:30:38,884 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-01 00:30:43,230 basehttp "GET /admin/wiki/actionlog/? HTTP/1.1" 200 17726
+INFO 2025-12-01 00:30:43,272 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-01 00:30:49,822 basehttp "GET /article/create/ HTTP/1.1" 200 33315
+INFO 2025-12-01 00:30:49,893 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39095
+INFO 2025-12-01 00:30:53,997 basehttp "POST /article/create/ HTTP/1.1" 200 60174
+INFO 2025-12-01 00:30:54,052 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39095
+INFO 2025-12-01 00:31:24,296 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39095
+INFO 2025-12-01 00:31:54,299 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39095
+INFO 2025-12-01 00:54:57,887 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 00:54:59,779 basehttp "GET / HTTP/1.1" 200 36510
+INFO 2025-12-01 00:54:59,857 basehttp "GET /static/css/style.css HTTP/1.1" 304 0
+INFO 2025-12-01 00:54:59,917 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39095
+INFO 2025-12-01 00:55:01,251 basehttp "GET /admin/ HTTP/1.1" 200 17717
+INFO 2025-12-01 00:55:02,967 basehttp "GET /admin/wiki/actionlog/ HTTP/1.1" 200 26089
+INFO 2025-12-01 00:55:03,129 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-01 00:55:23,738 basehttp "POST /admin/wiki/actionlog/ HTTP/1.1" 200 2142
+INFO 2025-12-01 00:55:39,256 basehttp "GET / HTTP/1.1" 200 36510
+INFO 2025-12-01 00:55:39,315 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39095
+INFO 2025-12-01 00:55:40,427 basehttp "GET /liked-articles/ HTTP/1.1" 200 46704
+INFO 2025-12-01 00:55:40,487 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39095
+INFO 2025-12-01 00:55:41,028 basehttp "GET /my-articles/ HTTP/1.1" 200 43791
+INFO 2025-12-01 00:55:41,086 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39095
+INFO 2025-12-01 00:55:41,448 basehttp "GET /category/locations/ HTTP/1.1" 200 32508
+INFO 2025-12-01 00:55:41,507 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39095
+INFO 2025-12-01 00:55:41,780 basehttp "GET /category/monsters/ HTTP/1.1" 200 32768
+INFO 2025-12-01 00:55:41,838 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39095
+INFO 2025-12-01 00:55:42,084 basehttp "GET /category/characters/ HTTP/1.1" 200 32825
+INFO 2025-12-01 00:55:42,141 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39095
+INFO 2025-12-01 00:55:42,527 basehttp "GET /search/ HTTP/1.1" 200 43596
+INFO 2025-12-01 00:55:42,587 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39095
+INFO 2025-12-01 00:55:42,882 basehttp "GET /liked-articles/ HTTP/1.1" 200 46704
+INFO 2025-12-01 00:55:42,939 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39095
+INFO 2025-12-01 00:55:43,266 basehttp "GET /moderation/ HTTP/1.1" 200 32784
+INFO 2025-12-01 00:55:43,330 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39095
+INFO 2025-12-01 00:55:43,564 basehttp "GET /categories/ HTTP/1.1" 200 41863
+INFO 2025-12-01 00:55:43,621 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39095
+INFO 2025-12-01 00:55:43,862 basehttp "GET /editor/dashboard/ HTTP/1.1" 200 34020
+INFO 2025-12-01 00:55:44,021 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39095
+INFO 2025-12-01 00:55:44,290 basehttp "GET /user-management/ HTTP/1.1" 200 93842
+INFO 2025-12-01 00:55:44,351 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39095
+WARNING 2025-12-01 00:55:44,361 log Not Found: /media/avatars/avatars/avatars/avatars/avatars/avatars/user_1/avatar.jpg
+WARNING 2025-12-01 00:55:44,362 basehttp "GET /media/avatars/avatars/avatars/avatars/avatars/avatars/user_1/avatar.jpg HTTP/1.1" 404 22386
+INFO 2025-12-01 00:55:45,121 basehttp "GET /admin/ HTTP/1.1" 200 17717
+INFO 2025-12-01 00:55:46,534 basehttp "GET /admin/wiki/actionlog/ HTTP/1.1" 200 29730
+INFO 2025-12-01 00:55:46,581 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-01 00:55:51,018 basehttp "GET /admin/wiki/actionlog/?o=1 HTTP/1.1" 200 30370
+INFO 2025-12-01 00:55:51,062 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-01 00:55:51,700 basehttp "GET /admin/wiki/actionlog/?o=-1 HTTP/1.1" 200 30419
+INFO 2025-12-01 00:55:51,745 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-01 00:55:57,584 basehttp "POST /admin/wiki/actionlog/?o=-1 HTTP/1.1" 200 2275
+INFO 2025-12-01 00:56:03,167 basehttp "POST /admin/wiki/actionlog/?o=-1 HTTP/1.1" 200 2605
+INFO 2025-12-01 00:56:38,846 basehttp "GET / HTTP/1.1" 200 36510
+INFO 2025-12-01 00:56:38,904 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39095
+INFO 2025-12-01 00:56:40,166 basehttp "GET / HTTP/1.1" 200 36510
+INFO 2025-12-01 00:56:40,221 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39095
+INFO 2025-12-01 00:56:40,436 basehttp "GET /search/ HTTP/1.1" 200 43596
+INFO 2025-12-01 00:56:40,601 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39095
+INFO 2025-12-01 00:56:44,346 basehttp "GET /admin/ HTTP/1.1" 200 17717
+INFO 2025-12-01 00:56:45,375 basehttp "GET /user-management/ HTTP/1.1" 200 93842
+WARNING 2025-12-01 00:56:45,432 log Not Found: /media/avatars/avatars/avatars/avatars/avatars/avatars/user_1/avatar.jpg
+WARNING 2025-12-01 00:56:45,433 basehttp "GET /media/avatars/avatars/avatars/avatars/avatars/avatars/user_1/avatar.jpg HTTP/1.1" 404 22386
+INFO 2025-12-01 00:56:45,445 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39095
+INFO 2025-12-01 00:56:45,844 basehttp "GET /editor/dashboard/ HTTP/1.1" 200 34020
+INFO 2025-12-01 00:56:45,900 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39095
+INFO 2025-12-01 00:56:46,175 basehttp "GET /categories/ HTTP/1.1" 200 41863
+INFO 2025-12-01 00:56:46,234 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39095
+INFO 2025-12-01 00:56:46,545 basehttp "GET /editor/dashboard/ HTTP/1.1" 200 34020
+INFO 2025-12-01 00:56:46,603 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39095
+INFO 2025-12-01 00:56:48,031 basehttp "GET /my-articles/ HTTP/1.1" 200 43791
+INFO 2025-12-01 00:56:48,094 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39095
+INFO 2025-12-01 00:56:48,219 basehttp "GET /category/locations/ HTTP/1.1" 200 32508
+INFO 2025-12-01 00:56:48,375 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39095
+INFO 2025-12-01 00:56:48,480 basehttp "GET /my-articles/ HTTP/1.1" 200 43791
+INFO 2025-12-01 00:56:48,541 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39095
+INFO 2025-12-01 00:56:48,709 basehttp "GET /liked-articles/ HTTP/1.1" 200 46704
+INFO 2025-12-01 00:56:48,770 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39095
+INFO 2025-12-01 00:56:48,959 basehttp "GET /moderation/ HTTP/1.1" 200 32784
+INFO 2025-12-01 00:56:49,023 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39095
+INFO 2025-12-01 00:56:49,193 basehttp "GET /categories/ HTTP/1.1" 200 41863
+INFO 2025-12-01 00:56:49,252 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39095
+INFO 2025-12-01 00:56:49,484 basehttp "GET /liked-articles/ HTTP/1.1" 200 46704
+INFO 2025-12-01 00:56:49,545 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39095
+INFO 2025-12-01 00:56:49,712 basehttp "GET /category/locations/ HTTP/1.1" 200 32508
+INFO 2025-12-01 00:56:49,772 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39095
+INFO 2025-12-01 00:56:49,985 basehttp "GET /category/characters/ HTTP/1.1" 200 32825
+INFO 2025-12-01 00:56:50,154 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39095
+INFO 2025-12-01 00:56:50,411 basehttp "GET /category/monsters/ HTTP/1.1" 200 32768
+INFO 2025-12-01 00:56:50,470 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39095
+INFO 2025-12-01 00:56:50,665 basehttp "GET /search/ HTTP/1.1" 200 43596
+INFO 2025-12-01 00:56:50,730 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39095
+INFO 2025-12-01 00:56:51,033 basehttp "GET /category/locations/ HTTP/1.1" 200 32508
+INFO 2025-12-01 00:56:51,093 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39095
+INFO 2025-12-01 00:56:51,643 basehttp "GET /admin/ HTTP/1.1" 200 17717
+INFO 2025-12-01 00:56:53,306 basehttp "GET /admin/wiki/actionlog/ HTTP/1.1" 200 36286
+INFO 2025-12-01 00:56:53,454 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-01 00:57:04,934 basehttp "POST /admin/wiki/actionlog/ HTTP/1.1" 200 2605
+INFO 2025-12-01 00:57:20,031 basehttp "POST /admin/wiki/actionlog/ HTTP/1.1" 200 761
+INFO 2025-12-01 00:57:29,198 basehttp "GET / HTTP/1.1" 200 36510
+INFO 2025-12-01 00:57:29,361 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39095
+INFO 2025-12-01 00:57:59,406 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39095
+INFO 2025-12-01 00:58:11,780 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\admin.py changed, reloading.
+INFO 2025-12-01 00:58:12,375 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 00:58:20,845 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 00:58:22,808 basehttp "GET / HTTP/1.1" 200 36510
+INFO 2025-12-01 00:58:22,939 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39095
+INFO 2025-12-01 00:58:25,218 basehttp "GET /user-management/ HTTP/1.1" 200 93842
+WARNING 2025-12-01 00:58:25,287 log Not Found: /media/avatars/avatars/avatars/avatars/avatars/avatars/user_1/avatar.jpg
+WARNING 2025-12-01 00:58:25,288 basehttp "GET /media/avatars/avatars/avatars/avatars/avatars/avatars/user_1/avatar.jpg HTTP/1.1" 404 22386
+INFO 2025-12-01 00:58:25,288 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39095
+INFO 2025-12-01 00:58:25,434 basehttp "GET /categories/ HTTP/1.1" 200 41863
+INFO 2025-12-01 00:58:25,497 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39095
+INFO 2025-12-01 00:58:26,083 basehttp "GET /editor/dashboard/ HTTP/1.1" 200 34020
+INFO 2025-12-01 00:58:26,146 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39095
+INFO 2025-12-01 00:58:26,670 basehttp "GET /user-management/ HTTP/1.1" 200 93842
+WARNING 2025-12-01 00:58:26,736 log Not Found: /media/avatars/avatars/avatars/avatars/avatars/avatars/user_1/avatar.jpg
+WARNING 2025-12-01 00:58:26,736 basehttp "GET /media/avatars/avatars/avatars/avatars/avatars/avatars/user_1/avatar.jpg HTTP/1.1" 404 22386
+INFO 2025-12-01 00:58:26,737 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39095
+INFO 2025-12-01 00:58:27,016 basehttp "GET /liked-articles/ HTTP/1.1" 200 46704
+INFO 2025-12-01 00:58:27,080 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39095
+INFO 2025-12-01 00:58:28,405 basehttp "GET /admin/ HTTP/1.1" 200 17717
+INFO 2025-12-01 00:58:30,085 basehttp "GET /admin/wiki/actionlog/ HTTP/1.1" 200 37627
+INFO 2025-12-01 00:58:30,142 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-01 01:00:50,938 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-01 01:00:51,774 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 01:01:03,377 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\models.py changed, reloading.
+INFO 2025-12-01 01:01:03,928 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 01:01:31,710 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 01:07:13,756 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 01:07:15,307 basehttp "GET / HTTP/1.1" 200 38423
+INFO 2025-12-01 01:07:15,422 basehttp "GET /static/js/tutorials.js HTTP/1.1" 200 3018
+INFO 2025-12-01 01:07:15,424 basehttp "GET /static/css/tutorials.css HTTP/1.1" 200 2463
+INFO 2025-12-01 01:07:15,473 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 41008
+WARNING 2025-12-01 01:07:22,745 log Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /tutorial/mark-seen/welcome/
+WARNING 2025-12-01 01:07:22,774 basehttp "POST /tutorial/mark-seen/welcome/ HTTP/1.1" 403 2591
+INFO 2025-12-01 01:07:28,117 basehttp "GET /article/create/ HTTP/1.1" 200 63251
+INFO 2025-12-01 01:07:28,132 basehttp "GET /static/css/tutorials.css HTTP/1.1" 304 0
+INFO 2025-12-01 01:07:28,185 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 41008
+WARNING 2025-12-01 01:07:43,146 log Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /tutorial/mark-seen/article_creation/
+WARNING 2025-12-01 01:07:43,286 basehttp "POST /tutorial/mark-seen/article_creation/ HTTP/1.1" 403 2591
+WARNING 2025-12-01 01:07:45,787 log Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /tutorial/mark-seen/article_creation/
+WARNING 2025-12-01 01:07:45,923 basehttp "POST /tutorial/mark-seen/article_creation/ HTTP/1.1" 403 2591
+WARNING 2025-12-01 01:07:52,063 log Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /tutorial/mark-seen/article_creation/
+WARNING 2025-12-01 01:07:52,093 basehttp "POST /tutorial/mark-seen/article_creation/ HTTP/1.1" 403 2591
+INFO 2025-12-01 01:07:56,010 basehttp "GET /article/create/ HTTP/1.1" 200 63251
+INFO 2025-12-01 01:07:56,021 basehttp "GET /static/css/tutorials.css HTTP/1.1" 304 0
+INFO 2025-12-01 01:07:56,021 basehttp "GET /static/js/tutorials.js HTTP/1.1" 304 0
+INFO 2025-12-01 01:07:56,070 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 41008
+INFO 2025-12-01 01:07:59,277 basehttp "GET /tutorial/complete/ HTTP/1.1" 302 0
+INFO 2025-12-01 01:07:59,317 basehttp "GET /article/create/ HTTP/1.1" 200 60184
+INFO 2025-12-01 01:07:59,377 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39267
+INFO 2025-12-01 01:08:01,633 basehttp "GET /article/create/ HTTP/1.1" 200 60184
+INFO 2025-12-01 01:08:01,687 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39267
+INFO 2025-12-01 01:08:06,249 basehttp "GET /search/ HTTP/1.1" 200 43768
+INFO 2025-12-01 01:08:06,309 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39267
+INFO 2025-12-01 01:08:09,059 basehttp "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-12-01 01:08:09,095 basehttp "GET / HTTP/1.1" 200 34235
+INFO 2025-12-01 01:08:09,109 basehttp "GET /static/css/tutorials.css HTTP/1.1" 304 0
+INFO 2025-12-01 01:08:09,694 basehttp "GET /login/ HTTP/1.1" 200 32509
+INFO 2025-12-01 01:08:12,443 basehttp "POST /login/ HTTP/1.1" 302 0
+INFO 2025-12-01 01:08:12,589 basehttp "GET / HTTP/1.1" 200 37388
+INFO 2025-12-01 01:08:12,752 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39973
+WARNING 2025-12-01 01:08:20,247 log Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /tutorial/mark-seen/welcome/
+WARNING 2025-12-01 01:08:20,274 basehttp "POST /tutorial/mark-seen/welcome/ HTTP/1.1" 403 2591
+INFO 2025-12-01 01:08:22,160 basehttp "GET /search/ HTTP/1.1" 200 44474
+INFO 2025-12-01 01:08:22,177 basehttp "GET /static/css/tutorials.css HTTP/1.1" 304 0
+INFO 2025-12-01 01:08:22,177 basehttp "GET /static/js/tutorials.js HTTP/1.1" 304 0
+INFO 2025-12-01 01:08:22,229 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39973
+WARNING 2025-12-01 01:08:25,315 log Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /tutorial/mark-seen/welcome/
+WARNING 2025-12-01 01:08:25,345 basehttp "POST /tutorial/mark-seen/welcome/ HTTP/1.1" 403 2591
+INFO 2025-12-01 01:08:26,486 basehttp "GET /category/monsters/ HTTP/1.1" 200 33646
+INFO 2025-12-01 01:08:26,544 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39973
+INFO 2025-12-01 01:08:30,472 basehttp "GET /liked-articles/ HTTP/1.1" 200 47582
+INFO 2025-12-01 01:08:30,532 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39973
+WARNING 2025-12-01 01:08:33,877 log Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /tutorial/mark-seen/welcome/
+WARNING 2025-12-01 01:08:33,904 basehttp "POST /tutorial/mark-seen/welcome/ HTTP/1.1" 403 2591
+INFO 2025-12-01 01:08:35,811 basehttp "GET /messages/inbox/ HTTP/1.1" 200 40001
+INFO 2025-12-01 01:08:35,870 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39973
+WARNING 2025-12-01 01:08:38,425 log Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /tutorial/mark-seen/welcome/
+WARNING 2025-12-01 01:08:38,556 basehttp "POST /tutorial/mark-seen/welcome/ HTTP/1.1" 403 2591
+INFO 2025-12-01 01:15:30,025 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\models.py changed, reloading.
+INFO 2025-12-01 01:15:30,619 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 01:16:00,362 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-01 01:16:00,981 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 01:24:10,320 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 01:24:12,480 basehttp "GET / HTTP/1.1" 200 40871
+INFO 2025-12-01 01:24:12,555 basehttp "GET /static/css/style.css HTTP/1.1" 304 0
+INFO 2025-12-01 01:24:12,602 basehttp "GET /static/css/tutorials.css HTTP/1.1" 200 2081
+INFO 2025-12-01 01:24:12,603 basehttp "GET /static/js/tutorials.js HTTP/1.1" 200 6117
+INFO 2025-12-01 01:24:12,653 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 01:24:17,764 basehttp "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-12-01 01:24:17,909 basehttp "GET / HTTP/1.1" 200 34288
+INFO 2025-12-01 01:24:18,438 basehttp "GET /login/ HTTP/1.1" 200 32341
+INFO 2025-12-01 01:24:20,306 basehttp "POST /login/ HTTP/1.1" 302 0
+INFO 2025-12-01 01:24:20,354 basehttp "GET / HTTP/1.1" 200 40871
+INFO 2025-12-01 01:24:20,414 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 01:24:24,062 basehttp "GET /search/ HTTP/1.1" 200 47957
+INFO 2025-12-01 01:24:24,121 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 01:24:29,018 basehttp "GET / HTTP/1.1" 200 40871
+INFO 2025-12-01 01:24:29,079 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 01:24:31,603 basehttp "GET /search/ HTTP/1.1" 200 47957
+INFO 2025-12-01 01:24:31,660 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+WARNING 2025-12-01 01:24:34,130 log Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /tutorial/mark-seen/search/
+WARNING 2025-12-01 01:24:34,158 basehttp "POST /tutorial/mark-seen/search/ HTTP/1.1" 403 2591
+INFO 2025-12-01 01:24:35,389 basehttp "GET /category/characters/ HTTP/1.1" 200 37186
+INFO 2025-12-01 01:24:35,452 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 01:24:38,604 basehttp "GET /my-articles/ HTTP/1.1" 200 54109
+INFO 2025-12-01 01:24:38,663 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 01:24:41,842 basehttp "GET /my-articles/ HTTP/1.1" 200 54109
+INFO 2025-12-01 01:24:41,898 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 01:24:43,317 basehttp "GET /liked-articles/ HTTP/1.1" 200 51065
+INFO 2025-12-01 01:24:43,376 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 01:24:50,941 basehttp "GET /accounts/profile/ HTTP/1.1" 200 56983
+INFO 2025-12-01 01:24:50,957 basehttp "GET /static/css/tutorials.css HTTP/1.1" 304 0
+INFO 2025-12-01 01:24:50,957 basehttp "GET /static/js/tutorials.js HTTP/1.1" 304 0
+INFO 2025-12-01 01:24:51,004 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 01:25:05,656 basehttp "POST /tutorial/reset/ HTTP/1.1" 302 0
+INFO 2025-12-01 01:25:05,817 basehttp "GET /accounts/profile/ HTTP/1.1" 200 56983
+INFO 2025-12-01 01:25:05,874 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+WARNING 2025-12-01 01:25:09,965 log Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /tutorial/mark-seen/profile/
+WARNING 2025-12-01 01:25:09,993 basehttp "POST /tutorial/mark-seen/profile/ HTTP/1.1" 403 2591
+INFO 2025-12-01 01:25:12,574 basehttp "GET /messages/inbox/ HTTP/1.1" 200 43484
+INFO 2025-12-01 01:25:12,631 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 01:25:15,394 basehttp "GET /message/create/ HTTP/1.1" 200 40870
+INFO 2025-12-01 01:25:15,557 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 01:25:20,829 basehttp "GET /messages/sent/ HTTP/1.1" 200 43487
+INFO 2025-12-01 01:25:20,980 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 01:25:21,775 basehttp "GET /messages/inbox/ HTTP/1.1" 200 43484
+INFO 2025-12-01 01:25:21,837 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 01:25:23,628 basehttp "GET /liked-articles/ HTTP/1.1" 200 51065
+INFO 2025-12-01 01:25:23,791 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 01:25:26,990 basehttp "GET /search/ HTTP/1.1" 200 47957
+INFO 2025-12-01 01:25:27,008 basehttp "GET /static/css/tutorials.css HTTP/1.1" 304 0
+INFO 2025-12-01 01:25:27,010 basehttp "GET /static/js/tutorials.js HTTP/1.1" 304 0
+INFO 2025-12-01 01:25:27,056 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+WARNING 2025-12-01 01:25:31,007 log Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /tutorial/mark-seen/search/
+WARNING 2025-12-01 01:25:31,145 basehttp "POST /tutorial/mark-seen/search/ HTTP/1.1" 403 2591
+INFO 2025-12-01 01:25:31,710 basehttp "GET /category/locations/ HTTP/1.1" 200 36869
+INFO 2025-12-01 01:25:31,866 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 01:25:33,118 basehttp "GET /category/monsters/ HTTP/1.1" 200 37129
+INFO 2025-12-01 01:25:33,177 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 01:25:34,092 basehttp "GET /category/characters/ HTTP/1.1" 200 37186
+INFO 2025-12-01 01:25:34,150 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 01:25:34,769 basehttp "GET /category/monsters/ HTTP/1.1" 200 37129
+INFO 2025-12-01 01:25:34,828 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 01:25:35,489 basehttp "GET /article/ii/ HTTP/1.1" 200 64188
+INFO 2025-12-01 01:25:35,550 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 01:25:38,468 basehttp "GET /article/ii/ HTTP/1.1" 200 63786
+INFO 2025-12-01 01:25:38,524 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 01:25:40,781 basehttp "GET /search/ HTTP/1.1" 200 47957
+INFO 2025-12-01 01:25:40,934 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 01:25:43,891 basehttp "GET /tutorial/disable/ HTTP/1.1" 302 0
+INFO 2025-12-01 01:25:44,048 basehttp "GET /search/ HTTP/1.1" 200 42786
+INFO 2025-12-01 01:25:44,211 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 38285
+INFO 2025-12-01 01:25:45,155 basehttp "GET /accounts/profile/ HTTP/1.1" 200 51806
+INFO 2025-12-01 01:25:45,213 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 38285
+INFO 2025-12-01 01:25:47,368 basehttp "POST /tutorial/reset/ HTTP/1.1" 302 0
+INFO 2025-12-01 01:25:47,422 basehttp "GET /accounts/profile/ HTTP/1.1" 200 56983
+INFO 2025-12-01 01:25:47,482 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 01:25:49,319 basehttp "POST /tutorial/disable/ HTTP/1.1" 302 0
+INFO 2025-12-01 01:25:49,368 basehttp "GET /accounts/profile/ HTTP/1.1" 200 51806
+INFO 2025-12-01 01:25:49,424 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 38285
+INFO 2025-12-01 01:25:52,787 basehttp "POST /tutorial/reset/ HTTP/1.1" 302 0
+INFO 2025-12-01 01:25:52,835 basehttp "GET /accounts/profile/ HTTP/1.1" 200 56983
+INFO 2025-12-01 01:25:52,892 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+WARNING 2025-12-01 01:25:55,808 log Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /tutorial/mark-seen/profile/
+WARNING 2025-12-01 01:25:55,839 basehttp "POST /tutorial/mark-seen/profile/ HTTP/1.1" 403 2591
+INFO 2025-12-01 01:25:57,063 basehttp "GET / HTTP/1.1" 200 40871
+INFO 2025-12-01 01:25:57,126 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 01:26:27,125 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 01:26:46,626 autoreload Watching for file changes with StatReloader
+ERROR 2025-12-01 01:26:48,513 log Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py", line 88, in home
+    return render(request, 'wiki/home.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+           ^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+               ^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\template\loader_tags.py", line 299, in do_extends
+    nodelist = parser.parse()
+               ^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\template\base.py", line 523, in parse
+    self.unclosed_block_tag(parse_until)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\template\base.py", line 590, in unclosed_block_tag
+    raise self.error(token, msg)
+django.template.exceptions.TemplateSyntaxError: Unclosed tag on line 5: 'block'. Looking for one of: endblock.
+ERROR 2025-12-01 01:26:48,518 basehttp "GET / HTTP/1.1" 500 187734
+INFO 2025-12-01 01:26:57,311 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 01:27:02,664 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 01:27:04,221 basehttp "GET / HTTP/1.1" 200 40105
+INFO 2025-12-01 01:27:04,292 basehttp "GET /static/css/tutorials.css HTTP/1.1" 304 0
+INFO 2025-12-01 01:27:04,292 basehttp "GET /static/js/tutorials.js HTTP/1.1" 304 0
+INFO 2025-12-01 01:27:04,350 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 01:27:11,480 basehttp "GET /search/ HTTP/1.1" 200 47957
+INFO 2025-12-01 01:27:11,541 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 01:27:15,110 basehttp "GET /tutorial/disable/ HTTP/1.1" 302 0
+INFO 2025-12-01 01:27:15,157 basehttp "GET /search/ HTTP/1.1" 200 42786
+INFO 2025-12-01 01:27:15,213 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 38285
+INFO 2025-12-01 01:27:18,107 basehttp "GET /accounts/profile/ HTTP/1.1" 200 51806
+INFO 2025-12-01 01:27:18,164 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 38285
+INFO 2025-12-01 01:27:20,030 basehttp "POST /tutorial/reset/ HTTP/1.1" 302 0
+INFO 2025-12-01 01:27:20,084 basehttp "GET /accounts/profile/ HTTP/1.1" 200 56983
+INFO 2025-12-01 01:27:20,140 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 01:27:21,383 basehttp "GET / HTTP/1.1" 200 40105
+INFO 2025-12-01 01:27:21,447 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 01:27:22,655 basehttp "GET /article/create/ HTTP/1.1" 200 37676
+INFO 2025-12-01 01:27:22,712 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 01:27:24,225 basehttp "POST /article/create/ HTTP/1.1" 200 65070
+INFO 2025-12-01 01:27:24,282 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 01:27:26,159 basehttp "POST /article/create/ HTTP/1.1" 200 65070
+INFO 2025-12-01 01:27:26,212 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 01:27:27,290 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 01:27:29,504 basehttp "GET /article/create/ HTTP/1.1" 200 64908
+INFO 2025-12-01 01:27:30,639 basehttp "GET /my-articles/ HTTP/1.1" 200 54109
+INFO 2025-12-01 01:27:30,800 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 01:27:31,292 basehttp "GET /category/locations/ HTTP/1.1" 200 36869
+INFO 2025-12-01 01:27:31,350 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 01:27:31,792 basehttp "GET /liked-articles/ HTTP/1.1" 200 51065
+INFO 2025-12-01 01:27:31,854 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 01:27:33,226 basehttp "GET / HTTP/1.1" 200 40105
+INFO 2025-12-01 01:27:33,292 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 01:27:34,050 basehttp "GET /category/characters/ HTTP/1.1" 200 37186
+INFO 2025-12-01 01:27:34,116 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 01:27:35,382 basehttp "GET /category/events/ HTTP/1.1" 200 36922
+INFO 2025-12-01 01:27:35,545 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 01:27:37,956 basehttp "GET /category/magic/ HTTP/1.1" 200 36905
+INFO 2025-12-01 01:27:38,015 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 01:27:39,158 basehttp "GET /category/locations/ HTTP/1.1" 200 36869
+INFO 2025-12-01 01:27:39,214 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 01:27:40,097 basehttp "GET /category/monsters/ HTTP/1.1" 200 37129
+INFO 2025-12-01 01:27:40,154 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 01:27:41,532 basehttp "GET /category/characters/ HTTP/1.1" 200 37186
+INFO 2025-12-01 01:27:41,588 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 01:27:57,299 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 01:28:03,296 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 01:28:27,305 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 01:28:33,296 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 01:28:36,527 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\models.py changed, reloading.
+INFO 2025-12-01 01:30:50,299 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 01:34:05,238 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\models.py changed, reloading.
+INFO 2025-12-01 01:34:05,806 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 01:36:24,211 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\admin.py changed, reloading.
+INFO 2025-12-01 01:36:24,744 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 01:36:50,530 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 01:36:52,783 basehttp "GET / HTTP/1.1" 200 40105
+INFO 2025-12-01 01:36:52,855 basehttp "GET /static/css/tutorials.css HTTP/1.1" 304 0
+INFO 2025-12-01 01:36:52,855 basehttp "GET /static/js/tutorials.js HTTP/1.1" 304 0
+INFO 2025-12-01 01:36:53,022 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 01:36:56,086 basehttp "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-12-01 01:36:56,121 basehttp "GET / HTTP/1.1" 200 33522
+INFO 2025-12-01 01:36:56,726 basehttp "GET /login/ HTTP/1.1" 200 33199
+INFO 2025-12-01 01:37:00,358 basehttp "GET /login/ HTTP/1.1" 200 32158
+INFO 2025-12-01 01:37:02,869 basehttp "POST /login/ HTTP/1.1" 302 0
+INFO 2025-12-01 01:37:02,919 basehttp "GET / HTTP/1.1" 200 41140
+INFO 2025-12-01 01:37:02,979 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 44491
+INFO 2025-12-01 01:37:04,226 basehttp "GET /admin/ HTTP/1.1" 200 18251
+INFO 2025-12-01 01:37:09,438 basehttp "GET /admin/wiki/backuplog/ HTTP/1.1" 200 16353
+INFO 2025-12-01 01:37:09,486 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-01 01:37:24,866 basehttp "GET /admin/wiki/actionlog/ HTTP/1.1" 200 77644
+INFO 2025-12-01 01:37:24,913 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-01 01:37:26,562 basehttp "GET /admin/wiki/backuplog/ HTTP/1.1" 200 16353
+INFO 2025-12-01 01:37:26,603 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-01 01:37:29,060 basehttp "GET /admin/wiki/backuplog/?_facets=True HTTP/1.1" 200 16700
+INFO 2025-12-01 01:37:29,103 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-01 01:37:29,148 basehttp "GET /static/admin/img/icon-hidelink.svg HTTP/1.1" 200 784
+INFO 2025-12-01 01:37:29,796 basehttp "GET /admin/wiki/backuplog/? HTTP/1.1" 200 16353
+INFO 2025-12-01 01:37:29,836 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-01 01:37:30,951 basehttp "GET /admin/wiki/backuplog/?_facets=True HTTP/1.1" 200 16700
+INFO 2025-12-01 01:37:31,006 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-01 01:37:32,553 basehttp "GET /admin/wiki/backuplog/? HTTP/1.1" 200 16353
+INFO 2025-12-01 01:37:32,596 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-01 01:37:35,104 basehttp "GET / HTTP/1.1" 200 41140
+INFO 2025-12-01 01:37:35,162 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 44491
+INFO 2025-12-01 01:37:37,135 basehttp "GET /user-management/ HTTP/1.1" 200 99238
+WARNING 2025-12-01 01:37:37,194 log Not Found: /media/avatars/avatars/avatars/avatars/avatars/avatars/user_1/avatar.jpg
+WARNING 2025-12-01 01:37:37,198 basehttp "GET /media/avatars/avatars/avatars/avatars/avatars/avatars/user_1/avatar.jpg HTTP/1.1" 404 24112
+INFO 2025-12-01 01:37:37,200 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 44491
+INFO 2025-12-01 01:37:50,681 basehttp "GET /accounts/profile/ HTTP/1.1" 200 56922
+WARNING 2025-12-01 01:37:50,745 log Not Found: /media/avatars/avatars/avatars/avatars/avatars/avatars/user_1/avatar.jpg
+WARNING 2025-12-01 01:37:50,745 basehttp "GET /media/avatars/avatars/avatars/avatars/avatars/avatars/user_1/avatar.jpg HTTP/1.1" 404 24112
+INFO 2025-12-01 01:37:50,747 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 44491
+INFO 2025-12-01 01:37:58,127 basehttp "POST /accounts/profile/ HTTP/1.1" 302 0
+INFO 2025-12-01 01:37:58,183 basehttp "GET /accounts/profile/ HTTP/1.1" 200 56898
+INFO 2025-12-01 01:37:58,238 basehttp "GET /media/avatars/avatars/user_1/avatar_ZQdYt55.jpg HTTP/1.1" 200 32937
+INFO 2025-12-01 01:37:58,248 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 44491
+INFO 2025-12-01 01:37:59,511 basehttp "GET /accounts/profile/ HTTP/1.1" 200 56898
+INFO 2025-12-01 01:37:59,567 basehttp "GET /media/avatars/avatars/user_1/avatar_ZQdYt55.jpg HTTP/1.1" 304 0
+INFO 2025-12-01 01:37:59,588 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 44491
+INFO 2025-12-01 01:38:01,787 basehttp "POST /tutorial/disable/ HTTP/1.1" 302 0
+INFO 2025-12-01 01:38:01,941 basehttp "GET /accounts/profile/ HTTP/1.1" 200 51721
+INFO 2025-12-01 01:38:01,992 basehttp "GET /media/avatars/avatars/user_1/avatar_ZQdYt55.jpg HTTP/1.1" 304 0
+INFO 2025-12-01 01:38:02,003 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320
+INFO 2025-12-01 01:38:08,676 basehttp "GET /admin/ HTTP/1.1" 200 18481
+INFO 2025-12-01 01:38:10,568 basehttp "GET /admin/ HTTP/1.1" 200 18251
+INFO 2025-12-01 01:38:14,418 basehttp "GET /admin/wiki/backuplog/ HTTP/1.1" 200 16353
+INFO 2025-12-01 01:38:14,461 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-01 01:38:20,748 basehttp "GET /admin/auth/user/ HTTP/1.1" 200 21126
+INFO 2025-12-01 01:38:20,793 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-01 01:38:21,536 basehttp "GET /admin/taggit/tag/ HTTP/1.1" 200 14202
+INFO 2025-12-01 01:38:21,579 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-01 01:38:22,499 basehttp "GET /admin/auth/group/ HTTP/1.1" 200 19086
+INFO 2025-12-01 01:38:22,540 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-01 01:38:23,542 basehttp "GET /admin/wiki/article/ HTTP/1.1" 200 22839
+INFO 2025-12-01 01:38:23,583 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-01 01:38:24,389 basehttp "GET /admin/wiki/userprofile/ HTTP/1.1" 200 16984
+INFO 2025-12-01 01:38:24,430 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-01 01:38:25,121 basehttp "GET /admin/wiki/articlemedia/ HTTP/1.1" 200 14023
+INFO 2025-12-01 01:38:25,266 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-01 01:38:28,578 basehttp "GET /admin/wiki/articlemedia/add/ HTTP/1.1" 200 21786
+INFO 2025-12-01 01:38:28,619 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-01 01:38:31,823 basehttp "GET /admin/wiki/articlemedia/ HTTP/1.1" 200 14023
+INFO 2025-12-01 01:38:35,480 basehttp "GET / HTTP/1.1" 200 35969
+INFO 2025-12-01 01:38:35,637 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320
+INFO 2025-12-01 01:38:37,421 basehttp "GET /article/22/ HTTP/1.1" 200 60845
+INFO 2025-12-01 01:38:37,480 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320
+INFO 2025-12-01 01:38:42,047 basehttp "GET /editor/dashboard/ HTTP/1.1" 200 34245
+INFO 2025-12-01 01:38:42,061 basehttp "GET /static/css/tutorials.css HTTP/1.1" 304 0
+INFO 2025-12-01 01:38:42,062 basehttp "GET /static/js/tutorials.js HTTP/1.1" 304 0
+INFO 2025-12-01 01:38:42,108 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320
+INFO 2025-12-01 01:38:44,083 basehttp "GET /article/ff/editor-review/ HTTP/1.1" 200 32269
+INFO 2025-12-01 01:38:44,139 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320
+INFO 2025-12-01 01:38:46,252 basehttp "GET /moderation/ HTTP/1.1" 200 33009
+INFO 2025-12-01 01:38:46,417 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320
+INFO 2025-12-01 01:38:49,034 basehttp "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-12-01 01:38:49,072 basehttp "GET / HTTP/1.1" 200 33522
+INFO 2025-12-01 01:38:49,782 basehttp "GET /login/ HTTP/1.1" 200 32341
+INFO 2025-12-01 01:38:51,787 basehttp "POST /login/ HTTP/1.1" 302 0
+INFO 2025-12-01 01:38:51,834 basehttp "GET / HTTP/1.1" 200 40105
+INFO 2025-12-01 01:38:51,994 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 01:38:53,054 basehttp "GET /my-articles/ HTTP/1.1" 200 54109
+INFO 2025-12-01 01:38:53,119 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 01:38:57,245 basehttp "POST /article/chchchchchchch/return-to-draft/ HTTP/1.1" 302 0
+INFO 2025-12-01 01:38:57,304 basehttp "GET /article/chchchchchchch/ HTTP/1.1" 200 66766
+INFO 2025-12-01 01:38:57,362 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 01:38:59,689 basehttp "POST /article/chchchchchchch/delete-by-author/ HTTP/1.1" 302 0
+INFO 2025-12-01 01:38:59,735 basehttp "GET /my-articles/ HTTP/1.1" 200 51250
+INFO 2025-12-01 01:39:05,340 basehttp "GET /my-articles/ HTTP/1.1" 200 51250
+INFO 2025-12-01 01:39:05,399 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 01:39:09,942 basehttp "POST /article/yy/delete-by-author/ HTTP/1.1" 200 161
+INFO 2025-12-01 01:39:11,504 basehttp "GET /my-articles/ HTTP/1.1" 200 48349
+INFO 2025-12-01 01:39:11,561 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 01:39:14,837 basehttp "GET /article/vv/author-review/ HTTP/1.1" 200 46340
+INFO 2025-12-01 01:39:14,894 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 01:39:18,530 basehttp "POST /article/vv/author-review/ HTTP/1.1" 302 0
+INFO 2025-12-01 01:39:18,622 basehttp "GET /article/vv/edit/ HTTP/1.1" 200 49838
+INFO 2025-12-01 01:39:18,684 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+ERROR 2025-12-01 01:39:34,413 log Internal Server Error: /article/vv/edit/
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py", line 559, in article_edit
+    description=f'ѕользователь {request.user.username} отредактировал статью "{old_title}"',
+                                                                               ^^^^^^^^^
+NameError: name 'old_title' is not defined
+ERROR 2025-12-01 01:39:34,418 basehttp "POST /article/vv/edit/ HTTP/1.1" 500 85279
+ERROR 2025-12-01 01:40:48,943 log Internal Server Error: /article/vv/edit/
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py", line 559, in article_edit
+    description=f'ѕользователь {request.user.username} отредактировал статью "{old_title}"',
+                                                                               ^^^^^^^^^
+NameError: name 'old_title' is not defined
+ERROR 2025-12-01 01:40:48,945 basehttp "POST /article/vv/edit/ HTTP/1.1" 500 85279

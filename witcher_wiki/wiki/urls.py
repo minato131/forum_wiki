@@ -3,7 +3,8 @@ from . import views
 from .views import user_management
 from django.contrib.auth import views as auth_views
 from .views import register
-
+from django.contrib.auth import views as auth_views
+from accounts.forms import CustomAuthenticationForm
 app_name = 'wiki'
 
 urlpatterns = [
@@ -79,11 +80,8 @@ urlpatterns = [
     path('messages/unread-count/', views.get_unread_count, name='get_unread_count'),
     # Аутентификация
     path('login/', auth_views.LoginView.as_view(
-        template_name='registration/login.html',  # ИЗМЕНИТЬ путь
-        redirect_authenticated_user=True
-    ), name='login'),
-    path('login/', auth_views.LoginView.as_view(
-        template_name='registration/login.html',  # ИЗМЕНИТЬ путь
+        template_name='registration/login.html',
+        authentication_form=CustomAuthenticationForm,# ИЗМЕНИТЬ путь
         redirect_authenticated_user=True
     ), name='login'),
 
@@ -112,4 +110,14 @@ urlpatterns = [
     path('article/<slug:slug>/resubmit/', views.article_resubmit, name='article_resubmit'),
     path('article/<slug:slug>/delete-by-author/', views.article_delete_by_author, name='article_delete_by_author'),
     path('article/<slug:slug>/return-to-draft/', views.article_return_to_draft, name='article_return_to_draft'),
+    path('admin/action-logs/', views.action_logs_view, name='action_logs'),
+    path('admin/action-logs/export-json/', views.export_logs_json, name='export_logs_json'),
+    path('debug/create-log/', views.debug_create_log, name='debug_create_log'),
+    path('debug/test-logs/', views.debug_test_logs, name='debug_test_logs'),
+    path('tutorial/mark-seen/<str:tutorial_type>/', views.mark_tutorial_seen, name='mark_tutorial_seen'),
+    path('tutorial/disable/', views.disable_tutorials, name='disable_tutorials'),
+    path('tutorial/reset/', views.reset_tutorials, name='reset_tutorials'),
+    path('admin/backups/', views.backup_management, name='backup_management'),
+    path('admin/backups/<int:backup_id>/download/', views.download_backup, name='download_backup'),
+    path('admin/backups/<int:backup_id>/delete/', views.delete_backup, name='delete_backup'),
 ]
