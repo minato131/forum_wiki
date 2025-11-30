@@ -32,6 +32,7 @@ from .telegram_utils import TelegramAuth
 from django.contrib.auth import login as auth_login
 from .permissions import GROUP_PERMISSIONS
 from .permissions import user_can_moderate, user_can_edit_content
+from .logging_utils import log_article_creation, log_article_moderation, log_user_login, log_user_logout
 
 def clean_latex_from_content(content):
     """
@@ -358,7 +359,7 @@ def article_create(request):
                 status=status
             )
             article.save()
-
+            log_article_creation(request, article)
             # Добавляем категории
             categories = Category.objects.filter(id__in=category_ids)
             article.categories.set(categories)
@@ -622,6 +623,8 @@ def article_moderate(request, slug):
         action = request.POST.get('action')
         moderation_notes = request.POST.get('moderation_notes', '').strip()
         highlighted_corrections = request.POST.get('highlighted_corrections', '')
+
+        log_article_moderation(request, article, action, moderation_notes)
 
         if action == 'approve':
             article.status = 'published'
@@ -1643,6 +1646,7 @@ def article_moderate_enhanced(request, slug):
         action = request.POST.get('action')
         moderation_notes = request.POST.get('moderation_notes', '').strip()
 
+        log_article_moderation(request, article, action, moderation_notes)
         if action == 'approve':
             # ✅ ОДОБРИТЬ - сразу публикуем
             article.status = 'published'

@@ -899,3 +899,94 @@ class TelegramLoginToken(models.Model):
     def is_valid(self):
         """Проверяет, действителен ли токен"""
         return not self.is_used and timezone.now() < self.expires_at
+
+
+class ActionLog(models.Model):
+    """Модель для хранения логов действий пользователей"""
+
+    ACTION_TYPES = [
+        ('login', 'Вход в систему'),
+        ('logout', 'Выход из системы'),
+        ('article_create', 'Создание статьи'),
+        ('article_edit', 'Редактирование статьи'),
+        ('article_delete', 'Удаление статьи'),
+        ('article_publish', 'Публикация статьи'),
+        ('article_moderate', 'Модерация статьи'),
+        ('comment_create', 'Создание комментария'),
+        ('comment_delete', 'Удаление комментария'),
+        ('user_register', 'Регистрация пользователя'),
+        ('profile_update', 'Обновление профиля'),
+        ('password_change', 'Смена пароля'),
+        ('category_create', 'Создание категории'),
+        ('category_edit', 'Редактирование категории'),
+        ('category_delete', 'Удаление категории'),
+        ('message_send', 'Отправка сообщения'),
+        ('search', 'Поисковый запрос'),
+        ('system', 'Системное действие'),
+    ]
+
+    user = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        verbose_name='Пользователь'
+    )
+    action_type = models.CharField(
+        'Тип действия',
+        max_length=50,
+        choices=ACTION_TYPES
+    )
+    description = models.TextField('Описание действия')
+    ip_address = models.GenericIPAddressField('IP-адрес', null=True, blank=True)
+    user_agent = models.TextField('User Agent', blank=True)
+    browser = models.CharField('Браузер', max_length=100, blank=True)
+    operating_system = models.CharField('Операционная система', max_length=100, blank=True)
+
+    # Данные о действии (JSON для гибкости)
+    action_data = models.JSONField('Данные действия', default=dict, blank=True)
+
+    # Ссылка на объект (если применимо)
+    content_type = models.ForeignKey(
+        'contenttypes.ContentType',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True
+    )
+    object_id = models.PositiveIntegerField(null=True, blank=True)
+
+    created_at = models.DateTimeField('Время действия', auto_now_add=True)
+
+    class Meta:
+        verbose_name = 'Лог действия'
+        verbose_name_plural = 'Логи действий'
+        ordering = ['-created_at']
+        indexes = [
+            models.Index(fields=['-created_at']),
+            models.Index(fields=['action_type']),
+            models.Index(fields=['user']),
+        ]
+
+    def __str__(self):
+        username = self.user.username if self.user else 'Аноним'
+        return f"{username} - {self.get_action_type_display()} - {self.created_at.strftime('%d.%m.%Y %H:%M')}"
+
+    def get_target_object(self):
+        """Возвращает связанный объект если есть"""
+        if self.content_type and self.object_id:
+            return self.content_type.get_object_for_this_type(pk=self.object_id)
+        return None
+
+    @classmethod
+    def get_user_actions(cls, user, action_type=None, days=30):
+        """Получает действия пользователя за указанный период"""
+        from django.utils import timezone
+        from datetime import timedelta
+
+        start_date = timezone.now() - timedelta(days=days)
+        queryset = cls.objects.filter(user=user, created_at__gte=start_date)
+
+        if action_type:
+            queryset = queryset.filter(action_type=action_type)
+
+        return queryset

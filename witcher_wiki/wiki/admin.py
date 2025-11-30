@@ -5,6 +5,10 @@ from django.contrib import admin
 from django.contrib.auth.models import Group, Permission
 from django.contrib.auth.admin import GroupAdmin as BaseGroupAdmin
 from .permissions import GROUP_PERMISSIONS
+from django.contrib import admin
+from django.utils.html import format_html
+from .models import ActionLog
+
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ['name', 'parent', 'created_at']
@@ -125,6 +129,117 @@ class CustomGroupAdmin(BaseGroupAdmin):
             self.description = mark_safe(description)
 
         return fieldsets
+
+
+@admin.register(ActionLog)
+class ActionLogAdmin(admin.ModelAdmin):
+    """Админ-панель для логов действий"""
+
+    list_display = [
+        'created_at',
+        'user_info',
+        'action_type_display',
+        'description_short',
+        'ip_address',
+        'browser_short'
+    ]
+
+    list_filter = [
+        'action_type',
+        'created_at',
+        'user',
+    ]
+
+    search_fields = [
+        'user__username',
+        'description',
+        'ip_address',
+        'action_data'
+    ]
+
+    readonly_fields = [
+        'created_at',
+        'user',
+        'action_type',
+        'description',
+        'ip_address',
+        'user_agent',
+        'browser',
+        'operating_system',
+        'action_data_prettified',
+        'target_object_link'
+    ]
+
+    date_hierarchy = 'created_at'
+    ordering = ['-created_at']
+
+    def user_info(self, obj):
+        if obj.user:
+            return obj.user.username
+        return 'Аноним'
+
+    user_info.short_description = 'Пользователь'
+
+    def action_type_display(self, obj):
+        return obj.get_action_type_display()
+
+    action_type_display.short_description = 'Тип действия'
+
+    def description_short(self, obj):
+        return obj.description[:50] + '...' if len(obj.description) > 50 else obj.description
+
+    description_short.short_description = 'Описание'
+
+    def browser_short(self, obj):
+        return obj.browser[:30] + '...' if len(obj.browser) > 30 else obj.browser
+
+    browser_short.short_description = 'Браузер'
+
+    def action_data_prettified(self, obj):
+        """Красивое отображение JSON данных"""
+        if obj.action_data:
+            return format_html(
+                '<pre style="background: #f5f5f5; padding: 10px; border-radius: 5px; overflow-x: auto;">{}</pre>',
+                json.dumps(obj.action_data, ensure_ascii=False, indent=2)
+            )
+        return '-'
+
+    action_data_prettified.short_description = 'Данные действия'
+
+    def target_object_link(self, obj):
+        """Ссылка на связанный объект если есть"""
+        target = obj.get_target_object()
+        if target:
+            if hasattr(target, 'get_absolute_url'):
+                return format_html(
+                    '<a href="{}" target="_blank">{}</a>',
+                    target.get_absolute_url(),
+                    str(target)
+                )
+            return str(target)
+        return '-'
+
+    target_object_link.short_description = 'Связанный объект'
+
+    # Отключаем возможность добавления/изменения логов через админку
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    # Группируем поля в админке
+    fieldsets = (
+        ('Основная информация', {
+            'fields': ('created_at', 'user', 'action_type', 'description')
+        }),
+        ('Информация о клиенте', {
+            'fields': ('ip_address', 'browser', 'operating_system', 'user_agent')
+        }),
+        ('Дополнительные данные', {
+            'fields': ('action_data_prettified', 'target_object_link')
+        }),
+    )
 
 admin.site.unregister(Group)
 admin.site.register(Group, CustomGroupAdmin)

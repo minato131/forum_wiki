@@ -17886,3 +17886,35 @@ INFO 2025-11-30 22:17:28,271 basehttp "GET / HTTP/1.1" 200 35475
 INFO 2025-11-30 22:17:28,327 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 38060
 INFO 2025-11-30 22:17:59,310 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 38060
 INFO 2025-11-30 22:18:29,297 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 38060
+INFO 2025-11-30 22:18:59,306 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 38060
+INFO 2025-11-30 22:19:29,306 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 38060
+INFO 2025-11-30 22:19:59,292 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 38060
+INFO 2025-11-30 22:20:29,294 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 38060
+INFO 2025-11-30 22:20:29,788 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\models.py changed, reloading.
+INFO 2025-11-30 22:20:30,293 autoreload Watching for file changes with StatReloader
+INFO 2025-11-30 22:20:59,330 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 38060
+INFO 2025-11-30 22:21:41,614 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\admin.py changed, reloading.
+INFO 2025-11-30 22:21:42,143 autoreload Watching for file changes with StatReloader
+INFO 2025-11-30 22:21:50,259 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\admin.py changed, reloading.
+INFO 2025-11-30 22:21:50,778 autoreload Watching for file changes with StatReloader
+INFO 2025-11-30 22:21:59,313 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 38060
+INFO 2025-11-30 22:22:31,646 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\admin.py changed, reloading.
+INFO 2025-11-30 22:22:32,164 autoreload Watching for file changes with StatReloader
+INFO 2025-11-30 22:22:59,328 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 38060
+INFO 2025-11-30 22:23:34,361 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-11-30 22:23:34,968 autoreload Watching for file changes with StatReloader
+INFO 2025-11-30 22:23:59,434 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 38060
+INFO 2025-11-30 22:23:59,883 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-11-30 22:24:00,429 autoreload Watching for file changes with StatReloader
+INFO 2025-11-30 22:24:59,331 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 38060
+INFO 2025-11-30 22:25:18,262 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-11-30 22:25:18,742 autoreload Watching for file changes with StatReloader
+INFO 2025-11-30 22:25:59,332 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 38060
+INFO 2025-11-30 22:26:59,415 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 38060
+INFO 2025-11-30 22:27:03,761 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\witcher_wiki\settings.py changed, reloading.
+INFO 2025-11-30 22:27:04,144 autoreload Watching for file changes with StatReloader
+INFO 2025-11-30 22:27:10,381 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\witcher_wiki\settings.py changed, reloading.
+INFO 2025-11-30 22:27:10,749 autoreload Watching for file changes with StatReloader
+INFO 2025-11-30 22:27:19,005 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\witcher_wiki\settings.py changed, reloading.
+INFO 2025-11-30 22:27:19,363 autoreload Watching for file changes with StatReloader
+INFO 2025-11-30 22:37:48,027 autoreload Watching for file changes with StatReloader
