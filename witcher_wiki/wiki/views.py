@@ -517,12 +517,18 @@ def article_edit(request, slug):
         return render(request, 'wiki/access_denied.html', {
             'message': 'У вас нет прав для редактирования этой статьи.'
         })
+
+    # СОХРАНЯЕМ СТАРОЕ НАЗВАНИЕ ПЕРЕД ОБРАБОТКОЙ ФОРМЫ
+    old_title = article.title
+    old_status = article.status  # Сохраняем старый статус для логирования
+
     ActionLogger.log_action(
         request=request,
         action_type='article_edit_start',
         description=f'Пользователь {request.user.username} начал редактирование статьи "{article.title}"',
         target_object=article
     )
+
     error_message = ""
     success_message = ""
 
@@ -553,6 +559,8 @@ def article_edit(request, slug):
                 article.title = title
                 article.content = content
                 article.excerpt = excerpt
+
+                # ЛОГИРОВАНИЕ С ИСПОЛЬЗОВАНИЕМ old_title
                 ActionLogger.log_action(
                     request=request,
                     action_type='article_edit',
@@ -561,9 +569,10 @@ def article_edit(request, slug):
                     extra_data={
                         'old_title': old_title,
                         'new_title': title,
-                        'status_changed': article.status != old_status if 'old_status' in locals() else False,
+                        'status_changed': article.status != old_status,
                     }
                 )
+
                 # Если статья была отклонена, возвращаем ее на модерацию после редактирования
                 if article.status == 'rejected':
                     article.status = 'review'
@@ -2592,248 +2601,3 @@ def reset_tutorials(request):
 
     messages.success(request, 'Подсказки сброшены')
     return redirect(request.META.get('HTTP_REFERER', 'wiki:home'))
-
-
-@staff_member_required
-def backup_management(request):
-    """Страница управления бэкапами"""
-    from .forms import BackupForm
-    from .models import BackupLog
-
-    backups = BackupLog.objects.all().order_by('-created_at')
-
-    if request.method == 'POST':
-        form = BackupForm(request.POST)
-        if form.is_valid():
-            try:
-                backup = form.save(commit=False)
-                backup.created_by = request.user
-
-                # Создаем бэкап в зависимости от типа
-                backup_data = create_backup_file(backup)
-
-                if backup_data:
-                    backup.logs_count = backup_data['logs_count']
-                    backup.file_size = backup_data['file_size']
-                    backup.backup_file.save(backup_data['filename'], backup_data['content'])
-                    backup.save()
-
-                    # Логируем создание бэкапа
-                    ActionLogger.log_action(
-                        request=request,
-                        action_type='backup_create',
-                        description=f'Создан бэкап логов: {backup.name}',
-                        target_object=backup,
-                        extra_data={
-                            'backup_type': backup.backup_type,
-                            'format': backup.format,
-                            'logs_count': backup.logs_count,
-                            'file_size': backup.file_size,
-                        }
-                    )
-
-                    messages.success(request, f'✅ Бэкап "{backup.name}" успешно создан!')
-                    return redirect('wiki:backup_management')
-                else:
-                    messages.error(request, '❌ Ошибка при создании бэкапа')
-
-            except Exception as e:
-                messages.error(request, f'❌ Ошибка при создании бэкапа: {str(e)}')
-    else:
-        form = BackupForm(initial={
-            'name': f'Backup_{timezone.now().strftime("%Y%m%d_%H%M")}'
-        })
-
-    context = {
-        'form': form,
-        'backups': backups,
-        'total_backups': backups.count(),
-        'total_size': sum(b.file_size for b in backups),
-    }
-    return render(request, 'wiki/backup_management.html', context)
-
-
-def create_backup_file(backup):
-    """Создает файл бэкапа на основе параметров"""
-    from .models import ActionLog
-    import json
-    from io import BytesIO
-
-    # Фильтруем логи по типу бэкапа
-    if backup.backup_type == 'all':
-        logs = ActionLog.objects.all()
-    elif backup.backup_type == 'period':
-        logs = ActionLog.objects.filter(
-            created_at__gte=backup.start_date,
-            created_at__lte=backup.end_date
-        )
-    elif backup.backup_type == 'selected':
-        log_ids = backup.selected_logs
-        if isinstance(log_ids, str):
-            log_ids = json.loads(log_ids)
-        logs = ActionLog.objects.filter(id__in=log_ids)
-    else:
-        return None
-
-    logs = logs.select_related('user').order_by('-created_at')
-
-    if backup.format == 'json':
-        return create_json_backup(logs, backup.name)
-    elif backup.format == 'pdf':
-        return create_pdf_backup(logs, backup.name)
-
-    return None
-
-
-def create_json_backup(logs, backup_name):
-    """Создает JSON бэкап"""
-    from django.http import HttpResponse
-    import json
-    from io import BytesIO
-
-    logs_data = []
-    for log in logs:
-        logs_data.append({
-            'id': log.id,
-            'user': log.user.username if log.user else 'Аноним',
-            'action_type': log.action_type,
-            'action_type_display': log.get_action_type_display(),
-            'description': log.description,
-            'ip_address': log.ip_address,
-            'browser': log.browser,
-            'operating_system': log.operating_system,
-            'action_data': log.action_data,
-            'created_at': log.created_at.isoformat(),
-        })
-
-    json_data = json.dumps(logs_data, ensure_ascii=False, indent=2)
-    content = BytesIO(json_data.encode('utf-8'))
-
-    return {
-        'logs_count': len(logs_data),
-        'file_size': len(json_data),
-        'filename': f'{backup_name}.json',
-        'content': content,
-    }
-
-
-def create_pdf_backup(logs, backup_name):
-    """Создает PDF бэкап"""
-    from reportlab.pdfgen import canvas
-    from reportlab.lib.pagesizes import A4
-    from reportlab.lib import colors
-    from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph
-    from reportlab.lib.styles import getSampleStyleSheet
-    from io import BytesIO
-
-    buffer = BytesIO()
-    doc = SimpleDocTemplate(buffer, pagesize=A4)
-    elements = []
-    styles = getSampleStyleSheet()
-
-    # Заголовок
-    title = Paragraph(f"Бэкап логов: {backup_name}", styles['Title'])
-    elements.append(title)
-
-    # Информация о бэкапе
-    info_data = [
-        ['Дата создания:', timezone.now().strftime('%d.%m.%Y %H:%M')],
-        ['Количество записей:', str(len(logs))],
-        ['Период:',
-         f"{logs.last().created_at.strftime('%d.%m.%Y') if logs else 'N/A'} - {logs.first().created_at.strftime('%d.%m.%Y') if logs else 'N/A'}"],
-    ]
-
-    info_table = Table(info_data, colWidths=[150, 300])
-    info_table.setStyle(TableStyle([
-        ('FONTNAME', (0, 0), (-1, -1), 'Helvetica'),
-        ('FONTSIZE', (0, 0), (-1, -1), 10),
-        ('BACKGROUND', (0, 0), (0, -1), colors.lightgrey),
-    ]))
-    elements.append(info_table)
-
-    elements.append(Paragraph("<br/>", styles['Normal']))
-
-    # Данные логов
-    if logs:
-        data = [['Дата', 'Пользователь', 'Тип действия', 'Описание', 'IP']]
-
-        for log in logs:
-            data.append([
-                log.created_at.strftime('%d.%m.%Y %H:%M'),
-                log.user.username if log.user else 'Аноним',
-                log.get_action_type_display(),
-                log.description[:40] + '...' if len(log.description) > 40 else log.description,
-                log.ip_address or '-'
-            ])
-
-        table = Table(data, repeatRows=1)
-        table.setStyle(TableStyle([
-            ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
-            ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
-            ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
-            ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
-            ('FONTSIZE', (0, 0), (-1, 0), 9),
-            ('BOTTOMPADDING', (0, 0), (-1, 0), 6),
-            ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
-            ('FONTNAME', (0, 1), (-1, -1), 'Helvetica'),
-            ('FONTSIZE', (0, 1), (-1, -1), 8),
-            ('GRID', (0, 0), (-1, -1), 0.5, colors.black)
-        ]))
-
-        elements.append(table)
-
-    doc.build(elements)
-    buffer.seek(0)
-
-    return {
-        'logs_count': len(logs),
-        'file_size': len(buffer.getvalue()),
-        'filename': f'{backup_name}.pdf',
-        'content': buffer,
-    }
-
-
-@staff_member_required
-def download_backup(request, backup_id):
-    """Скачивание бэкапа"""
-    from .models import BackupLog
-
-    backup = get_object_or_404(BackupLog, id=backup_id)
-
-    if backup.backup_file:
-        # Логируем скачивание
-        ActionLogger.log_action(
-            request=request,
-            action_type='backup_download',
-            description=f'Скачан бэкап: {backup.name}',
-            target_object=backup
-        )
-
-        response = HttpResponse(backup.backup_file, content_type='application/octet-stream')
-        response['Content-Disposition'] = f'attachment; filename="{backup.backup_file.name}"'
-        return response
-
-    messages.error(request, 'Файл бэкапа не найден')
-    return redirect('wiki:backup_management')
-
-
-@staff_member_required
-def delete_backup(request, backup_id):
-    """Удаление бэкапа"""
-    from .models import BackupLog
-
-    if request.method == 'POST':
-        backup = get_object_or_404(BackupLog, id=backup_id)
-        backup_name = backup.name
-
-        # Логируем удаление
-        ActionLogger.log_action(
-            request=request,
-            action_type='backup_delete',
-            description=f'Удален бэкап: {backup_name}'
-        )
-
-        backup.delete()
-        messages.success(request, f'✅ Бэкап "{backup_name}" удален')
-
-    return redirect('wiki:backup_management')

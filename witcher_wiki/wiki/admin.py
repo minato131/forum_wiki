@@ -1,4 +1,4 @@
-from .models import Article, Category, Comment, UserProfile, ArticleMedia, ModerationComment, ArticleRevision, BackupLog
+from .models import Article, Category, Comment, UserProfile, ArticleMedia, ModerationComment, ArticleRevision
 from .models import AuthCode
 from django.contrib.auth.models import Group
 from django.contrib import admin
@@ -347,56 +347,5 @@ class ActionLogAdmin(admin.ModelAdmin):
         return super().changelist_view(request, extra_context=extra_context)
 
 
-@admin.register(BackupLog)
-class BackupLogAdmin(admin.ModelAdmin):
-    """Админ-панель для бэкапов"""
-
-    list_display = [
-        'name',
-        'backup_type_display',
-        'format_display',
-        'logs_count',
-        'file_size_display',
-        'created_by',
-        'created_at'
-    ]
-
-    list_filter = [
-        'backup_type',
-        'format',
-        'created_at',
-        'created_by'
-    ]
-
-    readonly_fields = [
-        'logs_count',
-        'file_size',
-        'created_by',
-        'created_at',
-        'file_size_display'
-    ]
-
-    def backup_type_display(self, obj):
-        return obj.get_backup_type_display()
-
-    backup_type_display.short_description = 'Тип'
-
-    def format_display(self, obj):
-        return obj.get_format_display()
-
-    format_display.short_description = 'Формат'
-
-    def file_size_display(self, obj):
-        return obj.get_file_size_display()
-
-    file_size_display.short_description = 'Размер'
-
-    # Запрещаем добавление через админку
-    def has_add_permission(self, request):
-        return False
-
-    # Запрещаем изменение через админку
-    def has_change_permission(self, request, obj=None):
-        return False
 admin.site.unregister(Group)
 admin.site.register(Group, CustomGroupAdmin)

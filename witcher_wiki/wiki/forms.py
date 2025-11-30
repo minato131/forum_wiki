@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django.db.models import Q
 
 from django_ckeditor_5.widgets import CKEditor5Widget
-from .models import Article, Comment, Category, ArticleMedia
+from .models import Article, Comment, Category, ArticleMedia, ActionLog
 from .models import UserProfile
 from django.core.validators import FileExtensionValidator
 from .models import Message
@@ -15,7 +15,6 @@ from .models import EmailVerification, TelegramVerification
 from django.core.mail import send_mail
 from django.conf import settings
 from django import forms
-from .models import BackupLog
 
 
 class ArticleForm(forms.ModelForm):
@@ -701,69 +700,39 @@ class TelegramConnectForm(forms.Form):
     )
 
 
-class BackupForm(forms.ModelForm):
-    """Форма для создания бэкапа"""
-
-    BACKUP_CHOICES = [
-        ('all', '🔮 Все логи (полный бэкап)'),
-        ('selected', '🎯 Выбранные записи (вручную)'),
-        ('period', '📅 За период (по дате)'),
-    ]
-
-    FORMAT_CHOICES = [
-        ('json', '📄 JSON (рекомендуется)'),
-        ('pdf', '📊 PDF (для печати)'),
-    ]
-
-    backup_type = forms.ChoiceField(
-        choices=BACKUP_CHOICES,
-        widget=forms.RadioSelect,
-        label='Тип бэкапа'
-    )
-
-    format = forms.ChoiceField(
-        choices=FORMAT_CHOICES,
-        widget=forms.RadioSelect,
-        label='Формат экспорта'
-    )
-
-    start_date = forms.DateTimeField(
+class LogFilterForm(forms.Form):
+    """Форма для фильтрации логов"""
+    user = forms.ModelChoiceField(
+        queryset=User.objects.none(),
         required=False,
-        widget=forms.DateTimeInput(attrs={'type': 'datetime-local'}),
-        label='С даты'
+        label='Пользователь',
+        widget=forms.Select(attrs={'class': 'form-control'})
     )
-
-    end_date = forms.DateTimeField(
+    action_type = forms.ChoiceField(
+        choices=[('', 'Все типы')] + ActionLog.ACTION_TYPES,
         required=False,
-        widget=forms.DateTimeInput(attrs={'type': 'datetime-local'}),
-        label='По дату'
+        label='Тип действия',
+        widget=forms.Select(attrs={'class': 'form-control'})
     )
-
-    selected_logs = forms.CharField(
+    ip_address = forms.CharField(
         required=False,
-        widget=forms.HiddenInput(),
-        label='Выбранные логи'
+        label='IP адрес',
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': '127.0.0.1'})
+    )
+    date_from = forms.DateTimeField(
+        required=False,
+        label='Дата начала',
+        widget=forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'datetime-local'})
+    )
+    date_to = forms.DateTimeField(
+        required=False,
+        label='Дата окончания',
+        widget=forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'datetime-local'})
     )
 
-    class Meta:
-        model = BackupLog
-        fields = ['name', 'backup_type', 'format', 'start_date', 'end_date', 'selected_logs']
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Динамически обновляем queryset для пользователей
+        self.fields['user'].queryset = User.objects.filter(actionlog__isnull=False).distinct()
 
-    def clean(self):
-        cleaned_data = super().clean()
-        backup_type = cleaned_data.get('backup_type')
-        start_date = cleaned_data.get('start_date')
-        end_date = cleaned_data.get('end_date')
-        selected_logs = cleaned_data.get('selected_logs')
 
-        if backup_type == 'period':
-            if not start_date or not end_date:
-                raise forms.ValidationError('Для бэкапа за период необходимо указать начальную и конечную дату.')
-            if start_date > end_date:
-                raise forms.ValidationError('Начальная дата не может быть больше конечной.')
-
-        elif backup_type == 'selected':
-            if not selected_logs:
-                raise forms.ValidationError('Для выборочного бэкапа необходимо выбрать хотя бы одну запись.')
-
-        return cleaned_data

@@ -8,7 +8,7 @@
     <div class="row">
         <div class="col-12">
             <h1 class="mb-4">📊 Журнал действий пользователей</h1>
-            
+
             <!-- Фильтры -->
             <div class="card mb-4">
                 <div class="card-body">
@@ -18,7 +18,7 @@
                             <select name="action_type" id="action_type" class="form-select">
                                 <option value="">Все типы</option>
                                 {% for action_type in action_types %}
-                                    <option value="{{ action_type.0 }}" 
+                                    <option value="{{ action_type.0 }}"
                                             {% if filters.action_type == action_type.0 %}selected{% endif %}>
                                         {{ action_type.1 }}
                                     </option>
@@ -30,7 +30,7 @@
                             <select name="user" id="user" class="form-select">
                                 <option value="">Все пользователи</option>
                                 {% for user in users %}
-                                    <option value="{{ user.id }}" 
+                                    <option value="{{ user.id }}"
                                             {% if filters.user_id == user.id|stringformat:"s" %}selected{% endif %}>
                                         {{ user.username }}
                                     </option>
@@ -39,18 +39,18 @@
                         </div>
                         <div class="col-md-3">
                             <label for="date_from" class="form-label">С даты</label>
-                            <input type="date" name="date_from" id="date_from" 
+                            <input type="date" name="date_from" id="date_from"
                                    class="form-control" value="{{ filters.date_from }}">
                         </div>
                         <div class="col-md-3">
                             <label for="date_to" class="form-label">По дату</label>
-                            <input type="date" name="date_to" id="date_to" 
+                            <input type="date" name="date_to" id="date_to"
                                    class="form-control" value="{{ filters.date_to }}">
                         </div>
                         <div class="col-12">
                             <button type="submit" class="btn btn-primary">Применить фильтры</button>
                             <a href="{% url 'wiki:action_logs' %}" class="btn btn-secondary">Сбросить</a>
-                            <a href="{% url 'wiki:export_logs_json' %}?{{ request.GET.urlencode }}" 
+                            <a href="{% url 'wiki:export_logs_json' %}?{{ request.GET.urlencode }}"
                                class="btn btn-success">📄 Экспорт в JSON</a>
                         </div>
                     </form>

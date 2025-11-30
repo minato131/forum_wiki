@@ -18599,3 +18599,295 @@ Traceback (most recent call last):
                                                                                ^^^^^^^^^
 NameError: name 'old_title' is not defined
 ERROR 2025-12-01 01:40:48,945 basehttp "POST /article/vv/edit/ HTTP/1.1" 500 85279
+INFO 2025-12-01 01:46:49,943 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-01 01:46:50,560 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 01:48:04,030 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\forms.py changed, reloading.
+INFO 2025-12-01 01:48:04,646 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 01:48:29,786 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 01:48:31,481 basehttp "GET / HTTP/1.1" 200 40105
+INFO 2025-12-01 01:48:31,548 basehttp "GET /static/css/style.css HTTP/1.1" 304 0
+INFO 2025-12-01 01:48:31,549 basehttp "GET /static/css/tutorials.css HTTP/1.1" 304 0
+INFO 2025-12-01 01:48:31,549 basehttp "GET /static/js/tutorials.js HTTP/1.1" 304 0
+INFO 2025-12-01 01:48:31,605 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 01:48:35,045 basehttp "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-12-01 01:48:35,083 basehttp "GET / HTTP/1.1" 200 33522
+INFO 2025-12-01 01:48:35,685 basehttp "GET /login/ HTTP/1.1" 200 32580
+INFO 2025-12-01 01:48:39,862 basehttp "POST /login/ HTTP/1.1" 302 0
+INFO 2025-12-01 01:48:39,911 basehttp "GET / HTTP/1.1" 200 35969
+INFO 2025-12-01 01:48:39,974 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320
+INFO 2025-12-01 01:48:40,762 basehttp "GET /admin/ HTTP/1.1" 200 18251
+INFO 2025-12-01 01:48:42,457 basehttp "GET /admin/wiki/backuplog/ HTTP/1.1" 200 16353
+INFO 2025-12-01 01:48:42,503 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-01 01:48:48,993 basehttp "GET /admin/wiki/actionlog/ HTTP/1.1" 200 92715
+INFO 2025-12-01 01:48:49,039 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-01 01:48:50,375 basehttp "GET /admin/wiki/backuplog/ HTTP/1.1" 200 16353
+INFO 2025-12-01 01:48:50,525 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-01 01:48:58,654 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-01 01:48:59,508 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 01:49:08,107 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\forms.py changed, reloading.
+INFO 2025-12-01 01:49:08,642 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 01:49:11,012 basehttp "GET / HTTP/1.1" 200 35969
+INFO 2025-12-01 01:49:11,245 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320
+INFO 2025-12-01 01:49:12,860 basehttp "GET /admin/ HTTP/1.1" 200 18251
+INFO 2025-12-01 01:49:14,592 basehttp "GET /admin/wiki/backuplog/ HTTP/1.1" 200 16353
+INFO 2025-12-01 01:49:14,639 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-01 01:50:13,026 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\forms.py changed, reloading.
+INFO 2025-12-01 01:50:13,616 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 01:50:39,222 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\forms.py changed, reloading.
+INFO 2025-12-01 01:50:39,919 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 01:50:52,271 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\forms.py changed, reloading.
+INFO 2025-12-01 01:50:52,970 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 01:50:59,336 basehttp "GET / HTTP/1.1" 200 35969
+INFO 2025-12-01 01:50:59,469 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320
+INFO 2025-12-01 01:51:02,355 basehttp "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-12-01 01:51:02,390 basehttp "GET / HTTP/1.1" 200 33522
+INFO 2025-12-01 01:51:02,898 basehttp "GET /login/ HTTP/1.1" 200 32341
+INFO 2025-12-01 01:51:05,348 basehttp "POST /login/ HTTP/1.1" 302 0
+INFO 2025-12-01 01:51:05,397 basehttp "GET / HTTP/1.1" 200 40105
+INFO 2025-12-01 01:51:05,553 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 01:51:06,172 basehttp "GET /my-articles/ HTTP/1.1" 200 49095
+INFO 2025-12-01 01:51:06,236 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 01:51:08,583 basehttp "GET /article/vv/edit/ HTTP/1.1" 200 49838
+INFO 2025-12-01 01:51:08,645 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 01:51:15,570 basehttp "POST /article/vv/edit/ HTTP/1.1" 302 0
+INFO 2025-12-01 01:51:15,631 basehttp "GET /article/vv/ HTTP/1.1" 200 68288
+INFO 2025-12-01 01:51:15,692 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 01:51:15,744 basehttp "GET /media/article_media/video_2025-10-24_22-30-32_rEp46mr.mp4 HTTP/1.1" 200 324946
+INFO 2025-12-01 01:51:35,517 basehttp "POST /article/vv/resubmit/ HTTP/1.1" 302 0
+INFO 2025-12-01 01:51:35,572 basehttp "GET /article/vv/ HTTP/1.1" 200 34981
+INFO 2025-12-01 01:51:35,596 basehttp "GET /static/css/tutorials.css HTTP/1.1" 304 0
+INFO 2025-12-01 01:51:35,596 basehttp "GET /static/js/tutorials.js HTTP/1.1" 304 0
+INFO 2025-12-01 01:51:35,642 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 01:51:38,430 basehttp "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-12-01 01:51:38,465 basehttp "GET / HTTP/1.1" 200 33522
+INFO 2025-12-01 01:51:38,918 basehttp "GET /login/ HTTP/1.1" 200 32545
+INFO 2025-12-01 01:51:41,453 basehttp "POST /login/ HTTP/1.1" 302 0
+INFO 2025-12-01 01:51:41,500 basehttp "GET / HTTP/1.1" 200 40404
+INFO 2025-12-01 01:51:41,655 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43755
+INFO 2025-12-01 01:51:42,953 basehttp "GET /moderation/ HTTP/1.1" 200 38149
+INFO 2025-12-01 01:51:43,011 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43755
+INFO 2025-12-01 01:51:45,629 basehttp "GET /editor/dashboard/ HTTP/1.1" 200 35251
+INFO 2025-12-01 01:51:45,686 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43755
+INFO 2025-12-01 01:51:46,921 basehttp "GET /moderation/ HTTP/1.1" 200 38149
+INFO 2025-12-01 01:51:46,977 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43755
+INFO 2025-12-01 01:51:48,301 basehttp "GET /article/vv/moderate/enhanced/ HTTP/1.1" 200 49012
+INFO 2025-12-01 01:51:48,454 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43755
+INFO 2025-12-01 01:51:50,549 basehttp "POST /article/vv/moderate/enhanced/ HTTP/1.1" 302 0
+INFO 2025-12-01 01:51:50,691 basehttp "GET /moderation/ HTTP/1.1" 200 37691
+INFO 2025-12-01 01:51:50,842 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43755
+INFO 2025-12-01 01:51:53,325 basehttp "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-12-01 01:51:53,362 basehttp "GET / HTTP/1.1" 200 33730
+INFO 2025-12-01 01:51:53,818 basehttp "GET /login/ HTTP/1.1" 200 32341
+INFO 2025-12-01 01:51:56,137 basehttp "POST /login/ HTTP/1.1" 302 0
+INFO 2025-12-01 01:51:56,287 basehttp "GET / HTTP/1.1" 200 40313
+INFO 2025-12-01 01:51:56,344 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 01:51:56,880 basehttp "GET /my-articles/ HTTP/1.1" 200 48154
+INFO 2025-12-01 01:51:56,936 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 01:51:58,918 basehttp "GET /article/vv/ HTTP/1.1" 200 66386
+INFO 2025-12-01 01:51:59,035 basehttp "GET /media/article_media/video_2025-10-24_22-30-32_rEp46mr.mp4 HTTP/1.1" 200 324946
+INFO 2025-12-01 01:51:59,041 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 01:52:28,985 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 01:52:59,420 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 01:53:22,267 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 01:53:24,301 basehttp "GET / HTTP/1.1" 200 40313
+INFO 2025-12-01 01:53:24,427 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 01:53:27,235 basehttp "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-12-01 01:53:27,281 basehttp "GET / HTTP/1.1" 200 33730
+INFO 2025-12-01 01:53:27,797 basehttp "GET /login/ HTTP/1.1" 200 32341
+INFO 2025-12-01 01:53:30,334 basehttp "POST /login/ HTTP/1.1" 302 0
+INFO 2025-12-01 01:53:30,486 basehttp "GET / HTTP/1.1" 200 36177
+INFO 2025-12-01 01:53:30,547 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320
+INFO 2025-12-01 01:53:31,302 basehttp "GET /admin/ HTTP/1.1" 200 18251
+INFO 2025-12-01 01:53:33,831 basehttp "GET /admin/wiki/backuplog/ HTTP/1.1" 200 16353
+INFO 2025-12-01 01:53:33,878 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-01 01:53:36,363 basehttp "GET /admin/wiki/backuplog/?backup_type__exact=all HTTP/1.1" 200 16847
+INFO 2025-12-01 01:53:36,403 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-01 01:53:37,565 basehttp "GET /admin/wiki/backuplog/?backup_type__exact=selected HTTP/1.1" 200 16922
+INFO 2025-12-01 01:53:37,607 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-01 01:53:38,470 basehttp "GET /admin/wiki/backuplog/?backup_type__exact=period HTTP/1.1" 200 16892
+INFO 2025-12-01 01:53:38,508 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-01 01:53:48,280 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\forms.py changed, reloading.
+INFO 2025-12-01 01:53:49,003 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 01:54:03,346 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-01 01:54:03,948 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 01:54:17,725 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-01 01:54:18,431 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 01:54:37,977 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\models.py changed, reloading.
+INFO 2025-12-01 01:54:38,524 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 01:54:40,410 basehttp "GET / HTTP/1.1" 200 36177
+INFO 2025-12-01 01:54:40,542 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320
+INFO 2025-12-01 01:54:41,481 basehttp "GET /admin/ HTTP/1.1" 200 18251
+INFO 2025-12-01 01:54:42,785 basehttp "GET /admin/wiki/backuplog/ HTTP/1.1" 200 16353
+INFO 2025-12-01 01:54:42,834 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-01 02:14:30,244 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\forms.py changed, reloading.
+INFO 2025-12-01 02:14:30,933 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 02:14:40,726 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 02:15:10,688 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 02:15:17,184 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 02:15:18,912 basehttp "GET / HTTP/1.1" 200 40099
+INFO 2025-12-01 02:15:18,983 basehttp "GET /static/js/tutorials.js HTTP/1.1" 304 0
+INFO 2025-12-01 02:15:18,983 basehttp "GET /static/css/tutorials.css HTTP/1.1" 304 0
+INFO 2025-12-01 02:15:19,038 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 02:15:21,584 basehttp "GET /my-articles/ HTTP/1.1" 200 51056
+INFO 2025-12-01 02:15:21,736 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 02:15:22,907 basehttp "GET /article/yy/edit/ HTTP/1.1" 200 49915
+INFO 2025-12-01 02:15:22,966 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 02:15:28,657 basehttp "POST /article/yy/edit/ HTTP/1.1" 302 0
+INFO 2025-12-01 02:15:28,700 basehttp "GET /article/yy/ HTTP/1.1" 200 34981
+INFO 2025-12-01 02:15:28,713 basehttp "GET /static/css/tutorials.css HTTP/1.1" 304 0
+INFO 2025-12-01 02:15:28,713 basehttp "GET /static/js/tutorials.js HTTP/1.1" 304 0
+INFO 2025-12-01 02:15:28,756 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 02:15:31,693 basehttp "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-12-01 02:15:31,729 basehttp "GET / HTTP/1.1" 200 33516
+INFO 2025-12-01 02:15:32,266 basehttp "GET /login/ HTTP/1.1" 200 32490
+INFO 2025-12-01 02:15:34,721 basehttp "POST /login/ HTTP/1.1" 302 0
+INFO 2025-12-01 02:15:34,867 basehttp "GET / HTTP/1.1" 200 40398
+INFO 2025-12-01 02:15:35,031 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43755
+INFO 2025-12-01 02:15:36,363 basehttp "GET /moderation/ HTTP/1.1" 200 38149
+INFO 2025-12-01 02:15:36,416 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43755
+INFO 2025-12-01 02:15:37,359 basehttp "GET /article/yy/moderate/enhanced/ HTTP/1.1" 200 48996
+INFO 2025-12-01 02:15:37,510 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43755
+INFO 2025-12-01 02:15:39,875 basehttp "POST /article/yy/moderate/enhanced/ HTTP/1.1" 302 0
+INFO 2025-12-01 02:15:39,917 basehttp "GET /moderation/ HTTP/1.1" 200 37691
+INFO 2025-12-01 02:15:39,929 basehttp "GET /static/css/tutorials.css HTTP/1.1" 304 0
+INFO 2025-12-01 02:15:39,929 basehttp "GET /static/js/tutorials.js HTTP/1.1" 304 0
+INFO 2025-12-01 02:15:39,985 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43755
+INFO 2025-12-01 02:15:42,622 basehttp "GET / HTTP/1.1" 200 40606
+INFO 2025-12-01 02:15:42,677 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43755
+INFO 2025-12-01 02:15:43,774 basehttp "GET /article/yy/ HTTP/1.1" 200 65854
+INFO 2025-12-01 02:15:43,866 basehttp "GET /media/article_media/video_2025-10-24_22-30-32_KUODQlZ.mp4 HTTP/1.1" 200 324946
+INFO 2025-12-01 02:15:43,944 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43755
+INFO 2025-12-01 02:15:51,783 basehttp "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-12-01 02:15:51,821 basehttp "GET / HTTP/1.1" 200 33724
+INFO 2025-12-01 02:15:51,845 basehttp "GET /static/css/tutorials.css HTTP/1.1" 304 0
+INFO 2025-12-01 02:15:51,845 basehttp "GET /static/js/tutorials.js HTTP/1.1" 304 0
+INFO 2025-12-01 02:15:52,667 basehttp "GET /login/ HTTP/1.1" 200 32341
+INFO 2025-12-01 02:15:54,694 basehttp "POST /login/ HTTP/1.1" 302 0
+INFO 2025-12-01 02:15:54,740 basehttp "GET / HTTP/1.1" 200 40307
+INFO 2025-12-01 02:15:54,798 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 02:15:55,709 basehttp "GET /article/create/ HTTP/1.1" 200 37676
+INFO 2025-12-01 02:15:55,763 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 02:15:57,155 basehttp "POST /article/create/ HTTP/1.1" 200 65070
+INFO 2025-12-01 02:15:57,214 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+ERROR 2025-12-01 02:16:09,907 log Internal Server Error: /article/create/
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py", line 387, in article_create
+    'tags_count': len(tags_list) if tags_input else 0,
+                      ^^^^^^^^^
+UnboundLocalError: cannot access local variable 'tags_list' where it is not associated with a value
+ERROR 2025-12-01 02:16:09,910 basehttp "POST /article/create/ HTTP/1.1" 500 85992
+INFO 2025-12-01 02:16:29,095 basehttp "POST /article/create/ HTTP/1.1" 200 65129
+INFO 2025-12-01 02:16:29,109 basehttp "GET /static/css/tutorials.css HTTP/1.1" 304 0
+INFO 2025-12-01 02:16:29,109 basehttp "GET /static/js/tutorials.js HTTP/1.1" 304 0
+INFO 2025-12-01 02:16:29,163 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 02:16:32,151 basehttp "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-12-01 02:16:32,191 basehttp "GET / HTTP/1.1" 200 33724
+INFO 2025-12-01 02:16:32,761 basehttp "GET /login/ HTTP/1.1" 200 32341
+INFO 2025-12-01 02:16:35,042 basehttp "POST /login/ HTTP/1.1" 302 0
+INFO 2025-12-01 02:16:35,089 basehttp "GET / HTTP/1.1" 200 40606
+INFO 2025-12-01 02:16:35,147 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43755
+INFO 2025-12-01 02:16:36,820 basehttp "GET /moderation/ HTTP/1.1" 200 39174
+INFO 2025-12-01 02:16:36,985 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43755
+INFO 2025-12-01 02:16:38,275 basehttp "GET /article/yy-2/moderate/enhanced/ HTTP/1.1" 200 49004
+INFO 2025-12-01 02:16:38,336 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43755
+INFO 2025-12-01 02:16:40,121 basehttp "POST /article/yy-2/moderate/enhanced/ HTTP/1.1" 302 0
+INFO 2025-12-01 02:16:40,163 basehttp "GET /moderation/ HTTP/1.1" 200 38471
+INFO 2025-12-01 02:16:40,323 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43755
+INFO 2025-12-01 02:16:42,111 basehttp "GET / HTTP/1.1" 200 40816
+INFO 2025-12-01 02:16:42,176 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43755
+INFO 2025-12-01 02:16:43,483 basehttp "GET /article/yy-2/ HTTP/1.1" 200 65866
+INFO 2025-12-01 02:16:43,551 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43755
+INFO 2025-12-01 02:16:43,585 basehttp "GET /media/article_media/video_2025-10-24_04-01-06_gbkgZVa.mp4 HTTP/1.1" 200 7061773
+INFO 2025-12-01 02:16:55,352 basehttp "GET / HTTP/1.1" 200 40816
+INFO 2025-12-01 02:16:55,376 basehttp "GET /static/js/tutorials.js HTTP/1.1" 304 0
+INFO 2025-12-01 02:16:55,376 basehttp "GET /static/css/tutorials.css HTTP/1.1" 304 0
+INFO 2025-12-01 02:16:55,420 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43755
+INFO 2025-12-01 02:16:59,215 basehttp "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-12-01 02:16:59,251 basehttp "GET / HTTP/1.1" 200 33934
+INFO 2025-12-01 02:16:59,788 basehttp "GET /login/ HTTP/1.1" 200 32341
+INFO 2025-12-01 02:17:02,042 basehttp "POST /login/ HTTP/1.1" 302 0
+INFO 2025-12-01 02:17:02,088 basehttp "GET / HTTP/1.1" 200 36381
+INFO 2025-12-01 02:17:02,144 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320
+INFO 2025-12-01 02:17:02,670 basehttp "GET /admin/ HTTP/1.1" 200 18057
+INFO 2025-12-01 02:17:04,763 basehttp "GET /admin/wiki/backuplog/ HTTP/1.1" 200 16353
+INFO 2025-12-01 02:17:04,807 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-01 02:17:28,189 basehttp "GET / HTTP/1.1" 200 36381
+INFO 2025-12-01 02:17:28,263 basehttp "GET /static/js/tutorials.js HTTP/1.1" 304 0
+INFO 2025-12-01 02:17:28,263 basehttp "GET /static/css/tutorials.css HTTP/1.1" 304 0
+INFO 2025-12-01 02:17:28,318 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320
+INFO 2025-12-01 02:17:28,915 basehttp "GET /admin/ HTTP/1.1" 200 18057
+INFO 2025-12-01 02:19:54,751 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-01 02:19:55,516 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 02:21:22,250 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\forms.py changed, reloading.
+INFO 2025-12-01 02:21:22,863 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 02:25:49,698 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 02:26:40,325 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\models.py changed, reloading.
+INFO 2025-12-01 02:26:40,821 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 02:26:43,312 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 02:26:45,241 basehttp "GET / HTTP/1.1" 200 36381
+INFO 2025-12-01 02:26:45,317 basehttp "GET /static/js/tutorials.js HTTP/1.1" 304 0
+INFO 2025-12-01 02:26:45,317 basehttp "GET /static/css/tutorials.css HTTP/1.1" 304 0
+INFO 2025-12-01 02:26:45,379 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320
+INFO 2025-12-01 02:26:46,769 basehttp "GET /admin/ HTTP/1.1" 200 18057
+INFO 2025-12-01 02:26:48,323 basehttp "GET /admin/wiki/backuplog/ HTTP/1.1" 200 16353
+INFO 2025-12-01 02:26:48,371 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-01 02:26:49,031 basehttp "GET /admin/ HTTP/1.1" 200 18057
+INFO 2025-12-01 02:26:50,463 basehttp "GET /admin/wiki/actionlog/ HTTP/1.1" 200 93471
+INFO 2025-12-01 02:26:50,508 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-01 02:26:59,411 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320
+INFO 2025-12-01 02:27:04,214 basehttp "GET /admin/wiki/backuplog/ HTTP/1.1" 200 16353
+INFO 2025-12-01 02:27:04,254 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-01 02:27:29,288 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320
+INFO 2025-12-01 02:27:59,301 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320
+INFO 2025-12-01 02:28:15,125 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\models.py changed, reloading.
+INFO 2025-12-01 02:29:03,628 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 02:29:38,101 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\admin.py changed, reloading.
+INFO 2025-12-01 02:29:38,509 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 02:32:29,408 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 02:33:08,940 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\admin.py changed, reloading.
+INFO 2025-12-01 02:33:09,439 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 02:33:12,597 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 02:33:29,128 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-01 02:33:29,852 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 02:33:44,217 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 02:33:54,625 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\forms.py changed, reloading.
+INFO 2025-12-01 02:33:55,145 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 02:33:56,833 basehttp "GET / HTTP/1.1" 200 36381
+INFO 2025-12-01 02:33:56,904 basehttp "GET /static/css/tutorials.css HTTP/1.1" 304 0
+INFO 2025-12-01 02:33:56,904 basehttp "GET /static/js/tutorials.js HTTP/1.1" 304 0
+INFO 2025-12-01 02:33:56,961 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320
+INFO 2025-12-01 02:33:57,814 basehttp "GET /admin/ HTTP/1.1" 200 17523
+INFO 2025-12-01 02:33:59,869 basehttp "GET /admin/wiki/actionlog/ HTTP/1.1" 200 93143
+INFO 2025-12-01 02:33:59,917 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-01 02:34:01,802 basehttp "GET /admin/ HTTP/1.1" 200 17523
+INFO 2025-12-01 02:38:20,656 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 02:38:22,333 basehttp "GET / HTTP/1.1" 200 36438
+INFO 2025-12-01 02:38:22,403 basehttp "GET /static/css/tutorials.css HTTP/1.1" 304 0
+INFO 2025-12-01 02:38:22,403 basehttp "GET /static/js/tutorials.js HTTP/1.1" 304 0
+INFO 2025-12-01 02:38:22,428 basehttp "GET /static/js/media-controls.js HTTP/1.1" 200 2189
+INFO 2025-12-01 02:38:22,474 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39377
+INFO 2025-12-01 02:38:24,211 basehttp "GET /article/yy-2/ HTTP/1.1" 200 61488
+INFO 2025-12-01 02:38:24,226 basehttp "GET /static/js/media-controls.js HTTP/1.1" 304 0
+INFO 2025-12-01 02:38:24,284 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39377
+INFO 2025-12-01 02:38:24,340 basehttp "GET /media/article_media/video_2025-10-24_04-01-06_gbkgZVa.mp4 HTTP/1.1" 200 7061773
+INFO 2025-12-01 02:39:06,330 basehttp "GET / HTTP/1.1" 200 36381
+INFO 2025-12-01 02:39:06,392 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320
+INFO 2025-12-01 02:39:30,607 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 02:39:32,284 basehttp "GET / HTTP/1.1" 200 36381
+INFO 2025-12-01 02:39:32,410 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320
+INFO 2025-12-01 02:39:34,560 basehttp "GET /admin/ HTTP/1.1" 200 17523
+INFO 2025-12-01 02:39:37,300 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320
+INFO 2025-12-01 02:39:38,757 basehttp "GET /article/yy/ HTTP/1.1" 200 61419
+INFO 2025-12-01 02:39:38,818 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320
+INFO 2025-12-01 02:39:38,962 basehttp "GET /media/article_media/video_2025-10-24_22-30-32_KUODQlZ.mp4 HTTP/1.1" 200 324946
+INFO 2025-12-01 02:40:08,819 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320
+INFO 2025-12-01 02:40:39,290 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320

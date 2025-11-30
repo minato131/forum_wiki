@@ -117,7 +117,4 @@ urlpatterns = [
     path('tutorial/mark-seen/<str:tutorial_type>/', views.mark_tutorial_seen, name='mark_tutorial_seen'),
     path('tutorial/disable/', views.disable_tutorials, name='disable_tutorials'),
     path('tutorial/reset/', views.reset_tutorials, name='reset_tutorials'),
-    path('admin/backups/', views.backup_management, name='backup_management'),
-    path('admin/backups/<int:backup_id>/download/', views.download_backup, name='download_backup'),
-    path('admin/backups/<int:backup_id>/delete/', views.delete_backup, name='delete_backup'),
 ]
