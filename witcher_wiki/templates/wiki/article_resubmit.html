@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Отправка на модерацию - {{ article.title }}{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <div class="card">
+                <div class="card-header">
+                    <h3>📤 Отправка статьи на модерацию</h3>
+                </div>
+                <div class="card-body">
+                    <p>Вы собираетесь отправить статью <strong>"{{ article.title }}"</strong> на модерацию.</p>
+                    <p>После отправки вы не сможете редактировать статью до завершения проверки модератором.</p>
+                    
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="form-group mt-4">
+                            <button type="submit" class="btn btn-warning btn-lg">
+                                <i class="fas fa-paper-plane"></i> Отправить на модерацию
+                            </button>
+                            <a href="{% url 'wiki:article_detail' article.slug %}" class="btn btn-secondary btn-lg">
+                                Отмена
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

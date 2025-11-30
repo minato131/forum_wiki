@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}Удаление статьи - {{ article.title }}{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <div class="card">
+                <div class="card-header bg-danger text-white">
+                    <h3>🗑️ Удаление статьи</h3>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-danger">
+                        <h4>Внимание!</h4>
+                        <p>Вы собираетесь удалить статью <strong>"{{ article.title }}"</strong>.</p>
+                        <p class="mb-0"><strong>Это действие нельзя отменить!</strong> Все данные статьи будут безвозвратно удалены.</p>
+                    </div>
+                    
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="form-group mt-4">
+                            <button type="submit" class="btn btn-danger btn-lg" 
+                                    onclick="return confirm('Вы точно уверены? Это действие необратимо!')">
+                                <i class="fas fa-trash"></i> Удалить статью
+                            </button>
+                            <a href="{% url 'wiki:article_detail' article.slug %}" class="btn btn-secondary btn-lg">
+                                Отмена
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
