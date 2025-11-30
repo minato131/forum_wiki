@@ -857,6 +857,9 @@
         <a href="{% url 'wiki:article_edit' article.slug %}" class="btn">
             ✏️ Редактировать
         </a>
+        <a href="{% url 'wiki:export_article_pdf' article.slug %}" class="btn btn-export" title="Экспорт статьи в PDF">
+            📄 Экспорт в PDF
+        </a>
         {% endif %}
     </div>
     {% csrf_token %}

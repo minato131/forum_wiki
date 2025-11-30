@@ -37,6 +37,17 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.core.paginator import Paginator
 from .models import ActionLog
 from .logging_utils import ActionLogger
+from django.http import HttpResponse
+from reportlab.lib.pagesizes import A4
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Image
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from reportlab.lib.units import inch
+from reportlab.lib import colors
+import io
+from django.utils.text import Truncator
+
+
+
 
 def clean_latex_from_content(content):
     """
@@ -2601,3 +2612,219 @@ def reset_tutorials(request):
 
     messages.success(request, 'Подсказки сброшены')
     return redirect(request.META.get('HTTP_REFERER', 'wiki:home'))
+
+
+@login_required
+def export_article_pdf(request, slug):
+    """Экспорт статьи в PDF"""
+    article = get_object_or_404(Article, slug=slug)
+
+    # Проверяем права на просмотр
+    if article.status != 'published' and not article.can_edit(request.user):
+        return render(request, 'wiki/access_denied.html', {
+            'message': 'У вас нет прав для экспорта этой статьи.'
+        })
+
+    # Создаем PDF
+    buffer = io.BytesIO()
+    doc = SimpleDocTemplate(buffer, pagesize=A4,
+                            rightMargin=72, leftMargin=72,
+                            topMargin=72, bottomMargin=72)
+
+    styles = getSampleStyleSheet()
+
+    # Создаем кастомные стили
+    title_style = ParagraphStyle(
+        'CustomTitle',
+        parent=styles['Heading1'],
+        fontSize=16,
+        spaceAfter=30,
+        textColor=colors.HexColor('#1a365d'),
+        alignment=1  # center
+    )
+
+    author_style = ParagraphStyle(
+        'CustomAuthor',
+        parent=styles['Normal'],
+        fontSize=10,
+        textColor=colors.HexColor('#666666'),
+        alignment=1
+    )
+
+    content_style = ParagraphStyle(
+        'CustomContent',
+        parent=styles['Normal'],
+        fontSize=12,
+        spaceAfter=12,
+        textColor=colors.HexColor('#2d3748')
+    )
+
+    # Собираем контент
+    story = []
+
+    # Заголовок
+    story.append(Paragraph(article.title, title_style))
+    story.append(Spacer(1, 12))
+
+    # Автор и дата
+    author_info = f"Автор: {article.author.username} | Дата: {article.created_at.strftime('%d.%m.%Y %H:%M')}"
+    story.append(Paragraph(author_info, author_style))
+    story.append(Spacer(1, 20))
+
+    # Категории
+    if article.categories.exists():
+        categories = ", ".join([cat.name for cat in article.categories.all()])
+        story.append(Paragraph(f"<b>Категории:</b> {categories}", styles['Normal']))
+        story.append(Spacer(1, 10))
+
+    # Краткое описание
+    if article.excerpt:
+        story.append(Paragraph("<b>Краткое описание:</b>", styles['Normal']))
+        story.append(Paragraph(article.excerpt, content_style))
+        story.append(Spacer(1, 15))
+
+    # Основной контент (упрощенный, без HTML тегов)
+    clean_content = clean_html_for_pdf(article.content)
+    story.append(Paragraph("<b>Содержание:</b>", styles['Normal']))
+    story.append(Spacer(1, 10))
+
+    # Разбиваем контент на абзацы
+    paragraphs = clean_content.split('\n')
+    for paragraph in paragraphs:
+        if paragraph.strip():
+            story.append(Paragraph(paragraph.strip(), content_style))
+
+    # Статистика
+    story.append(Spacer(1, 20))
+    stats_info = f"Просмотры: {article.views_count} | Лайки: {article.get_likes_count()}"
+    story.append(Paragraph(stats_info, author_style))
+
+    # Создаем PDF
+    doc.build(story)
+
+    # Подготавливаем response
+    buffer.seek(0)
+    response = HttpResponse(buffer, content_type='application/pdf')
+    filename = f"article_{article.slug}_{timezone.now().strftime('%Y%m%d')}.pdf"
+    response['Content-Disposition'] = f'attachment; filename="{filename}"'
+
+    # Логируем действие
+    ActionLogger.log_action(
+        request=request,
+        action_type='article_export',
+        description=f'Пользователь {request.user.username} экспортировал статью "{article.title}" в PDF',
+        target_object=article
+    )
+
+    return response
+
+
+def clean_html_for_pdf(html_content):
+    """Очищает HTML контент для PDF"""
+    import re
+    # Удаляем HTML теги
+    clean = re.compile('<.*?>')
+    text_only = re.sub(clean, '', html_content)
+
+    # Заменяем HTML entities
+    text_only = text_only.replace('&nbsp;', ' ')
+    text_only = text_only.replace('&amp;', '&')
+    text_only = text_only.replace('&lt;', '<')
+    text_only = text_only.replace('&gt;', '>')
+
+    return text_only
+
+
+@login_required
+def export_articles_list(request):
+    """Экспорт списка статей в PDF"""
+    # Определяем какие статьи экспортировать
+    if request.user.is_staff or request.user.groups.filter(name__in=['Модератор', 'Администратор']).exists():
+        # Админы/модераторы - все статьи
+        articles = Article.objects.all()
+        title = "Все статьи форума"
+    else:
+        # Обычные пользователи - только свои статьи
+        articles = Article.objects.filter(author=request.user)
+        title = f"Мои статьи ({request.user.username})"
+
+    # Применяем фильтры из GET параметров
+    status_filter = request.GET.get('status')
+    category_filter = request.GET.get('category')
+
+    if status_filter:
+        articles = articles.filter(status=status_filter)
+    if category_filter:
+        articles = articles.filter(categories__slug=category_filter)
+
+    articles = articles.order_by('-created_at')
+
+    # Создаем PDF
+    buffer = io.BytesIO()
+    doc = SimpleDocTemplate(buffer, pagesize=A4)
+    styles = getSampleStyleSheet()
+    story = []
+
+    # Заголовок отчета
+    story.append(Paragraph(title, styles['Heading1']))
+    story.append(Spacer(1, 12))
+    story.append(Paragraph(f"Дата экспорта: {timezone.now().strftime('%d.%m.%Y %H:%M')}", styles['Normal']))
+    story.append(Spacer(1, 20))
+
+    # Таблица со статьями
+    from reportlab.platypus import Table, TableStyle
+
+    # Заголовки таблицы
+    data = [['Заголовок', 'Статус', 'Дата', 'Просмотры', 'Лайки']]
+
+    for article in articles:
+        data.append([
+            Truncator(article.title).chars(50),
+            article.get_status_display(),
+            article.created_at.strftime('%d.%m.%Y'),
+            str(article.views_count),
+            str(article.get_likes_count())
+        ])
+
+    # Создаем таблицу
+    table = Table(data, colWidths=[200, 80, 70, 60, 50])
+    table.setStyle(TableStyle([
+        ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#1a365d')),
+        ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+        ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
+        ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+        ('FONTSIZE', (0, 0), (-1, 0), 10),
+        ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+        ('BACKGROUND', (0, 1), (-1, -1), colors.HexColor('#f7fafc')),
+        ('FONTSIZE', (0, 1), (-1, -1), 8),
+        ('GRID', (0, 0), (-1, -1), 1, colors.HexColor('#cbd5e0'))
+    ]))
+
+    story.append(table)
+
+    # Итоговая статистика
+    story.append(Spacer(1, 20))
+    stats_text = f"Всего статей: {articles.count()} | Опубликовано: {articles.filter(status='published').count()}"
+    story.append(Paragraph(stats_text, styles['Normal']))
+
+    doc.build(story)
+
+    buffer.seek(0)
+    response = HttpResponse(buffer, content_type='application/pdf')
+    filename = f"articles_export_{timezone.now().strftime('%Y%m%d_%H%M')}.pdf"
+    response['Content-Disposition'] = f'attachment; filename="{filename}"'
+
+    ActionLogger.log_action(
+        request=request,
+        action_type='articles_export',
+        description=f'Пользователь {request.user.username} экспортировал список статей',
+        extra_data={
+            'articles_count': articles.count(),
+            'filters': {
+                'status': status_filter,
+                'category': category_filter
+            }
+        }
+    )
+
+    return response

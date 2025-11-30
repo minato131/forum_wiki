@@ -18891,3 +18891,71 @@ INFO 2025-12-01 02:39:38,818 basehttp "GET /messages/unread-count/ HTTP/1.1" 200
 INFO 2025-12-01 02:39:38,962 basehttp "GET /media/article_media/video_2025-10-24_22-30-32_KUODQlZ.mp4 HTTP/1.1" 200 324946
 INFO 2025-12-01 02:40:08,819 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320
 INFO 2025-12-01 02:40:39,290 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320
+INFO 2025-12-01 02:41:09,305 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320
+INFO 2025-12-01 02:41:39,396 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320
+INFO 2025-12-01 02:42:09,296 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320
+INFO 2025-12-01 02:42:39,297 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320
+INFO 2025-12-01 02:43:09,288 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320
+INFO 2025-12-01 02:43:39,296 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320
+INFO 2025-12-01 02:44:40,296 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320
+INFO 2025-12-01 02:45:41,290 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320
+INFO 2025-12-01 02:46:42,290 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320
+INFO 2025-12-01 02:47:43,295 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320
+INFO 2025-12-01 02:48:44,293 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320
+INFO 2025-12-01 02:49:18,378 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320
+INFO 2025-12-01 02:49:39,299 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320
+INFO 2025-12-01 02:50:09,293 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320
+INFO 2025-12-01 02:50:59,300 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320
+INFO 2025-12-01 02:51:59,305 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320
+INFO 2025-12-01 02:52:59,302 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320
+INFO 2025-12-01 02:53:59,301 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320
+INFO 2025-12-01 02:54:59,306 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320
+INFO 2025-12-01 02:55:59,411 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320
+INFO 2025-12-01 02:56:59,305 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320
+INFO 2025-12-01 02:57:59,303 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320
+INFO 2025-12-01 02:58:36,455 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-01 02:58:37,172 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 02:58:54,694 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-01 02:58:55,319 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 02:58:59,319 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320
+INFO 2025-12-01 02:59:05,799 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-01 02:59:06,354 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 02:59:14,719 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\urls.py changed, reloading.
+INFO 2025-12-01 02:59:15,466 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 02:59:59,314 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320
+INFO 2025-12-01 03:00:59,294 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320
+INFO 2025-12-01 03:01:34,236 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\urls.py changed, reloading.
+INFO 2025-12-01 03:01:34,858 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 03:01:59,326 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320
+INFO 2025-12-01 03:02:59,298 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320
+INFO 2025-12-01 03:03:59,293 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320
+INFO 2025-12-01 03:04:59,303 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320
+INFO 2025-12-01 03:05:59,299 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320
+INFO 2025-12-01 03:06:59,417 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320
+INFO 2025-12-01 03:07:59,301 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320
+INFO 2025-12-01 03:08:59,296 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320
+INFO 2025-12-01 03:21:00,119 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 03:21:02,083 basehttp "GET / HTTP/1.1" 200 36381
+INFO 2025-12-01 03:21:02,214 basehttp "GET /static/css/style.css HTTP/1.1" 304 0
+INFO 2025-12-01 03:21:02,216 basehttp "GET /static/css/tutorials.css HTTP/1.1" 304 0
+INFO 2025-12-01 03:21:02,217 basehttp "GET /static/js/tutorials.js HTTP/1.1" 304 0
+INFO 2025-12-01 03:21:02,303 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320
+INFO 2025-12-01 03:21:03,807 basehttp "GET /my-articles/ HTTP/1.1" 200 43832
+INFO 2025-12-01 03:21:03,867 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320
+INFO 2025-12-01 03:21:09,087 basehttp "GET /articles/export/?status=published HTTP/1.1" 200 2217
+INFO 2025-12-01 03:21:09,292 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320
+INFO 2025-12-01 03:21:18,135 basehttp "GET /articles/export/?status=published HTTP/1.1" 200 2217
+INFO 2025-12-01 03:21:31,265 basehttp "GET /articles/export/?status=draft HTTP/1.1" 200 2040
+INFO 2025-12-01 03:21:34,290 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320
+INFO 2025-12-01 03:21:39,301 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320
+INFO 2025-12-01 03:21:41,615 basehttp "GET /articles/export/?status=published HTTP/1.1" 200 2217
+INFO 2025-12-01 03:22:04,399 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320
+INFO 2025-12-01 03:22:34,296 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320
+INFO 2025-12-01 03:23:04,300 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320
+INFO 2025-12-01 03:23:34,300 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320
+INFO 2025-12-01 03:24:04,295 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320
+INFO 2025-12-01 03:24:34,302 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320
+INFO 2025-12-01 03:25:04,301 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320
+INFO 2025-12-01 03:25:59,293 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320
+INFO 2025-12-01 03:26:59,295 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320
+INFO 2025-12-01 03:27:59,430 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39320

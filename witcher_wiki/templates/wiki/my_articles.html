@@ -10,6 +10,15 @@
         padding: 20px;
     }
 
+    .export-section {
+        text-align: center;
+        margin: 20px 0;
+        padding: 15px;
+        background: rgba(212, 175, 55, 0.1);
+        border: 1px solid #D4AF37;
+        border-radius: 10px;
+    }
+
     .stats-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -134,6 +143,28 @@
         box-shadow: 0 4px 8px rgba(239, 68, 68, 0.3);
     }
 
+    .btn-export {
+        background: rgba(139, 92, 246, 0.2);
+        color: #8b5cf6;
+        border: 1px solid #8b5cf6;
+    }
+
+    .btn-export:hover {
+        background: #8b5cf6;
+        color: white;
+    }
+
+    .btn-pdf {
+        background: rgba(220, 38, 38, 0.2);
+        color: #dc2626;
+        border: 1px solid #dc2626;
+    }
+
+    .btn-pdf:hover {
+        background: #dc2626;
+        color: white;
+    }
+
     .btn-sm {
         padding: 6px 12px;
         border: none;
@@ -249,6 +280,22 @@
         📝 Мои статьи
     </h1>
 
+    <!-- Секция экспорта -->
+    <div class="export-section">
+        <h3 style="color: #D4AF37; margin-bottom: 15px;">📊 Экспорт статей</h3>
+        <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+            <a href="{% url 'wiki:export_articles_list' %}" class="btn btn-export" title="Экспортировать все мои статьи">
+                📄 Все мои статьи (PDF)
+            </a>
+            <a href="{% url 'wiki:export_articles_list' %}?status=published" class="btn btn-success" title="Экспортировать опубликованные статьи">
+                ✅ Опубликованные (PDF)
+            </a>
+            <a href="{% url 'wiki:export_articles_list' %}?status=draft" class="btn btn-warning" title="Экспортировать черновики">
+                📝 Черновики (PDF)
+            </a>
+        </div>
+    </div>
+
     <div class="stats-grid">
         <div class="stat-card">
             <div class="stat-number">{{ stats.draft }}</div>
@@ -325,6 +372,11 @@
             <div class="action-buttons">
                 <a href="{% url 'wiki:article_detail' article.slug %}" class="btn-sm btn-view" title="Просмотреть">
                     👁️
+                </a>
+
+                <!-- Экспорт отдельной статьи -->
+                <a href="{% url 'wiki:export_article_pdf' article.slug %}" class="btn-sm btn-pdf" title="Экспорт в PDF">
+                    📄
                 </a>
 
                 <!-- Редактировать: ТОЛЬКО черновик или отклонено -->

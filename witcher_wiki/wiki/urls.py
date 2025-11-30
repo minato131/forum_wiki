@@ -117,4 +117,9 @@ urlpatterns = [
     path('tutorial/mark-seen/<str:tutorial_type>/', views.mark_tutorial_seen, name='mark_tutorial_seen'),
     path('tutorial/disable/', views.disable_tutorials, name='disable_tutorials'),
     path('tutorial/reset/', views.reset_tutorials, name='reset_tutorials'),
+
+
+
+    path('article/<slug:slug>/export-pdf/', views.export_article_pdf, name='export_article_pdf'),
+    path('articles/export/', views.export_articles_list, name='export_articles_list'),
 ]
