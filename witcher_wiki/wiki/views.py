@@ -502,7 +502,7 @@ def article_edit(request, slug):
                 return redirect('wiki:my_articles')
             else:
                 messages.error(request, '❌ Не удалось отправить статью на модерацию.')
-ыы
+
         else:
             # Обычное сохранение
             title = request.POST.get('title', '').strip()
