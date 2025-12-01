@@ -19404,3 +19404,28 @@ INFO 2025-12-01 22:17:28,760 basehttp "GET /my-articles/ HTTP/1.1" 200 56586
 INFO 2025-12-01 22:17:28,821 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
 INFO 2025-12-01 22:17:29,604 basehttp "GET /articles/export/ HTTP/1.1" 200 28154
 INFO 2025-12-01 22:17:40,849 basehttp "GET /article/yy-2/export-pdf/ HTTP/1.1" 200 26129
+INFO 2025-12-01 22:18:09,209 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 22:18:39,379 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 22:19:09,493 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 22:19:39,206 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 22:20:09,492 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 22:20:39,383 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 22:21:09,375 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 22:21:43,904 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 22:22:09,370 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 22:22:39,387 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 22:23:40,382 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 22:24:38,362 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 22:25:09,391 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 22:25:59,498 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 22:26:59,380 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 22:27:15,252 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-01 22:27:15,859 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 22:29:05,119 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 22:29:06,963 basehttp "GET / HTTP/1.1" 200 40517
+INFO 2025-12-01 22:29:07,080 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 22:29:08,847 basehttp "GET /my-articles/ HTTP/1.1" 200 56586
+INFO 2025-12-01 22:29:08,903 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
+INFO 2025-12-01 22:29:09,918 basehttp "GET /articles/export/ HTTP/1.1" 200 43718
+INFO 2025-12-01 22:29:12,583 basehttp "GET /article/yy-2/export-pdf/ HTTP/1.1" 200 42310
+INFO 2025-12-01 22:29:39,481 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 43456
