@@ -434,7 +434,6 @@ class ActionLogAdmin(admin.ModelAdmin):
 
     export_as_pdf.short_description = "📊 Экспорт выбранных логов в PDF"
 
-S
     # Добавляем фильтры по дате
     def get_queryset(self, request):
         qs = super().get_queryset(request)
