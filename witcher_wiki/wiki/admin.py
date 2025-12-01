@@ -17,7 +17,14 @@ from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph
 from reportlab.lib.styles import getSampleStyleSheet
 from django.utils import timezone
 from datetime import datetime, timedelta
-import csv
+from io import BytesIO
+from reportlab.lib import colors
+from reportlab.lib.pagesizes import A4, landscape
+from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
+import os
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
@@ -278,47 +285,151 @@ class ActionLogAdmin(admin.ModelAdmin):
     export_as_json.short_description = "📄 Экспорт выбранных логов в JSON"
 
     def export_as_pdf(self, request, queryset):
-        """Экспорт выбранных логов в PDF"""
+        """Экспорт выбранных логов в PDF с поддержкой кириллицы"""
+
         response = HttpResponse(content_type='application/pdf')
         response['Content-Disposition'] = 'attachment; filename="action_logs.pdf"'
 
-        doc = SimpleDocTemplate(response, pagesize=A4)
+        # Используем BytesIO для работы в памяти
+        buffer = BytesIO()
+
+        # Регистрация кириллического шрифта - КЛЮЧЕВОЙ МОМЕНТ!
+        try:
+            # Попробуем разные пути к шрифтам
+            font_paths = [
+                os.path.join(os.path.dirname(__file__), '..', 'static', 'fonts', 'Arial.ttf'),
+                '/usr/share/fonts/truetype/msttcorefonts/Arial.ttf',
+                'C:/Windows/Fonts/arial.ttf',
+            ]
+
+            font_registered = False
+            for font_path in font_paths:
+                if os.path.exists(font_path):
+                    pdfmetrics.registerFont(TTFont('Arial', font_path))
+                    pdfmetrics.registerFont(TTFont('Arial-Bold', font_path.replace('Arial.ttf', 'Arial_Bold.ttf')))
+                    font_registered = True
+                    break
+
+            if not font_registered:
+                # Попробуем использовать DejaVu (часто уже установлен)
+                try:
+                    pdfmetrics.registerFont(TTFont('DejaVuSans', 'DejaVuSans.ttf'))
+                    font_name = 'DejaVuSans'
+                    font_registered = True
+                except:
+                    font_name = 'Helvetica'
+            else:
+                font_name = 'Arial'
+
+        except Exception as e:
+            font_name = 'Helvetica'
+            print(f"Ошибка регистрации шрифта: {e}")
+
+        # Создаем документ
+        doc = SimpleDocTemplate(
+            buffer,
+            pagesize=A4,
+            rightMargin=30,
+            leftMargin=30,
+            topMargin=30,
+            bottomMargin=30
+        )
+
         elements = []
         styles = getSampleStyleSheet()
 
+        # Создаем стиль с нашим шрифтом
+        if font_name != 'Helvetica':
+            normal_style = ParagraphStyle(
+                'CustomNormal',
+                parent=styles['Normal'],
+                fontName=font_name,
+                fontSize=9,
+                encoding='UTF-8'
+            )
+            title_style = ParagraphStyle(
+                'CustomTitle',
+                parent=styles['Title'],
+                fontName=font_name + '-Bold' if font_name != 'DejaVuSans' else 'DejaVuSans-Bold',
+                fontSize=14,
+                spaceAfter=20,
+                encoding='UTF-8'
+            )
+        else:
+            normal_style = styles['Normal']
+            normal_style.fontSize = 9
+            title_style = styles['Title']
+            title_style.fontSize = 14
+            title_style.spaceAfter = 20
+
         # Заголовок
-        title = Paragraph("Журнал действий пользователей", styles['Title'])
+        title = Paragraph("Журнал действий пользователей", title_style)
         elements.append(title)
+        elements.append(Spacer(1, 12))
+
+        # Добавляем информацию о количестве записей
+        count_info = Paragraph(f"Всего записей: {queryset.count()}", normal_style)
+        elements.append(count_info)
+        elements.append(Spacer(1, 20))
 
         # Данные для таблицы
         data = [['Дата', 'Пользователь', 'Тип действия', 'Описание', 'IP']]
 
+        # Определяем ширины колонок (в процентах от ширины страницы)
+        col_widths = [80, 60, 70, 200, 60]  # в пунктах
+
+        # Заполняем данные
         for log in queryset:
             data.append([
-                log.created_at.strftime('%d.%m.%Y %H:%M'),
-                log.user.username if log.user else 'Аноним',
-                log.get_action_type_display(),
-                log.description[:50] + '...' if len(log.description) > 50 else log.description,
-                log.ip_address or '-'
+                Paragraph(log.created_at.strftime('%d.%m.%Y<br/>%H:%M'), normal_style),
+                Paragraph(log.user.username if log.user else 'Аноним', normal_style),
+                Paragraph(log.get_action_type_display(), normal_style),
+                Paragraph(log.description[:80] + '...' if len(log.description) > 80 else log.description, normal_style),
+                Paragraph(log.ip_address or '-', normal_style)
             ])
 
-        # Создаем таблицу
-        table = Table(data)
-        table.setStyle(TableStyle([
-            ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
-            ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
-            ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
-            ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
-            ('FONTSIZE', (0, 0), (-1, 0), 12),
-            ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
-            ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
-            ('FONTNAME', (0, 1), (-1, -1), 'Helvetica'),
-            ('FONTSIZE', (0, 1), (-1, -1), 10),
-            ('GRID', (0, 0), (-1, -1), 1, colors.black)
-        ]))
+        # Создаем таблицу с фиксированными ширинами
+        table = Table(data, colWidths=col_widths, repeatRows=1)
 
+        # Стили таблицы
+        table_style = TableStyle([
+            ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#2c3e50')),
+            ('TEXTCOLOR', (0, 0), (-1, 0), colors.white),
+            ('ALIGN', (0, 0), (-1, 0), 'CENTER'),
+            ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+            ('FONTNAME', (0, 0), (-1, 0), font_name + '-Bold' if font_name != 'Helvetica' else 'Helvetica-Bold'),
+            ('FONTSIZE', (0, 0), (-1, 0), 10),
+            ('BOTTOMPADDING', (0, 0), (-1, 0), 8),
+            ('TOPPADDING', (0, 0), (-1, 0), 8),
+
+            # Стиль для данных
+            ('BACKGROUND', (0, 1), (-1, -1), colors.HexColor('#ecf0f1')),
+            ('TEXTCOLOR', (0, 1), (-1, -1), colors.black),
+            ('FONTNAME', (0, 1), (-1, -1), font_name),
+            ('FONTSIZE', (0, 1), (-1, -1), 8),
+            ('ROWBACKGROUNDS', (0, 1), (-1, -1), [colors.white, colors.HexColor('#f9f9f9')]),
+
+            # Границы
+            ('GRID', (0, 0), (-1, -1), 0.5, colors.gray),
+            ('BOX', (0, 0), (-1, -1), 1, colors.black),
+
+            # Выравнивание
+            ('ALIGN', (0, 1), (0, -1), 'CENTER'),  # Дата по центру
+            ('ALIGN', (4, 1), (4, -1), 'CENTER'),  # IP по центру
+            ('WORDWRAP', (3, 0), (3, -1), 'CJK'),  # Перенос слов в описании
+        ])
+
+        table.setStyle(table_style)
         elements.append(table)
+
+        # Строим PDF
         doc.build(elements)
+
+        # Получаем PDF из буфера
+        pdf = buffer.getvalue()
+        buffer.close()
+
+        response.write(pdf)
         return response
 
     export_as_pdf.short_description = "📊 Экспорт выбранных логов в PDF"

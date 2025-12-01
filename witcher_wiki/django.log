@@ -21289,3 +21289,23 @@ INFO 2025-12-02 01:32:37,379 basehttp "GET /messages/unread-count/ HTTP/1.1" 200
 INFO 2025-12-02 01:33:04,393 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39418
 INFO 2025-12-02 01:33:34,379 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39418
 INFO 2025-12-02 01:33:38,387 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39418
+INFO 2025-12-02 01:46:47,469 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\admin.py changed, reloading.
+INFO 2025-12-02 01:46:48,067 autoreload Watching for file changes with StatReloader
+INFO 2025-12-02 01:47:18,858 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\admin.py changed, reloading.
+INFO 2025-12-02 01:47:19,414 autoreload Watching for file changes with StatReloader
+INFO 2025-12-02 01:47:49,952 autoreload Watching for file changes with StatReloader
+INFO 2025-12-02 01:47:51,677 basehttp "GET / HTTP/1.1" 200 36527
+INFO 2025-12-02 01:47:51,803 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39418
+INFO 2025-12-02 01:47:53,289 basehttp "GET /admin/ HTTP/1.1" 200 17516
+INFO 2025-12-02 01:47:55,442 basehttp "GET /admin/wiki/actionlog/ HTTP/1.1" 200 94017
+INFO 2025-12-02 01:47:55,493 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-02 01:49:28,380 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\admin.py changed, reloading.
+INFO 2025-12-02 01:49:29,038 autoreload Watching for file changes with StatReloader
+INFO 2025-12-02 01:50:14,180 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\admin.py changed, reloading.
+INFO 2025-12-02 01:50:14,722 autoreload Watching for file changes with StatReloader
+INFO 2025-12-02 01:50:16,448 basehttp "GET / HTTP/1.1" 200 36527
+INFO 2025-12-02 01:50:16,573 basehttp "GET /messages/unread-count/ HTTP/1.1" 200 39418
+INFO 2025-12-02 01:50:18,505 basehttp "GET /admin/ HTTP/1.1" 200 17516
+INFO 2025-12-02 01:50:19,860 basehttp "GET /admin/wiki/actionlog/ HTTP/1.1" 200 94031
+INFO 2025-12-02 01:50:20,017 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-02 01:50:25,537 basehttp "POST /admin/wiki/actionlog/ HTTP/1.1" 200 47161
