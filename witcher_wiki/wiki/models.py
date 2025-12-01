@@ -1086,3 +1086,74 @@ class FAQ(models.Model):
 
     def __str__(self):
         return self.question[:50]
+
+
+class ArticleStat(models.Model):
+    """Статистика по статьям"""
+    article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='stats')
+    views = models.PositiveIntegerField('Просмотры', default=0)
+    likes = models.PositiveIntegerField('Лайки', default=0)
+    comments_count = models.PositiveIntegerField('Комментарии', default=0)
+    last_viewed = models.DateTimeField('Последний просмотр', auto_now=True)
+    created_at = models.DateTimeField('Дата создания', auto_now_add=True)
+    updated_at = models.DateTimeField('Дата обновления', auto_now=True)
+
+    class Meta:
+        verbose_name = 'Статистика статьи'
+        verbose_name_plural = 'Статистика статей'
+
+    def __str__(self):
+        return f"Статистика: {self.article.title}"
+
+
+class CategoryStat(models.Model):
+    """Статистика по категориям"""
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='stats')
+    total_views = models.PositiveIntegerField('Всего просмотров', default=0)
+    total_articles = models.PositiveIntegerField('Всего статей', default=0)
+    avg_rating = models.FloatField('Средний рейтинг', default=0.0)
+    created_at = models.DateTimeField('Дата создания', auto_now_add=True)
+    updated_at = models.DateTimeField('Дата обновления', auto_now=True)
+
+    class Meta:
+        verbose_name = 'Статистика категории'
+        verbose_name_plural = 'Статистика категорий'
+
+    def __str__(self):
+        return f"Статистика: {self.category.name}"
+
+
+class SearchQuery(models.Model):
+    """История поисковых запросов"""
+    query = models.CharField('Поисковый запрос', max_length=255)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    results_count = models.PositiveIntegerField('Найдено результатов', default=0)
+    ip_address = models.GenericIPAddressField('IP адрес', null=True, blank=True)
+    user_agent = models.TextField('User Agent', blank=True)
+    created_at = models.DateTimeField('Дата поиска', auto_now_add=True)
+
+    class Meta:
+        verbose_name = 'Поисковый запрос'
+        verbose_name_plural = 'Поисковые запросы'
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"{self.query} ({self.created_at})"
+
+
+class SiteStat(models.Model):
+    """Общая статистика сайта"""
+    date = models.DateField('Дата', unique=True)
+    total_views = models.PositiveIntegerField('Всего просмотров', default=0)
+    total_users = models.PositiveIntegerField('Всего пользователей', default=0)
+    total_articles = models.PositiveIntegerField('Всего статей', default=0)
+    total_comments = models.PositiveIntegerField('Всего комментариев', default=0)
+    active_users = models.PositiveIntegerField('Активных пользователей', default=0)
+
+    class Meta:
+        verbose_name = 'Статистика сайта'
+        verbose_name_plural = 'Статистика сайта'
+        ordering = ['-date']
+
+    def __str__(self):
+        return f"Статистика за {self.date}"

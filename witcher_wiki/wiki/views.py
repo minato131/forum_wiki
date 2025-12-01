@@ -61,6 +61,22 @@ from .models import HelpSection, FAQ
 from django.views.generic import View, TemplateView, ListView, DetailView
 from django.views import View
 from django.shortcuts import render
+from .utils.stats_collector import StatsCollector
+from django.views.generic import TemplateView
+from django.contrib.auth.mixins import UserPassesTestMixin
+from django.views.decorators.csrf import csrf_exempt
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
+from reportlab.lib.units import mm, inch
+from reportlab.lib import colors
+from reportlab.lib.enums import TA_CENTER, TA_LEFT, TA_RIGHT
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
+from io import BytesIO
+import os
+from django.conf import settings
+
+
 
 
 def clean_latex_from_content(content):
@@ -217,7 +233,7 @@ def search(request):
         results = paginator.get_page(page_number)
 
     # Получаем популярные запросы (топ-10)
-    popular_queries = SearchQuery.objects.all().order_by('-count', '-last_searched')[:10]
+    popular_queries = SearchQuery.objects.all().order_by('-created_at')[:10]
 
     # Получаем популярные хештеги
     from django.db.models import Count
@@ -3514,3 +3530,737 @@ class FAQView(TemplateView):
             },
         ]
         return context
+
+
+class StatisticsView(UserPassesTestMixin, TemplateView):
+    """Представление для просмотра статистики"""
+    template_name = 'wiki/statistics.html'
+
+    def test_func(self):
+        """Только для staff и модераторов"""
+        return self.request.user.is_staff or self.request.user.groups.filter(
+            name__in=['Модератор', 'Администратор']
+        ).exists()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # Получаем топовую статистику
+        from django.db.models import Count, Sum, Max
+
+        # Топ 3 самых просматриваемых статей
+        top_viewed = Article.objects.filter(
+            status='published'
+        ).order_by('-views_count')[:3]
+
+        # Топ 3 самых лайкнутых статей
+        top_liked = Article.objects.filter(
+            status='published'
+        ).annotate(
+            likes_count=Count('likes')
+        ).order_by('-likes_count')[:3]
+
+        # Топ 3 статей с комментариями
+        top_commented = Article.objects.filter(
+            status='published'
+        ).annotate(
+            comments_count=Count('comments')
+        ).order_by('-comments_count')[:3]
+
+        # Самые просматриваемые категории
+        top_categories = Category.objects.filter(
+            articles__status='published'
+        ).annotate(
+            total_views=Sum('articles__views_count'),
+            article_count=Count('articles')
+        ).filter(
+            article_count__gt=0
+        ).order_by('-total_views')[:5]
+
+        # Популярные поисковые запросы
+        popular_searches = SearchQuery.objects.values('query').annotate(
+            count=Count('id'),
+            last_search=Max('created_at')
+        ).order_by('-count')[:10]
+
+        # Общая статистика
+        total_articles = Article.objects.filter(status='published').count()
+        total_users = User.objects.filter(is_active=True).count()
+        total_comments = Comment.objects.count()
+        total_views = Article.objects.filter(status='published').aggregate(
+            total=Sum('views_count')
+        )['total'] or 0
+
+        # Статистика за последние 7 дней
+        seven_days_ago = timezone.now() - timezone.timedelta(days=7)
+        recent_articles = Article.objects.filter(
+            created_at__gte=seven_days_ago,
+            status='published'
+        ).count()
+
+        recent_users = User.objects.filter(
+            date_joined__gte=seven_days_ago
+        ).count()
+
+        context.update({
+            'top_viewed': top_viewed,
+            'top_liked': top_liked,
+            'top_commented': top_commented,
+            'top_categories': top_categories,
+            'popular_searches': popular_searches,
+
+            'total_articles': total_articles,
+            'total_users': total_users,
+            'total_comments': total_comments,
+            'total_views': total_views,
+
+            'recent_articles': recent_articles,
+            'recent_users': recent_users,
+        })
+
+        return context
+
+@csrf_exempt
+@login_required
+def update_stats_api(request):
+    """API для обновления статистики"""
+    if not request.user.is_staff:
+        return JsonResponse({'error': 'Доступ запрещен'}, status=403)
+
+    if request.method == 'POST':
+        try:
+            # Обновляем статистику для всех статей
+            articles = Article.objects.filter(status='published')
+            for article in articles:
+                StatsCollector.update_article_stats(article.id)
+
+            # Обновляем статистику категорий
+            categories = Category.objects.all()
+            for category in categories:
+                StatsCollector.update_category_stats(category.id)
+
+            # Обновляем дневную статистику
+            StatsCollector.update_daily_stats()
+
+            return JsonResponse({
+                'success': True,
+                'message': 'Статистика обновлена',
+                'articles_updated': articles.count(),
+                'categories_updated': categories.count(),
+            })
+        except Exception as e:
+            return JsonResponse({
+                'success': False,
+                'error': str(e)
+            }, status=500)
+
+    return JsonResponse({'error': 'Метод не поддерживается'}, status=405)
+
+
+class ExportStatsView(UserPassesTestMixin, View):
+    """Экспорт статистики в PDF"""
+
+    def test_func(self):
+        """Только для staff"""
+        return self.request.user.is_staff
+
+    def get(self, request):
+        # Можно использовать существующую функцию экспорта
+        # или создать отдельную для статистики
+        from django.http import HttpResponse
+        return HttpResponse("Экспорт статистики пока не реализован")
+
+def article_list(request):
+    """Список всех опубликованных статей"""
+    articles = Article.objects.filter(status='published').order_by('-created_at')
+    context = {'articles': articles}
+    return render(request, 'wiki/article_list.html', context)
+
+
+@login_required
+def export_statistics_pdf(request):
+    """Экспорт статистики в PDF (по аналогии с export_articles_list)"""
+    if not request.user.is_staff:
+        return HttpResponseForbidden("Доступ запрещен")
+
+    try:
+        from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+        from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
+        from reportlab.lib.units import mm, inch
+        from reportlab.lib import colors
+        from reportlab.lib.enums import TA_CENTER, TA_LEFT, TA_RIGHT
+        from reportlab.pdfbase import pdfmetrics
+        from reportlab.pdfbase.ttfonts import TTFont
+        from io import BytesIO
+        import os
+        from django.conf import settings
+
+        # Получаем статистику
+        from django.db.models import Count, Sum
+
+        # Топ 3 самых просматриваемых статей
+        top_viewed = Article.objects.filter(
+            status='published'
+        ).order_by('-views_count')[:3]
+
+        # Топ 3 самых лайкнутых статей
+        top_liked = Article.objects.filter(
+            status='published'
+        ).annotate(
+            likes_count=Count('likes')
+        ).order_by('-likes_count')[:3]
+
+        # Топ 3 статей с комментариями
+        top_commented = Article.objects.filter(
+            status='published'
+        ).annotate(
+            comments_count=Count('comments')
+        ).order_by('-comments_count')[:3]
+
+        # Самые просматриваемые категории
+        top_categories = Category.objects.filter(
+            articles__status='published'
+        ).annotate(
+            total_views=Sum('articles__views_count'),
+            article_count=Count('articles')
+        ).filter(
+            article_count__gt=0
+        ).order_by('-total_views')[:5]
+
+        # Популярные поисковые запросы
+        popular_searches = SearchQuery.objects.values('query').annotate(
+            count=Count('id')
+        ).order_by('-count')[:10]
+
+        # Общая статистика
+        total_articles = Article.objects.filter(status='published').count()
+        total_users = User.objects.filter(is_active=True).count()
+        total_comments = Comment.objects.count()
+        total_views = Article.objects.filter(status='published').aggregate(
+            total=Sum('views_count')
+        )['total'] or 0
+
+        # Статистика за последние 7 дней
+        seven_days_ago = timezone.now() - timezone.timedelta(days=7)
+        recent_articles = Article.objects.filter(
+            created_at__gte=seven_days_ago,
+            status='published'
+        ).count()
+
+        recent_users = User.objects.filter(
+            date_joined__gte=seven_days_ago
+        ).count()
+
+        # Создаем PDF
+        buffer = BytesIO()
+
+        # Используем горизонтальную ориентацию
+        doc = SimpleDocTemplate(
+            buffer,
+            pagesize=(11 * inch, 8.5 * inch),  # Ландшафтный A4
+            rightMargin=10 * mm,
+            leftMargin=10 * mm,
+            topMargin=15 * mm,
+            bottomMargin=15 * mm
+        )
+
+        # Регистрируем кириллические шрифты
+        def register_cyrillic_fonts():
+            """Регистрация кириллических шрифтов"""
+            try:
+                # Пути к шрифтам - ИСПРАВЛЕННЫЙ ПУТЬ
+                font_dir = os.path.join(settings.BASE_DIR, 'wiki', 'static', 'fonts')
+
+                print(f"🔍 Ищем шрифты в: {font_dir}")
+                print(f"📁 Существует ли папка: {os.path.exists(font_dir)}")
+
+                if os.path.exists(font_dir):
+                    files = os.listdir(font_dir)
+                    print(f"📄 Файлы в папке: {files}")
+
+                # Используем DejaVuSans если есть
+                dejavu_path = os.path.join(font_dir, 'DejaVuSans.ttf')
+                dejavu_bold_path = os.path.join(font_dir, 'DejaVuSans-Bold.ttf')
+
+                if os.path.exists(dejavu_path) and os.path.exists(dejavu_bold_path):
+                    # Регистрируем DejaVuSans
+                    pdfmetrics.registerFont(TTFont('DejaVuSans', dejavu_path))
+                    pdfmetrics.registerFont(TTFont('DejaVuSans-Bold', dejavu_bold_path))
+                    print("✅ Шрифты DejaVuSans успешно зарегистрированы")
+                    return 'DejaVuSans', 'DejaVuSans-Bold'
+
+                # Или используем Arial если есть
+                arial_path = os.path.join(font_dir, 'arial.ttf')
+                arial_bold_path = os.path.join(font_dir, 'arialbd.ttf')
+
+                if os.path.exists(arial_path) and os.path.exists(arial_bold_path):
+                    pdfmetrics.registerFont(TTFont('Arial', arial_path))
+                    pdfmetrics.registerFont(TTFont('Arial-Bold', arial_bold_path))
+                    return 'Arial', 'Arial-Bold'
+
+                # Пробуем найти системные шрифты
+                import platform
+                system = platform.system()
+
+                if system == 'Windows':
+                    # Windows пути
+                    fonts_path = os.environ.get('WINDIR', '') + '\\Fonts\\'
+                    if os.path.exists(fonts_path + 'arial.ttf'):
+                        pdfmetrics.registerFont(TTFont('Arial', fonts_path + 'arial.ttf'))
+                        pdfmetrics.registerFont(TTFont('Arial-Bold', fonts_path + 'arialbd.ttf'))
+                        return 'Arial', 'Arial-Bold'
+
+                elif system == 'Linux':
+                    # Linux пути
+                    linux_fonts = [
+                        '/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf',
+                        '/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf',
+                        '/usr/share/fonts/truetype/msttcorefonts/Arial.ttf'
+                    ]
+                    for font_path in linux_fonts:
+                        if os.path.exists(font_path):
+                            pdfmetrics.registerFont(TTFont('Arial', font_path))
+                            return 'Arial', 'Helvetica-Bold'
+
+            except Exception as e:
+                print(f"Ошибка регистрации шрифтов: {e}")
+
+            # Fallback на стандартные шрифты
+            print("⚠️ Используем стандартные шрифты Helvetica")
+            return 'Helvetica', 'Helvetica-Bold'
+
+        # Получаем названия шрифтов
+        font_normal, font_bold = register_cyrillic_fonts()
+        print(f"Используем шрифты: Normal={font_normal}, Bold={font_bold}")
+
+        # Стили
+        styles = getSampleStyleSheet()
+
+        # Цвета для разделов
+        section_colors = {
+            'general': '#D4AF37',  # золотой
+            'top_viewed': '#3b82f6',  # синий
+            'top_liked': '#22c55e',  # зеленый
+            'top_commented': '#8b5cf6',  # фиолетовый
+            'categories': '#f59e0b',  # оранжевый
+            'searches': '#ef4444',  # красный
+        }
+
+        # Создаем кастомные стили
+        title_style = ParagraphStyle(
+            'ReportTitle',
+            parent=styles['Heading1'],
+            fontName=font_bold,
+            fontSize=18,
+            leading=22,
+            spaceAfter=6 * mm,
+            textColor=colors.HexColor('#D4AF37'),
+            alignment=TA_CENTER
+        )
+
+        subtitle_style = ParagraphStyle(
+            'ReportSubtitle',
+            parent=styles['Normal'],
+            fontName=font_normal,
+            fontSize=10,
+            leading=12,
+            spaceAfter=8 * mm,
+            textColor=colors.HexColor('#6b7280'),
+            alignment=TA_CENTER
+        )
+
+        header_style = ParagraphStyle(
+            'TableHeader',
+            parent=styles['Normal'],
+            fontName=font_bold,
+            fontSize=10,
+            leading=12,
+            textColor=colors.white,
+            alignment=TA_CENTER,
+            spaceBefore=2,
+            spaceAfter=2
+        )
+
+        # Стиль для обычных ячеек
+        cell_style = ParagraphStyle(
+            'TableCell',
+            parent=styles['Normal'],
+            fontName=font_normal,
+            fontSize=9,
+            leading=11,
+            textColor=colors.HexColor('#374151'),
+            alignment=TA_LEFT,
+            wordWrap='CJK'
+        )
+
+        # Стиль для номеров и цифр
+        number_style = ParagraphStyle(
+            'NumberStyle',
+            parent=cell_style,
+            alignment=TA_CENTER,
+            fontSize=8
+        )
+
+        # Собираем контент
+        story = []
+
+        # Заголовок отчета
+        story.append(Paragraph("СТАТИСТИКА ФОРУМА 'ВЕДЬМАК'", title_style))
+        story.append(Paragraph(
+            f"Дата формирования: {timezone.now().strftime('%d.%m.%Y в %H:%M')} | "
+            f"Сформировано пользователем: {request.user.username}",
+            subtitle_style
+        ))
+        story.append(Spacer(1, 10 * mm))
+
+        # 1. Общая статистика
+        story.append(Paragraph(
+            "📊 ОБЩАЯ СТАТИСТИКА",
+            ParagraphStyle(
+                'SectionTitle',
+                parent=styles['Heading2'],
+                fontName=font_bold,
+                fontSize=14,
+                spaceAfter=6 * mm,
+                textColor=colors.HexColor(section_colors['general']),
+                alignment=TA_LEFT
+            )
+        ))
+
+        # Таблица общей статистики
+        general_data = [
+            ['Показатель', 'Значение', 'За 7 дней'],
+            ['Всего статей', str(total_articles), f"+{recent_articles}"],
+            ['Всего пользователей', str(total_users), f"+{recent_users}"],
+            ['Всего просмотров', str(total_views), '-'],
+            ['Всего комментариев', str(total_comments), '-']
+        ]
+
+        general_table = Table(general_data, colWidths=[80 * mm, 40 * mm, 30 * mm])
+        general_table.setStyle(TableStyle([
+            ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor(section_colors['general'])),
+            ('TEXTCOLOR', (0, 0), (-1, 0), colors.white),
+            ('FONTNAME', (0, 0), (-1, 0), font_bold),
+            ('FONTSIZE', (0, 0), (-1, 0), 10),
+            ('BOTTOMPADDING', (0, 0), (-1, 0), 6),
+            ('TOPPADDING', (0, 0), (-1, 0), 6),
+            ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+            ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+            ('FONTNAME', (0, 1), (-1, -1), font_normal),
+            ('FONTSIZE', (0, 1), (-1, -1), 9),
+            ('GRID', (0, 0), (-1, -1), 0.5, colors.HexColor('#d1d5db')),
+            ('ROWBACKGROUNDS', (0, 1), (-1, -1), [
+                colors.HexColor('#ffffff'),
+                colors.HexColor('#f8fafc')
+            ]),
+            ('LEFTPADDING', (0, 0), (-1, -1), 4),
+            ('RIGHTPADDING', (0, 0), (-1, -1), 4),
+        ]))
+
+        story.append(general_table)
+        story.append(Spacer(1, 15 * mm))
+
+        # 2. Топ просматриваемых статей
+        story.append(Paragraph(
+            "🔥 ТОП ПРОСМАТРИВАЕМЫХ СТАТЕЙ",
+            ParagraphStyle(
+                'SectionTitle',
+                parent=styles['Heading2'],
+                fontName=font_bold,
+                fontSize=14,
+                spaceAfter=6 * mm,
+                textColor=colors.HexColor(section_colors['top_viewed']),
+                alignment=TA_LEFT
+            )
+        ))
+
+        if top_viewed:
+            viewed_data = [['№', 'Статья', 'Просмотры', 'Лайки']]
+            for idx, article in enumerate(top_viewed, 1):
+                # Обработка длинных заголовков
+                title_text = article.title
+                if len(title_text) > 60:
+                    title_text = title_text[:57] + "..."
+
+                title_lines = []
+                words = title_text.split()
+                current_line = ""
+                for word in words:
+                    if len(current_line) + len(word) + 1 <= 30:
+                        current_line += f"{word} "
+                    else:
+                        if current_line:
+                            title_lines.append(current_line.strip())
+                        current_line = f"{word} "
+                if current_line:
+                    title_lines.append(current_line.strip())
+
+                title_para = Paragraph("<br/>".join(title_lines), cell_style) if len(title_lines) > 1 else Paragraph(
+                    title_text, cell_style)
+
+                viewed_data.append([
+                    Paragraph(str(idx), number_style),
+                    title_para,
+                    Paragraph(str(article.views_count), number_style),
+                    Paragraph(str(article.likes.count()), number_style)
+                ])
+
+            viewed_table = Table(viewed_data, colWidths=[10 * mm, 100 * mm, 25 * mm, 25 * mm])
+            viewed_table.setStyle(TableStyle([
+                ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor(section_colors['top_viewed'])),
+                ('TEXTCOLOR', (0, 0), (-1, 0), colors.white),
+                ('FONTNAME', (0, 0), (-1, 0), font_bold),
+                ('FONTSIZE', (0, 0), (-1, 0), 10),
+                ('BOTTOMPADDING', (0, 0), (-1, 0), 6),
+                ('TOPPADDING', (0, 0), (-1, 0), 6),
+                ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+                ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+                ('FONTNAME', (0, 1), (-1, -1), font_normal),
+                ('FONTSIZE', (0, 1), (-1, -1), 9),
+                ('GRID', (0, 0), (-1, -1), 0.5, colors.HexColor('#d1d5db')),
+                ('ALIGN', (0, 1), (0, -1), 'CENTER'),
+                ('ALIGN', (2, 1), (-1, -1), 'CENTER'),
+                ('ROWBACKGROUNDS', (0, 1), (-1, -1), [
+                    colors.HexColor('#ffffff'),
+                    colors.HexColor('#f8fafc')
+                ]),
+            ]))
+            story.append(viewed_table)
+        else:
+            story.append(Paragraph("Нет данных", cell_style))
+
+        story.append(Spacer(1, 15 * mm))
+
+        # 3. Топ лайкнутых статей
+        story.append(Paragraph(
+            "👍 ТОП ЛАЙКНУТЫХ СТАТЕЙ",
+            ParagraphStyle(
+                'SectionTitle',
+                parent=styles['Heading2'],
+                fontName=font_bold,
+                fontSize=14,
+                spaceAfter=6 * mm,
+                textColor=colors.HexColor(section_colors['top_liked']),
+                alignment=TA_LEFT
+            )
+        ))
+
+        if top_liked:
+            liked_data = [['№', 'Статья', 'Лайки', 'Просмотры']]
+            for idx, article in enumerate(top_liked, 1):
+                title_text = article.title
+                if len(title_text) > 60:
+                    title_text = title_text[:57] + "..."
+
+                title_lines = []
+                words = title_text.split()
+                current_line = ""
+                for word in words:
+                    if len(current_line) + len(word) + 1 <= 30:
+                        current_line += f"{word} "
+                    else:
+                        if current_line:
+                            title_lines.append(current_line.strip())
+                        current_line = f"{word} "
+                if current_line:
+                    title_lines.append(current_line.strip())
+
+                title_para = Paragraph("<br/>".join(title_lines), cell_style) if len(title_lines) > 1 else Paragraph(
+                    title_text, cell_style)
+
+                liked_data.append([
+                    Paragraph(str(idx), number_style),
+                    title_para,
+                    Paragraph(str(article.likes_count), number_style),
+                    Paragraph(str(article.views_count), number_style)
+                ])
+
+            liked_table = Table(liked_data, colWidths=[10 * mm, 100 * mm, 25 * mm, 25 * mm])
+            liked_table.setStyle(TableStyle([
+                ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor(section_colors['top_liked'])),
+                ('TEXTCOLOR', (0, 0), (-1, 0), colors.white),
+                ('FONTNAME', (0, 0), (-1, 0), font_bold),
+                ('FONTSIZE', (0, 0), (-1, 0), 10),
+                ('BOTTOMPADDING', (0, 0), (-1, 0), 6),
+                ('TOPPADDING', (0, 0), (-1, 0), 6),
+                ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+                ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+                ('FONTNAME', (0, 1), (-1, -1), font_normal),
+                ('FONTSIZE', (0, 1), (-1, -1), 9),
+                ('GRID', (0, 0), (-1, -1), 0.5, colors.HexColor('#d1d5db')),
+                ('ALIGN', (0, 1), (0, -1), 'CENTER'),
+                ('ALIGN', (2, 1), (-1, -1), 'CENTER'),
+                ('ROWBACKGROUNDS', (0, 1), (-1, -1), [
+                    colors.HexColor('#ffffff'),
+                    colors.HexColor('#f8fafc')
+                ]),
+            ]))
+            story.append(liked_table)
+        else:
+            story.append(Paragraph("Нет данных", cell_style))
+
+        story.append(Spacer(1, 15 * mm))
+
+        # 4. Популярные категории
+        story.append(Paragraph(
+            "🏷️ ПОПУЛЯРНЫЕ КАТЕГОРИИ",
+            ParagraphStyle(
+                'SectionTitle',
+                parent=styles['Heading2'],
+                fontName=font_bold,
+                fontSize=14,
+                spaceAfter=6 * mm,
+                textColor=colors.HexColor(section_colors['categories']),
+                alignment=TA_LEFT
+            )
+        ))
+
+        if top_categories:
+            categories_data = [['№', 'Категория', 'Просмотры', 'Статей']]
+            for idx, category in enumerate(top_categories, 1):
+                categories_data.append([
+                    Paragraph(str(idx), number_style),
+                    Paragraph(category.name, cell_style),
+                    Paragraph(str(category.total_views or 0), number_style),
+                    Paragraph(str(category.article_count or 0), number_style)
+                ])
+
+            categories_table = Table(categories_data, colWidths=[10 * mm, 80 * mm, 30 * mm, 25 * mm])
+            categories_table.setStyle(TableStyle([
+                ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor(section_colors['categories'])),
+                ('TEXTCOLOR', (0, 0), (-1, 0), colors.white),
+                ('FONTNAME', (0, 0), (-1, 0), font_bold),
+                ('FONTSIZE', (0, 0), (-1, 0), 10),
+                ('BOTTOMPADDING', (0, 0), (-1, 0), 6),
+                ('TOPPADDING', (0, 0), (-1, 0), 6),
+                ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+                ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+                ('FONTNAME', (0, 1), (-1, -1), font_normal),
+                ('FONTSIZE', (0, 1), (-1, -1), 9),
+                ('GRID', (0, 0), (-1, -1), 0.5, colors.HexColor('#d1d5db')),
+                ('ALIGN', (0, 1), (0, -1), 'CENTER'),
+                ('ALIGN', (2, 1), (-1, -1), 'CENTER'),
+                ('ROWBACKGROUNDS', (0, 1), (-1, -1), [
+                    colors.HexColor('#ffffff'),
+                    colors.HexColor('#f8fafc')
+                ]),
+            ]))
+            story.append(categories_table)
+        else:
+            story.append(Paragraph("Нет данных", cell_style))
+
+        story.append(Spacer(1, 15 * mm))
+
+        # 5. Популярные поисковые запросы
+        story.append(Paragraph(
+            "🔍 ПОПУЛЯРНЫЕ ПОИСКОВЫЕ ЗАПРОСЫ",
+            ParagraphStyle(
+                'SectionTitle',
+                parent=styles['Heading2'],
+                fontName=font_bold,
+                fontSize=14,
+                spaceAfter=6 * mm,
+                textColor=colors.HexColor(section_colors['searches']),
+                alignment=TA_LEFT
+            )
+        ))
+
+        if popular_searches:
+            searches_data = [['№', 'Поисковый запрос', 'Количество']]
+            for idx, search in enumerate(popular_searches, 1):
+                query_text = search['query']
+                if len(query_text) > 50:
+                    query_text = query_text[:47] + "..."
+
+                searches_data.append([
+                    Paragraph(str(idx), number_style),
+                    Paragraph(query_text, cell_style),
+                    Paragraph(str(search['count']), number_style)
+                ])
+
+            searches_table = Table(searches_data, colWidths=[10 * mm, 100 * mm, 30 * mm])
+            searches_table.setStyle(TableStyle([
+                ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor(section_colors['searches'])),
+                ('TEXTCOLOR', (0, 0), (-1, 0), colors.white),
+                ('FONTNAME', (0, 0), (-1, 0), font_bold),
+                ('FONTSIZE', (0, 0), (-1, 0), 10),
+                ('BOTTOMPADDING', (0, 0), (-1, 0), 6),
+                ('TOPPADDING', (0, 0), (-1, 0), 6),
+                ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+                ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+                ('FONTNAME', (0, 1), (-1, -1), font_normal),
+                ('FONTSIZE', (0, 1), (-1, -1), 9),
+                ('GRID', (0, 0), (-1, -1), 0.5, colors.HexColor('#d1d5db')),
+                ('ALIGN', (0, 1), (0, -1), 'CENTER'),
+                ('ALIGN', (2, 1), (-1, -1), 'CENTER'),
+                ('ROWBACKGROUNDS', (0, 1), (-1, -1), [
+                    colors.HexColor('#ffffff'),
+                    colors.HexColor('#f8fafc')
+                ]),
+            ]))
+            story.append(searches_table)
+        else:
+            story.append(Paragraph("Нет данных", cell_style))
+
+        # Футер
+        story.append(Spacer(1, 15 * mm))
+        footer_text = (
+            f"Сформировано: {timezone.now().strftime('%d.%m.%Y %H:%M')} | "
+            f"Пользователь: {request.user.username} | "
+            f"Форум 'ВЕДЬМАК' © {timezone.now().strftime('%Y')}"
+        )
+        story.append(Paragraph(
+            footer_text,
+            ParagraphStyle(
+                'Footer',
+                parent=styles['Normal'],
+                fontName=font_normal,
+                fontSize=8,
+                textColor=colors.HexColor('#6b7280'),
+                alignment=TA_CENTER
+            )
+        ))
+
+        # Строим PDF
+        doc.build(story)
+
+        # Подготавливаем response
+        buffer.seek(0)
+        response = HttpResponse(buffer, content_type='application/pdf')
+        filename = f"statistics_report_{timezone.now().strftime('%Y%m%d_%H%M')}.pdf"
+        response['Content-Disposition'] = f'attachment; filename="{filename}"'
+
+        # Кодируем имя файла для русских символов
+        try:
+            from urllib.parse import quote
+            response['Content-Disposition'] = f"attachment; filename*=UTF-8''{quote(filename)}"
+        except:
+            pass
+
+        # Логируем действие
+        ActionLogger.log_action(
+            request=request,
+            action_type='statistics_export',
+            description=f'Экспорт статистики в PDF',
+            extra_data={'format': 'pdf'}
+        )
+
+        return response
+
+    except Exception as e:
+        import traceback
+        error_msg = f"Ошибка при создании PDF статистики: {str(e)}"
+        print(error_msg)
+        traceback.print_exc()
+
+        # Fallback в TXT
+        content = f"Ошибка при создании PDF: {str(e)}\n\n"
+        content += f"СТАТИСТИКА ФОРУМА 'ВЕДЬМАК'\n"
+        content += f"Дата: {timezone.now().strftime('%d.%m.%Y %H:%M')}\n"
+        content += f"Всего статей: {total_articles}\n"
+        content += f"Всего пользователей: {total_users}\n"
+        content += f"Всего просмотров: {total_views}\n"
+
+        response = HttpResponse(content, content_type='text/plain; charset=utf-8')
+        response['Content-Disposition'] = 'attachment; filename="statistics_backup.txt"'
+        return response

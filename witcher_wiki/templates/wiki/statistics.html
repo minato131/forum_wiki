@@ -1,0 +1,495 @@
+<!-- wiki/templates/wiki/statistics.html -->
+{% extends 'base.html' %}
+
+{% block title %}Статистика | Форум по Вселенной Ведьмака{% endblock %}
+
+{% block content %}
+<style>
+    .stats-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+        margin-bottom: 30px;
+    }
+
+    .stat-card {
+        background: rgba(212, 175, 55, 0.1);
+        border: 1px solid #D4AF37;
+        border-radius: 10px;
+        padding: 20px;
+        transition: all 0.3s ease;
+    }
+
+    .stat-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(212, 175, 55, 0.2);
+    }
+
+    .stat-number {
+        color: #D4AF37;
+        font-size: 2.5em;
+        font-weight: bold;
+        margin-bottom: 5px;
+        font-family: 'Cinzel', serif;
+    }
+
+    .stat-label {
+        color: #ccc;
+        font-size: 1em;
+        margin-bottom: 15px;
+    }
+
+    .top-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .top-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 0;
+        border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+    }
+
+    .top-item:last-child {
+        border-bottom: none;
+    }
+
+    .top-item-info {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .top-item-title {
+        color: #D4AF37;
+        font-weight: bold;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-bottom: 3px;
+    }
+
+    .top-item-meta {
+        color: #888;
+        font-size: 0.85em;
+    }
+
+    .top-item-value {
+        color: #D4AF37;
+        font-weight: bold;
+        font-size: 1.2em;
+        margin-left: 15px;
+    }
+
+    .badge {
+        display: inline-block;
+        padding: 3px 8px;
+        border-radius: 12px;
+        font-size: 0.75em;
+        font-weight: bold;
+        margin-right: 5px;
+    }
+
+    .badge-views { background: rgba(59, 130, 246, 0.2); color: #3b82f6; }
+    .badge-likes { background: rgba(34, 197, 94, 0.2); color: #22c55e; }
+    .badge-comments { background: rgba(168, 85, 247, 0.2); color: #a855f7; }
+
+    .section-title {
+        color: #D4AF37;
+        font-family: 'Cinzel', serif;
+        border-bottom: 2px solid #D4AF37;
+        padding-bottom: 10px;
+        margin: 30px 0 20px 0;
+        font-size: 1.5em;
+    }
+
+    .export-section {
+        background: rgba(212, 175, 55, 0.1);
+        border: 1px solid #D4AF37;
+        border-radius: 10px;
+        padding: 20px;
+        margin: 30px 0;
+        text-align: center;
+    }
+
+    .export-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 24px;
+        background: #D4AF37;
+        color: #1a1a1a;
+        text-decoration: none;
+        border-radius: 6px;
+        font-weight: bold;
+        transition: all 0.3s ease;
+        border: none;
+        cursor: pointer;
+        font-size: 1em;
+    }
+
+    .export-btn:hover {
+        opacity: 0.9;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(212, 175, 55, 0.3);
+    }
+
+    .table-container {
+        overflow-x: auto;
+        margin: 20px 0;
+    }
+
+    .stats-table {
+        width: 100%;
+        border-collapse: collapse;
+        background: rgba(212, 175, 55, 0.05);
+    }
+
+    .stats-table th {
+        background: rgba(212, 175, 55, 0.2);
+        color: #D4AF37;
+        padding: 12px 15px;
+        text-align: left;
+        font-weight: bold;
+        border-bottom: 2px solid #D4AF37;
+    }
+
+    .stats-table td {
+        padding: 12px 15px;
+        border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+        color: #ccc;
+    }
+
+    .stats-table tr:hover {
+        background: rgba(212, 175, 55, 0.05);
+    }
+
+    .rank {
+        color: #D4AF37;
+        font-weight: bold;
+        font-size: 1.2em;
+        width: 40px;
+        text-align: center;
+    }
+
+    .search-query {
+        color: #D4AF37;
+        font-weight: bold;
+    }
+
+    .search-count {
+        color: #888;
+        font-size: 0.9em;
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 40px 20px;
+        color: #888;
+        font-size: 1.1em;
+    }
+
+    .empty-state-icon {
+        font-size: 4em;
+        margin-bottom: 20px;
+        opacity: 0.5;
+    }
+
+    @media (max-width: 768px) {
+        .stats-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .top-item {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 5px;
+        }
+
+        .top-item-value {
+            margin-left: 0;
+        }
+    }
+</style>
+
+<div class="stats-container">
+    <h1 style="color: #D4AF37; font-family: 'Cinzel', serif; text-align: center; margin-bottom: 40px;">
+        📊 Статистика форума
+    </h1>
+
+    <!-- Общая статистика -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-number">{{ total_articles }}</div>
+            <div class="stat-label">📝 Всего статей</div>
+            <div class="stat-meta" style="color: #888; font-size: 0.9em;">
+                +{{ recent_articles }} за последние 7 дней
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-number">{{ total_users }}</div>
+            <div class="stat-label">👥 Пользователей</div>
+            <div class="stat-meta" style="color: #888; font-size: 0.9em;">
+                +{{ recent_users }} за последние 7 дней
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-number">{{ total_views }}</div>
+            <div class="stat-label">👁️ Просмотров</div>
+            <div class="stat-meta" style="color: #888; font-size: 0.9em;">
+                Всего просмотров статей
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-number">{{ total_comments }}</div>
+            <div class="stat-label">💬 Комментариев</div>
+            <div class="stat-meta" style="color: #888; font-size: 0.9em;">
+                Всего оставлено комментариев
+            </div>
+        </div>
+    </div>
+
+    <!-- Топ статей -->
+    <div class="stats-grid">
+        <!-- Самые просматриваемые -->
+        <div class="stat-card">
+            <h3 class="section-title" style="margin-top: 0;">🔥 Топ просмотров</h3>
+            {% if top_viewed %}
+            <ul class="top-list">
+                {% for article in top_viewed %}
+                <li class="top-item">
+                    <div class="top-item-info">
+                        <div class="top-item-title">
+                            <span class="rank">#{{ forloop.counter }}</span>
+                            <a href="{% url 'wiki:article_detail' article.slug %}"
+                               style="color: #D4AF37; text-decoration: none;">
+                                {{ article.title|truncatechars:40 }}
+                            </a>
+                        </div>
+                        <div class="top-item-meta">
+                            <span class="badge badge-views">👁️ {{ article.views_count }} просмотров</span>
+                            <span class="badge badge-likes">👍 {{ article.likes.count }}</span>
+                        </div>
+                    </div>
+                    <div class="top-item-value">
+                        {{ article.views_count }}
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <div class="empty-state">
+                <div class="empty-state-icon">📊</div>
+                <p>Нет данных</p>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Самые лайкнутые -->
+        <div class="stat-card">
+            <h3 class="section-title" style="margin-top: 0;">👍 Топ лайков</h3>
+            {% if top_liked %}
+            <ul class="top-list">
+                {% for article in top_liked %}
+                <li class="top-item">
+                    <div class="top-item-info">
+                        <div class="top-item-title">
+                            <span class="rank">#{{ forloop.counter }}</span>
+                            <a href="{% url 'wiki:article_detail' article.slug %}"
+                               style="color: #D4AF37; text-decoration: none;">
+                                {{ article.title|truncatechars:40 }}
+                            </a>
+                        </div>
+                        <div class="top-item-meta">
+                            <span class="badge badge-likes">👍 {{ article.likes_count }} лайков</span>
+                            <span class="badge badge-views">👁️ {{ article.views_count }}</span>
+                        </div>
+                    </div>
+                    <div class="top-item-value">
+                        {{ article.likes.count }}
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <div class="empty-state">
+                <div class="empty-state-icon">❤️</div>
+                <p>Нет данных</p>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Самые комментируемые -->
+        <div class="stat-card">
+            <h3 class="section-title" style="margin-top: 0;">💬 Топ комментариев</h3>
+            {% if top_commented %}
+            <ul class="top-list">
+                {% for article in top_commented %}
+                <li class="top-item">
+                    <div class="top-item-info">
+                        <div class="top-item-title">
+                            <span class="rank">#{{ forloop.counter }}</span>
+                            <a href="{% url 'wiki:article_detail' article.slug %}"
+                               style="color: #D4AF37; text-decoration: none;">
+                                {{ article.title|truncatechars:40 }}
+                            </a>
+                        </div>
+                        <div class="top-item-meta">
+                            <span class="badge badge-comments">💬 {{ article.comments_count }} комментариев</span>
+                            <span class="badge badge-likes">👍 {{ article.likes_count }}</span>
+                        </div>
+                    </div>
+                    <div class="top-item-value">
+                        {{ article.comments_count }}
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <div class="empty-state">
+                <div class="empty-state-icon">💬</div>
+                <p>Нет данных</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Популярные категории -->
+    <h2 class="section-title">🏷️ Популярные категории</h2>
+    <div class="table-container">
+        <table class="stats-table">
+            <thead>
+                <tr>
+                    <th style="width: 50px;">#</th>
+                    <th>Категория</th>
+                    <th style="text-align: center;">Просмотры</th>
+                    <th style="text-align: center;">Статьи</th>
+                    <th style="text-align: center;">Ср. рейтинг</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for category in top_categories %}
+                <tr>
+                    <td class="rank">{{ forloop.counter }}</td>
+                    <td>
+                        <a href="{% url 'wiki:article_list' %}?category={{ category.slug }}"
+                           style="color: #D4AF37; text-decoration: none; font-weight: bold;">
+                            {{ category.name }}
+                        </a>
+                    </td>
+                    <td style="text-align: center; color: #D4AF37; font-weight: bold;">
+                        {{ category.total_views|default:0 }}
+                    </td>
+                    <td style="text-align: center; color: #ccc;">
+                        {{ category.article_count|default:0 }}
+                    </td>
+                    <td style="text-align: center;">
+                        <span style="color: #D4AF37; font-weight: bold;">
+                            {{ category.avg_rating|default:0|floatformat:1 }}
+                        </span>
+                        <span style="color: #888; font-size: 0.8em;">/5</span>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" style="text-align: center; padding: 40px; color: #888;">
+                        Нет данных о категориях
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Популярные поисковые запросы -->
+    <h2 class="section-title">🔍 Популярные запросы</h2>
+    <div class="table-container">
+        <table class="stats-table">
+            <thead>
+                <tr>
+                    <th style="width: 50px;">#</th>
+                    <th>Поисковый запрос</th>
+                    <th style="text-align: center;">Количество</th>
+                    <th>Последний поиск</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for search in popular_searches %}
+                <tr>
+                    <td class="rank">{{ forloop.counter }}</td>
+                    <td>
+                        <span class="search-query">{{ search.query }}</span>
+                    </td>
+                    <td style="text-align: center; color: #D4AF37; font-weight: bold;">
+                        {{ search.count }}
+                    </td>
+                    <td style="color: #888; font-size: 0.9em;">
+                        {{ search.last_search|default:"-" }}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" style="text-align: center; padding: 40px; color: #888;">
+                        Нет данных о поисковых запросах
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Экспорт -->
+    <div class="export-section">
+        <h3 style="color: #D4AF37; margin-bottom: 20px;">📤 Экспорт статистики</h3>
+        <p style="color: #ccc; margin-bottom: 20px; max-width: 600px; margin-left: auto; margin-right: auto;">
+            Вы можете экспортировать всю статистику в PDF формате для отчетности и анализа.
+        </p>
+        <a href="{% url 'wiki:export_statistics_pdf' %}" class="export-btn">
+            📄 Экспортировать в PDF
+        </a>
+    </div>
+
+    <!-- Навигация -->
+    <div style="text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid rgba(212, 175, 55, 0.2);">
+        <a href="/" class="back-link" style="display: inline-flex; align-items: center; gap: 8px; color: #D4AF37; text-decoration: none; padding: 10px 20px; border: 1px solid #D4AF37; border-radius: 6px; transition: all 0.3s ease;">
+            ← На главную
+        </a>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Автоматическое обновление статистики каждые 5 минут
+    setInterval(function() {
+        fetch('/api/update_stats/', { method: 'POST' })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    console.log('Статистика обновлена');
+                }
+            })
+            .catch(error => console.error('Ошибка обновления:', error));
+    }, 300000); // 5 минут
+
+    // Подсветка топ-3
+    const topItems = document.querySelectorAll('.top-item');
+    topItems.forEach((item, index) => {
+        if (index === 0) {
+            item.style.background = 'rgba(212, 175, 55, 0.1)';
+            item.style.borderLeft = '3px solid #D4AF37';
+        }
+    });
+});
+</script>
+{% endblock %}

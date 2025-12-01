@@ -36,6 +36,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django_user_agents.middleware.UserAgentMiddleware',
     'wiki.middleware.ActionLoggingMiddleware',
+    'wiki.utils.stats_collector.StatsMiddleware',
 ]
 
 ROOT_URLCONF = 'witcher_wiki.urls'

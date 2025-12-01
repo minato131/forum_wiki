@@ -122,4 +122,10 @@ urlpatterns = [
     path('articles/export/', views.export_articles_list, name='export_articles_list'),
     path('help/', HelpView.as_view(), name='help'),
     path('help/faq/', FAQView.as_view(), name='faq'),
+
+    path('statistics/', views.StatisticsView.as_view(), name='statistics'),
+    path('statistics/export/', views.ExportStatsView.as_view(), name='export_statistics'),
+    path('api/update_stats/', views.update_stats_api, name='update_stats_api'),
+    path('articles/', views.article_list, name='article_list'),
+    path('statistics/export/pdf/', views.export_statistics_pdf, name='export_statistics_pdf'),
 ]

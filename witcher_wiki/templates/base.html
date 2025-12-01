@@ -387,7 +387,7 @@
                 <a href="/admin/">⚙️ Админ-панель</a>
             {% endif %}
 
-            {% if user.is_authenticated %}
+            {% if user.is_not_staff %}
                  <a href="{% url 'wiki:help' %}" class="nav-link">
                     <i class="fas fa-question-circle mr-2"></i> Помощь
                 </a>
@@ -438,6 +438,10 @@
                         {% if user.is_staff %}
                             <a href="{% url 'wiki:user_management' %}">👥 Управление пользователями</a>
                             <a href="/admin/">⚙️ Админ-панель</a>
+                        {% endif %}
+
+                        {% if user.is_staff %}
+                            <a href="{% url 'wiki:statistics' %}">📊 Статистика</a>
                         {% endif %}
 
                         <button type="button" class="logout-form-btn" onclick="confirmLogout()">
