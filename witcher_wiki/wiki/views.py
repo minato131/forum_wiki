@@ -45,8 +45,18 @@ from reportlab.lib.units import inch
 from reportlab.lib import colors
 import io
 from django.utils.text import Truncator
-
-
+from django.http import HttpResponse
+from reportlab.pdfgen import canvas
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
+from reportlab.lib.pagesizes import A4
+from reportlab.lib.units import mm
+from reportlab.lib.utils import ImageReader
+from .models import Article
+from django.http import HttpResponse
+from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import A4
+import io
 
 
 def clean_latex_from_content(content):
@@ -2614,141 +2624,359 @@ def reset_tutorials(request):
     return redirect(request.META.get('HTTP_REFERER', 'wiki:home'))
 
 
-@login_required
-def export_article_pdf(request, slug):
-    """Экспорт статьи в PDF"""
-    article = get_object_or_404(Article, slug=slug)
+def wrap_text(text, max_line_length):
+    """Разбивает текст на строки заданной длины"""
+    if not text:
+        return []
 
-    # Проверяем права на просмотр
-    if article.status != 'published' and not article.can_edit(request.user):
-        return render(request, 'wiki/access_denied.html', {
-            'message': 'У вас нет прав для экспорта этой статьи.'
-        })
+    words = text.split()
+    lines = []
+    current_line = []
 
-    # Создаем PDF
-    buffer = io.BytesIO()
-    doc = SimpleDocTemplate(buffer, pagesize=A4,
-                            rightMargin=72, leftMargin=72,
-                            topMargin=72, bottomMargin=72)
+    for word in words:
+        # Проверяем длину текущей строки с новым словом
+        test_line = ' '.join(current_line + [word])
+        if len(test_line) <= max_line_length:
+            current_line.append(word)
+        else:
+            # Сохраняем текущую строку и начинаем новую
+            if current_line:
+                lines.append(' '.join(current_line))
+            current_line = [word]
 
-    styles = getSampleStyleSheet()
+    # Добавляем последнюю строку
+    if current_line:
+        lines.append(' '.join(current_line))
 
-    # Создаем кастомные стили
-    title_style = ParagraphStyle(
-        'CustomTitle',
-        parent=styles['Heading1'],
-        fontSize=16,
-        spaceAfter=30,
-        textColor=colors.HexColor('#1a365d'),
-        alignment=1  # center
-    )
-
-    author_style = ParagraphStyle(
-        'CustomAuthor',
-        parent=styles['Normal'],
-        fontSize=10,
-        textColor=colors.HexColor('#666666'),
-        alignment=1
-    )
-
-    content_style = ParagraphStyle(
-        'CustomContent',
-        parent=styles['Normal'],
-        fontSize=12,
-        spaceAfter=12,
-        textColor=colors.HexColor('#2d3748')
-    )
-
-    # Собираем контент
-    story = []
-
-    # Заголовок
-    story.append(Paragraph(article.title, title_style))
-    story.append(Spacer(1, 12))
-
-    # Автор и дата
-    author_info = f"Автор: {article.author.username} | Дата: {article.created_at.strftime('%d.%m.%Y %H:%M')}"
-    story.append(Paragraph(author_info, author_style))
-    story.append(Spacer(1, 20))
-
-    # Категории
-    if article.categories.exists():
-        categories = ", ".join([cat.name for cat in article.categories.all()])
-        story.append(Paragraph(f"<b>Категории:</b> {categories}", styles['Normal']))
-        story.append(Spacer(1, 10))
-
-    # Краткое описание
-    if article.excerpt:
-        story.append(Paragraph("<b>Краткое описание:</b>", styles['Normal']))
-        story.append(Paragraph(article.excerpt, content_style))
-        story.append(Spacer(1, 15))
-
-    # Основной контент (упрощенный, без HTML тегов)
-    clean_content = clean_html_for_pdf(article.content)
-    story.append(Paragraph("<b>Содержание:</b>", styles['Normal']))
-    story.append(Spacer(1, 10))
-
-    # Разбиваем контент на абзацы
-    paragraphs = clean_content.split('\n')
-    for paragraph in paragraphs:
-        if paragraph.strip():
-            story.append(Paragraph(paragraph.strip(), content_style))
-
-    # Статистика
-    story.append(Spacer(1, 20))
-    stats_info = f"Просмотры: {article.views_count} | Лайки: {article.get_likes_count()}"
-    story.append(Paragraph(stats_info, author_style))
-
-    # Создаем PDF
-    doc.build(story)
-
-    # Подготавливаем response
-    buffer.seek(0)
-    response = HttpResponse(buffer, content_type='application/pdf')
-    filename = f"article_{article.slug}_{timezone.now().strftime('%Y%m%d')}.pdf"
-    response['Content-Disposition'] = f'attachment; filename="{filename}"'
-
-    # Логируем действие
-    ActionLogger.log_action(
-        request=request,
-        action_type='article_export',
-        description=f'Пользователь {request.user.username} экспортировал статью "{article.title}" в PDF',
-        target_object=article
-    )
-
-    return response
+    return lines
 
 
 def clean_html_for_pdf(html_content):
     """Очищает HTML контент для PDF"""
     import re
+    if not html_content:
+        return ""
+
     # Удаляем HTML теги
     clean = re.compile('<.*?>')
     text_only = re.sub(clean, '', html_content)
 
     # Заменяем HTML entities
-    text_only = text_only.replace('&nbsp;', ' ')
-    text_only = text_only.replace('&amp;', '&')
-    text_only = text_only.replace('&lt;', '<')
-    text_only = text_only.replace('&gt;', '>')
+    replacements = {
+        '&nbsp;': ' ',
+        '&amp;': '&',
+        '&lt;': '<',
+        '&gt;': '>',
+        '&quot;': '"',
+        '&#39;': "'",
+        '&rsquo;': "'",
+        '&lsquo;': "'",
+        '&rdquo;': '"',
+        '&ldquo;': '"',
+    }
 
-    return text_only
+    for entity, replacement in replacements.items():
+        text_only = text_only.replace(entity, replacement)
+
+    # Декодируем Unicode entities
+    text_only = re.sub(r'&#(\d+);', lambda m: chr(int(m.group(1))), text_only)
+    text_only = re.sub(r'&#x([0-9a-fA-F]+);', lambda m: chr(int(m.group(1), 16)), text_only)
+
+    # Удаляем лишние пробелы и переносы
+    text_only = re.sub(r'\s+', ' ', text_only)
+    text_only = re.sub(r'\n\s*\n', '\n\n', text_only)
+
+    return text_only.strip()
+
+
+@login_required
+def export_article_pdf(request, slug):
+    """Минималистичный экспорт статьи в PDF"""
+    article = get_object_or_404(Article, slug=slug)
+
+    if article.status != 'published' and not article.can_edit(request.user):
+        return render(request, 'wiki/access_denied.html', {
+            'message': 'У вас нет прав для экспорта этой статьи.'
+        })
+
+    try:
+        from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+        from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
+        from reportlab.lib.units import mm
+        from reportlab.lib import colors
+        from reportlab.lib.enums import TA_CENTER, TA_JUSTIFY, TA_LEFT
+        import io
+
+        # PDF с нормальными полями
+        buffer = io.BytesIO()
+        doc = SimpleDocTemplate(buffer,
+                                pagesize=A4,
+                                rightMargin=20 * mm,
+                                leftMargin=20 * mm,
+                                topMargin=25 * mm,
+                                bottomMargin=20 * mm)
+
+        # Регистрируем шрифты
+        def register_custom_fonts():
+            try:
+                from reportlab.pdfbase import pdfmetrics
+                from reportlab.pdfbase.ttfonts import TTFont
+                import os
+                from django.conf import settings
+
+                font_path = os.path.join(settings.BASE_DIR, 'static', 'fonts', 'DejaVuSans.ttf')
+
+                if os.path.exists(font_path):
+                    pdfmetrics.registerFont(TTFont('DejaVuSans', font_path))
+                    pdfmetrics.registerFont(TTFont('DejaVuSans-Bold', font_path))
+                    return True
+            except:
+                pass
+            return False
+
+        fonts_registered = register_custom_fonts()
+        font_normal = 'DejaVuSans' if fonts_registered else 'Helvetica'
+        font_bold = 'DejaVuSans-Bold' if fonts_registered else 'Helvetica-Bold'
+
+        # Стили
+        styles = getSampleStyleSheet()
+
+        # 1. Заголовок статьи
+        title_style = ParagraphStyle(
+            'ArticleTitle',
+            parent=styles['Heading1'],
+            fontName=font_bold,
+            fontSize=18,
+            leading=22,
+            spaceAfter=8 * mm,
+            textColor=colors.HexColor('#1a365d'),
+            alignment=TA_CENTER
+        )
+
+        # 2. Мета информация
+        meta_style = ParagraphStyle(
+            'MetaInfo',
+            parent=styles['Normal'],
+            fontName=font_normal,
+            fontSize=9,
+            leading=11,
+            spaceAfter=1 * mm,
+            textColor=colors.HexColor('#4a5568'),
+            alignment=TA_CENTER
+        )
+
+        # 3. Статус (простой, без огромного блока)
+        def get_status_style(status):
+            colors_map = {
+                'published': ('#10b981', '#065f46'),  # зеленый
+                'draft': ('#6b7280', '#374151'),  # серый
+                'review': ('#f59e0b', '#92400e'),  # желтый
+                'needs_correction': ('#ef4444', '#991b1b'),  # красный
+                'editor_review': ('#3b82f6', '#1e40af'),  # синий
+                'author_review': ('#8b5cf6', '#5b21b6'),  # фиолетовый
+                'rejected': ('#dc2626', '#7f1d1d'),  # темно-красный
+                'archived': ('#9ca3af', '#4b5563'),  # серый
+            }
+            bg_color, text_color = colors_map.get(status, ('#6b7280', '#374151'))
+
+            return ParagraphStyle(
+                f'Status_{status}',
+                parent=styles['Normal'],
+                fontName=font_bold,
+                fontSize=10,
+                leading=12,
+                spaceAfter=6 * mm,
+                textColor=colors.HexColor(text_color),
+                alignment=TA_CENTER,
+                borderWidth=1,
+                borderColor=colors.HexColor(bg_color),
+                borderRadius=4,
+                borderPadding=(6, 12, 6, 12)
+            )
+
+        # 4. Основной текст
+        body_style = ParagraphStyle(
+            'ArticleBody',
+            parent=styles['Normal'],
+            fontName=font_normal,
+            fontSize=11,
+            leading=15,
+            spaceAfter=4 * mm,
+            textColor=colors.HexColor('#2d3748'),
+            alignment=TA_JUSTIFY,
+            firstLineIndent=20
+        )
+
+        # 5. Разделитель
+        divider_style = ParagraphStyle(
+            'Divider',
+            parent=styles['Normal'],
+            fontSize=1,
+            spaceBefore=10 * mm,
+            spaceAfter=10 * mm,
+            borderWidth=0.5,
+            borderColor=colors.HexColor('#e2e8f0')
+        )
+
+        # 6. Футер
+        footer_style = ParagraphStyle(
+            'Footer',
+            parent=styles['Normal'],
+            fontName=font_normal,
+            fontSize=8,
+            leading=10,
+            spaceBefore=15 * mm,
+            textColor=colors.HexColor('#718096'),
+            alignment=TA_CENTER
+        )
+
+        # Собираем контент
+        story = []
+
+        # 1. Заголовок
+        story.append(Paragraph(article.title, title_style))
+
+        # 2. Мета информация в таблице
+        meta_table_data = [
+            [Paragraph(f"<b>Автор:</b> {article.author.username}", meta_style)],
+            [Paragraph(f"<b>Дата:</b> {article.created_at.strftime('%d.%m.%Y %H:%M')}", meta_style)],
+        ]
+
+        if article.published_at:
+            meta_table_data.append(
+                [Paragraph(f"<b>Опубликовано:</b> {article.published_at.strftime('%d.%m.%Y %H:%M')}", meta_style)]
+            )
+
+        meta_table = Table(meta_table_data, colWidths=[150 * mm])
+        meta_table.setStyle(TableStyle([
+            ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+            ('TOPPADDING', (0, 0), (-1, -1), 1),
+            ('BOTTOMPADDING', (0, 0), (-1, -1), 1),
+        ]))
+
+        story.append(meta_table)
+        story.append(Spacer(1, 4 * mm))
+
+        # 3. Статус (компактный)
+        story.append(Paragraph(article.get_status_display(), get_status_style(article.status)))
+        story.append(Spacer(1, 8 * mm))
+
+        # 4. Категории и теги (если есть)
+        if article.categories.exists() or article.tags.exists():
+            info_lines = []
+
+            if article.categories.exists():
+                cats = ", ".join([cat.name for cat in article.categories.all()])
+                if len(cats) > 60:
+                    cats = cats[:57] + "..."
+                info_lines.append(f"<b>Категории:</b> {cats}")
+
+            if article.tags.exists():
+                tags = ", ".join([tag.name for tag in article.tags.all()])
+                if len(tags) > 60:
+                    tags = tags[:57] + "..."
+                info_lines.append(f"<b>Теги:</b> {tags}")
+
+            for line in info_lines:
+                story.append(Paragraph(line, meta_style))
+                story.append(Spacer(1, 1 * mm))
+
+            story.append(Spacer(1, 6 * mm))
+
+        # 5. Краткое описание (если есть)
+        if article.excerpt:
+            excerpt_style = ParagraphStyle(
+                'Excerpt',
+                parent=body_style,
+                fontStyle='italic',
+                textColor=colors.HexColor('#4a5568'),
+                alignment=TA_CENTER,
+                leftIndent=0,
+                rightIndent=0,
+                spaceBefore=4 * mm,
+                spaceAfter=8 * mm
+            )
+            clean_excerpt = clean_html_for_pdf(article.excerpt, 300)
+            story.append(Paragraph(f'"{clean_excerpt}"', excerpt_style))
+
+        # 6. Разделитель перед контентом
+        story.append(Paragraph("", divider_style))
+
+        # 7. Основной контент
+        clean_content = clean_html_for_pdf(article.content)
+        paragraphs = clean_content.split('\n')
+
+        for i, para in enumerate(paragraphs):
+            if para.strip():
+                if i == 0:  # Первый абзац без отступа
+                    first_style = ParagraphStyle('FirstPara', parent=body_style, firstLineIndent=0)
+                    story.append(Paragraph(para.strip(), first_style))
+                else:
+                    story.append(Paragraph(para.strip(), body_style))
+                story.append(Spacer(1, 3 * mm))
+
+        # 8. Статистика (простая)
+        story.append(Spacer(1, 10 * mm))
+        stats_text = f"Просмотры: {article.views_count} • Лайки: {article.get_likes_count()} • Комментарии: {article.comments.count()}"
+        story.append(Paragraph(stats_text, ParagraphStyle(
+            'Stats', parent=meta_style, fontSize=9, alignment=TA_CENTER
+        )))
+
+        # 9. Футер
+        story.append(Spacer(1, 15 * mm))
+
+        footer_lines = [
+            f"Экспортировано: {timezone.now().strftime('%d.%m.%Y %H:%M')}",
+            "Форум ВЕДЬМАК",
+            f"© {timezone.now().strftime('%Y')} Все права защищены"
+        ]
+
+        for line in footer_lines:
+            story.append(Paragraph(line, footer_style))
+
+        # Создаем PDF
+        doc.build(story)
+
+        # Response
+        buffer.seek(0)
+        response = HttpResponse(buffer, content_type='application/pdf')
+        filename = f"{article.slug}_{timezone.now().strftime('%Y%m%d')}.pdf"
+        response['Content-Disposition'] = f'attachment; filename="{filename}"'
+
+        # Логирование
+        ActionLogger.log_action(
+            request=request,
+            action_type='article_export',
+            description=f'Пользователь {request.user.username} экспортировал статью "{article.title}"',
+            target_object=article
+        )
+
+        return response
+
+    except Exception as e:
+        import traceback
+        print(f"Ошибка при создании PDF: {str(e)}")
+        print(traceback.format_exc())
+
+        messages.error(request, f'Ошибка при создании PDF: {str(e)}')
+        return redirect('wiki:article_detail', slug=slug)
 
 
 @login_required
 def export_articles_list(request):
     """Экспорт списка статей в PDF"""
+
     # Определяем какие статьи экспортировать
     if request.user.is_staff or request.user.groups.filter(name__in=['Модератор', 'Администратор']).exists():
         # Админы/модераторы - все статьи
         articles = Article.objects.all()
-        title = "Все статьи форума"
+        title = "ВСЕ СТАТЬИ ФОРУМА ВЕДЬМАК"
     else:
         # Обычные пользователи - только свои статьи
         articles = Article.objects.filter(author=request.user)
-        title = f"Мои статьи ({request.user.username})"
+        title = f"МОИ СТАТЬИ ({request.user.username})"
 
-    # Применяем фильтры из GET параметров
+    # Применяем фильтры
     status_filter = request.GET.get('status')
     category_filter = request.GET.get('category')
 
@@ -2759,72 +2987,364 @@ def export_articles_list(request):
 
     articles = articles.order_by('-created_at')
 
-    # Создаем PDF
-    buffer = io.BytesIO()
-    doc = SimpleDocTemplate(buffer, pagesize=A4)
-    styles = getSampleStyleSheet()
-    story = []
+    try:
+        from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+        from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
+        from reportlab.lib.units import mm
+        from reportlab.lib import colors
+        from reportlab.lib.enums import TA_CENTER, TA_LEFT, TA_RIGHT
+        import io
 
-    # Заголовок отчета
-    story.append(Paragraph(title, styles['Heading1']))
-    story.append(Spacer(1, 12))
-    story.append(Paragraph(f"Дата экспорта: {timezone.now().strftime('%d.%m.%Y %H:%M')}", styles['Normal']))
-    story.append(Spacer(1, 20))
+        buffer = io.BytesIO()
+        doc = SimpleDocTemplate(buffer, pagesize=A4,
+                                rightMargin=15 * mm, leftMargin=15 * mm,
+                                topMargin=20 * mm, bottomMargin=15 * mm)
 
-    # Таблица со статьями
-    from reportlab.platypus import Table, TableStyle
+        # Регистрируем шрифты DejaVuSans
+        def register_fonts():
+            try:
+                from reportlab.pdfbase import pdfmetrics
+                from reportlab.pdfbase.ttfonts import TTFont
+                import os
+                from django.conf import settings
 
-    # Заголовки таблицы
-    data = [['Заголовок', 'Статус', 'Дата', 'Просмотры', 'Лайки']]
+                font_path = os.path.join(settings.BASE_DIR, 'static', 'fonts', 'DejaVuSans.ttf')
+                if os.path.exists(font_path):
+                    pdfmetrics.registerFont(TTFont('DejaVuSans', font_path))
+                    pdfmetrics.registerFont(TTFont('DejaVuSans-Bold', font_path))
+                    return True
+            except:
+                pass
+            return False
 
-    for article in articles:
-        data.append([
-            Truncator(article.title).chars(50),
-            article.get_status_display(),
-            article.created_at.strftime('%d.%m.%Y'),
-            str(article.views_count),
-            str(article.get_likes_count())
-        ])
+        fonts_registered = register_fonts()
+        font_normal = 'DejaVuSans' if fonts_registered else 'Helvetica'
+        font_bold = 'DejaVuSans-Bold' if fonts_registered else 'Helvetica-Bold'
 
-    # Создаем таблицу
-    table = Table(data, colWidths=[200, 80, 70, 60, 50])
-    table.setStyle(TableStyle([
-        ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#1a365d')),
-        ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
-        ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
-        ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
-        ('FONTSIZE', (0, 0), (-1, 0), 10),
-        ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
-        ('BACKGROUND', (0, 1), (-1, -1), colors.HexColor('#f7fafc')),
-        ('FONTSIZE', (0, 1), (-1, -1), 8),
-        ('GRID', (0, 0), (-1, -1), 1, colors.HexColor('#cbd5e0'))
-    ]))
+        # Стили
+        styles = getSampleStyleSheet()
 
-    story.append(table)
-
-    # Итоговая статистика
-    story.append(Spacer(1, 20))
-    stats_text = f"Всего статей: {articles.count()} | Опубликовано: {articles.filter(status='published').count()}"
-    story.append(Paragraph(stats_text, styles['Normal']))
-
-    doc.build(story)
-
-    buffer.seek(0)
-    response = HttpResponse(buffer, content_type='application/pdf')
-    filename = f"articles_export_{timezone.now().strftime('%Y%m%d_%H%M')}.pdf"
-    response['Content-Disposition'] = f'attachment; filename="{filename}"'
-
-    ActionLogger.log_action(
-        request=request,
-        action_type='articles_export',
-        description=f'Пользователь {request.user.username} экспортировал список статей',
-        extra_data={
-            'articles_count': articles.count(),
-            'filters': {
-                'status': status_filter,
-                'category': category_filter
-            }
+        # Цвета для статусов (совпадают с первой функцией)
+        status_colors = {
+            'published': '#10b981',  # зеленый
+            'draft': '#6b7280',  # серый
+            'review': '#f59e0b',  # желтый
+            'needs_correction': '#ef4444',  # красный
+            'editor_review': '#3b82f6',  # синий
+            'author_review': '#8b5cf6',  # фиолетовый
+            'rejected': '#dc2626',  # темно-красный
+            'archived': '#9ca3af',  # серый
         }
-    )
 
-    return response
+        # Заголовок отчета
+        title_style = ParagraphStyle(
+            'ReportTitle',
+            parent=styles['Heading1'],
+            fontName=font_bold,
+            fontSize=18,
+            leading=22,
+            spaceAfter=8 * mm,
+            textColor=colors.HexColor('#1e40af'),
+            alignment=TA_CENTER
+        )
+
+        # Подзаголовок с датой
+        subtitle_style = ParagraphStyle(
+            'ReportSubtitle',
+            parent=styles['Normal'],
+            fontName=font_normal,
+            fontSize=10,
+            leading=12,
+            spaceAfter=10 * mm,
+            textColor=colors.HexColor('#6b7280'),
+            alignment=TA_CENTER
+        )
+
+        # Заголовки таблицы
+        header_style = ParagraphStyle(
+            'TableHeader',
+            parent=styles['Normal'],
+            fontName=font_bold,
+            fontSize=10,
+            leading=12,
+            textColor=colors.white,
+            alignment=TA_CENTER,
+            backColor=colors.HexColor('#1e40af')
+        )
+
+        # Стиль для ячеек
+        cell_style = ParagraphStyle(
+            'TableCell',
+            parent=styles['Normal'],
+            fontName=font_normal,
+            fontSize=9,
+            leading=11,
+            textColor=colors.HexColor('#374151'),
+            alignment=TA_LEFT
+        )
+
+        # Стиль для статусов в таблице
+        def get_table_status_style(status):
+            color = status_colors.get(status, '#6b7280')
+            return ParagraphStyle(
+                f'TableStatus_{status}',
+                parent=cell_style,
+                backColor=colors.HexColor(color),
+                textColor=colors.white,
+                borderWidth=0.5,
+                borderColor=colors.HexColor(color),
+                borderRadius=3,
+                borderPadding=(3, 6, 3, 6),
+                alignment=TA_CENTER,
+                wordWrap='CJK'
+            )
+
+        # Собираем контент
+        story = []
+
+        # Заголовок отчета
+        story.append(Paragraph(title, title_style))
+        story.append(Paragraph(f"Дата формирования отчета: {timezone.now().strftime('%d.%m.%Y в %H:%M')}",
+                               subtitle_style))
+
+        # Таблица со статьями
+        table_data = []
+
+        # Заголовки таблицы
+        headers = ['№', 'Заголовок статьи', 'Статус', 'Автор', 'Дата создания', 'Просм.']
+        header_cells = [Paragraph(header, header_style) for header in headers]
+        table_data.append(header_cells)
+
+        # Добавляем статьи с нумерацией
+        for idx, article in enumerate(articles[:100], 1):  # Ограничиваем 100 статей
+            # Заголовок (обрезаем если длинный)
+            title_text = article.title
+            if len(title_text) > 50:
+                title_text = title_text[:47] + "..."
+
+            # Статус с цветом
+            status_display = article.get_status_display()
+
+            # Автор (обрезаем если длинный)
+            author_text = article.author.username
+            if len(author_text) > 15:
+                author_text = author_text[:12] + "..."
+
+            # Дата
+            date_text = article.created_at.strftime('%d.%m.%Y')
+
+            row = [
+                Paragraph(str(idx), ParagraphStyle('NumberStyle', parent=cell_style, alignment=TA_CENTER)),
+                Paragraph(title_text, cell_style),
+                Paragraph(status_display, get_table_status_style(article.status)),
+                Paragraph(author_text, cell_style),
+                Paragraph(date_text, ParagraphStyle('DateCell', parent=cell_style, alignment=TA_CENTER)),
+                Paragraph(str(article.views_count),
+                          ParagraphStyle('NumberCell', parent=cell_style, alignment=TA_CENTER)),
+            ]
+            table_data.append(row)
+
+        # Создаем таблицу
+        col_widths = [8 * mm, 75 * mm, 30 * mm, 25 * mm, 22 * mm, 15 * mm]
+        table = Table(table_data, colWidths=col_widths, repeatRows=1)
+
+        # Стили таблицы
+        table.setStyle(TableStyle([
+            # Заголовки
+            ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#1e40af')),
+            ('TEXTCOLOR', (0, 0), (-1, 0), colors.white),
+            ('FONTSIZE', (0, 0), (-1, 0), 10),
+            ('BOTTOMPADDING', (0, 0), (-1, 0), 6),
+            ('TOPPADDING', (0, 0), (-1, 0), 6),
+
+            # Все ячейки
+            ('FONTSIZE', (0, 1), (-1, -1), 9),
+            ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+
+            # Выравнивание столбцов
+            ('ALIGN', (0, 1), (0, -1), 'CENTER'),  # №
+            ('ALIGN', (4, 1), (4, -1), 'CENTER'),  # Дата
+            ('ALIGN', (5, 1), (5, -1), 'CENTER'),  # Просмотры
+
+            # Сетка
+            ('GRID', (0, 0), (-1, -1), 0.5, colors.HexColor('#e5e7eb')),
+
+            # Чередование цвета строк
+            ('ROWBACKGROUNDS', (0, 1), (-1, -1), [colors.white, colors.HexColor('#f9fafb')]),
+
+            # Отступы
+            ('LEFTPADDING', (0, 0), (-1, -1), 4),
+            ('RIGHTPADDING', (0, 0), (-1, -1), 4),
+            ('TOPPADDING', (0, 1), (-1, -1), 4),
+            ('BOTTOMPADDING', (0, 1), (-1, -1), 4),
+        ]))
+
+        story.append(table)
+
+        # Статистика
+        story.append(Spacer(1, 10 * mm))
+
+        # Подсчет по статусам
+        status_counts = {}
+        for status_code, status_name in Article.STATUS_CHOICES:
+            count = articles.filter(status=status_code).count()
+            if count > 0:
+                status_counts[status_name] = count
+
+        # Создаем таблицу со статистикой
+        stats_rows = []
+        for status_name, count in status_counts.items():
+            stats_rows.append([status_name, str(count)])
+
+        if stats_rows:
+            stats_table = Table(stats_rows, colWidths=[100 * mm, 30 * mm])
+            stats_table.setStyle(TableStyle([
+                ('FONTNAME', (0, 0), (-1, -1), font_normal),
+                ('FONTSIZE', (0, 0), (-1, -1), 9),
+                ('TEXTCOLOR', (0, 0), (0, -1), colors.HexColor('#4b5563')),
+                ('TEXTCOLOR', (1, 0), (1, -1), colors.HexColor('#1e40af')),
+                ('FONTNAME', (1, 0), (1, -1), font_bold),
+                ('ALIGN', (1, 0), (1, -1), 'CENTER'),
+                ('GRID', (0, 0), (-1, -1), 0.5, colors.HexColor('#e5e7eb')),
+                ('BACKGROUND', (0, 0), (-1, -1), colors.HexColor('#f9fafb')),
+                ('TOPPADDING', (0, 0), (-1, -1), 4),
+                ('BOTTOMPADDING', (0, 0), (-1, -1), 4),
+            ]))
+
+            story.append(Paragraph("<b>Распределение по статусам:</b>",
+                                   ParagraphStyle('StatsTitle', parent=cell_style, fontSize=10)))
+            story.append(Spacer(1, 2 * mm))
+            story.append(stats_table)
+
+        # Итоговая статистика
+        story.append(Spacer(1, 8 * mm))
+        total_stats = f"<b>Итого:</b> {articles.count()} статей | <b>Опубликовано:</b> {articles.filter(status='published').count()} | <b>Черновиков:</b> {articles.filter(status='draft').count()}"
+
+        story.append(Paragraph(total_stats,
+                               ParagraphStyle('TotalStats', parent=styles['Normal'],
+                                              fontSize=10, alignment=TA_CENTER,
+                                              fontName=font_bold,
+                                              backColor=colors.HexColor('#eff6ff'),
+                                              borderWidth=0.5, borderColor=colors.HexColor('#3b82f6'),
+                                              borderPadding=(8, 15, 8, 15),
+                                              borderRadius=6)))
+
+        # Футер
+        story.append(Spacer(1, 12 * mm))
+
+        footer_lines = [
+            f"<b>Отчет сформирован:</b> {timezone.now().strftime('%d.%m.%Y в %H:%M')}",
+            "Форум ВЕДЬМАК • Система управления контентом",
+            f"© {timezone.now().strftime('%Y')} Все права защищены"
+        ]
+
+        for line in footer_lines:
+            story.append(Paragraph(line, ParagraphStyle(
+                'ReportFooter', parent=styles['Normal'],
+                fontSize=8, textColor=colors.HexColor('#6b7280'),
+                alignment=TA_CENTER
+            )))
+
+        # Создаем PDF
+        doc.build(story)
+
+        # Подготавливаем response
+        buffer.seek(0)
+        response = HttpResponse(buffer, content_type='application/pdf')
+        filename = f"Отчет_статьи_{timezone.now().strftime('%Y%m%d_%H%M')}.pdf"
+        response['Content-Disposition'] = f'attachment; filename="{filename}"'
+
+        # Логируем
+        ActionLogger.log_action(
+            request=request,
+            action_type='articles_export',
+            description=f'Пользователь {request.user.username} экспортировал список статей ({articles.count()} шт.)',
+            extra_data={'articles_count': articles.count()}
+        )
+
+        return response
+
+    except Exception as e:
+        import traceback
+        print(f"❌ Ошибка при создании PDF списка: {str(e)}")
+        print(traceback.format_exc())
+
+        # Fallback: текстовый экспорт
+        content = f"{title}\n"
+        content += "=" * 70 + "\n\n"
+
+        for idx, article in enumerate(articles, 1):
+            content += f"{idx}. {article.title[:60]}... | Статус: {article.get_status_display()} | Автор: {article.author.username} | {article.created_at.strftime('%d.%m.%Y')} | Просм.: {article.views_count}\n"
+
+        content += f"\n{'=' * 70}\n"
+        content += f"Всего статей: {articles.count()}\n"
+        content += f"Отчет сформирован: {timezone.now().strftime('%d.%m.%Y в %H:%M')}\n"
+        content += "Форум ВЕДЬМАК\n"
+
+        response = HttpResponse(content, content_type='text/plain; charset=utf-8')
+        filename = f"Отчет_статьи_{timezone.now().strftime('%Y%m%d')}.txt"
+        response['Content-Disposition'] = f'attachment; filename="{filename}"'
+
+        return response
+
+
+def clean_html_for_pdf(html_content, max_length=None):
+    """Очищает HTML контент для PDF"""
+    import re
+
+    if not html_content:
+        return ""
+
+    # Удаляем HTML теги
+    clean = re.compile('<.*?>')
+    text_only = re.sub(clean, '', html_content)
+
+    # Заменяем HTML entities
+    replacements = {
+        '&nbsp;': ' ',
+        '&amp;': '&',
+        '&lt;': '<',
+        '&gt;': '>',
+        '&quot;': '"',
+        '&#39;': "'",
+        '&rsquo;': "'",
+        '&lsquo;': "'",
+        '&rdquo;': '"',
+        '&ldquo;': '"',
+        '&ndash;': '-',
+        '&mdash;': '—',
+        '&hellip;': '...',
+        '&laquo;': '«',
+        '&raquo;': '»',
+    }
+
+    for entity, replacement in replacements.items():
+        text_only = text_only.replace(entity, replacement)
+
+    # Декодируем Unicode entities
+    def decode_unicode(match):
+        try:
+            code = int(match.group(1))
+            return chr(code)
+        except:
+            return match.group(0)
+
+    def decode_hex(match):
+        try:
+            code = int(match.group(1), 16)
+            return chr(code)
+        except:
+            return match.group(0)
+
+    text_only = re.sub(r'&#(\d+);', decode_unicode, text_only)
+    text_only = re.sub(r'&#x([0-9a-fA-F]+);', decode_hex, text_only)
+
+    # Удаляем лишние пробелы и переносы
+    text_only = re.sub(r'\s+', ' ', text_only)
+    text_only = re.sub(r'\n\s*\n', '\n\n', text_only)
+
+    # Обрезаем если нужно
+    if max_length and len(text_only) > max_length:
+        text_only = text_only[:max_length - 3] + "..."
+
+    return text_only.strip()

@@ -857,14 +857,14 @@
         <a href="{% url 'wiki:article_edit' article.slug %}" class="btn">
             ✏️ Редактировать
         </a>
-        <a href="{% url 'wiki:export_article_pdf' article.slug %}" class="btn btn-export" title="Экспорт статьи в PDF">
+        <a href="{% url 'wiki:export_article_pdf' slug=article.slug %}?v=2"
+           class="btn btn-primary">
             📄 Экспорт в PDF
         </a>
         {% endif %}
     </div>
     {% csrf_token %}
 </div>
-
 <!-- Лайтбокс для изображений -->
 <div id="lightbox" class="lightbox">
     <button class="lightbox-close" onclick="closeLightbox()">×</button>

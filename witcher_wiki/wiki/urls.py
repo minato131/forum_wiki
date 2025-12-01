@@ -118,8 +118,6 @@ urlpatterns = [
     path('tutorial/disable/', views.disable_tutorials, name='disable_tutorials'),
     path('tutorial/reset/', views.reset_tutorials, name='reset_tutorials'),
 
-
-
     path('article/<slug:slug>/export-pdf/', views.export_article_pdf, name='export_article_pdf'),
     path('articles/export/', views.export_articles_list, name='export_articles_list'),
 ]
