@@ -1,0 +1,340 @@
+{% extends 'base.html' %}
+
+{% block title %}Помощь | Форум по Вселенной Ведьмака{% endblock %}
+
+{% block content %}
+<style>
+    .help-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .section {
+        background: rgba(212, 175, 55, 0.1);
+        border: 1px solid #D4AF37;
+        border-radius: 10px;
+        padding: 25px;
+        margin-bottom: 20px;
+    }
+
+    .section-title {
+        color: #D4AF37;
+        font-family: 'Cinzel', serif;
+        border-bottom: 2px solid #D4AF37;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+    }
+
+    .faq-item {
+        background: rgba(212, 175, 55, 0.05);
+        border-left: 4px solid #D4AF37;
+        margin-bottom: 15px;
+        padding: 15px;
+        border-radius: 6px;
+    }
+
+    .faq-question {
+        color: #D4AF37;
+        font-weight: bold;
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .faq-answer {
+        color: #ccc;
+        line-height: 1.6;
+        padding-left: 25px;
+    }
+
+    .help-link {
+        display: inline-block;
+        padding: 8px 16px;
+        background: #D4AF37;
+        color: #1a1a1a;
+        text-decoration: none;
+        border-radius: 6px;
+        border: none;
+        cursor: pointer;
+        font-weight: bold;
+        margin: 5px;
+        transition: all 0.3s ease;
+        text-align: center;
+    }
+
+    .help-link:hover {
+        opacity: 0.9;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(212, 175, 55, 0.3);
+    }
+
+    .quick-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        margin-bottom: 30px;
+    }
+
+    .quick-link-card {
+        flex: 1;
+        min-width: 250px;
+        background: rgba(212, 175, 55, 0.1);
+        border: 1px solid #D4AF37;
+        border-radius: 10px;
+        padding: 20px;
+        text-align: center;
+        transition: all 0.3s ease;
+    }
+
+    .quick-link-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(212, 175, 55, 0.2);
+    }
+
+    .icon {
+        font-size: 2.5em;
+        color: #D4AF37;
+        margin-bottom: 15px;
+    }
+
+    .faq-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: #D4AF37;
+        text-decoration: none;
+        margin-top: 20px;
+        padding: 10px 20px;
+        border: 1px solid #D4AF37;
+        border-radius: 6px;
+        transition: all 0.3s ease;
+        font-weight: bold;
+    }
+
+    .faq-link:hover {
+        background: #D4AF37;
+        color: #1a1a1a;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(212, 175, 55, 0.3);
+    }
+
+    .status-example {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin: 10px 0;
+        padding: 8px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 5px;
+    }
+
+    .status-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+    }
+
+    .step {
+        counter-increment: step-counter;
+        margin: 15px 0;
+        padding-left: 40px;
+        position: relative;
+    }
+
+    .step:before {
+        content: counter(step-counter);
+        position: absolute;
+        left: 0;
+        top: 0;
+        background: #D4AF37;
+        color: #1a1a1a;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 25px;
+        font-weight: bold;
+    }
+</style>
+
+<div class="help-container">
+    <h1 style="color: #D4AF37; font-family: 'Cinzel', serif; text-align: center; margin-bottom: 40px;">
+        📚 Помощь и руководство
+    </h1>
+
+    <!-- Быстрые ссылки -->
+    <div class="quick-links">
+        <div class="quick-link-card">
+            <div class="icon">📖</div>
+            <h3 style="color: #D4AF37; margin-bottom: 10px;">Основы</h3>
+            <p style="color: #ccc; font-size: 0.9em;">Регистрация, вход, навигация</p>
+            <a href="#basics" class="help-link">Перейти</a>
+        </div>
+
+        <div class="quick-link-card">
+            <div class="icon">✍️</div>
+            <h3 style="color: #D4AF37; margin-bottom: 10px;">Статьи</h3>
+            <p style="color: #ccc; font-size: 0.9em;">Создание, редактирование, публикация</p>
+            <a href="#articles" class="help-link">Перейти</a>
+        </div>
+
+        <div class="quick-link-card">
+            <div class="icon">📤</div>
+            <h3 style="color: #D4AF37; margin-bottom: 10px;">Экспорт</h3>
+            <p style="color: #ccc; font-size: 0.9em;">Экспорт статей в PDF</p>
+            <a href="#export" class="help-link">Перейти</a>
+        </div>
+    </div>
+
+    <!-- Основы -->
+    <div id="basics" class="section">
+        <h2 class="section-title">📖 Основы работы с форумом</h2>
+
+        <div style="counter-reset: step-counter;">
+            <h3 style="color: #D4AF37; margin: 20px 0 15px 0;">Регистрация</h3>
+            <div class="step">
+                <strong>Нажмите кнопку "Регистрация"</strong> в правом верхнем углу сайта
+            </div>
+            <div class="step">
+                <strong>Заполните все обязательные поля формы:</strong> логин, email, пароль
+            </div>
+            <div class="step">
+                <strong>Подтвердите email</strong> - письмо придет на указанный адрес
+            </div>
+            <div class="step">
+                <strong>Войдите в систему</strong> с вашими учетными данными
+            </div>
+
+            <h3 style="color: #D4AF37; margin: 30px 0 15px 0;">Вход в систему</h3>
+            <div class="faq-item">
+                <div class="faq-question">👤 Обычный вход</div>
+                <div class="faq-answer">Используйте логин/email и пароль указанные при регистрации</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">🔑 Восстановление пароля</div>
+                <div class="faq-answer">Нажмите "Забыли пароль?" на странице входа и следуйте инструкциям</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">📱 Telegram авторизация</div>
+                <div class="faq-answer">Доступен быстрый вход через Telegram бота @witcher_forum_bot</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Статьи -->
+    <div id="articles" class="section">
+        <h2 class="section-title">✍️ Работа со статьями</h2>
+
+        <div style="counter-reset: step-counter;">
+            <h3 style="color: #D4AF37; margin: 20px 0 15px 0;">Создание статьи</h3>
+            <div class="step">
+                Нажмите "Новая статья" в верхней навигации или на странице "Мои статьи"
+            </div>
+            <div class="step">
+                Введите <strong>заголовок статьи</strong> (обязательное поле)
+            </div>
+            <div class="step">
+                Напишите содержание статьи с использованием редактора
+            </div>
+            <div class="step">
+                Выберите категорию и добавьте теги через запятую
+            </div>
+            <div class="step">
+                Установите статус публикации (черновик/отправить на модерацию)
+            </div>
+            <div class="step">
+                Нажмите "Создать статью"
+            </div>
+
+            <h3 style="color: #D4AF37; margin: 30px 0 15px 0;">Статусы статей</h3>
+            <div class="status-example">
+                <div class="status-dot" style="background: #6b7280;"></div>
+                <span style="color: #fff; font-weight: bold;">📝 Черновик</span>
+                <span style="color: #888; margin-left: 10px;">- виден только автору, можно редактировать</span>
+            </div>
+            <div class="status-example">
+                <div class="status-dot" style="background: #f59e0b;"></div>
+                <span style="color: #fff; font-weight: bold;">⏳ На модерации</span>
+                <span style="color: #888; margin-left: 10px;">- ожидает проверки администратором</span>
+            </div>
+            <div class="status-example">
+                <div class="status-dot" style="background: #22c55e;"></div>
+                <span style="color: #fff; font-weight: bold;">✅ Опубликовано</span>
+                <span style="color: #888; margin-left: 10px;">- доступно всем пользователям форума</span>
+            </div>
+            <div class="status-example">
+                <div class="status-dot" style="background: #ef4444;"></div>
+                <span style="color: #fff; font-weight: bold;">🚫 Отклонено</span>
+                <span style="color: #888; margin-left: 10px;">- требует доработки, есть комментарий модератора</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Экспорт -->
+    <div id="export" class="section">
+        <h2 class="section-title">📤 Экспорт данных</h2>
+
+        <div style="counter-reset: step-counter;">
+            <h3 style="color: #D4AF37; margin: 20px 0 15px 0;">Экспорт отдельной статьи</h3>
+            <div class="step">
+                Откройте статью которую хотите экспортировать
+            </div>
+            <div class="step">
+                Нажмите кнопку <strong>📄 "Экспорт в PDF"</strong> под заголовком статьи
+            </div>
+            <div class="step">
+                PDF файл автоматически скачается на ваше устройство
+            </div>
+
+            <h3 style="color: #D4AF37; margin: 30px 0 15px 0;">Экспорт списка статей</h3>
+            <div class="step">
+                Перейдите в раздел <strong>"Мои статьи"</strong>
+            </div>
+            <div class="step">
+                Используйте фильтры для отбора нужных статей (по статусу, категории)
+            </div>
+            <div class="step">
+                Нажмите одну из кнопок экспорта:
+                <div style="margin: 10px 0; padding-left: 20px;">
+                    <div style="color: #D4AF37; margin: 5px 0;">• <strong>📄 Все мои статьи</strong> - экспорт всех статей</div>
+                    <div style="color: #D4AF37; margin: 5px 0;">• <strong>✅ Опубликованные</strong> - только опубликованные</div>
+                    <div style="color: #D4AF37; margin: 5px 0;">• <strong>📝 Черновики</strong> - только черновики</div>
+                </div>
+            </div>
+            <div class="step">
+                Вы получите PDF файл с таблицей всех отобранных статей
+            </div>
+        </div>
+    </div>
+
+    <!-- Ссылка на FAQ -->
+    <div style="text-align: center; margin-top: 40px; padding-top: 30px; border-top: 1px solid #D4AF37;">
+        <a href="/help/faq/" class="faq-link">
+            ❓ Перейти к часто задаваемым вопросам (FAQ) →
+        </a>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Плавная прокрутка к якорям
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if (href !== '#') {
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            }
+        });
+    });
+});
+</script>
+{% endblock %}

@@ -57,6 +57,10 @@ from django.http import HttpResponse
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import A4
 import io
+from .models import HelpSection, FAQ
+from django.views.generic import View, TemplateView, ListView, DetailView
+from django.views import View
+from django.shortcuts import render
 
 
 def clean_latex_from_content(content):
@@ -3464,3 +3468,49 @@ def clean_html_for_pdf(html_content, max_length=None):
         text_only = text_only[:max_length - 3] + "..."
 
     return text_only.strip()
+
+
+class HelpView(TemplateView):
+    """Простое представление для страницы помощи"""
+    template_name = 'help/index.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Помощь и руководство пользователя'
+        return context
+
+
+class FAQView(TemplateView):
+    """Часто задаваемые вопросы"""
+    template_name = 'help/faq.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Статические FAQ данные
+        context['faqs'] = [
+            {
+                'question': 'Как зарегистрироваться на форуме?',
+                'answer': 'Нажмите кнопку "Регистрация" в правом верхнем углу, заполните форму и подтвердите email.'
+            },
+            {
+                'question': 'Как создать статью?',
+                'answer': 'После регистрации нажмите "Новая статья" в меню, заполните заголовок и содержание, выберите категорию.'
+            },
+            {
+                'question': 'Как редактировать статью?',
+                'answer': 'На странице своей статьи нажмите кнопку "Редактировать". Только автор может редактировать свои статьи.'
+            },
+            {
+                'question': 'Как оставить комментарий?',
+                'answer': 'Войдите в систему и внизу статьи введите текст комментария в поле и нажмите "Отправить".'
+            },
+            {
+                'question': 'Как экспортировать статью в PDF?',
+                'answer': 'На странице статьи нажмите кнопку "Экспорт в PDF" для загрузки статьи в формате PDF.'
+            },
+            {
+                'question': 'Как искать статьи?',
+                'answer': 'Используйте поиск в верхней части сайта или фильтры по категориям и тегам.'
+            },
+        ]
+        return context

@@ -1,10 +1,10 @@
-from django.urls import path
-from . import views
-from .views import user_management
+from .views import user_management, FAQView, HelpView
 from django.contrib.auth import views as auth_views
 from .views import register
 from django.contrib.auth import views as auth_views
 from accounts.forms import CustomAuthenticationForm
+from django.urls import path
+from . import views
 app_name = 'wiki'
 
 urlpatterns = [
@@ -120,4 +120,6 @@ urlpatterns = [
 
     path('article/<slug:slug>/export-pdf/', views.export_article_pdf, name='export_article_pdf'),
     path('articles/export/', views.export_articles_list, name='export_articles_list'),
+    path('help/', HelpView.as_view(), name='help'),
+    path('help/faq/', FAQView.as_view(), name='faq'),
 ]

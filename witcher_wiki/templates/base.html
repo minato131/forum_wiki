@@ -386,6 +386,12 @@
                 <a href="{% url 'wiki:user_management' %}">👥 Управление пользователями</a>
                 <a href="/admin/">⚙️ Админ-панель</a>
             {% endif %}
+
+            {% if user.is_authenticated %}
+                 <a href="{% url 'wiki:help' %}" class="nav-link">
+                    <i class="fas fa-question-circle mr-2"></i> Помощь
+                </a>
+            {% endif %}
         </div>
 
         <div class="user-info">

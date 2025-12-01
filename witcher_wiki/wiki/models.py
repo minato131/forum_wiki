@@ -1040,3 +1040,49 @@ class UserTutorial(models.Model):
         self.tutorials_disabled = False
         self.save()
 
+
+# models.py - добавить в конец
+class HelpSection(models.Model):
+    """Разделы руководства пользователя"""
+    SECTION_CHOICES = [
+        ('general', 'Общая информация'),
+        ('articles', 'Работа со статьями'),
+        ('comments', 'Комментарии'),
+        ('search', 'Поиск и фильтрация'),
+        ('export', 'Экспорт данных'),
+        ('account', 'Управление аккаунтом'),
+    ]
+
+    title = models.CharField('Название раздела', max_length=200)
+    section_type = models.CharField('Тип раздела', max_length=20, choices=SECTION_CHOICES)
+    content = models.TextField('Содержание')
+    order = models.IntegerField('Порядок отображения', default=0)
+    is_active = models.BooleanField('Активно', default=True)
+    created_at = models.DateTimeField('Дата создания', auto_now_add=True)
+    updated_at = models.DateTimeField('Дата обновления', auto_now=True)
+
+    class Meta:
+        verbose_name = 'Раздел помощи'
+        verbose_name_plural = 'Разделы помощи'
+        ordering = ['order', 'title']
+
+    def __str__(self):
+        return self.title
+
+
+class FAQ(models.Model):
+    """Часто задаваемые вопросы"""
+    question = models.CharField('Вопрос', max_length=300)
+    answer = models.TextField('Ответ')
+    category = models.CharField('Категория', max_length=50, choices=HelpSection.SECTION_CHOICES)
+    order = models.IntegerField('Порядок', default=0)
+    is_active = models.BooleanField('Активно', default=True)
+    created_at = models.DateTimeField('Дата создания', auto_now_add=True)
+
+    class Meta:
+        verbose_name = 'Часто задаваемый вопрос'
+        verbose_name_plural = 'Часто задаваемые вопросы'
+        ordering = ['category', 'order']
+
+    def __str__(self):
+        return self.question[:50]
