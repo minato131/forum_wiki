@@ -20,7 +20,7 @@ from .forms import ArticleForm, CommentForm, SearchForm, CategoryForm, ProfileUp
     CompleteRegistrationForm
 from django.urls import reverse
 from django.shortcuts import render, redirect
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse, HttpResponse, HttpResponseForbidden
 from django.contrib.auth import login
 from django.contrib import messages
 from django.conf import settings
@@ -75,7 +75,8 @@ from reportlab.pdfbase.ttfonts import TTFont
 from io import BytesIO
 import os
 from django.conf import settings
-
+from .backup_utils import create_backup, cleanup_old_backups, restore_backup
+from .models import Backup
 
 
 
@@ -4264,3 +4265,277 @@ def export_statistics_pdf(request):
         response = HttpResponse(content, content_type='text/plain; charset=utf-8')
         response['Content-Disposition'] = 'attachment; filename="statistics_backup.txt"'
         return response
+
+@login_required
+def export_statistics_json(request):
+    """
+    Экспорт статистики в формате JSON.
+    Доступно только для администраторов (staff).
+    """
+    if not request.user.is_staff:
+        return JsonResponse(
+            {"error": "Доступ запрещен"},
+            status=403
+        )
+
+    try:
+        from django.db.models import Count, Sum
+        from django.core.serializers.json import DjangoJSONEncoder
+
+        # Топ 3 самых просматриваемых статей
+        top_viewed = list(Article.objects.filter(
+            status='published'
+        ).order_by('-views_count')[:3].values('id', 'title', 'views_count'))
+
+        # Топ 3 самых лайкнутых статей
+        top_liked = list(Article.objects.filter(
+            status='published'
+        ).annotate(
+            likes_count=Count('likes')
+        ).order_by('-likes_count')[:3].values('id', 'title', 'likes_count'))
+
+        # Топ 3 статей с комментариями
+        top_commented = list(Article.objects.filter(
+            status='published'
+        ).annotate(
+            comments_count=Count('comments')
+        ).order_by('-comments_count')[:3].values('id', 'title', 'comments_count'))
+
+        # Самые просматриваемые категории
+        top_categories = list(Category.objects.filter(
+            articles__status='published'
+        ).annotate(
+            total_views=Sum('articles__views_count'),
+            article_count=Count('articles')
+        ).filter(
+            article_count__gt=0
+        ).order_by('-total_views')[:5].values('id', 'name', 'total_views', 'article_count'))
+
+        # Популярные поисковые запросы
+        popular_searches = list(SearchQuery.objects.values('query').annotate(
+            count=Count('id')
+        ).order_by('-count')[:10])
+
+        # Общая статистика
+        total_articles = Article.objects.filter(status='published').count()
+        total_users = User.objects.filter(is_active=True).count()
+        total_comments = Comment.objects.count()
+        total_views = Article.objects.filter(status='published').aggregate(
+            total=Sum('views_count')
+        )['total'] or 0
+
+        # Статистика за последние 7 дней
+        seven_days_ago = timezone.now() - timezone.timedelta(days=7)
+        recent_articles = Article.objects.filter(
+            created_at__gte=seven_days_ago,
+            status='published'
+        ).count()
+
+        recent_users = User.objects.filter(
+            date_joined__gte=seven_days_ago
+        ).count()
+
+        # Формируем JSON-структуру
+        statistics_data = {
+            "metadata": {
+                "export_date": timezone.now().isoformat(),
+                "format": "JSON",
+                "generated_by": request.user.username,
+                "forum_name": "Форум 'ВЕДЬМАК'"
+            },
+            "general_statistics": {
+                "total_articles": total_articles,
+                "total_users": total_users,
+                "total_comments": total_comments,
+                "total_views": total_views,
+                "recent_articles_last_7_days": recent_articles,
+                "recent_users_last_7_days": recent_users,
+            },
+            "top_articles": {
+                "most_viewed": top_viewed,
+                "most_liked": top_liked,
+                "most_commented": top_commented,
+            },
+            "categories": {
+                "most_viewed_categories": top_categories,
+            },
+            "search": {
+                "popular_search_queries": popular_searches,
+            }
+        }
+
+        # Создаем HttpResponse с JSON-данными
+        response = JsonResponse(
+            statistics_data,
+            encoder=DjangoJSONEncoder,
+            json_dumps_params={'indent': 2, 'ensure_ascii': False}
+        )
+        response['Content-Disposition'] = 'attachment; filename="witcher_forum_statistics.json"'
+        response['Content-Type'] = 'application/json; charset=utf-8'
+
+        # Логируем действие
+        ActionLogger.log_action(
+            request=request,
+            action_type='statistics_export',
+            description=f'Экспорт статистики в JSON',
+            extra_data={'format': 'json', 'data_count': {
+                'articles': total_articles,
+                'users': total_users,
+                'categories': len(top_categories),
+                'searches': len(popular_searches)
+            }}
+        )
+
+        return response
+
+    except Exception as e:
+        return JsonResponse(
+            {"error": f"Ошибка при экспорте статистики: {str(e)}"},
+            status=500
+        )
+
+
+@staff_member_required
+def backup_management(request):
+    """Страница управления резервными копиями"""
+    # Создаем папку для бэкапов если её нет
+    backup_dir = os.path.join(settings.BASE_DIR, 'backups')
+    os.makedirs(backup_dir, exist_ok=True)
+
+    # Получаем все бэкапы
+    backups = Backup.objects.all().order_by('-created_at')
+
+    # Обновляем статусы файлов
+    for backup in backups:
+        if backup.status == 'in_progress':
+            backup.update_status()
+
+    # Статистика
+    total_size = sum(b.file_size for b in backups)
+    total_size_mb = round(total_size / (1024 * 1024), 2) if total_size else 0
+
+    context = {
+        'backups': backups,
+        'total_count': backups.count(),
+        'total_size_mb': total_size_mb,
+        'backup_dir': backup_dir,
+        'database_name': settings.DATABASES['default']['NAME'],
+    }
+
+    return render(request, 'wiki/backup_management.html', context)
+
+
+@staff_member_required
+def create_backup_view(request):
+    """Создание новой резервной копии"""
+    if request.method == 'POST':
+        backup_type = request.POST.get('type', 'full')
+        description = request.POST.get('description', '')
+
+        try:
+            backup = create_backup(backup_type=backup_type, description=description)
+            messages.success(request, f'✅ Резервная копия создана: {backup.name}')
+
+            # Логируем создание
+            ActionLogger.log_action(
+                request=request,
+                action_type='backup_create',
+                description=f'Создана резервная копия: {backup.name}',
+                extra_data={
+                    'backup_id': backup.id,
+                    'backup_name': backup.name,
+                    'backup_type': backup_type,
+                    'size': backup.file_size
+                }
+            )
+
+        except Exception as e:
+            messages.error(request, f'❌ Ошибка при создании бэкапа: {str(e)}')
+
+    return redirect('wiki:backup_management')
+
+
+@staff_member_required
+def download_backup(request, backup_id):
+    """Скачивание резервной копии"""
+    try:
+        backup = Backup.objects.get(id=backup_id)
+
+        if backup.status != 'completed' or not os.path.exists(backup.file_path):
+            messages.error(request, '❌ Файл бэкапа не найден или недоступен')
+            return redirect('wiki:backup_management')
+
+        # Открываем файл для чтения
+        file_path = backup.file_path
+        filename = os.path.basename(file_path)
+
+        with open(file_path, 'rb') as f:
+            response = HttpResponse(f.read(), content_type='application/zip')
+            response['Content-Disposition'] = f'attachment; filename="{filename}"'
+
+            # Логируем скачивание
+            ActionLogger.log_action(
+                request=request,
+                action_type='backup_download',
+                description=f'Скачивание резервной копии: {backup.name}',
+                extra_data={'backup_id': backup.id, 'backup_name': backup.name}
+            )
+
+            return response
+
+    except Backup.DoesNotExist:
+        messages.error(request, '❌ Бэкап не найден')
+    except Exception as e:
+        messages.error(request, f'❌ Ошибка при скачивании: {str(e)}')
+
+    return redirect('wiki:backup_management')
+
+
+@staff_member_required
+def delete_backup(request, backup_id):
+    """Удаление резервной копии"""
+    if request.method == 'POST':
+        try:
+            backup = Backup.objects.get(id=backup_id)
+            backup_name = backup.name
+
+            # Логируем перед удалением
+            ActionLogger.log_action(
+                request=request,
+                action_type='backup_delete',
+                description=f'Удаление резервной копии: {backup_name}',
+                extra_data={'backup_id': backup_id, 'backup_name': backup_name}
+            )
+
+            # Удаляем файл и запись
+            backup.delete()
+
+            messages.success(request, f'🗑️ Бэкап "{backup_name}" удален')
+
+        except Backup.DoesNotExist:
+            messages.error(request, '❌ Бэкап не найден')
+        except Exception as e:
+            messages.error(request, f'❌ Ошибка при удалении: {str(e)}')
+
+    return redirect('wiki:backup_management')
+
+
+@staff_member_required
+def restore_backup_view(request, backup_id):
+    """Восстановление из резервной копии"""
+    if request.method == 'POST':
+        try:
+            result = restore_backup(backup_id)
+
+            if result.get('requires_admin'):
+                messages.warning(request,
+                                 '⚠️ Восстановление базы данных требует ручного вмешательства. '
+                                 'Обратитесь к системному администратору с запросом восстановления.'
+                                 )
+            else:
+                messages.success(request, '✅ Восстановление завершено успешно!')
+
+        except Exception as e:
+            messages.error(request, f'❌ Ошибка при восстановлении: {str(e)}')
+
+    return redirect('wiki:backup_management')

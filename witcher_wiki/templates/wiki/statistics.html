@@ -456,7 +456,10 @@
             Вы можете экспортировать всю статистику в PDF формате для отчетности и анализа.
         </p>
         <a href="{% url 'wiki:export_statistics_pdf' %}" class="export-btn">
-            📄 Экспортировать в PDF
+            Экспортировать в PDF
+        </a>
+        <a href="{% url 'wiki:export_statistics_json' %}" class="export-btn" style="background: #4a5568;">
+            Экспорт в JSON
         </a>
     </div>
 

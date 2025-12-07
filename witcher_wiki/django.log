@@ -21309,3 +21309,768 @@ INFO 2025-12-02 01:50:18,505 basehttp "GET /admin/ HTTP/1.1" 200 17516
 INFO 2025-12-02 01:50:19,860 basehttp "GET /admin/wiki/actionlog/ HTTP/1.1" 200 94031
 INFO 2025-12-02 01:50:20,017 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 16820
 INFO 2025-12-02 01:50:25,537 basehttp "POST /admin/wiki/actionlog/ HTTP/1.1" 200 47161
+INFO 2025-12-07 20:51:46,054 autoreload Watching for file changes with StatReloader
+INFO 2025-12-07 20:51:48,548 log "GET / HTTP/1.1" 200 33137
+INFO 2025-12-07 20:51:48,668 log "GET /static/css/style.css HTTP/1.1" 200 11130
+INFO 2025-12-07 20:51:48,671 log "GET /static/js/tutorials.js HTTP/1.1" 200 6117
+INFO 2025-12-07 20:51:48,671 log "GET /static/css/tutorials.css HTTP/1.1" 200 2081
+WARNING 2025-12-07 20:51:49,410 log Not Found: /favicon.ico
+WARNING 2025-12-07 20:51:49,410 log "GET /favicon.ico HTTP/1.1" 404 25532
+INFO 2025-12-07 21:11:35,954 autoreload Watching for file changes with StatReloader
+INFO 2025-12-07 21:11:39,133 log "GET / HTTP/1.1" 200 33137
+INFO 2025-12-07 21:11:39,233 log "GET /static/css/style.css HTTP/1.1" 304 0
+INFO 2025-12-07 21:11:39,236 log "GET /static/css/tutorials.css HTTP/1.1" 304 0
+INFO 2025-12-07 21:11:39,236 log "GET /static/js/tutorials.js HTTP/1.1" 304 0
+WARNING 2025-12-07 21:11:39,459 log Not Found: /favicon.ico
+WARNING 2025-12-07 21:11:39,460 log "GET /favicon.ico HTTP/1.1" 404 25532
+INFO 2025-12-07 21:11:41,253 log "GET /login/ HTTP/1.1" 200 32172
+INFO 2025-12-07 21:11:45,464 log "POST /login/ HTTP/1.1" 200 32349
+INFO 2025-12-07 21:11:52,542 log "POST /login/ HTTP/1.1" 302 0
+INFO 2025-12-07 21:11:52,621 log "GET / HTTP/1.1" 200 40887
+INFO 2025-12-07 21:11:52,716 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 21:11:55,357 log "GET /admin/ HTTP/1.1" 200 13923
+INFO 2025-12-07 21:11:55,462 log "GET /static/admin/css/base.css HTTP/1.1" 200 23100
+INFO 2025-12-07 21:11:55,469 log "GET /static/admin/css/dark_mode.css HTTP/1.1" 200 3538
+INFO 2025-12-07 21:11:55,471 log "GET /static/admin/css/dashboard.css HTTP/1.1" 200 441
+INFO 2025-12-07 21:11:55,472 log "GET /static/admin/js/theme.js HTTP/1.1" 200 1653
+INFO 2025-12-07 21:11:55,475 log "GET /static/admin/css/responsive.css HTTP/1.1" 200 16194
+INFO 2025-12-07 21:11:55,477 log "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 200 2810
+INFO 2025-12-07 21:11:55,477 log "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 200 3063
+INFO 2025-12-07 21:11:55,482 log "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 593
+INFO 2025-12-07 21:11:55,482 log "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 200 928
+INFO 2025-12-07 21:11:55,482 log "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 200 978
+INFO 2025-12-07 21:11:57,313 log "GET /admin/auth/user/ HTTP/1.1" 200 18934
+INFO 2025-12-07 21:11:57,329 log "GET /static/admin/css/changelists.css HTTP/1.1" 200 7501
+INFO 2025-12-07 21:11:57,333 log "GET /static/admin/js/core.js HTTP/1.1" 200 6208
+INFO 2025-12-07 21:11:57,333 log "GET /static/admin/js/jquery.init.js HTTP/1.1" 200 347
+INFO 2025-12-07 21:11:57,334 log "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 200 9777
+INFO 2025-12-07 21:11:57,334 log "GET /static/admin/js/actions.js HTTP/1.1" 200 8076
+INFO 2025-12-07 21:11:57,339 log "GET /static/admin/img/search.svg HTTP/1.1" 200 607
+INFO 2025-12-07 21:11:57,339 log "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 285314
+INFO 2025-12-07 21:11:57,340 log "GET /static/admin/js/urlify.js HTTP/1.1" 200 7887
+INFO 2025-12-07 21:11:57,340 log "GET /static/admin/js/prepopulate.js HTTP/1.1" 200 1531
+INFO 2025-12-07 21:11:57,342 log "GET /static/admin/img/icon-yes.svg HTTP/1.1" 200 558
+INFO 2025-12-07 21:11:57,344 log "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 325171
+INFO 2025-12-07 21:11:57,348 log "GET /static/admin/js/filters.js HTTP/1.1" 200 978
+INFO 2025-12-07 21:11:57,388 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-07 21:11:57,413 log "GET /static/admin/img/tooltag-add.svg HTTP/1.1" 200 593
+INFO 2025-12-07 21:11:57,414 log "GET /static/admin/img/sorting-icons.svg HTTP/1.1" 200 1761
+INFO 2025-12-07 21:11:58,337 log "GET /admin/ HTTP/1.1" 200 13923
+INFO 2025-12-07 21:12:09,569 log "GET /statistics/ HTTP/1.1" 200 46785
+INFO 2025-12-07 21:12:09,648 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 21:12:40,251 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 21:13:10,262 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 21:13:40,255 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 21:14:10,258 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 21:14:40,253 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 21:15:10,260 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 21:15:40,253 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 21:16:38,370 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 21:17:10,272 log "POST /api/update_stats/ HTTP/1.1" 200 195
+INFO 2025-12-07 21:17:38,262 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 21:18:38,254 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 21:19:38,260 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 21:20:38,374 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 21:21:38,255 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 21:22:10,271 log "POST /api/update_stats/ HTTP/1.1" 200 195
+INFO 2025-12-07 21:22:38,262 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 21:23:38,260 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 21:24:38,252 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 21:25:38,250 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 21:26:38,387 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 21:27:10,274 log "POST /api/update_stats/ HTTP/1.1" 200 195
+INFO 2025-12-07 21:27:38,252 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 21:28:38,255 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 21:29:38,375 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 21:30:38,254 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 21:31:38,256 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 21:32:10,277 log "POST /api/update_stats/ HTTP/1.1" 200 195
+INFO 2025-12-07 21:32:19,958 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 21:32:40,370 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 21:33:10,260 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 21:34:11,365 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 21:35:12,255 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 21:36:13,257 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 21:37:10,270 log "POST /api/update_stats/ HTTP/1.1" 200 195
+INFO 2025-12-07 21:37:14,259 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 21:37:40,262 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 21:38:10,367 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 21:39:11,257 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 21:40:12,248 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 21:41:13,247 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 21:42:10,276 log "POST /api/update_stats/ HTTP/1.1" 200 195
+INFO 2025-12-07 21:42:14,256 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 21:43:15,357 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 21:44:16,367 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 21:45:17,256 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 21:46:18,255 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 21:47:19,271 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 21:47:19,294 log "POST /api/update_stats/ HTTP/1.1" 200 195
+INFO 2025-12-07 21:48:20,261 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 21:49:21,253 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 21:50:22,258 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 21:51:23,257 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 21:52:24,249 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 21:52:24,377 log "POST /api/update_stats/ HTTP/1.1" 200 195
+INFO 2025-12-07 21:53:25,255 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 21:54:26,270 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 21:55:27,255 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 21:56:28,251 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 21:57:29,262 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 21:57:29,283 log "POST /api/update_stats/ HTTP/1.1" 200 195
+INFO 2025-12-07 21:58:30,253 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 21:59:31,251 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:00:32,255 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:01:33,356 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:02:34,269 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:02:34,290 log "POST /api/update_stats/ HTTP/1.1" 200 195
+INFO 2025-12-07 22:03:35,274 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:04:36,263 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:05:37,249 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:06:38,272 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:07:38,264 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:07:38,382 log "POST /api/update_stats/ HTTP/1.1" 200 195
+INFO 2025-12-07 22:08:38,256 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:09:38,372 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:10:38,266 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:11:38,259 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:12:38,267 log "POST /api/update_stats/ HTTP/1.1" 200 195
+INFO 2025-12-07 22:12:38,361 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:13:38,269 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:14:38,261 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:15:38,257 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:16:38,372 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:17:38,275 log "POST /api/update_stats/ HTTP/1.1" 200 195
+INFO 2025-12-07 22:17:38,363 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:18:38,252 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:19:38,251 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:20:38,258 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:21:38,260 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:22:38,272 log "POST /api/update_stats/ HTTP/1.1" 200 195
+INFO 2025-12-07 22:22:38,365 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:23:38,366 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:24:38,253 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:25:38,253 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:26:38,277 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:27:38,274 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:27:38,293 log "POST /api/update_stats/ HTTP/1.1" 200 195
+INFO 2025-12-07 22:28:10,371 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:28:40,263 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:29:10,377 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:30:11,357 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:31:07,938 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:31:10,252 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:31:40,366 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:32:38,256 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:32:38,381 log "POST /api/update_stats/ HTTP/1.1" 200 195
+INFO 2025-12-07 22:33:38,262 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:33:57,801 log "GET /statistics/export/pdf/ HTTP/1.1" 200 85351
+INFO 2025-12-07 22:34:10,253 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:34:40,265 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:35:10,253 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:35:40,252 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:36:10,251 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:36:40,454 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:37:10,275 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:37:10,297 log "POST /api/update_stats/ HTTP/1.1" 200 195
+INFO 2025-12-07 22:37:40,257 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:38:38,271 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:39:38,258 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:39:58,821 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-07 22:39:59,533 autoreload Watching for file changes with StatReloader
+INFO 2025-12-07 22:40:05,810 log "GET / HTTP/1.1" 200 40887
+INFO 2025-12-07 22:40:05,974 log "GET /static/css/style.css HTTP/1.1" 200 11130
+INFO 2025-12-07 22:40:05,978 log "GET /static/css/tutorials.css HTTP/1.1" 200 2081
+INFO 2025-12-07 22:40:05,979 log "GET /static/js/tutorials.js HTTP/1.1" 200 6117
+INFO 2025-12-07 22:40:06,190 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:40:09,181 log "GET /statistics/ HTTP/1.1" 200 46785
+INFO 2025-12-07 22:40:09,295 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:40:23,293 log "GET /statistics/ HTTP/1.1" 200 46785
+INFO 2025-12-07 22:40:23,367 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:40:38,269 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:40:54,434 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:41:23,370 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:41:38,270 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:41:54,262 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:42:10,271 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:42:10,291 log "POST /api/update_stats/ HTTP/1.1" 200 195
+INFO 2025-12-07 22:42:24,255 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:42:40,267 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:42:54,255 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:43:24,260 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:43:38,288 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:43:45,471 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-07 22:43:46,235 autoreload Watching for file changes with StatReloader
+INFO 2025-12-07 22:43:51,530 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-07 22:43:53,094 autoreload Watching for file changes with StatReloader
+INFO 2025-12-07 22:43:54,765 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:44:38,254 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:44:38,415 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:44:53,371 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:45:16,121 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:45:24,305 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:45:24,324 log "POST /api/update_stats/ HTTP/1.1" 200 195
+INFO 2025-12-07 22:45:40,269 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:45:54,260 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:46:10,268 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:46:38,254 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:47:11,269 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:47:11,288 log "POST /api/update_stats/ HTTP/1.1" 200 195
+INFO 2025-12-07 22:47:38,251 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:47:48,169 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-07 22:47:48,736 autoreload Watching for file changes with StatReloader
+INFO 2025-12-07 22:48:07,656 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-07 22:48:08,324 autoreload Watching for file changes with StatReloader
+INFO 2025-12-07 22:48:12,315 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:48:29,279 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\urls.py changed, reloading.
+INFO 2025-12-07 22:48:29,924 autoreload Watching for file changes with StatReloader
+INFO 2025-12-07 22:48:38,295 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:48:57,031 autoreload Watching for file changes with StatReloader
+INFO 2025-12-07 22:48:59,202 log "GET / HTTP/1.1" 200 40887
+INFO 2025-12-07 22:48:59,357 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:49:02,481 log "GET /statistics/ HTTP/1.1" 200 46920
+INFO 2025-12-07 22:49:02,571 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:49:06,464 log "GET /statistics/export/json/ HTTP/1.1" 200 587
+INFO 2025-12-07 22:49:13,373 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:49:16,240 log "GET /statistics/export/pdf/ HTTP/1.1" 200 85352
+INFO 2025-12-07 22:49:33,258 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:49:38,282 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:49:54,252 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:50:02,561 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:50:14,257 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:50:24,264 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:50:24,282 log "POST /api/update_stats/ HTTP/1.1" 200 195
+INFO 2025-12-07 22:50:33,251 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:50:54,268 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:51:03,248 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:51:15,272 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:51:33,265 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:51:38,262 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:51:51,590 autoreload Watching for file changes with StatReloader
+INFO 2025-12-07 22:51:54,637 log "GET / HTTP/1.1" 200 40887
+INFO 2025-12-07 22:51:54,777 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:51:56,322 log "GET /statistics/ HTTP/1.1" 200 47401
+INFO 2025-12-07 22:51:56,394 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:52:03,347 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:52:11,371 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:52:12,542 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:52:12,561 log "POST /api/update_stats/ HTTP/1.1" 200 195
+INFO 2025-12-07 22:54:57,278 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-07 22:54:59,499 autoreload Watching for file changes with StatReloader
+INFO 2025-12-07 22:55:10,876 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\urls.py changed, reloading.
+INFO 2025-12-07 22:55:11,430 autoreload Watching for file changes with StatReloader
+INFO 2025-12-07 22:57:03,175 autoreload Watching for file changes with StatReloader
+INFO 2025-12-07 22:57:05,044 log "GET / HTTP/1.1" 200 40887
+INFO 2025-12-07 22:57:05,187 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:57:07,199 log "GET /admin/ HTTP/1.1" 200 13923
+INFO 2025-12-07 22:57:07,310 log "GET /static/admin/css/base.css HTTP/1.1" 200 23100
+INFO 2025-12-07 22:57:07,315 log "GET /static/admin/css/dark_mode.css HTTP/1.1" 200 3538
+INFO 2025-12-07 22:57:07,318 log "GET /static/admin/js/theme.js HTTP/1.1" 200 1653
+INFO 2025-12-07 22:57:07,321 log "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 200 2810
+INFO 2025-12-07 22:57:07,322 log "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 200 3063
+INFO 2025-12-07 22:57:07,323 log "GET /static/admin/css/dashboard.css HTTP/1.1" 200 441
+INFO 2025-12-07 22:57:07,326 log "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 200 928
+INFO 2025-12-07 22:57:07,327 log "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 200 978
+INFO 2025-12-07 22:57:07,327 log "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 593
+INFO 2025-12-07 22:57:07,327 log "GET /static/admin/css/responsive.css HTTP/1.1" 200 16194
+INFO 2025-12-07 22:57:24,035 log "GET /admin/wiki/actionlog/ HTTP/1.1" 200 29059
+INFO 2025-12-07 22:57:24,051 log "GET /static/admin/css/changelists.css HTTP/1.1" 200 7501
+INFO 2025-12-07 22:57:24,056 log "GET /static/admin/js/core.js HTTP/1.1" 200 6208
+INFO 2025-12-07 22:57:24,056 log "GET /static/admin/js/jquery.init.js HTTP/1.1" 200 347
+INFO 2025-12-07 22:57:24,056 log "GET /static/admin/js/actions.js HTTP/1.1" 200 8076
+INFO 2025-12-07 22:57:24,056 log "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 200 9777
+INFO 2025-12-07 22:57:24,060 log "GET /static/admin/js/urlify.js HTTP/1.1" 200 7887
+INFO 2025-12-07 22:57:24,061 log "GET /static/admin/img/search.svg HTTP/1.1" 200 607
+INFO 2025-12-07 22:57:24,062 log "GET /static/admin/js/prepopulate.js HTTP/1.1" 200 1531
+INFO 2025-12-07 22:57:24,063 log "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 285314
+INFO 2025-12-07 22:57:24,065 log "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 325171
+INFO 2025-12-07 22:57:24,073 log "GET /static/admin/js/filters.js HTTP/1.1" 200 978
+INFO 2025-12-07 22:57:24,130 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-07 22:57:24,184 log "GET /static/admin/img/sorting-icons.svg HTTP/1.1" 200 1761
+INFO 2025-12-07 22:57:32,362 log "GET /admin/ HTTP/1.1" 200 13923
+INFO 2025-12-07 22:57:36,340 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:58:05,263 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:58:35,257 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:59:05,365 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:59:35,257 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:59:44,306 log "GET /liked-articles/ HTTP/1.1" 200 52246
+INFO 2025-12-07 22:59:44,322 log "GET /static/css/style.css HTTP/1.1" 304 0
+INFO 2025-12-07 22:59:44,323 log "GET /static/js/tutorials.js HTTP/1.1" 304 0
+INFO 2025-12-07 22:59:44,323 log "GET /static/css/tutorials.css HTTP/1.1" 304 0
+INFO 2025-12-07 22:59:44,481 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 22:59:46,451 log "GET / HTTP/1.1" 200 40887
+INFO 2025-12-07 22:59:46,533 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+WARNING 2025-12-07 22:59:48,600 log Not Found: /category/events/
+WARNING 2025-12-07 22:59:48,600 log "GET /category/events/ HTTP/1.1" 404 3192
+INFO 2025-12-07 22:59:53,574 log "GET /admin/ HTTP/1.1" 200 13923
+INFO 2025-12-07 22:59:56,692 log "GET /admin/wiki/category/ HTTP/1.1" 200 20199
+INFO 2025-12-07 22:59:56,766 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-07 22:59:56,785 log "GET /static/admin/img/tooltag-add.svg HTTP/1.1" 200 593
+INFO 2025-12-07 22:59:58,373 log "GET /admin/wiki/category/1/change/ HTTP/1.1" 200 22111
+INFO 2025-12-07 22:59:58,387 log "GET /static/admin/css/forms.css HTTP/1.1" 200 8844
+INFO 2025-12-07 22:59:58,387 log "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 200 586
+INFO 2025-12-07 22:59:58,391 log "GET /static/admin/css/widgets.css HTTP/1.1" 200 11811
+INFO 2025-12-07 22:59:58,393 log "GET /static/admin/js/change_form.js HTTP/1.1" 200 606
+INFO 2025-12-07 22:59:58,431 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-07 22:59:58,443 log "GET /static/admin/img/tooltag-arrowright.svg HTTP/1.1" 200 569
+INFO 2025-12-07 23:00:06,983 log "POST /admin/wiki/category/1/change/ HTTP/1.1" 302 0
+INFO 2025-12-07 23:00:07,045 log "GET /admin/wiki/category/1/change/ HTTP/1.1" 200 22420
+INFO 2025-12-07 23:00:07,103 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-07 23:00:07,114 log "GET /static/admin/img/icon-yes-dark.svg HTTP/1.1" 200 558
+INFO 2025-12-07 23:00:10,737 log "GET /admin/wiki/category/1/change/ HTTP/1.1" 200 22111
+INFO 2025-12-07 23:00:13,503 log "GET /admin/wiki/category/ HTTP/1.1" 200 20199
+INFO 2025-12-07 23:00:13,560 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-07 23:00:14,985 log "GET /admin/wiki/category/1/change/ HTTP/1.1" 200 22111
+INFO 2025-12-07 23:00:15,047 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-07 23:00:15,725 log "GET /admin/wiki/category/ HTTP/1.1" 200 20199
+INFO 2025-12-07 23:00:16,821 log "GET /admin/wiki/category/2/change/ HTTP/1.1" 200 22039
+INFO 2025-12-07 23:00:16,881 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-07 23:00:23,489 log "POST /admin/wiki/category/2/change/ HTTP/1.1" 302 0
+INFO 2025-12-07 23:00:23,552 log "GET /admin/wiki/category/ HTTP/1.1" 200 20427
+INFO 2025-12-07 23:00:23,617 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-07 23:00:25,094 log "GET /admin/wiki/category/3/change/ HTTP/1.1" 200 22055
+INFO 2025-12-07 23:00:25,152 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-07 23:00:29,687 log "POST /admin/wiki/category/3/change/ HTTP/1.1" 302 0
+INFO 2025-12-07 23:00:29,758 log "GET /admin/wiki/category/ HTTP/1.1" 200 20427
+INFO 2025-12-07 23:00:29,826 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-07 23:00:30,874 log "GET /admin/wiki/category/4/change/ HTTP/1.1" 200 22078
+INFO 2025-12-07 23:00:30,934 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-07 23:00:35,346 log "POST /admin/wiki/category/4/change/ HTTP/1.1" 302 0
+INFO 2025-12-07 23:00:35,414 log "GET /admin/wiki/category/ HTTP/1.1" 200 20423
+INFO 2025-12-07 23:00:35,575 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-07 23:00:37,738 log "GET /admin/wiki/category/5/change/ HTTP/1.1" 200 22107
+INFO 2025-12-07 23:00:37,796 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-07 23:00:40,874 log "POST /admin/wiki/category/5/change/ HTTP/1.1" 302 0
+INFO 2025-12-07 23:00:40,934 log "GET /admin/wiki/category/ HTTP/1.1" 200 20427
+INFO 2025-12-07 23:00:40,998 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-07 23:00:42,220 log "GET / HTTP/1.1" 200 40889
+INFO 2025-12-07 23:00:42,295 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 23:00:42,968 log "GET /search/ HTTP/1.1" 200 49133
+INFO 2025-12-07 23:00:43,053 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 23:00:43,428 log "GET /category/characters/ HTTP/1.1" 200 38099
+INFO 2025-12-07 23:00:43,507 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 23:00:44,111 log "GET /category/monsters/ HTTP/1.1" 200 38038
+INFO 2025-12-07 23:00:44,185 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 23:00:44,920 log "GET / HTTP/1.1" 200 40889
+INFO 2025-12-07 23:00:45,100 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 23:01:15,254 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 23:01:45,258 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 23:02:15,364 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 23:02:45,255 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 23:03:15,259 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 23:03:45,272 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 23:04:15,264 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 23:05:16,362 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 23:05:45,255 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 23:05:47,480 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\admin.py changed, reloading.
+INFO 2025-12-07 23:05:48,101 autoreload Watching for file changes with StatReloader
+INFO 2025-12-07 23:06:11,547 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\admin.py changed, reloading.
+INFO 2025-12-07 23:06:12,336 autoreload Watching for file changes with StatReloader
+INFO 2025-12-07 23:13:18,188 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\admin.py changed, reloading.
+INFO 2025-12-07 23:13:18,725 autoreload Watching for file changes with StatReloader
+INFO 2025-12-07 23:13:39,458 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\models.py changed, reloading.
+INFO 2025-12-07 23:13:40,117 autoreload Watching for file changes with StatReloader
+INFO 2025-12-07 23:14:17,181 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-07 23:14:19,265 autoreload Watching for file changes with StatReloader
+INFO 2025-12-07 23:14:23,299 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 23:14:27,976 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-07 23:14:29,746 autoreload Watching for file changes with StatReloader
+INFO 2025-12-07 23:14:53,222 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\models.py changed, reloading.
+INFO 2025-12-07 23:14:53,975 autoreload Watching for file changes with StatReloader
+INFO 2025-12-07 23:15:01,253 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\urls.py changed, reloading.
+INFO 2025-12-07 23:15:01,922 autoreload Watching for file changes with StatReloader
+INFO 2025-12-07 23:15:24,274 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 23:16:08,519 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\admin.py changed, reloading.
+INFO 2025-12-07 23:16:09,124 autoreload Watching for file changes with StatReloader
+INFO 2025-12-07 23:16:23,651 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\admin.py changed, reloading.
+INFO 2025-12-07 23:16:24,310 autoreload Watching for file changes with StatReloader
+INFO 2025-12-07 23:16:40,556 autoreload Watching for file changes with StatReloader
+INFO 2025-12-07 23:16:42,457 log "GET / HTTP/1.1" 200 40889
+INFO 2025-12-07 23:16:42,633 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 23:16:43,783 log "GET /admin/ HTTP/1.1" 200 16365
+INFO 2025-12-07 23:16:43,891 log "GET /static/admin/css/responsive.css HTTP/1.1" 200 16194
+INFO 2025-12-07 23:16:43,895 log "GET /static/admin/css/dark_mode.css HTTP/1.1" 200 3538
+INFO 2025-12-07 23:16:43,897 log "GET /static/admin/css/dashboard.css HTTP/1.1" 200 441
+INFO 2025-12-07 23:16:43,897 log "GET /static/admin/css/base.css HTTP/1.1" 200 23100
+INFO 2025-12-07 23:16:43,898 log "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 200 2810
+INFO 2025-12-07 23:16:43,899 log "GET /static/admin/js/theme.js HTTP/1.1" 200 1653
+INFO 2025-12-07 23:16:43,900 log "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 200 3063
+INFO 2025-12-07 23:16:43,906 log "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 200 928
+INFO 2025-12-07 23:16:43,906 log "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 200 978
+INFO 2025-12-07 23:16:43,906 log "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 593
+INFO 2025-12-07 23:16:46,746 log "GET /admin/wiki/backup/ HTTP/1.1" 200 16676
+INFO 2025-12-07 23:16:46,761 log "GET /static/admin/css/changelists.css HTTP/1.1" 200 7501
+INFO 2025-12-07 23:16:46,765 log "GET /static/admin/js/jquery.init.js HTTP/1.1" 200 347
+INFO 2025-12-07 23:16:46,765 log "GET /static/admin/js/core.js HTTP/1.1" 200 6208
+INFO 2025-12-07 23:16:46,766 log "GET /static/admin/js/actions.js HTTP/1.1" 200 8076
+INFO 2025-12-07 23:16:46,766 log "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 200 9777
+INFO 2025-12-07 23:16:46,769 log "GET /static/admin/js/prepopulate.js HTTP/1.1" 200 1531
+INFO 2025-12-07 23:16:46,769 log "GET /static/admin/js/urlify.js HTTP/1.1" 200 7887
+INFO 2025-12-07 23:16:46,770 log "GET /static/admin/img/search.svg HTTP/1.1" 304 0
+INFO 2025-12-07 23:16:46,772 log "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 285314
+INFO 2025-12-07 23:16:46,773 log "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 325171
+INFO 2025-12-07 23:16:46,779 log "GET /static/admin/js/filters.js HTTP/1.1" 200 978
+INFO 2025-12-07 23:16:46,820 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-07 23:16:50,329 log "GET /admin/wiki/backup/?backup_type__exact=full HTTP/1.1" 200 17116
+INFO 2025-12-07 23:16:50,385 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-07 23:16:55,063 log "GET /admin/wiki/backup/ HTTP/1.1" 200 16676
+INFO 2025-12-07 23:16:55,120 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-07 23:16:58,904 log "GET /admin/wiki/backup/?backup_type__exact=full HTTP/1.1" 200 17116
+INFO 2025-12-07 23:17:00,642 log "GET /admin/wiki/backup/ HTTP/1.1" 200 16676
+INFO 2025-12-07 23:17:00,698 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-07 23:17:03,316 log "GET /admin/wiki/actionlog/ HTTP/1.1" 200 45361
+INFO 2025-12-07 23:17:03,401 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-07 23:17:03,413 log "GET /static/admin/img/sorting-icons.svg HTTP/1.1" 200 1761
+INFO 2025-12-07 23:17:04,746 log "GET /admin/wiki/backup/ HTTP/1.1" 200 16676
+INFO 2025-12-07 23:17:04,802 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-07 23:17:06,495 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 23:17:15,273 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+WARNING 2025-12-07 23:17:23,157 log Not Found: /wiki/admin/backups
+WARNING 2025-12-07 23:17:23,157 log "GET /wiki/admin/backups HTTP/1.1" 404 27289
+WARNING 2025-12-07 23:17:27,224 log Not Found: /wiki/admin/backups/
+WARNING 2025-12-07 23:17:27,224 log "GET /wiki/admin/backups/ HTTP/1.1" 404 27292
+INFO 2025-12-07 23:17:45,280 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+WARNING 2025-12-07 23:17:59,759 log Not Found: /wiki/admin/backup/
+WARNING 2025-12-07 23:17:59,759 log "GET /wiki/admin/backup/ HTTP/1.1" 404 27289
+WARNING 2025-12-07 23:18:02,289 log Not Found: /wiki/admin/backup
+WARNING 2025-12-07 23:18:02,290 log "GET /wiki/admin/backup HTTP/1.1" 404 27286
+INFO 2025-12-07 23:18:07,651 log "GET / HTTP/1.1" 200 40889
+INFO 2025-12-07 23:18:07,726 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 23:18:08,639 log "GET /admin/ HTTP/1.1" 200 16365
+INFO 2025-12-07 23:18:10,946 log "GET /admin/wiki/backup/ HTTP/1.1" 200 16676
+INFO 2025-12-07 23:18:11,008 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-07 23:18:14,117 log "GET /admin/wiki/backup/?_facets=True HTTP/1.1" 200 16982
+INFO 2025-12-07 23:18:14,173 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-07 23:18:14,184 log "GET /static/admin/img/icon-hidelink.svg HTTP/1.1" 200 1131
+INFO 2025-12-07 23:18:14,854 log "GET /admin/wiki/backup/? HTTP/1.1" 200 16676
+INFO 2025-12-07 23:18:15,015 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-07 23:18:15,247 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 23:19:16,263 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 23:19:41,105 log "GET /admin/wiki/backup/ HTTP/1.1" 200 16676
+INFO 2025-12-07 23:19:41,166 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-07 23:19:45,256 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 23:20:15,255 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 23:20:45,254 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 23:21:38,260 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 23:22:19,219 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\admin.py changed, reloading.
+INFO 2025-12-07 23:22:19,851 autoreload Watching for file changes with StatReloader
+INFO 2025-12-07 23:26:48,728 autoreload Watching for file changes with StatReloader
+INFO 2025-12-07 23:27:51,912 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\admin.py changed, reloading.
+INFO 2025-12-07 23:27:52,628 autoreload Watching for file changes with StatReloader
+INFO 2025-12-07 23:28:18,290 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 23:28:54,255 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\admin.py changed, reloading.
+INFO 2025-12-07 23:28:54,813 autoreload Watching for file changes with StatReloader
+INFO 2025-12-07 23:29:06,096 autoreload Watching for file changes with StatReloader
+INFO 2025-12-07 23:29:08,453 log "GET / HTTP/1.1" 200 40889
+INFO 2025-12-07 23:29:08,526 log "GET /static/css/style.css HTTP/1.1" 304 0
+INFO 2025-12-07 23:29:08,529 log "GET /static/css/tutorials.css HTTP/1.1" 304 0
+INFO 2025-12-07 23:29:08,529 log "GET /static/js/tutorials.js HTTP/1.1" 304 0
+INFO 2025-12-07 23:29:08,610 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 23:29:09,395 log "GET /admin/ HTTP/1.1" 200 16365
+INFO 2025-12-07 23:29:11,852 log "GET /admin/wiki/backup/ HTTP/1.1" 200 16676
+INFO 2025-12-07 23:29:11,916 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-07 23:29:13,745 log "GET /admin/ HTTP/1.1" 200 16365
+INFO 2025-12-07 23:29:16,280 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 23:30:59,237 autoreload Watching for file changes with StatReloader
+INFO 2025-12-07 23:31:01,062 log "GET / HTTP/1.1" 200 40889
+INFO 2025-12-07 23:31:01,218 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 23:31:02,226 log "GET /user-management/ HTTP/1.1" 200 70369
+INFO 2025-12-07 23:31:02,323 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 23:31:05,811 log "GET /admin/ HTTP/1.1" 200 16365
+INFO 2025-12-07 23:31:07,676 log "GET /admin/wiki/backup/ HTTP/1.1" 200 20314
+INFO 2025-12-07 23:31:07,739 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-07 23:31:16,257 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 23:31:18,964 log "GET /admin/wiki/backup/1/change/ HTTP/1.1" 200 21716
+INFO 2025-12-07 23:31:19,012 log "GET /static/admin/css/forms.css HTTP/1.1" 200 8844
+INFO 2025-12-07 23:31:19,014 log "GET /static/admin/css/widgets.css HTTP/1.1" 200 11811
+INFO 2025-12-07 23:31:19,021 log "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 200 586
+INFO 2025-12-07 23:31:19,023 log "GET /static/admin/js/change_form.js HTTP/1.1" 200 606
+INFO 2025-12-07 23:31:19,033 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-07 23:31:22,774 log "GET /admin/wiki/backup/ HTTP/1.1" 200 20314
+WARNING 2025-12-07 23:31:26,304 log Not Found: /admin/backups/download/1/
+WARNING 2025-12-07 23:31:26,304 log "GET /admin/backups/download/1/ HTTP/1.1" 404 8270
+INFO 2025-12-07 23:31:34,907 log "GET /admin/wiki/backup/ HTTP/1.1" 200 20314
+INFO 2025-12-07 23:31:39,097 log "GET /admin/ HTTP/1.1" 200 16365
+INFO 2025-12-07 23:31:40,869 log "GET /admin/wiki/backup/ HTTP/1.1" 200 20314
+INFO 2025-12-07 23:31:40,930 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+WARNING 2025-12-07 23:31:50,681 log Not Found: /admin/backups/download/1/
+WARNING 2025-12-07 23:31:50,682 log "GET /admin/backups/download/1/ HTTP/1.1" 404 8270
+INFO 2025-12-07 23:31:51,411 log "GET /admin/wiki/backup/ HTTP/1.1" 200 20314
+INFO 2025-12-07 23:31:55,656 log "GET /admin/wiki/backup/ HTTP/1.1" 200 20314
+INFO 2025-12-07 23:31:55,823 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-07 23:31:58,451 log "GET /admin/wiki/backup/?o=4 HTTP/1.1" 200 20482
+INFO 2025-12-07 23:31:58,509 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+WARNING 2025-12-07 23:32:00,542 log Not Found: /admin/backups/download/1/
+WARNING 2025-12-07 23:32:00,542 log "GET /admin/backups/download/1/ HTTP/1.1" 404 8270
+INFO 2025-12-07 23:32:17,251 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 23:34:18,112 autoreload Watching for file changes with StatReloader
+INFO 2025-12-07 23:34:19,408 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 23:34:19,791 log "GET / HTTP/1.1" 200 40889
+INFO 2025-12-07 23:34:19,942 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 23:34:20,917 log "GET /admin/ HTTP/1.1" 200 16365
+ERROR 2025-12-07 23:34:22,560 log Internal Server Error: /admin/wiki/backup/
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\options.py", line 684, in get_field
+    return self.fields_map[field_name]
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^
+KeyError: 'actions_links'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\admin\utils.py", line 293, in lookup_field
+    f = _get_non_gfk_field(opts, name)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\admin\utils.py", line 333, in _get_non_gfk_field
+    field = opts.get_field(name)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\options.py", line 686, in get_field
+    raise FieldDoesNotExist(
+        "%s has no field named '%s'" % (self.object_name, field_name)
+    )
+django.core.exceptions.FieldDoesNotExist: Backup has no field named 'actions_links'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 221, in _get_response
+    response = response.render()
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 174, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 166, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 160, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 166, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 160, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 166, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 66, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 66, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\admin\templatetags\base.py", line 47, in render
+    return super().render(context)
+           ~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\library.py", line 363, in render
+    _dict = self.func(*resolved_args, **resolved_kwargs)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\admin\templatetags\admin_list.py", line 357, in result_list
+    "results": list(results(cl)),
+               ~~~~^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\admin\templatetags\admin_list.py", line 333, in results
+    yield ResultList(None, items_for_result(cl, res, None))
+          ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\admin\templatetags\admin_list.py", line 324, in __init__
+    super().__init__(*items)
+    ~~~~~~~~~~~~~~~~^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\admin\templatetags\admin_list.py", line 221, in items_for_result
+    f, attr, value = lookup_field(field_name, result, cl.model_admin)
+                     ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\admin\utils.py", line 302, in lookup_field
+    value = attr(obj)
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\admin.py", line 589, in actions_links
+    return format_html(''.join(links)) if links else '-'
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\utils\html.py", line 137, in format_html
+    raise TypeError("args or kwargs must be provided.")
+TypeError: args or kwargs must be provided.
+ERROR 2025-12-07 23:34:22,568 log "GET /admin/wiki/backup/ HTTP/1.1" 500 419874
+INFO 2025-12-07 23:35:11,170 autoreload Watching for file changes with StatReloader
+INFO 2025-12-07 23:35:12,881 log "GET / HTTP/1.1" 200 40889
+INFO 2025-12-07 23:35:13,167 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 23:35:13,912 log "GET /admin/ HTTP/1.1" 200 16365
+INFO 2025-12-07 23:35:13,927 log "GET /static/admin/css/base.css HTTP/1.1" 304 0
+INFO 2025-12-07 23:35:13,929 log "GET /static/admin/css/dark_mode.css HTTP/1.1" 304 0
+INFO 2025-12-07 23:35:13,930 log "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 304 0
+INFO 2025-12-07 23:35:13,930 log "GET /static/admin/css/dashboard.css HTTP/1.1" 304 0
+INFO 2025-12-07 23:35:13,931 log "GET /static/admin/css/responsive.css HTTP/1.1" 304 0
+INFO 2025-12-07 23:35:13,931 log "GET /static/admin/js/theme.js HTTP/1.1" 304 0
+INFO 2025-12-07 23:35:13,934 log "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 304 0
+INFO 2025-12-07 23:35:13,938 log "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 304 0
+INFO 2025-12-07 23:35:13,938 log "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 304 0
+INFO 2025-12-07 23:35:13,938 log "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 304 0
+ERROR 2025-12-07 23:35:16,209 log Internal Server Error: /admin/wiki/backup/
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\options.py", line 684, in get_field
+    return self.fields_map[field_name]
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^
+KeyError: 'actions_links'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\admin\utils.py", line 293, in lookup_field
+    f = _get_non_gfk_field(opts, name)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\admin\utils.py", line 333, in _get_non_gfk_field
+    field = opts.get_field(name)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\options.py", line 686, in get_field
+    raise FieldDoesNotExist(
+        "%s has no field named '%s'" % (self.object_name, field_name)
+    )
+django.core.exceptions.FieldDoesNotExist: Backup has no field named 'actions_links'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 221, in _get_response
+    response = response.render()
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 174, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 166, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 160, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 166, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 160, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 166, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 66, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 66, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\admin\templatetags\base.py", line 47, in render
+    return super().render(context)
+           ~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\library.py", line 363, in render
+    _dict = self.func(*resolved_args, **resolved_kwargs)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\admin\templatetags\admin_list.py", line 357, in result_list
+    "results": list(results(cl)),
+               ~~~~^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\admin\templatetags\admin_list.py", line 333, in results
+    yield ResultList(None, items_for_result(cl, res, None))
+          ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\admin\templatetags\admin_list.py", line 324, in __init__
+    super().__init__(*items)
+    ~~~~~~~~~~~~~~~~^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\admin\templatetags\admin_list.py", line 221, in items_for_result
+    f, attr, value = lookup_field(field_name, result, cl.model_admin)
+                     ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\admin\utils.py", line 302, in lookup_field
+    value = attr(obj)
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\admin.py", line 589, in actions_links
+    return format_html(''.join(links)) if links else '-'
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\utils\html.py", line 137, in format_html
+    raise TypeError("args or kwargs must be provided.")
+TypeError: args or kwargs must be provided.
+ERROR 2025-12-07 23:35:16,216 log "GET /admin/wiki/backup/ HTTP/1.1" 500 419802
+INFO 2025-12-07 23:37:46,312 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\admin.py changed, reloading.
+INFO 2025-12-07 23:37:46,850 autoreload Watching for file changes with StatReloader
+INFO 2025-12-07 23:39:44,268 autoreload Watching for file changes with StatReloader
+INFO 2025-12-07 23:39:46,528 log "GET / HTTP/1.1" 200 40889
+INFO 2025-12-07 23:39:46,674 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-07 23:39:47,533 log "GET /admin/ HTTP/1.1" 200 16365
+INFO 2025-12-07 23:39:48,921 log "GET /admin/wiki/backup/ HTTP/1.1" 200 20829
+INFO 2025-12-07 23:39:48,938 log "GET /static/admin/css/changelists.css HTTP/1.1" 304 0
+INFO 2025-12-07 23:39:48,942 log "GET /static/admin/js/core.js HTTP/1.1" 304 0
+INFO 2025-12-07 23:39:48,942 log "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 304 0
+INFO 2025-12-07 23:39:48,943 log "GET /static/admin/js/jquery.init.js HTTP/1.1" 304 0
+INFO 2025-12-07 23:39:48,943 log "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 304 0
+INFO 2025-12-07 23:39:48,945 log "GET /static/admin/js/actions.js HTTP/1.1" 304 0
+INFO 2025-12-07 23:39:48,945 log "GET /static/admin/js/urlify.js HTTP/1.1" 304 0
+INFO 2025-12-07 23:39:48,945 log "GET /static/admin/js/prepopulate.js HTTP/1.1" 304 0
+INFO 2025-12-07 23:39:48,946 log "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 304 0
+INFO 2025-12-07 23:39:48,947 log "GET /static/admin/img/search.svg HTTP/1.1" 304 0
+INFO 2025-12-07 23:39:48,950 log "GET /static/admin/js/filters.js HTTP/1.1" 304 0
+INFO 2025-12-07 23:39:48,999 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-07 23:39:49,013 log "GET /static/admin/img/sorting-icons.svg HTTP/1.1" 304 0
+WARNING 2025-12-07 23:39:52,213 log Not Found: /admin/backups/download/2/
+WARNING 2025-12-07 23:39:52,214 log "GET /admin/backups/download/2/ HTTP/1.1" 404 8270
+INFO 2025-12-07 23:39:53,785 log "GET /admin/wiki/backup/ HTTP/1.1" 200 20829
+INFO 2025-12-07 23:40:08,918 log "GET /admin/ HTTP/1.1" 200 16365

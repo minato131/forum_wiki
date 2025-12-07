@@ -66,7 +66,7 @@ WSGI_APPLICATION = 'witcher_wiki.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'witcher_forum_db',
+        'NAME': 'db_wiki',
         'USER': 'postgres',
         'PASSWORD': 'postgres',
         'HOST': 'localhost',

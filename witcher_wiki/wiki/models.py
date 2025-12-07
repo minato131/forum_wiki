@@ -1157,3 +1157,74 @@ class SiteStat(models.Model):
 
     def __str__(self):
         return f"Статистика за {self.date}"
+
+
+class Backup(models.Model):
+    """Модель для хранения информации о резервных копиях"""
+
+    BACKUP_TYPES = [
+        ('full', 'Полная копия'),
+        ('database', 'Только база данных'),
+        ('media', 'Только медиафайлы'),
+    ]
+
+    STATUS_CHOICES = [
+        ('in_progress', 'В процессе'),
+        ('completed', 'Завершено'),
+        ('failed', 'Ошибка'),
+    ]
+
+    name = models.CharField('Название', max_length=255)
+    file_path = models.CharField('Путь к файлу', max_length=500)
+    file_size = models.BigIntegerField('Размер файла (байты)', default=0)
+    backup_type = models.CharField('Тип бэкапа', max_length=20, choices=BACKUP_TYPES, default='full')
+    status = models.CharField('Статус', max_length=20, choices=STATUS_CHOICES, default='in_progress')
+    created_at = models.DateTimeField('Дата создания', auto_now_add=True)
+    description = models.TextField('Описание', blank=True)
+    metadata = models.JSONField('Метаданные', default=dict, blank=True)
+
+    class Meta:
+        verbose_name = 'Резервная копия'
+        verbose_name_plural = 'Резервные копии'
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return self.name
+
+    def file_size_display(self):
+        """Отображение размера файла в удобном формате"""
+        if self.file_size < 1024 * 1024:  # Меньше 1 МБ
+            return f"{self.file_size / 1024:.1f} KB"
+        else:
+            return f"{self.file_size / (1024 * 1024):.1f} MB"
+
+    def get_download_url(self):
+        """URL для скачивания бэкапа"""
+        return f'/wiki/backups/download/{self.id}/'
+
+    def get_restore_url(self):
+        """URL для восстановления из бэкапа"""
+        return f'/wiki/admin/backups/restore/{self.id}/'
+
+    def update_status(self):
+        """Обновляет статус бэкапа на основе файла"""
+        import os
+
+        if not os.path.exists(self.file_path):
+            self.status = 'failed'
+            self.save(update_fields=['status'])
+            return
+
+        if self.status == 'in_progress':
+            try:
+                # Проверяем, является ли файл валидным ZIP архивом
+                with zipfile.ZipFile(self.file_path, 'r') as zip_ref:
+                    # Если можем открыть и есть метаданные - считаем завершенным
+                    if 'metadata.json' in zip_ref.namelist():
+                        self.status = 'completed'
+                        # Обновляем размер файла
+                        self.file_size = os.path.getsize(self.file_path)
+                        self.save(update_fields=['status', 'file_size'])
+            except:
+                self.status = 'failed'
+                self.save(update_fields=['status'])
