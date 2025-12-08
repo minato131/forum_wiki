@@ -526,26 +526,54 @@
         }
 
         function confirmLogout() {
-            showConfirmationModal(
-                'Вы уверены, что хотите выйти из аккаунта?',
-                function() {
-                    // Создаем скрытую форму для выхода
-                    const form = document.createElement('form');
-                    form.method = 'post';
-                    form.action = '/accounts/logout/';
+    console.log('confirmLogout called');
 
-                    const csrfToken = document.createElement('input');
-                    csrfToken.type = 'hidden';
-                    csrfToken.name = 'csrfmiddlewaretoken';
-                    csrfToken.value = '{{ csrf_token }}';
+    if (typeof showConfirmationModal === 'function') {
+        console.log('showConfirmationModal exists');
+        showConfirmationModal(
+            'Вы уверены, что хотите выйти из аккаунта?',
+            function() {
+                console.log('Logout confirmed, submitting form');
+                // Создаем скрытую форму для выхода
+                const form = document.createElement('form');
+                form.method = 'post';
+                form.action = '/accounts/logout/';
 
-                    form.appendChild(csrfToken);
-                    document.body.appendChild(form);
-                    form.submit();
-                },
-                { type: 'danger', icon: '🚪', title: 'Выход из системы' }
-            );
+                const csrfToken = document.createElement('input');
+                csrfToken.type = 'hidden';
+                csrfToken.name = 'csrfmiddlewaretoken';
+                csrfToken.value = '{{ csrf_token }}';
+
+                form.appendChild(csrfToken);
+                document.body.appendChild(form);
+                form.submit();
+            },
+            {
+                type: 'danger',
+                icon: '🚪',
+                title: 'Выход из системы',
+                confirmText: 'Выйти'
+            }
+        );
+    } else {
+        console.error('showConfirmationModal is not a function');
+        // Fallback: просто подтверждение
+        if (confirm('Вы уверены, что хотите выйти из аккаунта?')) {
+            const form = document.createElement('form');
+            form.method = 'post';
+            form.action = '/accounts/logout/';
+
+            const csrfToken = document.createElement('input');
+            csrfToken.type = 'hidden';
+            csrfToken.name = 'csrfmiddlewaretoken';
+            csrfToken.value = '{{ csrf_token }}';
+
+            form.appendChild(csrfToken);
+            document.body.appendChild(form);
+            form.submit();
         }
+    }
+}
 
         // Функция для подтверждения сохранения профиля
         function confirmProfileSave(form) {
