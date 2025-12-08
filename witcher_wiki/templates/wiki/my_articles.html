@@ -277,21 +277,21 @@
 
 <div class="my-articles">
     <h1 style="color: #D4AF37; font-family: 'Cinzel', serif; text-align: center; margin-bottom: 30px;">
-        📝 Мои статьи
+        Мои статьи
     </h1>
 
     <!-- Секция экспорта -->
     <div class="export-section">
-        <h3 style="color: #D4AF37; margin-bottom: 15px;">📊 Экспорт статей</h3>
+        <h3 style="color: #D4AF37; margin-bottom: 15px;">Экспорт статей</h3>
         <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
             <a href="{% url 'wiki:export_articles_list' %}" class="btn btn-export" title="Экспортировать все мои статьи">
-                📄 Все мои статьи (PDF)
+                Все мои статьи (PDF)
             </a>
             <a href="{% url 'wiki:export_articles_list' %}?status=published" class="btn btn-success" title="Экспортировать опубликованные статьи">
-                ✅ Опубликованные (PDF)
+                Опубликованные (PDF)
             </a>
             <a href="{% url 'wiki:export_articles_list' %}?status=draft" class="btn btn-warning" title="Экспортировать черновики">
-                📝 Черновики (PDF)
+                Черновики (PDF)
             </a>
         </div>
     </div>
@@ -299,19 +299,19 @@
     <div class="stats-grid">
         <div class="stat-card">
             <div class="stat-number">{{ stats.draft }}</div>
-            <div class="stat-label">📝 Черновики</div>
+            <div class="stat-label">Черновики</div>
         </div>
         <div class="stat-card">
             <div class="stat-number">{{ stats.review }}</div>
-            <div class="stat-label">⏳ На модерации</div>
+            <div class="stat-label">На модерации</div>
         </div>
         <div class="stat-card">
             <div class="stat-number">{{ stats.published }}</div>
-            <div class="stat-label">✅ Опубликовано</div>
+            <div class="stat-label">Опубликовано</div>
         </div>
         <div class="stat-card">
             <div class="stat-number">{{ stats.rejected }}</div>
-            <div class="stat-label">❌ Отклонено</div>
+            <div class="stat-label">Отклонено</div>
         </div>
     </div>
 

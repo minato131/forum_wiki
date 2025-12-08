@@ -72,31 +72,67 @@
     }
 
     .btn {
-        padding: 8px 16px;
+        padding: 10px 20px;
         border: none;
-        border-radius: 5px;
+        border-radius: 8px;
         text-decoration: none;
         font-size: 0.9em;
+        font-weight: 600;
         transition: all 0.3s ease;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 120px;
+        text-align: center;
     }
 
+    /* КНОПКА "МОДЕРИРОВАТЬ" - ТАКАЯ ЖЕ КАК "ПРОСМОТРЕТЬ" */
     .btn-moderate {
-        background: #D4AF37;
-        color: #1a1a1a;
-        font-weight: bold;
+        background: #FFD700; /* Желтый фон */
+        color: #1a1a1a; /* Черный текст */
+        font-weight: 600;
+        padding: 10px 20px;
+        border-radius: 8px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 120px;
+        text-align: center;
+        border: 2px solid #FFD700;
     }
 
     .btn-moderate:hover {
-        background: #FFD700;
+        background: #FFC107;
+        border-color: #FFC107;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(255, 193, 7, 0.3);
     }
 
+    /* КНОПКА "ПРОСМОТРЕТЬ" - оригинальная */
     .btn-view {
         background: #3b82f6;
         color: white;
+        font-weight: 600;
+        padding: 10px 20px;
+        border-radius: 8px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 120px;
+        text-align: center;
+        border: 2px solid #3b82f6;
     }
 
     .btn-view:hover {
         background: #2563eb;
+        border-color: #2563eb;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
     }
 
     .empty-state {
@@ -132,7 +168,7 @@
     </div>
     {% endif %}
 
-    <h2 style="color: #D4AF37; margin-bottom: 20px;">⏳ Статьи на модерации ({{ pending_articles.count }})</h2>
+    <h2 style="color: #D4AF37; margin-bottom: 20px;">Статьи на модерации ({{ pending_articles.count }})</h2>
 
     {% if pending_articles %}
     <div class="articles-grid">
@@ -141,7 +177,7 @@
             <div class="article-header">
                 <h3 class="article-title">{{ article.title }}</h3>
                 <span style="background: #f59e0b; color: white; padding: 4px 8px; border-radius: 12px; font-size: 0.8em;">
-                    ⏳ На модерации
+                    На модерации
                 </span>
             </div>
 
@@ -159,10 +195,10 @@
 
             <div class="action-buttons">
                 <a href="{% url 'wiki:article_moderate_enhanced' article.slug %}" class="btn-moderate">
-                    ⚖️ Модерировать
+                    Модерировать
                 </a>
                 <a href="{% url 'wiki:article_detail' article.slug %}" class="btn btn-view">
-                    👁️ Просмотреть
+                    Просмотреть
                 </a>
             </div>
         </div>
@@ -178,7 +214,7 @@
 
     {% if rejected_articles %}
     <div class="rejected-section">
-        <h2 style="color: #D4AF37; margin-bottom: 20px;">❌ Недавно отклоненные статьи</h2>
+        <h2 style="color: #D4AF37; margin-bottom: 20px;">Недавно отклоненные статьи</h2>
 
         <div class="articles-grid">
             {% for article in rejected_articles %}
@@ -186,7 +222,7 @@
                 <div class="article-header">
                     <h3 class="article-title">{{ article.title }}</h3>
                     <span style="background: #ef4444; color: white; padding: 4px 8px; border-radius: 12px; font-size: 0.8em;">
-                        ❌ Отклонено
+                        Отклонено
                     </span>
                 </div>
 
@@ -204,7 +240,7 @@
 
                 <div class="action-buttons">
                     <a href="{% url 'wiki:article_detail' article.slug %}" class="btn btn-view">
-                        👁️ Просмотреть
+                        Просмотреть
                     </a>
                 </div>
             </div>

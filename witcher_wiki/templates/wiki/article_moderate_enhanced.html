@@ -7,7 +7,7 @@
 <div class="moderation-container">
     <!-- Заголовок -->
     <div style="text-align: center; margin-bottom: 30px; padding: 20px; background: #2d2d2d; border-radius: 10px; border: 2px solid #D4AF37;">
-        <h1 style="color: #D4AF37; margin-bottom: 10px;">🎯 УЛУЧШЕННАЯ МОДЕРАЦИЯ</h1>
+        <h1 style="color: #D4AF37; margin-bottom: 10px;">Модерация статьи</h1>
         <h2 style="color: white;">{{ article.title }}</h2>
         <p style="color: #888;">Автор: {{ article.author.username }} | Статус: {{ article.get_status_display }}</p>
     </div>
@@ -15,11 +15,11 @@
     <div style="display: grid; grid-template-columns: 1fr 400px; gap: 30px;">
         <!-- Левая панель - контент -->
         <div style="background: #2d2d2d; padding: 25px; border-radius: 10px; border: 1px solid #444;">
-            <h3 style="color: #D4AF37; margin-bottom: 15px;">📖 Содержание статьи</h3>
+            <h3 style="color: #D4AF37; margin-bottom: 15px;">Содержание статьи</h3>
 
             <div style="margin-bottom: 20px; display: flex; gap: 10px; align-items: center;">
                 <button id="toggleHighlight" style="background: #D4AF37; color: #1a1a1a; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; font-weight: bold;">
-                    🖊️ Включить выделение
+                    Включить выделение
                 </button>
                 <span id="highlightStatus" style="color: #888;">Выделение отключено</span>
             </div>
@@ -33,7 +33,7 @@
         <div style="display: flex; flex-direction: column; gap: 20px;">
             <!-- Форма комментария -->
             <div style="background: #2d2d2d; padding: 20px; border-radius: 10px; border: 1px solid #444;">
-                <h3 style="color: #D4AF37; margin-bottom: 15px;">💬 Новое замечание</h3>
+                <h3 style="color: #D4AF37; margin-bottom: 15px;">Новое замечание</h3>
 
                 <form id="commentForm">
                     {% csrf_token %}
@@ -93,28 +93,28 @@
             <!-- ✅ ОДОБРИТЬ -->
             <button type="submit" name="action" value="approve"
                     style="background: linear-gradient(135deg, #22c55e, #16a34a); color: white; border: none; padding: 14px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 1em; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.3s ease;">
-                <span style="font-size: 1.2em;">✅</span>
+                <span style="font-size: 1.2em;"></span>
                 Одобрить и опубликовать
             </button>
 
             <!-- ❌ ОТКЛОНИТЬ (автор исправит) -->
             <button type="submit" name="action" value="needs_correction"
                     style="background: linear-gradient(135deg, #f59e0b, #d97706); color: white; border: none; padding: 14px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 1em; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.3s ease;">
-                <span style="font-size: 1.2em;">✏️</span>
+                <span style="font-size: 1.2em;"></span>
                 Отклонить (автор исправит)
             </button>
 
             <!-- 📝 ОТПРАВИТЬ РЕДАКТОРУ -->
             <button type="submit" name="action" value="send_to_editor"
                     style="background: linear-gradient(135deg, #3b82f6, #2563eb); color: white; border: none; padding: 14px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 1em; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.3s ease;">
-                <span style="font-size: 1.2em;">📝</span>
+                <span style="font-size: 1.2em;"></span>
                 Отправить редактору
             </button>
 
             <!-- 🚫 ОТКЛОНИТЬ ОКОНЧАТЕЛЬНО -->
             <button type="submit" name="action" value="reject"
                     style="background: linear-gradient(135deg, #ef4444, #dc2626); color: white; border: none; padding: 14px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 1em; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.3s ease;">
-                <span style="font-size: 1.2em;">🚫</span>
+                <span style="font-size: 1.2em;"></span>
                 Отклонить окончательно
             </button>
         </div>
