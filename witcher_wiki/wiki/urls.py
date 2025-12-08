@@ -130,8 +130,7 @@ urlpatterns = [
     path('statistics/export/pdf/', views.export_statistics_pdf, name='export_statistics_pdf'),
     path('statistics/export/json/', views.export_statistics_json, name='export_statistics_json'),
     path('admin/backups/', views.backup_management, name='backup_management'),
-    path('admin/backups/create/', views.create_backup_view, name='create_backup'),
+    path('admin/backups/create/', views.create_backup_view, name='create_backup_view'),
     path('admin/backups/download/<int:backup_id>/', views.download_backup, name='download_backup'),
     path('admin/backups/delete/<int:backup_id>/', views.delete_backup, name='delete_backup'),
-    path('admin/backups/restore/<int:backup_id>/', views.restore_backup_view, name='restore_backup'),
 ]

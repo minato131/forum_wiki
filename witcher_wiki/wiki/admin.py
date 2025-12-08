@@ -30,6 +30,7 @@ from django.utils.html import format_html
 import os
 from django.conf import settings
 from .models import Backup
+from django.urls import reverse
 import os
 
 @admin.register(Category)
@@ -467,205 +468,71 @@ class ActionLogAdmin(admin.ModelAdmin):
 class BackupAdmin(admin.ModelAdmin):
     """Админ-панель для управления резервными копиями"""
 
-    actions = ['create_backup_action', 'delete_selected_backups']
-
-    list_display = [
-        'name',
-        'get_backup_type_display',
-        'get_status_display',
-        'created_at',
-        'file_size_display',
-        'admin_actions'
-    ]
-
-    list_filter = [
-        'backup_type',
-        'status',
-        'created_at'
-    ]
-
+    list_display = ['name', 'backup_type_display', 'status_display', 'created_at', 'file_size_display', 'actions']
+    list_filter = ['backup_type', 'status', 'created_at']
     search_fields = ['name', 'description']
+    readonly_fields = ['name', 'file_path', 'file_size', 'metadata_prettified', 'created_at']
 
-    readonly_fields = [
-        'name',
-        'file_path',
-        'file_size',
-        'backup_type',
-        'status',
-        'created_at',
-        'description',
-        'display_metadata',
-        'admin_download_link'
-    ]
+    def backup_type_display(self, obj):
+        return obj.get_backup_type_display()
 
-    fieldsets = (
-        ('Основная информация', {
-            'fields': ('name', 'backup_type', 'status', 'description', 'created_at')
-        }),
-        ('Файловая информация', {
-            'fields': ('file_path', 'file_size', 'display_metadata')
-        }),
-        ('Действия', {
-            'fields': ('admin_download_link',),
-            'classes': ('collapse',)
-        }),
-    )
+    backup_type_display.short_description = 'Тип'
+
+    def status_display(self, obj):
+        colors = {
+            'completed': 'green',
+            'in_progress': 'orange',
+            'failed': 'red'
+        }
+        color = colors.get(obj.status, 'black')
+        return format_html(
+            '<span style="color: {};">{}</span>',
+            color,
+            obj.get_status_display()
+        )
+
+    status_display.short_description = 'Статус'
 
     def file_size_display(self, obj):
         return obj.file_size_display()
 
     file_size_display.short_description = 'Размер'
 
-    def display_metadata(self, obj):
-        """Красивое отображение метаданных"""
-        import json
-        from django.utils.html import format_html
-
+    def metadata_prettified(self, obj):
         if obj.metadata:
-            metadata_str = json.dumps(obj.metadata, ensure_ascii=False, indent=2)
             return format_html(
-                '<pre style="background: #f5f5f5; padding: 10px; border-radius: 5px; font-size: 11px; max-height: 200px; overflow: auto;">{}</pre>',
-                metadata_str
+                '<pre style="background: #f5f5f5; padding: 10px; border-radius: 5px; overflow-x: auto;">{}</pre>',
+                json.dumps(obj.metadata, indent=2, ensure_ascii=False)
             )
         return '-'
 
-    display_metadata.short_description = 'Метаданные'
+    metadata_prettified.short_description = 'Метаданные'
 
-    def admin_download_link(self, obj):
-        """Ссылка на скачивание в админке"""
-        from django.utils.html import format_html
-        from django.urls import reverse
-
-        if obj.status == 'completed':
-            return format_html(
-                '<a href="{}" class="button">⬇️ Скачать бэкап</a>',
-                reverse('wiki:download_backup', args=[obj.id])
-            )
-        return 'Файл недоступен'
-
-    admin_download_link.short_description = 'Скачать'
-
-    def admin_actions(self, obj):
-        """Действия в списке"""
-        from django.utils.html import format_html
-        from django.urls import reverse
-
+    def actions(self, obj):
         if obj.status == 'completed':
             download_url = reverse('wiki:download_backup', args=[obj.id])
-            delete_url = reverse('wiki:delete_backup', args=[obj.id])
-
-            download_html = format_html(
-                '<a href="{}" title="Скачать" style="margin-right: 5px;">⬇️</a>',
+            return format_html(
+                '''
+                <div style="display: flex; gap: 5px;">
+                    <a href="{}" class="button" title="Скачать" style="background: #4CAF50; color: white; padding: 5px 10px; border-radius: 3px; text-decoration: none; font-size: 12px;">
+                        <i class="fas fa-download"></i>
+                    </a>
+                </div>
+                ''',
                 download_url
             )
-
-            delete_html = format_html(
-                '<a href="#" onclick="if(confirm(\'Удалить бэкап?\')){{window.location=\'{}\'}}" title="Удалить">🗑️</a>',
-                delete_url
-            )
-
-            return format_html('{} {}', download_html, delete_html)
         return '-'
 
-    admin_actions.short_description = 'Действия'
-    admin_actions.allow_tags = True
-
-    def create_backup_action(self, request, queryset):
-        """Действие для создания нового бэкапа"""
-        from django.contrib import messages
-        try:
-            from .backup_utils import create_backup
-            backup = create_backup(backup_type='full', description='Создан из админки')
-            messages.success(request, f'✅ Резервная копия создана: {backup.name}')
-        except Exception as e:
-            messages.error(request, f'❌ Ошибка при создании бэкапа: {str(e)}')
-
-    create_backup_action.short_description = "📁 Создать новую резервную копию"
-
-    def delete_selected_backups(self, request, queryset):
-        """Удаление выбранных бэкапов"""
-        from django.contrib import messages
-        deleted_count = 0
-        for backup in queryset:
-            try:
-                backup.delete()
-                deleted_count += 1
-            except Exception as e:
-                messages.error(request, f'Ошибка при удалении {backup.name}: {str(e)}')
-
-        if deleted_count > 0:
-            messages.success(request, f'🗑️ Удалено {deleted_count} резервных копий')
-
-    delete_selected_backups.short_description = "🗑️ Удалить выбранные бэкапы"
+    actions.short_description = 'Действия'
 
     def has_add_permission(self, request):
         return False
 
-    def has_change_permission(self, request, obj=None):
-        return False
-
     def changelist_view(self, request, extra_context=None):
-        """Добавляем статистику"""
-        from django.db.models import Sum, Count
-        from django.utils.safestring import mark_safe
-
+        # Добавляем кнопку управления бэкапами
         extra_context = extra_context or {}
-
-        # Статистика
-        stats = {
-            'total_backups': Backup.objects.count(),
-            'total_size_mb': Backup.objects.aggregate(
-                total_size=Sum('file_size')
-            )['total_size'] or 0,
-            'completed_backups': Backup.objects.filter(status='completed').count(),
-            'failed_backups': Backup.objects.filter(status='failed').count(),
-        }
-
-        if stats['total_size_mb']:
-            stats['total_size_mb'] = round(stats['total_size_mb'] / (1024 * 1024), 2)
-
-        extra_context['stats'] = stats
-
-        # Простой JavaScript для добавления статистики
-        if stats['total_backups'] > 0:
-            extra_js = f'''
-            <script>
-            document.addEventListener('DOMContentLoaded', function() {{
-                // Добавляем статистику
-                const content = document.querySelector('#content');
-                if (content && !document.querySelector('.backup-stats')) {{
-                    const statsDiv = document.createElement('div');
-                    statsDiv.className = 'backup-stats';
-                    statsDiv.innerHTML = `
-                        <div style="background: #f8f9fa; padding: 15px; border-radius: 5px; margin: 10px 0; border: 1px solid #dee2e6;">
-                            <h3 style="margin-top: 0;">📊 Статистика бэкапов</h3>
-                            <div style="display: flex; gap: 15px; flex-wrap: wrap;">
-                                <div style="flex: 1; min-width: 150px;">
-                                    <div style="font-size: 24px; font-weight: bold; color: #2c3e50;">{stats['total_backups']}</div>
-                                    <div style="color: #6c757d; font-size: 12px;">Всего бэкапов</div>
-                                </div>
-                                <div style="flex: 1; min-width: 150px;">
-                                    <div style="font-size: 24px; font-weight: bold; color: #27ae60;">{stats['completed_backups']}</div>
-                                    <div style="color: #6c757d; font-size: 12px;">Завершено</div>
-                                </div>
-                                <div style="flex: 1; min-width: 150px;">
-                                    <div style="font-size: 24px; font-weight: bold; color: #e74c3c;">{stats['failed_backups']}</div>
-                                    <div style="color: #6c757d; font-size: 12px;">Ошибок</div>
-                                </div>
-                                <div style="flex: 1; min-width: 150px;">
-                                    <div style="font-size: 24px; font-weight: bold; color: #3498db;">{stats['total_size_mb']} MB</div>
-                                    <div style="color: #6c757d; font-size: 12px;">Общий размер</div>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                    content.insertBefore(statsDiv, content.firstChild);
-                }}
-            }});
-            </script>
-            '''
-            extra_context['extra_js'] = mark_safe(extra_js)
-
-        return super().changelist_view(request, extra_context)
+        extra_context['show_backup_management'] = True
+        extra_context['backup_management_url'] = reverse('wiki:backup_management')
+        return super().changelist_view(request, extra_context=extra_context)
 admin.site.unregister(Group)
 admin.site.register(Group, CustomGroupAdmin)

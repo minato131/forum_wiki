@@ -75,7 +75,7 @@ from reportlab.pdfbase.ttfonts import TTFont
 from io import BytesIO
 import os
 from django.conf import settings
-from .backup_utils import create_backup, cleanup_old_backups, restore_backup
+from .backup_utils import create_backup, cleanup_old_backups, create_date_specific_backup
 from .models import Backup
 
 
@@ -4395,59 +4395,65 @@ def export_statistics_json(request):
         )
 
 
-@staff_member_required
+def is_staff_or_admin(user):
+    return user.is_staff or user.groups.filter(name__in=['Администратор', 'Модератор']).exists()
+
+
+@login_required
+@user_passes_test(is_staff_or_admin)
 def backup_management(request):
     """Страница управления резервными копиями"""
-    # Создаем папку для бэкапов если её нет
-    backup_dir = os.path.join(settings.BASE_DIR, 'backups')
-    os.makedirs(backup_dir, exist_ok=True)
 
     # Получаем все бэкапы
     backups = Backup.objects.all().order_by('-created_at')
 
-    # Обновляем статусы файлов
-    for backup in backups:
-        if backup.status == 'in_progress':
-            backup.update_status()
+    # Получаем доступные даты для выбора
+    dates = Article.objects.dates('created_at', 'day').order_by('-created_at')
+    available_dates = []
+    for date in dates[:30]:  # Последние 30 дней
+        article_count = Article.objects.filter(created_at__date=date).count()
+        if article_count > 0:
+            available_dates.append({
+                'date': date,
+                'display': date.strftime('%d.%m.%Y'),
+                'article_count': article_count
+            })
 
     # Статистика
     total_size = sum(b.file_size for b in backups)
     total_size_mb = round(total_size / (1024 * 1024), 2) if total_size else 0
 
     context = {
+        'title': 'Управление резервными копиями',
         'backups': backups,
         'total_count': backups.count(),
         'total_size_mb': total_size_mb,
-        'backup_dir': backup_dir,
+        'available_dates': available_dates,
+        'today': timezone.now().date(),
         'database_name': settings.DATABASES['default']['NAME'],
     }
 
     return render(request, 'wiki/backup_management.html', context)
 
 
-@staff_member_required
+@login_required
+@user_passes_test(is_staff_or_admin)
 def create_backup_view(request):
-    """Создание новой резервной копии"""
+    """Создание нового бэкапа"""
     if request.method == 'POST':
         backup_type = request.POST.get('type', 'full')
         description = request.POST.get('description', '')
+        specific_date = request.POST.get('specific_date', '')
 
         try:
-            backup = create_backup(backup_type=backup_type, description=description)
-            messages.success(request, f'✅ Резервная копия создана: {backup.name}')
+            if specific_date:
+                # Бэкап за конкретную дату
+                backup = create_date_specific_backup(specific_date, backup_type, description)
+            else:
+                # Полный бэкап
+                backup = create_backup(backup_type=backup_type, description=description)
 
-            # Логируем создание
-            ActionLogger.log_action(
-                request=request,
-                action_type='backup_create',
-                description=f'Создана резервная копия: {backup.name}',
-                extra_data={
-                    'backup_id': backup.id,
-                    'backup_name': backup.name,
-                    'backup_type': backup_type,
-                    'size': backup.file_size
-                }
-            )
+            messages.success(request, f'✅ Резервная копия создана: {backup.name}')
 
         except Exception as e:
             messages.error(request, f'❌ Ошибка при создании бэкапа: {str(e)}')
@@ -4455,59 +4461,42 @@ def create_backup_view(request):
     return redirect('wiki:backup_management')
 
 
-@staff_member_required
+@login_required
+@user_passes_test(is_staff_or_admin)
 def download_backup(request, backup_id):
-    """Скачивание резервной копии"""
+    """Скачивание бэкапа"""
     try:
         backup = Backup.objects.get(id=backup_id)
 
-        if backup.status != 'completed' or not os.path.exists(backup.file_path):
-            messages.error(request, '❌ Файл бэкапа не найден или недоступен')
+        if not os.path.exists(backup.file_path):
+            messages.error(request, '❌ Файл бэкапа не найден')
             return redirect('wiki:backup_management')
 
-        # Открываем файл для чтения
-        file_path = backup.file_path
-        filename = os.path.basename(file_path)
-
-        with open(file_path, 'rb') as f:
+        with open(backup.file_path, 'rb') as f:
             response = HttpResponse(f.read(), content_type='application/zip')
-            response['Content-Disposition'] = f'attachment; filename="{filename}"'
-
-            # Логируем скачивание
-            ActionLogger.log_action(
-                request=request,
-                action_type='backup_download',
-                description=f'Скачивание резервной копии: {backup.name}',
-                extra_data={'backup_id': backup.id, 'backup_name': backup.name}
-            )
-
+            response['Content-Disposition'] = f'attachment; filename="{backup.name}.zip"'
             return response
 
     except Backup.DoesNotExist:
         messages.error(request, '❌ Бэкап не найден')
-    except Exception as e:
-        messages.error(request, f'❌ Ошибка при скачивании: {str(e)}')
 
     return redirect('wiki:backup_management')
 
 
-@staff_member_required
+@login_required
+@user_passes_test(is_staff_or_admin)
 def delete_backup(request, backup_id):
-    """Удаление резервной копии"""
+    """Удаление бэкапа"""
     if request.method == 'POST':
         try:
             backup = Backup.objects.get(id=backup_id)
             backup_name = backup.name
 
-            # Логируем перед удалением
-            ActionLogger.log_action(
-                request=request,
-                action_type='backup_delete',
-                description=f'Удаление резервной копии: {backup_name}',
-                extra_data={'backup_id': backup_id, 'backup_name': backup_name}
-            )
+            # Удаляем файл если существует
+            if os.path.exists(backup.file_path):
+                os.remove(backup.file_path)
 
-            # Удаляем файл и запись
+            # Удаляем запись
             backup.delete()
 
             messages.success(request, f'🗑️ Бэкап "{backup_name}" удален')
@@ -4516,26 +4505,5 @@ def delete_backup(request, backup_id):
             messages.error(request, '❌ Бэкап не найден')
         except Exception as e:
             messages.error(request, f'❌ Ошибка при удалении: {str(e)}')
-
-    return redirect('wiki:backup_management')
-
-
-@staff_member_required
-def restore_backup_view(request, backup_id):
-    """Восстановление из резервной копии"""
-    if request.method == 'POST':
-        try:
-            result = restore_backup(backup_id)
-
-            if result.get('requires_admin'):
-                messages.warning(request,
-                                 '⚠️ Восстановление базы данных требует ручного вмешательства. '
-                                 'Обратитесь к системному администратору с запросом восстановления.'
-                                 )
-            else:
-                messages.success(request, '✅ Восстановление завершено успешно!')
-
-        except Exception as e:
-            messages.error(request, f'❌ Ошибка при восстановлении: {str(e)}')
 
     return redirect('wiki:backup_management')

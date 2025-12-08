@@ -22074,3 +22074,270 @@ WARNING 2025-12-07 23:39:52,213 log Not Found: /admin/backups/download/2/
 WARNING 2025-12-07 23:39:52,214 log "GET /admin/backups/download/2/ HTTP/1.1" 404 8270
 INFO 2025-12-07 23:39:53,785 log "GET /admin/wiki/backup/ HTTP/1.1" 200 20829
 INFO 2025-12-07 23:40:08,918 log "GET /admin/ HTTP/1.1" 200 16365
+INFO 2025-12-08 01:55:52,661 autoreload Watching for file changes with StatReloader
+INFO 2025-12-08 01:55:55,225 log "GET / HTTP/1.1" 200 40889
+INFO 2025-12-08 01:55:55,305 log "GET /static/css/style.css HTTP/1.1" 304 0
+INFO 2025-12-08 01:55:55,307 log "GET /static/css/tutorials.css HTTP/1.1" 304 0
+INFO 2025-12-08 01:55:55,308 log "GET /static/js/tutorials.js HTTP/1.1" 304 0
+INFO 2025-12-08 01:55:55,395 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-08 01:55:57,432 log "GET /admin/ HTTP/1.1" 200 16365
+INFO 2025-12-08 01:55:57,448 log "GET /static/admin/css/base.css HTTP/1.1" 304 0
+INFO 2025-12-08 01:55:57,449 log "GET /static/admin/css/dark_mode.css HTTP/1.1" 304 0
+INFO 2025-12-08 01:55:57,451 log "GET /static/admin/js/theme.js HTTP/1.1" 304 0
+INFO 2025-12-08 01:55:57,452 log "GET /static/admin/css/responsive.css HTTP/1.1" 304 0
+INFO 2025-12-08 01:55:57,452 log "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 304 0
+INFO 2025-12-08 01:55:57,452 log "GET /static/admin/css/dashboard.css HTTP/1.1" 304 0
+INFO 2025-12-08 01:55:57,456 log "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 304 0
+INFO 2025-12-08 01:55:57,460 log "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 304 0
+INFO 2025-12-08 01:55:57,461 log "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 304 0
+INFO 2025-12-08 01:55:57,461 log "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 304 0
+INFO 2025-12-08 01:55:58,507 log "GET /admin/wiki/actionlog/ HTTP/1.1" 200 50509
+INFO 2025-12-08 01:55:58,523 log "GET /static/admin/css/changelists.css HTTP/1.1" 304 0
+INFO 2025-12-08 01:55:58,528 log "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 304 0
+INFO 2025-12-08 01:55:58,528 log "GET /static/admin/js/jquery.init.js HTTP/1.1" 304 0
+INFO 2025-12-08 01:55:58,528 log "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 304 0
+INFO 2025-12-08 01:55:58,528 log "GET /static/admin/js/core.js HTTP/1.1" 304 0
+INFO 2025-12-08 01:55:58,528 log "GET /static/admin/js/actions.js HTTP/1.1" 304 0
+INFO 2025-12-08 01:55:58,530 log "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 304 0
+INFO 2025-12-08 01:55:58,530 log "GET /static/admin/js/urlify.js HTTP/1.1" 304 0
+INFO 2025-12-08 01:55:58,531 log "GET /static/admin/js/prepopulate.js HTTP/1.1" 304 0
+INFO 2025-12-08 01:55:58,532 log "GET /static/admin/img/search.svg HTTP/1.1" 304 0
+INFO 2025-12-08 01:55:58,537 log "GET /static/admin/js/filters.js HTTP/1.1" 304 0
+INFO 2025-12-08 01:55:58,583 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-08 01:55:58,598 log "GET /static/admin/img/sorting-icons.svg HTTP/1.1" 304 0
+INFO 2025-12-08 19:27:57,269 autoreload Watching for file changes with StatReloader
+INFO 2025-12-08 19:27:59,632 log "GET / HTTP/1.1" 200 40889
+INFO 2025-12-08 19:27:59,706 log "GET /static/css/style.css HTTP/1.1" 304 0
+INFO 2025-12-08 19:27:59,707 log "GET /static/css/tutorials.css HTTP/1.1" 304 0
+INFO 2025-12-08 19:27:59,708 log "GET /static/js/tutorials.js HTTP/1.1" 304 0
+INFO 2025-12-08 19:27:59,906 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+WARNING 2025-12-08 19:27:59,942 log Not Found: /favicon.ico
+WARNING 2025-12-08 19:27:59,942 log "GET /favicon.ico HTTP/1.1" 404 27268
+INFO 2025-12-08 19:28:01,346 log "GET /admin/ HTTP/1.1" 200 16365
+INFO 2025-12-08 19:28:01,361 log "GET /static/admin/css/base.css HTTP/1.1" 304 0
+INFO 2025-12-08 19:28:01,363 log "GET /static/admin/js/theme.js HTTP/1.1" 304 0
+INFO 2025-12-08 19:28:01,365 log "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 304 0
+INFO 2025-12-08 19:28:01,365 log "GET /static/admin/css/dark_mode.css HTTP/1.1" 304 0
+INFO 2025-12-08 19:28:01,365 log "GET /static/admin/css/dashboard.css HTTP/1.1" 304 0
+INFO 2025-12-08 19:28:01,365 log "GET /static/admin/css/responsive.css HTTP/1.1" 304 0
+INFO 2025-12-08 19:28:01,377 log "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 304 0
+INFO 2025-12-08 19:28:01,381 log "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 304 0
+INFO 2025-12-08 19:28:01,382 log "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 304 0
+INFO 2025-12-08 19:28:01,382 log "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 304 0
+INFO 2025-12-08 19:28:05,741 log "GET /admin/wiki/backup/ HTTP/1.1" 200 20829
+INFO 2025-12-08 19:28:05,760 log "GET /static/admin/css/changelists.css HTTP/1.1" 304 0
+INFO 2025-12-08 19:28:05,766 log "GET /static/admin/js/core.js HTTP/1.1" 304 0
+INFO 2025-12-08 19:28:05,766 log "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 304 0
+INFO 2025-12-08 19:28:05,766 log "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 304 0
+INFO 2025-12-08 19:28:05,766 log "GET /static/admin/js/jquery.init.js HTTP/1.1" 304 0
+INFO 2025-12-08 19:28:05,767 log "GET /static/admin/js/urlify.js HTTP/1.1" 304 0
+INFO 2025-12-08 19:28:05,768 log "GET /static/admin/js/prepopulate.js HTTP/1.1" 304 0
+INFO 2025-12-08 19:28:05,769 log "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 304 0
+INFO 2025-12-08 19:28:05,769 log "GET /static/admin/js/actions.js HTTP/1.1" 304 0
+INFO 2025-12-08 19:28:05,841 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-08 19:28:05,882 log "GET /static/admin/img/search.svg HTTP/1.1" 304 0
+INFO 2025-12-08 19:28:05,886 log "GET /static/admin/js/filters.js HTTP/1.1" 304 0
+INFO 2025-12-08 19:28:05,898 log "GET /static/admin/img/sorting-icons.svg HTTP/1.1" 304 0
+INFO 2025-12-08 19:28:11,603 log "GET /admin/wiki/backup/?q= HTTP/1.1" 200 20996
+INFO 2025-12-08 19:28:11,668 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-08 19:28:14,022 log "POST /admin/wiki/backup/?q= HTTP/1.1" 302 0
+INFO 2025-12-08 19:28:14,088 log "GET /admin/wiki/backup/?q= HTTP/1.1" 200 21266
+INFO 2025-12-08 19:28:14,148 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-08 19:28:14,196 log "GET /static/admin/img/icon-alert-dark.svg HTTP/1.1" 200 684
+INFO 2025-12-08 19:28:21,252 log "POST /admin/wiki/backup/?q= HTTP/1.1" 302 0
+INFO 2025-12-08 19:28:21,322 log "GET /admin/wiki/backup/?q= HTTP/1.1" 200 22093
+INFO 2025-12-08 19:28:21,389 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-08 19:28:21,412 log "GET /static/admin/img/icon-yes-dark.svg HTTP/1.1" 200 558
+INFO 2025-12-08 19:28:24,202 log "GET /admin/wiki/backup/3/change/?_changelist_filters=q%3D HTTP/1.1" 200 21203
+INFO 2025-12-08 19:28:24,229 log "GET /static/admin/css/forms.css HTTP/1.1" 200 8844
+INFO 2025-12-08 19:28:24,233 log "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 200 586
+INFO 2025-12-08 19:28:24,240 log "GET /static/admin/css/widgets.css HTTP/1.1" 200 11811
+INFO 2025-12-08 19:28:24,255 log "GET /static/admin/js/change_form.js HTTP/1.1" 200 606
+INFO 2025-12-08 19:28:24,370 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-08 19:28:44,822 log "GET /admin/wiki/backup/?q= HTTP/1.1" 200 21910
+INFO 2025-12-08 19:29:09,883 log "GET /admin/wiki/articlerevision/ HTTP/1.1" 200 15899
+INFO 2025-12-08 19:29:09,949 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-08 19:29:09,971 log "GET /static/admin/img/tooltag-add.svg HTTP/1.1" 200 593
+INFO 2025-12-08 19:29:12,031 log "GET /admin/wiki/articlerevision/add/ HTTP/1.1" 200 23004
+INFO 2025-12-08 19:29:12,061 log "GET /static/django_ckeditor_5/dist/styles.css HTTP/1.1" 200 213809
+INFO 2025-12-08 19:29:12,062 log "GET /static/django_ckeditor_5/dist/translations/ru.js HTTP/1.1" 200 47437
+INFO 2025-12-08 19:29:12,101 log "GET /static/django_ckeditor_5/dist/bundle.js HTTP/1.1" 200 1275904
+INFO 2025-12-08 19:29:12,105 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-08 19:29:15,816 log "GET /admin/wiki/articlerevision/ HTTP/1.1" 200 15899
+INFO 2025-12-08 19:58:29,006 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\backup_utils.py changed, reloading.
+INFO 2025-12-08 19:58:29,706 autoreload Watching for file changes with StatReloader
+INFO 2025-12-08 19:59:36,576 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\models.py changed, reloading.
+INFO 2025-12-08 19:59:37,198 autoreload Watching for file changes with StatReloader
+INFO 2025-12-08 20:01:26,419 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-08 20:01:29,743 autoreload Watching for file changes with StatReloader
+INFO 2025-12-08 20:02:16,905 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\urls.py changed, reloading.
+INFO 2025-12-08 20:02:17,489 autoreload Watching for file changes with StatReloader
+INFO 2025-12-08 20:02:22,959 autoreload Watching for file changes with StatReloader
+INFO 2025-12-08 20:02:24,882 log "GET / HTTP/1.1" 200 40889
+INFO 2025-12-08 20:02:25,059 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-08 20:02:25,784 log "GET /admin/ HTTP/1.1" 200 16365
+INFO 2025-12-08 20:02:29,729 log "GET /admin/wiki/backup/ HTTP/1.1" 200 21682
+INFO 2025-12-08 20:02:29,799 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-08 20:05:10,055 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\urls.py changed, reloading.
+INFO 2025-12-08 20:05:10,611 autoreload Watching for file changes with StatReloader
+INFO 2025-12-08 20:05:46,507 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\urls.py changed, reloading.
+INFO 2025-12-08 20:05:47,172 autoreload Watching for file changes with StatReloader
+INFO 2025-12-08 20:07:10,830 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\admin.py changed, reloading.
+INFO 2025-12-08 20:07:11,422 autoreload Watching for file changes with StatReloader
+INFO 2025-12-08 20:07:28,936 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\admin.py changed, reloading.
+INFO 2025-12-08 20:07:29,924 autoreload Watching for file changes with StatReloader
+INFO 2025-12-08 20:09:21,083 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\witcher_wiki\settings.py changed, reloading.
+INFO 2025-12-08 20:09:21,633 autoreload Watching for file changes with StatReloader
+INFO 2025-12-08 20:09:45,924 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\witcher_wiki\settings.py changed, reloading.
+INFO 2025-12-08 20:18:13,881 autoreload Watching for file changes with StatReloader
+INFO 2025-12-08 20:22:36,559 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\admin_backup.py changed, reloading.
+INFO 2025-12-08 20:22:37,229 autoreload Watching for file changes with StatReloader
+INFO 2025-12-08 20:24:30,651 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\models.py changed, reloading.
+INFO 2025-12-08 20:24:31,183 autoreload Watching for file changes with StatReloader
+INFO 2025-12-08 20:24:39,395 autoreload Watching for file changes with StatReloader
+INFO 2025-12-08 20:25:18,345 autoreload Watching for file changes with StatReloader
+INFO 2025-12-08 20:25:20,595 log "GET / HTTP/1.1" 200 40889
+INFO 2025-12-08 20:25:20,739 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+ERROR 2025-12-08 20:25:21,908 log Internal Server Error: /admin/
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 221, in _get_response
+    response = response.render()
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 174, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 166, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 160, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 166, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 160, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 166, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\defaulttags.py", line 333, in render
+    return nodelist.render(context)
+           ~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 66, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 66, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\defaulttags.py", line 511, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\urls\resolvers.py", line 842, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'backup_management' not found. 'backup_management' is not a valid view function or pattern name.
+ERROR 2025-12-08 20:25:21,914 log "GET /admin/ HTTP/1.1" 500 396713
+INFO 2025-12-08 20:37:28,529 autoreload Watching for file changes with StatReloader
+INFO 2025-12-08 20:37:36,675 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\backup_utils.py changed, reloading.
+INFO 2025-12-08 20:37:38,802 autoreload Watching for file changes with StatReloader
+INFO 2025-12-08 20:37:40,984 log "GET / HTTP/1.1" 200 40889
+INFO 2025-12-08 20:37:41,121 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-08 20:37:42,056 log "GET /admin/ HTTP/1.1" 200 16375
+WARNING 2025-12-08 20:37:48,029 log Not Found: /admin/backup-management/
+WARNING 2025-12-08 20:37:48,030 log "GET /admin/backup-management/ HTTP/1.1" 404 8016
+INFO 2025-12-08 20:39:05,729 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\witcher_wiki\urls.py changed, reloading.
+INFO 2025-12-08 20:39:06,379 autoreload Watching for file changes with StatReloader
+INFO 2025-12-08 20:40:01,697 autoreload Watching for file changes with StatReloader
+INFO 2025-12-08 20:40:03,489 log "GET / HTTP/1.1" 200 40889
+INFO 2025-12-08 20:40:03,638 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-08 20:40:04,576 log "GET /admin/ HTTP/1.1" 200 16364
+ERROR 2025-12-08 20:40:05,818 log Internal Server Error: /admin-backup/
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\admin_backup.py", line 41, in backup_management_view
+    return render(request, 'admin/wiki/backup_management.html', context)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: admin/wiki/backup_management.html
+ERROR 2025-12-08 20:40:05,821 log "GET /admin-backup/ HTTP/1.1" 500 102032
+INFO 2025-12-08 20:41:23,898 autoreload Watching for file changes with StatReloader
+INFO 2025-12-08 20:41:25,566 log "GET / HTTP/1.1" 200 40889
+INFO 2025-12-08 20:41:25,708 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-08 20:41:26,715 log "GET /admin/ HTTP/1.1" 200 16364
+ERROR 2025-12-08 20:41:27,546 log Internal Server Error: /admin-backup/
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\admin_backup.py", line 41, in backup_management_view
+    return render(request, 'admin/wiki/backup_management.html', context)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: admin/wiki/backup_management.html
+ERROR 2025-12-08 20:41:27,548 log "GET /admin-backup/ HTTP/1.1" 500 102032
+INFO 2025-12-08 20:43:25,452 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\witcher_wiki\settings.py changed, reloading.
+INFO 2025-12-08 20:43:26,324 autoreload Watching for file changes with StatReloader
+INFO 2025-12-08 20:43:30,478 log "GET / HTTP/1.1" 200 40889
+INFO 2025-12-08 20:43:30,676 log "GET /messages/unread-count/ HTTP/1.1" 200 44589
+INFO 2025-12-08 20:43:31,580 log "GET /admin/ HTTP/1.1" 200 16365

@@ -34,13 +34,16 @@ def create_backup(backup_type='full', description=''):
         # Создаем архив
         with zipfile.ZipFile(backup_path, 'w', zipfile.ZIP_DEFLATED) as zipf:
 
-            # 1. База данных SQLite
+            # База данных SQLite
             db_path = settings.DATABASES['default']['NAME']
+            if not os.path.isabs(db_path):
+                db_path = os.path.join(settings.BASE_DIR, db_path)
+
             if db_path and os.path.exists(db_path) and backup_type in ['full', 'database']:
                 zipf.write(db_path, 'database.sqlite3')
                 print(f"✓ Добавлена база данных: {db_path}")
 
-            # 2. Медиафайлы
+            # Медиафайлы
             if backup_type in ['full', 'media']:
                 media_dir = settings.MEDIA_ROOT
                 if os.path.exists(media_dir):
@@ -60,31 +63,13 @@ def create_backup(backup_type='full', description=''):
 
                     print(f"✓ Добавлено медиафайлов: {media_files_added}")
 
-            # 3. Статические файлы (только для полного бэкапа)
-            if backup_type == 'full':
-                static_dir = settings.STATIC_ROOT or os.path.join(settings.BASE_DIR, 'static')
-                if os.path.exists(static_dir):
-                    static_files_added = 0
-                    for root, dirs, files in os.walk(static_dir):
-                        for file in files:
-                            try:
-                                file_path = os.path.join(root, file)
-                                arcname = os.path.relpath(file_path, settings.BASE_DIR)
-                                zipf.write(file_path, arcname)
-                                static_files_added += 1
-                            except:
-                                pass
-
-                    print(f"✓ Добавлено статических файлов: {static_files_added}")
-
-            # 4. Метаданные
+            # Метаданные
             metadata = {
                 'backup_name': backup_name,
                 'backup_type': backup_type,
                 'created_at': timezone.now().isoformat(),
-                'django_version': getattr(settings, 'VERSION', '1.0'),
-                'database_engine': settings.DATABASES['default']['ENGINE'],
                 'description': description,
+                'database_engine': settings.DATABASES['default']['ENGINE'],
                 'system_info': {
                     'python_version': os.sys.version,
                     'platform': os.sys.platform,
@@ -141,28 +126,89 @@ def cleanup_old_backups(backup_dir, days=30):
                 print(f"⚠️ Ошибка при удалении {filename}: {str(e)}")
 
 
-def restore_backup(backup_id):
-    """Восстановление из резервной копии (только для админов)"""
+def create_date_specific_backup(date_str, backup_type='full', description=''):
+    """Создает бэкап за конкретную дату"""
+    from .models import Article
+
     try:
-        backup = Backup.objects.get(id=backup_id)
+        # Парсим дату
+        backup_date = datetime.strptime(date_str, '%Y-%m-%d').date()
 
-        if backup.status != 'completed' or not os.path.exists(backup.file_path):
-            raise Exception("Бэкап не найден или недоступен")
+        # Создаем запись о бэкапе
+        timestamp = timezone.now().strftime('%Y%m%d_%H%M%S')
+        backup_name = f"date_{backup_date}_{backup_type}_backup_{timestamp}"
 
-        print(f"⚠️ ВНИМАНИЕ: Начато восстановление из бэкапа {backup.name}")
-        print("Эта операция перезапишет текущую базу данных!")
-        print("Для продолжения обратитесь к системному администратору.")
+        backup = Backup.objects.create(
+            name=backup_name,
+            file_path='',
+            backup_type=backup_type,
+            status='in_progress',
+            description=f"{description} (за {backup_date})"
+        )
 
-        # В реальном проекте здесь была бы логика восстановления
-        # Для безопасности только возвращаем информацию о бэкапе
-        return {
-            'success': False,
-            'message': 'Восстановление требует ручного вмешательства администратора',
-            'backup': backup,
-            'requires_admin': True
-        }
+        # Пути для бэкапов
+        backup_dir = os.path.join(settings.BASE_DIR, 'backups')
+        os.makedirs(backup_dir, exist_ok=True)
 
-    except Backup.DoesNotExist:
-        raise Exception("Бэкап не найден")
+        backup_path = os.path.join(backup_dir, f"{backup_name}.zip")
+
+        # Создаем архив
+        with zipfile.ZipFile(backup_path, 'w', zipfile.ZIP_DEFLATED) as zipf:
+
+            # Экспорт статей за конкретную дату
+            articles = Article.objects.filter(created_at__date=backup_date)
+
+            articles_data = []
+            for article in articles:
+                articles_data.append({
+                    'id': article.id,
+                    'title': article.title,
+                    'slug': article.slug,
+                    'content': article.content,
+                    'author': article.author.username,
+                    'created_at': article.created_at.isoformat(),
+                    'status': article.status,
+                    'categories': [cat.name for cat in article.categories.all()],
+                    'tags': [tag.name for tag in article.tags.all()],
+                })
+
+            # Добавляем JSON с данными статей
+            json_filename = f'articles_{backup_date}.json'
+            zipf.writestr(json_filename, json.dumps(articles_data, indent=2, ensure_ascii=False))
+
+            # Полный бэкап базы данных
+            if backup_type == 'full':
+                db_path = settings.DATABASES['default']['NAME']
+                if not os.path.isabs(db_path):
+                    db_path = os.path.join(settings.BASE_DIR, db_path)
+
+                if os.path.exists(db_path):
+                    zipf.write(db_path, 'database.sqlite3')
+
+            # Метаданные
+            metadata = {
+                'backup_name': backup_name,
+                'backup_type': backup_type,
+                'backup_date': str(backup_date),
+                'created_at': timezone.now().isoformat(),
+                'description': description,
+                'article_count': len(articles_data),
+                'date_specific': True,
+            }
+
+            zipf.writestr('metadata.json', json.dumps(metadata, indent=2, ensure_ascii=False))
+
+        # Обновляем запись бэкапа
+        backup.file_path = backup_path
+        backup.file_size = os.path.getsize(backup_path)
+        backup.status = 'completed'
+        backup.metadata = metadata
+        backup.save()
+
+        return backup
+
     except Exception as e:
+        if 'backup' in locals():
+            backup.status = 'failed'
+            backup.save()
         raise e

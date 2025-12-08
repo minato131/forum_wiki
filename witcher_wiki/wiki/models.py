@@ -1197,34 +1197,3 @@ class Backup(models.Model):
             return f"{self.file_size / 1024:.1f} KB"
         else:
             return f"{self.file_size / (1024 * 1024):.1f} MB"
-
-    def get_download_url(self):
-        """URL для скачивания бэкапа"""
-        return f'/wiki/backups/download/{self.id}/'
-
-    def get_restore_url(self):
-        """URL для восстановления из бэкапа"""
-        return f'/wiki/admin/backups/restore/{self.id}/'
-
-    def update_status(self):
-        """Обновляет статус бэкапа на основе файла"""
-        import os
-
-        if not os.path.exists(self.file_path):
-            self.status = 'failed'
-            self.save(update_fields=['status'])
-            return
-
-        if self.status == 'in_progress':
-            try:
-                # Проверяем, является ли файл валидным ZIP архивом
-                with zipfile.ZipFile(self.file_path, 'r') as zip_ref:
-                    # Если можем открыть и есть метаданные - считаем завершенным
-                    if 'metadata.json' in zip_ref.namelist():
-                        self.status = 'completed'
-                        # Обновляем размер файла
-                        self.file_size = os.path.getsize(self.file_path)
-                        self.save(update_fields=['status', 'file_size'])
-            except:
-                self.status = 'failed'
-                self.save(update_fields=['status'])
