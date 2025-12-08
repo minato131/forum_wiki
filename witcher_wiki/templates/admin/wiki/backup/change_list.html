@@ -1,14 +1,11 @@
-<!-- templates/admin/wiki/backup/change_list.html -->
 {% extends "admin/change_list.html" %}
-{% load i18n admin_urls static admin_list %}
+{% load i18n admin_urls %}
 
 {% block object-tools-items %}
     {{ block.super }}
-
-    <!-- Кнопка управления бэкапами -->
     <li>
-        <a href="{% url 'wiki:backup_management' %}" class="button" style="background: #28a745; color: white;">
-            <i class="fas fa-database"></i> Управление бэкапами
+        <a href="{% url 'admin:wiki_backup_create' %}" class="addlink" style="background: #4CAF50; color: white;">
+            📦 Создать бэкап
         </a>
     </li>
 {% endblock %}

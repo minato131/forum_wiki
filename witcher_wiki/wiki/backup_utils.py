@@ -126,74 +126,95 @@ def cleanup_old_backups(backup_dir, days=30):
                 print(f"⚠️ Ошибка при удалении {filename}: {str(e)}")
 
 
-def create_date_specific_backup(date_str, backup_type='full', description=''):
-    """Создает бэкап за конкретную дату"""
-    from .models import Article
-
+def create_backup_for_period(backup_type='full', start_date=None, end_date=None, description=''):
+    """Создание бэкапа за определенный период"""
     try:
-        # Парсим дату
-        backup_date = datetime.strptime(date_str, '%Y-%m-%d').date()
+        from .models import Article
 
         # Создаем запись о бэкапе
         timestamp = timezone.now().strftime('%Y%m%d_%H%M%S')
-        backup_name = f"date_{backup_date}_{backup_type}_backup_{timestamp}"
+
+        if start_date and end_date:
+            period_str = f"{start_date}_to_{end_date}"
+            backup_name = f"period_{period_str}_{backup_type}_backup_{timestamp}"
+            description = f"{description} (период: {start_date} - {end_date})"
+        elif start_date:
+            period_str = f"date_{start_date}"
+            backup_name = f"date_{start_date}_{backup_type}_backup_{timestamp}"
+            description = f"{description} (за {start_date})"
+        else:
+            backup_name = f"{backup_type}_backup_{timestamp}"
 
         backup = Backup.objects.create(
             name=backup_name,
             file_path='',
             backup_type=backup_type,
             status='in_progress',
-            description=f"{description} (за {backup_date})"
+            description=description
         )
 
         # Пути для бэкапов
         backup_dir = os.path.join(settings.BASE_DIR, 'backups')
         os.makedirs(backup_dir, exist_ok=True)
-
         backup_path = os.path.join(backup_dir, f"{backup_name}.zip")
 
         # Создаем архив
         with zipfile.ZipFile(backup_path, 'w', zipfile.ZIP_DEFLATED) as zipf:
 
-            # Экспорт статей за конкретную дату
-            articles = Article.objects.filter(created_at__date=backup_date)
+            # База данных SQLite
+            db_path = settings.DATABASES['default']['NAME']
+            if not os.path.isabs(db_path):
+                db_path = os.path.join(settings.BASE_DIR, db_path)
 
-            articles_data = []
-            for article in articles:
-                articles_data.append({
-                    'id': article.id,
-                    'title': article.title,
-                    'slug': article.slug,
-                    'content': article.content,
-                    'author': article.author.username,
-                    'created_at': article.created_at.isoformat(),
-                    'status': article.status,
-                    'categories': [cat.name for cat in article.categories.all()],
-                    'tags': [tag.name for tag in article.tags.all()],
-                })
+            if db_path and os.path.exists(db_path) and backup_type in ['full', 'database']:
+                zipf.write(db_path, 'database.sqlite3')
+                print(f"✓ Добавлена база данных: {db_path}")
 
-            # Добавляем JSON с данными статей
-            json_filename = f'articles_{backup_date}.json'
-            zipf.writestr(json_filename, json.dumps(articles_data, indent=2, ensure_ascii=False))
+            # Экспорт статей за период (если указаны даты)
+            if start_date or end_date:
+                articles_query = Article.objects.all()
 
-            # Полный бэкап базы данных
-            if backup_type == 'full':
-                db_path = settings.DATABASES['default']['NAME']
-                if not os.path.isabs(db_path):
-                    db_path = os.path.join(settings.BASE_DIR, db_path)
+                if start_date:
+                    articles_query = articles_query.filter(created_at__date__gte=start_date)
+                if end_date:
+                    articles_query = articles_query.filter(created_at__date__lte=end_date)
 
-                if os.path.exists(db_path):
-                    zipf.write(db_path, 'database.sqlite3')
+                articles = articles_query.order_by('created_at')
+
+                articles_data = []
+                for article in articles:
+                    articles_data.append({
+                        'id': article.id,
+                        'title': article.title,
+                        'slug': article.slug,
+                        'content': article.content,
+                        'author': article.author.username if article.author else 'Аноним',
+                        'created_at': article.created_at.isoformat(),
+                        'status': article.status,
+                        'categories': [cat.name for cat in article.categories.all()],
+                        'tags': [tag.name for tag in article.tags.all()],
+                    })
+
+                # Добавляем JSON с данными статей
+                json_filename = f'articles_{timestamp}.json'
+                if start_date and end_date:
+                    json_filename = f'articles_{start_date}_to_{end_date}.json'
+                elif start_date:
+                    json_filename = f'articles_{start_date}.json'
+
+                zipf.writestr(json_filename, json.dumps(articles_data, indent=2, ensure_ascii=False))
+                print(f"✓ Добавлено статей: {len(articles_data)}")
 
             # Метаданные
             metadata = {
                 'backup_name': backup_name,
                 'backup_type': backup_type,
-                'backup_date': str(backup_date),
                 'created_at': timezone.now().isoformat(),
                 'description': description,
-                'article_count': len(articles_data),
-                'date_specific': True,
+                'start_date': str(start_date) if start_date else None,
+                'end_date': str(end_date) if end_date else None,
+                'article_count': len(articles_data) if 'articles_data' in locals() else 0,
+                'database_engine': settings.DATABASES['default']['ENGINE'],
             }
 
             zipf.writestr('metadata.json', json.dumps(metadata, indent=2, ensure_ascii=False))
@@ -205,10 +226,12 @@ def create_date_specific_backup(date_str, backup_type='full', description=''):
         backup.metadata = metadata
         backup.save()
 
+        print(f"✅ Бэкап создан: {backup_name} ({backup.file_size_display()})")
         return backup
 
     except Exception as e:
+        print(f"❌ Ошибка при создании бэкапа: {str(e)}")
         if 'backup' in locals():
             backup.status = 'failed'
-            backup.save()
+            backup.save(update_fields=['status'])
         raise e

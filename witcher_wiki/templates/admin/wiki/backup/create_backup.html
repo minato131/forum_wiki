@@ -1,0 +1,630 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block extrastyle %}
+{{ block.super }}
+<style>
+:root {
+    --bg-dark: #1a1d28;
+    --card-bg: #252a36;
+    --card-border: #2d3342;
+    --text-white: #ffffff;
+    --text-light: #b0b7c3;
+    --text-muted: #8a93a6;
+    --primary-color: #4CAF50;
+    --primary-hover: #45a049;
+    --secondary-color: #6c757d;
+    --secondary-hover: #5a6268;
+    --accent-blue: #3498db;
+    --accent-purple: #9b59b6;
+    --accent-red: #e74c3c;
+    --accent-orange: #f39c12;
+    --accent-teal: #1abc9c;
+}
+
+body {
+    background: var(--bg-dark);
+    color: var(--text-white);
+}
+
+.backup-container {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+.backup-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.backup-card:hover {
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+    transform: translateY(-2px);
+}
+
+.backup-header {
+    background: linear-gradient(135deg, #2c3e50, #1a2530);
+    color: var(--text-white);
+    padding: 30px 35px;
+    border-bottom: 1px solid var(--card-border);
+}
+
+.backup-header h1 {
+    margin: 0;
+    font-size: 26px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-weight: 600;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.backup-header h1 i {
+    font-size: 32px;
+    color: var(--primary-color);
+}
+
+.backup-body {
+    padding: 35px;
+}
+
+.form-section {
+    margin-bottom: 35px;
+    padding-bottom: 25px;
+    border-bottom: 1px solid var(--card-border);
+}
+
+.form-section:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.form-section h3 {
+    margin: 0 0 25px 0;
+    color: var(--text-white);
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 600;
+}
+
+.form-section h3 i {
+    color: var(--primary-color);
+    font-size: 22px;
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: var(--text-white);
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.form-group label i {
+    width: 20px;
+    text-align: center;
+}
+
+.form-control {
+    width: 100%;
+    padding: 14px 18px;
+    background: #1e222d;
+    border: 2px solid #343b4a;
+    border-radius: 10px;
+    font-size: 15px;
+    transition: all 0.3s ease;
+    color: var(--text-white);
+    font-weight: 500;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    background: #232834;
+    box-shadow: 0 0 0 4px rgba(76, 175, 80, 0.15);
+}
+
+.form-control.select {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23ffffff'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 16px 12px;
+    padding-right: 45px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    cursor: pointer;
+}
+
+textarea.form-control {
+    min-height: 120px;
+    resize: vertical;
+    line-height: 1.6;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.form-control::placeholder {
+    color: var(--text-muted);
+    font-weight: 400;
+}
+
+.date-range-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+    margin-bottom: 20px;
+}
+
+.date-field {
+    position: relative;
+}
+
+.date-field label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+input[type="date"] {
+    color-scheme: dark;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    cursor: pointer;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator:hover {
+    opacity: 1;
+}
+
+.quick-dates {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 15px;
+}
+
+.quick-date-btn {
+    background: #2d3342;
+    border: 2px solid #3a4152;
+    color: var(--text-white);
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-width: 140px;
+    flex: 1;
+    min-width: 0;
+}
+
+.quick-date-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.quick-date-btn i {
+    font-size: 16px;
+}
+
+/* Цвета для каждой кнопки быстрого выбора */
+.quick-date-btn:nth-child(1) {
+    background: linear-gradient(135deg, var(--accent-blue), #2980b9);
+    border-color: var(--accent-blue);
+}
+.quick-date-btn:nth-child(2) {
+    background: linear-gradient(135deg, var(--accent-purple), #8e44ad);
+    border-color: var(--accent-purple);
+}
+.quick-date-btn:nth-child(3) {
+    background: linear-gradient(135deg, var(--accent-red), #c0392b);
+    border-color: var(--accent-red);
+}
+.quick-date-btn:nth-child(4) {
+    background: linear-gradient(135deg, var(--accent-orange), #d68910);
+    border-color: var(--accent-orange);
+}
+.quick-date-btn:nth-child(5) {
+    background: linear-gradient(135deg, var(--accent-teal), #16a085);
+    border-color: var(--accent-teal);
+}
+
+.quick-date-btn:hover {
+    filter: brightness(1.2);
+}
+
+.info-box {
+    background: linear-gradient(135deg, rgba(52, 152, 219, 0.1), rgba(41, 128, 185, 0.1));
+    border-left: 4px solid var(--accent-blue);
+    padding: 20px;
+    border-radius: 10px;
+    margin: 25px 0;
+}
+
+.info-box p {
+    margin: 0;
+    color: var(--text-white);
+    font-size: 15px;
+    line-height: 1.6;
+    font-weight: 500;
+}
+
+.info-box p i {
+    color: var(--accent-blue);
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+.btn-group {
+    display: flex;
+    gap: 15px;
+    margin-top: 35px;
+    padding-top: 25px;
+    border-top: 1px solid var(--card-border);
+}
+
+.btn {
+    padding: 16px 28px;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    text-decoration: none;
+    flex: 1;
+    min-height: 56px;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-color), #2E7D32);
+    color: white;
+    border: 2px solid var(--primary-color);
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #45a049, #27632a);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(76, 175, 80, 0.4);
+}
+
+.btn-secondary {
+    background: linear-gradient(135deg, #4a5568, #2d3748);
+    color: white;
+    border: 2px solid #4a5568;
+}
+
+.btn-secondary:hover {
+    background: linear-gradient(135deg, #5a6268, #3a4558);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(74, 85, 104, 0.4);
+}
+
+/* Анимации */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.backup-card {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .date-range-group {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .btn-group {
+        flex-direction: column;
+    }
+
+    .btn {
+        width: 100%;
+    }
+
+    .backup-container {
+        margin: 20px auto;
+        padding: 0 15px;
+    }
+
+    .backup-body {
+        padding: 25px;
+    }
+
+    .quick-date-btn {
+        min-width: calc(50% - 6px);
+        flex: none;
+    }
+
+    .backup-header {
+        padding: 25px;
+    }
+
+    .backup-header h1 {
+        font-size: 22px;
+    }
+}
+
+@media (max-width: 480px) {
+    .quick-date-btn {
+        min-width: 100%;
+    }
+
+    .backup-header h1 {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+}
+
+/* Кастомный скроллбар */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-dark);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--card-border);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #3a4152;
+}
+
+/* Иконки Font Awesome */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="backup-container">
+    <div class="backup-card">
+        <div class="backup-header">
+            <h1><i class="fas fa-database"></i> Создание резервной копии</h1>
+        </div>
+
+        <div class="backup-body">
+            <div class="info-box">
+                <p><i class="fas fa-info-circle"></i> <strong>Полный бэкап</strong> включает базу данных SQLite. Вы можете создать бэкап за весь период или выбрать конкретную дату/период.</p>
+            </div>
+
+            <form method="post">
+                {% csrf_token %}
+
+                <!-- Тип бэкапа -->
+                <div class="form-section">
+                    <h3><i class="fas fa-cogs"></i> Настройки бэкапа</h3>
+
+                    <div class="form-group">
+                        <label for="backup_type"><i class="fas fa-database"></i> Тип бэкапа:</label>
+                        <select id="backup_type" name="backup_type" class="form-control select">
+                            <option value="full" selected>📦 Полный бэкап (база данных)</option>
+                            <option value="database">🗄️ Только база данных</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description"><i class="fas fa-pencil-alt"></i> Описание (необязательно):</label>
+                        <textarea id="description" name="description" class="form-control"
+                                  placeholder="Например: 'Бэкап перед обновлением системы' или 'Ежедневный бэкап от {{ today|date:"d.m.Y" }}'"></textarea>
+                    </div>
+                </div>
+
+                <!-- Период бэкапа -->
+                <div class="form-section">
+                    <h3><i class="fas fa-calendar-alt"></i> Период бэкапа</h3>
+
+                    <div class="date-range-group">
+                        <div class="date-field">
+                            <label for="start_date"><i class="fas fa-calendar-plus"></i> Начальная дата:</label>
+                            <input type="date" id="start_date" name="start_date"
+                                   value="{{ today|date:'Y-m-d' }}" class="form-control">
+                        </div>
+
+                        <div class="date-field">
+                            <label for="end_date"><i class="fas fa-calendar-minus"></i> Конечная дата:</label>
+                            <input type="date" id="end_date" name="end_date"
+                                   value="{{ today|date:'Y-m-d' }}" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="fas fa-bolt"></i> Быстрый выбор периода:</label>
+                        <div class="quick-dates">
+                            <button type="button" class="quick-date-btn" onclick="setDateRange('today')">
+                                <i class="fas fa-sun"></i> Сегодня
+                            </button>
+                            <button type="button" class="quick-date-btn" onclick="setDateRange('yesterday')">
+                                <i class="fas fa-history"></i> Вчера
+                            </button>
+                            <button type="button" class="quick-date-btn" onclick="setDateRange('week')">
+                                <i class="fas fa-calendar-week"></i> Эта неделя
+                            </button>
+                            <button type="button" class="quick-date-btn" onclick="setDateRange('month')">
+                                <i class="fas fa-calendar"></i> Этот месяц
+                            </button>
+                            <button type="button" class="quick-date-btn" onclick="setDateRange('all')">
+                                <i class="fas fa-infinity"></i> Весь период
+                            </button>
+                        </div>
+                        <small style="color: var(--text-muted); margin-top: 12px; display: block; font-size: 14px;">
+                            <i class="fas fa-lightbulb"></i> Оставьте даты пустыми для создания полного бэкапа
+                        </small>
+                    </div>
+                </div>
+
+                <!-- Кнопки действий -->
+                <div class="btn-group">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-rocket"></i> Создать бэкап
+                    </button>
+                    <a href="{% url 'admin:wiki_backup_changelist' %}" class="btn btn-secondary">
+                        <i class="fas fa-times"></i> Отмена
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+function setDateRange(range) {
+    const today = new Date();
+    const startInput = document.getElementById('start_date');
+    const endInput = document.getElementById('end_date');
+
+    switch(range) {
+        case 'today':
+            const todayStr = today.toISOString().split('T')[0];
+            startInput.value = todayStr;
+            endInput.value = todayStr;
+            break;
+
+        case 'yesterday':
+            const yesterday = new Date(today);
+            yesterday.setDate(yesterday.getDate() - 1);
+            const yesterdayStr = yesterday.toISOString().split('T')[0];
+            startInput.value = yesterdayStr;
+            endInput.value = yesterdayStr;
+            break;
+
+        case 'week':
+            const weekStart = new Date(today);
+            weekStart.setDate(today.getDate() - today.getDay() + 1); // Понедельник
+
+            const weekEnd = new Date(today);
+            weekEnd.setDate(today.getDate() - today.getDay() + 7); // Воскресенье
+
+            startInput.value = weekStart.toISOString().split('T')[0];
+            endInput.value = weekEnd.toISOString().split('T')[0];
+            break;
+
+        case 'month':
+            const monthStart = new Date(today.getFullYear(), today.getMonth(), 1);
+            const monthEnd = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+
+            startInput.value = monthStart.toISOString().split('T')[0];
+            endInput.value = monthEnd.toISOString().split('T')[0];
+            break;
+
+        case 'all':
+            startInput.value = '';
+            endInput.value = '';
+            break;
+    }
+
+    // Анимация изменения
+    startInput.style.transform = 'scale(1.03)';
+    endInput.style.transform = 'scale(1.03)';
+    setTimeout(() => {
+        startInput.style.transform = '';
+        endInput.style.transform = '';
+    }, 200);
+}
+
+// Добавляем валидацию дат
+document.querySelector('form').addEventListener('submit', function(e) {
+    const startDate = document.getElementById('start_date').value;
+    const endDate = document.getElementById('end_date').value;
+
+    if (startDate && endDate && startDate > endDate) {
+        e.preventDefault();
+        // Создаем красивый алерт
+        const alertDiv = document.createElement('div');
+        alertDiv.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #e74c3c;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: slideIn 0.3s ease;
+        `;
+        alertDiv.innerHTML = `<i class="fas fa-exclamation-triangle"></i> Ошибка: Начальная дата не может быть больше конечной даты!`;
+        document.body.appendChild(alertDiv);
+
+        // Удаляем алерт через 5 секунд
+        setTimeout(() => {
+            alertDiv.style.animation = 'slideOut 0.3s ease';
+            setTimeout(() => alertDiv.remove(), 300);
+        }, 5000);
+
+        document.getElementById('start_date').focus();
+        return false;
+    }
+
+    // Показываем индикатор загрузки
+    const submitBtn = this.querySelector('button[type="submit"]');
+    const originalText = submitBtn.innerHTML;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Создание бэкапа...';
+    submitBtn.disabled = true;
+
+    // Через 10 секунд возвращаем кнопку в исходное состояние (на случай ошибки)
+    setTimeout(() => {
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+    }, 10000);
+});
+
+// Добавляем стили для анимации алерта
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes slideIn {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+    @keyframes slideOut {
+        from { transform: translateX(0); opacity: 1; }
+        to { transform: translateX(100%); opacity: 0; }
+    }
+`;
+document.head.appendChild(style);
+</script>
+{% endblock %}

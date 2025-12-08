@@ -1,3 +1,6 @@
+from django.shortcuts import redirect
+from rest_framework.generics import get_object_or_404
+
 from .models import Article, Category, Comment, UserProfile, ArticleMedia, ModerationComment, ArticleRevision
 from .models import AuthCode
 from django.contrib.auth.models import Group
@@ -468,10 +471,17 @@ class ActionLogAdmin(admin.ModelAdmin):
 class BackupAdmin(admin.ModelAdmin):
     """Админ-панель для управления резервными копиями"""
 
-    list_display = ['name', 'backup_type_display', 'status_display', 'created_at', 'file_size_display', 'actions']
+    list_display = ['name', 'backup_type_display', 'status_display', 'created_at', 'file_size_display',
+                    'backup_actions']
     list_filter = ['backup_type', 'status', 'created_at']
     search_fields = ['name', 'description']
     readonly_fields = ['name', 'file_path', 'file_size', 'metadata_prettified', 'created_at']
+
+    # Убираем стандартные actions - они нам не нужны
+    actions = None
+
+    # Используем кастомный шаблон с формой выбора даты
+    change_list_template = 'admin/wiki/backup/change_list.html'
 
     def backup_type_display(self, obj):
         return obj.get_backup_type_display()
@@ -508,14 +518,15 @@ class BackupAdmin(admin.ModelAdmin):
 
     metadata_prettified.short_description = 'Метаданные'
 
-    def actions(self, obj):
+    def backup_actions(self, obj):
+        """Действия для резервных копий"""
         if obj.status == 'completed':
-            download_url = reverse('wiki:download_backup', args=[obj.id])
+            download_url = reverse('admin:wiki_backup_download', args=[obj.id])
             return format_html(
                 '''
                 <div style="display: flex; gap: 5px;">
                     <a href="{}" class="button" title="Скачать" style="background: #4CAF50; color: white; padding: 5px 10px; border-radius: 3px; text-decoration: none; font-size: 12px;">
-                        <i class="fas fa-download"></i>
+                        <i class="fas fa-download"></i> Скачать
                     </a>
                 </div>
                 ''',
@@ -523,16 +534,89 @@ class BackupAdmin(admin.ModelAdmin):
             )
         return '-'
 
-    actions.short_description = 'Действия'
+    backup_actions.short_description = 'Действия'
 
     def has_add_permission(self, request):
         return False
 
-    def changelist_view(self, request, extra_context=None):
-        # Добавляем кнопку управления бэкапами
-        extra_context = extra_context or {}
-        extra_context['show_backup_management'] = True
-        extra_context['backup_management_url'] = reverse('wiki:backup_management')
-        return super().changelist_view(request, extra_context=extra_context)
+    def get_urls(self):
+        """Добавляем кастомные URL для создания бэкапов"""
+        urls = super().get_urls()
+        from django.urls import path
+        from django.contrib.admin.views.decorators import staff_member_required
+
+        custom_urls = [
+            path('create-backup/', staff_member_required(self.create_backup_view), name='wiki_backup_create'),
+            path('<int:backup_id>/download/', staff_member_required(self.download_backup_view),
+                 name='wiki_backup_download'),
+        ]
+        return custom_urls + urls
+
+    def create_backup_view(self, request):
+        """Создание бэкапа через админку"""
+        from .backup_utils import create_backup, create_backup_for_period
+
+        if request.method == 'POST':
+            backup_type = request.POST.get('backup_type', 'full')
+            start_date = request.POST.get('start_date', '')
+            end_date = request.POST.get('end_date', '')
+            description = request.POST.get('description', '')
+
+            try:
+                if start_date or end_date:
+                    # Бэкап за период
+                    backup = create_backup_for_period(
+                        backup_type=backup_type,
+                        start_date=start_date if start_date else None,
+                        end_date=end_date if end_date else None,
+                        description=description
+                    )
+                    self.message_user(request, f'✅ Бэкап за период создан: {backup.name}')
+                else:
+                    # Обычный полный бэкап
+                    backup = create_backup(
+                        backup_type=backup_type,
+                        description=description
+                    )
+                    self.message_user(request, f'✅ Полный бэкап создан: {backup.name}')
+
+                return redirect('admin:wiki_backup_changelist')
+
+            except Exception as e:
+                self.message_user(request, f'❌ Ошибка: {str(e)}', level='error')
+
+        # GET запрос - показываем форму
+        from django.shortcuts import render
+        from datetime import date, timedelta
+
+        # Генерируем даты за последние 30 дней
+        today = date.today()
+        dates_list = []
+        for i in range(30):
+            current_date = today - timedelta(days=i)
+            dates_list.append(current_date)
+
+        context = {
+            'title': 'Создание резервной копии',
+            'dates_list': dates_list,
+            'today': today,
+        }
+        return render(request, 'admin/wiki/backup/create_backup.html', context)
+
+    def download_backup_view(self, request, backup_id):
+        """Скачивание бэкапа"""
+        from django.shortcuts import get_object_or_404
+
+        backup = get_object_or_404(Backup, id=backup_id)
+
+        if not os.path.exists(backup.file_path):
+            self.message_user(request, '❌ Файл бэкапа не найден', level='error')
+            return redirect('admin:wiki_backup_changelist')
+
+        with open(backup.file_path, 'rb') as f:
+            response = HttpResponse(f.read(), content_type='application/zip')
+            response['Content-Disposition'] = f'attachment; filename="{backup.name}.zip"'
+            return response
+
 admin.site.unregister(Group)
 admin.site.register(Group, CustomGroupAdmin)

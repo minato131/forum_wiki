@@ -100,26 +100,6 @@
                                 <span class="status-indicator error">✗</span>
                             {% endif %}
                         </div>
-                        <div class="social-item {% if user.profile.discord %}has-link{% else %}no-link{% endif %}">
-                            <span class="social-icon">🎮</span>
-                            <span class="social-name">Discord</span>
-                            {% if user.profile.discord %}
-                                <span class="social-link">{{ user.profile.discord }}</span>
-                                <span class="status-indicator success">✓</span>
-                            {% else %}
-                                <span class="status-indicator error">✗</span>
-                            {% endif %}
-                        </div>
-                        <div class="social-item {% if user.profile.youtube %}has-link{% else %}no-link{% endif %}">
-                            <span class="social-icon">📺</span>
-                            <span class="social-name">YouTube</span>
-                            {% if user.profile.youtube %}
-                                <a href="{{ user.profile.youtube }}" target="_blank" class="social-link">Перейти</a>
-                                <span class="status-indicator success">✓</span>
-                            {% else %}
-                                <span class="status-indicator error">✗</span>
-                            {% endif %}
-                        </div>
                     </div>
                 </div>
             </div>
@@ -171,16 +151,6 @@
                     <label for="telegram">📱 Telegram ссылка:</label>
                     <input type="url" id="telegram" name="telegram" value="{{ user.profile.telegram|default:'' }}"
                            placeholder="https://t.me/username" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label for="discord">🎮 Discord:</label>
-                    <input type="text" id="discord" name="discord" value="{{ user.profile.discord|default:'' }}"
-                           placeholder="username#1234" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label for="youtube">📺 YouTube ссылка:</label>
-                    <input type="url" id="youtube" name="youtube" value="{{ user.profile.youtube|default:'' }}"
-                           placeholder="https://youtube.com/@username" class="form-control">
                 </div>
                 <div class="form-group full-width">
                     <label for="bio">📝 О себе:</label>

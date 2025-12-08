@@ -1122,25 +1122,6 @@ class CategoryStat(models.Model):
     def __str__(self):
         return f"Статистика: {self.category.name}"
 
-
-class SearchQuery(models.Model):
-    """История поисковых запросов"""
-    query = models.CharField('Поисковый запрос', max_length=255)
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
-    results_count = models.PositiveIntegerField('Найдено результатов', default=0)
-    ip_address = models.GenericIPAddressField('IP адрес', null=True, blank=True)
-    user_agent = models.TextField('User Agent', blank=True)
-    created_at = models.DateTimeField('Дата поиска', auto_now_add=True)
-
-    class Meta:
-        verbose_name = 'Поисковый запрос'
-        verbose_name_plural = 'Поисковые запросы'
-        ordering = ['-created_at']
-
-    def __str__(self):
-        return f"{self.query} ({self.created_at})"
-
-
 class SiteStat(models.Model):
     """Общая статистика сайта"""
     date = models.DateField('Дата', unique=True)
