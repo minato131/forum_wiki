@@ -370,8 +370,8 @@
                 <a href="{% url 'wiki:liked_articles' %}">❤️ Понравившиеся</a>
             {% endif %}
 
-            {% if user.is_not_staff %}
-                 <a href="{% url 'wiki:help' %}" class="nav-link">
+            {% if not user.is_staff %}
+                <a href="{% url 'wiki:help' %}" class="nav-link">
                     <i class="fas fa-question-circle mr-2"></i> Помощь
                 </a>
             {% endif %}

@@ -69,7 +69,8 @@ urlpatterns = [
     # Управление пользователями
     path('user-management/', views.user_management, name='user_management'),
     #Помощь
-
+    path('help/', HelpView.as_view(), name='help'),
+    path('help/faq/', FAQView.as_view(), name='faq'),
 
     # Сообщения
     path('messages/', views.messages_list, name='messages_list'),
