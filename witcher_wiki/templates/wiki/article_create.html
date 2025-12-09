@@ -304,7 +304,6 @@
     }
 </style>
 
-<!-- Модальное окно с правилами -->
 <div id="rulesModal" class="rules-modal">
     <div class="modal-content">
         <div class="modal-header">
@@ -321,7 +320,6 @@
                     <li>✅ Соблюдайте авторские права</li>
                 </ul>
             </div>
-
             <div class="rules-section">
                 <h3>🚫 Запрещено:</h3>
                 <ul>
@@ -333,7 +331,6 @@
                     <li>❌ Плагиат и нарушение авторских прав</li>
                 </ul>
             </div>
-
             <div class="rules-section">
                 <h3>📋 Требования к контенту:</h3>
                 <ul>
@@ -344,7 +341,6 @@
                     <li>✅ Используйте соответствующие категории и теги</li>
                 </ul>
             </div>
-
             <div class="rules-section">
                 <h3>⏳ Модерация:</h3>
                 <ul>
@@ -354,7 +350,6 @@
                     <li>📌 Вы можете редактировать статью после замечаний модератора</li>
                 </ul>
             </div>
-
             <div class="agreement-section">
                 <label class="checkbox-label">
                     <input type="checkbox" id="rulesAgreement">
@@ -369,6 +364,131 @@
                 Принять правила и продолжить
             </button>
         </div>
+    </div>
+</div>
+
+<div class="article-create">
+    <h1 class="section-title">✍️ Создать статью</h1>
+    {% if success_message %}
+    <div class="alert alert-success">
+        ✅ {{ success_message }}
+    </div>
+    {% endif %}
+    {% if error_message %}
+    <div class="alert alert-error">
+        ❌ {{ error_message }}
+    </div>
+    {% endif %}
+    {% if not user.is_staff %}
+    <div class="moderation-notice">
+        <span class="moderation-icon">⏳</span>
+        <h3 style="color: #f59e0b; margin-bottom: 10px;">Статья будет отправлена на модерацию</h3>
+        <p style="color: #ccc; margin: 0;">
+            После создания статья будет проверена модератором перед публикацией.
+            Вы получите уведомление о результате модерации.
+        </p>
+    </div>
+    {% endif %}
+    <div class="form-container">
+        <form method="post" enctype="multipart/form-data" id="articleForm">
+            {% csrf_token %}
+            <div class="form-group">
+                <label class="form-label" for="title">Заголовок статьи *</label>
+                <input type="text" class="form-control" id="title" name="title"
+                       value="{{ request.POST.title }}" required
+                       placeholder="Введите заголовок статьи...">
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="excerpt">Краткое описание</label>
+                <textarea class="form-control" id="excerpt" name="excerpt"
+                          placeholder="Краткое описание статьи (отображается в preview)...">{{ request.POST.excerpt }}</textarea>
+                <div style="color: #888; font-size: 0.9em; margin-top: 5px;">
+                    Рекомендуется 150-300 символов
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="content">Содержание статьи *</label>
+                <textarea class="form-control" id="content" name="content"
+                          required rows="15"
+                          placeholder="Напишите содержание статьи...">{{ request.POST.content }}</textarea>
+            </div>
+            <!-- ИСПРАВЛЕННЫЙ БЛОК КАТЕГОРИЙ -->
+            <div class="form-group">
+                <label class="form-label">Категории *</label>
+                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px;"
+                     id="categories-container">
+                    {% for category in categories %}
+                    <div class="checkbox-group">
+                        <input type="checkbox" class="form-checkbox category-checkbox" id="category-{{ category.id }}"
+                               name="categories" value="{{ category.id }}">
+                        <label for="category-{{ category.id }}" style="color: #ccc; margin: 0; cursor: pointer;">
+                            {% if category.icon %}{{ category.icon }} {% endif %}{{ category.name }}
+                        </label>
+                    </div>
+                    {% empty %}
+                    <div style="color: #888; padding: 10px;">
+                        Категории не найдены. Обратитесь к администратору.
+                    </div>
+                    {% endfor %}
+                </div>
+                <small style="color: #888; display: block; margin-top: 8px;">
+                    Выберите одну или несколько категорий
+                </small>
+                <div id="category-error" style="color: #ef4444; font-size: 0.9em; margin-top: 5px; display: none;">
+                    ❌ Пожалуйста, выберите хотя бы одну категорию
+                </div>
+            </div>
+            <!-- БЛОК ХЕШТЕГОВ С ПОДСКАЗКАМИ -->
+            <div class="form-group">
+                <label class="form-label" for="tags">Хештеги</label>
+                <input type="text" class="form-control" id="tags" name="tags"
+                       value="{{ request.POST.tags }}"
+                       placeholder="ведьмак, монстры, магия...">
+                <small style="color: #888;">Введите хештеги через запятую</small>
+            </div>
+            <!-- ПОДСКАЗКИ ХЕШТЕГОВ -->
+            <div class="hashtag-suggestions">
+                <h4>💡 Популярные хештеги:</h4>
+                <div class="suggested-tags">
+                    <span class="suggested-tag" onclick="addHashtag('ведьмак')">#ведьмак</span>
+                    <span class="suggested-tag" onclick="addHashtag('геральт')">#геральт</span>
+                    <span class="suggested-tag" onclick="addHashtag('цири')">#цири</span>
+                    <span class="suggested-tag" onclick="addHashtag('йеннифер')">#йеннифер</span>
+                    <span class="suggested-tag" onclick="addHashtag('монстры')">#монстры</span>
+                    <span class="suggested-tag" onclick="addHashtag('магия')">#магия</span>
+                    <span class="suggested-tag" onclick="addHashtag('алхимия')">#алхимия</span>
+                    <span class="suggested-tag" onclick="addHashtag('кровь')">#кровь</span>
+                    <span class="suggested-tag" onclick="addHashtag('ведьма')">#ведьма</span>
+                    <span class="suggested-tag" onclick="addHashtag('чудовища')">#чудовища</span>
+                </div>
+            </div>
+            <div class="media-section">
+                <h3 style="color: #D4AF37; margin-bottom: 20px; font-family: 'Cinzel', serif;">
+                    📁 Медиафайлы
+                </h3>
+                <div class="media-upload">
+                    <span class="media-upload-icon">📎</span>
+                    <input type="file" class="file-input" id="mediaFiles" name="media_files"
+                           multiple accept="image/*,video/*,audio/*,.pdf,.doc,.docx">
+                    <label for="mediaFiles" class="file-input-label">
+                        📎 Выбрать файлы
+                    </label>
+                    <div class="file-info">
+                        Поддерживаемые форматы: изображения (JPG, PNG, GIF), видео (MP4, AVI), аудио (MP3, WAV), документы (PDF, DOC)
+                    </div>
+                </div>
+                <div class="media-preview" id="mediaPreview">
+                    <!-- Превью файлов будет добавляться сюда -->
+                </div>
+            </div>
+            <button type="submit" class="btn-primary" id="submitBtn">
+                {% if user.is_staff %}
+                📝 Опубликовать статью
+                {% else %}
+                ⏳ Отправить на модерацию
+                {% endif %}
+            </button>
+        </form>
     </div>
 </div>
 
@@ -590,207 +710,56 @@
     }
 }
 </style>
-
-<div class="article-create">
-    <h1 class="section-title">✍️ Создать статью</h1>
-
-    {% if success_message %}
-    <div class="alert alert-success">
-        ✅ {{ success_message }}
-    </div>
-    {% endif %}
-
-    {% if error_message %}
-    <div class="alert alert-error">
-        ❌ {{ error_message }}
-    </div>
-    {% endif %}
-
-    {% if not user.is_staff %}
-    <div class="moderation-notice">
-        <span class="moderation-icon">⏳</span>
-        <h3 style="color: #f59e0b; margin-bottom: 10px;">Статья будет отправлена на модерацию</h3>
-        <p style="color: #ccc; margin: 0;">
-            После создания статья будет проверена модератором перед публикацией.
-            Вы получите уведомление о результате модерации.
-        </p>
-    </div>
-    {% endif %}
-
-    <div class="form-container">
-        <form method="post" enctype="multipart/form-data" id="articleForm">
-            {% csrf_token %}
-
-            <div class="form-group">
-                <label class="form-label" for="title">Заголовок статьи *</label>
-                <input type="text" class="form-control" id="title" name="title"
-                       value="{{ request.POST.title }}" required
-                       placeholder="Введите заголовок статьи...">
-            </div>
-
-            <div class="form-group">
-                <label class="form-label" for="excerpt">Краткое описание</label>
-                <textarea class="form-control" id="excerpt" name="excerpt"
-                          placeholder="Краткое описание статьи (отображается в preview)...">{{ request.POST.excerpt }}</textarea>
-                <div style="color: #888; font-size: 0.9em; margin-top: 5px;">
-                    Рекомендуется 150-300 символов
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="form-label" for="content">Содержание статьи *</label>
-                <textarea class="form-control" id="content" name="content"
-                          required rows="15"
-                          placeholder="Напишите содержание статьи...">{{ request.POST.content }}</textarea>
-            </div>
-
-            <!-- ИСПРАВЛЕННЫЙ БЛОК КАТЕГОРИЙ -->
-            <div class="form-group">
-                <label class="form-label">Категории *</label>
-                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px;"
-                     id="categories-container">
-                    {% for category in categories %}
-                    <div class="checkbox-group">
-                        <input type="checkbox" class="form-checkbox category-checkbox" id="category-{{ category.id }}"
-                               name="categories" value="{{ category.id }}">
-                        <label for="category-{{ category.id }}" style="color: #ccc; margin: 0; cursor: pointer;">
-                            {% if category.icon %}{{ category.icon }} {% endif %}{{ category.name }}
-                        </label>
-                    </div>
-                    {% empty %}
-                    <div style="color: #888; padding: 10px;">
-                        Категории не найдены. Обратитесь к администратору.
-                    </div>
-                    {% endfor %}
-                </div>
-                <small style="color: #888; display: block; margin-top: 8px;">
-                    Выберите одну или несколько категорий
-                </small>
-                <div id="category-error" style="color: #ef4444; font-size: 0.9em; margin-top: 5px; display: none;">
-                    ❌ Пожалуйста, выберите хотя бы одну категорию
-                </div>
-            </div>
-            <!-- БЛОК ХЕШТЕГОВ С ПОДСКАЗКАМИ -->
-            <div class="form-group">
-                <label class="form-label" for="tags">Хештеги</label>
-                <input type="text" class="form-control" id="tags" name="tags"
-                       value="{{ request.POST.tags }}"
-                       placeholder="ведьмак, монстры, магия...">
-                <small style="color: #888;">Введите хештеги через запятую</small>
-            </div>
-
-            <!-- ПОДСКАЗКИ ХЕШТЕГОВ -->
-            <div class="hashtag-suggestions">
-                <h4>💡 Популярные хештеги:</h4>
-                <div class="suggested-tags">
-                    <span class="suggested-tag" onclick="addHashtag('ведьмак')">#ведьмак</span>
-                    <span class="suggested-tag" onclick="addHashtag('геральт')">#геральт</span>
-                    <span class="suggested-tag" onclick="addHashtag('цири')">#цири</span>
-                    <span class="suggested-tag" onclick="addHashtag('йеннифер')">#йеннифер</span>
-                    <span class="suggested-tag" onclick="addHashtag('монстры')">#монстры</span>
-                    <span class="suggested-tag" onclick="addHashtag('магия')">#магия</span>
-                    <span class="suggested-tag" onclick="addHashtag('алхимия')">#алхимия</span>
-                    <span class="suggested-tag" onclick="addHashtag('кровь')">#кровь</span>
-                    <span class="suggested-tag" onclick="addHashtag('ведьма')">#ведьма</span>
-                    <span class="suggested-tag" onclick="addHashtag('чудовища')">#чудовища</span>
-                </div>
-            </div>
-
-            <div class="media-section">
-                <h3 style="color: #D4AF37; margin-bottom: 20px; font-family: 'Cinzel', serif;">
-                    📁 Медиафайлы
-                </h3>
-
-                <div class="media-upload">
-                    <span class="media-upload-icon">📎</span>
-                    <input type="file" class="file-input" id="mediaFiles" name="media_files"
-                           multiple accept="image/*,video/*,audio/*,.pdf,.doc,.docx">
-                    <label for="mediaFiles" class="file-input-label">
-                        📎 Выбрать файлы
-                    </label>
-                    <div class="file-info">
-                        Поддерживаемые форматы: изображения (JPG, PNG, GIF), видео (MP4, AVI), аудио (MP3, WAV), документы (PDF, DOC)
-                    </div>
-                </div>
-
-                <div class="media-preview" id="mediaPreview">
-                    <!-- Превью файлов будет добавляться сюда -->
-                </div>
-            </div>
-
-            <button type="submit" class="btn-primary" id="submitBtn">
-                {% if user.is_staff %}
-                📝 Опубликовать статью
-                {% else %}
-                ⏳ Отправить на модерацию
-                {% endif %}
-            </button>
-        </form>
-    </div>
-</div>
-
 <script>
 let rulesAccepted = false;
-
 function showRulesModal() {
     const modal = document.getElementById('rulesModal');
     modal.classList.add('show');
     document.body.style.overflow = 'hidden';
-
     // Сбрасываем состояние
     document.getElementById('rulesAgreement').checked = false;
     document.getElementById('acceptRulesBtn').disabled = true;
     rulesAccepted = false;
 }
-
 function closeRulesModal() {
     const modal = document.getElementById('rulesModal');
     modal.classList.remove('show');
     document.body.style.overflow = 'auto';
-
     if (!rulesAccepted) {
         // Перенаправляем на главную, если правила не приняты
         window.location.href = "{% url 'wiki:home' %}";
     }
 }
-
 function acceptRules() {
     rulesAccepted = true;
     closeRulesModal();
-
     // Показываем основную форму
     document.querySelector('.form-container').style.display = 'block';
-
     // Сохраняем в localStorage, что пользователь принял правила
     localStorage.setItem('article_rules_accepted', 'true');
     sessionStorage.setItem('article_rules_accepted', 'true');
 }
-
 // Проверяем согласие с правилами
 document.getElementById('rulesAgreement').addEventListener('change', function() {
     document.getElementById('acceptRulesBtn').disabled = !this.checked;
 });
-
 // Закрытие по клику вне модального окна
 document.getElementById('rulesModal').addEventListener('click', function(e) {
     if (e.target === this) {
         closeRulesModal();
     }
 });
-
 // Закрытие по ESC
 document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
         closeRulesModal();
     }
 });
-
 // Функция для добавления хештега
 function addHashtag(tagName) {
     const tagsInput = document.getElementById('tags');
     const currentValue = tagsInput.value.trim();
     const newTag = tagName.toLowerCase();
-
     if (currentValue === '') {
         tagsInput.value = newTag;
     } else {
@@ -800,15 +769,12 @@ function addHashtag(tagName) {
             tagsInput.value = currentValue + ', ' + newTag;
         }
     }
-
     tagsInput.focus();
 }
-
 // Проверяем при загрузке, принимал ли пользователь правила ранее
 document.addEventListener('DOMContentLoaded', function() {
     const hasAcceptedRules = localStorage.getItem('article_rules_accepted') ||
                             sessionStorage.getItem('article_rules_accepted');
-
     if (!hasAcceptedRules) {
         // Показываем модальное окно с правилами
         showRulesModal();
@@ -817,16 +783,13 @@ document.addEventListener('DOMContentLoaded', function() {
     } else {
         rulesAccepted = true;
     }
-
     // Проверяем обязательные категории
     const categoryCheckboxes = document.querySelectorAll('.category-checkbox');
     const submitBtn = document.getElementById('submitBtn');
     const categoryError = document.getElementById('category-error');
-
     function validateCategories() {
         const checkedCategories = Array.from(categoryCheckboxes).filter(cb => cb.checked);
         const isValid = checkedCategories.length > 0;
-
         if (!isValid) {
             categoryError.style.display = 'block';
             submitBtn.disabled = true;
@@ -836,21 +799,17 @@ document.addEventListener('DOMContentLoaded', function() {
             submitBtn.disabled = false;
             submitBtn.title = '';
         }
-
         return isValid;
     }
-
     // Добавляем валидацию категорий
     categoryCheckboxes.forEach(checkbox => {
         checkbox.addEventListener('change', function() {
             validateCategories();
         });
     });
-
     // Изначальная проверка
     validateCategories();
 });
-
 // Предотвращаем отправку формы, если правила не приняты
 document.getElementById('articleForm').addEventListener('submit', function(e) {
     if (!rulesAccepted && !localStorage.getItem('article_rules_accepted') && !sessionStorage.getItem('article_rules_accepted')) {
@@ -858,51 +817,42 @@ document.getElementById('articleForm').addEventListener('submit', function(e) {
         showRulesModal();
         return false;
     }
-
     // Проверяем обязательные поля
     const title = document.getElementById('title').value.trim();
     const content = document.getElementById('content').value.trim();
     const categoriesValid = validateCategories();
-
     if (!title) {
         e.preventDefault();
         alert('Пожалуйста, введите заголовок статьи');
         document.getElementById('title').focus();
         return;
     }
-
     if (!content) {
         e.preventDefault();
         alert('Пожалуйста, введите содержание статьи');
         document.getElementById('content').focus();
         return;
     }
-
     if (!categoriesValid) {
         e.preventDefault();
         alert('Пожалуйста, выберите хотя бы одну категорию');
         return;
     }
-
     const submitBtn = this.querySelector('button[type="submit"]');
     submitBtn.innerHTML = '⏳ Отправка...';
     submitBtn.disabled = true;
 });
-
 // Обработка медиафайлов
 document.getElementById('mediaFiles').addEventListener('change', function(e) {
     const preview = document.getElementById('mediaPreview');
     preview.innerHTML = '';
-
     const files = e.target.files;
     for (let i = 0; i < files.length; i++) {
         const file = files[i];
         const reader = new FileReader();
-
         reader.onload = function(e) {
             const mediaItem = document.createElement('div');
             mediaItem.className = 'media-item';
-
             if (file.type.startsWith('image/')) {
                 mediaItem.innerHTML = `
                     <img src="${e.target.result}" alt="${file.name}">
@@ -924,23 +874,18 @@ document.getElementById('mediaFiles').addEventListener('change', function(e) {
                     <button type="button" class="remove-media" onclick="removeMediaFile(${i})">×</button>
                 `;
             }
-
             preview.appendChild(mediaItem);
         };
-
         reader.readAsDataURL(file);
     }
 });
-
 function removeMediaFile(index) {
     const input = document.getElementById('mediaFiles');
     const files = Array.from(input.files);
     files.splice(index, 1);
-
     const dt = new DataTransfer();
     files.forEach(file => dt.items.add(file));
     input.files = dt.files;
-
     input.dispatchEvent(new Event('change'));
 }
 </script>

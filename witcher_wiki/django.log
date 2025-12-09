@@ -24453,3 +24453,235 @@ INFO 2025-12-10 01:41:41,276 log "GET /moderation/ HTTP/1.1" 200 36221
 INFO 2025-12-10 01:41:41,447 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
 INFO 2025-12-10 01:41:45,918 log "GET /article/1/moderate/enhanced/ HTTP/1.1" 200 45647
 INFO 2025-12-10 01:41:45,988 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 01:42:16,316 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 01:42:22,681 log "POST /article/1/moderate/enhanced/ HTTP/1.1" 302 0
+INFO 2025-12-10 01:42:22,734 log "GET /moderation/ HTTP/1.1" 200 35796
+INFO 2025-12-10 01:42:22,802 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 01:42:24,916 log "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-12-10 01:42:24,970 log "GET / HTTP/1.1" 200 34540
+INFO 2025-12-10 01:42:25,475 log "GET /login/ HTTP/1.1" 200 33525
+INFO 2025-12-10 01:42:27,860 log "POST /login/ HTTP/1.1" 302 0
+INFO 2025-12-10 01:42:27,925 log "GET / HTTP/1.1" 200 41389
+INFO 2025-12-10 01:42:28,000 log "GET /messages/unread-count/ HTTP/1.1" 200 44890
+INFO 2025-12-10 01:42:33,555 log "GET /my-articles/ HTTP/1.1" 200 50252
+INFO 2025-12-10 01:42:33,639 log "GET /messages/unread-count/ HTTP/1.1" 200 44890
+INFO 2025-12-10 01:42:44,926 log "GET / HTTP/1.1" 200 41389
+INFO 2025-12-10 01:42:45,108 log "GET /messages/unread-count/ HTTP/1.1" 200 44890
+INFO 2025-12-10 01:42:45,673 log "GET /article/create/ HTTP/1.1" 200 39158
+INFO 2025-12-10 01:42:45,744 log "GET /messages/unread-count/ HTTP/1.1" 200 44890
+INFO 2025-12-10 01:42:47,059 log "POST /article/create/ HTTP/1.1" 200 66552
+INFO 2025-12-10 01:42:47,127 log "GET /messages/unread-count/ HTTP/1.1" 200 44890
+INFO 2025-12-10 01:42:54,823 log "POST /article/create/ HTTP/1.1" 200 66619
+INFO 2025-12-10 01:42:54,892 log "GET /messages/unread-count/ HTTP/1.1" 200 44890
+INFO 2025-12-10 01:42:56,739 log "GET / HTTP/1.1" 200 41389
+INFO 2025-12-10 01:42:56,810 log "GET /messages/unread-count/ HTTP/1.1" 200 44890
+INFO 2025-12-10 01:42:57,481 log "GET /article/create/ HTTP/1.1" 200 66390
+INFO 2025-12-10 01:42:57,550 log "GET /messages/unread-count/ HTTP/1.1" 200 44890
+INFO 2025-12-10 01:43:03,906 log "POST /article/create/ HTTP/1.1" 200 66622
+INFO 2025-12-10 01:43:04,083 log "GET /messages/unread-count/ HTTP/1.1" 200 44890
+INFO 2025-12-10 01:43:05,854 log "GET / HTTP/1.1" 200 41389
+INFO 2025-12-10 01:43:05,926 log "GET /messages/unread-count/ HTTP/1.1" 200 44890
+INFO 2025-12-10 01:43:07,979 log "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-12-10 01:43:08,134 log "GET / HTTP/1.1" 200 34540
+INFO 2025-12-10 01:43:08,567 log "GET /login/ HTTP/1.1" 200 33525
+INFO 2025-12-10 01:43:10,783 log "POST /login/ HTTP/1.1" 302 0
+INFO 2025-12-10 01:43:10,841 log "GET / HTTP/1.1" 200 36914
+INFO 2025-12-10 01:43:10,913 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 01:43:13,072 log "GET /moderation/ HTTP/1.1" 200 37291
+INFO 2025-12-10 01:43:13,144 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 01:43:14,171 log "GET /article/aaaaaaaaaa/moderate/enhanced/ HTTP/1.1" 200 45674
+INFO 2025-12-10 01:43:14,239 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 01:43:23,739 log "POST /article/aaaaaaaaaa/moderate/enhanced/ HTTP/1.1" 302 0
+INFO 2025-12-10 01:43:23,795 log "GET /moderation/ HTTP/1.1" 200 36607
+INFO 2025-12-10 01:43:23,867 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 01:43:25,099 log "GET /article/sssssssss/moderate/enhanced/ HTTP/1.1" 200 45671
+INFO 2025-12-10 01:43:25,168 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 01:43:28,975 log "POST /article/sssssssss/moderate/enhanced/ HTTP/1.1" 302 0
+INFO 2025-12-10 01:43:29,029 log "GET /moderation/ HTTP/1.1" 200 36893
+INFO 2025-12-10 01:43:29,099 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 01:43:31,382 log "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-12-10 01:43:31,433 log "GET / HTTP/1.1" 200 34540
+INFO 2025-12-10 01:43:31,933 log "GET /login/ HTTP/1.1" 200 33525
+INFO 2025-12-10 01:43:34,964 log "POST /login/ HTTP/1.1" 302 0
+INFO 2025-12-10 01:43:35,136 log "GET / HTTP/1.1" 200 41389
+INFO 2025-12-10 01:43:35,214 log "GET /messages/unread-count/ HTTP/1.1" 200 44890
+INFO 2025-12-10 01:43:39,263 log "GET /my-articles/ HTTP/1.1" 200 55638
+INFO 2025-12-10 01:43:39,335 log "GET /messages/unread-count/ HTTP/1.1" 200 44890
+INFO 2025-12-10 01:44:07,596 log "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-12-10 01:44:07,651 log "GET / HTTP/1.1" 200 34540
+INFO 2025-12-10 01:44:08,173 log "GET /login/ HTTP/1.1" 200 33525
+INFO 2025-12-10 01:44:10,296 log "POST /login/ HTTP/1.1" 302 0
+INFO 2025-12-10 01:44:10,365 log "GET / HTTP/1.1" 200 36914
+INFO 2025-12-10 01:44:10,435 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 01:44:11,928 log "GET /editor/dashboard/ HTTP/1.1" 200 35410
+INFO 2025-12-10 01:44:12,001 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 01:44:13,361 log "GET /article/aaaaaaaaaa/ HTTP/1.1" 200 60869
+INFO 2025-12-10 01:44:13,430 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 01:44:15,633 log "GET /article/aaaaaaaaaa/editor-review/ HTTP/1.1" 200 33430
+INFO 2025-12-10 01:44:15,705 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 01:44:24,720 log "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-12-10 01:44:24,770 log "GET / HTTP/1.1" 200 34540
+INFO 2025-12-10 01:44:25,308 log "GET /login/ HTTP/1.1" 200 33525
+INFO 2025-12-10 01:44:28,297 log "POST /login/ HTTP/1.1" 302 0
+INFO 2025-12-10 01:44:28,461 log "GET / HTTP/1.1" 200 41389
+INFO 2025-12-10 01:44:28,537 log "GET /messages/unread-count/ HTTP/1.1" 200 44890
+INFO 2025-12-10 01:44:29,048 log "GET /article/create/ HTTP/1.1" 200 39158
+INFO 2025-12-10 01:44:29,118 log "GET /messages/unread-count/ HTTP/1.1" 200 44890
+INFO 2025-12-10 01:44:30,427 log "POST /article/create/ HTTP/1.1" 200 66552
+INFO 2025-12-10 01:44:30,594 log "GET /messages/unread-count/ HTTP/1.1" 200 44890
+INFO 2025-12-10 01:44:37,011 log "POST /article/create/ HTTP/1.1" 200 66620
+INFO 2025-12-10 01:44:37,177 log "GET /messages/unread-count/ HTTP/1.1" 200 44890
+INFO 2025-12-10 01:44:38,939 log "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-12-10 01:44:38,990 log "GET / HTTP/1.1" 200 34540
+INFO 2025-12-10 01:44:49,044 log "GET /login/ HTTP/1.1" 200 33525
+INFO 2025-12-10 01:44:51,416 log "POST /login/ HTTP/1.1" 302 0
+INFO 2025-12-10 01:44:51,475 log "GET / HTTP/1.1" 200 36914
+INFO 2025-12-10 01:44:51,548 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 01:44:56,244 log "GET /editor/dashboard/ HTTP/1.1" 200 35410
+INFO 2025-12-10 01:44:56,315 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 01:44:59,080 log "GET /my-articles/ HTTP/1.1" 200 44968
+INFO 2025-12-10 01:44:59,149 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 01:45:02,369 log "GET /moderation/ HTTP/1.1" 200 37375
+INFO 2025-12-10 01:45:02,439 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 01:45:03,301 log "GET /article/dddddddd/moderate/enhanced/ HTTP/1.1" 200 45671
+INFO 2025-12-10 01:45:03,374 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 01:45:11,356 log "POST /article/dddddddd/moderate/enhanced/ HTTP/1.1" 302 0
+INFO 2025-12-10 01:45:11,411 log "GET /moderation/ HTTP/1.1" 200 36937
+INFO 2025-12-10 01:45:11,482 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 01:45:13,376 log "GET /editor/dashboard/ HTTP/1.1" 200 36554
+INFO 2025-12-10 01:45:13,445 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 01:45:15,640 log "GET /article/dddddddd/editor-review/ HTTP/1.1" 200 33427
+INFO 2025-12-10 01:45:15,712 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 01:45:44,312 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 01:46:14,312 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 01:46:43,563 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 01:46:51,842 log "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-12-10 01:46:51,905 log "GET / HTTP/1.1" 200 34540
+INFO 2025-12-10 01:46:52,426 log "GET /login/ HTTP/1.1" 200 33525
+INFO 2025-12-10 01:46:52,681 log "GET /login/ HTTP/1.1" 200 33342
+INFO 2025-12-10 01:46:54,842 log "POST /login/ HTTP/1.1" 302 0
+INFO 2025-12-10 01:46:54,903 log "GET / HTTP/1.1" 200 41389
+INFO 2025-12-10 01:46:54,976 log "GET /messages/unread-count/ HTTP/1.1" 200 44890
+INFO 2025-12-10 01:46:56,832 log "GET /article/yvvyvyyv/ HTTP/1.1" 200 65305
+INFO 2025-12-10 01:46:57,010 log "GET /messages/unread-count/ HTTP/1.1" 200 44890
+INFO 2025-12-10 01:46:58,615 log "POST /article/yvvyvyyv/like/ HTTP/1.1" 200 94
+INFO 2025-12-10 01:46:59,204 log "POST /article/yvvyvyyv/like/ HTTP/1.1" 200 94
+INFO 2025-12-10 01:46:59,735 log "POST /article/yvvyvyyv/like/ HTTP/1.1" 200 94
+INFO 2025-12-10 01:47:02,719 log "GET /my-articles/ HTTP/1.1" 200 57841
+INFO 2025-12-10 01:47:02,790 log "GET /messages/unread-count/ HTTP/1.1" 200 44890
+INFO 2025-12-10 01:47:06,700 log "GET /article/dddddddd/export-pdf/ HTTP/1.1" 200 36461
+INFO 2025-12-10 01:47:06,768 log "GET /messages/unread-count/ HTTP/1.1" 200 44890
+INFO 2025-12-10 01:47:17,540 log "GET /articles/export/ HTTP/1.1" 200 43534
+INFO 2025-12-10 01:47:28,566 log "GET /article/1/edit/ HTTP/1.1" 200 51276
+INFO 2025-12-10 01:47:28,636 log "GET /messages/unread-count/ HTTP/1.1" 200 44890
+INFO 2025-12-10 01:47:32,523 log "GET /article/1/edit/ HTTP/1.1" 200 51276
+INFO 2025-12-10 01:47:32,594 log "GET /messages/unread-count/ HTTP/1.1" 200 44890
+INFO 2025-12-10 01:47:36,978 log "POST /article/1/edit/ HTTP/1.1" 302 0
+INFO 2025-12-10 01:47:37,049 log "GET /article/1/ HTTP/1.1" 200 67672
+INFO 2025-12-10 01:47:37,119 log "GET /messages/unread-count/ HTTP/1.1" 200 44890
+INFO 2025-12-10 01:47:47,654 log "POST /article/1/return-to-draft/ HTTP/1.1" 302 0
+INFO 2025-12-10 01:47:47,726 log "GET /article/1/ HTTP/1.1" 200 68274
+INFO 2025-12-10 01:47:47,798 log "GET /messages/unread-count/ HTTP/1.1" 200 44890
+INFO 2025-12-10 01:47:49,085 log "GET /my-articles/ HTTP/1.1" 200 57934
+INFO 2025-12-10 01:47:49,160 log "GET /messages/unread-count/ HTTP/1.1" 200 44890
+INFO 2025-12-10 01:47:53,365 log "POST /article/1/resubmit/ HTTP/1.1" 302 0
+INFO 2025-12-10 01:47:53,428 log "GET /article/1/ HTTP/1.1" 200 36463
+INFO 2025-12-10 01:47:53,594 log "GET /messages/unread-count/ HTTP/1.1" 200 44890
+INFO 2025-12-10 01:47:54,854 log "GET / HTTP/1.1" 200 41389
+INFO 2025-12-10 01:47:54,927 log "GET /messages/unread-count/ HTTP/1.1" 200 44890
+INFO 2025-12-10 01:47:55,165 log "GET / HTTP/1.1" 200 41389
+INFO 2025-12-10 01:47:55,234 log "GET /messages/unread-count/ HTTP/1.1" 200 44890
+INFO 2025-12-10 01:48:25,324 log "GET /messages/unread-count/ HTTP/1.1" 200 44890
+INFO 2025-12-10 01:48:55,322 log "GET /messages/unread-count/ HTTP/1.1" 200 44890
+INFO 2025-12-10 01:49:25,311 log "GET /messages/unread-count/ HTTP/1.1" 200 44890
+INFO 2025-12-10 01:49:55,419 log "GET /messages/unread-count/ HTTP/1.1" 200 44890
+INFO 2025-12-10 01:50:25,311 log "GET /messages/unread-count/ HTTP/1.1" 200 44890
+INFO 2025-12-10 01:50:55,322 log "GET /messages/unread-count/ HTTP/1.1" 200 44890
+INFO 2025-12-10 01:51:25,319 log "GET /messages/unread-count/ HTTP/1.1" 200 44890
+INFO 2025-12-10 01:52:26,312 log "GET /messages/unread-count/ HTTP/1.1" 200 44890
+INFO 2025-12-10 01:53:27,314 log "GET /messages/unread-count/ HTTP/1.1" 200 44890
+INFO 2025-12-10 01:54:28,436 log "GET /messages/unread-count/ HTTP/1.1" 200 44890
+INFO 2025-12-10 01:55:29,323 log "GET /messages/unread-count/ HTTP/1.1" 200 44890
+INFO 2025-12-10 01:56:30,551 log "GET /messages/unread-count/ HTTP/1.1" 200 44890
+INFO 2025-12-10 01:57:31,428 log "GET /messages/unread-count/ HTTP/1.1" 200 44890
+INFO 2025-12-10 01:58:32,433 log "GET /messages/unread-count/ HTTP/1.1" 200 44890
+INFO 2025-12-10 01:59:05,299 log "GET /messages/unread-count/ HTTP/1.1" 200 44890
+INFO 2025-12-10 01:59:25,255 log "GET /messages/unread-count/ HTTP/1.1" 200 44890
+INFO 2025-12-10 01:59:32,446 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 01:59:34,069 log "GET / HTTP/1.1" 200 41389
+INFO 2025-12-10 01:59:34,220 log "GET /messages/unread-count/ HTTP/1.1" 200 44890
+INFO 2025-12-10 01:59:37,188 log "GET /article/create/ HTTP/1.1" 200 39158
+INFO 2025-12-10 01:59:37,257 log "GET /messages/unread-count/ HTTP/1.1" 200 44890
+INFO 2025-12-10 01:59:47,954 log "GET /search/ HTTP/1.1" 200 50603
+INFO 2025-12-10 01:59:48,026 log "GET /messages/unread-count/ HTTP/1.1" 200 44890
+INFO 2025-12-10 01:59:50,598 log "GET /search/?q=%D1%8B%D1%8B%D1%8B%D1%8B&category= HTTP/1.1" 200 50609
+INFO 2025-12-10 01:59:50,671 log "GET /messages/unread-count/ HTTP/1.1" 200 44890
+ERROR 2025-12-10 01:59:54,302 log Internal Server Error: /search/
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py", line 162, in search
+    search_query_obj, created = SearchQuery.objects.get_or_create(query=query)
+                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 987, in get_or_create
+    return self.get(**kwargs), False
+           ~~~~~~~~^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 642, in get
+    raise self.model.MultipleObjectsReturned(
+    ...<5 lines>...
+    )
+wiki.models.SearchQuery.MultipleObjectsReturned: get() returned more than one SearchQuery -- it returned 2!
+ERROR 2025-12-10 01:59:54,307 log "GET /search/?q=%D1%8B&category= HTTP/1.1" 500 93618
+INFO 2025-12-10 01:59:55,315 log "GET /messages/unread-count/ HTTP/1.1" 200 44890
+INFO 2025-12-10 02:00:09,258 log "GET /tutorial/disable/ HTTP/1.1" 302 0
+ERROR 2025-12-10 02:00:09,321 log Internal Server Error: /search/
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py", line 162, in search
+    search_query_obj, created = SearchQuery.objects.get_or_create(query=query)
+                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 987, in get_or_create
+    return self.get(**kwargs), False
+           ~~~~~~~~^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 642, in get
+    raise self.model.MultipleObjectsReturned(
+    ...<5 lines>...
+    )
+wiki.models.SearchQuery.MultipleObjectsReturned: get() returned more than one SearchQuery -- it returned 2!
+ERROR 2025-12-10 02:00:09,325 log "GET /search/?q=%D1%8B%D1%8B%D1%8B%D1%8B&category= HTTP/1.1" 500 93926
+WARNING 2025-12-10 02:00:13,514 log Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /tutorial/mark-seen/search/
+WARNING 2025-12-10 02:00:13,554 log "POST /tutorial/mark-seen/search/ HTTP/1.1" 403 2591
+INFO 2025-12-10 02:00:18,024 log "GET /messages/unread-count/ HTTP/1.1" 200 39719
+INFO 2025-12-10 02:00:25,316 log "GET /messages/unread-count/ HTTP/1.1" 200 39719
+ERROR 2025-12-10 02:00:30,273 log Internal Server Error: /search/
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py", line 162, in search
+    search_query_obj, created = SearchQuery.objects.get_or_create(query=query)
+                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 987, in get_or_create
+    return self.get(**kwargs), False
+           ~~~~~~~~^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 642, in get
+    raise self.model.MultipleObjectsReturned(
+    ...<5 lines>...
+    )
+wiki.models.SearchQuery.MultipleObjectsReturned: get() returned more than one SearchQuery -- it returned 3!
+ERROR 2025-12-10 02:00:30,277 log "GET /search/?q=%D1%8B HTTP/1.1" 500 93715
