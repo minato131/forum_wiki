@@ -49,8 +49,33 @@ def login_view(request):
 
             messages.error(request, 'Неверное имя пользователя или пароль')
 
-    return render(request, 'registration/login.html')
+    # ✅ ДОБАВЛЯЕМ: Проверяем, было ли успешное уведомление о регистрации
+    registration_success = request.session.pop('registration_success', False)
+    registered_username = request.session.pop('registered_username', '')
 
+    if registration_success and registered_username:
+        print(f"=== ДЕБАГ LOGIN: Показываем сообщение о регистрации для {registered_username} ===")
+        # ✅ Создаем сообщение об успешной регистрации
+        registration_message = f"""
+        <div class="registration-success-alert" style="
+            background: linear-gradient(135deg, rgba(40, 167, 69, 0.1) 0%, rgba(25, 135, 84, 0.1) 100%);
+            border: 2px solid #28a745;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+        ">
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <i class="fas fa-check-circle" style="color: #28a745; font-size: 1.2em;"></i>
+                <strong style="color: #28a745;">✅ Регистрация успешно завершена!</strong>
+            </div>
+            <div style="margin-top: 8px; color: #e8e8e8;">
+                Добро пожаловать, <strong>{registered_username}</strong>! Теперь войдите в свой аккаунт.
+            </div>
+        </div>
+        """
+        messages.success(request, registration_message, extra_tags='safe')
+
+    return render(request, 'registration/login.html')
 
 def register_view(request):
     if request.method == 'POST':

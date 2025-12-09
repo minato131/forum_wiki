@@ -1155,53 +1155,52 @@ def get_categories_json(request):
 
 
 def register(request):
-    """Регистрация с подтверждением email"""
+    """Упрощенная регистрация с подтверждением email"""
     if request.user.is_authenticated:
         return redirect('wiki:home')
 
-    # Этап 1: форма регистрации, Этап 2: подтверждение кода
     stage = request.session.get('reg_stage', 1)
 
     if request.method == 'POST':
         if stage == 1:
-            # Этап 1: Получаем данные регистрации
             username = request.POST.get('username', '').strip()
             email = request.POST.get('email', '').strip()
             password1 = request.POST.get('password1', '')
             password2 = request.POST.get('password2', '')
 
-            # Валидация
-            errors = []
+            if not username or not email or not password1 or not password2:
+                messages.error(request, '❌ Заполните все поля')
+                return render(request, 'accounts/register.html', {'stage': 1})
 
-            if not username:
-                errors.append('Введите имя пользователя')
-            elif User.objects.filter(username=username).exists():
-                errors.append('Имя пользователя уже занято')
+            if User.objects.filter(username=username).exists():
+                messages.error(request, '❌ Имя пользователя уже занято')
+                return render(request, 'accounts/register.html', {'stage': 1})
 
-            if not email:
-                errors.append('Введите email')
-            elif User.objects.filter(email=email).exists():
-                errors.append('Email уже используется')
+            if User.objects.filter(email=email).exists():
+                messages.error(request, '❌ Email уже используется')
+                return render(request, 'accounts/register.html', {'stage': 1})
 
-            if not password1 or not password2:
-                errors.append('Введите пароль')
-            elif password1 != password2:
-                errors.append('Пароли не совпадают')
-            elif len(password1) < 8:
-                errors.append('Пароль должен быть не менее 8 символов')
+            if password1 != password2:
+                messages.error(request, '❌ Пароли не совпадают')
+                return render(request, 'accounts/register.html', {'stage': 1})
 
-            if errors:
-                for error in errors:
-                    messages.error(request, f'❌ {error}')
-            else:
-                # Сохраняем данные в сессии
-                request.session['reg_data'] = {
-                    'username': username,
-                    'email': email,
-                    'password': password1
-                }
+            if len(password1) < 8:
+                messages.error(request, '❌ Пароль должен быть не менее 8 символов')
+                return render(request, 'accounts/register.html', {'stage': 1})
 
-                # Отправляем код подтверждения
+            request.session['reg_data'] = {
+                'username': username,
+                'email': email,
+                'password': password1
+            }
+
+            try:
+                EmailVerification.objects.filter(
+                    email=email,
+                    purpose='registration',
+                    is_used=False
+                ).update(is_used=True)
+
                 verification = EmailVerification.objects.create(
                     email=email,
                     purpose='registration'
@@ -1219,19 +1218,22 @@ def register(request):
                         fail_silently=False,
                     )
 
-                    request.session['verification_id'] = verification.id
-                    request.session['reg_stage'] = 2  # Переходим на этап 2
-                    stage = 2
-                    messages.success(request, f'✅ Код отправлен на {email}')
+                except Exception as mail_error:
+                    messages.info(request, f'⚠️ Ошибка отправки email. Код для теста: {verification.code}')
 
-                except Exception as e:
-                    messages.error(request, f'❌ Ошибка отправки email: {str(e)}')
+                request.session['verification_id'] = verification.id
+                request.session['reg_stage'] = 2
+
+                messages.success(request, f'✅ Код отправлен на {email}')
+                return redirect('wiki:register')
+
+            except Exception as e:
+                messages.error(request, f'❌ Ошибка: {str(e)}')
+                return render(request, 'accounts/register.html', {'stage': 1})
 
         elif stage == 2:
-            # Этап 2: Проверка кода
             entered_code = request.POST.get('code', '').strip()
 
-            # Получаем данные из сессии
             reg_data = request.session.get('reg_data')
             verification_id = request.session.get('verification_id')
 
@@ -1244,20 +1246,23 @@ def register(request):
             username = reg_data['username']
             password = reg_data['password']
 
-            # Проверяем код
             try:
                 verification = EmailVerification.objects.get(
                     id=verification_id,
                     email=email,
-                    code=entered_code,
                     purpose='registration',
                     is_used=False
                 )
 
+                if verification.code != entered_code:
+                    messages.error(request, '❌ Неверный код подтверждения')
+                    return render(request, 'accounts/register.html', {'stage': 2})
+
                 if not verification.is_valid():
                     messages.error(request, '❌ Код истек. Запросите новый.')
-                else:
-                    # СОЗДАЕМ ПОЛЬЗОВАТЕЛЯ
+                    return render(request, 'accounts/register.html', {'stage': 2})
+
+                try:
                     user = User.objects.create_user(
                         username=username,
                         email=email,
@@ -1265,10 +1270,11 @@ def register(request):
                         is_active=True
                     )
 
-                    # Создаем профиль
-                    profile, created = UserProfile.objects.get_or_create(user=user)
-                    profile.email_verified = True
-                    profile.email_verified_at = timezone.now()
+                    try:
+                        profile = UserProfile.objects.get(user=user)
+                    except UserProfile.DoesNotExist:
+                        profile = UserProfile.objects.create(user=user)
+
                     profile.save()
 
                     # Помечаем код как использованный
@@ -1278,39 +1284,52 @@ def register(request):
                     # Очищаем сессию
                     request.session.flush()
 
-                    # ВАЖНО: Автоматический логин
-                    from django.contrib.auth import login
-                    login(request, user)
+                    # Устанавливаем флаги для страницы входа
+                    request.session['registration_success'] = True
+                    request.session['registered_username'] = username
 
-                    # Отправляем приветственное письмо
-                    subject = 'Добро пожаловать на Форум Ведьмак!'
-                    message = f'''
-                    Добро пожаловать, {username}!
-
-                    ✅ Ваш аккаунт успешно создан.
-                    ✅ Email подтвержден.
-
-                    Приятного использования форума!
-                    '''
-
+                    # Отправляем приветственное письмо (опционально)
                     try:
+                        subject = 'Добро пожаловать на Форум Ведьмак!'
+                        welcome_message = f'''
+                        Добро пожаловать, {username}!
+
+                        ✅ Ваш аккаунт успешно создан.
+                        ✅ Email подтвержден.
+
+                        Приятного использования форума!
+                        '''
+
                         send_mail(
                             subject,
-                            message,
+                            welcome_message,
                             settings.DEFAULT_FROM_EMAIL,
                             [email],
                             fail_silently=True,
                         )
-                    except:
-                        pass
+                        print("=== ДЕБАГ: Приветственное письмо отправлено ===")
+                    except Exception as mail_error:
+                        print(f"=== ДЕБАГ: Ошибка отправки приветственного письма: {mail_error} ===")
 
-                    messages.success(request, f'✅ Регистрация завершена! Добро пожаловать, {username}!')
-                    return redirect('wiki:home')
+                    # ✅ ПЕРЕНАПРАВЛЯЕМ НА СТРАНИЦУ ВХОДА
+                    print("=== ДЕБАГ: Редирект на login ===")
+                    return redirect('wiki:login')
+
+                except Exception as user_error:
+                    import traceback
+                    traceback.print_exc()
+                    messages.error(request, f'❌ Ошибка создания аккаунта: {str(user_error)}')
+                    return render(request, 'accounts/register.html', {'stage': 2})
 
             except EmailVerification.DoesNotExist:
                 messages.error(request, '❌ Неверный код подтверждения')
-                # Остаемся на этапе 2
-                stage = 2
+                return render(request, 'accounts/register.html', {'stage': 2})
+
+            except Exception as e:
+                import traceback
+                traceback.print_exc()
+                messages.error(request, f'❌ Ошибка: {str(e)}')
+                return render(request, 'accounts/register.html', {'stage': 2})
 
     else:
         # GET запрос - сбрасываем если пользователь вернулся на страницу
@@ -1329,6 +1348,7 @@ def register(request):
         'username': username,
         'form_data': reg_data
     }
+
     return render(request, 'accounts/register.html', context)
 
 

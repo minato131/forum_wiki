@@ -549,12 +549,21 @@ class BackupAdmin(admin.ModelAdmin):
             path('create-backup/', staff_member_required(self.create_backup_view), name='wiki_backup_create'),
             path('<int:backup_id>/download/', staff_member_required(self.download_backup_view),
                  name='wiki_backup_download'),
+            path('download-immediate/', staff_member_required(self.download_immediate_backup),
+                 name='wiki_backup_download_immediate'),
         ]
         return custom_urls + urls
 
     def create_backup_view(self, request):
-        """Создание бэкапа через админку"""
-        from .backup_utils import create_backup, create_backup_for_period
+        """Создание бэкапа через админку - СКАЧИВАНИЕ В БРАУЗЕР"""
+        from django.http import HttpResponse
+        from io import BytesIO
+        import zipfile
+        import json
+        from django.core import serializers
+        from django.db import connection
+        from django.utils import timezone
+        from datetime import datetime
 
         if request.method == 'POST':
             backup_type = request.POST.get('backup_type', 'full')
@@ -563,33 +572,159 @@ class BackupAdmin(admin.ModelAdmin):
             description = request.POST.get('description', '')
 
             try:
-                if start_date or end_date:
-                    # Бэкап за период
-                    backup = create_backup_for_period(
-                        backup_type=backup_type,
-                        start_date=start_date if start_date else None,
-                        end_date=end_date if end_date else None,
-                        description=description
-                    )
-                    self.message_user(request, f'✅ Бэкап за период создан: {backup.name}')
+                # Определяем имя файла
+                timestamp = timezone.now().strftime('%Y%m%d_%H%M%S')
+                if start_date and end_date:
+                    filename = f'witcher_forum_backup_{start_date}_to_{end_date}_{timestamp}.zip'
+                    description_text = f"{description} (период: {start_date} - {end_date})"
                 else:
-                    # Обычный полный бэкап
-                    backup = create_backup(
-                        backup_type=backup_type,
-                        description=description
-                    )
-                    self.message_user(request, f'✅ Полный бэкап создан: {backup.name}')
+                    filename = f'witcher_forum_backup_{timestamp}.zip'
+                    description_text = description
 
-                return redirect('admin:wiki_backup_changelist')
+                # Создаем бэкап в памяти
+                memory_file = BytesIO()
+
+                with zipfile.ZipFile(memory_file, 'w', zipfile.ZIP_DEFLATED) as zipf:
+                    # БАЗА ДАННЫХ - получаем все данные
+                    from .models import Article, Category, Comment, UserProfile, Message, SearchQuery
+
+                    backup_data = {}
+                    models_to_backup = [
+                        ('articles', Article.objects.all()),
+                        ('categories', Category.objects.all()),
+                        ('comments', Comment.objects.filter(is_approved=True)),
+                        ('profiles', UserProfile.objects.all()),
+                        ('messages', Message.objects.all()),
+                        ('search_queries', SearchQuery.objects.all()),
+                    ]
+
+                    # Фильтруем по датам если нужно
+                    if start_date or end_date:
+                        filtered_models = []
+                        start_date_obj = datetime.strptime(start_date, '%Y-%m-%d').date() if start_date else None
+                        end_date_obj = datetime.strptime(end_date, '%Y-%m-%d').date() if end_date else None
+
+                        for model_name, queryset in models_to_backup:
+                            if model_name == 'articles':
+                                if start_date_obj:
+                                    queryset = queryset.filter(created_at__date__gte=start_date_obj)
+                                if end_date_obj:
+                                    queryset = queryset.filter(created_at__date__lte=end_date_obj)
+                            elif model_name in ['comments', 'messages']:
+                                if start_date_obj:
+                                    queryset = queryset.filter(created_at__date__gte=start_date_obj)
+                                if end_date_obj:
+                                    queryset = queryset.filter(created_at__date__lte=end_date_obj)
+
+                            backup_data[model_name] = json.loads(
+                                serializers.serialize('json', queryset)
+                            )
+                    else:
+                        for model_name, queryset in models_to_backup:
+                            backup_data[model_name] = json.loads(
+                                serializers.serialize('json', queryset)
+                            )
+
+                    # Добавляем данные в JSON
+                    backup_json = json.dumps(backup_data, ensure_ascii=False, indent=2)
+                    zipf.writestr('backup_data.json', backup_json)
+
+                    # Добавляем метаданные
+                    metadata = {
+                        'created_at': timezone.now().isoformat(),
+                        'backup_type': backup_type,
+                        'description': description_text,
+                        'total_articles': Article.objects.count(),
+                        'total_categories': Category.objects.count(),
+                        'total_users': UserProfile.objects.count(),
+                        'total_comments': Comment.objects.count(),
+                        'period_start': start_date,
+                        'period_end': end_date,
+                        'format_version': '1.0',
+                        'generated_by': request.user.username,
+                    }
+                    zipf.writestr('metadata.json', json.dumps(metadata, indent=2))
+
+                    # Экспорт SQL (опционально)
+                    try:
+                        with connection.cursor() as cursor:
+                            cursor.execute("SELECT name FROM sqlite_master WHERE type='table' ORDER BY name;")
+                            tables = cursor.fetchall()
+
+                        sql_dump = "-- SQL Dump - Форум Ведьмак\n"
+                        sql_dump += f"-- Создано: {timezone.now().strftime('%Y-%m-%d %H:%M:%S')}\n"
+                        sql_dump += f"-- Пользователь: {request.user.username}\n"
+                        sql_dump += "-- =========================================\n\n"
+
+                        for table_info in tables:
+                            table_name = table_info[0]
+                            sql_dump += f"\n-- Таблица: {table_name}\n"
+
+                            # Получаем структуру таблицы
+                            cursor.execute(f"PRAGMA table_info({table_name})")
+                            columns_info = cursor.fetchall()
+
+                            # Получаем данные
+                            cursor.execute(f"SELECT * FROM {table_name} LIMIT 1000")  # Ограничиваем для больших таблиц
+                            rows = cursor.fetchall()
+
+                            if rows:
+                                for row in rows:
+                                    values = []
+                                    for i, value in enumerate(row):
+                                        if value is None:
+                                            values.append('NULL')
+                                        elif isinstance(value, str):
+                                            # Экранируем кавычки
+                                            values.append(f"'{value.replace(\"'\", \"''\")}'")
+                                            elif isinstance(value, (int, float)):
+                                            values.append(str(value))
+                                            elif isinstance(value, bytes):
+                                            # Для BLOB полей
+                                            values.append(f"X'{value.hex()}'")
+                                            else:
+                                            values.append(f"'{str(value)}'")
+
+                                            column_names = [col[1] for col in columns_info]
+                                            sql_dump += f"INSERT INTO {table_name} ({', '.join(column_names)}) VALUES ({', '.join(values)});\n"
+                                            else:
+                                            sql_dump += f"-- Таблица {table_name} пуста\n"
+
+                                            zipf.writestr('database_dump.sql', sql_dump)
+                    except Exception as sql_error:
+                        print(f"Ошибка экспорта SQL: {sql_error}")
+                        zipf.writestr('database_dump.sql', f'-- Ошибка экспорта SQL: {sql_error}')
+
+                memory_file.seek(0)
+
+                # Возвращаем файл для скачивания
+                response = HttpResponse(memory_file, content_type='application/zip')
+                response['Content-Disposition'] = f'attachment; filename="{filename}"'
+                response['Content-Length'] = len(memory_file.getvalue())
+
+                # Создаем запись в логах
+                from .models import ActionLog
+                ActionLog.objects.create(
+                    user=request.user,
+                    action_type='backup_download',
+                    description=f'Скачан бэкап: {filename}',
+                    ip_address=request.META.get('REMOTE_ADDR'),
+                    browser=request.META.get('HTTP_USER_AGENT', '')[:255],
+                    action_data=metadata
+                )
+
+                return response
 
             except Exception as e:
-                self.message_user(request, f'❌ Ошибка: {str(e)}', level='error')
+                self.message_user(request, f'❌ Ошибка создания бэкапа: {str(e)}', level='error')
+                import traceback
+                traceback.print_exc()
+                return redirect('admin:wiki_backup_changelist')
 
         # GET запрос - показываем форму
         from django.shortcuts import render
         from datetime import date, timedelta
 
-        # Генерируем даты за последние 30 дней
         today = date.today()
         dates_list = []
         for i in range(30):
@@ -600,23 +735,141 @@ class BackupAdmin(admin.ModelAdmin):
             'title': 'Создание резервной копии',
             'dates_list': dates_list,
             'today': today,
+            'week_ago': today - timedelta(days=7),
         }
         return render(request, 'admin/wiki/backup/create_backup.html', context)
 
     def download_backup_view(self, request, backup_id):
-        """Скачивание бэкапа"""
+        """Скачивание существующего бэкапа - ИЗМЕНЕНО ДЛЯ СКАЧИВАНИЯ"""
         from django.shortcuts import get_object_or_404
+        from django.http import HttpResponse
 
         backup = get_object_or_404(Backup, id=backup_id)
 
-        if not os.path.exists(backup.file_path):
-            self.message_user(request, '❌ Файл бэкапа не найден', level='error')
-            return redirect('admin:wiki_backup_changelist')
+        if backup.file_path and os.path.exists(backup.file_path):
+            with open(backup.file_path, 'rb') as f:
+                file_data = f.read()
 
-        with open(backup.file_path, 'rb') as f:
-            response = HttpResponse(f.read(), content_type='application/zip')
+            response = HttpResponse(file_data, content_type='application/zip')
             response['Content-Disposition'] = f'attachment; filename="{backup.name}.zip"'
+            response['Content-Length'] = len(file_data)
+
+            # Логируем скачивание
+            from .models import ActionLog
+            ActionLog.objects.create(
+                user=request.user,
+                action_type='backup_download_existing',
+                description=f'Скачан существующий бэкап: {backup.name}',
+                ip_address=request.META.get('REMOTE_ADDR'),
+                browser=request.META.get('HTTP_USER_AGENT', '')[:255]
+            )
+
             return response
+        else:
+            # Если файла нет на сервере, создаем новый для скачивания
+            return self.download_immediate_backup(request)
+
+    def download_immediate_backup(self, request):
+        """Немедленное создание и скачивание бэкапа"""
+        from django.http import HttpResponse
+        from io import BytesIO
+        import zipfile
+        import json
+        from django.core import serializers
+        from django.utils import timezone
+
+        try:
+            # Создаем бэкап в памяти
+            memory_file = BytesIO()
+            timestamp = timezone.now().strftime('%Y%m%d_%H%M%S')
+            filename = f'witcher_forum_backup_immediate_{timestamp}.zip'
+
+            with zipfile.ZipFile(memory_file, 'w', zipfile.ZIP_DEFLATED) as zipf:
+                # Получаем данные
+                from .models import Article, Category, Comment, UserProfile, Message, SearchQuery
+
+                backup_data = {}
+                models_to_backup = [
+                    ('articles', Article.objects.all()),
+                    ('categories', Category.objects.all()),
+                    ('comments', Comment.objects.filter(is_approved=True)),
+                    ('profiles', UserProfile.objects.all()),
+                    ('messages', Message.objects.all()),
+                    ('search_queries', SearchQuery.objects.all()),
+                ]
+
+                for model_name, queryset in models_to_backup:
+                    backup_data[model_name] = json.loads(
+                        serializers.serialize('json', queryset)
+                    )
+
+                # Основной файл с данными
+                backup_json = json.dumps(backup_data, ensure_ascii=False, indent=2)
+                zipf.writestr('backup_data.json', backup_json)
+
+                # Метаданные
+                metadata = {
+                    'created_at': timezone.now().isoformat(),
+                    'backup_type': 'immediate',
+                    'description': 'Немедленный бэкап из админки',
+                    'total_articles': Article.objects.count(),
+                    'total_categories': Category.objects.count(),
+                    'total_users': UserProfile.objects.count(),
+                    'total_comments': Comment.objects.count(),
+                    'format_version': '1.0',
+                    'generated_by': request.user.username,
+                }
+                zipf.writestr('metadata.json', json.dumps(metadata, indent=2))
+
+                # Простой отчет в TXT
+                report = f"""ОТЧЕТ ПО БЭКАПУ
+    ========================
+    Форум: Вселенная Ведьмака
+    Дата создания: {timezone.now().strftime('%d.%m.%Y %H:%M:%S')}
+    Создал: {request.user.username}
+
+    СТАТИСТИКА:
+    • Статей: {Article.objects.count()}
+    • Категорий: {Category.objects.count()}
+    • Пользователей: {UserProfile.objects.count()}
+    • Комментариев: {Comment.objects.count()}
+    • Сообщений: {Message.objects.count()}
+    • Поисковых запросов: {SearchQuery.objects.count()}
+
+    ФОРМАТ ДАННЫХ:
+    • Все данные в формате JSON
+    • Кодировка: UTF-8
+    • Версия формата: 1.0
+
+    ПРИМЕЧАНИЕ:
+    Это немедленный бэкап, созданный через админ-панель.
+    Для восстановления используйте импорт через админку.
+    """
+                zipf.writestr('readme.txt', report)
+
+            memory_file.seek(0)
+
+            # Возвращаем файл
+            response = HttpResponse(memory_file, content_type='application/zip')
+            response['Content-Disposition'] = f'attachment; filename="{filename}"'
+            response['Content-Length'] = len(memory_file.getvalue())
+
+            # Логируем
+            from .models import ActionLog
+            ActionLog.objects.create(
+                user=request.user,
+                action_type='backup_download_immediate',
+                description=f'Создан и скачан немедленный бэкап: {filename}',
+                ip_address=request.META.get('REMOTE_ADDR'),
+                browser=request.META.get('HTTP_USER_AGENT', '')[:255],
+                action_data=metadata
+            )
+
+            return response
+
+        except Exception as e:
+            self.message_user(request, f'❌ Ошибка создания бэкапа: {str(e)}', level='error')
+            return redirect('admin:wiki_backup_changelist')
 
 admin.site.unregister(Group)
 admin.site.register(Group, CustomGroupAdmin)

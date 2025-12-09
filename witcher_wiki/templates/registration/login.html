@@ -6,6 +6,18 @@
 {% block content %}
 <div class="auth-container">
     <div class="auth-form">
+                {% if request.session.registration_success %}
+        <div class="registration-success-message">
+            <div class="success-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <div class="success-content">
+                <h3>Регистрация успешно завершена!</h3>
+                <p>Добро пожаловать, <strong>{{ request.session.registered_username }}</strong>!</p>
+                <p>Теперь войдите в свой аккаунт, используя данные, которые вы указали при регистрации.</p>
+            </div>
+        </div>
+        {% endif %}
         <h2>Вход в систему</h2>
 
         {% if messages %}
@@ -199,6 +211,45 @@
 
     .auth-form h2 {
         font-size: 1.5em;
+    }
+}
+.registration-success-message {
+    background: linear-gradient(135deg, rgba(40, 167, 69, 0.1) 0%, rgba(25, 135, 84, 0.1) 100%);
+    border: 2px solid #28a745;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 25px;
+    display: flex;
+    gap: 15px;
+    animation: slideIn 0.5s ease-out;
+}
+
+.success-icon {
+    color: #28a745;
+    font-size: 2em;
+    flex-shrink: 0;
+}
+
+.success-content h3 {
+    color: #28a745;
+    margin: 0 0 10px 0;
+    font-family: 'Cinzel', serif;
+}
+
+.success-content p {
+    color: #e8e8e8;
+    margin: 5px 0;
+    line-height: 1.5;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 </style>
