@@ -26157,3 +26157,85 @@ INFO 2025-12-10 06:19:51,202 autoreload Watching for file changes with StatReloa
 INFO 2025-12-10 06:20:28,772 autoreload Watching for file changes with StatReloader
 INFO 2025-12-10 06:21:58,802 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\admin.py changed, reloading.
 INFO 2025-12-10 06:21:59,253 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 06:29:38,019 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\admin.py changed, reloading.
+INFO 2025-12-10 06:29:38,486 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 06:31:04,653 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\admin.py changed, reloading.
+INFO 2025-12-10 06:31:05,144 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 06:31:35,585 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\admin.py changed, reloading.
+INFO 2025-12-10 06:31:36,203 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 06:31:38,822 log "GET / HTTP/1.1" 200 37134
+INFO 2025-12-10 06:31:38,966 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 06:31:39,321 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 06:31:40,653 log "GET /admin/ HTTP/1.1" 200 17781
+INFO 2025-12-10 06:31:42,414 log "GET /admin/wiki/backup/ HTTP/1.1" 200 19876
+INFO 2025-12-10 06:31:44,206 log "GET /admin/wiki/backup/create-backup/ HTTP/1.1" 200 20828
+INFO 2025-12-10 06:31:54,655 log "POST /admin/wiki/backup/create-backup/ HTTP/1.1" 302 0
+INFO 2025-12-10 06:31:54,728 log "GET /admin/wiki/backup/ HTTP/1.1" 200 20057
+INFO 2025-12-10 06:31:59,520 log "GET /admin/wiki/backup/create-backup/ HTTP/1.1" 200 20828
+INFO 2025-12-10 06:32:05,757 log "POST /admin/wiki/backup/create-backup/ HTTP/1.1" 302 0
+INFO 2025-12-10 06:32:05,816 log "GET /admin/wiki/backup/ HTTP/1.1" 200 20057
+INFO 2025-12-10 06:32:39,359 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 06:33:20,793 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\admin.py changed, reloading.
+INFO 2025-12-10 06:33:21,450 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 06:33:39,333 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 06:34:39,330 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 06:35:39,316 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 06:36:39,312 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 06:37:39,322 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 06:38:39,324 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 06:39:39,428 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 06:40:39,312 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 06:41:39,311 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 06:42:39,313 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 06:43:39,321 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 06:44:39,428 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 06:45:39,327 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 06:46:13,975 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 06:46:23,388 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 06:46:53,318 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 06:46:53,592 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\admin.py changed, reloading.
+INFO 2025-12-10 06:46:54,803 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 06:46:56,912 log "GET / HTTP/1.1" 200 37134
+INFO 2025-12-10 06:46:57,026 log "GET /static/css/style.css HTTP/1.1" 304 0
+INFO 2025-12-10 06:46:57,027 log "GET /static/css/tutorials.css HTTP/1.1" 304 0
+INFO 2025-12-10 06:46:57,028 log "GET /static/js/tutorials.js HTTP/1.1" 304 0
+INFO 2025-12-10 06:46:57,099 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 06:47:00,077 log "GET /admin/ HTTP/1.1" 200 17781
+INFO 2025-12-10 06:47:02,008 log "GET /admin/wiki/backup/ HTTP/1.1" 200 19876
+INFO 2025-12-10 06:47:03,216 log "GET /admin/wiki/backup/create-backup/ HTTP/1.1" 200 20828
+INFO 2025-12-10 06:47:10,865 log "POST /admin/wiki/backup/create-backup/ HTTP/1.1" 302 0
+INFO 2025-12-10 06:47:10,923 log "GET /admin/wiki/backup/ HTTP/1.1" 200 20057
+INFO 2025-12-10 06:49:07,746 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\admin.py changed, reloading.
+INFO 2025-12-10 06:49:08,410 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 06:49:10,296 log "GET / HTTP/1.1" 200 37134
+INFO 2025-12-10 06:49:10,459 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 06:49:12,297 log "GET /admin/ HTTP/1.1" 200 17781
+INFO 2025-12-10 06:49:14,029 log "GET /admin/wiki/backup/ HTTP/1.1" 200 19876
+INFO 2025-12-10 06:49:19,471 log "GET /admin/wiki/backup/create-backup/ HTTP/1.1" 200 20828
+INFO 2025-12-10 06:49:28,375 log "POST /admin/wiki/backup/create-backup/ HTTP/1.1" 302 0
+INFO 2025-12-10 06:49:28,439 log "GET /admin/wiki/backup/ HTTP/1.1" 200 20117
+INFO 2025-12-10 06:50:06,880 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\admin.py changed, reloading.
+INFO 2025-12-10 06:50:07,612 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 06:51:13,933 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\admin.py changed, reloading.
+INFO 2025-12-10 06:51:14,698 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 06:51:22,722 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 06:51:24,474 log "GET / HTTP/1.1" 200 37134
+INFO 2025-12-10 06:51:24,632 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 06:51:28,188 log "GET /admin/ HTTP/1.1" 200 17781
+INFO 2025-12-10 06:51:30,625 log "GET /admin/wiki/backup/ HTTP/1.1" 200 19876
+INFO 2025-12-10 06:51:32,028 log "GET /admin/wiki/backup/create-backup/ HTTP/1.1" 200 20828
+INFO 2025-12-10 06:51:37,719 log "POST /admin/wiki/backup/create-backup/ HTTP/1.1" 302 0
+INFO 2025-12-10 06:51:37,781 log "GET /admin/wiki/backup/ HTTP/1.1" 200 20117
+INFO 2025-12-10 06:52:31,178 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\admin.py changed, reloading.
+INFO 2025-12-10 06:52:31,674 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 06:52:37,805 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\admin.py changed, reloading.
+INFO 2025-12-10 06:52:38,440 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 06:52:43,012 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 06:52:44,686 log "GET / HTTP/1.1" 200 37134
+INFO 2025-12-10 06:52:44,947 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 06:52:46,857 log "GET /admin/ HTTP/1.1" 200 17781
+INFO 2025-12-10 06:52:49,384 log "GET /admin/wiki/backup/ HTTP/1.1" 200 19876
+INFO 2025-12-10 06:52:50,788 log "GET /admin/wiki/backup/create-backup/ HTTP/1.1" 200 20828
+INFO 2025-12-10 06:52:54,120 log "POST /admin/wiki/backup/create-backup/ HTTP/1.1" 302 0
+INFO 2025-12-10 06:52:54,179 log "GET /admin/wiki/backup/ HTTP/1.1" 200 20954
+INFO 2025-12-10 06:52:54,237 log "GET /static/admin/img/icon-info-dark.svg HTTP/1.1" 200 630
