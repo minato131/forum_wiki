@@ -127,11 +127,11 @@
     <div class="stats-grid">
         <div class="stat-card">
             <div class="stat-number">{{ waiting_count }}</div>
-            <div class="stat-label">⏳ Ожидают правки</div>
+            <div class="stat-label">Ожидают правки</div>
         </div>
         <div class="stat-card">
             <div class="stat-number">{{ edited_count }}</div>
-            <div class="stat-label">✅ Отредактировано</div>
+            <div class="stat-label">Отредактировано</div>
         </div>
     </div>
 
@@ -162,10 +162,10 @@
 
             <div class="action-buttons">
                 <a href="{% url 'wiki:editor_review' article.slug %}" class="btn btn-edit">
-                    ✏️ Редактировать
+                    Редактировать
                 </a>
                 <a href="{% url 'wiki:article_detail' article.slug %}" class="btn btn-view">
-                    👁️ Просмотреть
+                    Просмотреть
                 </a>
             </div>
         </div>
