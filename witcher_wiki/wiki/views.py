@@ -440,6 +440,10 @@ def article_create(request):
                     slug = f"{original_slug}-{counter}"
                     counter += 1
 
+            tags_list = []
+            if tags_input:
+                tags_list = [tag.strip().lower() for tag in tags_input.split(',') if tag.strip()]
+
             # Создаем статью
             article = Article(
                 title=title,
@@ -468,11 +472,9 @@ def article_create(request):
             categories = Category.objects.filter(id__in=category_ids)
             article.categories.set(categories)
 
-            # Добавляем хештеги
-            if tags_input:
-                tags_list = [tag.strip().lower() for tag in tags_input.split(',') if tag.strip()]
-                for tag_name in tags_list:
-                    article.tags.add(tag_name)
+            # Добавляем хештеги (tags_list уже определен)
+            for tag_name in tags_list:
+                article.tags.add(tag_name)
 
             # Обрабатываем загруженные медиафайлы
             media_files = request.FILES.getlist('media_files')
