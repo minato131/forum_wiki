@@ -24018,3 +24018,438 @@ INFO 2025-12-10 01:17:00,114 log "GET /article/create/ HTTP/1.1" 200 61380
 INFO 2025-12-10 01:17:00,187 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
 INFO 2025-12-10 01:17:04,346 log "GET /statistics/ HTTP/1.1" 200 42708
 INFO 2025-12-10 01:17:04,432 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 01:26:44,023 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 01:26:45,088 log "GET /statistics/ HTTP/1.1" 200 42708
+INFO 2025-12-10 01:26:45,192 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 01:27:15,317 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 01:27:38,984 log "GET /category/characters/ HTTP/1.1" 200 33925
+INFO 2025-12-10 01:27:39,057 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 01:27:45,270 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 01:27:45,843 log "GET / HTTP/1.1" 200 36715
+INFO 2025-12-10 01:27:46,015 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 01:27:46,710 log "GET /article/create/ HTTP/1.1" 200 61380
+INFO 2025-12-10 01:27:46,784 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 01:27:57,168 log "POST /article/create/ HTTP/1.1" 302 0
+INFO 2025-12-10 01:27:57,259 log "GET /article/yvvyvyyv/ HTTP/1.1" 200 62171
+INFO 2025-12-10 01:27:57,338 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 01:28:01,803 log "POST /article/yvvyvyyv/like/ HTTP/1.1" 200 94
+INFO 2025-12-10 01:28:05,403 log "GET /statistics/ HTTP/1.1" 200 45730
+INFO 2025-12-10 01:28:05,570 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+ERROR 2025-12-10 01:28:08,012 log Internal Server Error: /articles/
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py", line 3678, in article_list
+    return render(request, 'wiki/article_list.html', context)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: wiki/article_list.html
+ERROR 2025-12-10 01:28:08,016 log "GET /articles/?category=events HTTP/1.1" 500 95407
+INFO 2025-12-10 01:28:36,327 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 01:29:06,318 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 01:29:36,321 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 01:30:06,413 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 01:30:36,323 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 01:31:06,324 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 01:31:36,324 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 01:32:37,320 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 01:33:06,329 log "POST /api/update_stats/ HTTP/1.1" 200 195
+INFO 2025-12-10 01:33:38,320 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 01:34:39,311 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 01:35:39,432 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 01:36:39,430 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 01:37:20,388 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 01:37:22,014 log "GET /search/ HTTP/1.1" 200 44959
+INFO 2025-12-10 01:37:22,106 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+ERROR 2025-12-10 01:37:24,184 log Internal Server Error: /search/
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\utils\stats_collector.py", line 180, in __call__
+    StatsCollector.log_search_query(query, user, request=request)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\utils\stats_collector.py", line 78, in log_search_query
+    search_query = SearchQuery.objects.create(
+        query=query,
+    ...<3 lines>...
+        user_agent=user_agent
+    )
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 667, in create
+    obj = self.model(**kwargs)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\base.py", line 590, in __init__
+    raise TypeError(
+    ...<2 lines>...
+    )
+TypeError: SearchQuery() got unexpected keyword arguments: 'user', 'results_count', 'ip_address', 'user_agent'
+ERROR 2025-12-10 01:37:24,187 log "GET /search/?q=%D1%84%D1%84%D1%84&category= HTTP/1.1" 500 94492
+INFO 2025-12-10 01:37:52,329 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 01:38:22,316 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 01:38:52,317 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 01:39:20,984 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\models.py changed, reloading.
+INFO 2025-12-10 01:39:22,341 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 01:39:23,884 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 01:39:32,182 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 01:39:33,831 log "GET / HTTP/1.1" 200 36914
+INFO 2025-12-10 01:39:33,977 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 01:39:35,285 log "GET /search/ HTTP/1.1" 200 44959
+INFO 2025-12-10 01:39:35,408 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+ERROR 2025-12-10 01:39:37,117 log Internal Server Error: /search/
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+psycopg2.errors.UndefinedColumn: ОШИБКА:  столбец wiki_searchquery.user_id не существует
+LINE 1: ...ki_searchquery"."id", "wiki_searchquery"."query", "wiki_sear...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py", line 162, in search
+    search_query_obj, created = SearchQuery.objects.get_or_create(query=query)
+                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 987, in get_or_create
+    return self.get(**kwargs), False
+           ~~~~~~~~^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 635, in get
+    num = len(clone)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 372, in __len__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 2000, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 95, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\compiler.py", line 1624, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\utils.py", line 94, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+django.db.utils.ProgrammingError: ОШИБКА:  столбец wiki_searchquery.user_id не существует
+LINE 1: ...ki_searchquery"."id", "wiki_searchquery"."query", "wiki_sear...
+                                                             ^
+
+ERROR 2025-12-10 01:39:37,151 log Internal Server Error: /search/
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+psycopg2.errors.UndefinedColumn: ОШИБКА:  столбец "user_id" в таблице "wiki_searchquery" не существует
+LINE 1: INSERT INTO "wiki_searchquery" ("query", "user_id", "results...
+                                                 ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\utils\stats_collector.py", line 180, in __call__
+    StatsCollector.log_search_query(query, user, request=request)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\utils\stats_collector.py", line 78, in log_search_query
+    search_query = SearchQuery.objects.create(
+        query=query,
+    ...<3 lines>...
+        user_agent=user_agent
+    )
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 669, in create
+    obj.save(force_insert=True, using=self.db)
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\base.py", line 874, in save
+    self.save_base(
+    ~~~~~~~~~~~~~~^
+        using=using,
+        ^^^^^^^^^^^^
+    ...<2 lines>...
+        update_fields=update_fields,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\base.py", line 966, in save_base
+    updated = self._save_table(
+        raw,
+    ...<4 lines>...
+        update_fields,
+    )
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\base.py", line 1167, in _save_table
+    results = self._do_insert(
+        cls._base_manager, using, insert_fields, returning_fields, raw
+    )
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\base.py", line 1218, in _do_insert
+    return manager._insert(
+           ~~~~~~~~~~~~~~~^
+        [self],
+        ^^^^^^^
+    ...<3 lines>...
+        raw=raw,
+        ^^^^^^^^
+    )
+    ^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 1918, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\compiler.py", line 1925, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\utils.py", line 94, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+django.db.utils.ProgrammingError: ОШИБКА:  столбец "user_id" в таблице "wiki_searchquery" не существует
+LINE 1: INSERT INTO "wiki_searchquery" ("query", "user_id", "results...
+                                                 ^
+
+ERROR 2025-12-10 01:39:37,154 log "GET /search/?q=aaaa&category= HTTP/1.1" 500 165300
+INFO 2025-12-10 01:39:59,336 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 01:40:01,365 log "GET / HTTP/1.1" 200 36914
+INFO 2025-12-10 01:40:01,526 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 01:40:03,171 log "GET /search/ HTTP/1.1" 200 45432
+INFO 2025-12-10 01:40:03,269 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 01:40:05,185 log "GET /search/?q=aaaa&category= HTTP/1.1" 200 46122
+INFO 2025-12-10 01:40:05,360 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 01:40:10,245 log "GET /search/?q=%D1%8B&category= HTTP/1.1" 200 48289
+INFO 2025-12-10 01:40:10,413 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 01:40:22,312 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 01:40:33,479 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-10 01:40:34,116 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 01:40:35,279 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 01:40:35,838 log "GET / HTTP/1.1" 200 36914
+INFO 2025-12-10 01:40:35,988 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 01:40:37,429 log "GET /category/characters/ HTTP/1.1" 200 33925
+INFO 2025-12-10 01:40:37,557 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 01:40:37,809 log "GET /search/ HTTP/1.1" 200 44959
+INFO 2025-12-10 01:40:37,884 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+ERROR 2025-12-10 01:40:39,994 log Internal Server Error: /search/
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+psycopg2.errors.UndefinedTable: ОШИБКА:  отношение "wiki_searchqueries" не существует
+LINE 1: ...er_agent", "wiki_searchqueries"."created_at" FROM "wiki_sear...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py", line 162, in search
+    search_query_obj, created = SearchQueries.objects.get_or_create(query=query)
+                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 987, in get_or_create
+    return self.get(**kwargs), False
+           ~~~~~~~~^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 635, in get
+    num = len(clone)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 372, in __len__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 2000, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 95, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\compiler.py", line 1624, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\utils.py", line 94, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+django.db.utils.ProgrammingError: ОШИБКА:  отношение "wiki_searchqueries" не существует
+LINE 1: ...er_agent", "wiki_searchqueries"."created_at" FROM "wiki_sear...
+                                                             ^
+
+ERROR 2025-12-10 01:40:40,041 log Internal Server Error: /search/
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+psycopg2.errors.UndefinedTable: ОШИБКА:  отношение "wiki_searchqueries" не существует
+LINE 1: INSERT INTO "wiki_searchqueries" ("query", "user_id", "resul...
+                    ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\utils\stats_collector.py", line 180, in __call__
+    StatsCollector.log_search_query(query, user, request=request)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\utils\stats_collector.py", line 78, in log_search_query
+    search_query = SearchQueries.objects.create(
+        query=query,
+    ...<3 lines>...
+        user_agent=user_agent
+    )
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 669, in create
+    obj.save(force_insert=True, using=self.db)
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\base.py", line 874, in save
+    self.save_base(
+    ~~~~~~~~~~~~~~^
+        using=using,
+        ^^^^^^^^^^^^
+    ...<2 lines>...
+        update_fields=update_fields,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\base.py", line 966, in save_base
+    updated = self._save_table(
+        raw,
+    ...<4 lines>...
+        update_fields,
+    )
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\base.py", line 1167, in _save_table
+    results = self._do_insert(
+        cls._base_manager, using, insert_fields, returning_fields, raw
+    )
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\base.py", line 1218, in _do_insert
+    return manager._insert(
+           ~~~~~~~~~~~~~~~^
+        [self],
+        ^^^^^^^
+    ...<3 lines>...
+        raw=raw,
+        ^^^^^^^^
+    )
+    ^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 1918, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\compiler.py", line 1925, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\utils.py", line 94, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+django.db.utils.ProgrammingError: ОШИБКА:  отношение "wiki_searchqueries" не существует
+LINE 1: INSERT INTO "wiki_searchqueries" ("query", "user_id", "resul...
+                    ^
+
+ERROR 2025-12-10 01:40:40,047 log "GET /search/?q=s&category= HTTP/1.1" 500 164799
+INFO 2025-12-10 01:40:43,464 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-10 01:40:44,677 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 01:41:34,732 log "GET / HTTP/1.1" 200 36914
+INFO 2025-12-10 01:41:34,869 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 01:41:36,842 log "GET /user-management/ HTTP/1.1" 200 72820
+INFO 2025-12-10 01:41:36,911 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 01:41:39,101 log "GET /statistics/ HTTP/1.1" 200 46980
+INFO 2025-12-10 01:41:39,175 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 01:41:40,268 log "GET /editor/dashboard/ HTTP/1.1" 200 34726
+INFO 2025-12-10 01:41:40,339 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 01:41:41,276 log "GET /moderation/ HTTP/1.1" 200 36221
+INFO 2025-12-10 01:41:41,447 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 01:41:45,918 log "GET /article/1/moderate/enhanced/ HTTP/1.1" 200 45647
+INFO 2025-12-10 01:41:45,988 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
