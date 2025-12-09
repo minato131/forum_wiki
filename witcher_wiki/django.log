@@ -25064,3 +25064,185 @@ INFO 2025-12-10 02:52:00,181 log "GET /messages/unread-count/ HTTP/1.1" 200 4041
 INFO 2025-12-10 02:52:05,509 log "GET / HTTP/1.1" 200 36914
 INFO 2025-12-10 02:52:05,582 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
 INFO 2025-12-10 02:52:36,310 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 02:53:06,420 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 02:53:36,317 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 02:54:06,317 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 02:54:36,319 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 02:55:06,313 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 02:55:36,313 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 02:56:38,328 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 02:56:48,143 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-10 02:56:49,896 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 02:57:29,219 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 02:57:32,626 log "GET / HTTP/1.1" 200 36914
+INFO 2025-12-10 02:57:32,840 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+ERROR 2025-12-10 02:57:34,621 log Internal Server Error: /search/
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py", line 245, in search
+    popular_queries = SearchQuery.objects.all().order_by('-count')[:10]  # Изменено на -count
+                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 1772, in order_by
+    obj.query.add_ordering(*field_names)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 2333, in add_ordering
+    self.names_to_path(item.split(LOOKUP_SEP), self.model._meta)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1832, in names_to_path
+    raise FieldError(
+    ...<2 lines>...
+    )
+django.core.exceptions.FieldError: Cannot resolve keyword 'count' into field. Choices are: created_at, id, ip_address, query, results_count, user, user_agent, user_id
+ERROR 2025-12-10 02:57:34,625 log "GET /search/ HTTP/1.1" 500 96420
+INFO 2025-12-10 02:58:49,737 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\models.py changed, reloading.
+INFO 2025-12-10 02:58:50,484 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 02:58:55,080 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\models.py changed, reloading.
+INFO 2025-12-10 02:58:55,752 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 02:59:12,523 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 02:59:14,654 log "GET / HTTP/1.1" 200 36914
+INFO 2025-12-10 02:59:14,804 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 02:59:16,039 log "GET /search/ HTTP/1.1" 200 47080
+INFO 2025-12-10 02:59:16,169 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 02:59:18,672 log "GET /search/?q=s&category= HTTP/1.1" 200 46113
+INFO 2025-12-10 02:59:18,766 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 02:59:20,825 log "GET /search/?q=%D1%8B&category= HTTP/1.1" 200 48289
+INFO 2025-12-10 02:59:20,993 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 02:59:24,347 log "GET /search/ HTTP/1.1" 200 47156
+INFO 2025-12-10 02:59:24,534 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 02:59:29,257 log "GET /search/?q=sssss&category= HTTP/1.1" 200 46125
+INFO 2025-12-10 02:59:29,334 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 02:59:30,743 log "GET / HTTP/1.1" 200 36914
+INFO 2025-12-10 02:59:30,843 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 02:59:32,362 log "GET /search/ HTTP/1.1" 200 47156
+INFO 2025-12-10 02:59:32,437 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 02:59:39,097 log "GET /search/?q=sdasdasdasdasdadsadsadsadasda&category= HTTP/1.1" 200 46197
+INFO 2025-12-10 02:59:39,271 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 02:59:44,379 log "GET /search/ HTTP/1.1" 200 47156
+INFO 2025-12-10 02:59:44,460 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 02:59:51,650 log "GET /search/?q=yhyhyhyhyhyhyhy&category= HTTP/1.1" 200 46155
+INFO 2025-12-10 02:59:51,725 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 02:59:52,695 log "GET /search/ HTTP/1.1" 200 47156
+INFO 2025-12-10 02:59:52,769 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 03:00:16,557 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\models.py changed, reloading.
+INFO 2025-12-10 03:00:17,196 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 03:00:23,338 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 03:00:47,325 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\models.py changed, reloading.
+INFO 2025-12-10 03:00:47,946 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 03:00:52,787 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 03:00:54,239 log "GET /search/?q=%D0%B3%D0%B5%D1%80%D0%B0%D0%BB%D1%8C%D1%82&category= HTTP/1.1" 200 46152
+INFO 2025-12-10 03:00:54,420 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 03:00:55,410 log "GET /search/ HTTP/1.1" 200 47156
+INFO 2025-12-10 03:00:55,482 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 03:00:58,180 log "GET /search/?q=%D1%8B%D1%8B%D1%8B%D1%8B HTTP/1.1" 200 46134
+INFO 2025-12-10 03:00:58,254 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 03:00:59,562 log "GET /search/?q=%D1%8B%D1%8B%D1%8B%D1%8B HTTP/1.1" 200 46134
+INFO 2025-12-10 03:00:59,740 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 03:01:03,512 log "GET /search/?q=%D1%8B HTTP/1.1" 200 48289
+INFO 2025-12-10 03:01:03,585 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 03:01:26,308 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 03:01:56,317 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 03:02:14,120 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\models.py changed, reloading.
+INFO 2025-12-10 03:02:14,903 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 03:02:26,334 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 03:02:56,327 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 03:03:26,312 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 03:03:56,319 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 03:04:26,323 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 03:05:03,273 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\models.py changed, reloading.
+INFO 2025-12-10 03:05:03,940 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 03:05:22,941 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-10 03:05:24,701 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 03:05:27,338 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 03:05:47,005 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 03:05:49,527 log "GET / HTTP/1.1" 200 36914
+INFO 2025-12-10 03:05:49,676 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+ERROR 2025-12-10 03:05:52,200 log Internal Server Error: /search/
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py", line 269, in search
+    recent_user_searches = SearchHistory.objects.filter(
+                           ^^^^^^^^^^^^^
+NameError: name 'SearchHistory' is not defined
+ERROR 2025-12-10 03:05:52,224 log "GET /search/ HTTP/1.1" 500 78999
+INFO 2025-12-10 03:07:40,682 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-10 03:07:41,303 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 03:07:43,133 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 03:07:44,878 log "GET / HTTP/1.1" 200 36914
+INFO 2025-12-10 03:07:45,022 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 03:07:47,340 log "GET /search/ HTTP/1.1" 200 47620
+INFO 2025-12-10 03:07:47,457 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+ERROR 2025-12-10 03:07:55,486 log Internal Server Error: /search/
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\utils\stats_collector.py", line 180, in __call__
+    StatsCollector.log_search_query(query, user, request=request)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\utils\stats_collector.py", line 78, in log_search_query
+    search_query = SearchQuery.objects.create(
+        query=query,
+    ...<3 lines>...
+        user_agent=user_agent
+    )
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 667, in create
+    obj = self.model(**kwargs)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\base.py", line 590, in __init__
+    raise TypeError(
+    ...<2 lines>...
+    )
+TypeError: SearchQuery() got unexpected keyword arguments: 'user', 'results_count', 'ip_address', 'user_agent'
+ERROR 2025-12-10 03:07:55,488 log "GET /search/?q=sdasdsdasdasdasdsdsdsdsdwqwqe1223123123123&category= HTTP/1.1" 500 95609
+INFO 2025-12-10 03:09:25,705 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\utils\stats_collector.py changed, reloading.
+INFO 2025-12-10 03:09:26,340 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 03:09:36,728 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 03:09:38,424 log "GET / HTTP/1.1" 200 36914
+INFO 2025-12-10 03:09:38,564 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 03:09:41,076 log "GET /search/ HTTP/1.1" 200 47620
+INFO 2025-12-10 03:09:41,148 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 03:09:45,684 log "GET /search/?q=uyutyutyutyut76765756756&category= HTTP/1.1" 200 46182
+INFO 2025-12-10 03:09:45,758 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 03:09:51,183 log "GET /search/ HTTP/1.1" 200 47638
+INFO 2025-12-10 03:09:51,256 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 03:09:57,392 log "GET /search/?q=&category=locations HTTP/1.1" 200 47646
+INFO 2025-12-10 03:09:57,466 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 03:09:59,563 log "GET /search/?q=&category= HTTP/1.1" 200 47638
+INFO 2025-12-10 03:09:59,734 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 03:10:01,747 log "GET /search/?q=&category=events HTTP/1.1" 200 47646
+INFO 2025-12-10 03:10:01,914 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 03:10:08,336 log "GET /search/ HTTP/1.1" 200 47638
+INFO 2025-12-10 03:10:08,414 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 03:10:08,953 log "GET / HTTP/1.1" 200 36914
+INFO 2025-12-10 03:10:09,129 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 03:10:10,555 log "GET /article/yvvyvyyv/ HTTP/1.1" 200 63694
+INFO 2025-12-10 03:10:10,631 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 03:10:17,659 log "GET /search/ HTTP/1.1" 200 47638
+INFO 2025-12-10 03:10:17,836 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 03:10:18,021 log "GET /category/characters/ HTTP/1.1" 200 33925
+INFO 2025-12-10 03:10:18,092 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 03:10:18,593 log "GET /category/monsters/ HTTP/1.1" 200 33864
+INFO 2025-12-10 03:10:18,665 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 03:10:19,123 log "GET /category/locations/ HTTP/1.1" 200 33876
+INFO 2025-12-10 03:10:19,194 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 03:10:19,557 log "GET /my-articles/ HTTP/1.1" 200 44968
+INFO 2025-12-10 03:10:19,632 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 03:10:20,434 log "GET / HTTP/1.1" 200 36914
+INFO 2025-12-10 03:10:20,603 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 03:10:22,107 log "GET /search/ HTTP/1.1" 200 47638
+INFO 2025-12-10 03:10:22,183 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 03:10:24,004 log "GET /search/?q=&category=events HTTP/1.1" 200 47646
+INFO 2025-12-10 03:10:24,076 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 03:10:30,909 log "GET /search/?q=&category=magic HTTP/1.1" 200 47646
+INFO 2025-12-10 03:10:30,980 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 03:10:31,913 log "GET / HTTP/1.1" 200 36914
+INFO 2025-12-10 03:10:31,985 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 03:11:02,319 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 03:11:32,311 log "GET /messages/unread-count/ HTTP/1.1" 200 40415

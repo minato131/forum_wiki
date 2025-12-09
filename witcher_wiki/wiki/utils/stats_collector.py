@@ -2,7 +2,7 @@
 from django.utils import timezone
 from django.db.models import Count, Sum, Avg, Q
 from django.contrib.auth import get_user_model
-from ..models import Article, Category, Comment, ArticleStat, CategoryStat, SearchQuery, SiteStat
+from ..models import Article, Category, Comment, ArticleStat, CategoryStat, SearchQuery, SiteStat, SearchHistory
 
 User = get_user_model()
 
@@ -66,24 +66,33 @@ class StatsCollector:
             return None
 
     @staticmethod
-    def log_search_query(query, user=None, results_count=0, request=None):
-        """Логирование поискового запроса"""
-        ip_address = None
-        user_agent = None
+    def log_search_query(query, user=None, ip_address=None, user_agent=None, request=None):
+        """Логирует поисковый запрос"""
+        try:
+            # Если передан request, извлекаем данные из него
+            if request:
+                ip_address = ip_address or request.META.get('REMOTE_ADDR')
+                user_agent = user_agent or request.META.get('HTTP_USER_AGENT', '')
+                user = user or (request.user if request.user.is_authenticated else None)
 
-        if request:
-            ip_address = request.META.get('REMOTE_ADDR')
-            user_agent = request.META.get('HTTP_USER_AGENT', '')[:500]
+            # Сохраняем в SearchQuery (для статистики популярности)
+            search_query, created = SearchQuery.objects.get_or_create(query=query)
+            if not created:
+                search_query.count += 1
+                search_query.save()
 
-        search_query = SearchQuery.objects.create(
-            query=query,
-            user=user,
-            results_count=results_count,
-            ip_address=ip_address,
-            user_agent=user_agent
-        )
+            # Сохраняем в SearchHistory (для детальной истории)
+            if user or ip_address:  # Сохраняем только если есть пользователь или IP
+                SearchHistory.objects.create(
+                    query=query,
+                    user=user,
+                    results_count=0,  # Можно обновить позже
+                    ip_address=ip_address,
+                    user_agent=user_agent or ''
+                )
 
-        return search_query
+        except Exception as e:
+            print(f"Ошибка при логировании поискового запроса: {e}")
 
     @staticmethod
     def update_daily_stats():

@@ -13,7 +13,7 @@ import json
 from django.utils import timezone
 from django.contrib.auth.models import User, Group
 from django.contrib.auth.decorators import user_passes_test
-from .models import Article, Category, Comment, ArticleMedia, UserProfile, ArticleLike, ModerationComment, SearchQuery, \
+from .models import Article, Category, Comment,SearchHistory, ArticleMedia, UserProfile, ArticleLike, ModerationComment, SearchQuery, \
     Message, EmailVerification
 from .forms import ArticleForm, CommentForm, SearchForm, CategoryForm, ProfileUpdateForm, MessageForm, QuickMessageForm, \
     CustomUserCreationForm, CodeVerificationForm, PasswordResetRequestForm, EmailVerificationForm, PasswordResetForm, \
@@ -156,23 +156,40 @@ def search(request):
     results = []
     total_count = 0
 
-    if query or tag_filter or category_filter:  # ДОБАВЛЕНО category_filter
-        # Сохраняем поисковый запрос
+    if query or tag_filter or category_filter:
+        # Сохраняем поисковый запрос в SearchQuery (популярность)
         if query:
-            search_query_obj, created = SearchQuery.objects.get_or_create(query=query)
-            if not created:
-                search_query_obj.increment()
-            ActionLogger.log_action(
-                request=request,
-                action_type='search',
-                description=f'Пользователь {request.user.username} выполнил поиск: "{query}"',
-                extra_data={
-                    'query': query,
-                    'category_filter': category_filter,
-                    'tag_filter': tag_filter,
-                    'results_count': total_count,
-                }
+            try:
+                # Используем get_or_create с обработкой дубликатов
+                try:
+                    search_query_obj = SearchQuery.objects.get(query=query)
+                    created = False
+                except SearchQuery.DoesNotExist:
+                    search_query_obj = SearchQuery.objects.create(query=query)
+                    created = True
+                except SearchQuery.MultipleObjectsReturned:
+                    # Если есть дубликаты, берем первый и удаляем остальные
+                    duplicates = SearchQuery.objects.filter(query=query)
+                    search_query_obj = duplicates.first()
+                    duplicates.exclude(id=search_query_obj.id).delete()
+                    created = False
+
+                if not created:
+                    search_query_obj.count += 1
+                    search_query_obj.save()
+            except Exception as e:
+                print(f"Ошибка при сохранении поискового запроса: {e}")
+
+        # Сохраняем историю поиска в SearchHistory
+        if query:
+            SearchHistory.objects.create(
+                query=query,
+                user=request.user if request.user.is_authenticated else None,
+                results_count=total_count,
+                ip_address=request.META.get('REMOTE_ADDR'),
+                user_agent=request.META.get('HTTP_USER_AGENT', '')
             )
+
         # Улучшенный поиск с приоритетом
         search_query = Q()
 
@@ -187,18 +204,28 @@ def search(request):
         if tag_filter:
             search_query = Q(tags__name__iexact=tag_filter)
 
-        # ИСПРАВЛЕНО: Базовая фильтрация по статусу
+        # Базовая фильтрация по статусу
         results = Article.objects.filter(status='published')
 
         # Применяем поисковый запрос если есть query или tag_filter
         if query or tag_filter:
             results = results.filter(search_query).distinct()
 
-        # ИСПРАВЛЕНО: Фильтр по категории
+        # Фильтр по категории
         if category_filter:
             results = results.filter(categories__slug=category_filter)
 
         total_count = results.count()
+
+        # Обновляем количество результатов в истории поиска
+        if query and request.user.is_authenticated:
+            last_search = SearchHistory.objects.filter(
+                query=query,
+                user=request.user
+            ).order_by('-created_at').first()
+            if last_search:
+                last_search.results_count = total_count
+                last_search.save()
 
         # УЛУЧШЕННАЯ СОРТИРОВКА ПО ПРИОРИТЕТУ
         if query and not tag_filter:
@@ -234,7 +261,14 @@ def search(request):
         results = paginator.get_page(page_number)
 
     # Получаем популярные запросы (топ-10)
-    popular_queries = SearchQuery.objects.all().order_by('-created_at')[:10]
+    popular_queries = SearchQuery.objects.all().order_by('-count')[:10]
+
+    # Получаем недавние запросы пользователя
+    recent_user_searches = []
+    if request.user.is_authenticated:
+        recent_user_searches = SearchHistory.objects.filter(
+            user=request.user
+        ).order_by('-created_at')[:10]
 
     # Получаем популярные хештеги
     from django.db.models import Count
@@ -251,6 +285,7 @@ def search(request):
         'total_count': total_count,
         'categories': categories,
         'popular_queries': popular_queries,
+        'recent_user_searches': recent_user_searches,
         'popular_tags': popular_tags,
     }
     return render(request, 'wiki/search.html', context)

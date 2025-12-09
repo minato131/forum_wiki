@@ -1105,7 +1105,7 @@ class ArticleStat(models.Model):
     def __str__(self):
         return f"Статистика: {self.article.title}"
 
-class SearchQuery(models.Model):
+class SearchHistory(models.Model):
     """История поисковых запросов"""
     query = models.CharField('Поисковый запрос', max_length=255)
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
