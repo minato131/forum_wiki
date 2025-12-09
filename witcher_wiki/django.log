@@ -25355,3 +25355,333 @@ INFO 2025-12-10 03:26:10,077 log "POST /login/ HTTP/1.1" 302 0
 INFO 2025-12-10 03:26:10,142 log "GET / HTTP/1.1" 200 37134
 INFO 2025-12-10 03:26:10,216 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
 INFO 2025-12-10 03:26:40,323 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 03:27:10,316 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 03:27:38,356 log "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-12-10 03:27:38,407 log "GET / HTTP/1.1" 200 34922
+INFO 2025-12-10 03:27:39,452 log "GET /register/ HTTP/1.1" 200 34413
+INFO 2025-12-10 03:28:25,305 log "POST /register/ HTTP/1.1" 200 34519
+INFO 2025-12-10 03:28:32,946 log "GET /register/ HTTP/1.1" 200 34230
+INFO 2025-12-10 03:30:20,762 log "GET /login/ HTTP/1.1" 200 33504
+INFO 2025-12-10 03:30:24,123 log "POST /login/ HTTP/1.1" 302 0
+INFO 2025-12-10 03:30:24,187 log "GET / HTTP/1.1" 200 36600
+INFO 2025-12-10 03:30:24,263 log "GET /messages/unread-count/ HTTP/1.1" 200 39881
+INFO 2025-12-10 03:30:25,590 log "GET /accounts/profile/ HTTP/1.1" 200 52520
+INFO 2025-12-10 03:30:25,666 log "GET /messages/unread-count/ HTTP/1.1" 200 39881
+INFO 2025-12-10 03:30:43,786 log "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-12-10 03:30:43,839 log "GET / HTTP/1.1" 200 34922
+INFO 2025-12-10 03:30:44,379 log "GET /login/ HTTP/1.1" 200 33687
+INFO 2025-12-10 03:30:46,193 log "GET /password-reset/ HTTP/1.1" 200 32859
+INFO 2025-12-10 03:30:53,379 log "POST /password-reset/ HTTP/1.1" 302 0
+INFO 2025-12-10 03:30:53,423 log "GET /password-reset/verify/ HTTP/1.1" 200 33426
+INFO 2025-12-10 03:30:58,273 log "GET /login/ HTTP/1.1" 200 33504
+INFO 2025-12-10 03:31:00,984 log "POST /login/ HTTP/1.1" 302 0
+INFO 2025-12-10 03:31:01,045 log "GET / HTTP/1.1" 200 37134
+INFO 2025-12-10 03:31:01,219 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 03:31:31,427 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 03:32:01,317 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 03:32:31,311 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 03:33:01,312 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 03:33:31,316 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 03:33:33,047 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-10 03:33:33,718 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 03:33:43,156 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-10 03:33:43,913 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 03:34:01,345 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 03:34:03,357 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-10 03:34:03,965 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 03:34:31,345 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 03:35:15,355 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\models.py changed, reloading.
+INFO 2025-12-10 03:35:16,249 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 03:35:32,359 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 03:35:46,058 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\urls.py changed, reloading.
+INFO 2025-12-10 03:35:46,780 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 03:35:53,389 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 03:35:55,202 log "GET / HTTP/1.1" 200 37134
+INFO 2025-12-10 03:35:55,483 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 03:35:59,519 log "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-12-10 03:35:59,568 log "GET / HTTP/1.1" 200 34922
+INFO 2025-12-10 03:36:00,353 log "GET /login/ HTTP/1.1" 200 33687
+INFO 2025-12-10 03:36:01,674 log "GET /register/ HTTP/1.1" 200 34230
+INFO 2025-12-10 03:36:17,962 log "GET /messages/unread-count/ HTTP/1.1" 302 0
+INFO 2025-12-10 03:36:17,966 log "GET /accounts/login/?next=/messages/unread-count/ HTTP/1.1" 200 33599
+INFO 2025-12-10 03:36:31,271 log "GET /messages/unread-count/ HTTP/1.1" 302 0
+INFO 2025-12-10 03:36:31,273 log "GET /accounts/login/?next=/messages/unread-count/ HTTP/1.1" 200 33599
+INFO 2025-12-10 03:37:01,261 log "GET /messages/unread-count/ HTTP/1.1" 302 0
+INFO 2025-12-10 03:37:01,264 log "GET /accounts/login/?next=/messages/unread-count/ HTTP/1.1" 200 33599
+INFO 2025-12-10 03:37:39,270 log "GET /messages/unread-count/ HTTP/1.1" 302 0
+INFO 2025-12-10 03:37:39,273 log "GET /accounts/login/?next=/messages/unread-count/ HTTP/1.1" 200 33599
+INFO 2025-12-10 03:38:02,545 log "GET /login/ HTTP/1.1" 200 33504
+INFO 2025-12-10 03:38:04,301 log "POST /login/ HTTP/1.1" 302 0
+INFO 2025-12-10 03:38:04,369 log "GET / HTTP/1.1" 200 37134
+INFO 2025-12-10 03:38:04,443 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 03:38:05,393 log "GET /accounts/profile/ HTTP/1.1" 200 51340
+INFO 2025-12-10 03:38:05,468 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 03:38:15,614 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 03:38:31,325 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 03:38:35,312 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 03:39:01,308 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 03:39:04,774 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-10 03:39:05,469 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 03:39:06,735 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 03:39:10,800 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 03:39:13,415 log "GET / HTTP/1.1" 200 37134
+INFO 2025-12-10 03:39:13,603 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 03:39:15,745 log "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-12-10 03:39:15,814 log "GET / HTTP/1.1" 200 34922
+INFO 2025-12-10 03:39:16,376 log "GET /login/ HTTP/1.1" 200 33687
+INFO 2025-12-10 03:39:17,376 log "GET /register/ HTTP/1.1" 200 34230
+INFO 2025-12-10 03:43:19,593 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-10 03:43:20,412 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 03:44:32,070 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\models.py changed, reloading.
+INFO 2025-12-10 03:44:32,728 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 03:45:23,644 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\models.py changed, reloading.
+INFO 2025-12-10 03:45:24,366 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 03:46:33,999 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-10 03:46:35,584 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 03:46:54,895 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 03:46:57,489 log "GET / HTTP/1.1" 200 34922
+INFO 2025-12-10 03:46:59,648 log "GET /help/ HTTP/1.1" 200 42062
+INFO 2025-12-10 03:57:57,608 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 03:58:00,276 log "GET / HTTP/1.1" 200 34922
+INFO 2025-12-10 03:58:01,685 log "GET /register/ HTTP/1.1" 200 34230
+INFO 2025-12-10 03:58:29,979 log "POST /register/ HTTP/1.1" 302 0
+INFO 2025-12-10 03:58:30,031 log "GET / HTTP/1.1" 200 34922
+INFO 2025-12-10 03:58:35,864 log "GET /register/ HTTP/1.1" 200 34435
+INFO 2025-12-10 03:58:37,268 log "GET /login/ HTTP/1.1" 200 33504
+INFO 2025-12-10 03:58:39,478 log "POST /login/ HTTP/1.1" 302 0
+INFO 2025-12-10 03:58:39,546 log "GET / HTTP/1.1" 200 41775
+INFO 2025-12-10 03:58:39,625 log "GET /messages/unread-count/ HTTP/1.1" 200 45056
+INFO 2025-12-10 03:59:10,320 log "GET /messages/unread-count/ HTTP/1.1" 200 45056
+INFO 2025-12-10 03:59:21,846 log "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-12-10 03:59:21,896 log "GET / HTTP/1.1" 200 34922
+INFO 2025-12-10 03:59:23,152 log "GET /login/ HTTP/1.1" 200 33687
+INFO 2025-12-10 04:01:58,465 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-10 04:01:59,995 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 04:02:07,087 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\models.py changed, reloading.
+INFO 2025-12-10 04:02:08,379 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 04:02:35,621 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-10 04:02:37,053 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 04:03:18,115 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-10 04:03:19,483 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 04:03:24,650 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 04:03:26,632 log "GET / HTTP/1.1" 200 34922
+INFO 2025-12-10 04:03:28,093 log "GET /register/ HTTP/1.1" 200 34230
+INFO 2025-12-10 04:04:06,086 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 04:04:08,214 log "GET / HTTP/1.1" 200 34922
+INFO 2025-12-10 04:04:09,406 log "GET /register/ HTTP/1.1" 200 38508
+INFO 2025-12-10 04:05:09,556 log "POST /register/ HTTP/1.1" 200 38738
+INFO 2025-12-10 04:05:27,128 log "POST /register/ HTTP/1.1" 200 38508
+INFO 2025-12-10 04:05:30,932 log "GET /login/ HTTP/1.1" 200 33504
+INFO 2025-12-10 04:05:32,975 log "POST /login/ HTTP/1.1" 200 33674
+INFO 2025-12-10 04:05:44,792 log "POST /login/ HTTP/1.1" 200 33674
+INFO 2025-12-10 04:05:48,661 log "GET /login/ HTTP/1.1" 200 33504
+INFO 2025-12-10 04:05:51,000 log "POST /login/ HTTP/1.1" 302 0
+INFO 2025-12-10 04:05:51,065 log "GET / HTTP/1.1" 200 37134
+INFO 2025-12-10 04:05:51,143 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 04:05:52,607 log "GET /admin/ HTTP/1.1" 200 18030
+INFO 2025-12-10 04:05:55,057 log "GET /admin/auth/user/ HTTP/1.1" 200 20343
+INFO 2025-12-10 04:05:55,123 log "GET /static/admin/img/icon-no.svg HTTP/1.1" 200 645
+INFO 2025-12-10 04:05:55,131 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-10 04:05:55,131 log "GET /static/admin/img/icon-yes.svg HTTP/1.1" 200 558
+INFO 2025-12-10 04:05:55,157 log "GET /static/admin/img/tooltag-add.svg HTTP/1.1" 200 593
+INFO 2025-12-10 04:06:01,339 log "GET /admin/ HTTP/1.1" 200 18030
+INFO 2025-12-10 04:06:05,906 log "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-12-10 04:06:05,958 log "GET / HTTP/1.1" 200 34922
+INFO 2025-12-10 04:06:06,610 log "GET /login/ HTTP/1.1" 200 33687
+INFO 2025-12-10 04:06:07,132 log "GET /register/ HTTP/1.1" 200 38508
+INFO 2025-12-10 04:06:31,394 log "POST /register/ HTTP/1.1" 200 38738
+INFO 2025-12-10 04:06:45,354 log "POST /register/ HTTP/1.1" 200 38508
+INFO 2025-12-10 04:06:51,669 log "GET /register/ HTTP/1.1" 200 38549
+INFO 2025-12-10 04:07:03,709 log "POST /register/ HTTP/1.1" 200 38508
+INFO 2025-12-10 04:07:12,653 log "GET /register/ HTTP/1.1" 200 38549
+INFO 2025-12-10 04:07:26,140 log "POST /register/ HTTP/1.1" 200 38508
+INFO 2025-12-10 04:09:57,215 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-10 04:09:57,895 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 04:12:39,800 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 04:12:41,623 log "GET / HTTP/1.1" 200 34922
+INFO 2025-12-10 04:12:43,408 log "GET /register/ HTTP/1.1" 200 36215
+INFO 2025-12-10 04:13:43,173 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-10 04:13:44,573 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 04:13:55,274 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-10 04:13:55,933 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 04:15:08,898 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-10 04:15:09,522 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 04:15:21,287 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 04:15:22,929 log "GET / HTTP/1.1" 200 34922
+INFO 2025-12-10 04:15:24,180 log "GET /register/ HTTP/1.1" 200 33006
+INFO 2025-12-10 04:19:25,668 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-10 04:19:26,431 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 04:20:17,610 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-10 04:20:18,357 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 04:23:39,146 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\urls.py changed, reloading.
+INFO 2025-12-10 04:23:39,867 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 04:23:44,167 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 04:23:46,014 log "GET / HTTP/1.1" 200 34922
+INFO 2025-12-10 04:23:47,313 log "GET /register/ HTTP/1.1" 200 34462
+INFO 2025-12-10 04:24:12,772 log "POST /register/ HTTP/1.1" 302 0
+INFO 2025-12-10 04:24:12,816 log "GET /register/confirm/ HTTP/1.1" 200 31905
+INFO 2025-12-10 04:24:27,510 log "POST /register/confirm/ HTTP/1.1" 302 0
+INFO 2025-12-10 04:24:27,514 log "GET /register/ HTTP/1.1" 200 34660
+INFO 2025-12-10 04:24:29,479 basehttp - Broken pipe from ('127.0.0.1', 52028)
+INFO 2025-12-10 04:24:55,721 log "POST /register/ HTTP/1.1" 200 34888
+INFO 2025-12-10 04:25:00,041 log "GET /register/ HTTP/1.1" 200 34462
+INFO 2025-12-10 04:25:44,082 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\urls.py changed, reloading.
+INFO 2025-12-10 04:25:44,919 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 04:30:05,218 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-10 04:30:05,850 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 04:30:23,051 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 04:30:25,132 log "GET / HTTP/1.1" 200 34922
+INFO 2025-12-10 04:30:26,831 log "GET /register/ HTTP/1.1" 200 37276
+INFO 2025-12-10 04:30:44,316 log "POST /register/ HTTP/1.1" 200 37604
+INFO 2025-12-10 04:30:46,841 log "GET /login/ HTTP/1.1" 200 33504
+INFO 2025-12-10 04:30:49,244 log "POST /login/ HTTP/1.1" 302 0
+INFO 2025-12-10 04:30:49,305 log "GET / HTTP/1.1" 200 37134
+INFO 2025-12-10 04:30:49,384 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 04:30:50,905 log "GET /statistics/ HTTP/1.1" 200 54063
+INFO 2025-12-10 04:30:50,988 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 04:30:53,383 log "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-12-10 04:30:53,432 log "GET / HTTP/1.1" 200 34922
+INFO 2025-12-10 04:30:54,121 log "GET /login/ HTTP/1.1" 200 33687
+INFO 2025-12-10 04:30:55,807 log "POST /login/ HTTP/1.1" 302 0
+INFO 2025-12-10 04:30:55,869 log "GET / HTTP/1.1" 200 37134
+INFO 2025-12-10 04:30:55,943 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 04:30:57,860 log "GET /admin/ HTTP/1.1" 200 18030
+INFO 2025-12-10 04:30:59,905 log "GET /admin/auth/user/ HTTP/1.1" 200 20877
+INFO 2025-12-10 04:30:59,973 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-10 04:31:04,550 log "POST /admin/auth/user/ HTTP/1.1" 200 14541
+INFO 2025-12-10 04:31:04,603 log "GET /static/admin/js/cancel.js HTTP/1.1" 200 884
+INFO 2025-12-10 04:31:05,742 log "POST /admin/auth/user/ HTTP/1.1" 302 0
+INFO 2025-12-10 04:31:05,804 log "GET /admin/auth/user/ HTTP/1.1" 200 20504
+INFO 2025-12-10 04:31:05,859 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-10 04:31:05,881 log "GET /static/admin/img/icon-yes-dark.svg HTTP/1.1" 200 558
+INFO 2025-12-10 04:31:07,651 log "GET / HTTP/1.1" 200 37134
+INFO 2025-12-10 04:31:07,828 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 04:31:13,932 log "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-12-10 04:31:13,985 log "GET / HTTP/1.1" 200 34922
+INFO 2025-12-10 04:31:14,561 log "GET /login/ HTTP/1.1" 200 33687
+INFO 2025-12-10 04:31:17,264 log "GET /register/ HTTP/1.1" 200 37276
+INFO 2025-12-10 04:31:31,811 log "POST /register/ HTTP/1.1" 200 37604
+INFO 2025-12-10 04:32:04,217 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 04:32:06,327 log "GET / HTTP/1.1" 200 34922
+INFO 2025-12-10 04:32:07,976 log "GET /register/ HTTP/1.1" 200 37276
+INFO 2025-12-10 04:32:23,866 log "POST /register/ HTTP/1.1" 200 37444
+INFO 2025-12-10 04:32:41,536 log "GET /login/ HTTP/1.1" 200 33504
+INFO 2025-12-10 04:32:44,240 log "POST /login/ HTTP/1.1" 302 0
+INFO 2025-12-10 04:32:44,311 log "GET / HTTP/1.1" 200 37134
+INFO 2025-12-10 04:32:44,487 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 04:32:46,473 log "GET /admin/ HTTP/1.1" 200 17984
+INFO 2025-12-10 04:32:51,370 log "GET /admin/auth/user/ HTTP/1.1" 200 20341
+INFO 2025-12-10 04:32:51,548 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-10 04:32:55,414 log "POST /admin/auth/user/ HTTP/1.1" 200 14352
+INFO 2025-12-10 04:32:56,546 log "POST /admin/auth/user/ HTTP/1.1" 302 0
+INFO 2025-12-10 04:32:56,606 log "GET /admin/auth/user/ HTTP/1.1" 200 19970
+INFO 2025-12-10 04:32:56,664 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-10 04:32:58,193 log "GET / HTTP/1.1" 200 37134
+INFO 2025-12-10 04:32:58,262 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 04:33:01,043 log "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-12-10 04:33:01,095 log "GET / HTTP/1.1" 200 34922
+INFO 2025-12-10 04:33:01,658 log "GET /register/ HTTP/1.1" 200 37459
+INFO 2025-12-10 04:33:30,537 log "POST /register/ HTTP/1.1" 200 37146
+INFO 2025-12-10 04:33:50,344 log "POST /register/ HTTP/1.1" 200 37718
+INFO 2025-12-10 04:33:52,974 basehttp - Broken pipe from ('127.0.0.1', 56078)
+INFO 2025-12-10 04:33:58,047 log "GET /login/ HTTP/1.1" 200 33504
+INFO 2025-12-10 04:33:59,766 log "POST /login/ HTTP/1.1" 302 0
+INFO 2025-12-10 04:33:59,829 log "GET / HTTP/1.1" 200 41774
+INFO 2025-12-10 04:33:59,908 log "GET /messages/unread-count/ HTTP/1.1" 200 45055
+INFO 2025-12-10 04:34:30,314 log "GET /messages/unread-count/ HTTP/1.1" 200 45055
+INFO 2025-12-10 04:34:34,926 log "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-12-10 04:34:34,977 log "GET / HTTP/1.1" 200 34922
+INFO 2025-12-10 04:34:35,593 log "GET /login/ HTTP/1.1" 200 33687
+INFO 2025-12-10 04:34:38,744 log "POST /login/ HTTP/1.1" 302 0
+INFO 2025-12-10 04:34:38,809 log "GET / HTTP/1.1" 200 37134
+INFO 2025-12-10 04:34:38,887 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 04:34:42,962 log "GET /admin/ HTTP/1.1" 200 17937
+INFO 2025-12-10 04:34:47,536 log "GET /admin/auth/user/ HTTP/1.1" 200 20341
+INFO 2025-12-10 04:34:47,597 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-10 04:34:51,031 log "POST /admin/auth/user/ HTTP/1.1" 200 14538
+INFO 2025-12-10 04:34:51,941 log "POST /admin/auth/user/ HTTP/1.1" 302 0
+INFO 2025-12-10 04:34:52,113 log "GET /admin/auth/user/ HTTP/1.1" 200 19970
+INFO 2025-12-10 04:34:52,283 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-10 04:34:54,227 log "GET / HTTP/1.1" 200 37134
+INFO 2025-12-10 04:34:54,402 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 04:34:56,553 log "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-12-10 04:34:56,602 log "GET / HTTP/1.1" 200 34922
+INFO 2025-12-10 04:38:57,252 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-10 04:38:58,075 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 04:39:19,647 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 04:39:21,386 log "GET / HTTP/1.1" 200 34922
+INFO 2025-12-10 04:39:22,845 log "GET /register/ HTTP/1.1" 200 40119
+INFO 2025-12-10 04:39:24,885 log "GET /register/ HTTP/1.1" 200 39936
+INFO 2025-12-10 04:39:45,284 log "POST /register/ HTTP/1.1" 200 40304
+INFO 2025-12-10 04:40:09,055 log "POST /register/ HTTP/1.1" 200 40296
+INFO 2025-12-10 04:41:07,275 log "POST /register/ HTTP/1.1" 200 40378
+INFO 2025-12-10 04:41:08,221 basehttp - Broken pipe from ('127.0.0.1', 53580)
+INFO 2025-12-10 04:41:13,455 log "GET /login/ HTTP/1.1" 200 33504
+INFO 2025-12-10 04:41:15,721 log "POST /login/ HTTP/1.1" 302 0
+INFO 2025-12-10 04:41:15,785 log "GET / HTTP/1.1" 200 41774
+INFO 2025-12-10 04:41:15,863 log "GET /messages/unread-count/ HTTP/1.1" 200 45055
+INFO 2025-12-10 04:41:46,321 log "GET /messages/unread-count/ HTTP/1.1" 200 45055
+INFO 2025-12-10 04:42:16,321 log "GET /messages/unread-count/ HTTP/1.1" 200 45055
+INFO 2025-12-10 04:42:46,319 log "GET /messages/unread-count/ HTTP/1.1" 200 45055
+INFO 2025-12-10 04:43:16,324 log "GET /messages/unread-count/ HTTP/1.1" 200 45055
+INFO 2025-12-10 04:43:41,247 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 04:43:43,261 log "GET / HTTP/1.1" 200 41774
+INFO 2025-12-10 04:43:43,412 log "GET /messages/unread-count/ HTTP/1.1" 200 45055
+INFO 2025-12-10 04:43:46,412 log "GET /messages/unread-count/ HTTP/1.1" 200 45055
+INFO 2025-12-10 04:43:46,508 log "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-12-10 04:43:46,558 log "GET / HTTP/1.1" 200 34922
+INFO 2025-12-10 04:43:47,169 log "GET /login/ HTTP/1.1" 200 33687
+INFO 2025-12-10 04:43:49,622 log "POST /login/ HTTP/1.1" 302 0
+INFO 2025-12-10 04:43:49,685 log "GET / HTTP/1.1" 200 37134
+INFO 2025-12-10 04:43:49,857 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 04:43:50,944 log "GET /statistics/ HTTP/1.1" 200 54063
+INFO 2025-12-10 04:43:51,021 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 04:43:52,801 log "GET /admin/ HTTP/1.1" 200 17894
+INFO 2025-12-10 04:43:54,520 log "GET /admin/auth/user/ HTTP/1.1" 200 20341
+INFO 2025-12-10 04:43:54,584 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-10 04:43:57,503 log "POST /admin/auth/user/ HTTP/1.1" 200 14538
+INFO 2025-12-10 04:43:58,355 log "POST /admin/auth/user/ HTTP/1.1" 302 0
+INFO 2025-12-10 04:43:58,418 log "GET /admin/auth/user/ HTTP/1.1" 200 19970
+INFO 2025-12-10 04:43:58,480 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-10 04:44:00,019 log "GET / HTTP/1.1" 200 37134
+INFO 2025-12-10 04:44:00,093 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 04:44:02,112 log "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-12-10 04:44:02,161 log "GET / HTTP/1.1" 200 34922
+INFO 2025-12-10 04:44:03,100 log "GET /login/ HTTP/1.1" 200 33687
+INFO 2025-12-10 04:44:05,463 log "GET /register/ HTTP/1.1" 200 37276
+INFO 2025-12-10 04:44:16,269 log "GET /messages/unread-count/ HTTP/1.1" 302 0
+INFO 2025-12-10 04:44:16,272 log "GET /accounts/login/?next=/messages/unread-count/ HTTP/1.1" 200 33599
+INFO 2025-12-10 04:44:22,045 log "POST /register/ HTTP/1.1" 200 37146
+INFO 2025-12-10 04:44:35,903 log "POST /register/ HTTP/1.1" 200 37718
+INFO 2025-12-10 04:44:37,382 basehttp - Broken pipe from ('127.0.0.1', 61144)
+INFO 2025-12-10 04:44:37,759 log "GET /login/ HTTP/1.1" 200 33504
+INFO 2025-12-10 04:44:39,628 log "POST /login/ HTTP/1.1" 302 0
+INFO 2025-12-10 04:44:39,690 log "GET / HTTP/1.1" 200 37134
+INFO 2025-12-10 04:44:39,873 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 04:44:46,316 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 04:45:10,305 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 04:45:11,315 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 04:45:12,104 log "GET / HTTP/1.1" 200 37134
+INFO 2025-12-10 04:45:12,250 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 04:45:14,640 log "GET /admin/ HTTP/1.1" 200 17847
+INFO 2025-12-10 04:45:16,915 log "GET /admin/auth/user/ HTTP/1.1" 200 20341
+INFO 2025-12-10 04:45:16,979 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-10 04:45:20,228 log "POST /admin/auth/user/ HTTP/1.1" 200 14352
+INFO 2025-12-10 04:45:21,080 log "POST /admin/auth/user/ HTTP/1.1" 302 0
+INFO 2025-12-10 04:45:21,140 log "GET /admin/auth/user/ HTTP/1.1" 200 19970
+INFO 2025-12-10 04:45:21,197 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-10 04:45:22,702 log "GET / HTTP/1.1" 200 37134
+INFO 2025-12-10 04:45:22,787 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 04:45:26,078 log "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-12-10 04:45:26,237 log "GET / HTTP/1.1" 200 34922
+INFO 2025-12-10 04:45:26,739 log "GET /login/ HTTP/1.1" 200 33687
+INFO 2025-12-10 04:45:28,134 log "GET /register/ HTTP/1.1" 200 39936
+INFO 2025-12-10 04:45:55,045 log "POST /register/ HTTP/1.1" 200 40304
+INFO 2025-12-10 04:46:21,906 log "POST /register/ HTTP/1.1" 200 40378
+INFO 2025-12-10 04:46:22,963 log "GET /login/ HTTP/1.1" 200 33504
+INFO 2025-12-10 04:46:24,572 basehttp - Broken pipe from ('127.0.0.1', 61069)
+INFO 2025-12-10 04:46:25,294 log "POST /login/ HTTP/1.1" 302 0
+INFO 2025-12-10 04:46:25,358 log "GET / HTTP/1.1" 200 41774
+INFO 2025-12-10 04:46:25,540 log "GET /messages/unread-count/ HTTP/1.1" 200 45055
+INFO 2025-12-10 04:46:28,819 log "GET /help/ HTTP/1.1" 200 48815
+INFO 2025-12-10 04:46:28,893 log "GET /messages/unread-count/ HTTP/1.1" 200 45055

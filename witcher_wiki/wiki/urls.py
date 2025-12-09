@@ -132,4 +132,5 @@ urlpatterns = [
     path('articles/', views.article_list, name='article_list'),
     path('statistics/export/pdf/', views.export_statistics_pdf, name='export_statistics_pdf'),
     path('statistics/export/json/', views.export_statistics_json, name='export_statistics_json'),
+
 ]
