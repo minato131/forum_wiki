@@ -24685,3 +24685,382 @@ Traceback (most recent call last):
     )
 wiki.models.SearchQuery.MultipleObjectsReturned: get() returned more than one SearchQuery -- it returned 3!
 ERROR 2025-12-10 02:00:30,277 log "GET /search/?q=%D1%8B HTTP/1.1" 500 93715
+INFO 2025-12-10 02:01:09,642 log "GET /messages/unread-count/ HTTP/1.1" 200 39719
+ERROR 2025-12-10 02:01:11,548 log Internal Server Error: /search/
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py", line 162, in search
+    search_query_obj, created = SearchQuery.objects.get_or_create(query=query)
+                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 987, in get_or_create
+    return self.get(**kwargs), False
+           ~~~~~~~~^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 642, in get
+    raise self.model.MultipleObjectsReturned(
+    ...<5 lines>...
+    )
+wiki.models.SearchQuery.MultipleObjectsReturned: get() returned more than one SearchQuery -- it returned 3!
+ERROR 2025-12-10 02:01:11,551 log "GET /search/?q=%D1%8B%D1%8B%D1%8B%D1%8B&category= HTTP/1.1" 500 94203
+ERROR 2025-12-10 02:01:14,373 log Internal Server Error: /search/
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py", line 162, in search
+    search_query_obj, created = SearchQuery.objects.get_or_create(query=query)
+                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 987, in get_or_create
+    return self.get(**kwargs), False
+           ~~~~~~~~^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 642, in get
+    raise self.model.MultipleObjectsReturned(
+    ...<5 lines>...
+    )
+wiki.models.SearchQuery.MultipleObjectsReturned: get() returned more than one SearchQuery -- it returned 4!
+ERROR 2025-12-10 02:01:14,376 log "GET /search/?q=%D1%8B%D1%8B%D1%8B%D1%8B&category=characters HTTP/1.1" 500 94481
+INFO 2025-12-10 02:01:18,017 log "GET /messages/unread-count/ HTTP/1.1" 200 39719
+INFO 2025-12-10 02:01:26,321 log "GET /messages/unread-count/ HTTP/1.1" 200 39719
+INFO 2025-12-10 02:01:48,319 log "GET /messages/unread-count/ HTTP/1.1" 200 39719
+INFO 2025-12-10 02:02:18,426 log "GET /messages/unread-count/ HTTP/1.1" 200 39719
+INFO 2025-12-10 02:02:27,308 log "GET /messages/unread-count/ HTTP/1.1" 200 39719
+INFO 2025-12-10 02:02:48,322 log "GET /messages/unread-count/ HTTP/1.1" 200 39719
+INFO 2025-12-10 02:03:18,327 log "GET /messages/unread-count/ HTTP/1.1" 200 39719
+INFO 2025-12-10 02:03:28,316 log "GET /messages/unread-count/ HTTP/1.1" 200 39719
+INFO 2025-12-10 02:04:16,978 log "GET /messages/unread-count/ HTTP/1.1" 200 39719
+INFO 2025-12-10 02:04:18,803 log "GET / HTTP/1.1" 200 36218
+INFO 2025-12-10 02:04:18,877 log "GET /messages/unread-count/ HTTP/1.1" 200 39719
+INFO 2025-12-10 02:04:19,606 log "GET /article/create/ HTTP/1.1" 200 33987
+INFO 2025-12-10 02:04:19,675 log "GET /messages/unread-count/ HTTP/1.1" 200 39719
+INFO 2025-12-10 02:04:20,732 log "POST /article/create/ HTTP/1.1" 200 61268
+INFO 2025-12-10 02:04:20,803 log "GET /messages/unread-count/ HTTP/1.1" 200 39719
+INFO 2025-12-10 02:04:23,832 log "POST /article/create/ HTTP/1.1" 200 61268
+INFO 2025-12-10 02:04:23,903 log "GET /messages/unread-count/ HTTP/1.1" 200 39719
+INFO 2025-12-10 02:04:29,328 log "GET /messages/unread-count/ HTTP/1.1" 200 39719
+ERROR 2025-12-10 02:04:32,138 log Internal Server Error: /article/create/
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py", line 429, in article_create
+    'tags_count': len(tags_list) if tags_input else 0,
+                      ^^^^^^^^^
+UnboundLocalError: cannot access local variable 'tags_list' where it is not associated with a value
+ERROR 2025-12-10 02:04:32,140 log "POST /article/create/ HTTP/1.1" 500 87191
+INFO 2025-12-10 02:05:30,323 log "GET /messages/unread-count/ HTTP/1.1" 200 39719
+INFO 2025-12-10 02:06:31,426 log "GET /messages/unread-count/ HTTP/1.1" 200 39719
+INFO 2025-12-10 02:07:32,312 log "GET /messages/unread-count/ HTTP/1.1" 200 39719
+INFO 2025-12-10 02:08:33,323 log "GET /messages/unread-count/ HTTP/1.1" 200 39719
+INFO 2025-12-10 02:09:34,315 log "GET /messages/unread-count/ HTTP/1.1" 200 39719
+INFO 2025-12-10 02:10:35,319 log "GET /messages/unread-count/ HTTP/1.1" 200 39719
+INFO 2025-12-10 02:11:09,701 log "GET / HTTP/1.1" 200 36218
+INFO 2025-12-10 02:11:09,771 log "GET /messages/unread-count/ HTTP/1.1" 200 39719
+INFO 2025-12-10 02:11:10,744 log "GET /article/yvvyvyyv/ HTTP/1.1" 200 60911
+INFO 2025-12-10 02:11:10,817 log "GET /messages/unread-count/ HTTP/1.1" 200 39719
+INFO 2025-12-10 02:11:15,025 log "POST /article/yvvyvyyv/ HTTP/1.1" 302 0
+INFO 2025-12-10 02:11:15,099 log "GET /article/yvvyvyyv/ HTTP/1.1" 200 62064
+INFO 2025-12-10 02:11:15,168 log "GET /messages/unread-count/ HTTP/1.1" 200 39719
+INFO 2025-12-10 02:11:22,803 log "GET /messages/inbox/ HTTP/1.1" 200 39747
+INFO 2025-12-10 02:11:22,872 log "GET /messages/unread-count/ HTTP/1.1" 200 39719
+INFO 2025-12-10 02:11:23,804 log "GET /message/create/ HTTP/1.1" 200 37062
+INFO 2025-12-10 02:11:23,874 log "GET /messages/unread-count/ HTTP/1.1" 200 39719
+INFO 2025-12-10 02:11:32,697 log "POST /message/create/ HTTP/1.1" 302 0
+INFO 2025-12-10 02:11:32,754 log "GET /messages/sent/ HTTP/1.1" 200 41589
+INFO 2025-12-10 02:11:32,924 log "GET /messages/unread-count/ HTTP/1.1" 200 39719
+INFO 2025-12-10 02:11:36,316 log "GET /messages/unread-count/ HTTP/1.1" 200 39719
+INFO 2025-12-10 02:11:36,373 log "GET /message/1/ HTTP/1.1" 200 35862
+INFO 2025-12-10 02:11:36,442 log "GET /messages/unread-count/ HTTP/1.1" 200 39719
+INFO 2025-12-10 02:11:42,181 log "GET / HTTP/1.1" 200 36218
+INFO 2025-12-10 02:11:42,255 log "GET /messages/unread-count/ HTTP/1.1" 200 39719
+INFO 2025-12-10 02:12:12,330 log "GET /messages/unread-count/ HTTP/1.1" 200 39719
+INFO 2025-12-10 02:12:42,324 log "GET /messages/unread-count/ HTTP/1.1" 200 39719
+INFO 2025-12-10 02:13:12,309 log "GET /messages/unread-count/ HTTP/1.1" 200 39719
+INFO 2025-12-10 02:13:42,427 log "GET /messages/unread-count/ HTTP/1.1" 200 39719
+INFO 2025-12-10 02:14:12,311 log "GET /messages/unread-count/ HTTP/1.1" 200 39719
+INFO 2025-12-10 02:14:42,318 log "GET /messages/unread-count/ HTTP/1.1" 200 39719
+INFO 2025-12-10 02:15:12,309 log "GET /messages/unread-count/ HTTP/1.1" 200 39719
+INFO 2025-12-10 02:15:29,570 log "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-12-10 02:15:29,620 log "GET / HTTP/1.1" 200 34540
+INFO 2025-12-10 02:15:30,161 log "GET /login/ HTTP/1.1" 200 33712
+INFO 2025-12-10 02:15:33,011 log "POST /login/ HTTP/1.1" 302 0
+INFO 2025-12-10 02:15:33,072 log "GET / HTTP/1.1" 200 36914
+INFO 2025-12-10 02:15:33,148 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 02:15:35,123 log "GET /admin/ HTTP/1.1" 200 18030
+INFO 2025-12-10 02:15:35,138 log "GET /static/admin/css/base.css HTTP/1.1" 304 0
+INFO 2025-12-10 02:15:35,140 log "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 304 0
+INFO 2025-12-10 02:15:35,141 log "GET /static/admin/css/dark_mode.css HTTP/1.1" 304 0
+INFO 2025-12-10 02:15:35,142 log "GET /static/admin/css/dashboard.css HTTP/1.1" 304 0
+INFO 2025-12-10 02:15:35,142 log "GET /static/admin/css/responsive.css HTTP/1.1" 304 0
+INFO 2025-12-10 02:15:35,142 log "GET /static/admin/js/theme.js HTTP/1.1" 304 0
+INFO 2025-12-10 02:15:35,153 log "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 304 0
+INFO 2025-12-10 02:15:35,157 log "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 304 0
+INFO 2025-12-10 02:15:35,157 log "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 304 0
+INFO 2025-12-10 02:15:35,158 log "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 304 0
+INFO 2025-12-10 02:15:35,195 log "GET /static/admin/img/icon-deletelink.svg HTTP/1.1" 200 689
+INFO 2025-12-10 02:15:36,995 log "GET /admin/wiki/backup/ HTTP/1.1" 200 19876
+INFO 2025-12-10 02:15:37,022 log "GET /static/admin/css/changelists.css HTTP/1.1" 304 0
+INFO 2025-12-10 02:15:37,027 log "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 304 0
+INFO 2025-12-10 02:15:37,028 log "GET /static/admin/js/urlify.js HTTP/1.1" 304 0
+INFO 2025-12-10 02:15:37,028 log "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 304 0
+INFO 2025-12-10 02:15:37,028 log "GET /static/admin/js/jquery.init.js HTTP/1.1" 304 0
+INFO 2025-12-10 02:15:37,028 log "GET /static/admin/js/core.js HTTP/1.1" 304 0
+INFO 2025-12-10 02:15:37,029 log "GET /static/admin/js/prepopulate.js HTTP/1.1" 304 0
+INFO 2025-12-10 02:15:37,029 log "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 304 0
+INFO 2025-12-10 02:15:37,070 log "GET /static/admin/js/actions.js HTTP/1.1" 304 0
+INFO 2025-12-10 02:15:37,134 log "GET /static/admin/img/search.svg HTTP/1.1" 304 0
+INFO 2025-12-10 02:15:37,138 log "GET /static/admin/js/filters.js HTTP/1.1" 304 0
+INFO 2025-12-10 02:15:37,145 log "GET /static/admin/img/sorting-icons.svg HTTP/1.1" 304 0
+INFO 2025-12-10 02:15:38,528 log "GET /admin/wiki/backup/create-backup/ HTTP/1.1" 200 20828
+INFO 2025-12-10 02:18:38,362 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\urls.py changed, reloading.
+INFO 2025-12-10 02:18:39,088 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 02:25:24,811 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\urls.py changed, reloading.
+INFO 2025-12-10 02:25:25,708 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 02:28:32,528 log "GET /admin/wiki/backup/ HTTP/1.1" 200 19876
+INFO 2025-12-10 02:28:34,364 log "GET /admin/password_change/ HTTP/1.1" 200 14214
+INFO 2025-12-10 02:28:34,414 log "GET /static/admin/css/forms.css HTTP/1.1" 200 8844
+INFO 2025-12-10 02:28:34,425 log "GET /static/admin/css/widgets.css HTTP/1.1" 200 11811
+INFO 2025-12-10 02:28:35,176 log "GET /admin/wiki/backup/ HTTP/1.1" 200 19876
+INFO 2025-12-10 02:28:35,860 log "GET / HTTP/1.1" 200 36914
+INFO 2025-12-10 02:28:36,048 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 02:28:38,775 log "GET /statistics/ HTTP/1.1" 200 47488
+INFO 2025-12-10 02:28:38,858 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 02:28:40,528 log "GET /admin/ HTTP/1.1" 200 18030
+INFO 2025-12-10 02:28:41,701 log "GET /admin/password_change/ HTTP/1.1" 200 14214
+INFO 2025-12-10 02:28:46,957 log "GET /admin/ HTTP/1.1" 200 18030
+INFO 2025-12-10 02:28:48,490 log "GET / HTTP/1.1" 200 36914
+INFO 2025-12-10 02:28:48,569 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 02:29:19,322 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 02:29:23,093 log "GET /statistics/ HTTP/1.1" 200 47488
+INFO 2025-12-10 02:29:23,178 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+ERROR 2025-12-10 02:29:28,726 log Internal Server Error: /articles/
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py", line 3678, in article_list
+    return render(request, 'wiki/article_list.html', context)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: wiki/article_list.html
+ERROR 2025-12-10 02:29:28,730 log "GET /articles/?category=events HTTP/1.1" 500 95407
+INFO 2025-12-10 02:29:47,840 log "GET /search/ HTTP/1.1" 200 47102
+INFO 2025-12-10 02:29:47,923 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 02:29:50,251 log "GET /search/?q=sqadfsadsadsads&category= HTTP/1.1" 200 46155
+INFO 2025-12-10 02:29:50,332 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 02:29:54,516 log "GET / HTTP/1.1" 200 36914
+INFO 2025-12-10 02:29:54,597 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 02:30:01,635 log "GET /search/ HTTP/1.1" 200 47146
+INFO 2025-12-10 02:30:01,718 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 02:30:03,451 log "GET /search/?q=%D1%8B%D0%B2%D0%B2%D1%8B%D0%B2%D1%8B%D1%8B%D0%B2&category= HTTP/1.1" 200 48317
+INFO 2025-12-10 02:30:03,530 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+ERROR 2025-12-10 02:30:12,064 log Internal Server Error: /search/
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py", line 162, in search
+    search_query_obj, created = SearchQuery.objects.get_or_create(query=query)
+                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 987, in get_or_create
+    return self.get(**kwargs), False
+           ~~~~~~~~^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 642, in get
+    raise self.model.MultipleObjectsReturned(
+    ...<5 lines>...
+    )
+wiki.models.SearchQuery.MultipleObjectsReturned: get() returned more than one SearchQuery -- it returned 4!
+ERROR 2025-12-10 02:30:12,069 log "GET /search/?q=%D1%8B&category= HTTP/1.1" 500 94636
+INFO 2025-12-10 02:30:19,129 log "GET /search/?q=&category= HTTP/1.1" 200 47210
+INFO 2025-12-10 02:30:19,208 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 02:30:24,414 log "GET /search/?q=%D0%BE%D0%B5%D0%B3%D0%BD%D0%BA%D0%B3%D0%BD%D0%BE%D0%B5%D0%B3%D0%BD%D0%B0%D0%BF%D1%80%D0%BE%D0%B0%D0%BF%D1%80%D0%B2%D0%B0%D0%BF%D1%80%D0%B2%D0%B0%D0%BF%D1%80&category= HTTP/1.1" 200 46266
+INFO 2025-12-10 02:30:24,521 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 02:30:27,495 log "GET /search/?q=%D1%8B%D1%8B%D1%8B%D1%8B%D1%8B%D1%8B%D1%8B&category= HTTP/1.1" 200 46152
+INFO 2025-12-10 02:30:27,571 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 02:30:29,475 log "GET /search/?q=%D1%8B%D0%B2&category= HTTP/1.1" 200 48293
+INFO 2025-12-10 02:30:29,560 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 02:30:32,966 log "GET /search/?q=1&category= HTTP/1.1" 200 46113
+INFO 2025-12-10 02:30:33,041 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 02:30:35,225 log "GET /search/?q=%D1%84&category= HTTP/1.1" 200 46116
+INFO 2025-12-10 02:30:35,308 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 02:30:37,446 log "GET /search/?q=%D0%B2&category= HTTP/1.1" 200 48289
+INFO 2025-12-10 02:30:37,526 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 02:30:40,411 log "GET /search/?q=%D1%89&category= HTTP/1.1" 200 46116
+INFO 2025-12-10 02:30:40,502 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 02:30:42,548 log "GET /search/?q=%D1%8C&category= HTTP/1.1" 200 46116
+INFO 2025-12-10 02:30:42,626 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 02:30:44,575 log "GET /search/?q=%D0%BF%D1%80&category= HTTP/1.1" 200 46122
+INFO 2025-12-10 02:30:44,757 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+ERROR 2025-12-10 02:30:46,968 log Internal Server Error: /search/
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py", line 162, in search
+    search_query_obj, created = SearchQuery.objects.get_or_create(query=query)
+                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 987, in get_or_create
+    return self.get(**kwargs), False
+           ~~~~~~~~^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 642, in get
+    raise self.model.MultipleObjectsReturned(
+    ...<5 lines>...
+    )
+wiki.models.SearchQuery.MultipleObjectsReturned: get() returned more than one SearchQuery -- it returned 2!
+ERROR 2025-12-10 02:30:46,971 log "GET /search/?q=%D1%8B%D0%B2&category= HTTP/1.1" 500 95214
+INFO 2025-12-10 02:30:52,851 log "GET / HTTP/1.1" 200 36914
+INFO 2025-12-10 02:30:52,933 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 02:31:02,935 log "GET /admin/ HTTP/1.1" 200 18030
+INFO 2025-12-10 02:31:06,446 log "GET /admin/wiki/backup/ HTTP/1.1" 200 19876
+INFO 2025-12-10 02:31:16,676 log "GET /admin/wiki/backup/ HTTP/1.1" 200 19876
+INFO 2025-12-10 02:31:18,775 log "GET /admin/wiki/backup/ HTTP/1.1" 200 19876
+INFO 2025-12-10 02:31:19,386 log "GET /admin/wiki/backup/ HTTP/1.1" 200 19876
+INFO 2025-12-10 02:31:19,538 log "GET /admin/wiki/backup/ HTTP/1.1" 200 19876
+INFO 2025-12-10 02:31:19,838 log "GET /admin/wiki/backup/ HTTP/1.1" 200 19876
+INFO 2025-12-10 02:31:23,328 log "GET /admin/wiki/backup/5/download/ HTTP/1.1" 302 0
+INFO 2025-12-10 02:31:23,390 log "GET /admin/wiki/backup/ HTTP/1.1" 200 20023
+INFO 2025-12-10 02:31:23,424 log "GET /static/admin/img/icon-no-dark.svg HTTP/1.1" 200 645
+INFO 2025-12-10 02:31:30,681 log "GET /admin/wiki/backup/create-backup/ HTTP/1.1" 200 20828
+INFO 2025-12-10 02:31:32,005 log "GET /admin/wiki/backup/ HTTP/1.1" 200 19876
+INFO 2025-12-10 02:32:17,062 log "GET /admin/wiki/backup/ HTTP/1.1" 200 19876
+INFO 2025-12-10 02:32:39,848 log "GET /admin/wiki/backup/ HTTP/1.1" 200 19876
+INFO 2025-12-10 02:32:55,104 log "GET /admin/wiki/actionlog/ HTTP/1.1" 200 94897
+INFO 2025-12-10 02:32:55,185 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-10 02:33:58,254 log "GET /admin/wiki/backup/ HTTP/1.1" 200 19876
+INFO 2025-12-10 02:33:59,031 log "GET /admin/wiki/backup/create-backup/ HTTP/1.1" 200 20828
+INFO 2025-12-10 02:34:03,628 log "GET /admin/wiki/backup/ HTTP/1.1" 200 19876
+INFO 2025-12-10 02:42:11,099 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 02:42:13,127 log "GET / HTTP/1.1" 200 36914
+INFO 2025-12-10 02:42:13,279 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 02:42:14,901 log "GET /statistics/ HTTP/1.1" 200 50523
+INFO 2025-12-10 02:42:14,979 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+ERROR 2025-12-10 02:42:17,701 log Internal Server Error: /articles/
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 174, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 166, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 135, in render
+    compiled_parent = self.get_parent(context)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 132, in get_parent
+    return self.find_template(parent, context)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 110, in find_template
+    template, origin = context.template.engine.find_template(
+                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        template_name,
+        ^^^^^^^^^^^^^^
+        skip=history,
+        ^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\engine.py", line 163, in find_template
+    raise TemplateDoesNotExist(name, tried=tried)
+django.template.exceptions.TemplateDoesNotExist: wiki/base.html
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py", line 3678, in article_list
+    return render(request, 'wiki/article_list.html', context)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\backends\django.py", line 109, in render
+    reraise(exc, self.backend)
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\backends\django.py", line 130, in reraise
+    raise new from exc
+django.template.exceptions.TemplateDoesNotExist: wiki/base.html
+ERROR 2025-12-10 02:42:17,706 log "GET /articles/?category=events HTTP/1.1" 500 143437
+INFO 2025-12-10 02:42:45,321 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 02:42:54,720 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 02:42:56,322 log "GET / HTTP/1.1" 200 36914
+INFO 2025-12-10 02:42:56,581 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 02:42:59,344 log "GET /statistics/ HTTP/1.1" 200 50523
+INFO 2025-12-10 02:42:59,423 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 02:43:01,994 log "GET /articles/?category=events HTTP/1.1" 200 34058
+INFO 2025-12-10 02:43:02,069 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 02:43:27,439 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 02:43:57,330 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 02:44:27,312 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 02:44:57,331 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 02:45:27,320 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 02:45:57,324 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 02:46:14,783 log "GET /statistics/ HTTP/1.1" 200 50523
+INFO 2025-12-10 02:46:14,872 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 02:46:21,251 log "GET /articles/?category=events HTTP/1.1" 200 34058
+INFO 2025-12-10 02:46:21,324 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 02:46:30,502 log "GET / HTTP/1.1" 200 36914
+INFO 2025-12-10 02:46:30,574 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 02:46:32,435 log "GET /category/events/ HTTP/1.1" 200 34233
+INFO 2025-12-10 02:46:32,510 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 02:46:45,331 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 02:47:14,867 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 02:47:44,863 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 02:48:15,318 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 02:48:45,313 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 02:49:15,324 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 02:49:45,317 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 02:49:57,490 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 02:49:59,104 log "GET / HTTP/1.1" 200 36914
+INFO 2025-12-10 02:49:59,370 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 02:50:01,508 log "GET /statistics/ HTTP/1.1" 200 50514
+INFO 2025-12-10 02:50:01,579 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 02:50:03,272 log "GET /category/events/ HTTP/1.1" 200 34233
+INFO 2025-12-10 02:50:03,347 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 02:50:10,041 log "GET /statistics/export/pdf/ HTTP/1.1" 200 88376
+INFO 2025-12-10 02:50:32,322 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 02:51:02,314 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 02:51:45,010 autoreload Watching for file changes with StatReloader
+INFO 2025-12-10 02:51:46,587 log "GET / HTTP/1.1" 200 36914
+INFO 2025-12-10 02:51:46,727 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 02:51:48,553 log "GET /statistics/ HTTP/1.1" 200 50514
+INFO 2025-12-10 02:51:48,631 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 02:51:50,548 log "GET /statistics/export/pdf/ HTTP/1.1" 200 88376
+INFO 2025-12-10 02:52:00,108 log "GET /category/events/ HTTP/1.1" 200 34233
+INFO 2025-12-10 02:52:00,181 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 02:52:05,509 log "GET / HTTP/1.1" 200 36914
+INFO 2025-12-10 02:52:05,582 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-10 02:52:36,310 log "GET /messages/unread-count/ HTTP/1.1" 200 40415

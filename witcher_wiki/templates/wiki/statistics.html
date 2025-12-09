@@ -383,7 +383,7 @@
                 <tr>
                     <td class="rank">{{ forloop.counter }}</td>
                     <td>
-                        <a href="{% url 'wiki:article_list' %}?category={{ category.slug }}"
+                        <a href="{% url 'wiki:category_detail' slug=category.slug %}"
                            style="color: #D4AF37; text-decoration: none; font-weight: bold;">
                             {{ category.name }}
                         </a>
