@@ -1,0 +1,247 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block extrastyle %}
+{{ block.super }}
+<style>
+:root {
+    --bg-dark: #1a1d28;
+    --card-bg: #252a36;
+    --card-border: #2d3342;
+    --text-white: #ffffff;
+    --text-light: #b0b7c3;
+    --text-muted: #8a93a6;
+    --primary-color: #2196F3;
+    --warning-color: #ff9800;
+}
+
+body {
+    background: var(--bg-dark);
+    color: var(--text-white);
+}
+
+.restore-list-container {
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+.restore-list-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+}
+
+.restore-list-header {
+    background: linear-gradient(135deg, var(--primary-color), #1976D2);
+    color: var(--text-white);
+    padding: 25px 30px;
+    border-bottom: 1px solid var(--card-border);
+}
+
+.restore-list-header h1 {
+    margin: 0;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-weight: 600;
+}
+
+.restore-list-body {
+    padding: 30px;
+}
+
+.backup-list {
+    display: grid;
+    gap: 15px;
+}
+
+.backup-item {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--card-border);
+    border-radius: 10px;
+    padding: 20px;
+    transition: all 0.3s ease;
+}
+
+.backup-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+.backup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.backup-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-white);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.backup-meta {
+    color: var(--text-light);
+    font-size: 14px;
+}
+
+.backup-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.detail-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.detail-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 5px;
+}
+
+.detail-value {
+    color: var(--text-white);
+    font-weight: 500;
+}
+
+.backup-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+.btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-decoration: none;
+}
+
+.btn-restore {
+    background: linear-gradient(135deg, var(--warning-color), #f57c00);
+    color: white;
+}
+
+.btn-restore:hover {
+    background: linear-gradient(135deg, #f57c00, #ef6c00);
+    transform: translateY(-1px);
+}
+
+.btn-download {
+    background: linear-gradient(135deg, #4CAF50, #2E7D32);
+    color: white;
+}
+
+.btn-download:hover {
+    background: linear-gradient(135deg, #45a049, #1B5E20);
+    transform: translateY(-1px);
+}
+
+.no-backups {
+    text-align: center;
+    padding: 40px;
+    color: var(--text-muted);
+}
+
+.no-backups i {
+    font-size: 48px;
+    margin-bottom: 20px;
+    color: var(--text-muted);
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="restore-list-container">
+    <div class="restore-list-card">
+        <div class="restore-list-header">
+            <h1><i class="fas fa-database"></i> Выберите бэкап для восстановления</h1>
+        </div>
+
+        <div class="restore-list-body">
+            {% if backups %}
+            <div class="backup-list">
+                {% for backup in backups %}
+                <div class="backup-item">
+                    <div class="backup-header">
+                        <div class="backup-title">
+                            <i class="fas fa-database"></i> {{ backup.name }}
+                        </div>
+                        <div class="backup-meta">
+                            {{ backup.created_at|date:"d.m.Y H:i" }}
+                        </div>
+                    </div>
+                    
+                    <div class="backup-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Тип:</span>
+                            <span class="detail-value">{{ backup.get_backup_type_display }}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Размер:</span>
+                            <span class="detail-value">{{ backup.file_size_display }}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Статус:</span>
+                            <span class="detail-value">
+                                {% if backup.status == 'completed' %}
+                                <span style="color: #4CAF50;">✓ Завершен</span>
+                                {% else %}
+                                <span style="color: #ff9800;">{{ backup.get_status_display }}</span>
+                                {% endif %}
+                            </span>
+                        </div>
+                        {% if backup.description %}
+                        <div class="detail-item">
+                            <span class="detail-label">Описание:</span>
+                            <span class="detail-value">{{ backup.description|truncatechars:50 }}</span>
+                        </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="backup-actions">
+                        <a href="{% url 'admin:wiki_backup_restore_id' backup.id %}" class="btn btn-restore">
+                            <i class="fas fa-undo"></i> Восстановить
+                        </a>
+                        <a href="{% url 'admin:wiki_backup_download' backup.id %}" class="btn btn-download">
+                            <i class="fas fa-download"></i> Скачать
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="no-backups">
+                <i class="fas fa-database"></i>
+                <h3>Нет доступных бэкапов</h3>
+                <p>Создайте бэкап, чтобы иметь возможность восстановления</p>
+                <a href="{% url 'admin:wiki_backup_create' %}" class="btn" style="background: #4CAF50; color: white; margin-top: 20px;">
+                    <i class="fas fa-plus"></i> Создать бэкап
+                </a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

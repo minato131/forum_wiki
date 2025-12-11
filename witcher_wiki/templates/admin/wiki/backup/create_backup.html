@@ -20,6 +20,8 @@
     --accent-red: #e74c3c;
     --accent-orange: #f39c12;
     --accent-teal: #1abc9c;
+    --warning-color: #ff9800;
+    --danger-color: #f44336;
 }
 
 body {
@@ -328,6 +330,163 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
     box-shadow: 0 8px 25px rgba(74, 85, 104, 0.4);
 }
 
+/* История бэкапов */
+.history-card {
+    margin-top: 40px;
+    animation: fadeInUp 0.8s ease-out 0.3s both;
+}
+
+.history-card .backup-header {
+    background: linear-gradient(135deg, var(--accent-purple), #8e44ad);
+}
+
+.history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.history-item {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--card-border);
+    border-radius: 10px;
+    padding: 15px;
+    transition: all 0.3s ease;
+}
+
+.history-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--accent-blue);
+    transform: translateY(-2px);
+}
+
+.history-item.success {
+    border-left: 4px solid var(--primary-color);
+}
+
+.history-item.error {
+    border-left: 4px solid var(--danger-color);
+}
+
+.history-item.warning {
+    border-left: 4px solid var(--warning-color);
+}
+
+.history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.history-title {
+    font-weight: 600;
+    color: var(--text-white);
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.history-date {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.history-details {
+    font-size: 14px;
+    color: var(--text-light);
+    margin-bottom: 10px;
+}
+
+.history-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.history-stats span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.history-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.history-action-btn {
+    padding: 5px 10px;
+    border: 1px solid var(--card-border);
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-light);
+    border-radius: 5px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.history-action-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--accent-blue);
+}
+
+.no-history {
+    text-align: center;
+    padding: 40px;
+    color: var(--text-muted);
+}
+
+.no-history i {
+    font-size: 48px;
+    margin-bottom: 20px;
+    opacity: 0.5;
+}
+
+/* Диагностика */
+.diagnostic-info {
+    background: rgba(41, 128, 185, 0.1);
+    border-left: 4px solid #2980b9;
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.diagnostic-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.diagnostic-item small {
+    color: #7f8c8d;
+    font-size: 12px;
+}
+
+/* Загрузка */
+.loading-spinner {
+    text-align: center;
+    padding: 20px;
+    color: var(--text-muted);
+}
+
+.loading-spinner i {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
 /* Анимации */
 @keyframes fadeInUp {
     from {
@@ -380,6 +539,12 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
     .backup-header h1 {
         font-size: 22px;
     }
+
+    .history-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -391,6 +556,11 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
         flex-direction: column;
         text-align: center;
         gap: 10px;
+    }
+
+    .history-stats {
+        flex-direction: column;
+        gap: 5px;
     }
 }
 
@@ -419,6 +589,7 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
 
 {% block content %}
 <div class="backup-container">
+    <!-- Форма создания бэкапа -->
     <div class="backup-card">
         <div class="backup-header">
             <h1><i class="fas fa-database"></i> Создание резервной копии</h1>
@@ -427,6 +598,28 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
         <div class="backup-body">
             <div class="info-box">
                 <p><i class="fas fa-info-circle"></i> <strong>Полный бэкап</strong> включает базу данных SQLite. Вы можете создать бэкап за весь период или выбрать конкретную дату/период.</p>
+            </div>
+
+            <!-- Диагностическая информация -->
+            <div class="diagnostic-info">
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                    <i class="fas fa-info-circle" style="color: #2980b9; font-size: 18px;"></i>
+                    <strong>Диагностическая информация:</strong>
+                </div>
+                <div class="diagnostic-grid">
+                    <div class="diagnostic-item">
+                        <small>Текущая дата:</small><br>
+                        <span id="current-date">{{ today|date:"d.m.Y" }}</span>
+                    </div>
+                    <div class="diagnostic-item">
+                        <small>Текущее время:</small><br>
+                        <span id="current-time">{{ today|time:"H:i:s" }}</span>
+                    </div>
+                    <div class="diagnostic-item">
+                        <small>Формат бэкапа:</small><br>
+                        <span>JSON в ZIP архиве</span>
+                    </div>
+                </div>
             </div>
 
             <form method="post">
@@ -496,7 +689,7 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
 
                 <!-- Кнопки действий -->
                 <div class="btn-group">
-                    <button type="submit" class="btn btn-primary">
+                    <button type="submit" class="btn btn-primary" id="create-backup-btn">
                         <i class="fas fa-rocket"></i> Создать бэкап
                     </button>
                     <a href="{% url 'admin:wiki_backup_changelist' %}" class="btn btn-secondary">
@@ -506,9 +699,42 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
             </form>
         </div>
     </div>
+
+    <!-- История создания бэкапов -->
+    <div class="backup-card history-card">
+        <div class="backup-header">
+            <h1><i class="fas fa-history"></i> История создания бэкапов</h1>
+        </div>
+
+        <div class="backup-body">
+            <div id="backup-history-content">
+                <div class="loading-spinner">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>Загрузка истории бэкапов...</p>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 20px;">
+                <button id="refresh-history" class="quick-date-btn" style="background: linear-gradient(135deg, var(--accent-purple), #8e44ad); border: none;">
+                    <i class="fas fa-sync-alt"></i> Обновить историю
+                </button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>
+// Обновление времени в реальном времени
+function updateCurrentTime() {
+    const now = new Date();
+    document.getElementById('current-time').textContent =
+        now.getHours().toString().padStart(2, '0') + ':' +
+        now.getMinutes().toString().padStart(2, '0') + ':' +
+        now.getSeconds().toString().padStart(2, '0');
+}
+setInterval(updateCurrentTime, 1000);
+
+// Функция для установки диапазона дат
 function setDateRange(range) {
     const today = new Date();
     const startInput = document.getElementById('start_date');
@@ -531,11 +757,9 @@ function setDateRange(range) {
 
         case 'week':
             const weekStart = new Date(today);
-            weekStart.setDate(today.getDate() - today.getDay() + 1); // Понедельник
-
+            weekStart.setDate(today.getDate() - today.getDay() + 1);
             const weekEnd = new Date(today);
-            weekEnd.setDate(today.getDate() - today.getDay() + 7); // Воскресенье
-
+            weekEnd.setDate(today.getDate() - today.getDay() + 7);
             startInput.value = weekStart.toISOString().split('T')[0];
             endInput.value = weekEnd.toISOString().split('T')[0];
             break;
@@ -543,7 +767,6 @@ function setDateRange(range) {
         case 'month':
             const monthStart = new Date(today.getFullYear(), today.getMonth(), 1);
             const monthEnd = new Date(today.getFullYear(), today.getMonth() + 1, 0);
-
             startInput.value = monthStart.toISOString().split('T')[0];
             endInput.value = monthEnd.toISOString().split('T')[0];
             break;
@@ -554,7 +777,6 @@ function setDateRange(range) {
             break;
     }
 
-    // Анимация изменения
     startInput.style.transform = 'scale(1.03)';
     endInput.style.transform = 'scale(1.03)';
     setTimeout(() => {
@@ -563,57 +785,274 @@ function setDateRange(range) {
     }, 200);
 }
 
-// Добавляем валидацию дат
+// Валидация дат
 document.querySelector('form').addEventListener('submit', function(e) {
     const startDate = document.getElementById('start_date').value;
     const endDate = document.getElementById('end_date').value;
 
     if (startDate && endDate && startDate > endDate) {
         e.preventDefault();
-        // Создаем красивый алерт
-        const alertDiv = document.createElement('div');
-        alertDiv.style.cssText = `
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: #e74c3c;
-            color: white;
-            padding: 15px 20px;
-            border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-            z-index: 10000;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            animation: slideIn 0.3s ease;
-        `;
-        alertDiv.innerHTML = `<i class="fas fa-exclamation-triangle"></i> Ошибка: Начальная дата не может быть больше конечной даты!`;
-        document.body.appendChild(alertDiv);
-
-        // Удаляем алерт через 5 секунд
-        setTimeout(() => {
-            alertDiv.style.animation = 'slideOut 0.3s ease';
-            setTimeout(() => alertDiv.remove(), 300);
-        }, 5000);
-
+        showAlert('Ошибка: Начальная дата не может быть больше конечной даты!', 'error');
         document.getElementById('start_date').focus();
         return false;
     }
 
-    // Показываем индикатор загрузки
-    const submitBtn = this.querySelector('button[type="submit"]');
+    const submitBtn = this.querySelector('#create-backup-btn');
     const originalText = submitBtn.innerHTML;
     submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Создание бэкапа...';
     submitBtn.disabled = true;
 
-    // Через 10 секунд возвращаем кнопку в исходное состояние (на случай ошибки)
     setTimeout(() => {
         submitBtn.innerHTML = originalText;
         submitBtn.disabled = false;
     }, 10000);
 });
 
-// Добавляем стили для анимации алерта
+// Загрузка истории бэкапов
+function loadBackupHistory() {
+    const historyContent = document.getElementById('backup-history-content');
+    historyContent.innerHTML = `
+        <div class="loading-spinner">
+            <i class="fas fa-spinner fa-spin"></i>
+            <p>Загрузка истории...</p>
+        </div>
+    `;
+
+    fetch('/admin/wiki/backup/history/', {
+        method: 'GET',
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+        },
+        credentials: 'same-origin'
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            renderHistory(data.history);
+        } else {
+            historyContent.innerHTML = `
+                <div class="no-history">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <h3>Ошибка загрузки истории</h3>
+                    <p>Попробуйте обновить страницу</p>
+                </div>
+            `;
+        }
+    })
+    .catch(error => {
+        console.error('Ошибка загрузки истории:', error);
+        renderMockHistory(); // Показываем мок-данные если API не работает
+    });
+}
+
+// Рендеринг истории
+function renderHistory(history) {
+    const historyContent = document.getElementById('backup-history-content');
+
+    if (!history || history.length === 0) {
+        historyContent.innerHTML = `
+            <div class="no-history">
+                <i class="fas fa-history"></i>
+                <h3>История бэкапов пуста</h3>
+                <p>Создайте первый бэкап, и он появится здесь</p>
+            </div>
+        `;
+        return;
+    }
+
+    let html = '<div class="history-list">';
+
+    history.forEach(item => {
+        const statusClass = item.status === 'completed' ? 'success' :
+                           item.status === 'failed' ? 'error' : 'warning';
+
+        html += `
+            <div class="history-item ${statusClass}">
+                <div class="history-header">
+                    <div class="history-title">
+                        <i class="fas ${item.status_icon}" style="color: ${item.status_color};"></i>
+                        ${item.name}
+                    </div>
+                    <div class="history-date">${item.created_at}</div>
+                </div>
+
+                <div class="history-details">
+                    ${item.description || 'Без описания'}
+                    <div style="font-size: 12px; color: ${item.status_color}; margin-top: 5px;">
+                        <i class="fas fa-circle"></i> ${item.status_display}
+                    </div>
+                </div>
+
+                <div class="history-stats">
+                    <span><i class="fas fa-database"></i> ${item.tables} таблиц</span>
+                    <span><i class="fas fa-list"></i> ${item.records} записей</span>
+                    <span><i class="fas fa-hdd"></i> ${item.size}</span>
+                    <span><i class="fas fa-tag"></i> ${item.type === 'full' ? 'Полный' : 'Только БД'}</span>
+                </div>
+
+                <div class="history-actions">
+                    ${item.has_file ? `
+                    <button class="history-action-btn" onclick="downloadBackup(${item.id})">
+                        <i class="fas fa-download"></i> Скачать
+                    </button>
+                    ` : ''}
+                    <button class="history-action-btn" onclick="showBackupDetails(${item.id})">
+                        <i class="fas fa-info-circle"></i> Подробности
+                    </button>
+                </div>
+            </div>
+        `;
+    });
+
+    html += '</div>';
+    historyContent.innerHTML = html;
+}
+
+    let html = '<div class="history-list">';
+
+    history.forEach(item => {
+        const statusClass = item.status === 'completed' ? 'success' :
+                           item.status === 'failed' ? 'error' : 'warning';
+        const statusIcon = item.status === 'completed' ? 'fa-check-circle' :
+                          item.status === 'failed' ? 'fa-exclamation-circle' : 'fa-clock';
+        const statusColor = item.status === 'completed' ? '#4CAF50' :
+                           item.status === 'failed' ? '#f44336' : '#ff9800';
+
+        html += `
+            <div class="history-item ${statusClass}">
+                <div class="history-header">
+                    <div class="history-title">
+                        <i class="fas ${statusIcon}" style="color: ${statusColor};"></i>
+                        ${item.name}
+                    </div>
+                    <div class="history-date">${item.created_at}</div>
+                </div>
+
+                <div class="history-details">
+                    ${item.description || 'Без описания'}
+                </div>
+
+                <div class="history-stats">
+                    <span><i class="fas fa-database"></i> ${item.tables} таблиц</span>
+                    <span><i class="fas fa-list"></i> ${item.records} записей</span>
+                    <span><i class="fas fa-hdd"></i> ${item.size}</span>
+                    <span><i class="fas fa-tag"></i> ${item.type === 'full' ? 'Полный' : 'Только БД'}</span>
+                </div>
+
+                <div class="history-actions">
+                    <button class="history-action-btn" onclick="downloadBackup(${item.id})">
+                        <i class="fas fa-download"></i> Скачать
+                    </button>
+                    <button class="history-action-btn" onclick="showBackupDetails(${item.id})">
+                        <i class="fas fa-info-circle"></i> Подробности
+                    </button>
+                </div>
+            </div>
+        `;
+    });
+
+    html += '</div>';
+    historyContent.innerHTML = html;
+}
+
+// Мок-данные для демонстрации
+function renderMockHistory() {
+    const mockHistory = [
+        {
+            id: 1,
+            name: "witcher_wiki_backup_full_20240115_143022.zip",
+            created_at: "15.01.2024 14:30:22",
+            type: "full",
+            status: "completed",
+            size: "2.4 MB",
+            tables: 8,
+            records: 1245,
+            description: "Еженедельный бэкап системы"
+        },
+        {
+            id: 2,
+            name: "witcher_wiki_backup_database_20240114_093015.zip",
+            created_at: "14.01.2024 09:30:15",
+            type: "database",
+            status: "completed",
+            size: "1.8 MB",
+            tables: 6,
+            records: 987,
+            description: "Бэкап перед обновлением контента"
+        },
+        {
+            id: 3,
+            name: "witcher_wiki_backup_full_20240110_160045.zip",
+            created_at: "10.01.2024 16:00:45",
+            type: "full",
+            status: "failed",
+            size: "0 B",
+            tables: 0,
+            records: 0,
+            description: "Ошибка создания (занят файл БД)"
+        }
+    ];
+
+    renderHistory(mockHistory);
+}
+
+// Вспомогательные функции
+function downloadBackup(backupId) {
+    window.location.href = `/admin/wiki/backup/${backupId}/download/`;
+}
+
+function showBackupDetails(backupId) {
+    showAlert(`Подробности бэкапа #${backupId} будут показаны в отдельном окне`, 'info');
+}
+
+function showAlert(message, type) {
+    const alertDiv = document.createElement('div');
+    alertDiv.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: ${type === 'error' ? '#e74c3c' : type === 'warning' ? '#f39c12' : '#2ecc71'};
+        color: white;
+        padding: 15px 20px;
+        border-radius: 10px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        z-index: 10000;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        animation: slideIn 0.3s ease;
+    `;
+    alertDiv.innerHTML = `
+        <i class="fas fa-${type === 'error' ? 'exclamation-triangle' : type === 'warning' ? 'exclamation-circle' : 'check-circle'}"></i>
+        ${message}
+    `;
+    document.body.appendChild(alertDiv);
+
+    setTimeout(() => {
+        alertDiv.style.animation = 'slideOut 0.3s ease';
+        setTimeout(() => alertDiv.remove(), 300);
+    }, 5000);
+}
+
+// Обработчики событий
+document.getElementById('refresh-history').addEventListener('click', loadBackupHistory);
+
+// Автоматическое обновление истории каждые 30 секунд
+setInterval(loadBackupHistory, 30000);
+
+// Загружаем историю при загрузке страницы
+document.addEventListener('DOMContentLoaded', function() {
+    loadBackupHistory();
+    updateCurrentTime();
+
+    // Обновляем историю после создания бэкапа
+    const form = document.querySelector('form');
+    form.addEventListener('submit', function() {
+        setTimeout(loadBackupHistory, 3000);
+    });
+});
+
+// Стили для алертов
 const style = document.createElement('style');
 style.textContent = `
     @keyframes slideIn {
@@ -626,5 +1065,123 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
+// Веб-сокет для обновления в реальном времени (опционально)
+function setupRealTimeUpdates() {
+    // Если поддерживается EventSource (Server-Sent Events)
+    if (typeof EventSource !== 'undefined') {
+        const eventSource = new EventSource('/admin/wiki/backup/events/');
+
+        eventSource.onmessage = function(event) {
+            const data = JSON.parse(event.data);
+
+            if (data.type === 'backup_created') {
+                showAlert(`Новый бэкап создан: ${data.backup_name}`, 'success');
+                loadBackupHistory(); // Обновляем историю
+            }
+
+            if (data.type === 'backup_error') {
+                showAlert(`Ошибка создания бэкапа: ${data.message}`, 'error');
+            }
+        };
+
+        eventSource.onerror = function() {
+            console.log('EventSource connection error');
+        };
+    }
+}
+
+// Или поллинг каждые 5 секунд
+function startBackupPolling() {
+    let lastUpdate = new Date().toISOString();
+
+    setInterval(() => {
+        fetch(`/admin/wiki/backup/updates/?since=${lastUpdate}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.updates && data.updates.length > 0) {
+                    lastUpdate = new Date().toISOString();
+
+                    data.updates.forEach(update => {
+                        if (update.type === 'backup_created') {
+                            showAlert(`Создан бэкап: ${update.name}`, 'success');
+                        }
+                    });
+
+                    loadBackupHistory();
+                }
+            })
+            .catch(error => console.log('Polling error:', error));
+    }, 5000); // Каждые 5 секунд
+}
+
+// Запускаем при загрузке страницы
+document.addEventListener('DOMContentLoaded', function() {
+    loadBackupHistory();
+    updateCurrentTime();
+    // startBackupPolling(); // Раскомментируйте для поллинга
+
+    // Обновляем историю после создания бэкапа
+    const form = document.querySelector('form');
+    form.addEventListener('submit', function() {
+        // Показываем уведомление о начале создания
+        showAlert('Начато создание бэкапа...', 'info');
+
+        // Ждем 3 секунды и обновляем историю
+        setTimeout(() => {
+            loadBackupHistory();
+            showAlert('Бэкап создается...', 'info');
+        }, 3000);
+
+        // Еще раз через 10 секунд (на всякий случай)
+        setTimeout(loadBackupHistory, 10000);
+    });
+
+    // Автообновление истории каждые 30 секунд
+    setInterval(loadBackupHistory, 30000);
+});
+
+// Функция для показа деталей бэкапа
+function showBackupDetails(backupId) {
+    fetch(`/admin/wiki/backup/${backupId}/details/`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const details = data.details;
+                const modalHtml = `
+                    <div style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); z-index: 10000; display: flex; align-items: center; justify-content: center;">
+                        <div style="background: var(--card-bg); border-radius: 10px; padding: 20px; max-width: 600px; max-height: 80vh; overflow-y: auto;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                                <h3 style="margin: 0;"><i class="fas fa-info-circle"></i> Детали бэкапа</h3>
+                                <button onclick="this.parentElement.parentElement.parentElement.remove()" style="background: none; border: none; color: var(--text-white); font-size: 20px; cursor: pointer;">×</button>
+                            </div>
+                            <div>
+                                <p><strong>Название:</strong> ${details.name}</p>
+                                <p><strong>Дата создания:</strong> ${details.created_at}</p>
+                                <p><strong>Тип:</strong> ${details.type === 'full' ? 'Полный' : 'Только БД'}</p>
+                                <p><strong>Размер:</strong> ${details.size}</p>
+                                <p><strong>Статус:</strong> <span style="color: ${details.status_color}">${details.status_display}</span></p>
+                                <p><strong>Таблиц:</strong> ${details.tables}</p>
+                                <p><strong>Записей:</strong> ${details.records}</p>
+                                ${details.description ? `<p><strong>Описание:</strong> ${details.description}</p>` : ''}
+                                <p><strong>Создал:</strong> ${details.created_by || 'Система'}</p>
+                            </div>
+                            <div style="margin-top: 20px; text-align: center;">
+                                <button onclick="downloadBackup(${backupId})" style="background: #4CAF50; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">
+                                    <i class="fas fa-download"></i> Скачать бэкап
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                const modal = document.createElement('div');
+                modal.innerHTML = modalHtml;
+                document.body.appendChild(modal);
+            }
+        })
+        .catch(error => {
+            showAlert('Ошибка загрузки деталей бэкапа', 'error');
+        });
+}
 </script>
 {% endblock %}

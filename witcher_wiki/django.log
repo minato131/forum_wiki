@@ -26239,3 +26239,250 @@ INFO 2025-12-10 06:52:50,788 log "GET /admin/wiki/backup/create-backup/ HTTP/1.1
 INFO 2025-12-10 06:52:54,120 log "POST /admin/wiki/backup/create-backup/ HTTP/1.1" 302 0
 INFO 2025-12-10 06:52:54,179 log "GET /admin/wiki/backup/ HTTP/1.1" 200 20954
 INFO 2025-12-10 06:52:54,237 log "GET /static/admin/img/icon-info-dark.svg HTTP/1.1" 200 630
+INFO 2025-12-12 00:23:06,263 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 00:23:08,871 log "GET / HTTP/1.1" 200 37134
+INFO 2025-12-12 00:23:08,942 log "GET /static/css/style.css HTTP/1.1" 304 0
+INFO 2025-12-12 00:23:08,943 log "GET /static/css/tutorials.css HTTP/1.1" 304 0
+INFO 2025-12-12 00:23:08,943 log "GET /static/js/tutorials.js HTTP/1.1" 304 0
+INFO 2025-12-12 00:23:09,426 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+WARNING 2025-12-12 00:23:09,584 log Not Found: /favicon.ico
+WARNING 2025-12-12 00:23:09,585 log "GET /favicon.ico HTTP/1.1" 404 26324
+INFO 2025-12-12 00:23:11,581 log "GET /admin/ HTTP/1.1" 200 17781
+INFO 2025-12-12 00:23:11,602 log "GET /static/admin/css/base.css HTTP/1.1" 304 0
+INFO 2025-12-12 00:23:11,606 log "GET /static/admin/css/dark_mode.css HTTP/1.1" 304 0
+INFO 2025-12-12 00:23:11,606 log "GET /static/admin/js/theme.js HTTP/1.1" 304 0
+INFO 2025-12-12 00:23:11,606 log "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 304 0
+INFO 2025-12-12 00:23:11,606 log "GET /static/admin/css/dashboard.css HTTP/1.1" 304 0
+INFO 2025-12-12 00:23:11,607 log "GET /static/admin/css/responsive.css HTTP/1.1" 304 0
+INFO 2025-12-12 00:23:11,620 log "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 304 0
+INFO 2025-12-12 00:23:11,626 log "GET /static/admin/img/icon-deletelink.svg HTTP/1.1" 304 0
+INFO 2025-12-12 00:23:11,626 log "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 304 0
+INFO 2025-12-12 00:23:11,626 log "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 304 0
+INFO 2025-12-12 00:23:11,626 log "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 304 0
+INFO 2025-12-12 00:23:13,242 log "GET /admin/wiki/backup/ HTTP/1.1" 200 20943
+INFO 2025-12-12 00:23:13,261 log "GET /static/admin/css/changelists.css HTTP/1.1" 304 0
+INFO 2025-12-12 00:23:13,266 log "GET /static/admin/js/jquery.init.js HTTP/1.1" 304 0
+INFO 2025-12-12 00:23:13,266 log "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 304 0
+INFO 2025-12-12 00:23:13,266 log "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 304 0
+INFO 2025-12-12 00:23:13,267 log "GET /static/admin/js/urlify.js HTTP/1.1" 304 0
+INFO 2025-12-12 00:23:13,267 log "GET /static/admin/js/core.js HTTP/1.1" 304 0
+INFO 2025-12-12 00:23:13,267 log "GET /static/admin/js/actions.js HTTP/1.1" 304 0
+INFO 2025-12-12 00:23:13,268 log "GET /static/admin/js/prepopulate.js HTTP/1.1" 304 0
+INFO 2025-12-12 00:23:13,268 log "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 304 0
+INFO 2025-12-12 00:23:13,401 log "GET /static/admin/img/search.svg HTTP/1.1" 304 0
+INFO 2025-12-12 00:23:13,408 log "GET /static/admin/js/filters.js HTTP/1.1" 304 0
+INFO 2025-12-12 00:23:13,412 log "GET /static/admin/img/sorting-icons.svg HTTP/1.1" 304 0
+INFO 2025-12-12 00:23:15,660 log "GET /admin/wiki/backup/create-backup/ HTTP/1.1" 200 20828
+INFO 2025-12-12 00:23:21,940 log "POST /admin/wiki/backup/create-backup/ HTTP/1.1" 302 0
+INFO 2025-12-12 00:23:22,010 log "GET /admin/wiki/backup/ HTTP/1.1" 200 21099
+INFO 2025-12-12 00:23:22,036 log "GET /static/admin/img/icon-no-dark.svg HTTP/1.1" 304 0
+INFO 2025-12-12 00:25:36,774 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\admin.py changed, reloading.
+INFO 2025-12-12 00:25:37,544 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 00:26:39,146 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\admin.py changed, reloading.
+INFO 2025-12-12 00:26:39,861 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 00:27:26,876 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\witcher_wiki\urls.py changed, reloading.
+INFO 2025-12-12 00:27:27,530 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 00:27:35,831 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\witcher_wiki\urls.py changed, reloading.
+INFO 2025-12-12 00:27:36,548 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 00:27:50,859 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\witcher_wiki\urls.py changed, reloading.
+INFO 2025-12-12 00:27:51,597 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 00:27:55,547 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 00:27:57,206 log "GET / HTTP/1.1" 200 37134
+INFO 2025-12-12 00:27:57,375 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 00:27:59,396 log "GET /admin/ HTTP/1.1" 200 17781
+INFO 2025-12-12 00:28:03,487 log "GET /admin/wiki/backup/ HTTP/1.1" 200 20943
+INFO 2025-12-12 00:28:04,998 log "GET /admin/wiki/backup/create-backup/ HTTP/1.1" 200 20828
+INFO 2025-12-12 00:28:11,549 log "POST /admin/wiki/backup/create-backup/ HTTP/1.1" 200 25814
+INFO 2025-12-12 00:28:34,273 log "GET /admin/wiki/backup/ HTTP/1.1" 200 20943
+INFO 2025-12-12 00:28:37,073 log "GET /admin/wiki/backup/restore/ HTTP/1.1" 200 13122
+INFO 2025-12-12 00:28:43,795 log "GET /admin/wiki/backup/ HTTP/1.1" 200 20943
+INFO 2025-12-12 00:28:56,531 log "GET /admin/wiki/backup/restore/ HTTP/1.1" 200 13122
+INFO 2025-12-12 00:29:01,459 log "GET /admin/wiki/backup/ HTTP/1.1" 200 20943
+INFO 2025-12-12 00:32:25,926 log "GET /admin/wiki/backup/ HTTP/1.1" 200 17021
+INFO 2025-12-12 00:32:27,460 log "GET /admin/wiki/backup/create-backup/ HTTP/1.1" 200 20828
+INFO 2025-12-12 00:32:34,165 log "POST /admin/wiki/backup/create-backup/ HTTP/1.1" 200 6834
+INFO 2025-12-12 00:32:37,356 log "GET /admin/wiki/backup/create-backup/ HTTP/1.1" 200 20828
+INFO 2025-12-12 00:32:38,264 log "GET /admin/wiki/backup/ HTTP/1.1" 200 17021
+INFO 2025-12-12 00:32:41,044 log "GET /admin/wiki/backup/restore/ HTTP/1.1" 200 6808
+INFO 2025-12-12 00:32:44,821 log "GET /admin/wiki/backup/create-backup/ HTTP/1.1" 200 20828
+INFO 2025-12-12 00:32:52,320 log "GET /admin/wiki/backup/ HTTP/1.1" 200 17021
+INFO 2025-12-12 00:36:03,199 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\witcher_wiki\urls.py changed, reloading.
+INFO 2025-12-12 00:36:03,965 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 00:36:06,456 log "GET / HTTP/1.1" 200 37134
+INFO 2025-12-12 00:36:06,612 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 00:36:08,655 log "GET /admin/ HTTP/1.1" 200 17781
+INFO 2025-12-12 00:36:09,974 log "GET /admin/wiki/backup/ HTTP/1.1" 200 17021
+INFO 2025-12-12 00:36:11,198 log "GET /admin/wiki/backup/create-backup/ HTTP/1.1" 200 20828
+INFO 2025-12-12 00:36:12,029 log "GET /admin/wiki/backup/ HTTP/1.1" 200 17021
+INFO 2025-12-12 00:36:12,965 log "GET /admin/ HTTP/1.1" 200 17781
+INFO 2025-12-12 00:36:52,498 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\admin.py changed, reloading.
+INFO 2025-12-12 00:36:53,295 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 00:39:59,228 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\admin.py changed, reloading.
+INFO 2025-12-12 00:39:59,971 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 00:40:30,105 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\admin.py changed, reloading.
+INFO 2025-12-12 00:40:30,772 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 00:46:08,458 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 00:46:10,229 log "GET / HTTP/1.1" 200 37134
+INFO 2025-12-12 00:46:10,392 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 00:46:13,509 log "GET /admin/ HTTP/1.1" 200 17781
+INFO 2025-12-12 00:46:15,225 log "GET /admin/wiki/backup/ HTTP/1.1" 200 17021
+INFO 2025-12-12 00:46:17,324 log "GET /admin/wiki/backup/create-backup/ HTTP/1.1" 200 32483
+INFO 2025-12-12 00:46:17,493 log "GET /admin/wiki/backup/history/ HTTP/1.1" 200 44
+INFO 2025-12-12 00:46:25,652 log "POST /admin/wiki/backup/create-backup/ HTTP/1.1" 200 6834
+INFO 2025-12-12 00:46:27,403 log "GET /admin/wiki/backup/ HTTP/1.1" 200 17021
+INFO 2025-12-12 00:46:28,773 log "GET /admin/wiki/backup/ HTTP/1.1" 200 17021
+INFO 2025-12-12 00:46:35,216 log "GET /admin/wiki/backup/restore/ HTTP/1.1" 200 17444
+INFO 2025-12-12 00:46:41,012 log "GET /admin/wiki/backup/ HTTP/1.1" 200 17021
+INFO 2025-12-12 00:49:15,542 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\admin.py changed, reloading.
+INFO 2025-12-12 00:49:16,859 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 01:11:26,189 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 01:11:27,789 log "GET / HTTP/1.1" 200 37134
+INFO 2025-12-12 01:11:27,935 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 01:11:32,377 log "GET /admin/ HTTP/1.1" 200 18418
+INFO 2025-12-12 01:11:35,266 log "GET /admin/wiki/backup/ HTTP/1.1" 200 17475
+INFO 2025-12-12 01:11:36,412 log "GET /admin/wiki/backup/create-backup/ HTTP/1.1" 200 40575
+INFO 2025-12-12 01:11:44,134 log "POST /admin/wiki/backup/create-backup/ HTTP/1.1" 302 0
+INFO 2025-12-12 01:11:44,199 log "GET /admin/wiki/backup/create-backup/ HTTP/1.1" 200 46758
+INFO 2025-12-12 01:12:30,785 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 01:12:43,377 log "GET / HTTP/1.1" 200 37134
+INFO 2025-12-12 01:12:43,549 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 01:12:46,253 log "GET /admin/ HTTP/1.1" 200 18418
+INFO 2025-12-12 01:12:47,644 log "GET /admin/wiki/backup/ HTTP/1.1" 200 17475
+INFO 2025-12-12 01:12:48,591 log "GET /admin/wiki/backup/create-backup/ HTTP/1.1" 200 40575
+INFO 2025-12-12 01:12:54,741 log "POST /admin/wiki/backup/create-backup/ HTTP/1.1" 200 6899
+INFO 2025-12-12 01:12:58,229 log "GET /admin/wiki/backup/create-backup/ HTTP/1.1" 200 40575
+INFO 2025-12-12 01:13:03,721 log "GET /admin/ HTTP/1.1" 200 18418
+INFO 2025-12-12 01:13:05,700 log "GET /admin/wiki/backup/ HTTP/1.1" 200 17475
+INFO 2025-12-12 01:13:09,128 log "GET /admin/wiki/backup/restore/ HTTP/1.1" 200 17444
+INFO 2025-12-12 01:13:10,894 log "GET /admin/wiki/backup/ HTTP/1.1" 200 17475
+INFO 2025-12-12 01:14:06,093 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 01:14:07,385 log "GET /admin/wiki/backup/restore/ HTTP/1.1" 200 17444
+INFO 2025-12-12 01:14:08,510 log "GET /admin/wiki/backup/ HTTP/1.1" 200 17475
+INFO 2025-12-12 01:14:09,599 log "GET /admin/wiki/backup/create-backup/ HTTP/1.1" 200 40575
+INFO 2025-12-12 01:15:41,368 log "GET / HTTP/1.1" 200 37134
+INFO 2025-12-12 01:15:41,520 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 01:15:43,111 log "GET /admin/ HTTP/1.1" 200 18418
+INFO 2025-12-12 01:15:44,951 log "GET /admin/wiki/backup/ HTTP/1.1" 200 17475
+INFO 2025-12-12 01:16:06,900 log "GET /admin/wiki/backup/create-backup/ HTTP/1.1" 200 40575
+INFO 2025-12-12 01:22:06,196 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 01:22:07,877 log "GET / HTTP/1.1" 200 37134
+INFO 2025-12-12 01:22:08,028 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 01:22:09,703 log "GET /admin/ HTTP/1.1" 200 18418
+INFO 2025-12-12 01:22:11,641 log "GET /admin/wiki/backup/ HTTP/1.1" 200 39972
+INFO 2025-12-12 01:22:11,717 log "GET /admin/wiki/backup/history/ HTTP/1.1" 200 93
+INFO 2025-12-12 01:22:16,700 log "GET /admin/wiki/backup/history/ HTTP/1.1" 200 93
+INFO 2025-12-12 01:22:41,822 log "GET /admin/wiki/backup/history/ HTTP/1.1" 200 93
+INFO 2025-12-12 01:22:42,633 log "GET /admin/wiki/backup/ HTTP/1.1" 200 39972
+INFO 2025-12-12 01:22:42,703 log "GET /admin/wiki/backup/history/ HTTP/1.1" 200 93
+INFO 2025-12-12 01:22:46,766 log "GET /admin/wiki/backuplog/ HTTP/1.1" 200 17349
+INFO 2025-12-12 01:22:46,953 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-12 01:22:46,966 log "GET /static/admin/img/tooltag-add.svg HTTP/1.1" 304 0
+INFO 2025-12-12 01:22:49,185 log "GET /admin/wiki/backuplog/add/ HTTP/1.1" 200 22673
+INFO 2025-12-12 01:22:49,198 log "GET /static/admin/css/forms.css HTTP/1.1" 304 0
+INFO 2025-12-12 01:22:49,203 log "GET /static/admin/css/widgets.css HTTP/1.1" 304 0
+INFO 2025-12-12 01:22:49,243 log "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 200 586
+INFO 2025-12-12 01:22:49,251 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-12 01:22:49,261 log "GET /static/admin/js/change_form.js HTTP/1.1" 200 606
+INFO 2025-12-12 01:22:50,257 log "GET /admin/wiki/backuplog/ HTTP/1.1" 200 17349
+INFO 2025-12-12 01:22:53,640 log "GET /admin/wiki/backup/ HTTP/1.1" 200 39972
+INFO 2025-12-12 01:22:53,707 log "GET /admin/wiki/backup/history/ HTTP/1.1" 200 93
+INFO 2025-12-12 01:22:55,482 log "GET /admin/wiki/backup/history/ HTTP/1.1" 200 93
+INFO 2025-12-12 01:22:58,491 log "GET /admin/wiki/backuplog/ HTTP/1.1" 200 17349
+INFO 2025-12-12 01:23:15,252 log "GET /admin/wiki/backup/ HTTP/1.1" 200 39972
+INFO 2025-12-12 01:23:15,319 log "GET /admin/wiki/backup/history/ HTTP/1.1" 200 93
+INFO 2025-12-12 01:23:46,222 log "GET /admin/wiki/backup/history/ HTTP/1.1" 200 93
+INFO 2025-12-12 01:24:16,202 log "GET /admin/wiki/backup/history/ HTTP/1.1" 200 93
+INFO 2025-12-12 01:24:46,208 log "GET /admin/wiki/backup/history/ HTTP/1.1" 200 93
+INFO 2025-12-12 01:25:16,211 log "GET /admin/wiki/backup/history/ HTTP/1.1" 200 93
+INFO 2025-12-12 01:25:46,212 log "GET /admin/wiki/backup/history/ HTTP/1.1" 200 93
+INFO 2025-12-12 01:26:16,205 log "GET /admin/wiki/backup/history/ HTTP/1.1" 200 93
+INFO 2025-12-12 01:26:46,224 log "GET /admin/wiki/backup/history/ HTTP/1.1" 200 93
+INFO 2025-12-12 01:27:47,211 log "GET /admin/wiki/backup/history/ HTTP/1.1" 200 93
+INFO 2025-12-12 01:28:48,214 log "GET /admin/wiki/backup/history/ HTTP/1.1" 200 93
+INFO 2025-12-12 01:29:49,212 log "GET /admin/wiki/backup/history/ HTTP/1.1" 200 93
+INFO 2025-12-12 01:30:50,214 log "GET /admin/wiki/backup/history/ HTTP/1.1" 200 93
+INFO 2025-12-12 01:31:51,208 log "GET /admin/wiki/backup/history/ HTTP/1.1" 200 93
+INFO 2025-12-12 01:32:52,226 log "GET /admin/wiki/backup/history/ HTTP/1.1" 200 93
+INFO 2025-12-12 01:33:52,218 log "GET /admin/wiki/backup/history/ HTTP/1.1" 200 93
+INFO 2025-12-12 01:34:16,214 log "GET /admin/wiki/backup/history/ HTTP/1.1" 200 93
+INFO 2025-12-12 01:34:34,252 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 01:34:36,590 log "GET / HTTP/1.1" 200 37134
+INFO 2025-12-12 01:34:36,853 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 01:34:38,736 log "GET /admin/ HTTP/1.1" 200 18418
+INFO 2025-12-12 01:34:40,029 log "GET /admin/wiki/backup/ HTTP/1.1" 200 45486
+INFO 2025-12-12 01:34:40,123 log "GET /admin/wiki/backup/history/ HTTP/1.1" 200 93
+INFO 2025-12-12 01:34:43,328 log "GET /admin/wiki/backup/?all=true HTTP/1.1" 200 45704
+INFO 2025-12-12 01:34:43,397 log "GET /admin/wiki/backup/history/ HTTP/1.1" 200 93
+INFO 2025-12-12 01:34:46,200 log "GET /admin/wiki/backup/history/ HTTP/1.1" 200 93
+INFO 2025-12-12 01:34:52,561 log "GET /admin/wiki/backup/create-backup/ HTTP/1.1" 200 40575
+INFO 2025-12-12 01:34:56,352 log "GET /admin/wiki/backup/?all=true HTTP/1.1" 200 45704
+INFO 2025-12-12 01:34:57,913 log "GET /admin/wiki/backup/restore/ HTTP/1.1" 200 17444
+INFO 2025-12-12 01:35:01,695 log "GET /admin/wiki/backup/?all=true HTTP/1.1" 200 45704
+INFO 2025-12-12 01:35:05,516 log "GET /admin/wiki/backup/create-backup/ HTTP/1.1" 200 40575
+INFO 2025-12-12 01:35:09,290 log "POST /admin/wiki/backup/create-backup/ HTTP/1.1" 200 6902
+INFO 2025-12-12 01:35:12,352 log "GET /admin/wiki/backup/?all=true HTTP/1.1" 200 45704
+INFO 2025-12-12 01:35:13,432 log "GET /admin/wiki/backup/?all=true HTTP/1.1" 200 45704
+INFO 2025-12-12 01:35:13,500 log "GET /admin/wiki/backup/history/ HTTP/1.1" 200 93
+INFO 2025-12-12 01:35:17,967 log "GET /admin/wiki/backup/history/ HTTP/1.1" 200 93
+INFO 2025-12-12 01:35:44,325 log "GET /admin/wiki/backup/history/ HTTP/1.1" 200 93
+INFO 2025-12-12 01:35:46,211 log "GET /admin/wiki/backup/history/ HTTP/1.1" 200 93
+INFO 2025-12-12 01:36:14,314 log "GET /admin/wiki/backup/history/ HTTP/1.1" 200 93
+INFO 2025-12-12 01:36:16,213 log "GET /admin/wiki/backup/history/ HTTP/1.1" 200 93
+INFO 2025-12-12 01:36:44,211 log "GET /admin/wiki/backup/history/ HTTP/1.1" 200 93
+INFO 2025-12-12 01:36:52,216 log "GET /admin/wiki/backup/history/ HTTP/1.1" 200 93
+INFO 2025-12-12 01:42:42,824 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 01:42:44,807 log "GET / HTTP/1.1" 200 37134
+INFO 2025-12-12 01:42:44,961 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 01:42:47,266 log "GET /admin/ HTTP/1.1" 200 18418
+INFO 2025-12-12 01:42:49,352 log "GET /admin/wiki/backup/ HTTP/1.1" 200 46245
+INFO 2025-12-12 01:42:49,451 log "GET /admin/wiki/backup/history/ HTTP/1.1" 200 93
+INFO 2025-12-12 01:43:02,765 log "GET /admin/wiki/backup/create-backup/ HTTP/1.1" 200 40575
+INFO 2025-12-12 01:43:04,119 log "GET /admin/wiki/backup/ HTTP/1.1" 200 46245
+INFO 2025-12-12 01:43:34,204 log "GET /admin/wiki/backup/history/ HTTP/1.1" 200 93
+INFO 2025-12-12 01:44:04,326 log "GET /admin/wiki/backup/history/ HTTP/1.1" 200 93
+INFO 2025-12-12 01:46:56,183 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 01:46:57,922 log "GET / HTTP/1.1" 200 37134
+INFO 2025-12-12 01:46:58,065 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 01:47:00,389 log "GET /admin/ HTTP/1.1" 200 18418
+INFO 2025-12-12 01:47:03,162 log "GET /admin/wiki/backup/ HTTP/1.1" 200 34350
+INFO 2025-12-12 01:47:03,228 log "GET /admin/wiki/backup/history/ HTTP/1.1" 200 93
+INFO 2025-12-12 01:47:03,389 log "GET /admin/wiki/backup/history/ HTTP/1.1" 200 93
+INFO 2025-12-12 01:47:03,436 log "GET /admin/wiki/backup/history/ HTTP/1.1" 200 93
+INFO 2025-12-12 01:47:31,719 log "GET / HTTP/1.1" 200 37134
+INFO 2025-12-12 01:47:31,861 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 01:47:33,375 log "GET /admin/ HTTP/1.1" 200 18418
+INFO 2025-12-12 01:47:35,004 log "GET /admin/wiki/backup/ HTTP/1.1" 200 34350
+INFO 2025-12-12 01:47:35,068 log "GET /admin/wiki/backup/history/ HTTP/1.1" 200 93
+INFO 2025-12-12 01:47:35,115 log "GET /admin/wiki/backup/history/ HTTP/1.1" 200 93
+INFO 2025-12-12 01:47:35,163 log "GET /admin/wiki/backup/history/ HTTP/1.1" 200 93
+INFO 2025-12-12 01:56:54,713 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 01:56:56,561 log "GET / HTTP/1.1" 200 37134
+INFO 2025-12-12 01:56:56,819 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 01:56:58,468 log "GET /admin/ HTTP/1.1" 200 18418
+INFO 2025-12-12 01:56:59,784 log "GET /admin/wiki/backup/ HTTP/1.1" 200 43225
+INFO 2025-12-12 01:56:59,945 log "GET /admin/wiki/backup/history/ HTTP/1.1" 200 93
+INFO 2025-12-12 01:57:19,727 log "GET /admin/wiki/backup/ HTTP/1.1" 200 46245
+INFO 2025-12-12 01:57:19,908 log "GET /admin/wiki/backup/history/ HTTP/1.1" 200 93
+INFO 2025-12-12 01:57:50,204 log "GET /admin/wiki/backup/history/ HTTP/1.1" 200 93
+INFO 2025-12-12 01:58:20,300 log "GET /admin/wiki/backup/history/ HTTP/1.1" 200 93
+INFO 2025-12-12 01:58:50,214 log "GET /admin/wiki/backup/history/ HTTP/1.1" 200 93
+INFO 2025-12-12 01:59:20,209 log "GET /admin/wiki/backup/history/ HTTP/1.1" 200 93
+INFO 2025-12-12 01:59:50,322 log "GET /admin/wiki/backup/history/ HTTP/1.1" 200 93
+INFO 2025-12-12 02:00:20,210 log "GET /admin/wiki/backup/history/ HTTP/1.1" 200 93
+INFO 2025-12-12 02:00:50,326 log "GET /admin/wiki/backup/history/ HTTP/1.1" 200 93
+INFO 2025-12-12 02:01:32,269 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 02:01:34,061 log "GET / HTTP/1.1" 200 37134
+INFO 2025-12-12 02:01:34,339 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 02:01:36,535 log "GET /admin/ HTTP/1.1" 200 18418
+INFO 2025-12-12 02:01:38,294 log "GET /admin/wiki/backup/ HTTP/1.1" 200 34141
+INFO 2025-12-12 02:01:38,358 log "GET /admin/wiki/backup/history/ HTTP/1.1" 200 93
+INFO 2025-12-12 02:04:24,317 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 02:04:26,183 log "GET / HTTP/1.1" 200 37134
+INFO 2025-12-12 02:04:26,506 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 02:04:28,267 log "GET /admin/ HTTP/1.1" 200 18418
+INFO 2025-12-12 02:04:29,467 log "GET /admin/wiki/backup/ HTTP/1.1" 200 21782
+INFO 2025-12-12 02:04:29,641 log "GET /admin/wiki/backup/history/ HTTP/1.1" 200 93
+INFO 2025-12-12 02:04:35,933 log "GET /admin/wiki/backup/create-backup/ HTTP/1.1" 200 40575
+INFO 2025-12-12 02:04:37,208 log "GET /admin/wiki/backup/ HTTP/1.1" 200 21782
+INFO 2025-12-12 02:04:37,766 log "GET /admin/wiki/backup/restore/ HTTP/1.1" 200 17444
+INFO 2025-12-12 02:04:39,126 log "GET /admin/wiki/backup/ HTTP/1.1" 200 21782

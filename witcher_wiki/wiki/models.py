@@ -1195,3 +1195,42 @@ class Backup(models.Model):
             return f"{self.file_size / 1024:.1f} KB"
         else:
             return f"{self.file_size / (1024 * 1024):.1f} MB"
+
+
+class BackupLog(models.Model):
+    """Логи операций с бэкапами"""
+    LOG_TYPES = (
+        ('created', 'Создание бэкапа'),
+        ('restored', 'Восстановление из бэкапа'),
+        ('deleted', 'Удаление бэкапа'),
+        ('download', 'Скачивание бэкапа'),
+        ('error', 'Ошибка'),
+    )
+
+    backup = models.ForeignKey(
+        Backup,
+        on_delete=models.CASCADE,
+        related_name='logs',
+        null=True,
+        blank=True
+    )
+    log_type = models.CharField(max_length=20, choices=LOG_TYPES)
+    user = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='backup_logs'
+    )
+    message = models.TextField()
+    details = models.JSONField(default=dict, blank=True)
+    ip_address = models.GenericIPAddressField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-created_at']
+        verbose_name = 'Лог бэкапа'
+        verbose_name_plural = 'Логи бэкапов'
+
+    def __str__(self):
+        return f'{self.get_log_type_display()} - {self.created_at.strftime("%d.%m.%Y %H:%M")}'
