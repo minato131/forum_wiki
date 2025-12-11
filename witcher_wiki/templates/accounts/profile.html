@@ -248,6 +248,31 @@
         {% endif %}
     </div>
 </div>
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-icon">📝</div>
+        <div class="stat-value">{{ user_articles_count }}</div>
+        <div class="stat-label">Статей</div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-icon">👍</div>
+        <div class="stat-value">{{ liked_articles_count }}</div>
+        <div class="stat-label">Лайков статей</div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-icon">💬</div>
+        <div class="stat-value">{{ user_comment_likes_count }}</div>  <!-- Новое -->
+        <div class="stat-label">Лайков комментариев</div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-icon">👁️</div>
+        <div class="stat-value">{{ total_views }}</div>
+        <div class="stat-label">Просмотров</div>
+    </div>
+</div>
 
 <style>
 .profile-container {

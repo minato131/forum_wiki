@@ -34,6 +34,15 @@
                 🗑️ Удалить
             </button>
             {% endif %}
+
+             {% endif %}
+            <button class="btn btn-sm btn-outline-primary comment-like-btn {% if comment.is_liked_by_user(user) %}liked{% endif %}"
+                data-comment-id="{{ comment.id }}"
+                data-liked="{% if comment.is_liked_by_user(user) %}true{% else %}false{% endif %}">
+                <i class="fas fa-thumbs-up"></i>
+                <span class="comment-likes-count">{{ comment.get_likes_count }}</span>
+            </button>
+             {% endif %}
         </div>
     </div>
 

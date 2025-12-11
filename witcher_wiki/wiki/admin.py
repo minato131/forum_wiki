@@ -34,6 +34,7 @@ import os
 from django.conf import settings
 from .models import Backup
 from django.urls import reverse
+from .models import CommentLike
 import os
 
 @admin.register(Category)
@@ -879,36 +880,15 @@ class BackupAdmin(admin.ModelAdmin):
                 )
 
                 # ============ СОЗДАЕМ ЛОГ ДЕЙСТВИЯ ============
-                # Получаем IP адрес клиента
-                x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-                if x_forwarded_for:
-                    ip_address = x_forwarded_for.split(',')[0]
-                else:
-                    ip_address = request.META.get('REMOTE_ADDR')
+                # Используем ActionLogger для согласованного логирования
+                from .logging_utils import ActionLogger
 
-                # Получаем информацию об ОС
-                user_agent = request.META.get('HTTP_USER_AGENT', '')
-                if 'Windows' in user_agent:
-                    os_info = 'Windows'
-                elif 'Mac' in user_agent:
-                    os_info = 'Mac OS'
-                elif 'Linux' in user_agent:
-                    os_info = 'Linux'
-                elif 'Android' in user_agent:
-                    os_info = 'Android'
-                elif 'iOS' in user_agent:
-                    os_info = 'iOS'
-                else:
-                    os_info = 'Unknown'
-
-                ActionLog.objects.create(
-                    user=request.user,
+                ActionLogger.log_action(
+                    request=request,
                     action_type='backup_created',
-                    description=f'Создан бэкап базы данных: {filename}',
-                    ip_address=ip_address,
-                    browser=user_agent[:255],
-                    operating_system=os_info,
-                    action_data={
+                    description=f'Создана резервная копия "{filename}" ({backup_type})',
+                    target_object=backup,
+                    extra_data={
                         'backup_id': backup.id,
                         'backup_name': filename,
                         'backup_type': backup_type,
@@ -916,7 +896,26 @@ class BackupAdmin(admin.ModelAdmin):
                         'tables_count': len(backup_data['tables']),
                         'records_count': total_records,
                         'description': description,
-                        'file_path': relative_path
+                        'file_path': relative_path,
+                        'status': 'completed',
+                        'created_by': request.user.username if request.user else 'system'
+                    }
+                )
+
+                # Также создаем BackupLog для истории бэкапов
+                BackupLog.objects.create(
+                    backup=backup,
+                    log_type='created',
+                    user=request.user,
+                    message=f'Резервная копия "{filename}" успешно создана',
+                    details={
+                        'name': backup.name,
+                        'type': backup.backup_type,
+                        'size': backup.file_size_display(),
+                        'path': backup.file_path,
+                        'created_by': request.user.username,
+                        'records_count': total_records,
+                        'tables_count': len(backup_data['tables']),
                     }
                 )
 
@@ -1218,7 +1217,7 @@ class BackupAdmin(admin.ModelAdmin):
 
                     # Создаем запись о восстановлении
                     from .models import Backup
-                    Backup.objects.create(
+                    backup = Backup.objects.create(
                         name=f'RESTORE_{backup_file.name}_{timestamp}',
                         backup_type='restore',
                         file_path=backup_current_path,
@@ -1229,6 +1228,22 @@ class BackupAdmin(admin.ModelAdmin):
                             'restored_tables': restored_tables,
                             'restored_records': restored_records,
                             'original_metadata': backup_data['metadata']
+                        }
+                    )
+
+                    # Логируем действие восстановления
+                    from .logging_utils import ActionLogger
+                    ActionLogger.log_action(
+                        request=request,
+                        action_type='backup_restored',
+                        description=f'Восстановлен бэкап из файла: {backup_file.name}',
+                        target_object=backup,
+                        extra_data={
+                            'backup_id': backup.id,
+                            'backup_name': backup.name,
+                            'restored_tables': restored_tables,
+                            'restored_records': restored_records,
+                            'original_file': backup_file.name,
                         }
                     )
 
@@ -1366,29 +1381,45 @@ class BackupAdmin(admin.ModelAdmin):
         import os
         from django.conf import settings
         from .models import Backup, ActionLog
+        from .logging_utils import ActionLogger
 
         backup = get_object_or_404(Backup, id=backup_id)
 
         try:
+            # Логируем перед удалением
+            ActionLogger.log_action(
+                request=request,
+                action_type='backup_deleted',
+                description=f'Удален бэкап: {backup.name}',
+                target_object=backup,
+                extra_data={
+                    'backup_id': backup.id,
+                    'backup_name': backup.name,
+                    'file_path': backup.file_path,
+                    'file_size': backup.file_size,
+                    'backup_type': backup.backup_type,
+                }
+            )
+
             # Удаляем файл если существует
             if backup.file_path:
                 full_path = os.path.join(settings.BASE_DIR, backup.file_path)
                 if os.path.exists(full_path):
                     os.remove(full_path)
 
-            # Создаем лог перед удалением
-            ActionLog.objects.create(
+            # Создаем BackupLog перед удалением
+            BackupLog.objects.create(
+                backup=None,  # Ссылка на бэкап будет потеряна после удаления
+                log_type='deleted',
                 user=request.user,
-                action_type='backup_deleted',
-                description=f'Удален бэкап: {backup.name}',
-                ip_address=request.META.get('REMOTE_ADDR'),
-                browser=request.META.get('HTTP_USER_AGENT', '')[:255],
-                operating_system='Unknown',
-                action_data={
+                message=f'Удален бэкап: {backup.name}',
+                details={
                     'backup_id': backup.id,
                     'backup_name': backup.name,
                     'file_path': backup.file_path,
-                    'file_size': backup.file_size
+                    'file_size': backup.file_size,
+                    'backup_type': backup.backup_type,
+                    'created_at': backup.created_at.isoformat() if backup.created_at else None,
                 }
             )
 
@@ -1402,6 +1433,17 @@ class BackupAdmin(admin.ModelAdmin):
             })
 
         except Exception as e:
+            # Логируем ошибку
+            ActionLogger.log_action(
+                request=request,
+                action_type='error',
+                description=f'Ошибка удаления бэкапа: {backup.name}',
+                extra_data={
+                    'error': str(e),
+                    'backup_id': backup.id,
+                    'backup_name': backup.name,
+                }
+            )
             return JsonResponse({
                 'success': False,
                 'error': str(e)
@@ -1437,6 +1479,7 @@ class BackupAdmin(admin.ModelAdmin):
     def download_backup_view(self, request, backup_id):
         """Скачивание бэкапа"""
         from django.shortcuts import get_object_or_404
+        from .logging_utils import ActionLogger
 
         backup = get_object_or_404(Backup, id=backup_id)
 
@@ -1444,10 +1487,51 @@ class BackupAdmin(admin.ModelAdmin):
             self.message_user(request, '❌ Файл бэкапа не найден', level='error')
             return redirect('admin:wiki_backup_changelist')
 
+        # Логируем скачивание
+        ActionLogger.log_action(
+            request=request,
+            action_type='backup_downloaded',
+            description=f'Скачан бэкап: {backup.name}',
+            target_object=backup,
+            extra_data={
+                'backup_id': backup.id,
+                'backup_name': backup.name,
+                'file_size': backup.file_size,
+                'file_path': backup.file_path,
+            }
+        )
+
+        # Создаем BackupLog для истории скачивания
+        BackupLog.objects.create(
+            backup=backup,
+            log_type='download',
+            user=request.user,
+            message=f'Скачан бэкап: {backup.name}',
+            details={
+                'backup_id': backup.id,
+                'backup_name': backup.name,
+                'file_size': backup.file_size,
+                'file_path': backup.file_path,
+                'downloaded_at': timezone.now().isoformat(),
+            }
+        )
+
         with open(backup.file_path, 'rb') as f:
             response = HttpResponse(f.read(), content_type='application/zip')
             response['Content-Disposition'] = f'attachment; filename="{backup.name}.zip"'
             return response
 
+@admin.register(CommentLike)
+class CommentLikeAdmin(admin.ModelAdmin):
+    list_display = ['comment', 'user', 'created_at']
+    list_filter = ['created_at', 'user']
+    search_fields = ['comment__content', 'user__username']
+    readonly_fields = ['created_at']
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
 admin.site.unregister(Group)
 admin.site.register(Group, CustomGroupAdmin)

@@ -26486,3 +26486,214 @@ INFO 2025-12-12 02:04:35,933 log "GET /admin/wiki/backup/create-backup/ HTTP/1.1
 INFO 2025-12-12 02:04:37,208 log "GET /admin/wiki/backup/ HTTP/1.1" 200 21782
 INFO 2025-12-12 02:04:37,766 log "GET /admin/wiki/backup/restore/ HTTP/1.1" 200 17444
 INFO 2025-12-12 02:04:39,126 log "GET /admin/wiki/backup/ HTTP/1.1" 200 21782
+INFO 2025-12-12 02:16:59,427 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\templates\admin\filters.py changed, reloading.
+INFO 2025-12-12 02:17:00,650 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 02:18:18,718 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\templates\admin\filters.py changed, reloading.
+INFO 2025-12-12 02:18:19,370 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 02:20:31,805 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\admin.py changed, reloading.
+INFO 2025-12-12 02:20:32,365 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 03:09:52,208 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 03:10:58,160 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\admin.py changed, reloading.
+INFO 2025-12-12 03:10:58,840 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 03:11:37,164 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\admin.py changed, reloading.
+INFO 2025-12-12 03:11:37,970 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 03:12:15,614 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\admin.py changed, reloading.
+INFO 2025-12-12 03:12:16,390 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 03:12:30,579 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\admin.py changed, reloading.
+INFO 2025-12-12 03:12:31,445 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 03:12:57,280 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\admin.py changed, reloading.
+INFO 2025-12-12 03:12:57,999 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 03:13:09,122 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\admin.py changed, reloading.
+INFO 2025-12-12 03:13:09,824 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 03:14:24,666 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\admin.py changed, reloading.
+INFO 2025-12-12 03:14:25,342 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 03:16:27,305 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 03:19:49,042 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\admin.py changed, reloading.
+INFO 2025-12-12 03:19:49,759 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 03:19:58,873 log "GET / HTTP/1.1" 200 37134
+INFO 2025-12-12 03:19:59,025 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 03:20:00,810 log "GET /admin/ HTTP/1.1" 200 18418
+INFO 2025-12-12 03:20:04,191 log "GET /admin/wiki/actionlog/ HTTP/1.1" 200 159225
+INFO 2025-12-12 03:20:04,263 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-12 03:20:08,871 log "GET /admin/wiki/actionlog/?created_at__year=2025 HTTP/1.1" 200 201332
+INFO 2025-12-12 03:20:08,931 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-12 03:20:09,916 log "GET /admin/wiki/actionlog/? HTTP/1.1" 200 159225
+INFO 2025-12-12 03:20:09,976 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-12 03:20:21,581 log "GET /admin/wiki/actionlog/? HTTP/1.1" 200 159225
+INFO 2025-12-12 03:20:21,748 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-12 03:20:34,049 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\witcher_wiki\settings.py changed, reloading.
+INFO 2025-12-12 03:20:34,745 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 03:20:54,256 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\admin.py changed, reloading.
+INFO 2025-12-12 03:20:55,036 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 03:21:03,739 log "GET /admin/wiki/actionlog/? HTTP/1.1" 200 95661
+INFO 2025-12-12 03:21:03,814 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-12 03:21:15,890 log "GET /admin/wiki/actionlog/? HTTP/1.1" 200 95661
+INFO 2025-12-12 03:21:15,949 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-12 03:21:17,198 log "GET /admin/wiki/actionlog/?created_at__day=7&created_at__month=12&created_at__year=2025 HTTP/1.1" 200 56239
+INFO 2025-12-12 03:21:17,365 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-12 03:21:19,206 log "GET /admin/wiki/actionlog/? HTTP/1.1" 200 95661
+INFO 2025-12-12 03:21:20,746 log "GET /admin/wiki/actionlog/?created_at__day=12&created_at__month=12&created_at__year=2025 HTTP/1.1" 200 36794
+INFO 2025-12-12 03:21:20,806 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-12 03:21:21,814 log "GET /admin/wiki/actionlog/? HTTP/1.1" 200 95661
+INFO 2025-12-12 03:21:22,973 log "GET /admin/wiki/actionlog/?created_at__year=2025 HTTP/1.1" 200 100597
+INFO 2025-12-12 03:21:23,029 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-12 03:21:24,438 log "GET /admin/wiki/actionlog/? HTTP/1.1" 200 95661
+INFO 2025-12-12 03:21:24,500 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-12 03:21:30,785 log "GET /admin/wiki/backuplog/ HTTP/1.1" 200 17349
+INFO 2025-12-12 03:21:30,846 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-12 03:21:32,572 log "GET /admin/wiki/backuplog/add/ HTTP/1.1" 200 22673
+INFO 2025-12-12 03:21:32,618 log "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 200 586
+INFO 2025-12-12 03:21:32,620 log "GET /static/admin/js/change_form.js HTTP/1.1" 200 606
+INFO 2025-12-12 03:21:32,636 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-12 03:21:37,692 log "GET /admin/wiki/backup/ HTTP/1.1" 200 21782
+INFO 2025-12-12 03:21:37,754 log "GET /admin/wiki/backup/history/ HTTP/1.1" 200 93
+INFO 2025-12-12 03:21:39,590 log "GET /admin/wiki/backup/create-backup/ HTTP/1.1" 200 40575
+INFO 2025-12-12 03:21:43,880 log "POST /admin/wiki/backup/create-backup/ HTTP/1.1" 200 6900
+INFO 2025-12-12 03:21:49,623 log "GET /admin/wiki/backup/create-backup/ HTTP/1.1" 200 40575
+INFO 2025-12-12 03:21:50,513 log "GET /admin/wiki/backup/ HTTP/1.1" 200 21782
+INFO 2025-12-12 03:21:52,583 log "GET /admin/wiki/backup/ HTTP/1.1" 200 21782
+INFO 2025-12-12 03:21:52,650 log "GET /admin/wiki/backup/history/ HTTP/1.1" 200 93
+INFO 2025-12-12 03:22:02,053 log "GET /admin/wiki/actionlog/ HTTP/1.1" 200 95661
+INFO 2025-12-12 03:22:02,117 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-12 03:26:55,456 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\middleware.py changed, reloading.
+INFO 2025-12-12 03:26:56,222 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 03:28:57,752 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\signals.py changed, reloading.
+INFO 2025-12-12 03:28:58,522 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 03:29:11,206 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\signals.py changed, reloading.
+INFO 2025-12-12 03:29:11,970 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 03:29:21,458 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-12 03:29:22,197 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 03:29:44,208 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-12 03:29:45,016 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 03:30:31,003 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-12 03:30:31,702 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 03:42:37,879 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\admin.py changed, reloading.
+INFO 2025-12-12 03:42:38,611 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 03:43:03,342 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\admin.py changed, reloading.
+INFO 2025-12-12 03:43:04,648 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 03:44:23,855 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\admin.py changed, reloading.
+INFO 2025-12-12 03:44:24,776 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 03:59:33,118 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\admin.py changed, reloading.
+INFO 2025-12-12 03:59:33,781 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 03:59:36,992 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 03:59:39,104 log "GET / HTTP/1.1" 200 37134
+INFO 2025-12-12 03:59:39,289 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 03:59:40,822 log "GET /admin/ HTTP/1.1" 200 18418
+INFO 2025-12-12 03:59:42,337 log "GET /admin/wiki/backup/ HTTP/1.1" 200 21782
+INFO 2025-12-12 03:59:42,408 log "GET /admin/wiki/backup/history/ HTTP/1.1" 200 93
+INFO 2025-12-12 03:59:45,822 log "GET /admin/wiki/backup/create-backup/ HTTP/1.1" 200 40575
+INFO 2025-12-12 03:59:51,621 log "POST /admin/wiki/backup/create-backup/ HTTP/1.1" 200 6900
+INFO 2025-12-12 03:59:52,579 log "GET /admin/wiki/backup/ HTTP/1.1" 200 21782
+INFO 2025-12-12 03:59:54,462 log "GET /admin/wiki/backuplog/add/ HTTP/1.1" 200 22673
+INFO 2025-12-12 03:59:54,527 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-12 03:59:56,205 log "GET /admin/wiki/backuplog/ HTTP/1.1" 200 17349
+INFO 2025-12-12 03:59:56,269 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-12 04:00:02,087 log "GET /admin/wiki/actionlog/ HTTP/1.1" 200 95622
+INFO 2025-12-12 04:00:02,149 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-12 04:00:18,823 log "GET /admin/wiki/actionlog/769/change/ HTTP/1.1" 200 22397
+INFO 2025-12-12 04:00:18,888 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-12 04:00:21,379 log "GET /admin/wiki/actionlog/ HTTP/1.1" 200 95622
+INFO 2025-12-12 04:00:22,590 log "GET /admin/wiki/backuplog/ HTTP/1.1" 200 17349
+INFO 2025-12-12 04:00:38,143 log "GET /admin/wiki/actionlog/ HTTP/1.1" 200 95652
+INFO 2025-12-12 04:00:38,201 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-12 04:01:35,036 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\models.py changed, reloading.
+INFO 2025-12-12 04:01:35,826 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 04:02:03,490 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\models.py changed, reloading.
+INFO 2025-12-12 04:02:04,209 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 04:02:21,068 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\admin.py changed, reloading.
+INFO 2025-12-12 04:02:21,829 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 04:02:26,472 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\admin.py changed, reloading.
+INFO 2025-12-12 04:02:27,363 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 04:02:45,631 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\admin.py changed, reloading.
+INFO 2025-12-12 04:02:47,734 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 04:03:01,953 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\urls.py changed, reloading.
+INFO 2025-12-12 04:03:02,666 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 04:08:49,490 log "GET / HTTP/1.1" 200 37134
+INFO 2025-12-12 04:08:49,634 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 04:08:51,879 log "GET /article/ssss/ HTTP/1.1" 200 62584
+INFO 2025-12-12 04:08:52,059 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 04:08:59,020 log "POST /article/ssss/ HTTP/1.1" 302 0
+INFO 2025-12-12 04:08:59,097 log "GET /article/ssss/ HTTP/1.1" 200 64537
+INFO 2025-12-12 04:08:59,266 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 04:09:29,209 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 04:09:59,307 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 04:10:29,214 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 04:10:59,206 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 04:11:29,219 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 04:11:59,212 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 04:12:29,224 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 04:13:30,218 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 04:14:18,130 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-12 04:14:19,568 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 04:14:31,141 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-12 04:14:31,820 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 04:14:39,961 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-12 04:14:41,998 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 04:15:32,236 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 04:16:36,108 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 04:16:37,924 log "GET / HTTP/1.1" 200 37134
+INFO 2025-12-12 04:16:38,074 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+ERROR 2025-12-12 04:16:40,734 log Internal Server Error: /article/ssss/
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py", line 630, in article_detail
+    return render(request, 'wiki/article_detail.html', context)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\engine.py", line 186, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 157, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 199, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 585, in parse
+    raise self.error(token, e)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 307, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 585, in parse
+    raise self.error(token, e)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 235, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 585, in parse
+    raise self.error(token, e)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\defaulttags.py", line 994, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 585, in parse
+    raise self.error(token, e)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 229, in do_block
+    raise TemplateSyntaxError(
+        "'%s' tag with name '%s' appears more than once" % (bits[0], block_name)
+    )
+django.template.exceptions.TemplateSyntaxError: Template: C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\templates\wiki\article_detail.html, 'block' tag with name 'extra_css' appears more than once
+ERROR 2025-12-12 04:16:40,742 log "GET /article/ssss/ HTTP/1.1" 500 263931

@@ -77,6 +77,11 @@ import os
 from django.conf import settings
 from .backup_utils import create_backup, cleanup_old_backups, create_backup_for_period
 from .models import Backup
+from django.contrib.auth.decorators import login_required, user_passes_test
+from django.views.decorators.http import require_POST
+from django.contrib import messages
+from .models import Backup, BackupLog
+import threading
 
 
 
@@ -129,6 +134,48 @@ def home(request):
     }
     return render(request, 'wiki/home.html', context)
 
+
+@login_required
+def toggle_comment_like(request, comment_id):
+    """Добавляет/убирает лайк комментария"""
+    comment = get_object_or_404(Comment, id=comment_id)
+
+    if request.method == 'POST':
+        try:
+            was_liked = comment.is_liked_by_user(request.user)
+
+            # Переключаем лайк
+            liked = comment.toggle_like(request.user)
+            likes_count = comment.get_likes_count()
+
+            action = 'comment_like_add' if liked else 'comment_like_remove'
+            description = f'Пользователь {request.user.username} {"поставил" if liked else "убрал"} лайк комментарию'
+
+            ActionLogger.log_action(
+                request=request,
+                action_type=action,
+                description=description,
+                target_object=comment,
+                extra_data={
+                    'comment_id': comment.id,
+                    'article_title': comment.article.title,
+                    'was_liked': was_liked,
+                    'now_liked': liked,
+                    'total_likes': likes_count,
+                }
+            )
+
+            return JsonResponse({
+                'success': True,
+                'liked': liked,
+                'likes_count': likes_count,
+                'was_liked': was_liked,
+                'status_changed': was_liked != liked
+            })
+        except Exception as e:
+            return JsonResponse({'success': False, 'error': str(e)})
+
+    return JsonResponse({'success': False, 'error': 'Invalid method'})
 
 def category_detail(request, slug):
     category = get_object_or_404(Category, slug=slug)
@@ -294,16 +341,14 @@ def search(request):
 @login_required
 def profile(request):
     """Страница профиля пользователя с возможностью редактирования"""
-    print(f"=== CUSTOM PROFILE VIEW CALLED ===")
-    print(f"User: {request.user}")
 
     # Получаем или создаем профиль пользователя
     user_profile, created = UserProfile.objects.get_or_create(user=request.user)
-    print(f"UserProfile created: {created}")
+    user_comment_likes_count = CommentLike.objects.filter(user=request.user).count()
+    user_comments_liked_count = Comment.objects.filter(likes__user=request.user).distinct().count()
 
     # Обработка POST запросов из формы
     if request.method == 'POST':
-        print(f"POST data: {request.POST}")
 
         # Обработка обновления аватара
         if 'update_avatar' in request.POST and request.FILES.get('avatar'):
@@ -338,10 +383,6 @@ def profile(request):
     # Последние статьи (все статусы)
     recent_articles = Article.objects.filter(author=request.user).order_by('-created_at')[:5]
 
-    print(f"=== STATS ===")
-    print(f"Articles: {user_articles_count}, Published: {published_articles_count}")
-    print(f"Likes: {liked_articles_count}, Views: {total_views}")
-    print(f"Recent articles: {recent_articles.count()}")
 
     context = {
         'user': request.user,
@@ -351,6 +392,8 @@ def profile(request):
         'liked_articles_count': liked_articles_count,
         'total_views': total_views,
         'recent_articles': recent_articles,
+        'user_comment_likes_count': user_comment_likes_count,
+        'user_comments_liked_count': user_comments_liked_count,
         'TELEGRAM_BOT_USERNAME': getattr(settings, 'TELEGRAM_BOT_USERNAME', ''),
     }
 

@@ -521,6 +521,31 @@ class Comment(models.Model):
         verbose_name_plural = 'Комментарии'
         ordering = ['created_at']
 
+    def get_likes_count(self):
+        """Возвращает количество лайков комментария"""
+        return self.likes.count()
+
+    def is_liked_by_user(self, user):
+        """Проверяет, лайкнул ли пользователь комментарий"""
+        if not user.is_authenticated:
+            return False
+        return self.likes.filter(user=user).exists()
+
+    def toggle_like(self, user):
+        """Добавляет или убирает лайк комментария"""
+        if not user.is_authenticated:
+            return False
+
+        like, created = CommentLike.objects.get_or_create(
+            user=user,
+            comment=self
+        )
+
+        if not created:
+            like.delete()
+            return False  # Лайк убран
+        return True  # Лайк добавлен
+
     def __str__(self):
         return f'Комментарий от {self.author.username} к {self.article.title}'
 
@@ -1234,3 +1259,18 @@ class BackupLog(models.Model):
 
     def __str__(self):
         return f'{self.get_log_type_display()} - {self.created_at.strftime("%d.%m.%Y %H:%M")}'
+
+class CommentLike(models.Model):
+    """Модель для лайков комментариев"""
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь')
+    comment = models.ForeignKey(Comment, on_delete=models.CASCADE, verbose_name='Комментарий', related_name='likes')
+    created_at = models.DateTimeField('Время лайка', auto_now_add=True)
+
+    class Meta:
+        verbose_name = 'Лайк комментария'
+        verbose_name_plural = 'Лайки комментариев'
+        unique_together = ['user', 'comment']  # Один лайк на комментарий от пользователя
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f'{self.user.username} лайкнул комментарий {self.comment.id}'

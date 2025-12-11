@@ -5,7 +5,7 @@ from .logging_utils import ActionLogger
 
 
 class ActionLoggingMiddleware:
-    """Middleware для автоматического логирования действий пользователей"""
+    """Улучшенное middleware для логирования ВСЕХ действий пользователей, включая админку"""
 
     def __init__(self, get_response):
         self.get_response = get_response
@@ -15,7 +15,17 @@ class ActionLoggingMiddleware:
             '/favicon.ico',
             '/admin/jsi18n/',
             '/__debug__/',
+            '/admin/static/',
         ]
+
+        # Действия в админке, которые нужно логировать
+        self.admin_actions = {
+            'add': 'создание',
+            'change': 'редактирование',
+            'delete': 'удаление',
+            'history': 'просмотр истории',
+            'changelist': 'просмотр списка',
+        }
 
     def __call__(self, request):
         # Обрабатываем запрос
@@ -28,63 +38,146 @@ class ActionLoggingMiddleware:
 
     def _should_log_request(self, request):
         """Проверяет, нужно ли логировать этот запрос"""
-        # Не логируем неаутентифицированных пользователей
-        if not hasattr(request, 'user') or not request.user.is_authenticated:
-            print(f"DEBUG: Not logging - user not authenticated: {request.path}")
-            return False
-
         # Не логируем статические файлы и служебные пути
         path = request.path
         if any(path.startswith(ignored) for ignored in self.ignored_paths):
-            print(f"DEBUG: Not logging - ignored path: {path}")
             return False
 
-        # Не логируем AJAX-запросы (опционально)
+        # Не логируем AJAX-запросы для уменьшения шума
         if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-            print(f"DEBUG: Not logging - AJAX request: {path}")
             return False
 
-        print(f"DEBUG: Should log: {request.method} {path} - User: {request.user.username}")
-        return True
+        # Для админки логируем всё, кроме анонимов
+        if path.startswith('/admin/'):
+            return request.user.is_authenticated
+
+        # Для остальных путей логируем только аутентифицированных
+        return hasattr(request, 'user') and request.user.is_authenticated
 
     def _log_action(self, request, response):
         """Логирует действие пользователя"""
         if not self._should_log_request(request):
             return
 
-        action_type = self._determine_action_type(request, response)
+        action_type, model_name, action_details = self._determine_admin_action(request, response)
+
+        if not action_type:
+            action_type = self._determine_action_type(request, response)
+
         if action_type:
-            description = self._generate_description(request, action_type)
+            description = self._generate_description(
+                request,
+                action_type,
+                model_name,
+                action_details
+            )
 
             print(f"DEBUG: Logging action: {action_type} - {description}")
 
             try:
+                # Собираем дополнительные данные
+                extra_data = {
+                    'path': request.path,
+                    'method': request.method,
+                    'status_code': response.status_code,
+                    'user_agent': request.META.get('HTTP_USER_AGENT', '')[:200],
+                    'referer': request.META.get('HTTP_REFERER', ''),
+                }
+
+                # Для админ действий добавляем детали
+                if model_name:
+                    extra_data['model'] = model_name
+                if action_details:
+                    extra_data.update(action_details)
+
+                # Для POST запросов в админке логируем данные (кроме чувствительных)
+                if request.method == 'POST' and request.path.startswith('/admin/'):
+                    post_data = {}
+                    for key, value in request.POST.items():
+                        if any(sensitive in key.lower() for sensitive in ['password', 'secret', 'key', 'token']):
+                            post_data[key] = '***HIDDEN***'
+                        else:
+                            post_data[key] = str(value)[:100]  # Ограничиваем длину
+                    extra_data['post_data'] = post_data
+
                 ActionLogger.log_action(
                     request=request,
                     action_type=action_type,
                     description=description,
-                    extra_data={
-                        'path': request.path,
-                        'method': request.method,
-                        'status_code': response.status_code,
-                        'user_agent': request.META.get('HTTP_USER_AGENT', '')[:200],
-                    }
+                    extra_data=extra_data
                 )
+
                 print(f"DEBUG: Successfully logged action: {action_type}")
             except Exception as e:
                 print(f"ERROR: Failed to log action: {e}")
 
+    def _determine_admin_action(self, request, response):
+        """Определяет действия в админ-панели"""
+        path = request.path
+
+        if not path.startswith('/admin/'):
+            return None, None, None
+
+        # Разбираем URL админки
+        # Пример: /admin/wiki/article/1/change/
+        parts = path.strip('/').split('/')
+
+        if len(parts) < 4:
+            return 'admin_access', None, {'section': parts[2] if len(parts) > 2 else 'index'}
+
+        app_label = parts[2]  # wiki
+        model_name = parts[3]  # article, category, etc.
+
+        # Определяем действие
+        if len(parts) >= 5:
+            action = parts[4]
+            if action in self.admin_actions:
+                # Получаем ID объекта если есть
+                object_id = parts[4] if len(parts) > 5 and parts[4].isdigit() else None
+                if object_id and len(parts) > 5:
+                    action = parts[5]
+
+                details = {
+                    'app': app_label,
+                    'model': model_name,
+                    'object_id': object_id,
+                    'action': action,
+                }
+
+                return f'admin_{action}', model_name, details
+
+        # Для просмотра списка объектов
+        elif len(parts) == 4:
+            details = {
+                'app': app_label,
+                'model': model_name,
+                'action': 'changelist',
+            }
+            return 'admin_changelist', model_name, details
+
+        return 'admin_access', None, None
+
     def _determine_action_type(self, request, response):
-        """Определяет тип действия на основе запроса и ответа"""
+        """Определяет тип действия для обычных запросов"""
         path = request.path
         method = request.method
 
-        print(f"DEBUG: Determining action for {method} {path}, status: {response.status_code}")
-
         # Только успешные запросы
         if response.status_code not in [200, 201, 302, 304]:
-            print(f"DEBUG: Skipping - status code {response.status_code}")
             return None
+
+        # Специальные пути для бэкапов
+        if '/backup/' in path:
+            if '/create/' in path and method == 'POST':
+                return 'backup_create'
+            elif '/download/' in path:
+                return 'backup_download'
+            elif '/restore/' in path and method == 'POST':
+                return 'backup_restore'
+            elif '/delete/' in path and method == 'POST':
+                return 'backup_delete'
+            elif path.endswith('/backup/'):
+                return 'backup_list'
 
         # Логирование по путям и методам
         action_map = {
@@ -99,7 +192,6 @@ class ActionLoggingMiddleware:
         # Проверяем точные совпадения
         for (action_path, action_method), action_name in action_map.items():
             if path == action_path and method == action_method:
-                print(f"DEBUG: Found exact match: {action_name}")
                 return action_name
 
         # Проверяем частичные совпадения
@@ -129,13 +221,42 @@ class ActionLoggingMiddleware:
             elif path == '/':
                 return 'home_view'
 
-        print(f"DEBUG: No action type determined for {method} {path}")
         return None
 
-    def _generate_description(self, request, action_type):
+    def _generate_description(self, request, action_type, model_name=None, details=None):
         """Генерирует описание действия"""
         username = request.user.username
 
+        # Описания для админ-действий
+        if action_type.startswith('admin_'):
+            action_display = self.admin_actions.get(
+                action_type.replace('admin_', ''),
+                action_type.replace('admin_', '')
+            )
+
+            if model_name:
+                model_display = self._get_model_display_name(model_name)
+
+                if details and details.get('object_id'):
+                    return f'Администратор {username} выполнил {action_display} {model_display} (ID: {details["object_id"]})'
+                else:
+                    return f'Администратор {username} выполнил {action_display} {model_display}'
+            else:
+                return f'Администратор {username} получил доступ к админ-панели'
+
+        # Описания для бэкапов
+        elif 'backup' in action_type:
+            backup_actions = {
+                'backup_create': 'создал резервную копию',
+                'backup_download': 'скачал резервную копию',
+                'backup_restore': 'восстановил из резервной копии',
+                'backup_delete': 'удалил резервную копию',
+                'backup_list': 'просмотрел список резервных копий',
+            }
+            action_desc = backup_actions.get(action_type, 'выполнил операцию с бэкапом')
+            return f'Администратор {username} {action_desc}'
+
+        # Обычные описания
         descriptions = {
             'login': f'Пользователь {username} вошел в систему',
             'logout': f'Пользователь {username} вышел из системы',
@@ -158,3 +279,32 @@ class ActionLoggingMiddleware:
         }
 
         return descriptions.get(action_type, f'Пользователь {username} выполнил действие {action_type}')
+
+    def _get_model_display_name(self, model_name):
+        """Получает читаемое название модели"""
+        display_names = {
+            'article': 'статью',
+            'category': 'категорию',
+            'comment': 'комментарий',
+            'userprofile': 'профиль пользователя',
+            'actionlog': 'лог действий',
+            'backup': 'резервную копию',
+            'backuplog': 'лог бэкапа',
+            'articlerevision': 'версию статьи',
+            'moderationcomment': 'комментарий модерации',
+            'articlemedia': 'медиафайл статьи',
+            'articlelike': 'лайк статьи',
+            'message': 'сообщение',
+            'searchquery': 'поисковый запрос',
+            'emailverification': 'верификацию email',
+            'telegramuser': 'пользователя Telegram',
+            'authcode': 'код авторизации',
+            'helsection': 'раздел помощи',
+            'faq': 'FAQ',
+            'articlestat': 'статистику статьи',
+            'categorystat': 'статистику категории',
+            'sitestat': 'статистику сайта',
+            'usertutorial': 'туториал пользователя',
+        }
+
+        return display_names.get(model_name, model_name)

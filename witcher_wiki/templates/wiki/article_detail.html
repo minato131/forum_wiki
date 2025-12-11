@@ -824,6 +824,13 @@
                 </button>
             </form>
         </div>
+        {% block extra_css %}
+            <link rel="stylesheet" href="{% static 'css/comments.css' %}">
+        {% endblock %}
+
+        {% block extra_js %}
+            <script src="{% static 'js/comments.js' %}"></script>
+        {% endblock %}
         {% else %}
         <div style="text-align: center; padding: 20px; background: rgba(212, 175, 55, 0.1); border-radius: 10px; margin-bottom: 30px;">
             <p style="color: #D4AF37; margin-bottom: 15px;">💡 Войдите, чтобы оставить комментарий</p>
