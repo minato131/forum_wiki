@@ -80,25 +80,50 @@ class ArticleRevisionAdmin(admin.ModelAdmin):
     search_fields = ['article__title', 'comment']
     readonly_fields = ['created_at']
 
+
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
-    list_display = ['article', 'author', 'created_at', 'is_approved']
-    list_filter = ['is_approved', 'created_at']
+    list_display = ['article', 'author', 'created_at', 'is_deleted', 'get_like_count_display']
+    list_filter = ['is_deleted', 'created_at']
     search_fields = ['content', 'article__title', 'author__username']
-    actions = ['approve_comments', 'disapprove_comments']
+    readonly_fields = ['created_at', 'updated_at', 'like_count', 'author']
+    actions = ['delete_comments', 'restore_comments']
 
-    def approve_comments(self, request, queryset):
-        queryset.update(is_approved=True)
-    approve_comments.short_description = "Одобрить выбранные комментарии"
+    fieldsets = (
+        ('Основная информация', {
+            'fields': ('article', 'author', 'parent', 'content')
+        }),
+        ('Статистика', {
+            'fields': ('like_count', 'created_at', 'updated_at'),
+            'classes': ('collapse',)
+        }),
+        ('Модерация', {
+            'fields': ('is_deleted',),
+            'classes': ('collapse',)
+        }),
+    )
 
-    def disapprove_comments(self, request, queryset):
-        queryset.update(is_approved=False)
-    disapprove_comments.short_description = "Отклонить выбранные комментарии"
+    def get_like_count_display(self, obj):
+        return obj.like_count
+
+    get_like_count_display.short_description = 'Лайки'
+
+    def delete_comments(self, request, queryset):
+        queryset.update(is_deleted=True)
+
+    delete_comments.short_description = "Пометить как удаленные"
+
+    def restore_comments(self, request, queryset):
+        queryset.update(is_deleted=False)
+
+    restore_comments.short_description = "Восстановить комментарии"
+
 
 def create_groups(sender, **kwargs):
     groups = ['Модератор', 'Редактор', 'Пользователь']
     for group_name in groups:
         Group.objects.get_or_create(name=group_name)
+
 
 # Регистрируем сигнал
 from django.db.models.signals import post_migrate

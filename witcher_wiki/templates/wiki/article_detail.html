@@ -5,6 +5,7 @@
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/article.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 {% endblock %}
 
 {% block content %}
@@ -515,6 +516,22 @@
         border-radius: 6px;
     }
 
+    /* Стили для кнопок лайков комментариев */
+    .comment-like-btn.liked {
+        background: #ef4444 !important;
+        color: white !important;
+        border-color: #ef4444 !important;
+    }
+
+    .comment-like-btn.liked i {
+        color: white !important;
+    }
+
+    .comment-like-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
     @media (max-width: 768px) {
         .article-title {
             font-size: 1.8em;
@@ -551,6 +568,26 @@
             flex-direction: column;
         }
     }
+    /* Добавьте в стили article_detail.html */
+.comment-like-btn.liked {
+    background: #ef4444 !important;
+    color: white !important;
+    border-color: #ef4444 !important;
+}
+
+.comment-like-btn.liked i {
+    color: white !important;
+}
+
+.comment-like-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.comment-like-btn:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 5px rgba(212, 175, 55, 0.2);
+}
 </style>
 
 <div class="article-container">
@@ -633,65 +670,64 @@
     {% endif %}
 
     <!-- Действия автора -->
-            {% if user.is_authenticated and user == article.author %}
-        <div class="author-actions">
-            <h4 style="color: #D4AF37; margin-bottom: 15px; font-family: 'Cinzel', serif;">⚔️ Действия автора</h4>
+    {% if user.is_authenticated and user == article.author %}
+    <div class="author-actions">
+        <h4 style="color: #D4AF37; margin-bottom: 15px; font-family: 'Cinzel', serif;">⚔️ Действия автора</h4>
 
-            <div class="action-buttons-group">
-                <!-- Отправить на модерацию: ТОЛЬКО черновик или отклонено -->
-                {% if article.status == 'draft' or article.status == 'rejected' %}
-                <form method="post" action="{% url 'wiki:article_resubmit' article.slug %}" style="display: inline;">
-                    {% csrf_token %}
-                    <button type="submit" class="btn" style="background: #17a2b8; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer;"
-                            onclick="return confirm('Отправить статью на модерацию?')">
-                        📨 Отправить на модерацию
-                    </button>
-                </form>
-                {% endif %}
-
-                <!-- Вернуть в черновики: ТОЛЬКО требует правок -->
-                {% if article.status == 'needs_correction' %}
-                <form method="post" action="{% url 'wiki:article_return_to_draft' article.slug %}" style="display: inline;">
-                    {% csrf_token %}
-                    <button type="submit" class="btn" style="background: #f59e0b; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer;"
-                            onclick="return confirm('Вернуть статью в черновики для редактирования?')">
-                        📝 Вернуть в черновик
-                    </button>
-                </form>
-                {% endif %}
-
-                <!-- Удалить статью: ТОЛЬКО черновик или отклонено -->
-                {% if article.status == 'draft' or article.status == 'rejected' %}
-                <button type="button" class="btn" style="background: #dc3545; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer;"
-                        onclick="confirmArticleDelete('{{ article.slug }}', '{{ article.title|escapejs }}')">
-                    🗑️ Удалить статью
+        <div class="action-buttons-group">
+            <!-- Отправить на модерацию: ТОЛЬКО черновик или отклонено -->
+            {% if article.status == 'draft' or article.status == 'rejected' %}
+            <form method="post" action="{% url 'wiki:article_resubmit' article.slug %}" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn" style="background: #17a2b8; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer;"
+                        onclick="return confirm('Отправить статью на модерацию?')">
+                    📨 Отправить на модерацию
                 </button>
-                {% endif %}
+            </form>
+            {% endif %}
 
-                <!-- Редактировать: ТОЛЬКО черновик или отклонено -->
-                {% if article.status == 'draft' or article.status == 'rejected' %}
-                <a href="{% url 'wiki:article_edit' article.slug %}" class="btn" style="background: #D4AF37; color: #1a1a1a; text-decoration: none; padding: 10px 15px; border-radius: 5px;">
-                    ✏️ Редактировать
-                </a>
-                {% endif %}
-            </div>
-        </div>
+            <!-- Вернуть в черновики: ТОЛЬКО требует правок -->
+            {% if article.status == 'needs_correction' %}
+            <form method="post" action="{% url 'wiki:article_return_to_draft' article.slug %}" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn" style="background: #f59e0b; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer;"
+                        onclick="return confirm('Вернуть статью в черновики для редактирования?')">
+                    📝 Вернуть в черновик
+                </button>
+            </form>
+            {% endif %}
 
-        <!-- Информация о статусе -->
-        <div class="status-info">
-            <small style="color: #888;">
-                <strong>Статус:</strong> {{ article.get_status_display }}
-                {% if article.moderated_at %}
-                <br><strong>Модерация:</strong> {{ article.moderated_at|date:"d.m.Y H:i" }}
-                {% endif %}
-                {% if article.moderated_by %}
-                <br><strong>Модератор:</strong> {{ article.moderated_by.username }}
-                {% endif %}
-                {% if article.moderation_notes %}
-                <br><strong>Замечания:</strong> {{ article.moderation_notes }}
-                {% endif %}
-            </small>
+            <!-- Удалить статью: ТОЛЬКО черновик или отклонено -->
+            {% if article.status == 'draft' or article.status == 'rejected' %}
+            <button type="button" class="btn" style="background: #dc3545; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer;"
+                    onclick="confirmArticleDelete('{{ article.slug }}', '{{ article.title|escapejs }}')">
+                🗑️ Удалить статью
+            </button>
+            {% endif %}
+
+            <!-- Редактировать: ТОЛЬКО черновик или отклонено -->
+            {% if article.status == 'draft' or article.status == 'rejected' %}
+            <a href="{% url 'wiki:article_edit' article.slug %}" class="btn" style="background: #D4AF37; color: #1a1a1a; text-decoration: none; padding: 10px 15px; border-radius: 5px;">
+                ✏️ Редактировать
+            </a>
+            {% endif %}
         </div>
+    </div>
+
+    <!-- Информация о статусе -->
+    <div class="status-info">
+        <small style="color: #888;">
+            <strong>Статус:</strong> {{ article.get_status_display }}
+            {% if article.moderated_at %}
+            <br><strong>Модерация:</strong> {{ article.moderated_at|date:"d.m.Y H:i" }}
+            {% endif %}
+            {% if article.moderated_by %}
+            <br><strong>Модератор:</strong> {{ article.moderated_by.username }}
+            {% endif %}
+            {% if article.moderation_notes %}
+            <br><strong>Замечания:</strong> {{ article.moderation_notes }}
+            {% endif %}
+        </small>
     </div>
     {% endif %}
 
@@ -815,12 +851,12 @@
                 </div>
 
                 <button type="submit" class="btn" style="background: #D4AF37; color: #1a1a1a; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold;">
-                    📝 Отправить комментарий
+                    Отправить комментарий
                 </button>
 
                 <button type="button" id="cancel-reply" onclick="cancelReply()"
                         style="background: #6b7280; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold; margin-left: 10px; display: none;">
-                    ❌ Отменить ответ
+                    Отменить ответ
                 </button>
             </form>
         </div>
@@ -848,18 +884,18 @@
     <!-- Кнопки действий -->
     <div class="action-buttons">
         <a href="{% url 'wiki:home' %}" class="btn">
-            ← На главную
+            На главную
         </a>
         <a href="{% url 'wiki:search' %}" class="btn btn-outline">
-            🔍 Поиск
+            Поиск
         </a>
         {% if can_edit %}
         <a href="{% url 'wiki:article_edit' article.slug %}" class="btn">
-            ✏️ Редактировать
+            Редактировать
         </a>
         <a href="{% url 'wiki:export_article_pdf' slug=article.slug %}?v=2"
            class="btn btn-primary">
-            📄 Экспорт в PDF
+            Экспорт в PDF
         </a>
         {% endif %}
     </div>
@@ -1037,7 +1073,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// Функция лайков
+// Функция лайков для статьи
 function toggleArticleLike() {
     const likeButton = document.getElementById('articleLikeButton');
     const likesCount = document.getElementById('articleLikesCount');
@@ -1094,6 +1130,68 @@ function toggleArticleLike() {
     });
 }
 
+// Функция лайков для комментариев
+function toggleCommentLike(commentId, buttonElement) {
+    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]')?.value;
+
+    if (!csrfToken) {
+        showNotification('Ошибка безопасности. Перезагрузите страницу.', 'error');
+        return;
+    }
+
+    // Сохраняем исходный текст кнопки
+    const originalHTML = buttonElement.innerHTML;
+    buttonElement.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+    buttonElement.disabled = true;
+
+    fetch(`/comment/${commentId}/like/`, {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': csrfToken,
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({})
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Обновляем количество лайков
+            const likesCounter = buttonElement.querySelector('.comment-likes-count');
+            if (likesCounter) {
+                likesCounter.textContent = data.new_likes;  // Используем data.new_likes
+            }
+
+            // Обновляем иконку в зависимости от статуса
+            const icon = buttonElement.querySelector('i');
+            if (icon) {
+                if (data.liked) {
+                    icon.className = 'fas fa-thumbs-up';
+                    buttonElement.classList.add('liked');
+                } else {
+                    icon.className = 'far fa-thumbs-up';
+                    buttonElement.classList.remove('liked');
+                }
+            }
+
+            // Обновляем атрибут data-liked для будущих кликов
+            buttonElement.setAttribute('data-liked', data.liked ? 'true' : 'false');
+
+            showNotification(data.liked ? 'Лайк поставлен!' : 'Лайк убран!', 'success');
+        } else {
+            showNotification(data.error || 'Ошибка при постановке лайка', 'error');
+            buttonElement.innerHTML = originalHTML;
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showNotification('Ошибка сети', 'error');
+        buttonElement.innerHTML = originalHTML;
+    })
+    .finally(() => {
+        buttonElement.disabled = false;
+    });
+}
+
 // Функция для ответа на комментарий
 function replyToComment(commentId, authorName) {
     document.getElementById('parent_id').value = commentId;
@@ -1116,10 +1214,12 @@ function cancelReply() {
 // Функция удаления комментария
 function deleteComment(commentId) {
     if (confirm('Вы уверены, что хотите удалить этот комментарий?')) {
+        const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]')?.value;
+
         fetch(`/comment/${commentId}/delete/`, {
             method: 'POST',
             headers: {
-                'X-CSRFToken': '{{ csrf_token }}',
+                'X-CSRFToken': csrfToken,
                 'Content-Type': 'application/json'
             }
         })
@@ -1135,20 +1235,24 @@ function deleteComment(commentId) {
                         commentsCount.textContent = parseInt(commentsCount.textContent) - 1;
                     }
                 }
+                showNotification('Комментарий удален', 'success');
             } else {
-                alert('Ошибка удаления: ' + data.error);
+                showNotification('Ошибка удаления: ' + data.error, 'error');
             }
         })
         .catch(error => {
-            alert('Ошибка: ' + error);
+            showNotification('Ошибка: ' + error, 'error');
         });
     }
 }
 
 // Уведомления
 function showNotification(message, type) {
+    // Удаляем предыдущие уведомления
+    document.querySelectorAll('.custom-notification').forEach(el => el.remove());
+
     const notification = document.createElement('div');
-    notification.className = `alert alert-${type}`;
+    notification.className = `custom-notification`;
     notification.textContent = message;
     notification.style.cssText = `
         position: fixed;
@@ -1159,20 +1263,52 @@ function showNotification(message, type) {
         color: white;
         z-index: 10000;
         animation: slideInRight 0.3s ease-out;
+        font-weight: bold;
     `;
 
     if (type === 'success') {
         notification.style.background = '#28a745';
+        notification.style.border = '1px solid #218838';
     } else {
         notification.style.background = '#dc3545';
+        notification.style.border = '1px solid #c82333';
     }
 
     document.body.appendChild(notification);
 
     setTimeout(() => {
-        notification.remove();
+        notification.style.animation = 'slideOutRight 0.3s ease-out';
+        setTimeout(() => {
+            notification.remove();
+        }, 300);
     }, 3000);
 }
+
+// Анимации для уведомлений
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes slideInRight {
+        from {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+    @keyframes slideOutRight {
+        from {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        to {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+    }
+`;
+document.head.appendChild(style);
 
 // Закрытие лайтбокса по клику на фон
 document.getElementById('lightbox').addEventListener('click', function(e) {

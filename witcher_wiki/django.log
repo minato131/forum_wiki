@@ -26858,3 +26858,267 @@ INFO 2025-12-12 22:18:29,062 log "GET /messages/unread-count/ HTTP/1.1" 200 4041
 INFO 2025-12-12 22:18:59,073 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
 INFO 2025-12-12 22:19:29,073 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
 INFO 2025-12-12 22:19:59,067 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 22:20:29,164 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 22:20:59,168 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 22:21:29,063 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 22:22:30,400 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 22:22:51,490 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-12 22:22:52,270 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 22:23:01,315 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-12 22:23:02,348 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 22:23:18,377 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\urls.py changed, reloading.
+INFO 2025-12-12 22:23:19,085 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 22:23:31,097 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 22:24:32,169 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 22:25:33,072 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 22:26:34,083 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 22:27:35,072 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 22:28:36,173 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 22:28:44,552 log "GET / HTTP/1.1" 200 37134
+INFO 2025-12-12 22:28:44,653 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 22:28:50,080 log "GET /article/create/ HTTP/1.1" 200 34683
+INFO 2025-12-12 22:28:50,150 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 22:28:52,207 log "GET /search/ HTTP/1.1" 200 48157
+INFO 2025-12-12 22:28:52,290 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 22:29:14,627 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 22:29:21,572 log "GET / HTTP/1.1" 200 37122
+INFO 2025-12-12 22:29:21,645 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 22:29:30,014 log "GET /liked-articles/ HTTP/1.1" 200 49373
+INFO 2025-12-12 22:29:30,087 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 22:29:35,616 log "GET /my-articles/ HTTP/1.1" 200 47155
+INFO 2025-12-12 22:29:35,686 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 22:29:38,162 log "GET /liked-articles/ HTTP/1.1" 200 49373
+INFO 2025-12-12 22:29:38,234 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 22:29:45,195 log "GET / HTTP/1.1" 200 37122
+INFO 2025-12-12 22:29:45,267 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 22:30:15,264 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 22:30:46,160 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 22:31:16,068 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 22:31:46,071 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 22:32:16,083 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 22:32:46,070 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 22:33:11,481 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\models.py changed, reloading.
+INFO 2025-12-12 22:34:05,934 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 22:37:46,585 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\models.py changed, reloading.
+INFO 2025-12-12 22:37:47,295 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 22:37:58,029 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\models.py changed, reloading.
+INFO 2025-12-12 22:37:58,698 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 22:42:06,897 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 22:42:08,977 log "GET / HTTP/1.1" 200 37122
+INFO 2025-12-12 22:42:09,136 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+ERROR 2025-12-12 22:42:10,359 log Internal Server Error: /article/ssss/
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py", line 596, in article_detail
+    comments = article.comments.filter(is_approved=True, parent__isnull=True).order_by('created_at')
+               ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 1542, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 1560, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 1570, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1671, in add_q
+    clause, _ = self._add_q(q_object, can_reuse)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1703, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1551, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg, summarize)
+                                        ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1358, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+                                ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1832, in names_to_path
+    raise FieldError(
+    ...<2 lines>...
+    )
+django.core.exceptions.FieldError: Cannot resolve keyword 'is_approved' into field. Choices are: article, article_id, author, author_id, comment_likes, content, created_at, id, is_deleted, like_count, parent, parent_id, replies, updated_at
+ERROR 2025-12-12 22:42:10,367 log "GET /article/ssss/ HTTP/1.1" 500 125014
+INFO 2025-12-12 22:42:30,861 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\admin.py changed, reloading.
+INFO 2025-12-12 22:42:32,262 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 22:42:50,942 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\admin.py changed, reloading.
+INFO 2025-12-12 22:42:51,945 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 22:44:46,091 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 22:44:47,837 log "GET / HTTP/1.1" 200 37122
+INFO 2025-12-12 22:44:47,990 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 22:44:50,073 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+ERROR 2025-12-12 22:44:50,121 log Internal Server Error: /article/ssss/
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py", line 596, in article_detail
+    comments = article.comments.filter(is_approved=True, parent__isnull=True).order_by('created_at')
+               ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 1542, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 1560, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 1570, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1671, in add_q
+    clause, _ = self._add_q(q_object, can_reuse)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1703, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1551, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg, summarize)
+                                        ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1358, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+                                ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1832, in names_to_path
+    raise FieldError(
+    ...<2 lines>...
+    )
+django.core.exceptions.FieldError: Cannot resolve keyword 'is_approved' into field. Choices are: article, article_id, author, author_id, comment_likes, content, created_at, id, is_deleted, like_count, parent, parent_id, replies, updated_at
+ERROR 2025-12-12 22:44:50,126 log "GET /article/ssss/ HTTP/1.1" 500 125014
+INFO 2025-12-12 22:45:33,720 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-12 22:45:34,347 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 22:45:50,100 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 22:45:58,270 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\models.py changed, reloading.
+INFO 2025-12-12 22:45:58,953 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 22:46:11,715 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-12 22:46:12,717 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 22:46:50,105 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 22:47:50,071 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 22:48:01,474 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-12 22:48:03,362 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 22:48:14,318 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 22:48:15,967 log "GET / HTTP/1.1" 200 37122
+INFO 2025-12-12 22:48:16,117 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 22:48:17,799 log "GET /article/ssss/ HTTP/1.1" 200 68464
+INFO 2025-12-12 22:48:17,891 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+ERROR 2025-12-12 22:48:20,027 log Internal Server Error: /comment/2/like/
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\views\decorators\http.py", line 64, in inner
+    return func(request, *args, **kwargs)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py", line 4654, in comment_like
+    comment.likes += 1
+    ^^^^^^^^^^^^^
+AttributeError: property 'likes' of 'Comment' object has no setter
+ERROR 2025-12-12 22:48:20,032 log "POST /comment/2/like/ HTTP/1.1" 500 87338
+INFO 2025-12-12 22:48:48,060 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 22:48:50,059 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 22:49:11,979 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-12 22:49:13,062 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 22:49:18,108 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 22:49:20,898 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-12 22:49:21,800 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 22:49:48,094 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 22:49:50,075 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 22:50:16,646 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 22:50:18,160 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 22:50:18,457 log "GET / HTTP/1.1" 200 37122
+INFO 2025-12-12 22:50:18,594 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 22:50:19,851 log "GET /article/ssss/ HTTP/1.1" 200 68464
+INFO 2025-12-12 22:50:19,926 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+ERROR 2025-12-12 22:50:21,465 log Internal Server Error: /comment/2/like/
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\views\decorators\http.py", line 64, in inner
+    return func(request, *args, **kwargs)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py", line 4663, in comment_like
+    CommentLike.objects.create(user=request.user, comment=comment)
+    ^^^^^^^^^^^
+NameError: name 'CommentLike' is not defined. Did you mean: 'comment_like'?
+ERROR 2025-12-12 22:50:21,469 log "POST /comment/2/like/ HTTP/1.1" 500 87375
+INFO 2025-12-12 22:50:50,072 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 22:51:15,787 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-12 22:51:16,427 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 22:51:18,154 log "GET / HTTP/1.1" 200 37122
+INFO 2025-12-12 22:51:18,296 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 22:51:20,017 log "GET /article/ssss/ HTTP/1.1" 200 68464
+INFO 2025-12-12 22:51:20,091 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 22:51:21,415 log "POST /comment/2/like/ HTTP/1.1" 200 48
+INFO 2025-12-12 22:51:26,509 log "POST /comment/2/like/ HTTP/1.1" 200 49
+INFO 2025-12-12 22:51:27,034 log "POST /comment/2/like/ HTTP/1.1" 200 48
+INFO 2025-12-12 22:51:27,834 log "POST /comment/2/like/ HTTP/1.1" 200 49
+INFO 2025-12-12 22:51:29,519 log "POST /comment/2/like/ HTTP/1.1" 200 48
+INFO 2025-12-12 22:51:31,396 log "POST /comment/2/like/ HTTP/1.1" 200 49
+INFO 2025-12-12 22:51:31,854 log "POST /comment/2/like/ HTTP/1.1" 200 48
+INFO 2025-12-12 22:51:50,069 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 22:51:51,065 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 22:52:21,066 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 22:52:47,361 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-12 22:52:48,362 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 22:52:50,253 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 22:52:51,220 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 22:53:21,069 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 22:53:50,075 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 22:53:51,067 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 22:54:21,182 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 22:54:50,072 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 22:54:51,070 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 22:55:27,139 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\models.py changed, reloading.
+INFO 2025-12-12 22:55:27,836 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 22:55:50,090 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 22:55:50,139 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 22:56:06,527 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-12 22:56:07,338 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 22:56:25,769 autoreload Watching for file changes with StatReloader
+INFO 2025-12-12 22:56:27,690 log "GET / HTTP/1.1" 200 37122
+INFO 2025-12-12 22:56:27,877 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 22:56:28,365 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 22:56:30,275 log "GET /article/ssss/ HTTP/1.1" 200 69091
+INFO 2025-12-12 22:56:30,355 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 22:56:32,072 log "POST /comment/2/like/ HTTP/1.1" 200 49
+INFO 2025-12-12 22:56:32,859 log "POST /comment/2/like/ HTTP/1.1" 200 48
+INFO 2025-12-12 22:56:34,942 log "GET /article/ssss/ HTTP/1.1" 200 69091
+INFO 2025-12-12 22:56:35,013 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 22:56:36,672 log "POST /comment/2/like/ HTTP/1.1" 200 49
+INFO 2025-12-12 22:56:37,440 log "POST /comment/2/like/ HTTP/1.1" 200 48
+INFO 2025-12-12 22:56:39,704 log "GET / HTTP/1.1" 200 37122
+INFO 2025-12-12 22:56:39,776 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 22:56:43,748 log "GET /article/ssss/ HTTP/1.1" 200 69091
+INFO 2025-12-12 22:56:43,822 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 22:56:50,068 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 22:57:13,814 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 22:57:44,110 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 22:57:50,071 log "GET /messages/unread-count/ HTTP/1.1" 200 40415
+INFO 2025-12-12 22:58:11,842 log "GET /article/ssss/ HTTP/1.1" 200 69061
+INFO 2025-12-12 22:58:11,922 log "GET /messages/unread-count/ HTTP/1.1" 200 40415

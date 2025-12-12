@@ -132,5 +132,5 @@ urlpatterns = [
     path('articles/', views.article_list, name='article_list'),
     path('statistics/export/pdf/', views.export_statistics_pdf, name='export_statistics_pdf'),
     path('statistics/export/json/', views.export_statistics_json, name='export_statistics_json'),
-    path('comment/<int:comment_id>/like/', views.toggle_comment_like, name='toggle_comment_like'),
+    path('comment/<int:comment_id>/like/', views.comment_like, name='comment_like'),
 ]

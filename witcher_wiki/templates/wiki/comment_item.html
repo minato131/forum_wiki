@@ -33,10 +33,10 @@
                     onclick="toggleCommentLike('{{ comment.id }}', this)"
                     data-comment-id="{{ comment.id }}"
                     data-liked="{% if comment.is_liked_by_user %}true{% else %}false{% endif %}"
-                    style="background: none; border: 1px solid #D4AF37; color: #D4AF37; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-size: 0.8em;"
+                    style="background: none; border: 1px solid #D4AF37; color: #D4AF37; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-size: 0.8em; display: flex; align-items: center; gap: 5px;"
                     {% if not user.is_authenticated %}disabled title="Войдите, чтобы оценить"{% endif %}>
                 <i class="{% if comment.is_liked_by_user %}fas{% else %}far{% endif %} fa-thumbs-up"></i>
-                <span class="comment-likes-count">{{ comment.get_like_count|default:0 }}</span>
+                <span class="comment-likes-count">{{ comment.like_count|default:0 }}</span>
             </button>
 
             {% if user == comment.author or user.is_staff or user.is_superuser %}

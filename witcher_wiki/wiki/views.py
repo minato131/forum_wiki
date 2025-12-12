@@ -13,7 +13,7 @@ import json
 from django.utils import timezone
 from django.contrib.auth.models import User, Group
 from django.contrib.auth.decorators import user_passes_test
-from .models import Article, Category, Comment,SearchHistory, ArticleMedia, UserProfile, ArticleLike, ModerationComment, SearchQuery, \
+from .models import Article, Category, Comment,SearchHistory,CommentLike, ArticleMedia, UserProfile, ArticleLike, ModerationComment, SearchQuery, \
     Message, EmailVerification
 from .forms import ArticleForm, CommentForm, SearchForm, CategoryForm, ProfileUpdateForm, MessageForm, QuickMessageForm, \
     CustomUserCreationForm, CodeVerificationForm, PasswordResetRequestForm, EmailVerificationForm, PasswordResetForm, \
@@ -82,7 +82,9 @@ from django.views.decorators.http import require_POST
 from django.contrib import messages
 from .models import Backup, BackupLog
 import threading
-
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
+from django.contrib.auth.decorators import login_required
 
 
 def clean_latex_from_content(content):
@@ -591,7 +593,10 @@ def article_detail(request, slug):
     media_files = article.media_files.all().order_by('display_order', 'uploaded_at')
 
     # Получаем комментарии к статье
-    comments = article.comments.filter(is_approved=True, parent__isnull=True).order_by('created_at')
+    comments = article.comments.filter(is_deleted=False, parent__isnull=True)\
+                               .order_by('created_at')\
+                               .select_related('author')\
+                               .prefetch_related('comment_likes')
 
     # Форма для добавления комментария
     comment_form = CommentForm()
@@ -4640,3 +4645,35 @@ def export_statistics_json(request):
             {"error": f"Ошибка при экспорте статистики: {str(e)}"},
             status=500
         )
+
+
+@require_POST
+@login_required
+def comment_like(request, comment_id):
+    """Обработка лайка на комментарий. Только для аутентифицированных пользователей."""
+    try:
+        comment = Comment.objects.get(id=comment_id)
+
+        # Проверяем, лайкал ли уже пользователь этот комментарий
+        user_liked = comment.comment_likes.filter(user=request.user).exists()
+
+        if user_liked:
+            # Если уже лайкал - убираем лайк
+            comment.comment_likes.filter(user=request.user).delete()
+            comment.like_count = max(0, comment.like_count - 1)
+            liked = False
+        else:
+            # Если не лайкал - добавляем лайк
+            CommentLike.objects.create(user=request.user, comment=comment)
+            comment.like_count += 1
+            liked = True
+
+        comment.save()
+
+        return JsonResponse({
+            'success': True,
+            'new_likes': comment.like_count,  # Возвращаем обновленное количество
+            'liked': liked
+        })
+    except Comment.DoesNotExist:
+        return JsonResponse({'success': False, 'error': 'Комментарий не найден'}, status=404)

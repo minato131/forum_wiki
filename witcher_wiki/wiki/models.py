@@ -507,47 +507,37 @@ class ArticleRevision(models.Model):
 
 
 class Comment(models.Model):
-    article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='comments', verbose_name='Статья')
-    author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Автор')
-    parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True,
-                               verbose_name='Родительский комментарий', related_name='replies')
-    content = models.TextField('Комментарий')
-    created_at = models.DateTimeField('Создано', auto_now_add=True)
-    updated_at = models.DateTimeField('Обновлено', auto_now=True)
-    is_approved = models.BooleanField('Одобрен', default=True)
+    article = models.ForeignKey('Article', on_delete=models.CASCADE, related_name='comments')
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comments')
+    parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='replies')
+    content = models.TextField()
+    like_count = models.IntegerField(default=0)  # Переименовано
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_deleted = models.BooleanField(default=False)
+    is_approved = models.BooleanField(default=True, verbose_name='Одобрен')
 
     class Meta:
-        verbose_name = 'Комментарий'
-        verbose_name_plural = 'Комментарии'
         ordering = ['created_at']
 
-    def get_likes_count(self):
-        """Возвращает количество лайков комментария"""
-        return self.likes.count()
+    def __str__(self):
+        return f"Комментарий от {self.author.username} к статье {self.article.title}"
+
+    @property
+    def likes(self):
+        """Свойство для обратной совместимости"""
+        return self.like_count
+
+    def get_like_count(self):
+        """Метод для получения количества лайков"""
+        return self.like_count
 
     def is_liked_by_user(self, user):
-        """Проверяет, лайкнул ли пользователь комментарий"""
+        """Проверяет, лайкнул ли пользователь этот комментарий"""
         if not user.is_authenticated:
             return False
-        return self.likes.filter(user=user).exists()
-
-    def toggle_like(self, user):
-        """Добавляет или убирает лайк комментария"""
-        if not user.is_authenticated:
-            return False
-
-        like, created = CommentLike.objects.get_or_create(
-            user=user,
-            comment=self
-        )
-
-        if not created:
-            like.delete()
-            return False  # Лайк убран
-        return True  # Лайк добавлен
-
-    def __str__(self):
-        return f'Комментарий от {self.author.username} к {self.article.title}'
+        # Используем related_name 'comment_likes'
+        return self.comment_likes.filter(user=user).exists()
 
 
 class UserProfile(models.Model):
@@ -1260,17 +1250,17 @@ class BackupLog(models.Model):
     def __str__(self):
         return f'{self.get_log_type_display()} - {self.created_at.strftime("%d.%m.%Y %H:%M")}'
 
+
 class CommentLike(models.Model):
-    """Модель для лайков комментариев"""
-    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь')
-    comment = models.ForeignKey(Comment, on_delete=models.CASCADE, verbose_name='Комментарий', related_name='likes')
-    created_at = models.DateTimeField('Время лайка', auto_now_add=True)
+    """Модель для лайков комментариев (отдельная таблица для отслеживания кто лайкнул)"""
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comment_likes')
+    comment = models.ForeignKey(Comment, on_delete=models.CASCADE, related_name='comment_likes')
+    created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
+        unique_together = ['user', 'comment']
         verbose_name = 'Лайк комментария'
         verbose_name_plural = 'Лайки комментариев'
-        unique_together = ['user', 'comment']  # Один лайк на комментарий от пользователя
-        ordering = ['-created_at']
 
     def __str__(self):
-        return f'{self.user.username} лайкнул комментарий {self.comment.id}'
+        return f"Лайк от {self.user.username} на комментарий {self.comment.id}"
