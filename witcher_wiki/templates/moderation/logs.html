@@ -1,0 +1,232 @@
+{% extends 'base.html' %}
+
+{% block title %}Логи модерации | Панель модерации{% endblock %}
+
+{% block content %}
+<style>
+    .log-item {
+        background: #2c3e50;
+        border-radius: 8px;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        border-left: 4px solid #7f8c8d;
+    }
+    .log-item.ban { border-left-color: #e74c3c; }
+    .log-item.warning { border-left-color: #f39c12; }
+    .log-item.unban { border-left-color: #27ae60; }
+    .log-item.other { border-left-color: #3498db; }
+    .filter-form {
+        background: #34495e;
+        border-radius: 10px;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+    }
+</style>
+
+<div class="container py-4">
+    <!-- Хлебные крошки -->
+    <nav style="margin-bottom: 2rem; background: #2c3e50; padding: 1rem; border-radius: 8px;">
+        <ol style="display: flex; list-style: none; margin: 0; padding: 0;">
+            <li style="margin-right: 0.5rem;">
+                <a href="{% url 'wiki:moderation_dashboard' %}" style="color: #ecf0f1; text-decoration: none; font-weight: 500;">Панель модерации</a>
+            </li>
+            <li style="margin-right: 0.5rem; color: #7f8c8d;">›</li>
+            <li style="color: #f1c40f; font-weight: 500;">Логи модерации</li>
+        </ol>
+    </nav>
+
+    <!-- Заголовок -->
+    <div style="background: linear-gradient(135deg, #34495e, #2c3e50); border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem;">
+        <h1 style="margin: 0; color: #ecf0f1; display: flex; align-items: center; gap: 1rem;">
+            <span style="background: #9b59b6; color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">
+                📋
+            </span>
+            Логи модерации
+        </h1>
+    </div>
+
+    <!-- Фильтры -->
+    <div class="filter-form">
+        <form method="get">
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <label style="color: #ecf0f1; font-weight: 500; margin-bottom: 0.5rem;">Тип действия:</label>
+                    <select name="action_type" class="form-control" style="background: #2c3e50; border-color: #7f8c8d; color: white;">
+                        <option value="">Все типы</option>
+                        {% for action_type, display_name in action_types %}
+                        <option value="{{ action_type }}" {% if selected_action == action_type %}selected{% endif %}>
+                            {{ display_name }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label style="color: #ecf0f1; font-weight: 500; margin-bottom: 0.5rem;">Модератор:</label>
+                    <select name="moderator" class="form-control" style="background: #2c3e50; border-color: #7f8c8d; color: white;">
+                        <option value="">Все модераторы</option>
+                        {% for moderator in moderators %}
+                        <option value="{{ moderator.id }}" {% if selected_moderator == moderator.id|stringformat:"i" %}selected{% endif %}>
+                            {{ moderator.username }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-4 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary" style="background: #9b59b6; border: none; width: 100%;">
+                        🔍 Применить фильтры
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Логи -->
+    <div style="background: #2c3e50; border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem;">
+        {% if page_obj %}
+        {% for log in page_obj %}
+        <div class="log-item {% if log.action_type == 'ban_issued' %}ban{% elif log.action_type == 'warning_issued' %}warning{% elif log.action_type == 'ban_removed' %}unban{% else %}other{% endif %}">
+            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.5rem;">
+                <div>
+                    <h5 style="margin: 0; color: #ecf0f1;">
+                        {{ log.get_action_type_display }}
+                    </h5>
+                </div>
+                <div style="color: #95a5a6; font-size: 0.9rem;">
+                    {{ log.created_at|date:"d.m.Y H:i:s" }}
+                </div>
+            </div>
+            
+            <div style="color: #bdc3c7; margin-bottom: 0.75rem;">
+                {{ log.description }}
+            </div>
+            
+            <div style="display: flex; justify-content: space-between; font-size: 0.9rem;">
+                <div style="color: #95a5a6;">
+                    <strong>Модератор:</strong> 
+                    {% if log.moderator %}
+                    <a href="{% url 'wiki:user_detail' log.moderator.id %}" style="color: #3498db;">
+                        {{ log.moderator.username }}
+                    </a>
+                    {% else %}
+                    Система
+                    {% endif %}
+                </div>
+                
+                <div style="color: #95a5a6;">
+                    <strong>Пользователь:</strong> 
+                    {% if log.target_user %}
+                    <a href="{% url 'wiki:user_detail' log.target_user.id %}" style="color: #3498db;">
+                        {{ log.target_user.username }}
+                    </a>
+                    {% else %}
+                    Не указан
+                    {% endif %}
+                </div>
+                
+                <div style="color: #95a5a6;">
+                    <strong>IP:</strong> {{ log.ip_address|default:"Не указан" }}
+                </div>
+            </div>
+            
+            {% if log.details %}
+            <div style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid #34495e;">
+                <button class="btn btn-sm btn-outline-info" 
+                        type="button" 
+                        data-bs-toggle="collapse" 
+                        data-bs-target="#details-{{ log.id }}"
+                        style="border-color: #17a2b8; color: #17a2b8;">
+                    📋 Показать детали
+                </button>
+                
+                <div class="collapse mt-2" id="details-{{ log.id }}">
+                    <div style="background: rgba(255,255,255,0.05); padding: 0.75rem; border-radius: 4px;">
+                        <pre style="color: #bdc3c7; margin: 0; font-size: 0.85rem; white-space: pre-wrap;">{{ log.details|pprint }}</pre>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+        {% endfor %}
+        
+        <!-- Пагинация -->
+        {% if page_obj.has_other_pages %}
+        <nav aria-label="Пагинация" class="mt-4">
+            <ul class="pagination pagination-custom justify-content-center">
+                {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page=1{% if selected_action %}&action_type={{ selected_action }}{% endif %}{% if selected_moderator %}&moderator={{ selected_moderator }}{% endif %}">
+                        ««
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if selected_action %}&action_type={{ selected_action }}{% endif %}{% if selected_moderator %}&moderator={{ selected_moderator }}{% endif %}">
+                        «
+                    </a>
+                </li>
+                {% endif %}
+                
+                {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                    <li class="page-item active">
+                        <span class="page-link">{{ num }}</span>
+                    </li>
+                    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ num }}{% if selected_action %}&action_type={{ selected_action }}{% endif %}{% if selected_moderator %}&moderator={{ selected_moderator }}{% endif %}">
+                            {{ num }}
+                        </a>
+                    </li>
+                    {% endif %}
+                {% endfor %}
+                
+                {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if selected_action %}&action_type={{ selected_action }}{% endif %}{% if selected_moderator %}&moderator={{ selected_moderator }}{% endif %}">
+                        »
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}{% if selected_action %}&action_type={{ selected_action }}{% endif %}{% if selected_moderator %}&moderator={{ selected_moderator }}{% endif %}">
+                        »»
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+        {% endif %}
+        
+        {% else %}
+        <div style="text-align: center; padding: 3rem;">
+            <div style="font-size: 3rem; color: #7f8c8d; margin-bottom: 1rem;">
+                📝
+            </div>
+            <h3 style="color: #bdc3c7;">Логи не найдены</h3>
+            <p style="color: #95a5a6;">Попробуйте изменить фильтры поиска</p>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Быстрые ссылки -->
+    <div style="background: #2c3e50; border-radius: 12px; padding: 1.5rem;">
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+            <a href="{% url 'wiki:moderation_dashboard' %}" class="btn btn-secondary" style="background: #7f8c8d; border: none;">
+                ← Назад в панель модерации
+            </a>
+            <button onclick="window.location.reload()" class="btn btn-info" style="background: #17a2b8; border: none;">
+                🔄 Обновить логи
+            </button>
+            <form method="post" action="{% url 'wiki:moderation_dashboard' %}" style="display: inline;">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="clear_old_logs">
+                <button type="submit" class="btn btn-danger" 
+                        onclick="return confirm('Удалить логи старше 30 дней? Это действие необратимо.');">
+                    🗑️ Очистить старые логи
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Подключение Bootstrap для collapse -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+{% endblock %}

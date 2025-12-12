@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container text-center py-5">
+    <div style="max-width: 600px; margin: 0 auto;">
+        <!-- Заголовок -->
+        <div style="background: linear-gradient(135deg, #e74c3c, #c0392b); border-radius: 12px; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3);">
+            <div style="font-size: 4rem; margin-bottom: 1rem;">⛔</div>
+            <h1 style="margin: 0; color: white; font-size: 2rem;">Аккаунт заблокирован</h1>
+        </div>
+
+        <!-- Информация о бане -->
+        <div style="background: #2c3e50; border-radius: 12px; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+            <div style="margin-bottom: 2rem;">
+                <h2 style="color: #e74c3c; margin-bottom: 1rem;">Причина блокировки</h2>
+                <div style="background: rgba(231, 76, 60, 0.1); padding: 1rem; border-radius: 8px; border-left: 4px solid #e74c3c;">
+                    <h3 style="margin: 0; color: #ecf0f1;">{{ ban.get_reason_display }}</h3>
+                    {% if ban.notes %}
+                    <p style="color: #bdc3c7; margin-top: 0.5rem; margin-bottom: 0;">{{ ban.notes }}</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div style="margin-bottom: 2rem;">
+                <h2 style="color: #f1c40f; margin-bottom: 1rem;">Длительность блокировки</h2>
+                <div style="background: rgba(241, 196, 15, 0.1); padding: 1rem; border-radius: 8px; border-left: 4px solid #f1c40f;">
+                    <h3 style="margin: 0; color: #ecf0f1; display: flex; align-items: center; justify-content: center; gap: 1rem;">
+                        <span>{{ ban.get_duration_display }}</span>
+                    </h3>
+
+                    {% if ban.duration != 'permanent' %}
+                    <div style="margin-top: 1rem;">
+                        <div style="color: #bdc3c7; margin-bottom: 0.5rem;">
+                            <strong>Осталось:</strong> {{ ban.time_remaining }}
+                        </div>
+                        <div style="color: #bdc3c7;">
+                            <strong>Блокировка истекает:</strong> {{ ban.end_time|date:"d.m.Y в H:i" }}
+                        </div>
+                    </div>
+                    {% else %}
+                    <div style="color: #bdc3c7; margin-top: 1rem;">
+                        <strong>Блокировка постоянная</strong>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div>
+                <h2 style="color: #3498db; margin-bottom: 1rem;">Детали блокировки</h2>
+                <div style="background: rgba(52, 152, 219, 0.1); padding: 1rem; border-radius: 8px; border-left: 4px solid #3498db;">
+                    <div style="color: #bdc3c7;">
+                        <div style="margin-bottom: 0.5rem;">
+                            <strong>Заблокирован администратором:</strong> {{ ban.banned_by.username|default:"Система" }}
+                        </div>
+                        <div style="margin-bottom: 0.5rem;">
+                            <strong>Дата блокировки:</strong> {{ ban.start_time|date:"d.m.Y в H:i" }}
+                        </div>
+                        <div>
+                            <strong>ID бана:</strong> {{ ban.id }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Что делать дальше -->
+        <div style="background: #34495e; border-radius: 12px; padding: 2rem; margin-bottom: 2rem;">
+            <h2 style="color: #1abc9c; margin-bottom: 1rem;">Что делать дальше?</h2>
+            <div style="color: #bdc3c7; text-align: left;">
+                <ol style="padding-left: 1.5rem;">
+                    <li style="margin-bottom: 0.5rem;">
+                        <strong>Дождитесь окончания блокировки</strong> - после {{ ban.end_time|date:"d.m.Y" }} аккаунт будет автоматически разблокирован
+                    </li>
+                    <li style="margin-bottom: 0.5rem;">
+                        <strong>Соблюдайте правила сообщества</strong> - после разблокировки избегайте нарушений
+                    </li>
+                    <li>
+                        <strong>Если считаете блокировку ошибочной</strong> - обратитесь к администрации через контакты на сайте
+                    </li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- Кнопки действий -->
+        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+            <a href="/" class="btn btn-primary"
+               style="background: #3498db; border: none; padding: 0.75rem 2rem; border-radius: 25px; text-decoration: none; color: white; font-weight: 500;">
+                ← На главную
+            </a>
+            <a href="/accounts/logout/" class="btn btn-secondary"
+               style="background: #7f8c8d; border: none; padding: 0.75rem 2rem; border-radius: 25px; text-decoration: none; color: white; font-weight: 500;">
+                🔓 Выйти из аккаунта
+            </a>
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        background: #1a252f;
+    }
+    .btn {
+        transition: all 0.3s;
+    }
+    .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+</style>
+{% endblock %}

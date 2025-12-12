@@ -27514,3 +27514,1228 @@ Traceback (most recent call last):
 django.core.exceptions.FieldError: Cannot resolve keyword 'likes' into field. Choices are: article, article_id, author, author_id, comment_likes, content, created_at, id, is_approved, is_deleted, like_count, parent, parent_id, replies, updated_at
 ERROR 2025-12-13 00:21:43,263 log "GET /accounts/profile/ HTTP/1.1" 500 130790
 INFO 2025-12-13 00:22:06,039 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 00:22:36,063 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 00:23:06,071 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 00:23:36,068 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 00:24:06,068 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 00:24:36,058 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 00:25:06,074 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 00:25:34,188 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-13 00:25:36,059 autoreload Watching for file changes with StatReloader
+INFO 2025-12-13 00:25:50,456 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 00:26:50,083 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 00:27:26,940 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-13 00:27:28,999 autoreload Watching for file changes with StatReloader
+INFO 2025-12-13 00:27:50,105 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 00:28:42,898 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\urls.py changed, reloading.
+INFO 2025-12-13 00:28:43,505 autoreload Watching for file changes with StatReloader
+INFO 2025-12-13 00:28:45,074 log "GET / HTTP/1.1" 200 37298
+INFO 2025-12-13 00:28:45,344 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+ERROR 2025-12-13 00:28:46,426 log Internal Server Error: /accounts/profile/
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py", line 350, in profile
+    user_comments_liked_count = Comment.objects.filter(comment_likes__user=user).distinct().count()
+                                                                           ^^^^
+NameError: name 'user' is not defined. Did you mean: 'User'?
+ERROR 2025-12-13 00:28:46,429 log "GET /accounts/profile/ HTTP/1.1" 500 83410
+INFO 2025-12-13 00:28:50,163 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 00:29:08,278 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-13 00:29:09,358 autoreload Watching for file changes with StatReloader
+INFO 2025-12-13 00:29:12,710 log "GET / HTTP/1.1" 200 37298
+INFO 2025-12-13 00:29:12,884 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+ERROR 2025-12-13 00:29:15,455 log Internal Server Error: /accounts/profile/
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\fields\__init__.py", line 2128, in get_prep_value
+    return int(value)
+TypeError: int() argument must be a string, a bytes-like object or a real number, not 'ModelBase'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py", line 350, in profile
+    user_comments_liked_count = Comment.objects.filter(comment_likes__user=User).distinct().count()
+                                ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 1542, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 1560, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 1570, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1671, in add_q
+    clause, _ = self._add_q(q_object, can_reuse)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1703, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1613, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1440, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\lookups.py", line 35, in __init__
+    self.rhs = self.get_prep_lookup()
+               ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\fields\related_lookups.py", line 113, in get_prep_lookup
+    self.rhs = target_field.get_prep_value(self.rhs)
+               ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\fields\__init__.py", line 2130, in get_prep_value
+    raise e.__class__(
+        "Field '%s' expected a number but got %r." % (self.name, value),
+    ) from e
+TypeError: Field 'id' expected a number but got <class 'django.contrib.auth.models.User'>.
+ERROR 2025-12-13 00:29:15,466 log "GET /accounts/profile/ HTTP/1.1" 500 145421
+INFO 2025-12-13 00:29:21,836 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-13 00:29:22,472 autoreload Watching for file changes with StatReloader
+INFO 2025-12-13 00:29:27,399 log "GET / HTTP/1.1" 200 37298
+INFO 2025-12-13 00:29:27,580 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+ERROR 2025-12-13 00:29:28,822 log Internal Server Error: /accounts/profile/
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py", line 350, in profile
+    user_comments_liked_count = Comment.objects.filter(comment_likes__user=user).distinct().count()
+                                                                           ^^^^
+NameError: name 'user' is not defined. Did you mean: 'User'?
+ERROR 2025-12-13 00:29:28,825 log "GET /accounts/profile/ HTTP/1.1" 500 83410
+ERROR 2025-12-13 00:29:42,034 log Internal Server Error: /statistics/yondaime_hokage/
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py", line 4710, in user_statistics
+    article_stats = user_articles.annotate(
+                    ~~~~~~~~~~~~~~~~~~~~~~^
+        like_count=Count('article_likes')
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ).order_by('-view_count')
+    ^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 1699, in annotate
+    return self._annotate(args, kwargs, select=True)
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 1751, in _annotate
+    clone.query.add_annotation(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        annotation,
+        ^^^^^^^^^^^
+        alias,
+        ^^^^^^
+        select=select,
+        ^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1242, in add_annotation
+    annotation = annotation.resolve_expression(self, allow_joins=True, reuse=None)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\aggregates.py", line 261, in resolve_expression
+    result = super().resolve_expression(*args, **kwargs)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\aggregates.py", line 122, in resolve_expression
+    c = super().resolve_expression(query, allow_joins, reuse, summarize)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\expressions.py", line 301, in resolve_expression
+    expr.resolve_expression(query, allow_joins, reuse, summarize, for_save)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\expressions.py", line 904, in resolve_expression
+    return query.resolve_ref(self.name, allow_joins, reuse, summarize)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 2077, in resolve_ref
+    join_info = self.setup_joins(
+        field_list, self.get_meta(), self.get_initial_alias(), can_reuse=reuse
+    )
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1927, in setup_joins
+    path, final_field, targets, rest = self.names_to_path(
+                                       ~~~~~~~~~~~~~~~~~~^
+        names[:pivot],
+        ^^^^^^^^^^^^^^
+    ...<2 lines>...
+        fail_on_missing=True,
+        ^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1832, in names_to_path
+    raise FieldError(
+    ...<2 lines>...
+    )
+django.core.exceptions.FieldError: Cannot resolve keyword 'article_likes' into field. Choices are: author, author_id, author_notes, categories, comments, content, correction_deadline, created_at, editor_notes, excerpt, featured_image, highlighted_corrections, id, likes, media_files, meta_description, meta_keywords, meta_title, moderated_at, moderated_by, moderated_by_id, moderation_comments, moderation_notes, published_at, revisions, slug, stats, status, tagged_items, tags, title, updated_at, views_count
+ERROR 2025-12-13 00:29:42,038 log "GET /statistics/yondaime_hokage/ HTTP/1.1" 500 132032
+INFO 2025-12-13 00:31:04,462 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-13 00:31:05,928 autoreload Watching for file changes with StatReloader
+INFO 2025-12-13 00:31:10,881 autoreload Watching for file changes with StatReloader
+INFO 2025-12-13 00:31:13,385 log "GET / HTTP/1.1" 200 37298
+INFO 2025-12-13 00:31:13,577 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 00:31:16,025 log "GET /accounts/profile/ HTTP/1.1" 200 53354
+INFO 2025-12-13 00:31:16,160 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+ERROR 2025-12-13 00:31:26,178 log Internal Server Error: /statistics/yondaime_hokage/
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py", line 4710, in user_statistics
+    article_stats = user_articles.annotate(
+                    ~~~~~~~~~~~~~~~~~~~~~~^
+        like_count=Count('article_likes')
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ).order_by('-view_count')
+    ^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 1699, in annotate
+    return self._annotate(args, kwargs, select=True)
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 1751, in _annotate
+    clone.query.add_annotation(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        annotation,
+        ^^^^^^^^^^^
+        alias,
+        ^^^^^^
+        select=select,
+        ^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1242, in add_annotation
+    annotation = annotation.resolve_expression(self, allow_joins=True, reuse=None)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\aggregates.py", line 261, in resolve_expression
+    result = super().resolve_expression(*args, **kwargs)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\aggregates.py", line 122, in resolve_expression
+    c = super().resolve_expression(query, allow_joins, reuse, summarize)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\expressions.py", line 301, in resolve_expression
+    expr.resolve_expression(query, allow_joins, reuse, summarize, for_save)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\expressions.py", line 904, in resolve_expression
+    return query.resolve_ref(self.name, allow_joins, reuse, summarize)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 2077, in resolve_ref
+    join_info = self.setup_joins(
+        field_list, self.get_meta(), self.get_initial_alias(), can_reuse=reuse
+    )
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1927, in setup_joins
+    path, final_field, targets, rest = self.names_to_path(
+                                       ~~~~~~~~~~~~~~~~~~^
+        names[:pivot],
+        ^^^^^^^^^^^^^^
+    ...<2 lines>...
+        fail_on_missing=True,
+        ^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1832, in names_to_path
+    raise FieldError(
+    ...<2 lines>...
+    )
+django.core.exceptions.FieldError: Cannot resolve keyword 'article_likes' into field. Choices are: author, author_id, author_notes, categories, comments, content, correction_deadline, created_at, editor_notes, excerpt, featured_image, highlighted_corrections, id, likes, media_files, meta_description, meta_keywords, meta_title, moderated_at, moderated_by, moderated_by_id, moderation_comments, moderation_notes, published_at, revisions, slug, stats, status, tagged_items, tags, title, updated_at, views_count
+ERROR 2025-12-13 00:31:26,183 log "GET /statistics/yondaime_hokage/ HTTP/1.1" 500 132049
+INFO 2025-12-13 00:31:46,117 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 00:31:47,773 log "GET /accounts/profile/ HTTP/1.1" 200 52312
+INFO 2025-12-13 00:31:47,959 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+ERROR 2025-12-13 00:32:10,376 log Internal Server Error: /statistics/yondaime_hokage/
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py", line 4710, in user_statistics
+    article_stats = user_articles.annotate(
+                    ~~~~~~~~~~~~~~~~~~~~~~^
+        like_count=Count('article_likes')
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ).order_by('-view_count')
+    ^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 1699, in annotate
+    return self._annotate(args, kwargs, select=True)
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 1751, in _annotate
+    clone.query.add_annotation(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        annotation,
+        ^^^^^^^^^^^
+        alias,
+        ^^^^^^
+        select=select,
+        ^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1242, in add_annotation
+    annotation = annotation.resolve_expression(self, allow_joins=True, reuse=None)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\aggregates.py", line 261, in resolve_expression
+    result = super().resolve_expression(*args, **kwargs)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\aggregates.py", line 122, in resolve_expression
+    c = super().resolve_expression(query, allow_joins, reuse, summarize)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\expressions.py", line 301, in resolve_expression
+    expr.resolve_expression(query, allow_joins, reuse, summarize, for_save)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\expressions.py", line 904, in resolve_expression
+    return query.resolve_ref(self.name, allow_joins, reuse, summarize)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 2077, in resolve_ref
+    join_info = self.setup_joins(
+        field_list, self.get_meta(), self.get_initial_alias(), can_reuse=reuse
+    )
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1927, in setup_joins
+    path, final_field, targets, rest = self.names_to_path(
+                                       ~~~~~~~~~~~~~~~~~~^
+        names[:pivot],
+        ^^^^^^^^^^^^^^
+    ...<2 lines>...
+        fail_on_missing=True,
+        ^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1832, in names_to_path
+    raise FieldError(
+    ...<2 lines>...
+    )
+django.core.exceptions.FieldError: Cannot resolve keyword 'article_likes' into field. Choices are: author, author_id, author_notes, categories, comments, content, correction_deadline, created_at, editor_notes, excerpt, featured_image, highlighted_corrections, id, likes, media_files, meta_description, meta_keywords, meta_title, moderated_at, moderated_by, moderated_by_id, moderation_comments, moderation_notes, published_at, revisions, slug, stats, status, tagged_items, tags, title, updated_at, views_count
+ERROR 2025-12-13 00:32:10,379 log "GET /statistics/yondaime_hokage/ HTTP/1.1" 500 132049
+INFO 2025-12-13 00:32:15,708 autoreload Watching for file changes with StatReloader
+INFO 2025-12-13 00:32:17,553 log "GET / HTTP/1.1" 200 37298
+INFO 2025-12-13 00:32:17,701 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+ERROR 2025-12-13 00:32:20,680 log Internal Server Error: /statistics/yondaime_hokage/
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py", line 4710, in user_statistics
+    article_stats = user_articles.annotate(
+                    ~~~~~~~~~~~~~~~~~~~~~~^
+        like_count=Count('article_likes')
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ).order_by('-view_count')
+    ^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 1699, in annotate
+    return self._annotate(args, kwargs, select=True)
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 1751, in _annotate
+    clone.query.add_annotation(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        annotation,
+        ^^^^^^^^^^^
+        alias,
+        ^^^^^^
+        select=select,
+        ^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1242, in add_annotation
+    annotation = annotation.resolve_expression(self, allow_joins=True, reuse=None)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\aggregates.py", line 261, in resolve_expression
+    result = super().resolve_expression(*args, **kwargs)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\aggregates.py", line 122, in resolve_expression
+    c = super().resolve_expression(query, allow_joins, reuse, summarize)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\expressions.py", line 301, in resolve_expression
+    expr.resolve_expression(query, allow_joins, reuse, summarize, for_save)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\expressions.py", line 904, in resolve_expression
+    return query.resolve_ref(self.name, allow_joins, reuse, summarize)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 2077, in resolve_ref
+    join_info = self.setup_joins(
+        field_list, self.get_meta(), self.get_initial_alias(), can_reuse=reuse
+    )
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1927, in setup_joins
+    path, final_field, targets, rest = self.names_to_path(
+                                       ~~~~~~~~~~~~~~~~~~^
+        names[:pivot],
+        ^^^^^^^^^^^^^^
+    ...<2 lines>...
+        fail_on_missing=True,
+        ^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1832, in names_to_path
+    raise FieldError(
+    ...<2 lines>...
+    )
+django.core.exceptions.FieldError: Cannot resolve keyword 'article_likes' into field. Choices are: author, author_id, author_notes, categories, comments, content, correction_deadline, created_at, editor_notes, excerpt, featured_image, highlighted_corrections, id, likes, media_files, meta_description, meta_keywords, meta_title, moderated_at, moderated_by, moderated_by_id, moderation_comments, moderation_notes, published_at, revisions, slug, stats, status, tagged_items, tags, title, updated_at, views_count
+ERROR 2025-12-13 00:32:20,685 log "GET /statistics/yondaime_hokage/ HTTP/1.1" 500 132032
+INFO 2025-12-13 00:34:41,102 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-13 00:34:41,797 autoreload Watching for file changes with StatReloader
+INFO 2025-12-13 00:35:21,489 autoreload Watching for file changes with StatReloader
+INFO 2025-12-13 00:35:24,761 log "GET / HTTP/1.1" 200 37298
+INFO 2025-12-13 00:35:24,910 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 00:35:26,055 log "GET /accounts/profile/ HTTP/1.1" 200 52312
+INFO 2025-12-13 00:35:26,128 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+ERROR 2025-12-13 00:35:45,992 log Internal Server Error: /statistics/yondaime_hokage/
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py", line 4713, in user_statistics
+    ).order_by('-view_count')
+      ~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 1772, in order_by
+    obj.query.add_ordering(*field_names)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 2333, in add_ordering
+    self.names_to_path(item.split(LOOKUP_SEP), self.model._meta)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1832, in names_to_path
+    raise FieldError(
+    ...<2 lines>...
+    )
+django.core.exceptions.FieldError: Cannot resolve keyword 'view_count' into field. Choices are: author, author_id, author_notes, categories, comments, content, correction_deadline, created_at, editor_notes, excerpt, featured_image, highlighted_corrections, id, like_count, likes, media_files, meta_description, meta_keywords, meta_title, moderated_at, moderated_by, moderated_by_id, moderation_comments, moderation_notes, published_at, revisions, slug, stats, status, tagged_items, tags, title, updated_at, views_count
+ERROR 2025-12-13 00:35:45,996 log "GET /statistics/yondaime_hokage/ HTTP/1.1" 500 101337
+INFO 2025-12-13 00:36:29,380 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-13 00:36:30,981 autoreload Watching for file changes with StatReloader
+INFO 2025-12-13 00:38:34,969 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-13 00:38:35,577 autoreload Watching for file changes with StatReloader
+INFO 2025-12-13 00:41:22,678 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-13 00:41:23,286 autoreload Watching for file changes with StatReloader
+INFO 2025-12-13 00:41:34,188 autoreload Watching for file changes with StatReloader
+INFO 2025-12-13 00:41:36,261 log "GET / HTTP/1.1" 200 37298
+INFO 2025-12-13 00:41:36,420 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 00:41:38,714 log "GET /accounts/profile/ HTTP/1.1" 200 52312
+INFO 2025-12-13 00:41:38,802 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 00:42:08,782 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 00:42:38,793 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 00:42:40,798 autoreload Watching for file changes with StatReloader
+INFO 2025-12-13 00:42:42,476 log "GET / HTTP/1.1" 200 37298
+INFO 2025-12-13 00:42:42,620 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 00:42:43,888 log "GET /accounts/profile/ HTTP/1.1" 200 51518
+INFO 2025-12-13 00:42:43,968 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+ERROR 2025-12-13 00:42:51,530 log Internal Server Error: /statistics/yondaime_hokage/
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 174, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 166, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 135, in render
+    compiled_parent = self.get_parent(context)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 132, in get_parent
+    return self.find_template(parent, context)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 110, in find_template
+    template, origin = context.template.engine.find_template(
+                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        template_name,
+        ^^^^^^^^^^^^^^
+        skip=history,
+        ^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\engine.py", line 163, in find_template
+    raise TemplateDoesNotExist(name, tried=tried)
+django.template.exceptions.TemplateDoesNotExist: wiki/base.html
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py", line 4757, in user_statistics
+    return render(request, 'wiki/user_statistics.html', context)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\backends\django.py", line 109, in render
+    reraise(exc, self.backend)
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\backends\django.py", line 130, in reraise
+    raise new from exc
+django.template.exceptions.TemplateDoesNotExist: wiki/base.html
+ERROR 2025-12-13 00:42:51,535 log "GET /statistics/yondaime_hokage/ HTTP/1.1" 500 156027
+INFO 2025-12-13 00:44:03,229 autoreload Watching for file changes with StatReloader
+INFO 2025-12-13 00:44:06,102 log "GET / HTTP/1.1" 200 37298
+INFO 2025-12-13 00:44:06,359 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+ERROR 2025-12-13 00:44:08,672 log Internal Server Error: /statistics/yondaime_hokage/
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py", line 4757, in user_statistics
+    return render(request, 'wiki/user_statistics.html', context)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 174, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 166, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 160, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 166, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 66, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\defaulttags.py", line 511, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\urls\resolvers.py", line 842, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'index' not found. 'index' is not a valid view function or pattern name.
+ERROR 2025-12-13 00:44:08,678 log "GET /statistics/yondaime_hokage/ HTTP/1.1" 500 184792
+INFO 2025-12-13 00:44:40,310 autoreload Watching for file changes with StatReloader
+INFO 2025-12-13 00:44:42,101 log "GET / HTTP/1.1" 200 37298
+INFO 2025-12-13 00:44:42,255 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 00:44:44,616 log "GET /statistics/yondaime_hokage/ HTTP/1.1" 200 44666
+INFO 2025-12-13 00:44:44,687 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 00:45:15,068 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 00:45:45,059 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 00:46:15,071 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 00:46:45,066 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 00:47:15,076 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 00:47:45,061 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 00:48:10,223 autoreload Watching for file changes with StatReloader
+INFO 2025-12-13 00:48:12,042 log "GET / HTTP/1.1" 200 37298
+INFO 2025-12-13 00:48:12,190 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 00:48:14,897 log "GET /statistics/yondaime_hokage/ HTTP/1.1" 200 44658
+INFO 2025-12-13 00:48:15,275 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 00:48:46,067 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 00:49:16,069 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 00:49:46,065 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 00:50:16,062 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 00:50:46,059 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 00:50:59,360 autoreload Watching for file changes with StatReloader
+INFO 2025-12-13 00:51:01,198 log "GET / HTTP/1.1" 200 37298
+INFO 2025-12-13 00:51:01,336 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 00:51:02,952 log "GET /statistics/yondaime_hokage/ HTTP/1.1" 200 48607
+INFO 2025-12-13 00:51:03,119 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 00:51:16,128 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 00:51:33,132 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 00:51:46,072 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 00:52:03,024 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 00:52:06,186 log "GET /statistics/yondaime_hokage/ HTTP/1.1" 200 48615
+INFO 2025-12-13 00:52:06,256 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 00:52:30,074 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 00:52:33,012 log "GET /statistics/yondaime_hokage/?filter=week HTTP/1.1" 200 48615
+INFO 2025-12-13 00:52:33,081 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 00:52:33,622 log "GET /statistics/yondaime_hokage/?filter=month HTTP/1.1" 200 48615
+INFO 2025-12-13 00:52:33,694 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 00:52:34,022 log "GET /statistics/yondaime_hokage/?filter=year HTTP/1.1" 200 48615
+INFO 2025-12-13 00:52:34,103 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 00:52:34,634 log "GET /statistics/yondaime_hokage/?filter=all HTTP/1.1" 200 48615
+INFO 2025-12-13 00:52:34,703 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 00:52:42,613 log "GET / HTTP/1.1" 200 37298
+INFO 2025-12-13 00:52:42,686 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 00:52:46,297 log "GET /statistics/yondaime_hokage/ HTTP/1.1" 200 48615
+INFO 2025-12-13 00:52:46,383 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 00:52:47,631 log "GET /accounts/profile/ HTTP/1.1" 200 51518
+INFO 2025-12-13 00:52:47,713 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 00:53:17,072 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 00:53:47,070 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 00:54:17,069 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 00:54:47,072 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 00:57:01,114 autoreload Watching for file changes with StatReloader
+INFO 2025-12-13 00:57:03,326 log "GET / HTTP/1.1" 200 37298
+INFO 2025-12-13 00:57:03,465 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 00:57:06,178 log "GET /statistics/yondaime_hokage/ HTTP/1.1" 200 55038
+INFO 2025-12-13 00:57:06,251 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 00:57:36,253 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 00:58:06,245 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 00:58:36,326 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 00:58:38,387 log "GET /statistics/yondaime_hokage/ HTTP/1.1" 200 55038
+INFO 2025-12-13 00:58:38,481 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 00:58:39,403 log "GET /statistics/yondaime_hokage/ HTTP/1.1" 200 55038
+INFO 2025-12-13 00:58:39,508 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 00:58:41,738 log "GET /statistics/yondaime_hokage/ HTTP/1.1" 200 55038
+INFO 2025-12-13 00:58:41,821 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 00:58:58,663 autoreload Watching for file changes with StatReloader
+INFO 2025-12-13 00:59:01,889 log "GET /statistics/yondaime_hokage/ HTTP/1.1" 200 55038
+INFO 2025-12-13 00:59:02,008 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 00:59:27,698 log "GET /statistics/yondaime_hokage/?filter=week HTTP/1.1" 200 55059
+INFO 2025-12-13 00:59:27,770 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 00:59:28,590 log "GET /statistics/yondaime_hokage/?filter=month HTTP/1.1" 200 55059
+INFO 2025-12-13 00:59:28,662 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 00:59:29,065 log "GET /statistics/yondaime_hokage/?filter=year HTTP/1.1" 200 55059
+INFO 2025-12-13 00:59:29,133 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 00:59:29,589 log "GET /statistics/yondaime_hokage/?filter=all HTTP/1.1" 200 55038
+INFO 2025-12-13 00:59:29,657 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 00:59:59,673 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 01:00:30,030 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 01:01:00,172 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 01:27:19,747 autoreload Watching for file changes with StatReloader
+INFO 2025-12-13 01:27:21,459 log "GET / HTTP/1.1" 200 37298
+INFO 2025-12-13 01:27:21,614 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 01:27:23,147 log "GET /accounts/profile/ HTTP/1.1" 200 51518
+INFO 2025-12-13 01:27:23,313 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 01:27:26,677 log "GET / HTTP/1.1" 200 37298
+INFO 2025-12-13 01:27:26,756 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 01:27:27,366 log "GET /article/create/ HTTP/1.1" 200 34859
+INFO 2025-12-13 01:27:27,439 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 01:27:28,500 log "POST /article/create/ HTTP/1.1" 200 61605
+INFO 2025-12-13 01:27:28,569 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 01:27:42,419 log "POST /article/create/ HTTP/1.1" 302 0
+INFO 2025-12-13 01:27:42,502 log "GET /article/khui/ HTTP/1.1" 200 67040
+INFO 2025-12-13 01:27:42,572 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 01:27:47,913 log "GET / HTTP/1.1" 200 37520
+INFO 2025-12-13 01:27:47,983 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 01:27:49,711 log "GET /article/khui/ HTTP/1.1" 200 67040
+INFO 2025-12-13 01:27:49,789 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 01:27:50,183 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 01:28:00,059 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 01:55:28,046 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\witcher_wiki\urls.py changed, reloading.
+INFO 2025-12-13 01:55:28,821 autoreload Watching for file changes with StatReloader
+INFO 2025-12-13 01:55:46,480 autoreload Watching for file changes with StatReloader
+INFO 2025-12-13 01:55:48,463 log "GET / HTTP/1.1" 200 37520
+INFO 2025-12-13 01:55:48,620 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 01:55:50,696 log "GET /statistics/yondaime_hokage/ HTTP/1.1" 200 58800
+INFO 2025-12-13 01:55:50,768 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 03:25:10,674 autoreload Watching for file changes with StatReloader
+ERROR 2025-12-13 03:25:17,881 log Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\middleware.py", line 32, in __call__
+    self._check_censorship(request)
+    ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'ActionLoggingMiddleware' object has no attribute '_check_censorship'
+ERROR 2025-12-13 03:25:17,894 log "GET / HTTP/1.1" 500 72128
+ERROR 2025-12-13 03:25:23,225 log Internal Server Error: /wiki/test-censorship/
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\middleware.py", line 32, in __call__
+    self._check_censorship(request)
+    ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'ActionLoggingMiddleware' object has no attribute '_check_censorship'
+ERROR 2025-12-13 03:25:23,226 log "GET /wiki/test-censorship/ HTTP/1.1" 500 72224
+INFO 2025-12-13 03:28:19,521 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\middleware.py changed, reloading.
+INFO 2025-12-13 03:28:20,199 autoreload Watching for file changes with StatReloader
+INFO 2025-12-13 03:28:25,708 log "GET / HTTP/1.1" 200 37520
+INFO 2025-12-13 03:28:25,860 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+WARNING 2025-12-13 03:28:35,605 log Not Found: /wiki/test-censorship/
+WARNING 2025-12-13 03:28:35,606 log "GET /wiki/test-censorship/ HTTP/1.1" 404 28009
+INFO 2025-12-13 03:29:15,951 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 03:29:26,064 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 03:29:56,065 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 03:30:26,164 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 03:30:56,069 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 03:31:26,080 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 03:31:56,062 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 03:32:29,646 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 03:32:56,068 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 03:33:26,060 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 03:33:37,483 log "GET /statistics/yondaime_hokage/ HTTP/1.1" 200 58800
+INFO 2025-12-13 03:33:37,565 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 03:33:40,948 log "GET /article/create/ HTTP/1.1" 200 61443
+INFO 2025-12-13 03:33:41,115 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+ERROR 2025-12-13 03:33:52,951 log Internal Server Error: /article/create/
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py", line 459, in article_create
+    form = ArticleForm(request.POST, request.FILES, request=request)
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\forms.py", line 87, in __init__
+    super().__init__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+TypeError: BaseModelForm.__init__() got an unexpected keyword argument 'request'
+ERROR 2025-12-13 03:33:52,955 log "POST /article/create/ HTTP/1.1" 500 91615
+INFO 2025-12-13 03:40:18,126 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\forms.py changed, reloading.
+INFO 2025-12-13 03:40:18,899 autoreload Watching for file changes with StatReloader
+INFO 2025-12-13 03:40:33,236 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\forms.py changed, reloading.
+INFO 2025-12-13 03:40:33,902 autoreload Watching for file changes with StatReloader
+INFO 2025-12-13 03:40:55,592 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\forms.py changed, reloading.
+INFO 2025-12-13 03:40:56,322 autoreload Watching for file changes with StatReloader
+INFO 2025-12-13 03:41:26,173 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\forms.py changed, reloading.
+INFO 2025-12-13 03:41:26,808 autoreload Watching for file changes with StatReloader
+INFO 2025-12-13 03:42:05,296 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\urls.py changed, reloading.
+INFO 2025-12-13 03:42:05,919 autoreload Watching for file changes with StatReloader
+INFO 2025-12-13 03:43:06,316 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\middleware.py changed, reloading.
+INFO 2025-12-13 03:43:06,964 autoreload Watching for file changes with StatReloader
+INFO 2025-12-13 03:43:15,183 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\middleware.py changed, reloading.
+INFO 2025-12-13 03:43:15,979 autoreload Watching for file changes with StatReloader
+INFO 2025-12-13 03:43:43,600 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\censorship_middleware.py changed, reloading.
+INFO 2025-12-13 03:43:44,218 autoreload Watching for file changes with StatReloader
+INFO 2025-12-13 03:44:01,702 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-13 03:44:03,571 autoreload Watching for file changes with StatReloader
+INFO 2025-12-13 03:44:28,715 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-13 03:44:29,470 autoreload Watching for file changes with StatReloader
+INFO 2025-12-13 03:45:40,112 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\urls.py changed, reloading.
+INFO 2025-12-13 03:45:40,915 autoreload Watching for file changes with StatReloader
+INFO 2025-12-13 03:47:31,393 autoreload Watching for file changes with StatReloader
+INFO 2025-12-13 03:47:33,165 log "GET / HTTP/1.1" 200 37520
+INFO 2025-12-13 03:47:33,383 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+ERROR 2025-12-13 03:47:37,415 log Internal Server Error: /accounts/profile/
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\defaulttags.py", line 1067, in find_library
+    return parser.libraries[name]
+           ~~~~~~~~~~~~~~~~^^^^^^
+KeyError: 'cache_tags'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py", line 412, in profile
+    return render(request, 'accounts/profile.html', context)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\engine.py", line 186, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 157, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 199, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 585, in parse
+    raise self.error(token, e)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 307, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 585, in parse
+    raise self.error(token, e)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 235, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 585, in parse
+    raise self.error(token, e)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\defaulttags.py", line 1129, in load
+    lib = find_library(parser, name)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\defaulttags.py", line 1069, in find_library
+    raise TemplateSyntaxError(
+    ...<5 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Template: C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\templates\accounts\profile.html, 'cache_tags' is not a registered tag library. Must be one of:
+admin_list
+admin_modify
+admin_urls
+auth
+cache
+i18n
+l10n
+log
+static
+tz
+user_agents
+ERROR 2025-12-13 03:47:37,421 log "GET /accounts/profile/ HTTP/1.1" 500 229988
+INFO 2025-12-13 03:48:39,281 autoreload Watching for file changes with StatReloader
+INFO 2025-12-13 03:48:41,022 log "GET / HTTP/1.1" 200 37520
+INFO 2025-12-13 03:48:41,176 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 03:48:43,287 log "GET /accounts/profile/ HTTP/1.1" 200 52679
+INFO 2025-12-13 03:48:43,364 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 03:48:49,805 log "GET /my-censorship-warnings/ HTTP/1.1" 200 36229
+INFO 2025-12-13 03:48:49,878 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 03:49:20,075 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 03:49:50,078 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 03:50:20,070 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 03:50:50,081 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 03:51:20,166 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 03:51:50,175 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 03:52:20,079 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 03:52:42,536 autoreload Watching for file changes with StatReloader
+INFO 2025-12-13 03:52:45,250 log "GET /my-censorship-warnings/ HTTP/1.1" 200 48429
+INFO 2025-12-13 03:52:45,335 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 03:52:52,517 log "GET /accounts/profile/ HTTP/1.1" 200 52679
+INFO 2025-12-13 03:52:52,589 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 03:53:16,056 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 03:53:46,072 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 03:54:16,198 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 03:54:46,065 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 03:55:16,062 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 03:55:46,076 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 03:55:48,946 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\models.py changed, reloading.
+INFO 2025-12-13 03:55:49,653 autoreload Watching for file changes with StatReloader
+INFO 2025-12-13 03:56:16,092 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 03:56:50,081 log "GET /messages/unread-count/ HTTP/1.1" 200 40591
+INFO 2025-12-13 03:57:04,623 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\middleware.py changed, reloading.
+INFO 2025-12-13 03:57:05,406 autoreload Watching for file changes with StatReloader
+INFO 2025-12-13 03:57:12,624 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\middleware.py changed, reloading.
+INFO 2025-12-13 03:57:13,270 autoreload Watching for file changes with StatReloader
+INFO 2025-12-13 03:57:24,556 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\witcher_wiki\settings.py changed, reloading.
+INFO 2025-12-13 03:57:25,379 autoreload Watching for file changes with StatReloader
+ERROR 2025-12-13 03:57:50,111 log Internal Server Error: /messages/unread-count/
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+psycopg2.errors.UndefinedTable: ОШИБКА:  отношение "wiki_userban" не существует
+LINE 1: ...an"."is_active", "wiki_userban"."created_at" FROM "wiki_user...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\middleware.py", line 462, in __call__
+    user_status = ModerationService.get_user_status(request.user)
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\moderation_service.py", line 20, in get_user_status
+    for ban in active_bans:
+               ^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 390, in __iter__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 2000, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 95, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\compiler.py", line 1624, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\utils.py", line 94, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+django.db.utils.ProgrammingError: ОШИБКА:  отношение "wiki_userban" не существует
+LINE 1: ...an"."is_active", "wiki_userban"."created_at" FROM "wiki_user...
+                                                             ^
+
+ERROR 2025-12-13 03:57:50,115 log "GET /messages/unread-count/ HTTP/1.1" 500 136070
+ERROR 2025-12-13 03:58:50,086 log Internal Server Error: /messages/unread-count/
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+psycopg2.errors.UndefinedTable: ОШИБКА:  отношение "wiki_userban" не существует
+LINE 1: ...an"."is_active", "wiki_userban"."created_at" FROM "wiki_user...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\middleware.py", line 462, in __call__
+    user_status = ModerationService.get_user_status(request.user)
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\moderation_service.py", line 20, in get_user_status
+    for ban in active_bans:
+               ^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 390, in __iter__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 2000, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 95, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\compiler.py", line 1624, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\utils.py", line 94, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+django.db.utils.ProgrammingError: ОШИБКА:  отношение "wiki_userban" не существует
+LINE 1: ...an"."is_active", "wiki_userban"."created_at" FROM "wiki_user...
+                                                             ^
+
+ERROR 2025-12-13 03:58:50,089 log "GET /messages/unread-count/ HTTP/1.1" 500 136070
+ERROR 2025-12-13 03:59:50,185 log Internal Server Error: /messages/unread-count/
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+psycopg2.errors.UndefinedTable: ОШИБКА:  отношение "wiki_userban" не существует
+LINE 1: ...an"."is_active", "wiki_userban"."created_at" FROM "wiki_user...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\middleware.py", line 462, in __call__
+    user_status = ModerationService.get_user_status(request.user)
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\moderation_service.py", line 20, in get_user_status
+    for ban in active_bans:
+               ^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 390, in __iter__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 2000, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 95, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\compiler.py", line 1624, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\utils.py", line 94, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+django.db.utils.ProgrammingError: ОШИБКА:  отношение "wiki_userban" не существует
+LINE 1: ...an"."is_active", "wiki_userban"."created_at" FROM "wiki_user...
+                                                             ^
+
+ERROR 2025-12-13 03:59:50,187 log "GET /messages/unread-count/ HTTP/1.1" 500 136070
+ERROR 2025-12-13 04:00:50,089 log Internal Server Error: /messages/unread-count/
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+psycopg2.errors.UndefinedTable: ОШИБКА:  отношение "wiki_userban" не существует
+LINE 1: ...an"."is_active", "wiki_userban"."created_at" FROM "wiki_user...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\middleware.py", line 462, in __call__
+    user_status = ModerationService.get_user_status(request.user)
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\moderation_service.py", line 20, in get_user_status
+    for ban in active_bans:
+               ^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 390, in __iter__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 2000, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 95, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\compiler.py", line 1624, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\utils.py", line 94, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+django.db.utils.ProgrammingError: ОШИБКА:  отношение "wiki_userban" не существует
+LINE 1: ...an"."is_active", "wiki_userban"."created_at" FROM "wiki_user...
+                                                             ^
+
+ERROR 2025-12-13 04:00:50,091 log "GET /messages/unread-count/ HTTP/1.1" 500 136070
+ERROR 2025-12-13 04:01:50,086 log Internal Server Error: /messages/unread-count/
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+psycopg2.errors.UndefinedTable: ОШИБКА:  отношение "wiki_userban" не существует
+LINE 1: ...an"."is_active", "wiki_userban"."created_at" FROM "wiki_user...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\middleware.py", line 462, in __call__
+    user_status = ModerationService.get_user_status(request.user)
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\moderation_service.py", line 20, in get_user_status
+    for ban in active_bans:
+               ^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 390, in __iter__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 2000, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 95, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\compiler.py", line 1624, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\utils.py", line 94, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+django.db.utils.ProgrammingError: ОШИБКА:  отношение "wiki_userban" не существует
+LINE 1: ...an"."is_active", "wiki_userban"."created_at" FROM "wiki_user...
+                                                             ^
+
+ERROR 2025-12-13 04:01:50,088 log "GET /messages/unread-count/ HTTP/1.1" 500 136070
+INFO 2025-12-13 04:02:05,861 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\urls.py changed, reloading.
+INFO 2025-12-13 04:02:06,609 autoreload Watching for file changes with StatReloader
+INFO 2025-12-13 04:20:01,737 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\admin.py changed, reloading.
+INFO 2025-12-13 04:20:02,476 autoreload Watching for file changes with StatReloader
+INFO 2025-12-13 04:20:12,756 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\admin.py changed, reloading.
+INFO 2025-12-13 04:20:13,458 autoreload Watching for file changes with StatReloader
+INFO 2025-12-13 04:21:11,482 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\admin.py changed, reloading.
+INFO 2025-12-13 04:21:12,193 autoreload Watching for file changes with StatReloader
+INFO 2025-12-13 04:40:26,007 autoreload Watching for file changes with StatReloader
+INFO 2025-12-13 04:40:27,673 log "GET / HTTP/1.1" 200 38498
+INFO 2025-12-13 04:40:27,828 log "GET /messages/unread-count/ HTTP/1.1" 200 41569
+INFO 2025-12-13 04:40:33,237 log "GET /moderation/ HTTP/1.1" 200 40618
+INFO 2025-12-13 04:40:33,309 log "GET /messages/unread-count/ HTTP/1.1" 200 41569
+INFO 2025-12-13 04:40:42,549 log "GET /moderation/ HTTP/1.1" 200 39513
+INFO 2025-12-13 04:40:42,633 log "GET /messages/unread-count/ HTTP/1.1" 200 41569
+INFO 2025-12-13 04:40:47,066 log "GET /messages/unread-count/ HTTP/1.1" 200 41569
+ERROR 2025-12-13 04:40:48,776 log Internal Server Error: /moderation/banned/
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\moderation_views.py", line 171, in banned_users_list
+    return render(request, 'wiki/moderation/banned_users.html', {
+        'page_obj': page_obj,
+        'total_banned': len(banned_users),
+    })
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: wiki/moderation/banned_users.html
+ERROR 2025-12-13 04:40:48,778 log "GET /moderation/banned/ HTTP/1.1" 500 100539
+ERROR 2025-12-13 04:40:50,007 log Internal Server Error: /moderation/search/
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\moderation_views.py", line 82, in user_search
+    return render(request, 'wiki/moderation/user_search.html', {
+        'form': form,
+        'users': users,
+    })
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: wiki/moderation/user_search.html
+ERROR 2025-12-13 04:40:50,009 log "GET /moderation/search/ HTTP/1.1" 500 100197
+ERROR 2025-12-13 04:40:51,090 log Internal Server Error: /moderation/warned/
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\moderation_views.py", line 180, in warned_users_list
+    warned_users = ModerationService.get_users_with_warnings(min_warnings=1)
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\moderation_service.py", line 208, in get_users_with_warnings
+    for user in User.objects.filter(is_active=True):
+                ^^^^
+NameError: name 'User' is not defined
+ERROR 2025-12-13 04:40:51,092 log "GET /moderation/warned/ HTTP/1.1" 500 86864
+ERROR 2025-12-13 04:40:52,001 log Internal Server Error: /moderation/logs/
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\moderation_views.py", line 218, in moderation_logs
+    return render(request, 'wiki/moderation/logs.html', {
+        'page_obj': page_obj,
+    ...<3 lines>...
+        'selected_moderator': moderator_id,
+    })
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: wiki/moderation/logs.html
+ERROR 2025-12-13 04:40:52,003 log "GET /moderation/logs/ HTTP/1.1" 500 102561
+INFO 2025-12-13 04:40:58,291 log "GET /messages/unread-count/ HTTP/1.1" 200 41569
+INFO 2025-12-13 04:41:05,915 log "GET /my-articles/ HTTP/1.1" 200 50500
+INFO 2025-12-13 04:41:05,989 log "GET /messages/unread-count/ HTTP/1.1" 200 41569
+INFO 2025-12-13 04:41:28,306 log "GET /moderation/ HTTP/1.1" 200 39513
+INFO 2025-12-13 04:41:28,381 log "GET /messages/unread-count/ HTTP/1.1" 200 41569
+INFO 2025-12-13 04:41:31,144 log "GET /messages/unread-count/ HTTP/1.1" 200 41569
+INFO 2025-12-13 04:41:46,078 log "GET /messages/unread-count/ HTTP/1.1" 200 41569
+INFO 2025-12-13 04:41:59,064 log "GET /messages/unread-count/ HTTP/1.1" 200 41569
+INFO 2025-12-13 04:42:16,071 log "GET /messages/unread-count/ HTTP/1.1" 200 41569
+INFO 2025-12-13 04:42:29,064 log "GET /messages/unread-count/ HTTP/1.1" 200 41569
+INFO 2025-12-13 04:42:50,066 log "GET /messages/unread-count/ HTTP/1.1" 200 41569
+INFO 2025-12-13 04:42:59,064 log "GET /messages/unread-count/ HTTP/1.1" 200 41569

@@ -15,9 +15,10 @@ from .models import EmailVerification, TelegramVerification
 from django.core.mail import send_mail
 from django.conf import settings
 from django import forms
+from .censorship import CensorshipFormMixin
 
 
-class ArticleForm(forms.ModelForm):
+class ArticleForm(CensorshipFormMixin, forms.ModelForm):
     tags_input = forms.CharField(
         required=False,
         label='Хештеги',
@@ -60,6 +61,34 @@ class ArticleForm(forms.ModelForm):
             }),
         }
 
+    def clean(self):
+        # Сначала проверяем цензуру
+        cleaned_data = super().clean()
+
+        # Дополнительная проверка: если middleware уже обнаружил нарушение
+        if hasattr(self, 'request') and self.request:
+            if hasattr(self.request, 'censorship_violation') and self.request.censorship_violation:
+                # Добавляем общую ошибку формы
+                if hasattr(self.request, 'banned_words_found') and self.request.banned_words_found:
+                    words = set()
+                    for item in self.request.banned_words_found:
+                        if 'word' in item:
+                            words.add(item['word'])
+
+                    if words:
+                        words_list = ', '.join(sorted(list(words))[:3])
+                        if len(words) > 3:
+                            words_list += f' и еще {len(words) - 3}...'
+
+                        raise ValidationError(
+                            f'🚫 Обнаружена нецензурная лексика: {words_list}. '
+                            f'Продолжение использования нецензурной лексики может привести к блокировке аккаунта.',
+                            code='censorship_violation'
+                        )
+
+        return cleaned_data
+
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         # Делаем slug необязательным для пользователя
@@ -89,7 +118,7 @@ class ArticleForm(forms.ModelForm):
 
         return article
 
-class CommentForm(forms.ModelForm):
+class CommentForm(CensorshipFormMixin, forms.ModelForm):
     class Meta:
         model = Comment
         fields = ['content']
@@ -333,7 +362,7 @@ class QuickArticleForm(forms.ModelForm):
         return article
 
 
-class ProfileUpdateForm(forms.ModelForm):
+class ProfileUpdateForm(CensorshipFormMixin, forms.ModelForm):
     avatar = forms.ImageField(
         required=False,
         label='Аватар',

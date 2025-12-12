@@ -1,0 +1,358 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ target_user.username }} | Панель модерации{% endblock %}
+
+{% block content %}
+<style>
+    .info-card {
+        background: #2c3e50;
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+    .info-card.banned {
+        border-left: 4px solid #e74c3c;
+    }
+    .info-card.warning {
+        border-left: 4px solid #f39c12;
+    }
+    .info-card.normal {
+        border-left: 4px solid #3498db;
+    }
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+    }
+    .stat-item {
+        background: #34495e;
+        padding: 1rem;
+        border-radius: 6px;
+        text-align: center;
+    }
+    .stat-value {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #f1c40f;
+    }
+    .stat-label {
+        color: #bdc3c7;
+        font-size: 0.9rem;
+    }
+    .action-form {
+        background: #34495e;
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+    .history-item {
+        background: #2c3e50;
+        border-left: 4px solid #7f8c8d;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        border-radius: 4px;
+    }
+    .history-item.ban {
+        border-left-color: #e74c3c;
+    }
+    .history-item.warning {
+        border-left-color: #f39c12;
+    }
+</style>
+
+<div class="container py-4">
+    <!-- Хлебные крошки -->
+    <nav style="margin-bottom: 2rem; background: #2c3e50; padding: 1rem; border-radius: 8px;">
+        <ol style="display: flex; list-style: none; margin: 0; padding: 0;">
+            <li style="margin-right: 0.5rem;">
+                <a href="{% url 'wiki:moderation_dashboard' %}" style="color: #ecf0f1; text-decoration: none; font-weight: 500;">Панель модерации</a>
+            </li>
+            <li style="margin-right: 0.5rem; color: #7f8c8d;">›</li>
+            <li style="margin-right: 0.5rem;">
+                <a href="{% url 'wiki:user_search' %}" style="color: #ecf0f1; text-decoration: none; font-weight: 500;">Поиск пользователей</a>
+            </li>
+            <li style="margin-right: 0.5rem; color: #7f8c8d;">›</li>
+            <li style="color: #f1c40f; font-weight: 500;">{{ target_user.username }}</li>
+        </ol>
+    </nav>
+
+    <!-- Заголовок -->
+    <div style="background: linear-gradient(135deg, #34495e, #2c3e50); border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <h1 style="margin: 0; color: #ecf0f1; display: flex; align-items: center; gap: 1rem;">
+                    <span style="background: #3498db; color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">
+                        👤
+                    </span>
+                    {{ target_user.username }}
+                    {% if user_status.is_banned %}
+                    <span style="background: #e74c3c; color: white; padding: 0.25rem 0.75rem; border-radius: 15px; font-size: 0.9rem;">
+                        ⛔ Забанен
+                    </span>
+                    {% endif %}
+                </h1>
+                <p style="color: #bdc3c7; margin-top: 0.5rem; margin-bottom: 0;">
+                    ID: {{ target_user.id }} • Email: {{ target_user.email }} • Регистрация: {{ target_user.date_joined|date:"d.m.Y H:i" }}
+                </p>
+            </div>
+            <div>
+                <a href="/admin/auth/user/{{ target_user.id }}/change/" class="btn btn-outline-light" target="_blank">
+                    ⚙️ Редактировать в админке
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Статус пользователя -->
+    <div class="info-card {% if user_status.is_banned %}banned{% elif user_status.total_warnings > 0 %}warning{% else %}normal{% endif %}">
+        <h3 style="color: #ecf0f1; margin-bottom: 1rem;">Текущий статус</h3>
+        
+        {% if user_status.is_banned %}
+        <div style="background: rgba(231, 76, 60, 0.2); padding: 1rem; border-radius: 6px; margin-bottom: 1rem;">
+            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem;">
+                <div style="font-size: 1.5rem;">⛔</div>
+                <div>
+                    <h4 style="margin: 0; color: #e74c3c;">Пользователь забанен</h4>
+                    <p style="margin: 0; color: #bdc3c7;">
+                        Причина: {{ user_status.ban_details.get_reason_display }}
+                        • Длительность: {{ user_status.ban_details.get_duration_display }}
+                    </p>
+                </div>
+            </div>
+            <p style="color: #bdc3c7; margin-bottom: 0.5rem;">
+                <strong>Осталось:</strong> {{ user_status.ban_details.time_remaining }}
+                <br>
+                <strong>Истекает:</strong> {{ user_status.ban_details.end_time|date:"d.m.Y H:i" }}
+            </p>
+            {% if user_status.ban_details.notes %}
+            <p style="color: #bdc3c7; margin-bottom: 0;">
+                <strong>Заметки:</strong> {{ user_status.ban_details.notes }}
+            </p>
+            {% endif %}
+        </div>
+        {% endif %}
+        
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-value">{{ user_status.active_warnings }}</div>
+                <div class="stat-label">Официальных предупреждений</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">{{ user_status.censorship_warnings }}</div>
+                <div class="stat-label">Предупреждений цензуры</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">{{ target_user.article_set.count }}</div>
+                <div class="stat-label">Статей</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">{{ target_user.comment_set.count }}</div>
+                <div class="stat-label">Комментариев</div>
+            </div>
+        </div>
+        
+        <div style="color: #bdc3c7; font-size: 0.9rem;">
+            <strong>Права доступа:</strong>
+            {% if user_status.can_post %} Создание статей •{% endif %}
+            {% if user_status.can_comment %} Комментирование •{% endif %}
+            {% if user_status.can_message %} Отправка сообщений{% endif %}
+        </div>
+    </div>
+
+    <!-- Действия модерации -->
+    <div class="row">
+        <div class="col-md-6">
+            <!-- Выдать бан -->
+            <div class="action-form">
+                <h4 style="color: #ecf0f1; margin-bottom: 1rem;">⛔ Выдать бан</h4>
+                {% if user_status.is_banned %}
+                <div style="background: rgba(231, 76, 60, 0.2); padding: 1rem; border-radius: 6px;">
+                    <p style="color: #e74c3c; margin: 0;">Пользователь уже забанен</p>
+                </div>
+                {% else %}
+                <form method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="ban">
+                    
+                    <div style="margin-bottom: 1rem;">
+                        <label style="color: #bdc3c7; display: block; margin-bottom: 0.5rem;">Причина:</label>
+                        {{ ban_form.reason }}
+                    </div>
+                    
+                    <div style="margin-bottom: 1rem;">
+                        <label style="color: #bdc3c7; display: block; margin-bottom: 0.5rem;">Длительность:</label>
+                        {{ ban_form.duration }}
+                    </div>
+                    
+                    <div style="margin-bottom: 1.5rem;">
+                        <label style="color: #bdc3c7; display: block; margin-bottom: 0.5rem;">Заметки (опционально):</label>
+                        {{ ban_form.notes }}
+                    </div>
+                    
+                    <button type="submit" class="btn btn-danger" style="width: 100%; background: #e74c3c; border: none;">
+                        ⛔ Выдать бан
+                    </button>
+                </form>
+                {% endif %}
+            </div>
+            
+            <!-- Снять бан -->
+            {% if user_status.is_banned %}
+            <div class="action-form">
+                <h4 style="color: #ecf0f1; margin-bottom: 1rem;">✅ Снять бан</h4>
+                <form method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="unban">
+                    
+                    <div style="margin-bottom: 1rem;">
+                        <label style="color: #bdc3c7; display: block; margin-bottom: 0.5rem;">Причина снятия:</label>
+                        <input type="text" name="unban_reason" class="form-control" 
+                               placeholder="Причина снятия бана..." style="background: #2c3e50; border-color: #7f8c8d; color: white;">
+                    </div>
+                    
+                    <button type="submit" class="btn btn-success" style="width: 100%; background: #27ae60; border: none;">
+                        ✅ Снять бан
+                    </button>
+                </form>
+            </div>
+            {% endif %}
+        </div>
+        
+        <div class="col-md-6">
+            <!-- Выдать предупреждение -->
+            <div class="action-form">
+                <h4 style="color: #ecf0f1; margin-bottom: 1rem;">⚠️ Выдать предупреждение</h4>
+                <form method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="warning">
+                    
+                    <div style="margin-bottom: 1rem;">
+                        <label style="color: #bdc3c7; display: block; margin-bottom: 0.5rem;">Уровень серьезности:</label>
+                        {{ warning_form.severity }}
+                    </div>
+                    
+                    <div style="margin-bottom: 1rem;">
+                        <label style="color: #bdc3c7; display: block; margin-bottom: 0.5rem;">Причина:</label>
+                        {{ warning_form.reason }}
+                    </div>
+                    
+                    <div style="margin-bottom: 1.5rem;">
+                        <label style="color: #bdc3c7; display: block; margin-bottom: 0.5rem;">Связанный контент (URL или описание):</label>
+                        {{ warning_form.related_content }}
+                    </div>
+                    
+                    <button type="submit" class="btn btn-warning" style="width: 100%; background: #f39c12; border: none;">
+                        ⚠️ Выдать предупреждение
+                    </button>
+                </form>
+            </div>
+            
+            <!-- Дополнительные действия -->
+            <div class="action-form">
+                <h4 style="color: #ecf0f1; margin-bottom: 1rem;">⚡ Быстрые действия</h4>
+                <div style="display: grid; gap: 0.5rem;">
+                    <a href="{% url 'wiki:my_censorship_warnings' %}" class="btn btn-outline-info" 
+                       style="border-color: #3498db; color: #3498db;">
+                        📊 Посмотреть статистику пользователя
+                    </a>
+                    <a href="{% url 'accounts:profile' %}" class="btn btn-outline-info" 
+                       style="border-color: #9b59b6; color: #9b59b6;">
+                        👁️ Посмотреть профиль пользователя
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- История банов -->
+    {% if ban_history %}
+    <div class="info-card">
+        <h3 style="color: #ecf0f1; margin-bottom: 1rem;">📜 История банов</h3>
+        {% for ban in ban_history %}
+        <div class="history-item ban">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                <div style="color: #ecf0f1; font-weight: 500;">
+                    {{ ban.get_reason_display }} • {{ ban.get_duration_display }}
+                </div>
+                <div style="color: #bdc3c7; font-size: 0.9rem;">
+                    {{ ban.created_at|date:"d.m.Y H:i" }}
+                </div>
+            </div>
+            <div style="color: #bdc3c7; font-size: 0.9rem;">
+                <strong>Забанен администратором:</strong> {{ ban.banned_by.username|default:"Система" }}
+                {% if ban.notes %}
+                <br><strong>Заметки:</strong> {{ ban.notes }}
+                {% endif %}
+                <br><strong>Статус:</strong> 
+                <span style="color: {% if ban.is_active %}#e74c3c{% else %}#27ae60{% endif %};">
+                    {% if ban.is_active %}Активен{% else %}Завершен{% endif %}
+                </span>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- История предупреждений -->
+    {% if warning_history %}
+    <div class="info-card">
+        <h3 style="color: #ecf0f1; margin-bottom: 1rem;">📝 История предупреждений</h3>
+        {% for warning in warning_history %}
+        <div class="history-item warning">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                <div>
+                    <span style="color: #ecf0f1; font-weight: 500;">
+                        Уровень {{ warning.severity }}: {{ warning.get_severity_display }}
+                    </span>
+                    {% if warning.is_active %}
+                    <span style="background: #f39c12; color: white; padding: 0.15rem 0.5rem; border-radius: 10px; font-size: 0.8rem;">
+                        Активно
+                    </span>
+                    {% endif %}
+                </div>
+                <div style="color: #bdc3c7; font-size: 0.9rem;">
+                    {{ warning.created_at|date:"d.m.Y H:i" }}
+                </div>
+            </div>
+            <div style="color: #bdc3c7; font-size: 0.9rem; margin-bottom: 0.5rem;">
+                {{ warning.reason }}
+            </div>
+            {% if warning.related_content %}
+            <div style="color: #95a5a6; font-size: 0.85rem;">
+                <strong>Связанный контент:</strong> {{ warning.related_content }}
+            </div>
+            {% endif %}
+            <div style="color: #95a5a6; font-size: 0.85rem; margin-top: 0.5rem;">
+                <strong>Выдано:</strong> {{ warning.issued_by.username|default:"Система" }}
+                {% if warning.expires_at %}
+                • <strong>Истекает:</strong> {{ warning.expires_at|date:"d.m.Y" }}
+                {% endif %}
+            </div>
+            
+            {% if warning.is_active %}
+            <div style="margin-top: 0.5rem;">
+                <form method="post" style="display: inline;">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="remove_warning">
+                    <input type="hidden" name="warning_id" value="{{ warning.id }}">
+                    <button type="submit" class="btn btn-sm btn-outline-danger" 
+                            onclick="return confirm('Вы уверены, что хотите снять это предупреждение?');">
+                        ❌ Снять предупреждение
+                    </button>
+                </form>
+            </div>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Кнопка возврата -->
+    <div style="text-align: center; margin-top: 2rem;">
+        <a href="{% url 'wiki:user_search' %}" class="btn btn-secondary" style="background: #7f8c8d; border: none;">
+            ← Назад к поиску
+        </a>
+    </div>
+</div>
+{% endblock %}

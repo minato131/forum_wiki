@@ -1,0 +1,340 @@
+{% extends 'base.html' %}
+
+{% block title %}Мои предупреждения | Witcher Wiki{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <!-- Хлебные крошки -->
+    <nav style="margin-bottom: 2rem; background: #2c3e50; padding: 1rem; border-radius: 8px;">
+        <ol style="display: flex; list-style: none; margin: 0; padding: 0;">
+            <li style="margin-right: 0.5rem;">
+                <a href="{% url 'wiki:home' %}" style="color: #ecf0f1; text-decoration: none; font-weight: 500;">Главная</a>
+            </li>
+            <li style="margin-right: 0.5rem; color: #7f8c8d;">›</li>
+            <li style="margin-right: 0.5rem;">
+                <a href="{% url 'accounts:profile' %}" style="color: #ecf0f1; text-decoration: none; font-weight: 500;">Профиль</a>
+            </li>
+            <li style="margin-right: 0.5rem; color: #7f8c8d;">›</li>
+            <li style="color: #f1c40f; font-weight: 500;">Мои предупреждения</li>
+        </ol>
+    </nav>
+
+    <!-- Заголовок с иконкой -->
+    <div style="background: linear-gradient(135deg, #34495e, #2c3e50); border-radius: 12px; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+        <div style="display: flex; align-items: center; gap: 1.5rem;">
+            <div style="background: #f1c40f; color: #2c3e50; width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.5rem;">
+                ⚠️
+            </div>
+            <div>
+                <h1 style="margin: 0; color: #ecf0f1; font-size: 2rem; font-weight: 600;">
+                    Система предупреждений
+                </h1>
+                <p style="color: #bdc3c7; margin-top: 0.5rem; font-size: 1.1rem;">
+                    Моя статистика нарушений и предупреждений
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Основная карточка с статусом -->
+    <div style="background: #2c3e50; border-radius: 12px; overflow: hidden; margin-bottom: 2rem; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+        <div style="background: #34495e; padding: 1.5rem; border-bottom: 2px solid #f1c40f;">
+            <h2 style="margin: 0; color: #f1c40f; display: flex; align-items: center; gap: 0.75rem;">
+                <span style="background: #f1c40f; color: #2c3e50; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                    📊
+                </span>
+                Текущий статус
+            </h2>
+        </div>
+
+        <div style="padding: 2rem;">
+            <!-- Большой счетчик предупреждений -->
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <div style="font-size: 5rem; font-weight: bold; color: #f1c40f; line-height: 1;">
+                    {{ warning_count }}
+                </div>
+                <div style="color: #bdc3c7; font-size: 1.2rem; margin-top: 0.5rem;">
+                    активных предупреждений
+                </div>
+            </div>
+
+            <!-- Индикатор прогресса -->
+            <div style="margin-bottom: 2rem;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                    <span style="color: #bdc3c7; font-weight: 500;">Уровень нарушений:</span>
+                    <span style="color: #f1c40f; font-weight: 600;">{{ level_message }}</span>
+                </div>
+
+                <div style="background: #34495e; height: 12px; border-radius: 6px; overflow: hidden;">
+                    <div style="background: #f1c40f; height: 100%; width: {% widthratio warning_count 5 100 %}%;
+                                border-radius: 6px; transition: width 0.5s ease;"></div>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; margin-top: 0.5rem; font-size: 0.9rem;">
+                    <span style="color: #bdc3c7;">Без предупреждений</span>
+                    <span style="color: #bdc3c7;">Блокировка</span>
+                </div>
+            </div>
+
+            <!-- Сообщение в зависимости от уровня -->
+            <div style="background: {% if warning_count == 0 %}#27ae60{% elif warning_count < 3 %}#f39c12{% else %}#e74c3c{% endif %};
+                        color: white; padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">
+                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                    <div style="font-size: 1.5rem;">
+                        {% if warning_count == 0 %}
+                        ✅
+                        {% elif warning_count == 1 %}
+                        ⚠️
+                        {% elif warning_count == 2 %}
+                        🚨
+                        {% elif warning_count == 3 %}
+                        🔴
+                        {% else %}
+                        ⛔
+                        {% endif %}
+                    </div>
+                    <div>
+                        <h3 style="margin: 0; font-size: 1.3rem;">
+                            {% if warning_count == 0 %}
+                            Отличная работа!
+                            {% elif warning_count == 1 %}
+                            Первое предупреждение
+                            {% elif warning_count == 2 %}
+                            Второе предупреждение
+                            {% elif warning_count == 3 %}
+                            Критический уровень!
+                            {% else %}
+                            Серьезное нарушение
+                            {% endif %}
+                        </h3>
+                    </div>
+                </div>
+
+                <p style="margin: 0; line-height: 1.5;">
+                    {% if warning_count == 0 %}
+                    У вас нет активных предупреждений. Продолжайте соблюдать правила сообщества!
+                    {% elif warning_count == 1 %}
+                    Вы получили первое предупреждение за использование нецензурной лексики.
+                    Пожалуйста, будьте внимательнее при публикации контента.
+                    {% elif warning_count == 2 %}
+                    Это ваше второе предупреждение. Продолжение нарушений может привести
+                    к временной блокировке аккаунта.
+                    {% elif warning_count == 3 %}
+                    Критический уровень! Следующее нарушение приведет к блокировке
+                    аккаунта на 24 часа.
+                    {% else %}
+                    Ваш аккаунт имеет серьезные нарушения. Обратитесь к администратору
+                    для уточнения деталей.
+                    {% endif %}
+                </p>
+            </div>
+
+            <!-- Кнопка возврата -->
+            <div style="text-align: center;">
+                <a href="{% url 'accounts:profile' %}"
+                   style="display: inline-block; background: #3498db; color: white; padding: 0.75rem 1.5rem;
+                          border-radius: 25px; text-decoration: none; font-weight: 500; transition: background 0.3s;"
+                   onmouseover="this.style.background='#2980b9'" onmouseout="this.style.background='#3498db'">
+                    ← Вернуться в профиль
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Таблица системы уровней -->
+    <div style="background: #2c3e50; border-radius: 12px; overflow: hidden; margin-bottom: 2rem; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+        <div style="background: #34495e; padding: 1.5rem; border-bottom: 2px solid #1abc9c;">
+            <h2 style="margin: 0; color: #1abc9c; display: flex; align-items: center; gap: 0.75rem;">
+                <span style="background: #1abc9c; color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                    📋
+                </span>
+                Система уровней предупреждений
+            </h2>
+        </div>
+
+        <div style="padding: 1.5rem;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+                <!-- Уровень 0 -->
+                <div style="background: {% if warning_count == 0 %}#27ae60{% else %}#34495e{% endif %};
+                            border-radius: 8px; padding: 1.5rem; border-left: 4px solid #27ae60;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                        <h3 style="margin: 0; color: #ecf0f1; font-size: 1.1rem;">Уровень 0</h3>
+                        <span style="background: #27ae60; color: white; padding: 0.25rem 0.75rem; border-radius: 15px; font-size: 0.85rem;">
+                            Без предупреждений
+                        </span>
+                    </div>
+                    <p style="color: #bdc3c7; margin: 0; font-size: 0.95rem;">
+                        Нет ограничений. Аккаунт в полном доступе.
+                    </p>
+                    <div style="margin-top: 1rem; color: #95a5a6; font-size: 0.85rem;">
+                        <strong>0 предупреждений</strong>
+                    </div>
+                </div>
+
+                <!-- Уровень 1 -->
+                <div style="background: {% if warning_count == 1 %}#f39c12{% else %}#34495e{% endif %};
+                            border-radius: 8px; padding: 1.5rem; border-left: 4px solid #f39c12;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                        <h3 style="margin: 0; color: #ecf0f1; font-size: 1.1rem;">Уровень 1</h3>
+                        <span style="background: #f39c12; color: white; padding: 0.25rem 0.75rem; border-radius: 15px; font-size: 0.85rem;">
+                            Первое предупреждение
+                        </span>
+                    </div>
+                    <p style="color: #bdc3c7; margin: 0; font-size: 0.95rem;">
+                        Уведомление о нарушении. Рекомендуется быть внимательнее.
+                    </p>
+                    <div style="margin-top: 1rem; color: #95a5a6; font-size: 0.85rem;">
+                        <strong>1 предупреждение</strong>
+                    </div>
+                </div>
+
+                <!-- Уровень 2 -->
+                <div style="background: {% if warning_count == 2 %}#e67e22{% else %}#34495e{% endif %};
+                            border-radius: 8px; padding: 1.5rem; border-left: 4px solid #e67e22;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                        <h3 style="margin: 0; color: #ecf0f1; font-size: 1.1rem;">Уровень 2</h3>
+                        <span style="background: #e67e22; color: white; padding: 0.25rem 0.75rem; border-radius: 15px; font-size: 0.85rem;">
+                            Второе предупреждение
+                        </span>
+                    </div>
+                    <p style="color: #bdc3c7; margin: 0; font-size: 0.95rem;">
+                        Серьезное предупреждение. Риск временной блокировки.
+                    </p>
+                    <div style="margin-top: 1rem; color: #95a5a6; font-size: 0.85rem;">
+                        <strong>2 предупреждения</strong>
+                    </div>
+                </div>
+
+                <!-- Уровень 3 -->
+                <div style="background: {% if warning_count == 3 %}#e74c3c{% else %}#34495e{% endif %};
+                            border-radius: 8px; padding: 1.5rem; border-left: 4px solid #e74c3c;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                        <h3 style="margin: 0; color: #ecf0f1; font-size: 1.1rem;">Уровень 3</h3>
+                        <span style="background: #e74c3c; color: white; padding: 0.25rem 0.75rem; border-radius: 15px; font-size: 0.85rem;">
+                            Критический уровень
+                        </span>
+                    </div>
+                    <p style="color: #bdc3c7; margin: 0; font-size: 0.95rem;">
+                        Последнее предупреждение. Следующее нарушение = блокировка.
+                    </p>
+                    <div style="margin-top: 1rem; color: #95a5a6; font-size: 0.85rem;">
+                        <strong>3 предупреждения</strong>
+                    </div>
+                </div>
+
+                <!-- Уровень 4+ -->
+                <div style="background: {% if warning_count >= 4 %}#c0392b{% else %}#34495e{% endif %};
+                            border-radius: 8px; padding: 1.5rem; border-left: 4px solid #c0392b;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                        <h3 style="margin: 0; color: #ecf0f1; font-size: 1.1rem;">Уровень 4+</h3>
+                        <span style="background: #c0392b; color: white; padding: 0.25rem 0.75rem; border-radius: 15px; font-size: 0.85rem;">
+                            Блокировка
+                        </span>
+                    </div>
+                    <p style="color: #bdc3c7; margin: 0; font-size: 0.95rem;">
+                        Аккаунт заблокирован. Обратитесь к администратору.
+                    </p>
+                    <div style="margin-top: 1rem; color: #95a5a6; font-size: 0.85rem;">
+                        <strong>4+ предупреждений</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Правила сообщества -->
+    <div style="background: #2c3e50; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+        <div style="background: #34495e; padding: 1.5rem; border-bottom: 2px solid #9b59b6;">
+            <h2 style="margin: 0; color: #9b59b6; display: flex; align-items: center; gap: 0.75rem;">
+                <span style="background: #9b59b6; color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                    📝
+                </span>
+                Правила сообщества
+            </h2>
+        </div>
+
+        <div style="padding: 1.5rem;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+                <!-- Запрещено -->
+                <div>
+                    <h3 style="color: #e74c3c; margin-bottom: 1rem; font-size: 1.2rem; display: flex; align-items: center; gap: 0.5rem;">
+                        <span style="background: #e74c3c; color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.9rem;">
+                            ❌
+                        </span>
+                        Запрещено
+                    </h3>
+                    <ul style="color: #bdc3c7; padding-left: 1.5rem; margin: 0;">
+                        <li style="margin-bottom: 0.5rem;">Использование нецензурной лексики</li>
+                        <li style="margin-bottom: 0.5rem;">Оскорбления и унижение других</li>
+                        <li style="margin-bottom: 0.5rem;">Распространение ненависти</li>
+                        <li style="margin-bottom: 0.5rem;">Угрозы и запугивание</li>
+                        <li>Расистские и дискриминационные высказывания</li>
+                    </ul>
+                </div>
+
+                <!-- Рекомендации -->
+                <div>
+                    <h3 style="color: #2ecc71; margin-bottom: 1rem; font-size: 1.2rem; display: flex; align-items: center; gap: 0.5rem;">
+                        <span style="background: #2ecc71; color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.9rem;">
+                            ✅
+                        </span>
+                        Рекомендации
+                    </h3>
+                    <ul style="color: #bdc3c7; padding-left: 1.5rem; margin: 0;">
+                        <li style="margin-bottom: 0.5rem;">Уважайте других участников</li>
+                        <li style="margin-bottom: 0.5rem;">Используйте вежливый тон</li>
+                        <li style="margin-bottom: 0.5rem;">Конструктивная критика</li>
+                        <li style="margin-bottom: 0.5rem;">Помогайте новичкам</li>
+                        <li>Сохраняйте дружелюбную атмосферу</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Важная информация -->
+            <div style="background: rgba(241, 196, 15, 0.1); border-left: 4px solid #f1c40f; padding: 1rem; margin-top: 1.5rem; border-radius: 4px;">
+                <div style="display: flex; align-items: start; gap: 0.75rem;">
+                    <div style="color: #f1c40f; font-size: 1.2rem;">ℹ️</div>
+                    <div>
+                        <h4 style="margin: 0 0 0.5rem 0; color: #f1c40f;">Важная информация</h4>
+                        <p style="margin: 0; color: #bdc3c7; font-size: 0.95rem;">
+                            Предупреждения сбрасываются автоматически через 30 дней без нарушений.
+                            В случае ошибочного предупреждения обратитесь к администратору через
+                            личные сообщения.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Прогресс сброса предупреждений -->
+    {% if warning_count > 0 %}
+    <div style="background: #2c3e50; border-radius: 12px; overflow: hidden; margin-top: 2rem; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+        <div style="background: #34495e; padding: 1.5rem; border-bottom: 2px solid #3498db;">
+            <h2 style="margin: 0; color: #3498db; display: flex; align-items: center; gap: 0.75rem;">
+                <span style="background: #3498db; color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                    ⏳
+                </span>
+                Прогресс сброса предупреждений
+            </h2>
+        </div>
+
+        <div style="padding: 1.5rem;">
+            <div style="text-align: center;">
+                <div style="font-size: 3rem; color: #3498db; margin-bottom: 1rem;">
+                    {% if next_level_warnings == 4 %}30
+                    {% elif next_level_warnings == 3 %}30
+                    {% elif next_level_warnings == 2 %}30
+                    {% elif next_level_warnings == 1 %}30
+                    {% else %}0{% endif %} дней
+                </div>
+                <p style="color: #bdc3c7; margin: 0;">
+                    до автоматического сброса предупреждений<br>
+                    <small style="color: #95a5a6;">(при отсутствии новых нарушений)</small>
+                </p>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

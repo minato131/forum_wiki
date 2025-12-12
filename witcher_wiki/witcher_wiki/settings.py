@@ -37,6 +37,8 @@ MIDDLEWARE = [
     'django_user_agents.middleware.UserAgentMiddleware',
     'wiki.middleware.ActionLoggingMiddleware',
     'wiki.utils.stats_collector.StatsMiddleware',
+    'wiki.censorship_middleware.CensorshipResponseMiddleware',
+    'wiki.middleware.BanCheckMiddleware',
 ]
 
 ROOT_URLCONF = 'witcher_wiki.urls'

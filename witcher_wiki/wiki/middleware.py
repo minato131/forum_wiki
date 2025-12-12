@@ -2,7 +2,9 @@ import json
 from django.utils import timezone
 from .models import ActionLog
 from .logging_utils import ActionLogger
-
+from .censorship import CensorshipService
+from .censorship_warnings import CensorshipWarningSystem
+from .moderation_service import ModerationService
 
 class ActionLoggingMiddleware:
     """Улучшенное middleware для логирования ВСЕХ действий пользователей, включая админку"""
@@ -27,7 +29,64 @@ class ActionLoggingMiddleware:
             'changelist': 'просмотр списка',
         }
 
+    def _check_censorship(self, request):
+        """Проверяет POST запросы на наличие запрещенных слов"""
+        if request.method != 'POST':
+            return
+
+        # Проверяем только определенные пути
+        censorship_paths = [
+            '/wiki/article/create/',
+            '/wiki/article/edit/',
+            '/wiki/comment/add/',
+            '/wiki/comment/reply/',
+            '/accounts/profile/update/',
+            '/admin/wiki/article/add/',
+            '/admin/wiki/article/',
+        ]
+
+        # Проверяем, нужно ли проверять этот путь
+        should_check = False
+        for path in censorship_paths:
+            if request.path.startswith(path):
+                should_check = True
+                break
+
+        if not should_check:
+            return
+
+        # Проверяем POST данные
+        banned_words_found = []
+
+        for field_name, field_value in request.POST.items():
+            if isinstance(field_value, str) and len(field_value) > 3:
+                has_banned, found_words, _ = CensorshipService.contains_banned_words(field_value)
+
+                if has_banned:
+                    for word in found_words:
+                        banned_words_found.append({
+                            'field': field_name,
+                            'word': word,
+                            'value_preview': field_value[:50] + ('...' if len(field_value) > 50 else '')
+                        })
+
+        # Если нашли запрещенные слова, добавляем их в request
+        if banned_words_found:
+            request.censorship_violation = True
+            request.banned_words_found = banned_words_found[:5]  # Ограничиваем количество
+
+            # Логируем попытку нарушения
+            if request.user.is_authenticated:
+                username = request.user.username
+                words_list = ', '.join(set([item['word'] for item in banned_words_found[:3]]))
+
+                print(f"⚠️ ЦЕНЗУРА: Пользователь {username} попытался отправить запрещенные слова: {words_list}")
+                print(f"   Путь: {request.path}")
+                print(f"   Метод: {request.method}")
+
     def __call__(self, request):
+
+        self._check_censorship(request)
         # Обрабатываем запрос
         response = self.get_response(request)
 
@@ -308,3 +367,110 @@ class ActionLoggingMiddleware:
         }
 
         return display_names.get(model_name, model_name)
+
+
+def _check_censorship(self, request):
+    """Проверяет POST запросы на наличие запрещенных слов"""
+    if request.method != 'POST':
+        return
+
+    # Проверяем только определенные пути
+    censorship_paths = [
+        '/wiki/article/create/',
+        '/wiki/article/edit/',
+        '/wiki/comment/add/',
+        '/wiki/comment/reply/',
+        '/accounts/profile/update/',
+        '/admin/wiki/article/add/',
+        '/admin/wiki/article/',
+    ]
+
+    # Проверяем, нужно ли проверять этот путь
+    should_check = False
+    for path in censorship_paths:
+        if request.path.startswith(path):
+            should_check = True
+            break
+
+    if not should_check:
+        return
+
+    # Проверяем POST данные
+    banned_words_found = []
+    all_banned_words = []
+
+    for field_name, field_value in request.POST.items():
+        if isinstance(field_value, str) and len(field_value) > 3:
+            has_banned, found_words, _ = CensorshipService.contains_banned_words(field_value)
+
+            if has_banned:
+                for word in found_words:
+                    banned_words_found.append({
+                        'field': field_name,
+                        'word': word,
+                        'value_preview': field_value[:50] + ('...' if len(field_value) > 50 else '')
+                    })
+                    all_banned_words.append(word)
+
+    # Если нашли запрещенные слова
+    if banned_words_found:
+        # Убираем дубликаты
+        unique_words = list(set(all_banned_words))
+
+        # Добавляем в request
+        request.censorship_violation = True
+        request.banned_words_found = banned_words_found[:5]
+        request.banned_words_unique = unique_words
+
+        # Получаем количество предупреждений пользователя
+        if request.user.is_authenticated:
+            warning_count = CensorshipWarningSystem.get_user_warnings(request.user)
+
+            # Логируем попытку нарушения
+            words_list = ', '.join(unique_words[:3])
+            if len(unique_words) > 3:
+                words_list += f' и еще {len(unique_words) - 3}...'
+
+            print(f"⚠️ ЦЕНЗУРА: Пользователь {request.user.username} (нарушений: {warning_count + 1})")
+            print(f"   Слова: {words_list}")
+            print(f"   Путь: {request.path}")
+
+            # Добавляем сообщение о предупреждении
+            warning_message = CensorshipWarningSystem.handle_censorship_violation(request, unique_words)
+            request.censorship_warning_message = warning_message
+
+
+class BanCheckMiddleware:
+    """Middleware для проверки забаненных пользователей"""
+
+    def __init__(self, get_response):
+        self.get_response = get_response
+        self.allowed_paths = [
+            '/admin/',
+            '/accounts/login/',
+            '/accounts/logout/',
+            '/accounts/register/',
+            '/accounts/password/reset/',
+            '/static/',
+            '/media/',
+            '/api/',
+        ]
+
+    def __call__(self, request):
+        # Проверяем только аутентифицированных пользователей
+        if request.user.is_authenticated:
+            user_status = ModerationService.get_user_status(request.user)
+
+            if user_status['is_banned']:
+                # Разрешаем доступ к некоторым путям
+                if any(request.path.startswith(path) for path in self.allowed_paths):
+                    return self.get_response(request)
+
+                # Для забаненных показываем страницу бана
+                from django.shortcuts import render
+                return render(request, 'wiki/banned_page.html', {
+                    'user_status': user_status,
+                    'ban': user_status['ban_details'],
+                })
+
+        return self.get_response(request)

@@ -1,0 +1,191 @@
+{% extends 'base.html' %}
+
+{% block title %}Забаненные пользователи | Панель модерации{% endblock %}
+
+{% block content %}
+<style>
+    .ban-card {
+        background: #2c3e50;
+        border-radius: 8px;
+        padding: 1.25rem;
+        margin-bottom: 1rem;
+        border-left: 4px solid #e74c3c;
+    }
+    .ban-time {
+        background: rgba(231, 76, 60, 0.2);
+        padding: 0.5rem;
+        border-radius: 4px;
+        font-size: 0.9rem;
+    }
+    .pagination-custom .page-link {
+        background: #34495e;
+        border-color: #7f8c8d;
+        color: #ecf0f1;
+    }
+    .pagination-custom .page-item.active .page-link {
+        background: #3498db;
+        border-color: #3498db;
+    }
+</style>
+
+<div class="container py-4">
+    <!-- Хлебные крошки -->
+    <nav style="margin-bottom: 2rem; background: #2c3e50; padding: 1rem; border-radius: 8px;">
+        <ol style="display: flex; list-style: none; margin: 0; padding: 0;">
+            <li style="margin-right: 0.5rem;">
+                <a href="{% url 'wiki:moderation_dashboard' %}" style="color: #ecf0f1; text-decoration: none; font-weight: 500;">Панель модерации</a>
+            </li>
+            <li style="margin-right: 0.5rem; color: #7f8c8d;">›</li>
+            <li style="color: #f1c40f; font-weight: 500;">Забаненные пользователи</li>
+        </ol>
+    </nav>
+
+    <!-- Заголовок -->
+    <div style="background: linear-gradient(135deg, #34495e, #2c3e50); border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem;">
+        <h1 style="margin: 0; color: #ecf0f1; display: flex; align-items: center; gap: 1rem;">
+            <span style="background: #e74c3c; color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">
+                ⛔
+            </span>
+            Забаненные пользователи
+            <span style="background: #e74c3c; color: white; padding: 0.25rem 0.75rem; border-radius: 15px; font-size: 1rem;">
+                {{ total_banned }}
+            </span>
+        </h1>
+    </div>
+
+    <!-- Список банов -->
+    <div style="background: #2c3e50; border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem;">
+        {% if page_obj %}
+        {% for item in page_obj %}
+        <div class="ban-card">
+            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem;">
+                <div>
+                    <h4 style="margin: 0 0 0.5rem 0; color: #3498db;">
+                        <a href="{% url 'wiki:user_detail' item.user.id %}" style="color: #3498db; text-decoration: none;">
+                            {{ item.user.username }}
+                        </a>
+                    </h4>
+                    <div style="color: #bdc3c7; font-size: 0.9rem;">
+                        <strong>Забанен администратором:</strong> {{ item.banned_by.username|default:"Система" }}
+                        <br>
+                        <strong>Причина:</strong> {{ item.reason }}
+                    </div>
+                </div>
+                <div>
+                    <span style="background: #e74c3c; color: white; padding: 0.25rem 0.75rem; border-radius: 15px; font-size: 0.85rem;">
+                        {{ item.ban.get_duration_display }}
+                    </span>
+                </div>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-bottom: 1rem;">
+                <div class="ban-time">
+                    <strong>⏳ Осталось:</strong><br>
+                    {{ item.time_remaining }}
+                </div>
+                <div class="ban-time">
+                    <strong>📅 Начало:</strong><br>
+                    {{ item.ban.start_time|date:"d.m.Y H:i" }}
+                </div>
+                {% if item.ban.end_time %}
+                <div class="ban-time">
+                    <strong>📅 Окончание:</strong><br>
+                    {{ item.ban.end_time|date:"d.m.Y H:i" }}
+                </div>
+                {% endif %}
+            </div>
+            
+            {% if item.ban.notes %}
+            <div style="color: #bdc3c7; font-size: 0.9rem; background: rgba(255,255,255,0.05); padding: 0.75rem; border-radius: 4px; margin-bottom: 1rem;">
+                <strong>📝 Заметки:</strong> {{ item.ban.notes }}
+            </div>
+            {% endif %}
+            
+            <div style="display: flex; gap: 0.5rem;">
+                <a href="{% url 'wiki:user_detail' item.user.id %}" class="btn btn-sm btn-primary" style="background: #3498db; border: none;">
+                    👁️ Детальная информация
+                </a>
+                <form method="post" action="{% url 'wiki:user_detail' item.user.id %}" style="display: inline;">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="unban">
+                    <button type="submit" class="btn btn-sm btn-success" 
+                            onclick="return confirm('Вы уверены, что хотите разбанить пользователя {{ item.user.username }}?');">
+                        ✅ Снять бан
+                    </button>
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+        
+        <!-- Пагинация -->
+        {% if page_obj.has_other_pages %}
+        <nav aria-label="Пагинация" class="mt-4">
+            <ul class="pagination pagination-custom justify-content-center">
+                {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page=1" aria-label="Первая">
+                        ««
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Предыдущая">
+                        «
+                    </a>
+                </li>
+                {% endif %}
+                
+                {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                    <li class="page-item active">
+                        <span class="page-link">{{ num }}</span>
+                    </li>
+                    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                    </li>
+                    {% endif %}
+                {% endfor %}
+                
+                {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Следующая">
+                        »
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" aria-label="Последняя">
+                        »»
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+        {% endif %}
+        
+        {% else %}
+        <div style="text-align: center; padding: 3rem;">
+            <div style="font-size: 3rem; color: #7f8c8d; margin-bottom: 1rem;">
+                ✅
+            </div>
+            <h3 style="color: #bdc3c7;">Нет активных банов</h3>
+            <p style="color: #95a5a6;">Все пользователи в настоящее время активны</p>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Быстрые ссылки -->
+    <div style="background: #2c3e50; border-radius: 12px; padding: 1.5rem;">
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+            <a href="{% url 'wiki:moderation_dashboard' %}" class="btn btn-secondary" style="background: #7f8c8d; border: none;">
+                ← Назад в панель модерации
+            </a>
+            <a href="{% url 'wiki:user_search' %}" class="btn btn-primary" style="background: #3498db; border: none;">
+                🔍 Поиск пользователей
+            </a>
+            <a href="{% url 'wiki:warned_users' %}" class="btn btn-warning" style="background: #f39c12; border: none;">
+                ⚠️ Пользователи с предупреждениями
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

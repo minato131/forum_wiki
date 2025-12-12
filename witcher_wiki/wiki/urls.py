@@ -5,6 +5,16 @@ from django.contrib.auth import views as auth_views
 from accounts.forms import CustomAuthenticationForm
 from django.urls import path
 from . import views
+from django.contrib.admin.views.decorators import staff_member_required
+from .moderation_views import (
+    moderation_dashboard,
+    user_search,
+    user_detail,
+    banned_users_list,
+    warned_users_list,
+    moderation_logs,
+)
+
 app_name = 'wiki'
 
 urlpatterns = [
@@ -133,5 +143,19 @@ urlpatterns = [
     path('statistics/export/pdf/', views.export_statistics_pdf, name='export_statistics_pdf'),
     path('statistics/export/json/', views.export_statistics_json, name='export_statistics_json'),
     path('comment/<int:comment_id>/like/', views.comment_like, name='comment_like'),
-    path('user/<str:username>/stats/', views.user_statistics, name='user_statistics'),
+    # ... существующие URL ...
+    path('profile/', views.profile, name='profile'),
+    path('statistics/', views.user_statistics, name='statistics'),
+    path('statistics/<str:username>/', views.user_statistics, name='user_statistics'),
+    path('censorship-dashboard/', staff_member_required(views.censorship_dashboard), name='censorship_dashboard'),
+    path('my-censorship-warnings/', views.my_censorship_warnings, name='my_censorship_warnings'),
+    path('admin/user-warnings/', staff_member_required(views.user_warnings_list), name='user_warnings_list'),
+    path('admin/reset-warnings/<int:user_id>/', staff_member_required(views.reset_user_warnings),
+         name='reset_warnings'),
+    path('moderation/', views.moderation_dashboard, name='moderation_dashboard'),
+    path('moderation/search/', views.user_search, name='user_search'),
+    path('moderation/user/<int:user_id>/', views.user_detail, name='user_detail'),
+    path('moderation/banned/', views.banned_users_list, name='banned_users'),
+    path('moderation/warned/', views.warned_users_list, name='warned_users'),
+    path('moderation/logs/', views.moderation_logs, name='moderation_logs'),
 ]

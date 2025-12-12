@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container py-4">
+    <h1 class="mb-4">🛡️ Панель управления цензурой</h1>
+    
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Статистика системы</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row text-center">
+                        <div class="col-md-4">
+                            <div class="display-4">{{ word_count }}</div>
+                            <p class="text-muted">Запрещенных слов</p>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="display-4">24/7</div>
+                            <p class="text-muted">Мониторинг</p>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="display-4">100%</div>
+                            <p class="text-muted">Покрытие</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header bg-dark text-white">
+                    <h5 class="mb-0">Примеры запрещенных слов</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        {% for word in banned_words_examples|slice:":10" %}
+                        <div class="col-md-6 mb-2">
+                            <span class="badge bg-danger">{{ word }}</span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <p class="text-muted mt-3">
+                        <small>Система автоматически обнаруживает различные варианты написания и обходы.</small>
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0">Быстрые действия</h5>
+                </div>
+                <div class="card-body">
+                    <a href="{% url 'wiki:test_censorship' %}" class="btn btn-outline-primary w-100 mb-2">
+                        🔍 Тест системы
+                    </a>
+                    <a href="/admin/" class="btn btn-outline-dark w-100 mb-2">
+                        ⚙️ Настройки
+                    </a>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header bg-warning">
+                    <h5 class="mb-0">Информация</h5>
+                </div>
+                <div class="card-body">
+                    <h6>Проверяемые области:</h6>
+                    <ul class="small">
+                        <li>Заголовки статей</li>
+                        <li>Содержимое статей</li>
+                        <li>Комментарии</li>
+                        <li>Описания профилей</li>
+                        <li>Личные сообщения</li>
+                    </ul>
+                    
+                    <h6 class="mt-3">Действия при обнаружении:</h6>
+                    <ol class="small">
+                        <li>Блокировка отправки</li>
+                        <li>Уведомление пользователя</li>
+                        <li>Логирование для админов</li>
+                        <li>Автоматическая замена</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

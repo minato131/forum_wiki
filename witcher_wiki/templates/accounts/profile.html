@@ -248,32 +248,24 @@
         {% endif %}
     </div>
 </div>
-<div class="stats-grid">
-    <div class="stat-card">
-        <div class="stat-icon">📝</div>
-        <div class="stat-value">{{ user_articles_count }}</div>
-        <div class="stat-label">Статей</div>
+<div class="card mb-4">
+    <div class="card-header">
+        <h5 class="mb-0">⚠️ Предупреждения</h5>
     </div>
-
-    <div class="stat-card">
-        <div class="stat-icon">👍</div>
-        <div class="stat-value">{{ liked_articles_count }}</div>
-        <div class="stat-label">Лайков статей</div>
-    </div>
-
-    <div class="stat-card">
-        <div class="stat-icon">💬</div>
-        <div class="stat-value">{{ user_comment_likes_count }}</div>  <!-- Новое -->
-        <div class="stat-label">Лайков комментариев</div>
-    </div>
-
-    <div class="stat-card">
-        <div class="stat-icon">👁️</div>
-        <div class="stat-value">{{ total_views }}</div>
-        <div class="stat-label">Просмотров</div>
+    <div class="card-body text-center">
+        {% load cache %} <!-- если есть тег для получения предупреждений -->
+        <div class="display-4
+            {% if user_warnings == 0 %}text-success
+            {% elif user_warnings < 3 %}text-warning
+            {% else %}text-danger{% endif %}">
+            {{ user_warnings|default:0 }}
+        </div>
+        <p class="mb-2">предупреждений за нецензурную лексику</p>
+        <a href="{% url 'wiki:my_censorship_warnings' %}" class="btn btn-outline-warning btn-sm">
+            Подробнее
+        </a>
     </div>
 </div>
-
 <style>
 .profile-container {
     max-width: 1000px;

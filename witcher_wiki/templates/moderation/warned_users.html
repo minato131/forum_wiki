@@ -1,0 +1,231 @@
+{% extends 'base.html' %}
+
+{% block title %}Пользователи с предупреждениями | Панель модерации{% endblock %}
+
+{% block content %}
+<style>
+    .user-warning-card {
+        background: #2c3e50;
+        border-radius: 8px;
+        padding: 1.25rem;
+        margin-bottom: 1rem;
+    }
+    .warning-level-1 { border-left: 4px solid #f39c12; }
+    .warning-level-2 { border-left: 4px solid #e67e22; }
+    .warning-level-3 { border-left: 4px solid #e74c3c; }
+    .warning-level-4 { border-left: 4px solid #c0392b; }
+    .warning-badge {
+        padding: 0.25rem 0.75rem;
+        border-radius: 15px;
+        font-size: 0.85rem;
+        font-weight: 500;
+    }
+    .badge-level-1 { background: #f39c12; color: white; }
+    .badge-level-2 { background: #e67e22; color: white; }
+    .badge-level-3 { background: #e74c3c; color: white; }
+    .badge-level-4 { background: #c0392b; color: white; }
+</style>
+
+<div class="container py-4">
+    <!-- Хлебные крошки -->
+    <nav style="margin-bottom: 2rem; background: #2c3e50; padding: 1rem; border-radius: 8px;">
+        <ol style="display: flex; list-style: none; margin: 0; padding: 0;">
+            <li style="margin-right: 0.5rem;">
+                <a href="{% url 'wiki:moderation_dashboard' %}" style="color: #ecf0f1; text-decoration: none; font-weight: 500;">Панель модерации</a>
+            </li>
+            <li style="margin-right: 0.5rem; color: #7f8c8d;">›</li>
+            <li style="color: #f1c40f; font-weight: 500;">Пользователи с предупреждениями</li>
+        </ol>
+    </nav>
+
+    <!-- Заголовок -->
+    <div style="background: linear-gradient(135deg, #34495e, #2c3e50); border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem;">
+        <h1 style="margin: 0; color: #ecf0f1; display: flex; align-items: center; gap: 1rem;">
+            <span style="background: #f39c12; color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">
+                ⚠️
+            </span>
+            Пользователи с предупреждениями
+            <span style="background: #f39c12; color: white; padding: 0.25rem 0.75rem; border-radius: 15px; font-size: 1rem;">
+                {{ total_warned }}
+            </span>
+        </h1>
+    </div>
+
+    <!-- Легенда уровней -->
+    <div style="background: #2c3e50; border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem;">
+        <h3 style="color: #ecf0f1; margin-bottom: 1rem;">Уровни предупреждений:</h3>
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <div style="width: 20px; height: 20px; background: #f39c12; border-radius: 4px;"></div>
+                <span style="color: #bdc3c7;">Уровень 1 - Легкое предупреждение</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <div style="width: 20px; height: 20px; background: #e67e22; border-radius: 4px;"></div>
+                <span style="color: #bdc3c7;">Уровень 2 - Предупреждение</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <div style="width: 20px; height: 20px; background: #e74c3c; border-radius: 4px;"></div>
+                <span style="color: #bdc3c7;">Уровень 3 - Серьезное предупреждение</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <div style="width: 20px; height: 20px; background: #c0392b; border-radius: 4px;"></div>
+                <span style="color: #bdc3c7;">Уровень 4 - Последнее предупреждение</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Список пользователей -->
+    <div style="background: #2c3e50; border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem;">
+        {% if page_obj %}
+        {% for item in page_obj %}
+        <div class="user-warning-card warning-level-{{ item.status.total_warnings|default:1 }}">
+            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem;">
+                <div>
+                    <h4 style="margin: 0 0 0.5rem 0; color: #3498db;">
+                        <a href="{% url 'wiki:user_detail' item.user.id %}" style="color: #3498db; text-decoration: none;">
+                            {{ item.user.username }}
+                        </a>
+                    </h4>
+                    <div style="color: #bdc3c7; font-size: 0.9rem;">
+                        Email: {{ item.user.email }} • Регистрация: {{ item.user.date_joined|date:"d.m.Y" }}
+                    </div>
+                </div>
+                <div style="text-align: right;">
+                    <span class="warning-badge badge-level-{{ item.status.total_warnings|default:1 }}">
+                        {{ item.status.total_warnings }} предупреждений
+                    </span>
+                </div>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1rem;">
+                <div style="color: #bdc3c7;">
+                    <strong>Официальные предупреждения:</strong><br>
+                    <span style="color: #f1c40f; font-size: 1.2rem;">{{ item.status.active_warnings }}</span>
+                </div>
+                <div style="color: #bdc3c7;">
+                    <strong>Предупреждения цензуры:</strong><br>
+                    <span style="color: #f1c40f; font-size: 1.2rem;">{{ item.censorship_warnings }}</span>
+                </div>
+                <div style="color: #bdc3c7;">
+                    <strong>Статей:</strong><br>
+                    <span style="color: #f1c40f; font-size: 1.2rem;">{{ item.user.article_set.count }}</span>
+                </div>
+                <div style="color: #bdc3c7;">
+                    <strong>Статус:</strong><br>
+                    {% if item.status.is_banned %}
+                    <span style="color: #e74c3c;">⛔ Забанен</span>
+                    {% else %}
+                    <span style="color: #27ae60;">✅ Активен</span>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- Список официальных предупреждений -->
+            {% if item.official_warnings %}
+            <div style="margin-bottom: 1rem;">
+                <h5 style="color: #bdc3c7; font-size: 1rem; margin-bottom: 0.5rem;">Официальные предупреждения:</h5>
+                {% for warning in item.official_warnings %}
+                <div style="background: rgba(255,255,255,0.05); padding: 0.75rem; border-radius: 4px; margin-bottom: 0.5rem;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.25rem;">
+                        <span style="color: #ecf0f1; font-weight: 500;">
+                            Уровень {{ warning.severity }} • {{ warning.get_severity_display }}
+                        </span>
+                        <span style="color: #95a5a6; font-size: 0.85rem;">
+                            {{ warning.created_at|date:"d.m.Y" }}
+                        </span>
+                    </div>
+                    <div style="color: #bdc3c7; font-size: 0.9rem;">
+                        {{ warning.reason|truncatechars:100 }}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            
+            <div style="display: flex; gap: 0.5rem;">
+                <a href="{% url 'wiki:user_detail' item.user.id %}" class="btn btn-sm btn-primary" style="background: #3498db; border: none;">
+                    👁️ Детальная информация
+                </a>
+                <a href="{% url 'wiki:my_censorship_warnings' %}" class="btn btn-sm btn-info" style="background: #17a2b8; border: none;">
+                    📊 Статистика цензуры
+                </a>
+                {% if item.status.total_warnings >= 3 %}
+                <form method="post" action="{% url 'wiki:user_detail' item.user.id %}" style="display: inline;">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="ban">
+                    <input type="hidden" name="reason" value="multiple_violations">
+                    <input type="hidden" name="duration" value="24h">
+                    <button type="submit" class="btn btn-sm btn-danger" 
+                            onclick="return confirm('Выдать бан пользователю {{ item.user.username }} на 24 часа за множественные нарушения?');">
+                        ⛔ Выдать бан
+                    </button>
+                </form>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+        
+        <!-- Пагинация (аналогичная banned_users.html) -->
+        {% if page_obj.has_other_pages %}
+        <nav aria-label="Пагинация" class="mt-4">
+            <ul class="pagination pagination-custom justify-content-center">
+                {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page=1">««</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}">«</a>
+                </li>
+                {% endif %}
+                
+                {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                    <li class="page-item active">
+                        <span class="page-link">{{ num }}</span>
+                    </li>
+                    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                    </li>
+                    {% endif %}
+                {% endfor %}
+                
+                {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">»</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">»»</a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+        {% endif %}
+        
+        {% else %}
+        <div style="text-align: center; padding: 3rem;">
+            <div style="font-size: 3rem; color: #7f8c8d; margin-bottom: 1rem;">
+                ✅
+            </div>
+            <h3 style="color: #bdc3c7;">Нет пользователей с предупреждениями</h3>
+            <p style="color: #95a5a6;">Все пользователи в настоящее время без предупреждений</p>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Быстрые ссылки -->
+    <div style="background: #2c3e50; border-radius: 12px; padding: 1.5rem;">
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+            <a href="{% url 'wiki:moderation_dashboard' %}" class="btn btn-secondary" style="background: #7f8c8d; border: none;">
+                ← Назад в панель модерации
+            </a>
+            <a href="{% url 'wiki:user_search' %}" class="btn btn-primary" style="background: #3498db; border: none;">
+                🔍 Поиск пользователей
+            </a>
+            <a href="{% url 'wiki:banned_users' %}" class="btn btn-danger" style="background: #e74c3c; border: none;">
+                ⛔ Забаненные пользователи
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

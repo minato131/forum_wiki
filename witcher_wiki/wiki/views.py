@@ -85,7 +85,26 @@ import threading
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
-
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
+from django.db.models import Count, Sum, Q
+from django.utils import timezone
+from django.contrib.auth.models import User
+from django.contrib import messages
+from django.conf import settings
+from .censorship_utils import check_request_for_banned_words, add_censorship_warning
+from django.contrib.admin.views.decorators import staff_member_required
+from .censorship import CensorshipService
+from .censorship_warnings import CensorshipWarningSystem
+from .moderation_views import (
+    moderation_dashboard,
+    user_search,
+    user_detail,
+    banned_users_list,
+    warned_users_list,
+    moderation_logs,
+    clear_old_logs,
+)
 
 def clean_latex_from_content(content):
     """
@@ -343,11 +362,11 @@ def search(request):
 @login_required
 def profile(request):
     """Страница профиля пользователя с возможностью редактирования"""
-
+    user = request.user
     # Получаем или создаем профиль пользователя
     user_profile, created = UserProfile.objects.get_or_create(user=request.user)
     user_comment_likes_count = CommentLike.objects.filter(user=request.user).count()
-    user_comments_liked_count = Comment.objects.filter(likes__user=request.user).distinct().count()
+    user_comments_liked_count = Comment.objects.filter(comment_likes__user=user).distinct().count()
 
     # Обработка POST запросов из формы
     if request.method == 'POST':
@@ -414,6 +433,11 @@ def article_create(request):
     # Проверяем сессию и localStorage
     rules_accepted_session = request.session.get('article_rules_accepted', False)
 
+    if request.method == 'POST':
+        has_banned, banned_words = check_request_for_banned_words(request)
+        if has_banned:
+            add_censorship_warning(request, banned_words)
+
     # Если правила приняты через параметр, сохраняем в сессии
     if rules_accepted_param and not rules_accepted_session:
         request.session['article_rules_accepted'] = True
@@ -442,6 +466,7 @@ def article_create(request):
         excerpt = request.POST.get('excerpt', '').strip()
         category_ids = request.POST.getlist('categories')
         tags_input = request.POST.get('tags', '').strip()
+        form = ArticleForm(request.POST, request.FILES, request=request)
 
         # Проверка обязательных полей
         if not title or not content:
@@ -660,6 +685,12 @@ def article_edit(request, slug):
     success_message = ""
 
     if request.method == 'POST':
+        has_banned, banned_words = check_request_for_banned_words(request)
+        if has_banned:
+            add_censorship_warning(request, banned_words)
+
+    if request.method == 'POST':
+        form = ArticleForm(request.POST, request.FILES, request=request)
         # Проверяем, это отправка на модерацию или сохранение
         action = request.POST.get('action', 'save')
 
@@ -1409,6 +1440,11 @@ def user_public_profile(request, username):
         user_profile = UserProfile.objects.get(user=user)
     except UserProfile.DoesNotExist:
         user_profile = None
+
+    if request.method == 'POST':
+        has_banned, banned_words = check_request_for_banned_words(request)
+        if has_banned:
+            add_censorship_warning(request, banned_words)
 
     # Статьи пользователя (только опубликованные)
     user_articles = Article.objects.filter(author=user, status='published').order_by('-created_at')
@@ -4679,51 +4715,166 @@ def comment_like(request, comment_id):
         return JsonResponse({'success': False, 'error': 'Комментарий не найден'}, status=404)
 
 
-def user_statistics(request, username):
-    """Статистика конкретного пользователя."""
-    user = get_object_or_404(User, username=username)
+@login_required
+def user_statistics(request, username=None):
+    if username:
+        profile_user = get_object_or_404(User, username=username)
+        # Проверяем права доступа (только свои или админ может смотреть)
+        if not request.user.is_staff and request.user != profile_user:
+            return redirect('wiki:statistics')
+    else:
+        profile_user = request.user
 
-    # Проверяем, может ли текущий пользователь смотреть эту статистику
-    # Обычно свою статистику может смотреть только сам пользователь или админ
-    if not (request.user == user or request.user.is_staff):
-        # Можно перенаправить на свою статистику или показать 403
-        return redirect('user_statistics', username=request.user.username)
+    # Фильтр
+    filter_type = request.GET.get('filter', 'all')  # all, week, month, year
 
-    # Получаем данные - фильтруем по статусу опубликованных статей
-    # Вместо is_published используем статусы, которые означают опубликовано
+    date_filter = Q()
+    if filter_type == 'week':
+        date_filter = Q(created_at__gte=timezone.now() - timezone.timedelta(days=7))
+    elif filter_type == 'month':
+        date_filter = Q(created_at__gte=timezone.now() - timezone.timedelta(days=30))
+    elif filter_type == 'year':
+        date_filter = Q(created_at__gte=timezone.now() - timezone.timedelta(days=365))
+
+    # Статьи пользователя с фильтром
     user_articles = Article.objects.filter(
-        author=user,
-        status__in=['published', 'approved']  # Скорректируйте под ваши статусы
-    ).order_by('-created_at')
+        author=profile_user
+    ).filter(
+        date_filter if filter_type != 'all' else Q()
+    )
 
-    user_comments = Comment.objects.filter(author=user, is_deleted=False).select_related('article')
+    # Статистика статей - аннотируем количество лайков
+    article_stats = user_articles.annotate(
+        article_like_count=Count('likes')  # переименуем, чтобы избежать конфликта
+    ).order_by('-views_count')
 
-    # Самые популярные комментарии (по лайкам)
-    top_comments = user_comments.order_by('-like_count')[:10]
+    top_articles_by_views = article_stats[:10]
+    top_articles_by_likes = article_stats.order_by('-article_like_count')[:10]
 
-    # Статьи можно фильтровать
-    filter_by = request.GET.get('filter', 'views')  # 'views', 'likes', 'date'
-    if filter_by == 'likes':
-        top_articles = user_articles.order_by('-likes')[:10]
-    elif filter_by == 'date':
-        top_articles = user_articles.order_by('-created_at')[:10]
-    else:  # 'views' по умолчанию
-        top_articles = user_articles.order_by('-views_count')[:10]
+    # Комментарии пользователя
+    user_comments = Comment.objects.filter(
+        author=profile_user
+    ).filter(
+        date_filter if filter_type != 'all' else Q()
+    ).annotate(
+        comment_like_count=Count('comment_likes')
+    ).order_by('-comment_like_count')[:10]
 
     # Общая статистика
+    total_articles = user_articles.count()
     total_views = user_articles.aggregate(total_views=Sum('views_count'))['total_views'] or 0
-    total_likes = user_articles.aggregate(total_likes=Sum('likes'))['total_likes'] or 0
-    avg_views = user_articles.aggregate(avg_views=Avg('views_count'))['avg_views'] or 0
+    total_likes_articles = user_articles.aggregate(
+        total_likes=Count('likes')
+    )['total_likes'] or 0
+    total_likes_comments = user_comments.aggregate(
+        total_likes=Count('comment_likes')
+    )['total_likes'] or 0
 
     context = {
-        'profile_user': user,
-        'total_articles': user_articles.count(),
-        'total_comments': user_comments.count(),
+        'profile_user': profile_user,
+        'filter_type': filter_type,
+        'top_articles_by_views': top_articles_by_views,
+        'top_articles_by_likes': top_articles_by_likes,
+        'user_comments': user_comments,
+        'total_articles': total_articles,
         'total_views': total_views,
-        'total_likes': total_likes,
-        'avg_views': round(avg_views, 1),
-        'top_comments': top_comments,
-        'top_articles': top_articles,
-        'current_filter': filter_by,
+        'total_likes_articles': total_likes_articles,
+        'total_likes_comments': total_likes_comments,
+        'total_likes': total_likes_articles + total_likes_comments,
     }
+
     return render(request, 'wiki/user_statistics.html', context)
+
+@staff_member_required
+def censorship_dashboard(request):
+    """Дашборд цензуры для администраторов"""
+    # Можно добавить статистику и логи
+    return render(request, 'wiki/censorship_dashboard.html', {
+        'word_count': CensorshipService.get_banned_words_count(),
+        'banned_words_examples': CensorshipService.BANNED_WORDS[:20],
+    })
+
+
+def censorship_info(request):
+    """Информация о системе цензуры"""
+    word_count = CensorshipService.get_banned_words_count()
+
+    # Примеры запрещенных слов (первые 20)
+    examples = CensorshipService.BANNED_WORDS[:20]
+
+    return render(request, 'wiki/censorship_info.html', {
+        'word_count': word_count,
+        'examples': examples,
+    })
+
+
+@login_required
+def my_censorship_warnings(request):
+    """Показывает предупреждения пользователя за нецензурную лексику"""
+    warning_count = CensorshipWarningSystem.get_user_warnings(request.user)
+
+    # Определяем уровень серьезности
+    level = CensorshipWarningSystem.get_punishment_level(warning_count)
+
+    # Цвета для разных уровней
+    level_colors = {
+        'warning': 'primary',
+        'warning_strong': 'warning',
+        'warning_critical': 'danger',
+        'temp_ban_1h': 'danger',
+        'temp_ban_24h': 'dark',
+    }
+
+    # Сообщение в зависимости от уровня
+    level_messages = {
+        'warning': '🚫 У вас есть предупреждение',
+        'warning_strong': '⚠️ У вас есть серьезное предупреждение',
+        'warning_critical': '🔴 Критическое предупреждение',
+        'temp_ban_1h': '⏰ Временная блокировка (1 час)',
+        'temp_ban_24h': '🚨 Аккаунт заблокирован (24 часа)',
+    }
+
+    return render(request, 'wiki/censorship_warnings.html', {
+        'warning_count': warning_count,
+        'level': level,
+        'level_color': level_colors.get(level, 'secondary'),
+        'level_message': level_messages.get(level, 'Информация'),
+        'next_level_warnings': 5 - warning_count if warning_count < 5 else 0,
+    })
+
+
+@staff_member_required
+def reset_user_warnings(request, user_id):
+    """Сброс предупреждений пользователя (только для админов)"""
+    user = get_object_or_404(User, id=user_id)
+
+    if request.method == 'POST':
+        CensorshipWarningSystem.reset_user_warnings(user)
+        messages.success(request, f'Предупреждения пользователя {user.username} сброшены.')
+        return redirect('wiki:user_warnings_list')
+
+    return render(request, 'wiki/reset_warnings_confirm.html', {'user': user})
+
+
+@staff_member_required
+def user_warnings_list(request):
+    """Список пользователей с предупреждениями (только для админов)"""
+    # В реальном проекте здесь была бы БД, но пока используем кэш
+    users_with_warnings = []
+
+    # Простой способ - можно доработать с БД позже
+    for user in User.objects.filter(is_active=True):
+        warnings = CensorshipWarningSystem.get_user_warnings(user)
+        if warnings > 0:
+            users_with_warnings.append({
+                'user': user,
+                'warnings': warnings,
+                'level': CensorshipWarningSystem.get_punishment_level(warnings),
+            })
+
+    # Сортируем по количеству предупреждений
+    users_with_warnings.sort(key=lambda x: x['warnings'], reverse=True)
+
+    return render(request, 'wiki/user_warnings_list.html', {
+        'users_with_warnings': users_with_warnings,
+    })

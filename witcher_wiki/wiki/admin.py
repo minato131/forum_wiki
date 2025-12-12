@@ -36,6 +36,7 @@ from .models import Backup
 from django.urls import reverse
 from .models import CommentLike
 import os
+from .models import UserBan, UserWarning, ModerationLog
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
@@ -72,6 +73,25 @@ class ArticleAdmin(admin.ModelAdmin):
             'classes': ('collapse',)
         }),
     )
+@admin.register(UserBan)
+class UserBanAdmin(admin.ModelAdmin):
+    list_display = ('user', 'reason', 'duration', 'start_time', 'is_active')
+    list_filter = ('reason', 'duration', 'is_active')
+    search_fields = ('user__username', 'notes')
+    readonly_fields = ('start_time', 'end_time')
+
+@admin.register(UserWarning)
+class UserWarningAdmin(admin.ModelAdmin):
+    list_display = ('user', 'severity', 'issued_by', 'created_at', 'is_active')
+    list_filter = ('severity', 'is_active')
+    search_fields = ('user__username', 'reason')
+
+@admin.register(ModerationLog)
+class ModerationLogAdmin(admin.ModelAdmin):
+    list_display = ('moderator', 'target_user', 'action_type', 'created_at')
+    list_filter = ('action_type',)
+    search_fields = ('moderator__username', 'target_user__username')
+    readonly_fields = ('created_at',)
 
 @admin.register(ArticleRevision)
 class ArticleRevisionAdmin(admin.ModelAdmin):

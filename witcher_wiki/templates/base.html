@@ -375,6 +375,21 @@
                     <i class="fas fa-question-circle mr-2"></i> Помощь
                 </a>
             {% endif %}
+            {% if user.is_staff %}
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                    🛡️ Модерация
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="{% url 'wiki:moderation_dashboard' %}">📊 Панель модерации</a></li>
+                    <li><a class="dropdown-item" href="{% url 'wiki:user_search' %}">🔍 Поиск пользователей</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="{% url 'wiki:banned_users' %}">⛔ Забаненные</a></li>
+                    <li><a class="dropdown-item" href="{% url 'wiki:warned_users' %}">⚠️ С предупреждениями</a></li>
+                    <li><a class="dropdown-item" href="{% url 'wiki:moderation_logs' %}">📋 Логи модерации</a></li>
+                </ul>
+            </li>
+            {% endif %}
         </div>
 
         <div class="user-info">
