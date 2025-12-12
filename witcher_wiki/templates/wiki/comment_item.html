@@ -28,21 +28,23 @@
             </button>
             {% endif %}
 
-            {% if user == comment.author or user_can_moderate %}
-            <button onclick="deleteComment({{ comment.id }})"
+            <!-- Кнопка лайка комментария -->
+            <button class="comment-like-btn"
+                    onclick="toggleCommentLike('{{ comment.id }}', this)"
+                    data-comment-id="{{ comment.id }}"
+                    data-liked="{% if comment.is_liked_by_user %}true{% else %}false{% endif %}"
+                    style="background: none; border: 1px solid #D4AF37; color: #D4AF37; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-size: 0.8em;"
+                    {% if not user.is_authenticated %}disabled title="Войдите, чтобы оценить"{% endif %}>
+                <i class="{% if comment.is_liked_by_user %}fas{% else %}far{% endif %} fa-thumbs-up"></i>
+                <span class="comment-likes-count">{{ comment.get_like_count|default:0 }}</span>
+            </button>
+
+            {% if user == comment.author or user.is_staff or user.is_superuser %}
+            <button onclick="deleteComment('{{ comment.id }}')"
                     style="background: none; border: 1px solid #ef4444; color: #ef4444; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-size: 0.8em;">
                 🗑️ Удалить
             </button>
             {% endif %}
-
-             {% endif %}
-            <button class="btn btn-sm btn-outline-primary comment-like-btn {% if comment.is_liked_by_user(user) %}liked{% endif %}"
-                data-comment-id="{{ comment.id }}"
-                data-liked="{% if comment.is_liked_by_user(user) %}true{% else %}false{% endif %}">
-                <i class="fas fa-thumbs-up"></i>
-                <span class="comment-likes-count">{{ comment.get_likes_count }}</span>
-            </button>
-             {% endif %}
         </div>
     </div>
 
