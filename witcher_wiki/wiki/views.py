@@ -2,7 +2,7 @@ from django.conf import settings
 from django.core.mail import send_mail
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from django.db.models import Q, Count, Sum
+from django.db.models import Q, Count, Sum, Avg
 from django.core.paginator import Paginator
 from django.utils.text import slugify
 import os
@@ -4677,3 +4677,53 @@ def comment_like(request, comment_id):
         })
     except Comment.DoesNotExist:
         return JsonResponse({'success': False, 'error': 'Комментарий не найден'}, status=404)
+
+
+def user_statistics(request, username):
+    """Статистика конкретного пользователя."""
+    user = get_object_or_404(User, username=username)
+
+    # Проверяем, может ли текущий пользователь смотреть эту статистику
+    # Обычно свою статистику может смотреть только сам пользователь или админ
+    if not (request.user == user or request.user.is_staff):
+        # Можно перенаправить на свою статистику или показать 403
+        return redirect('user_statistics', username=request.user.username)
+
+    # Получаем данные - фильтруем по статусу опубликованных статей
+    # Вместо is_published используем статусы, которые означают опубликовано
+    user_articles = Article.objects.filter(
+        author=user,
+        status__in=['published', 'approved']  # Скорректируйте под ваши статусы
+    ).order_by('-created_at')
+
+    user_comments = Comment.objects.filter(author=user, is_deleted=False).select_related('article')
+
+    # Самые популярные комментарии (по лайкам)
+    top_comments = user_comments.order_by('-like_count')[:10]
+
+    # Статьи можно фильтровать
+    filter_by = request.GET.get('filter', 'views')  # 'views', 'likes', 'date'
+    if filter_by == 'likes':
+        top_articles = user_articles.order_by('-likes')[:10]
+    elif filter_by == 'date':
+        top_articles = user_articles.order_by('-created_at')[:10]
+    else:  # 'views' по умолчанию
+        top_articles = user_articles.order_by('-views_count')[:10]
+
+    # Общая статистика
+    total_views = user_articles.aggregate(total_views=Sum('views_count'))['total_views'] or 0
+    total_likes = user_articles.aggregate(total_likes=Sum('likes'))['total_likes'] or 0
+    avg_views = user_articles.aggregate(avg_views=Avg('views_count'))['avg_views'] or 0
+
+    context = {
+        'profile_user': user,
+        'total_articles': user_articles.count(),
+        'total_comments': user_comments.count(),
+        'total_views': total_views,
+        'total_likes': total_likes,
+        'avg_views': round(avg_views, 1),
+        'top_comments': top_comments,
+        'top_articles': top_articles,
+        'current_filter': filter_by,
+    }
+    return render(request, 'wiki/user_statistics.html', context)

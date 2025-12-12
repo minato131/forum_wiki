@@ -407,6 +407,9 @@
                             <span id="unreadMessagesCount" class="badge" style="display: none;"></span>
                             {% endif %}
                         </a>
+                        <a class="dropdown-item" href="{% url 'wiki:user_statistics' user.username %}">
+                            📊 Моя статистика
+                        </a>
 
                         <!-- Пункты для модераторов -->
                         {% if user.groups.filter.name == 'Модератор' or user.is_staff %}

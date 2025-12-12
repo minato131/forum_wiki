@@ -133,4 +133,5 @@ urlpatterns = [
     path('statistics/export/pdf/', views.export_statistics_pdf, name='export_statistics_pdf'),
     path('statistics/export/json/', views.export_statistics_json, name='export_statistics_json'),
     path('comment/<int:comment_id>/like/', views.comment_like, name='comment_like'),
+    path('user/<str:username>/stats/', views.user_statistics, name='user_statistics'),
 ]
