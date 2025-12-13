@@ -1,33 +1,29 @@
-# wiki/middleware/censor_simple.py
-from django.utils.deprecation import MiddlewareMixin
 from django.shortcuts import redirect
 from django.contrib import messages
+import re
 
 
-class CensorSimpleMiddleware(MiddlewareMixin):
+class CensorshipMiddleware:
+    """Middleware для цензуры контента"""
+
     def __init__(self, get_response):
         self.get_response = get_response
-        self.bad_words = ['хуй', 'пизд', 'ебан', 'бля', 'сука', 'пидор']
+        # Список запрещенных слов
+        self.banned_words = [
+            'хуй', 'пизда', 'еблан', 'мудак', 'говно',
+            'fuck', 'shit', 'asshole', 'bitch'
+        ]
 
     def __call__(self, request):
-        # Проверяем POST запросы
-        if request.method == 'POST' and request.user.is_authenticated:
-            for field_name, field_value in request.POST.items():
-                if isinstance(field_value, str):
-                    text_lower = field_value.lower()
-                    for bad_word in self.bad_words:
-                        if bad_word in text_lower:
-                            messages.error(request, '🚫 НЕЦЕНЗУРНАЯ ЛЕКСИКА! Сообщение отклонено.')
-                            # Записываем нарушение
-                            try:
-                                from wiki.models import CensorshipWarning
-                                CensorshipWarning.objects.create(
-                                    user=request.user,
-                                    text=field_value[:500],
-                                    source_url=request.path
-                                )
-                            except:
-                                pass
+        # Проверяем POST-запросы на наличие запрещенных слов
+        if request.method == 'POST':
+            for key, value in request.POST.items():
+                if isinstance(value, str):
+                    for word in self.banned_words:
+                        pattern = r'\b' + re.escape(word) + r'\b'
+                        if re.search(pattern, value, re.IGNORECASE):
+                            messages.error(request, 'Ваше сообщение содержит запрещенные слова!')
+                            # Редиректим обратно
                             return redirect(request.META.get('HTTP_REFERER', '/'))
 
         response = self.get_response(request)

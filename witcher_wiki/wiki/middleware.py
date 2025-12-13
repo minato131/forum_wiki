@@ -468,7 +468,7 @@ class BanCheckMiddleware:
 
                 # Для забаненных показываем страницу бана
                 from django.shortcuts import render
-                return render(request, 'wiki/banned_page.html', {
+                return render(request, 'wiki/banned.html', {
                     'user_status': user_status,
                     'ban': user_status['ban_details'],
                 })

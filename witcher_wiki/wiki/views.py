@@ -105,8 +105,8 @@ from .moderation_views import (
     moderation_logs,
     clear_old_logs,
 )
-from .middleware.censorship_middleware import CensorshipMiddleware
-from wiki.models import UserBan
+# from wiki.middleware import CensorshipMiddleware
+from .models import UserBan
 
 def clean_latex_from_content(content):
     """
@@ -4883,38 +4883,55 @@ def user_warnings_list(request):
 
 
 def banned_page(request):
-    """Страница для забаненных пользователей"""
+    """Страница информации о бане"""
     if not request.user.is_authenticated:
-        return redirect('wiki:login')
+        return redirect('login')
 
-    from wiki.models import UserBan
-    active_ban = UserBan.objects.filter(
-        user=request.user,
-        is_active=True
-    ).first()
+    try:
+        # Получаем активные баны пользователя
+        active_bans = UserBan.objects.filter(
+            user=request.user,
+            is_active=True
+        )
 
-    if not active_ban or active_ban.is_expired():
-        return redirect('wiki:home')
+        if not active_bans.exists():
+            # Если нет активных банов - редирект на главную
+            return redirect('home')
 
-    context = {
-        'ban': active_ban,
-        'reason': active_ban.get_reason_display(),
-        'duration': active_ban.get_duration_display(),
-        'expires_at': active_ban.expires_at.strftime('%d.%m.%Y %H:%M') if active_ban.expires_at else 'Навсегда',
-        'notes': active_ban.notes,
-        'banned_by': active_ban.banned_by.username if active_ban.banned_by else 'Система',
-    }
+        # Берем первый активный бан
+        ban = active_bans.first()
 
-    return render(request, 'wiki/banned.html', context)
+        # Проверяем не истек ли бан
+        if ban.duration != 'permanent' and ban.expires_at:
+            if ban.expires_at <= timezone.now():
+                # Бан истек - деактивируем
+                ban.is_active = False
+                ban.save()
+                return redirect('home')
 
+        # Формируем контекст
+        time_remaining = None
+        if ban.duration != 'permanent' and ban.expires_at:
+            remaining = ban.expires_at - timezone.now()
+            if remaining.total_seconds() > 0:
+                time_remaining = remaining
+
+        context = {
+            'ban': ban,
+            'time_remaining': time_remaining,
+            'is_permanent': ban.duration == 'permanent',
+        }
+
+        return render(request, 'wiki/banned.html', context)
+
+    except Exception as e:
+        print(f"DEBUG: Error in banned_page: {e}")
+        return redirect('home')
 
 def check_user_ban(user):
     """Проверяет, забанен ли пользователь"""
     if not user.is_authenticated:
         return None
-
-    from wiki.models import UserBan
-    from django.utils import timezone
 
     active_ban = UserBan.objects.filter(
         user=user,
@@ -4925,3 +4942,9 @@ def check_user_ban(user):
         return active_ban
 
     return None
+
+@login_required
+def moderation_panel(request):
+    if not request.user.has_perm('wiki.moderate_content'):
+        messages.error(request, 'У вас нет прав для доступа к панели модерации')
+        return redirect('index')

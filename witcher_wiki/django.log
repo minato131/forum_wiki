@@ -30699,3 +30699,563 @@ INFO 2025-12-14 01:39:02,258 autoreload C:\Users\Yondaime Hokage\PycharmProjects
 INFO 2025-12-14 01:39:02,912 autoreload Watching for file changes with StatReloader
 INFO 2025-12-14 01:43:11,447 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\middleware\censorship_middleware.py changed, reloading.
 INFO 2025-12-14 01:43:12,176 autoreload Watching for file changes with StatReloader
+INFO 2025-12-14 02:01:09,850 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\middleware\__init__.py changed, reloading.
+INFO 2025-12-14 02:01:10,531 autoreload Watching for file changes with StatReloader
+INFO 2025-12-14 02:01:48,429 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-14 02:01:49,628 autoreload Watching for file changes with StatReloader
+INFO 2025-12-14 02:04:25,145 autoreload Watching for file changes with StatReloader
+INFO 2025-12-14 02:06:02,742 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\middleware\censorship_middleware.py changed, reloading.
+INFO 2025-12-14 02:06:03,351 autoreload Watching for file changes with StatReloader
+INFO 2025-12-14 02:06:55,101 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\models.py changed, reloading.
+INFO 2025-12-14 02:06:55,738 autoreload Watching for file changes with StatReloader
+INFO 2025-12-14 02:07:09,620 autoreload Watching for file changes with StatReloader
+INFO 2025-12-14 02:08:33,490 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\models.py changed, reloading.
+INFO 2025-12-14 02:08:34,356 autoreload Watching for file changes with StatReloader
+INFO 2025-12-14 02:09:51,826 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\middleware\ban_check_middleware.py changed, reloading.
+INFO 2025-12-14 02:09:52,512 autoreload Watching for file changes with StatReloader
+INFO 2025-12-14 02:12:28,679 autoreload Watching for file changes with StatReloader
+INFO 2025-12-14 02:13:11,501 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\witcher_wiki\settings.py changed, reloading.
+INFO 2025-12-14 02:13:12,152 autoreload Watching for file changes with StatReloader
+INFO 2025-12-14 02:13:31,565 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\witcher_wiki\settings.py changed, reloading.
+INFO 2025-12-14 02:13:32,192 autoreload Watching for file changes with StatReloader
+INFO 2025-12-14 02:14:18,068 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\witcher_wiki\settings.py changed, reloading.
+INFO 2025-12-14 02:14:18,721 autoreload Watching for file changes with StatReloader
+INFO 2025-12-14 02:14:20,868 log "GET / HTTP/1.1" 200 44618
+INFO 2025-12-14 02:14:21,010 log "GET /messages/unread-count/ HTTP/1.1" 200 47465
+INFO 2025-12-14 02:14:23,615 log "GET /moderation/dashboard/ HTTP/1.1" 200 48014
+INFO 2025-12-14 02:14:23,689 log "GET /messages/unread-count/ HTTP/1.1" 200 47465
+INFO 2025-12-14 02:14:25,353 log "GET /moderation/search/ HTTP/1.1" 200 43059
+INFO 2025-12-14 02:14:25,431 log "GET /messages/unread-count/ HTTP/1.1" 200 47465
+INFO 2025-12-14 02:14:26,733 log "GET /moderation/warned/ HTTP/1.1" 200 39667
+INFO 2025-12-14 02:14:26,915 log "GET /messages/unread-count/ HTTP/1.1" 200 47465
+INFO 2025-12-14 02:14:28,056 log "GET /moderation/banned/ HTTP/1.1" 200 40485
+INFO 2025-12-14 02:14:28,129 log "GET /messages/unread-count/ HTTP/1.1" 200 47465
+INFO 2025-12-14 02:14:29,294 log "GET /moderation/logs/ HTTP/1.1" 200 55064
+INFO 2025-12-14 02:14:29,499 log "GET /messages/unread-count/ HTTP/1.1" 200 47465
+INFO 2025-12-14 02:14:32,489 log "GET /moderation/search/ HTTP/1.1" 200 43059
+INFO 2025-12-14 02:14:32,563 log "GET /messages/unread-count/ HTTP/1.1" 200 47465
+INFO 2025-12-14 02:14:34,615 log "GET /moderation/search/?username=user1&email= HTTP/1.1" 200 47585
+INFO 2025-12-14 02:14:34,693 log "GET /messages/unread-count/ HTTP/1.1" 200 47465
+INFO 2025-12-14 02:14:37,656 log "GET /messages/unread-count/ HTTP/1.1" 200 47465
+INFO 2025-12-14 02:15:05,226 log "GET /messages/unread-count/ HTTP/1.1" 200 47465
+INFO 2025-12-14 02:15:35,228 log "GET /messages/unread-count/ HTTP/1.1" 200 47465
+INFO 2025-12-14 02:15:59,931 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\middleware\censorship_middleware.py changed, reloading.
+INFO 2025-12-14 02:16:00,644 autoreload Watching for file changes with StatReloader
+INFO 2025-12-14 02:16:05,271 log "GET /messages/unread-count/ HTTP/1.1" 200 47465
+INFO 2025-12-14 02:16:10,048 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\middleware\ban_check_middleware.py changed, reloading.
+INFO 2025-12-14 02:16:10,779 autoreload Watching for file changes with StatReloader
+INFO 2025-12-14 02:16:35,265 log "GET /messages/unread-count/ HTTP/1.1" 200 47465
+INFO 2025-12-14 02:17:05,230 log "GET /messages/unread-count/ HTTP/1.1" 200 47465
+INFO 2025-12-14 02:17:35,242 log "GET /messages/unread-count/ HTTP/1.1" 200 47465
+INFO 2025-12-14 02:17:43,016 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\middleware\__init__.py changed, reloading.
+INFO 2025-12-14 02:17:43,678 autoreload Watching for file changes with StatReloader
+INFO 2025-12-14 02:17:51,636 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-14 02:17:52,290 autoreload Watching for file changes with StatReloader
+INFO 2025-12-14 02:17:59,485 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\middleware\__init__.py changed, reloading.
+INFO 2025-12-14 02:18:00,095 autoreload Watching for file changes with StatReloader
+INFO 2025-12-14 02:18:04,759 log "GET / HTTP/1.1" 200 44618
+INFO 2025-12-14 02:18:04,923 log "GET /messages/unread-count/ HTTP/1.1" 200 47465
+INFO 2025-12-14 02:18:05,243 log "GET /messages/unread-count/ HTTP/1.1" 200 47465
+INFO 2025-12-14 02:18:08,771 log "GET /moderation/search/ HTTP/1.1" 200 43059
+INFO 2025-12-14 02:18:08,946 log "GET /messages/unread-count/ HTTP/1.1" 200 47465
+INFO 2025-12-14 02:18:10,962 log "GET /moderation/search/?username=user1&email= HTTP/1.1" 200 47585
+INFO 2025-12-14 02:18:11,036 log "GET /messages/unread-count/ HTTP/1.1" 200 47465
+INFO 2025-12-14 02:18:12,728 log "GET /moderation/ban/2/ HTTP/1.1" 200 43472
+INFO 2025-12-14 02:18:12,812 log "GET /messages/unread-count/ HTTP/1.1" 200 47465
+INFO 2025-12-14 02:18:21,147 log "POST /moderation/ban/2/ HTTP/1.1" 302 0
+INFO 2025-12-14 02:18:21,209 log "GET /moderation/banned/ HTTP/1.1" 200 43166
+INFO 2025-12-14 02:18:21,287 log "GET /messages/unread-count/ HTTP/1.1" 200 47465
+INFO 2025-12-14 02:18:24,869 log "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-12-14 02:18:24,924 log "GET / HTTP/1.1" 200 40469
+INFO 2025-12-14 02:18:25,395 log "GET /login/ HTTP/1.1" 200 39700
+INFO 2025-12-14 02:18:27,794 log "POST /login/ HTTP/1.1" 302 0
+INFO 2025-12-14 02:18:27,859 log "GET / HTTP/1.1" 200 42306
+INFO 2025-12-14 02:18:27,934 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 02:18:41,499 log "GET /accounts/profile/ HTTP/1.1" 200 58615
+INFO 2025-12-14 02:18:41,679 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 02:18:42,363 log "GET /article/create/ HTTP/1.1" 200 39421
+INFO 2025-12-14 02:18:42,437 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 02:18:43,703 log "POST /article/create/ HTTP/1.1" 200 66702
+INFO 2025-12-14 02:18:43,884 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 02:18:45,519 log "GET /my-articles/ HTTP/1.1" 200 61527
+INFO 2025-12-14 02:18:45,592 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 02:18:49,237 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 02:18:49,467 log "GET /statistics/user1/ HTTP/1.1" 200 78244
+INFO 2025-12-14 02:18:49,542 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 02:18:57,819 log "GET /my-articles/ HTTP/1.1" 200 61527
+INFO 2025-12-14 02:18:58,003 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 02:19:01,165 log "GET /statistics/user1/ HTTP/1.1" 200 78244
+INFO 2025-12-14 02:19:01,243 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 02:19:08,699 log "GET /accounts/profile/ HTTP/1.1" 200 58615
+INFO 2025-12-14 02:19:08,782 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 02:19:11,158 log "GET /my-articles/ HTTP/1.1" 200 61527
+INFO 2025-12-14 02:19:11,330 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 02:19:13,066 log "GET / HTTP/1.1" 200 42306
+INFO 2025-12-14 02:19:13,145 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 02:19:18,134 log "GET /messages/inbox/ HTTP/1.1" 200 45181
+INFO 2025-12-14 02:19:18,207 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 02:19:21,686 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 02:19:22,627 log "GET /help/ HTTP/1.1" 200 48913
+INFO 2025-12-14 02:19:22,704 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 02:19:24,303 log "GET /liked-articles/ HTTP/1.1" 200 54111
+INFO 2025-12-14 02:19:24,379 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 02:19:24,874 log "GET /help/ HTTP/1.1" 200 48913
+INFO 2025-12-14 02:19:24,950 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 02:19:28,773 log "GET /my-articles/ HTTP/1.1" 200 61527
+INFO 2025-12-14 02:19:28,852 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 02:19:29,672 log "GET /category/locations/ HTTP/1.1" 200 38894
+INFO 2025-12-14 02:19:29,752 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 02:19:30,160 log "GET /category/monsters/ HTTP/1.1" 200 38602
+INFO 2025-12-14 02:19:30,233 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 02:19:30,665 log "GET /category/characters/ HTTP/1.1" 200 39307
+INFO 2025-12-14 02:19:30,742 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 02:19:31,389 log "GET /search/ HTTP/1.1" 200 53126
+INFO 2025-12-14 02:19:31,468 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 02:19:32,014 log "GET / HTTP/1.1" 200 42306
+INFO 2025-12-14 02:19:32,192 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 02:19:32,657 log "GET /search/ HTTP/1.1" 200 53126
+INFO 2025-12-14 02:19:32,734 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 02:19:34,464 log "GET /search/?tag=%D1%85%D1%83%D0%B9 HTTP/1.1" 200 56888
+INFO 2025-12-14 02:19:34,539 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 02:19:35,341 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 02:20:03,234 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 02:20:05,222 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 02:20:33,239 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 02:20:35,233 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 02:21:03,228 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 02:21:33,225 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 02:21:36,228 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 02:22:03,230 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 02:22:33,238 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 02:22:37,225 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 02:23:03,229 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 02:23:38,230 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 02:23:49,239 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 02:24:03,226 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 02:24:33,236 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 02:24:39,237 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 02:25:34,236 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 02:25:40,244 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 02:26:35,230 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 02:26:41,237 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 02:27:36,222 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 02:27:42,226 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 02:28:37,226 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 02:28:43,232 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 02:29:38,225 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 02:29:44,235 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 02:29:55,883 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\utils\stats_collector.py changed, reloading.
+INFO 2025-12-14 02:29:56,788 autoreload Watching for file changes with StatReloader
+INFO 2025-12-14 02:30:18,197 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\middleware\ban_check_middleware.py changed, reloading.
+INFO 2025-12-14 02:30:18,808 autoreload Watching for file changes with StatReloader
+INFO 2025-12-14 02:30:39,376 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 02:30:45,328 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 02:31:40,236 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 02:31:46,239 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 02:32:41,225 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 02:32:47,230 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 02:33:35,840 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 02:33:42,229 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 02:34:05,244 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 02:36:16,546 autoreload Watching for file changes with StatReloader
+INFO 2025-12-14 02:36:18,448 log "GET / HTTP/1.1" 200 42306
+INFO 2025-12-14 02:36:18,602 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 02:36:22,584 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 02:36:34,945 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 02:36:37,478 log "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-12-14 02:36:37,533 log "GET / HTTP/1.1" 200 40469
+INFO 2025-12-14 02:36:38,342 log "GET /login/ HTTP/1.1" 200 39548
+INFO 2025-12-14 02:36:40,608 log "POST /login/ HTTP/1.1" 302 0
+INFO 2025-12-14 02:36:40,668 log "GET / HTTP/1.1" 200 44618
+INFO 2025-12-14 02:36:40,746 log "GET /messages/unread-count/ HTTP/1.1" 200 47465
+INFO 2025-12-14 02:36:44,108 log "GET /moderation/dashboard/ HTTP/1.1" 200 50988
+INFO 2025-12-14 02:36:44,185 log "GET /messages/unread-count/ HTTP/1.1" 200 47465
+INFO 2025-12-14 02:36:46,692 log "GET /moderation/search/ HTTP/1.1" 200 43059
+INFO 2025-12-14 02:36:46,763 log "GET /messages/unread-count/ HTTP/1.1" 200 47465
+INFO 2025-12-14 02:36:47,948 log "GET /moderation/warned/ HTTP/1.1" 200 39667
+INFO 2025-12-14 02:36:48,022 log "GET /messages/unread-count/ HTTP/1.1" 200 47465
+INFO 2025-12-14 02:36:49,339 log "GET /moderation/banned/ HTTP/1.1" 200 43166
+INFO 2025-12-14 02:36:49,410 log "GET /messages/unread-count/ HTTP/1.1" 200 47465
+INFO 2025-12-14 02:36:52,498 log "POST /moderation/unban/2/ HTTP/1.1" 302 0
+INFO 2025-12-14 02:36:52,656 log "GET /moderation/banned/ HTTP/1.1" 200 40485
+INFO 2025-12-14 02:36:52,729 log "GET /messages/unread-count/ HTTP/1.1" 200 47465
+INFO 2025-12-14 02:36:54,955 log "GET /accounts/profile/ HTTP/1.1" 200 60119
+INFO 2025-12-14 02:36:55,030 log "GET /messages/unread-count/ HTTP/1.1" 200 47465
+INFO 2025-12-14 02:37:25,231 log "GET /messages/unread-count/ HTTP/1.1" 200 47465
+INFO 2025-12-14 02:37:55,230 log "GET /messages/unread-count/ HTTP/1.1" 200 47465
+INFO 2025-12-14 02:38:25,241 log "GET /messages/unread-count/ HTTP/1.1" 200 47465
+INFO 2025-12-14 02:38:31,161 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\witcher_wiki\settings.py changed, reloading.
+INFO 2025-12-14 02:38:31,790 autoreload Watching for file changes with StatReloader
+INFO 2025-12-14 02:38:55,270 log "GET /messages/unread-count/ HTTP/1.1" 200 47465
+INFO 2025-12-14 02:39:14,990 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2025-12-14 02:39:16,591 autoreload Watching for file changes with StatReloader
+INFO 2025-12-14 02:39:25,258 log "GET /messages/unread-count/ HTTP/1.1" 200 47465
+INFO 2025-12-14 02:39:33,723 autoreload Watching for file changes with StatReloader
+INFO 2025-12-14 02:58:16,602 autoreload Watching for file changes with StatReloader
+INFO 2025-12-14 02:58:18,504 log "GET / HTTP/1.1" 200 44618
+INFO 2025-12-14 02:58:18,667 log "GET /messages/unread-count/ HTTP/1.1" 200 47465
+INFO 2025-12-14 02:58:25,333 log "GET /messages/unread-count/ HTTP/1.1" 200 47465
+INFO 2025-12-14 02:58:27,806 log "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-12-14 02:58:27,857 log "GET / HTTP/1.1" 200 40469
+INFO 2025-12-14 02:58:28,473 log "GET /login/ HTTP/1.1" 200 39702
+INFO 2025-12-14 02:58:31,084 log "POST /login/ HTTP/1.1" 302 0
+INFO 2025-12-14 02:58:31,268 log "GET / HTTP/1.1" 200 42306
+INFO 2025-12-14 02:58:31,352 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 02:59:02,242 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 02:59:26,342 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 02:59:32,227 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 03:00:02,338 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 03:00:05,910 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\middleware\ban_check_middleware.py changed, reloading.
+INFO 2025-12-14 03:00:06,649 autoreload Watching for file changes with StatReloader
+INFO 2025-12-14 03:00:15,061 log "GET / HTTP/1.1" 200 42306
+INFO 2025-12-14 03:00:15,207 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 03:00:27,227 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 03:00:32,235 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 03:00:37,589 log "GET /banned HTTP/1.1" 301 0
+INFO 2025-12-14 03:00:37,643 log "GET /banned/ HTTP/1.1" 200 2978
+INFO 2025-12-14 03:00:45,218 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 03:00:55,238 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 03:01:02,238 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 03:01:15,239 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 03:01:25,328 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 03:01:32,238 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 03:01:45,239 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 03:01:48,804 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\middleware\ban_check_middleware.py changed, reloading.
+INFO 2025-12-14 03:01:49,444 autoreload Watching for file changes with StatReloader
+INFO 2025-12-14 03:01:51,265 log "GET / HTTP/1.1" 302 0
+INFO 2025-12-14 03:01:51,341 log "GET /banned/ HTTP/1.1" 200 2978
+INFO 2025-12-14 03:02:02,220 log "GET /messages/unread-count/ HTTP/1.1" 302 0
+INFO 2025-12-14 03:02:02,272 log "GET /banned/ HTTP/1.1" 200 2978
+INFO 2025-12-14 03:03:32,714 log "GET /logout/ HTTP/1.1" 302 0
+INFO 2025-12-14 03:03:32,768 log "GET /banned/ HTTP/1.1" 200 2978
+INFO 2025-12-14 03:03:35,730 log "GET /logout/ HTTP/1.1" 302 0
+INFO 2025-12-14 03:03:35,884 log "GET /banned/ HTTP/1.1" 200 2978
+INFO 2025-12-14 03:03:45,860 log "GET / HTTP/1.1" 302 0
+INFO 2025-12-14 03:03:45,920 log "GET /banned/ HTTP/1.1" 200 2978
+INFO 2025-12-14 03:03:48,220 log "GET /logout/ HTTP/1.1" 302 0
+INFO 2025-12-14 03:03:48,276 log "GET /banned/ HTTP/1.1" 200 2978
+INFO 2025-12-14 03:03:58,048 log "GET /banned/ HTTP/1.1" 200 3765
+INFO 2025-12-14 03:04:39,515 log "GET /banned/ HTTP/1.1" 200 3778
+INFO 2025-12-14 03:08:11,889 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\middleware\ban_check_middleware.py changed, reloading.
+INFO 2025-12-14 03:08:12,567 autoreload Watching for file changes with StatReloader
+INFO 2025-12-14 03:11:12,666 log "GET / HTTP/1.1" 302 0
+INFO 2025-12-14 03:11:12,741 log "GET /banned/ HTTP/1.1" 200 3778
+WARNING 2025-12-14 03:11:13,770 log Method Not Allowed (GET): /logout/
+WARNING 2025-12-14 03:11:13,773 log "GET /logout/ HTTP/1.1" 405 0
+INFO 2025-12-14 03:11:46,287 log "GET /banned/ HTTP/1.1" 200 3777
+INFO 2025-12-14 03:11:48,201 log "GET /login/ HTTP/1.1" 302 0
+INFO 2025-12-14 03:11:48,254 log "GET /banned/ HTTP/1.1" 200 3777
+INFO 2025-12-14 03:11:49,378 log "GET /login/ HTTP/1.1" 302 0
+INFO 2025-12-14 03:11:49,430 log "GET /banned/ HTTP/1.1" 200 3777
+INFO 2025-12-14 03:11:49,710 log "GET /login/ HTTP/1.1" 302 0
+INFO 2025-12-14 03:11:49,762 log "GET /banned/ HTTP/1.1" 200 3777
+INFO 2025-12-14 03:11:49,993 log "GET /login/ HTTP/1.1" 302 0
+INFO 2025-12-14 03:11:50,048 log "GET /banned/ HTTP/1.1" 200 3777
+ERROR 2025-12-14 03:12:08,690 log Internal Server Error: /banned/
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py", line 4925, in banned_page
+    return render(request, 'wiki/banned.html', context)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 174, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 166, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\defaulttags.py", line 511, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\urls\resolvers.py", line 842, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'accounts/login' not found. 'accounts/login' is not a valid view function or pattern name.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py", line 4929, in banned_page
+    return redirect('home')
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\shortcuts.py", line 51, in redirect
+    resolve_url(to, *args, **kwargs),
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\shortcuts.py", line 184, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\urls\resolvers.py", line 842, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'home' not found. 'home' is not a valid view function or pattern name.
+ERROR 2025-12-14 03:12:08,695 log "GET /banned/ HTTP/1.1" 500 151811
+INFO 2025-12-14 03:12:17,348 log "GET /banned/ HTTP/1.1" 200 3786
+INFO 2025-12-14 03:12:18,543 log "GET /accounts/login/ HTTP/1.1" 200 41110
+INFO 2025-12-14 03:12:18,625 log "GET /messages/unread-count/ HTTP/1.1" 302 0
+INFO 2025-12-14 03:12:18,678 log "GET /banned/ HTTP/1.1" 200 3786
+INFO 2025-12-14 03:12:23,154 log "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-14 03:12:23,202 log "GET / HTTP/1.1" 302 0
+INFO 2025-12-14 03:12:23,251 log "GET /banned/ HTTP/1.1" 200 3786
+INFO 2025-12-14 03:12:26,820 log "GET /liked-articles/ HTTP/1.1" 302 0
+INFO 2025-12-14 03:12:26,874 log "GET /banned/ HTTP/1.1" 200 3786
+WARNING 2025-12-14 03:12:32,049 log Forbidden (CSRF token from POST incorrect.): /accounts/logout/
+WARNING 2025-12-14 03:12:32,051 log "POST /accounts/logout/ HTTP/1.1" 403 2545
+WARNING 2025-12-14 03:12:37,569 log Forbidden (CSRF token from POST incorrect.): /accounts/logout/
+WARNING 2025-12-14 03:12:37,572 log "POST /accounts/logout/ HTTP/1.1" 403 2545
+INFO 2025-12-14 03:12:56,023 log "GET /messages/unread-count/ HTTP/1.1" 302 0
+INFO 2025-12-14 03:12:56,075 log "GET /banned/ HTTP/1.1" 200 3786
+INFO 2025-12-14 03:12:58,166 log "GET /banned/ HTTP/1.1" 200 3787
+INFO 2025-12-14 03:12:59,178 log "GET /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-12-14 03:12:59,227 log "GET / HTTP/1.1" 302 0
+INFO 2025-12-14 03:12:59,288 log "GET /banned/ HTTP/1.1" 200 3787
+INFO 2025-12-14 03:12:59,959 log "GET /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-12-14 03:13:00,008 log "GET / HTTP/1.1" 302 0
+INFO 2025-12-14 03:13:00,183 log "GET /banned/ HTTP/1.1" 200 3787
+INFO 2025-12-14 03:13:00,754 log "GET /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-12-14 03:13:00,801 log "GET / HTTP/1.1" 302 0
+INFO 2025-12-14 03:13:00,853 log "GET /banned/ HTTP/1.1" 200 3787
+ERROR 2025-12-14 03:13:12,535 log Internal Server Error: /banned/
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\urls\base.py", line 81, in reverse
+    extra, resolver = resolver.namespace_dict[ns]
+                      ~~~~~~~~~~~~~~~~~~~~~~~^^^^
+KeyError: 'home'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py", line 4925, in banned_page
+    return render(request, 'wiki/banned.html', context)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 174, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 166, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\defaulttags.py", line 511, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\urls\base.py", line 92, in reverse
+    raise NoReverseMatch("%s is not a registered namespace" % key)
+django.urls.exceptions.NoReverseMatch: 'home' is not a registered namespace
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py", line 4929, in banned_page
+    return redirect('home')
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\shortcuts.py", line 51, in redirect
+    resolve_url(to, *args, **kwargs),
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\shortcuts.py", line 184, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\urls\resolvers.py", line 842, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'home' not found. 'home' is not a valid view function or pattern name.
+ERROR 2025-12-14 03:13:12,539 log "GET /banned/ HTTP/1.1" 500 154488
+INFO 2025-12-14 03:13:18,516 log "GET /banned/ HTTP/1.1" 200 3778
+WARNING 2025-12-14 03:13:19,646 log Method Not Allowed (GET): /logout/
+WARNING 2025-12-14 03:13:19,648 log "GET /logout/ HTTP/1.1" 405 0
+ERROR 2025-12-14 03:13:43,800 log Internal Server Error: /banned/
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\urls\base.py", line 81, in reverse
+    extra, resolver = resolver.namespace_dict[ns]
+                      ~~~~~~~~~~~~~~~~~~~~~~~^^^^
+KeyError: 'user'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py", line 4925, in banned_page
+    return render(request, 'wiki/banned.html', context)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 174, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 166, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\defaulttags.py", line 511, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\urls\base.py", line 92, in reverse
+    raise NoReverseMatch("%s is not a registered namespace" % key)
+django.urls.exceptions.NoReverseMatch: 'user' is not a registered namespace
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py", line 4929, in banned_page
+    return redirect('home')
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\shortcuts.py", line 51, in redirect
+    resolve_url(to, *args, **kwargs),
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\shortcuts.py", line 184, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\urls\resolvers.py", line 842, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'home' not found. 'home' is not a valid view function or pattern name.
+ERROR 2025-12-14 03:13:43,803 log "GET /banned/ HTTP/1.1" 500 154488
+INFO 2025-12-14 03:14:08,971 log "GET /banned/ HTTP/1.1" 200 3778
+WARNING 2025-12-14 03:14:23,004 log Method Not Allowed (GET): /logout/
+WARNING 2025-12-14 03:14:23,006 log "GET /logout/ HTTP/1.1" 405 0
+INFO 2025-12-14 03:15:46,500 log "GET /banned/ HTTP/1.1" 200 4192
+INFO 2025-12-14 03:15:47,799 log "POST /logout/ HTTP/1.1" 302 0
+INFO 2025-12-14 03:15:47,852 log "GET / HTTP/1.1" 200 40469
+INFO 2025-12-14 03:15:53,445 log "GET /search/ HTTP/1.1" 200 51381
+INFO 2025-12-14 03:15:55,482 log "GET /search/?tag=%D1%85%D1%83%D0%B9 HTTP/1.1" 200 55143
+INFO 2025-12-14 03:15:58,391 log "GET / HTTP/1.1" 200 40469
+INFO 2025-12-14 03:16:00,574 log "GET /register/ HTTP/1.1" 200 56467
+INFO 2025-12-14 03:16:01,676 log "GET /login/ HTTP/1.1" 200 39365
+INFO 2025-12-14 03:16:04,188 log "POST /login/ HTTP/1.1" 302 0
+INFO 2025-12-14 03:16:04,258 log "GET / HTTP/1.1" 200 44618
+INFO 2025-12-14 03:16:04,338 log "GET /messages/unread-count/ HTTP/1.1" 200 47465
+INFO 2025-12-14 03:16:06,486 log "GET /moderation/banned/ HTTP/1.1" 200 43179
+INFO 2025-12-14 03:16:06,563 log "GET /messages/unread-count/ HTTP/1.1" 200 47465
+INFO 2025-12-14 03:16:08,541 log "POST /moderation/unban/2/ HTTP/1.1" 302 0
+INFO 2025-12-14 03:16:08,598 log "GET /moderation/banned/ HTTP/1.1" 200 40485
+INFO 2025-12-14 03:16:08,674 log "GET /messages/unread-count/ HTTP/1.1" 200 47465
+INFO 2025-12-14 03:16:12,199 log "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-12-14 03:16:12,252 log "GET / HTTP/1.1" 200 40469
+INFO 2025-12-14 03:16:12,792 log "GET /login/ HTTP/1.1" 200 39702
+INFO 2025-12-14 03:16:15,100 log "POST /login/ HTTP/1.1" 302 0
+INFO 2025-12-14 03:16:15,164 log "GET / HTTP/1.1" 200 42306
+INFO 2025-12-14 03:16:15,248 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 03:16:17,830 log "GET /article/khui-1/ HTTP/1.1" 200 70375
+INFO 2025-12-14 03:16:17,999 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 03:16:23,583 log "POST /article/khui-1/ HTTP/1.1" 200 70835
+INFO 2025-12-14 03:16:23,660 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 03:16:27,870 log "POST /article/khui-1/ HTTP/1.1" 200 70835
+INFO 2025-12-14 03:16:28,043 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 03:16:32,501 log "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-12-14 03:16:32,553 log "GET / HTTP/1.1" 200 40469
+INFO 2025-12-14 03:16:33,082 log "GET /login/ HTTP/1.1" 200 39548
+INFO 2025-12-14 03:16:35,664 log "POST /login/ HTTP/1.1" 302 0
+INFO 2025-12-14 03:16:35,728 log "GET / HTTP/1.1" 200 44618
+INFO 2025-12-14 03:16:35,807 log "GET /messages/unread-count/ HTTP/1.1" 200 47465
+INFO 2025-12-14 03:16:37,450 log "GET /article/create/ HTTP/1.1" 200 41733
+INFO 2025-12-14 03:16:37,526 log "GET /messages/unread-count/ HTTP/1.1" 200 47465
+INFO 2025-12-14 03:16:38,700 log "POST /article/create/ HTTP/1.1" 200 68479
+INFO 2025-12-14 03:16:38,777 log "GET /messages/unread-count/ HTTP/1.1" 200 47465
+INFO 2025-12-14 03:16:49,630 log "POST /article/create/ HTTP/1.1" 302 0
+INFO 2025-12-14 03:16:49,709 log "GET /article/khui-3/ HTTP/1.1" 200 74361
+INFO 2025-12-14 03:16:49,788 log "GET /messages/unread-count/ HTTP/1.1" 200 47465
+INFO 2025-12-14 03:16:53,908 log "GET / HTTP/1.1" 200 44842
+INFO 2025-12-14 03:16:53,985 log "GET /messages/unread-count/ HTTP/1.1" 200 47465
+INFO 2025-12-14 03:17:18,738 log "GET /moderation/search/ HTTP/1.1" 200 43059
+INFO 2025-12-14 03:17:18,817 log "GET /messages/unread-count/ HTTP/1.1" 200 47465
+INFO 2025-12-14 03:17:20,394 log "GET /moderation/search/?username=user1&email= HTTP/1.1" 200 47585
+INFO 2025-12-14 03:17:20,474 log "GET /messages/unread-count/ HTTP/1.1" 200 47465
+INFO 2025-12-14 03:17:22,446 log "GET /moderation/ban/2/ HTTP/1.1" 200 43472
+INFO 2025-12-14 03:17:22,524 log "GET /messages/unread-count/ HTTP/1.1" 200 47465
+INFO 2025-12-14 03:17:25,347 log "POST /moderation/ban/2/ HTTP/1.1" 302 0
+INFO 2025-12-14 03:17:25,412 log "GET /moderation/banned/ HTTP/1.1" 200 43179
+INFO 2025-12-14 03:17:25,489 log "GET /messages/unread-count/ HTTP/1.1" 200 47465
+INFO 2025-12-14 03:17:28,238 log "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-12-14 03:17:28,303 log "GET / HTTP/1.1" 200 40693
+INFO 2025-12-14 03:17:28,802 log "GET /login/ HTTP/1.1" 200 39700
+INFO 2025-12-14 03:17:31,730 log "POST /login/ HTTP/1.1" 302 0
+INFO 2025-12-14 03:17:31,906 log "GET / HTTP/1.1" 302 0
+INFO 2025-12-14 03:17:31,963 log "GET /banned/ HTTP/1.1" 200 4032
+INFO 2025-12-14 03:17:33,499 log "GET /login/ HTTP/1.1" 302 0
+INFO 2025-12-14 03:17:34,614 log "POST /logout/ HTTP/1.1" 302 0
+INFO 2025-12-14 03:17:34,777 log "GET / HTTP/1.1" 200 40693
+INFO 2025-12-14 03:17:35,469 log "GET /login/ HTTP/1.1" 200 39365
+INFO 2025-12-14 03:17:37,933 log "POST /login/ HTTP/1.1" 302 0
+INFO 2025-12-14 03:17:38,005 log "GET / HTTP/1.1" 200 44842
+INFO 2025-12-14 03:17:38,181 log "GET /messages/unread-count/ HTTP/1.1" 200 47465
+INFO 2025-12-14 03:17:40,318 log "GET /moderation/banned/ HTTP/1.1" 200 43179
+INFO 2025-12-14 03:17:40,503 log "GET /messages/unread-count/ HTTP/1.1" 200 47465
+INFO 2025-12-14 03:17:42,269 log "POST /moderation/unban/2/ HTTP/1.1" 302 0
+INFO 2025-12-14 03:17:42,447 log "GET /moderation/banned/ HTTP/1.1" 200 40485
+INFO 2025-12-14 03:17:42,530 log "GET /messages/unread-count/ HTTP/1.1" 200 47465
+INFO 2025-12-14 03:17:45,464 log "GET /moderation/search/ HTTP/1.1" 200 43059
+INFO 2025-12-14 03:17:45,651 log "GET /messages/unread-count/ HTTP/1.1" 200 47465
+INFO 2025-12-14 03:17:47,778 log "GET /moderation/search/?username=user1&email= HTTP/1.1" 200 47585
+INFO 2025-12-14 03:17:47,855 log "GET /messages/unread-count/ HTTP/1.1" 200 47465
+INFO 2025-12-14 03:17:49,368 log "GET /moderation/warn/2/ HTTP/1.1" 200 40485
+INFO 2025-12-14 03:17:49,444 log "GET /messages/unread-count/ HTTP/1.1" 200 47465
+INFO 2025-12-14 03:17:55,879 log "POST /moderation/warn/2/ HTTP/1.1" 302 0
+INFO 2025-12-14 03:17:56,059 log "GET /moderation/user/2/ HTTP/1.1" 200 58700
+INFO 2025-12-14 03:17:56,142 log "GET /messages/unread-count/ HTTP/1.1" 200 47465
+INFO 2025-12-14 03:18:02,872 log "GET /moderation/warn/2/ HTTP/1.1" 200 40485
+INFO 2025-12-14 03:18:03,056 log "GET /messages/unread-count/ HTTP/1.1" 200 47465
+INFO 2025-12-14 03:18:05,679 log "POST /moderation/warn/2/ HTTP/1.1" 302 0
+INFO 2025-12-14 03:18:05,745 log "GET /moderation/user/2/ HTTP/1.1" 200 60800
+INFO 2025-12-14 03:18:05,923 log "GET /messages/unread-count/ HTTP/1.1" 200 47465
+INFO 2025-12-14 03:18:15,617 log "GET /moderation/warn/2/ HTTP/1.1" 200 40485
+INFO 2025-12-14 03:18:15,705 log "GET /messages/unread-count/ HTTP/1.1" 200 47465
+INFO 2025-12-14 03:18:18,563 log "POST /moderation/warn/2/ HTTP/1.1" 302 0
+INFO 2025-12-14 03:18:18,629 log "GET /moderation/user/2/ HTTP/1.1" 200 62900
+INFO 2025-12-14 03:18:18,706 log "GET /messages/unread-count/ HTTP/1.1" 200 47465
+INFO 2025-12-14 03:18:20,034 log "GET /moderation/warn/2/ HTTP/1.1" 200 40485
+INFO 2025-12-14 03:18:20,111 log "GET /messages/unread-count/ HTTP/1.1" 200 47465
+INFO 2025-12-14 03:18:22,774 log "POST /moderation/warn/2/ HTTP/1.1" 302 0
+INFO 2025-12-14 03:18:22,852 log "GET /moderation/user/2/ HTTP/1.1" 200 65000
+INFO 2025-12-14 03:18:22,932 log "GET /messages/unread-count/ HTTP/1.1" 200 47465
+INFO 2025-12-14 03:18:28,764 log "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-12-14 03:18:28,922 log "GET / HTTP/1.1" 200 40693
+INFO 2025-12-14 03:18:29,404 log "GET /login/ HTTP/1.1" 200 40418
+INFO 2025-12-14 03:18:33,140 log "POST /login/ HTTP/1.1" 302 0
+INFO 2025-12-14 03:18:33,205 log "GET / HTTP/1.1" 200 42530
+INFO 2025-12-14 03:18:33,282 log "GET /messages/unread-count/ HTTP/1.1" 200 45153
+INFO 2025-12-14 03:18:37,301 log "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-12-14 03:18:37,354 log "GET / HTTP/1.1" 200 40693
+INFO 2025-12-14 03:18:37,870 log "GET /login/ HTTP/1.1" 200 39548
+INFO 2025-12-14 03:18:40,114 log "POST /login/ HTTP/1.1" 302 0
+INFO 2025-12-14 03:18:40,180 log "GET / HTTP/1.1" 200 44842
+INFO 2025-12-14 03:18:40,260 log "GET /messages/unread-count/ HTTP/1.1" 200 47465
+INFO 2025-12-14 03:19:11,250 log "GET /messages/unread-count/ HTTP/1.1" 200 47465
+INFO 2025-12-14 03:19:41,245 log "GET /messages/unread-count/ HTTP/1.1" 200 47465
+INFO 2025-12-14 03:20:11,229 log "GET /messages/unread-count/ HTTP/1.1" 200 47465

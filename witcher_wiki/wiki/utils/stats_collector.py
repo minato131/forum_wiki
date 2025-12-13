@@ -1,6 +1,6 @@
 # wiki/utils/stats_collector.py
 from django.utils import timezone
-from django.db.models import Count, Sum, Avg, Q
+from django.db.models import Count, Sum, Avg, Q, Max
 from django.contrib.auth import get_user_model
 from ..models import Article, Category, Comment, ArticleStat, CategoryStat, SearchQuery, SiteStat, SearchHistory
 
