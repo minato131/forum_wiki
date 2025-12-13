@@ -116,6 +116,7 @@ def user_detail(request, user_id):
                     duration=ban_form.cleaned_data['duration'],
                     notes=ban_form.cleaned_data['notes']
                 )
+                messages.success(request, f'Пользователь {user.username} забанен')
                 return redirect('wiki:user_detail', user_id=user.id)
 
         elif action == 'warning':
@@ -128,24 +129,38 @@ def user_detail(request, user_id):
                     reason=warning_form.cleaned_data['reason'],
                     related_content=warning_form.cleaned_data['related_content']
                 )
+                messages.success(request, f'Пользователю {user.username} выдано предупреждение')
                 return redirect('wiki:user_detail', user_id=user.id)
+            else:
+                # Если форма не валидна, показываем ошибки
+                for field, errors in warning_form.errors.items():
+                    for error in errors:
+                        messages.error(request, f'Ошибка в поле "{field}": {error}')
 
         elif action == 'unban':
-            ModerationService.unban_user(
+            success = ModerationService.unban_user(
                 user=user,
                 unbanned_by=request.user,
                 reason=request.POST.get('unban_reason', '')
             )
+            if success:
+                messages.success(request, f'Пользователь {user.username} разбанен')
+            else:
+                messages.error(request, 'Не удалось разбанить пользователя')
             return redirect('wiki:user_detail', user_id=user.id)
 
         elif action == 'remove_warning':
             warning_id = request.POST.get('warning_id')
             if warning_id:
-                ModerationService.remove_warning(
+                success = ModerationService.remove_warning(
                     warning_id=warning_id,
                     removed_by=request.user,
                     reason=request.POST.get('remove_reason', '')
                 )
+                if success:
+                    messages.success(request, 'Предупреждение снято')
+                else:
+                    messages.error(request, 'Предупреждение не найдено')
             return redirect('wiki:user_detail', user_id=user.id)
 
     return render(request, 'wiki/moderation/user_detail.html', {
@@ -236,3 +251,119 @@ def clear_old_logs(request):
         messages.success(request, f'Удалено {deleted_count} старых логов (старше 30 дней).')
 
     return redirect('wiki:moderation_logs')
+
+
+@staff_required
+def warn_user(request, user_id):
+    """Выдать предупреждение пользователю (через отдельную форму)"""
+    user = get_object_or_404(User, id=user_id)
+
+    if request.method == 'POST':
+        form = UserWarningForm(request.POST)
+        if form.is_valid():
+            warning = ModerationService.issue_warning(
+                user=user,
+                issued_by=request.user,
+                severity=form.cleaned_data['severity'],
+                reason=form.cleaned_data['reason'],
+                related_content=form.cleaned_data.get('related_content', '')
+            )
+            # ДОБАВЬТЕ messages здесь
+            messages.success(request, f'Предупреждение выдано пользователю {user.username}')
+            return redirect('wiki:user_detail', user_id=user.id)
+    else:
+        form = UserWarningForm()
+
+    return render(request, 'wiki/moderation/warn_user.html', {
+        'user': user,
+        'form': form,
+    })
+
+
+@staff_required
+def ban_user(request, user_id):
+    """Забанить пользователя (через отдельную форму)"""
+    user = get_object_or_404(User, id=user_id)
+
+    if request.method == 'POST':
+        form = UserBanForm(request.POST)
+        if form.is_valid():
+            ban = ModerationService.ban_user(
+                user=user,
+                banned_by=request.user,
+                reason=form.cleaned_data['reason'],
+                duration=form.cleaned_data['duration'],
+                notes=form.cleaned_data['notes']
+            )
+            # ДОБАВЬТЕ messages здесь
+            messages.success(request, f'Пользователь {user.username} забанен')
+            return redirect('wiki:banned_users_list')
+    else:
+        form = UserBanForm()
+
+    return render(request, 'wiki/moderation/ban_user.html', {
+        'user': user,
+        'form': form,
+    })
+
+@staff_required
+def unban_user(request, user_id):
+    """Разбанить пользователя"""
+    user = get_object_or_404(User, id=user_id)
+
+    if request.method == 'POST':
+        reason = request.POST.get('reason', 'Досрочное снятие бана')
+        success = ModerationService.unban_user(
+            user=user,
+            unbanned_by=request.user,
+            reason=reason
+        )
+        # ДОБАВЬТЕ messages здесь
+        if success:
+            messages.success(request, f'Пользователь {user.username} разбанен')
+        else:
+            messages.error(request, 'Не удалось разбанить пользователя')
+
+    return redirect('wiki:banned_users_list')
+
+@staff_required
+def remove_warning(request, warning_id):
+    """Удалить предупреждение"""
+    from .models import UserWarning
+
+    warning = get_object_or_404(UserWarning, id=warning_id)
+
+    if request.method == 'POST':
+        reason = request.POST.get('reason', 'Снятие предупреждения')
+        ModerationService.remove_warning(
+            warning_id=warning_id,
+            removed_by=request.user,
+            reason=reason
+        )
+        messages.success(request, 'Предупреждение удалено')
+
+    return redirect('wiki:warned_users_list')
+
+
+@staff_required
+def remove_expired_ban(request, ban_id):
+    """Удалить истекший бан"""
+    from .models import UserBan
+
+    ban = get_object_or_404(UserBan, id=ban_id)
+
+    if request.method == 'POST':
+        if ban.is_expired():
+            ban.delete()
+            ModerationService.create_moderation_log(
+                moderator=request.user,
+                target_user=ban.user,
+                action_type='remove_expired_ban',
+                details=f'Удален истекший бан #{ban.id}'
+            )
+            messages.success(request, 'Истекший бан удален')
+        else:
+            messages.error(request, 'Бан еще не истек')
+
+    return redirect('wiki:banned_users_list')
+

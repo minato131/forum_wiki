@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Доступ ограничен{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 800px; margin: 50px auto; padding: 20px;">
+    <div style="background: #2d2d2d; border: 2px solid #dc3545; border-radius: 15px; padding: 40px; text-align: center;">
+        <div style="font-size: 5em; color: #dc3545; margin-bottom: 20px;">
+            🚫
+        </div>
+        
+        <h1 style="color: #dc3545; margin-bottom: 20px; font-family: 'Cinzel', serif;">
+            Доступ ограничен
+        </h1>
+        
+        <div style="background: rgba(220, 53, 69, 0.1); border-radius: 10px; padding: 25px; margin-bottom: 30px;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; text-align: left; margin-bottom: 20px;">
+                <div>
+                    <div style="color: #95a5a6; font-size: 0.9em;">Причина:</div>
+                    <div style="color: #e74c3c; font-weight: bold; font-size: 1.2em;">{{ reason }}</div>
+                </div>
+                <div>
+                    <div style="color: #95a5a6; font-size: 0.9em;">Длительность:</div>
+                    <div style="color: #e74c3c; font-weight: bold; font-size: 1.2em;">{{ duration }}</div>
+                </div>
+            </div>
+            
+            <div style="text-align: left; margin-bottom: 20px;">
+                <div style="color: #95a5a6; font-size: 0.9em;">Забанен до:</div>
+                <div style="color: #FFD700; font-weight: bold; font-size: 1.3em;">{{ expires_at }}</div>
+            </div>
+            
+            {% if notes %}
+            <div style="text-align: left; margin-bottom: 20px;">
+                <div style="color: #95a5a6; font-size: 0.9em;">Дополнительная информация:</div>
+                <div style="color: #e8e8e8; font-style: italic;">{{ notes }}</div>
+            </div>
+            {% endif %}
+            
+            <div style="text-align: left;">
+                <div style="color: #95a5a6; font-size: 0.9em;">Забанил:</div>
+                <div style="color: #3498db;">{{ banned_by }}</div>
+            </div>
+        </div>
+        
+        <div style="color: #e8e8e8; margin-bottom: 30px; line-height: 1.6;">
+            <p>Вам ограничен доступ к следующим функциям сайта:</p>
+            <ul style="text-align: left; display: inline-block; color: #95a5a6;">
+                <li>Создание новых статей</li>
+                <li>Добавление комментариев</li>
+                <li>Отправка личных сообщений</li>
+                <li>Редактирование контента</li>
+                <li>Участие в обсуждениях</li>
+            </ul>
+        </div>
+        
+        <div style="display: flex; gap: 15px; justify-content: center;">
+            <a href="{% url 'wiki:home' %}" 
+               style="background: #6c757d; color: white; padding: 12px 30px; border-radius: 8px; text-decoration: none; font-weight: bold;">
+                На главную
+            </a>
+            <a href="{% url 'wiki:logout' %}" 
+               style="background: #D4AF37; color: #1a1a1a; padding: 12px 30px; border-radius: 8px; text-decoration: none; font-weight: bold;">
+                Выйти из аккаунта
+            </a>
+        </div>
+        
+        <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(220, 53, 69, 0.3);">
+            <p style="color: #95a5a6; font-size: 0.9em;">
+                Если вы считаете, что бан выдан по ошибке, свяжитесь с администрацией сайта.
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

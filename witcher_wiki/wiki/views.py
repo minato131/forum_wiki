@@ -105,6 +105,8 @@ from .moderation_views import (
     moderation_logs,
     clear_old_logs,
 )
+from .middleware.censorship_middleware import CensorshipMiddleware
+from wiki.models import UserBan
 
 def clean_latex_from_content(content):
     """
@@ -466,7 +468,7 @@ def article_create(request):
         excerpt = request.POST.get('excerpt', '').strip()
         category_ids = request.POST.getlist('categories')
         tags_input = request.POST.get('tags', '').strip()
-        form = ArticleForm(request.POST, request.FILES, request=request)
+        form = ArticleForm(request.POST, request.FILES)
 
         # Проверка обязательных полей
         if not title or not content:
@@ -4878,3 +4880,48 @@ def user_warnings_list(request):
     return render(request, 'wiki/user_warnings_list.html', {
         'users_with_warnings': users_with_warnings,
     })
+
+
+def banned_page(request):
+    """Страница для забаненных пользователей"""
+    if not request.user.is_authenticated:
+        return redirect('wiki:login')
+
+    from wiki.models import UserBan
+    active_ban = UserBan.objects.filter(
+        user=request.user,
+        is_active=True
+    ).first()
+
+    if not active_ban or active_ban.is_expired():
+        return redirect('wiki:home')
+
+    context = {
+        'ban': active_ban,
+        'reason': active_ban.get_reason_display(),
+        'duration': active_ban.get_duration_display(),
+        'expires_at': active_ban.expires_at.strftime('%d.%m.%Y %H:%M') if active_ban.expires_at else 'Навсегда',
+        'notes': active_ban.notes,
+        'banned_by': active_ban.banned_by.username if active_ban.banned_by else 'Система',
+    }
+
+    return render(request, 'wiki/banned.html', context)
+
+
+def check_user_ban(user):
+    """Проверяет, забанен ли пользователь"""
+    if not user.is_authenticated:
+        return None
+
+    from wiki.models import UserBan
+    from django.utils import timezone
+
+    active_ban = UserBan.objects.filter(
+        user=user,
+        is_active=True
+    ).first()
+
+    if active_ban and not active_ban.is_expired():
+        return active_ban
+
+    return None

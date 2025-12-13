@@ -3,35 +3,57 @@ from django.contrib.auth.models import User
 from .models import UserBan, UserWarning
 
 
-class UserBanForm(forms.ModelForm):
-    """Форма для бана пользователя"""
+# Исправленная версия UserBanForm
+class UserBanForm(forms.Form):
+    REASON_CHOICES = [
+        ('spam', 'Спам и реклама'),
+        ('abuse', 'Оскорбления и харассмент'),
+        ('hate_speech', 'Разжигание ненависти'),
+        ('fake_news', 'Распространение ложной информации'),
+        ('illegal_content', 'Незаконный контент'),
+        ('multiple_violations', 'Множественные нарушения'),
+        ('nudity', 'Непристойный контент'),
+        ('copyright', 'Нарушение авторских прав'),
+        ('impersonation', 'Выдача себя за другого'),
+        ('threats', 'Угрозы и запугивание'),
+        ('other', 'Другое'),
+    ]
 
-    class Meta:
-        model = UserBan
-        fields = ['reason', 'duration', 'notes']
-        widgets = {
-            'reason': forms.Select(attrs={
-                'class': 'form-control',
-                'style': 'width: 300px;'
-            }),
-            'duration': forms.Select(attrs={
-                'class': 'form-control',
-                'style': 'width: 300px;'
-            }),
-            'notes': forms.Textarea(attrs={
-                'class': 'form-control',
-                'rows': 4,
-                'placeholder': 'Дополнительные детали или пояснения...',
-                'style': 'width: 100%; max-width: 500px;'
-            }),
-        }
+    DURATION_CHOICES = [
+        ('1h', '1 час'),
+        ('12h', '12 часов'),
+        ('1d', '1 день'),
+        ('3d', '3 дня'),
+        ('7d', '7 дней'),
+        ('30d', '30 дней'),
+        ('permanent', 'Постоянно'),
+    ]
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['reason'].label = 'Причина бана'
-        self.fields['duration'].label = 'Длительность бана'
-        self.fields['notes'].label = 'Заметки (опционально)'
+    reason = forms.ChoiceField(
+        choices=REASON_CHOICES,
+        label='Причина бана*',
+        widget=forms.Select(attrs={
+            'style': 'width: 100%; padding: 12px; background: #1a1a1a; border: 1px solid #D4AF37; border-radius: 5px; color: #e8e8e8;'
+        })
+    )
 
+    duration = forms.ChoiceField(
+        choices=DURATION_CHOICES,
+        label='Длительность*',
+        widget=forms.Select(attrs={
+            'style': 'width: 100%; padding: 12px; background: #1a1a1a; border: 1px solid #D4AF37; border-radius: 5px; color: #e8e8e8;'
+        })
+    )
+
+    notes = forms.CharField(
+        required=False,
+        label='Дополнительные заметки',
+        widget=forms.Textarea(attrs={
+            'rows': 4,
+            'style': 'width: 100%; padding: 12px; background: #1a1a1a; border: 1px solid #D4AF37; border-radius: 5px; color: #e8e8e8;',
+            'placeholder': 'Внутренние заметки для других модераторов...'
+        })
+    )
 
 class UserWarningForm(forms.ModelForm):
     """Форма для выдачи предупреждения"""

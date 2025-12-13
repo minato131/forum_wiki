@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Выдать предупреждение{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 800px; margin: 20px auto; padding: 20px;">
+    <h1 style="color: #D4AF37; margin-bottom: 20px; border-bottom: 2px solid #D4AF37; padding-bottom: 10px;">
+        ⚠️ Выдать предупреждение
+    </h1>
+    
+    <div style="background: #2d2d2d; border: 1px solid #ffc107; border-radius: 10px; padding: 30px;">
+        <div style="margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid rgba(255, 193, 7, 0.3);">
+            <h3 style="color: #FFD700; margin-bottom: 10px;">Пользователь</h3>
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <div style="font-size: 2em;">👤</div>
+                <div>
+                    <div style="color: #e8e8e8; font-size: 1.2em; font-weight: bold;">{{ user.username }}</div>
+                    <div style="color: #95a5a6;">{{ user.email }}</div>
+                </div>
+            </div>
+        </div>
+        
+        <form method="post">
+            {% csrf_token %}
+            
+            <div style="margin-bottom: 25px;">
+                <label style="display: block; color: #FFD700; margin-bottom: 8px; font-weight: bold;">
+                    Уровень серьезности
+                </label>
+                {{ form.severity }}
+            </div>
+
+            <div style="margin-bottom: 25px;">
+                <label style="display: block; color: #FFD700; margin-bottom: 8px; font-weight: bold;">
+                    Причина предупреждения *
+                </label>
+                {{ form.reason }}
+                {% if form.reason.errors %}
+                <div style="color: #dc3545; margin-top: 5px; font-size: 0.9em;">
+                    {{ form.reason.errors }}
+                </div>
+                {% endif %}
+            </div>
+
+            <div style="margin-bottom: 30px;">
+                <label style="display: block; color: #FFD700; margin-bottom: 8px; font-weight: bold;">
+                    Связанный контент (опционально)
+                </label>
+                {{ form.related_content }}
+                <small style="color: #95a5a6; display: block; margin-top: 5px;">
+                    Укажите ссылку на статью, комментарий или другое содержание, к которому относится предупреждение
+                </small>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; gap: 15px;">
+                <a href="{% url 'wiki:user_detail' user.id %}"
+                   style="background: #6c757d; color: white; padding: 12px 25px; border-radius: 8px; text-decoration: none; font-weight: bold; text-align: center; flex: 1;">
+                    ← Отмена
+                </a>
+                <button type="submit"
+                        style="background: linear-gradient(to right, #ffc107, #e0a800); color: #1a1a1a; border: none; padding: 12px 25px; border-radius: 8px; font-weight: bold; cursor: pointer; flex: 1;">
+                    ⚠️ Выдать предупреждение
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+input, select, textarea {
+    width: 100%;
+    padding: 12px;
+    background: #1a1a1a;
+    border: 1px solid #D4AF37;
+    border-radius: 5px;
+    color: #e8e8e8;
+    font-family: 'Georgia', serif;
+    font-size: 16px;
+    transition: all 0.3s;
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: #FFD700;
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+}
+
+select {
+    cursor: pointer;
+}
+
+textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+</style>
+{% endblock %}

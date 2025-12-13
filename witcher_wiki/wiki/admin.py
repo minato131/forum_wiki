@@ -73,25 +73,63 @@ class ArticleAdmin(admin.ModelAdmin):
             'classes': ('collapse',)
         }),
     )
+
+
 @admin.register(UserBan)
 class UserBanAdmin(admin.ModelAdmin):
-    list_display = ('user', 'reason', 'duration', 'start_time', 'is_active')
-    list_filter = ('reason', 'duration', 'is_active')
-    search_fields = ('user__username', 'notes')
-    readonly_fields = ('start_time', 'end_time')
+    list_display = ['id', 'user', 'banned_by', 'created_at', 'expires_at', 'is_active']
+    list_filter = ['is_active', 'duration', 'created_at']
+    search_fields = ['user__username', 'reason', 'notes']
+    readonly_fields = ['created_at', 'expires_at']
+    fieldsets = (
+        ('Основная информация', {
+            'fields': ('user', 'banned_by', 'reason')
+        }),
+        ('Параметры бана', {
+            'fields': ('duration', 'expires_at', 'notes')
+        }),
+        ('Статус', {
+            'fields': ('is_active', 'created_at')
+        }),
+    )
+
+    def save_model(self, request, obj, form, change):
+        if not obj.banned_by:
+            obj.banned_by = request.user
+        super().save_model(request, obj, form, change)
+
 
 @admin.register(UserWarning)
 class UserWarningAdmin(admin.ModelAdmin):
-    list_display = ('user', 'severity', 'issued_by', 'created_at', 'is_active')
-    list_filter = ('severity', 'is_active')
-    search_fields = ('user__username', 'reason')
+    list_display = ['id', 'user', 'issued_by', 'severity', 'created_at', 'is_active']
+    list_filter = ['severity', 'is_active', 'created_at']
+    search_fields = ['user__username', 'reason', 'related_content']
+    readonly_fields = ['created_at']
+    fieldsets = (
+        ('Основная информация', {
+            'fields': ('user', 'issued_by', 'severity')
+        }),
+        ('Детали', {
+            'fields': ('reason', 'related_content')
+        }),
+        ('Статус', {
+            'fields': ('is_active', 'created_at')
+        }),
+    )
+
+    def save_model(self, request, obj, form, change):
+        if not obj.issued_by:
+            obj.issued_by = request.user
+        super().save_model(request, obj, form, change)
+
 
 @admin.register(ModerationLog)
 class ModerationLogAdmin(admin.ModelAdmin):
-    list_display = ('moderator', 'target_user', 'action_type', 'created_at')
-    list_filter = ('action_type',)
-    search_fields = ('moderator__username', 'target_user__username')
-    readonly_fields = ('created_at',)
+    list_display = ['id', 'moderator', 'target_user', 'action_type', 'created_at']
+    list_filter = ['action_type', 'created_at']
+    search_fields = ['moderator__username', 'target_user__username', 'details']
+    readonly_fields = ['created_at']
+    date_hierarchy = 'created_at'
 
 @admin.register(ArticleRevision)
 class ArticleRevisionAdmin(admin.ModelAdmin):

@@ -1,8 +1,11 @@
+# wiki/moderation_service.py - исправленная версия
 from django.utils import timezone
 from django.contrib import messages
 from django.core.cache import cache
 from .models import UserBan, UserWarning, ModerationLog
 from .censorship_warnings import CensorshipWarningSystem
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 
 class ModerationService:
@@ -61,22 +64,13 @@ class ModerationService:
             moderator=banned_by,
             target_user=user,
             action_type='ban_issued',
-            description=f'Пользователь {user.username} забанен на {ban.get_duration_display()}',
             details={
                 'reason': reason,
                 'duration': duration,
                 'ban_id': ban.id,
                 'notes': notes,
+                'message': f'Пользователь {user.username} забанен на {ban.get_duration_display()}',
             }
-        )
-
-        # Очищаем кэш предупреждений цензуры
-        CensorshipWarningSystem.reset_user_warnings(user)
-
-        # Добавляем системное сообщение
-        messages.success(
-            banned_by,
-            f'✅ Пользователь {user.username} забанен на {ban.get_duration_display()}.'
         )
 
         return ban
@@ -96,20 +90,14 @@ class ModerationService:
                 moderator=unbanned_by,
                 target_user=user,
                 action_type='ban_removed',
-                description=f'Бан пользователя {user.username} снят',
                 details={
                     'ban_id': ban.id,
                     'reason': reason,
                     'original_reason': ban.reason,
                     'original_duration': ban.duration,
+                    'message': f'Бан пользователя {user.username} снят',
                 }
             )
-
-        # Добавляем системное сообщение
-        messages.success(
-            unbanned_by,
-            f'✅ Пользователь {user.username} разбанен.'
-        )
 
         return True
 
@@ -129,22 +117,12 @@ class ModerationService:
             moderator=issued_by,
             target_user=user,
             action_type='warning_issued',
-            description=f'Пользователю {user.username} выдано предупреждение уровня {severity}',
             details={
                 'warning_id': warning.id,
                 'severity': severity,
                 'reason': reason,
+                'message': f'Пользователю {user.username} выдано предупреждение',
             }
-        )
-
-        # Отправляем уведомление пользователю (можно реализовать позже)
-        # send_warning_notification(user, warning)
-
-        # Добавляем системное сообщение
-        severity_display = dict(UserWarning.SEVERITY_LEVELS).get(severity, severity)
-        messages.success(
-            issued_by,
-            f'⚠️ Пользователю {user.username} выдано предупреждение: {severity_display}.'
         )
 
         return warning
@@ -162,24 +140,18 @@ class ModerationService:
                 moderator=removed_by,
                 target_user=warning.user,
                 action_type='warning_removed',
-                description=f'Предупреждение пользователя {warning.user.username} снято',
                 details={
                     'warning_id': warning.id,
                     'original_severity': warning.severity,
                     'original_reason': warning.reason,
                     'reason': reason,
+                    'message': f'Предупреждение пользователя {warning.user.username} снято',
                 }
-            )
-
-            messages.success(
-                removed_by,
-                f'✅ Предупреждение пользователя {warning.user.username} снято.'
             )
 
             return True
         except UserWarning.DoesNotExist:
             return False
-
     @staticmethod
     def get_banned_users():
         """Получает список забаненных пользователей"""
@@ -203,6 +175,7 @@ class ModerationService:
     @staticmethod
     def get_users_with_warnings(min_warnings=1):
         """Получает пользователей с предупреждениями"""
+        User = get_user_model()
         users_data = []
 
         for user in User.objects.filter(is_active=True):

@@ -57,33 +57,6 @@ class CensorshipService:
     ]
 
     @classmethod
-    def _prepare_pattern(cls, word):
-        """Подготовка regex паттерна для слова"""
-        # Заменяем русские буквы на варианты с латиницей
-        replacements = {
-            'а': '[аa@]', 'б': '[бb6]', 'в': '[вv]', 'г': '[гg]',
-            'д': '[дd]', 'е': '[еeё]', 'ё': '[ёеe]', 'ж': '[жzh]',
-            'з': '[зz3]', 'и': '[иi1]', 'й': '[йy]', 'к': '[кk]',
-            'л': '[лl]', 'м': '[мm]', 'н': '[нn]', 'о': '[оo0]',
-            'п': '[пp]', 'р': '[рr]', 'с': '[сc]', 'т': '[тt]',
-            'у': '[уy]', 'ф': '[фf]', 'х': '[хx]', 'ц': '[цc]',
-            'ч': '[чch]', 'ш': '[шsh]', 'щ': '[щsch]', 'ъ': '[ъ]',
-            'ы': '[ыy]', 'ь': '[ь]', 'э': '[эe]', 'ю': '[юyu]',
-            'я': '[яya]',
-        }
-
-        # Преобразуем слово в паттерн
-        pattern = word.lower()
-        for cyr, variants in replacements.items():
-            pattern = pattern.replace(cyr, variants)
-
-        # Добавляем возможные разделители между буквами
-        pattern = r'[^\w]*'.join(list(pattern))
-
-        # Добавляем границы слова
-        return r'\b' + pattern + r'\b'
-
-    @classmethod
     def contains_banned_words(cls, text):
         """
         Проверяет текст на наличие запрещенных слов.
@@ -170,55 +143,27 @@ class CensorshipFormMixin:
         cleaned_data = super().clean()
 
         # Проверяем все текстовые поля формы
-        for field_name, field in self.fields.items():
-            if self._is_text_field(field):
-                if field_name in cleaned_data:
-                    text = cleaned_data[field_name]
-                    if text:
-                        has_banned, found_words, _ = CensorshipService.contains_banned_words(text)
+        for field_name, field_value in cleaned_data.items():
+            if isinstance(field_value, str) and field_value.strip():
+                has_banned, found_words, _ = CensorshipService.contains_banned_words(field_value)
 
-                        if has_banned:
-                            self._raise_censorship_error(field_name, found_words)
+                if has_banned:
+                    # Ограничиваем количество показываемых слов
+                    display_words = found_words[:3]
+                    words_display = ', '.join(display_words)
+
+                    if len(found_words) > 3:
+                        words_display += f' и еще {len(found_words) - 3}...'
+
+                    raise ValidationError({
+                        field_name: ValidationError(
+                            f'🚫 Обнаружена нецензурная лексика: {words_display}. '
+                            f'Пожалуйста, удалите оскорбительные выражения из текста.',
+                            code='censorship_violation'
+                        )
+                    })
 
         return cleaned_data
-
-    def _is_text_field(self, field):
-        """Определяет, является ли поле текстовым"""
-        field_types = [
-            forms.CharField,
-            forms.TextField,
-            forms.Textarea,
-            forms.TextInput,
-        ]
-
-        # Проверяем тип поля
-        for field_type in field_types:
-            if isinstance(field, field_type):
-                return True
-
-        # Проверяем виджет
-        widget_name = field.widget.__class__.__name__
-        if widget_name in ['Textarea', 'TextInput', 'CKEditor5Widget']:
-            return True
-
-        return False
-
-    def _raise_censorship_error(self, field_name, found_words):
-        """Вызывает ошибку валидации для найденных запрещенных слов"""
-        # Ограничиваем количество показываемых слов
-        display_words = found_words[:3]
-        words_display = ', '.join(display_words)
-
-        if len(found_words) > 3:
-            words_display += f' и еще {len(found_words) - 3}...'
-
-        raise ValidationError({
-            field_name: ValidationError(
-                f'🚫 Обнаружена нецензурная лексика: {words_display}. '
-                f'Пожалуйста, удалите оскорбительные выражения из текста.',
-                code='censorship_violation'
-            )
-        })
 
 
 class CensorshipAdminMixin:

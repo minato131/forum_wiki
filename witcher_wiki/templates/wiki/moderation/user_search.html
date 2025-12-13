@@ -1,0 +1,196 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Поиск пользователей{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 1400px; margin: 20px auto; padding: 20px;">
+    <h1 style="color: #D4AF37; margin-bottom: 20px; border-bottom: 2px solid #D4AF37; padding-bottom: 10px;">
+        🔍 Поиск пользователей
+    </h1>
+
+    <!-- Форма поиска -->
+    <div style="background: #2d2d2d; border: 1px solid #D4AF37; border-radius: 10px; padding: 25px; margin-bottom: 30px;">
+        <h3 style="color: #FFD700; margin-bottom: 20px;">Фильтры поиска</h3>
+
+        <form method="get" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+            <div>
+                <label style="display: block; color: #D4AF37; margin-bottom: 8px; font-weight: bold;">
+                    <i class="fas fa-user"></i> Имя пользователя
+                </label>
+                <input type="text" name="username" value="{{ form.username.value|default:'' }}"
+                       style="width: 100%; padding: 12px; background: #1a1a1a; border: 1px solid #D4AF37; border-radius: 5px; color: #e8e8e8;">
+            </div>
+
+            <div>
+                <label style="display: block; color: #D4AF37; margin-bottom: 8px; font-weight: bold;">
+                    <i class="fas fa-envelope"></i> Email
+                </label>
+                <input type="email" name="email" value="{{ form.email.value|default:'' }}"
+                       style="width: 100%; padding: 12px; background: #1a1a1a; border: 1px solid #D4AF37; border-radius: 5px; color: #e8e8e8;">
+            </div>
+
+            <div>
+                <label style="display: block; color: #D4AF37; margin-bottom: 10px; font-weight: bold;">
+                    <i class="fas fa-filter"></i> Фильтры статуса
+                </label>
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                    <label style="color: #e8e8e8; display: flex; align-items: center; gap: 8px;">
+                        <input type="checkbox" name="has_warnings" value="1"
+                               {% if form.has_warnings.value %}checked{% endif %}
+                               style="width: 18px; height: 18px;">
+                        С предупреждениями
+                    </label>
+                    <label style="color: #e8e8e8; display: flex; align-items: center; gap: 8px;">
+                        <input type="checkbox" name="is_banned" value="1"
+                               {% if form.is_banned.value %}checked{% endif %}
+                               style="width: 18px; height: 18px;">
+                        Забаненные
+                    </label>
+                </div>
+            </div>
+
+            <div style="grid-column: 1 / -1; display: flex; gap: 15px; margin-top: 10px;">
+                <button type="submit"
+                        style="background: linear-gradient(to right, #D4AF37, #FFD700); color: #1a1a1a; border: none; padding: 12px 30px; border-radius: 8px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 10px;">
+                    <i class="fas fa-search"></i> Найти пользователей
+                </button>
+                <a href="{% url 'wiki:user_search' %}"
+                   style="background: #6c757d; color: white; padding: 12px 30px; border-radius: 8px; text-decoration: none; display: flex; align-items: center; gap: 10px; font-weight: bold;">
+                    <i class="fas fa-redo"></i> Сбросить
+                </a>
+            </div>
+        </form>
+    </div>
+
+    <!-- Результаты поиска -->
+    {% if users %}
+    <div style="background: #2d2d2d; border: 1px solid #D4AF37; border-radius: 10px; overflow: hidden;">
+        <div style="background: #1a1a1a; padding: 20px; border-bottom: 2px solid #D4AF37;">
+            <h3 style="color: #FFD700; margin: 0; display: flex; align-items: center; gap: 10px;">
+                <i class="fas fa-users"></i> Найдено пользователей:
+                <span style="color: #e8e8e8;">{{ users|length }}</span>
+            </h3>
+        </div>
+
+        <div style="padding: 20px;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 20px;">
+                {% for user_data in users %}
+                <div style="background: #1a1a1a; border: 1px solid #2d2d2d; border-radius: 10px; padding: 20px; transition: all 0.3s;">
+                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 15px;">
+                        <div>
+                            <div style="color: #D4AF37; font-size: 1.2em; font-weight: bold; margin-bottom: 5px;">
+                                {{ user_data.user.username }}
+                            </div>
+                            <div style="color: #95a5a6; font-size: 0.9em;">
+                                {{ user_data.user.email }}
+                            </div>
+                        </div>
+                        <div>
+                            {% if user_data.status.is_banned %}
+                                <span style="background: #dc3545; color: white; padding: 4px 10px; border-radius: 4px; font-size: 12px; font-weight: bold;">
+                                    <i class="fas fa-ban"></i> Забанен
+                                </span>
+                            {% else %}
+                                <span style="background: #28a745; color: white; padding: 4px 10px; border-radius: 4px; font-size: 12px; font-weight: bold;">
+                                    <i class="fas fa-check"></i> Активен
+                                </span>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px;">
+                        <div style="text-align: center; background: rgba(255, 193, 7, 0.1); padding: 10px; border-radius: 6px;">
+                            <div style="color: #ffc107; font-size: 1.5em; font-weight: bold;">
+                                {{ user_data.status.total_warnings }}
+                            </div>
+                            <div style="color: #95a5a6; font-size: 0.85em;">Предупреждений</div>
+                        </div>
+                        <div style="text-align: center; background: rgba(231, 76, 60, 0.1); padding: 10px; border-radius: 6px;">
+                            <div style="color: #e74c3c; font-size: 1.5em; font-weight: bold;">
+                                {{ user_data.status.censorship_warnings }}
+                            </div>
+                            <div style="color: #95a5a6; font-size: 0.85em;">Цензура</div>
+                        </div>
+                    </div>
+
+                    <div style="color: #95a5a6; margin-bottom: 15px; font-size: 0.9em;">
+                        <i class="fas fa-calendar"></i> Зарегистрирован:
+                        {{ user_data.user.date_joined|date:"d.m.Y" }}
+                    </div>
+
+                    <div style="display: flex; gap: 10px;">
+                        <a href="{% url 'wiki:user_detail' user_data.user.id %}"
+                           style="flex: 1; background: #17a2b8; color: white; padding: 10px; border-radius: 6px; text-decoration: none; text-align: center; font-weight: bold; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                            <i class="fas fa-eye"></i> Просмотр
+                        </a>
+                        <a href="{% url 'wiki:warn_user' user_data.user.id %}"
+                           style="flex: 1; background: #ffc107; color: #1a1a1a; padding: 10px; border-radius: 6px; text-decoration: none; text-align: center; font-weight: bold; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                            <i class="fas fa-exclamation-triangle"></i> Предупредить
+                        </a>
+                    </div>
+
+                    {% if not user_data.status.is_banned %}
+                    <div style="margin-top: 10px;">
+                        <a href="{% url 'wiki:ban_user' user_data.user.id %}"
+                           style="display: block; background: #dc3545; color: white; padding: 10px; border-radius: 6px; text-decoration: none; text-align: center; font-weight: bold; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                            <i class="fas fa-ban"></i> Забанить
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    {% elif form.is_bound %}
+    <div style="background: #2d2d2d; border: 1px solid #17a2b8; border-radius: 10px; padding: 40px; text-align: center;">
+        <div style="font-size: 4em; color: #17a2b8; margin-bottom: 20px;">
+            <i class="fas fa-search"></i>
+        </div>
+        <h3 style="color: #e8e8e8; margin-bottom: 10px;">Пользователи не найдены</h3>
+        <p style="color: #95a5a6;">Попробуйте изменить параметры поиска</p>
+    </div>
+    {% endif %}
+</div>
+
+<style>
+input[type="text"], input[type="email"] {
+    font-family: 'Georgia', serif;
+    font-size: 16px;
+    transition: all 0.3s;
+}
+
+input[type="text"]:focus, input[type="email"]:focus {
+    outline: none;
+    border-color: #FFD700;
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+}
+
+.user-card:hover {
+    transform: translateY(-5px);
+    border-color: #D4AF37;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+</style>
+
+<script>
+// Добавляем hover эффект к карточкам
+document.addEventListener('DOMContentLoaded', function() {
+    const cards = document.querySelectorAll('.user-card');
+    cards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-5px)';
+            this.style.borderColor = '#D4AF37';
+            this.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.3)';
+        });
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = '';
+            this.style.borderColor = '#2d2d2d';
+            this.style.boxShadow = 'none';
+        });
+    });
+});
+</script>
+{% endblock %}

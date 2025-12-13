@@ -281,6 +281,117 @@
         .confirmable-form {
             display: inline;
         }
+        nav-item.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.nav-link.dropdown-toggle {
+    cursor: pointer;
+    position: relative;
+    padding-right: 20px;
+}
+
+.nav-link.dropdown-toggle::after {
+    content: '▼';
+    font-size: 10px;
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #2d2d2d;
+    min-width: 220px;
+    border: 1px solid #D4AF37;
+    border-radius: 5px;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    margin-top: 5px;
+}
+
+.dropdown-menu.show {
+    display: block;
+}
+
+.dropdown-menu li {
+    list-style: none;
+}
+
+.dropdown-menu .dropdown-item {
+    color: #e8e8e8;
+    padding: 10px 15px;
+    text-decoration: none;
+    display: block;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+    transition: all 0.3s ease;
+}
+
+.dropdown-menu .dropdown-item:hover {
+    background: rgba(212, 175, 55, 0.1);
+    color: #FFD700;
+}
+
+.dropdown-divider {
+    height: 1px;
+    background: rgba(212, 175, 55, 0.3);
+    margin: 5px 0;
+}
+
+/* Исправленная навигация модерации в шапке */
+.nav-links {
+    display: flex;
+    position: relative; /* Для правильного позиционирования dropdown */
+}
+.nav-item.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+#moderationMenu {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 100%;
+    background: #2d2d2d;
+    min-width: 220px;
+    border: 1px solid #D4AF37;
+    border-radius: 5px;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    margin-top: 5px;
+    padding: 5px 0;
+}
+
+#moderationMenu.show {
+    display: block;
+}
+
+#moderationMenu .dropdown-item {
+    color: #e8e8e8;
+    padding: 10px 15px;
+    text-decoration: none;
+    display: block;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+#moderationMenu .dropdown-item:hover {
+    background: rgba(212, 175, 55, 0.1);
+    color: #FFD700;
+}
+
+#moderationMenu .dropdown-divider {
+    height: 1px;
+    background: rgba(212, 175, 55, 0.3);
+    margin: 5px 15px;
+}
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
@@ -375,18 +486,31 @@
                     <i class="fas fa-question-circle mr-2"></i> Помощь
                 </a>
             {% endif %}
+
             {% if user.is_staff %}
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                    🛡️ Модерация
+            <li class="nav-item dropdown" style="position: relative; display: inline-block;" id="moderationDropdown">
+                <a class="nav-link" href="#" onclick="toggleModerationMenu(event); return false;"
+                   style="position: relative; padding-right: 25px;">
+                    <i class="fas fa-gavel"></i> Модерация
+                    <span style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); font-size: 10px;">▼</span>
                 </a>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="{% url 'wiki:moderation_dashboard' %}">📊 Панель модерации</a></li>
-                    <li><a class="dropdown-item" href="{% url 'wiki:user_search' %}">🔍 Поиск пользователей</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="{% url 'wiki:banned_users' %}">⛔ Забаненные</a></li>
-                    <li><a class="dropdown-item" href="{% url 'wiki:warned_users' %}">⚠️ С предупреждениями</a></li>
-                    <li><a class="dropdown-item" href="{% url 'wiki:moderation_logs' %}">📋 Логи модерации</a></li>
+                <ul class="dropdown-menu" id="moderationMenu" style="display: none; position: absolute; left: 0; top: 100%;">
+                    <li><a class="dropdown-item" href="{% url 'wiki:moderation_dashboard' %}">
+                        <i class="fas fa-tachometer-alt"></i> Панель модерации
+                    </a></li>
+                    <li><hr class="dropdown-divider" style="margin: 5px 0; border-color: rgba(212, 175, 55, 0.3);"></li>
+                    <li><a class="dropdown-item" href="{% url 'wiki:user_search' %}">
+                        <i class="fas fa-user-friends"></i> Поиск пользователей
+                    </a></li>
+                    <li><a class="dropdown-item" href="{% url 'wiki:warned_users_list' %}">
+                        <i class="fas fa-exclamation-triangle"></i> Предупреждения
+                    </a></li>
+                    <li><a class="dropdown-item" href="{% url 'wiki:banned_users_list' %}">
+                        <i class="fas fa-ban"></i> Забаненные
+                    </a></li>
+                    <li><a class="dropdown-item" href="{% url 'wiki:moderation_logs' %}">
+                        <i class="fas fa-history"></i> Логи
+                    </a></li>
                 </ul>
             </li>
             {% endif %}
@@ -911,6 +1035,86 @@ function updateUnreadCount() {
             });
     }
 }
+function toggleModerationMenu(e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const menu = document.getElementById('moderationMenu');
+    if (menu.style.display === 'block') {
+        menu.style.display = 'none';
+        menu.classList.remove('show');
+    } else {
+        // Закрываем другие открытые меню
+        closeAllDropdowns();
+        menu.style.display = 'block';
+        menu.classList.add('show');
+    }
+}
+
+// Закрытие всех dropdown при клике вне
+function closeAllDropdowns() {
+    const moderationMenu = document.getElementById('moderationMenu');
+    const userDropdown = document.getElementById('userDropdown');
+
+    if (moderationMenu) {
+        moderationMenu.style.display = 'none';
+        moderationMenu.classList.remove('show');
+    }
+    if (userDropdown) {
+        userDropdown.classList.remove('show');
+    }
+}
+
+// Закрытие dropdown при клике вне
+document.addEventListener('click', function(event) {
+    const moderationDropdown = document.getElementById('moderationDropdown');
+    const moderationMenu = document.getElementById('moderationMenu');
+    const userDropdown = document.getElementById('userDropdown');
+
+    // Если клик не по элементам dropdown
+    if (!moderationDropdown?.contains(event.target) &&
+        !moderationMenu?.contains(event.target) &&
+        !event.target.closest('.user-dropdown') &&
+        !userDropdown?.contains(event.target)) {
+        closeAllDropdowns();
+    }
+});
+
+// Закрытие по Escape
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closeAllDropdowns();
+    }
+});
+
+// Открытие при наведении (если хотите)
+document.getElementById('moderationDropdown')?.addEventListener('mouseenter', function() {
+    const menu = document.getElementById('moderationMenu');
+    menu.style.display = 'block';
+    menu.classList.add('show');
+});
+
+document.getElementById('moderationDropdown')?.addEventListener('mouseleave', function(event) {
+    // Если курсор ушел с dropdown и не перешел на меню
+    const menu = document.getElementById('moderationMenu');
+    setTimeout(() => {
+        if (!menu.matches(':hover') && !event.relatedTarget?.closest('#moderationDropdown')) {
+            menu.style.display = 'none';
+            menu.classList.remove('show');
+        }
+    }, 300);
+});
+
+// Чтобы меню не закрывалось при наведении на него
+document.getElementById('moderationMenu')?.addEventListener('mouseenter', function() {
+    this.style.display = 'block';
+    this.classList.add('show');
+});
+
+document.getElementById('moderationMenu')?.addEventListener('mouseleave', function() {
+    this.style.display = 'none';
+    this.classList.remove('show');
+});
 
 // Обновляем каждые 30 секунд
 setInterval(updateUnreadCount, 30000);

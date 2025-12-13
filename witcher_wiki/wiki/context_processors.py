@@ -1,7 +1,7 @@
 from django.conf import settings
 from .models import Category
 from django.contrib.auth.models import Group
-
+from .models import UserBan, UserWarning
 
 def user_permissions(request):
     """Добавляет информацию о правах пользователя в контекст"""
@@ -71,3 +71,12 @@ def tutorial_context(request):
         context['show_tutorials'] = False
 
     return context
+
+def moderation_counts(request):
+    """Добавляет счетчики для навигации модерации"""
+    if request.user.is_authenticated and request.user.is_staff:
+        return {
+            'warning_count': UserWarning.objects.filter(is_active=True).count(),
+            'ban_count': UserBan.objects.filter(is_active=True).count(),
+        }
+    return {}

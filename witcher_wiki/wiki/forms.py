@@ -216,7 +216,7 @@ class ArticleMediaForm(forms.ModelForm):
         return slug
 
 
-class CommentForm(forms.ModelForm):
+class CommentForm(CensorshipFormMixin, forms.ModelForm):
     class Meta:
         model = Comment
         fields = ['content']

@@ -1,0 +1,145 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Забанить пользователя{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 800px; margin: 20px auto; padding: 20px;">
+    <h1 style="color: #D4AF37; margin-bottom: 20px; border-bottom: 2px solid #D4AF37; padding-bottom: 10px;">
+        🚫 Забанить пользователя
+    </h1>
+    
+    <div style="background: #2d2d2d; border: 1px solid #dc3545; border-radius: 10px; padding: 30px;">
+        <div style="margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid rgba(220, 53, 69, 0.3);">
+            <h3 style="color: #FFD700; margin-bottom: 10px;">Пользователь</h3>
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <div style="font-size: 2em; color: #dc3545;">🚫</div>
+                <div>
+                    <div style="color: #e8e8e8; font-size: 1.2em; font-weight: bold;">{{ user.username }}</div>
+                    <div style="color: #95a5a6;">{{ user.email }}</div>
+                    {% if status.is_banned %}
+                    <div style="color: #e74c3c; margin-top: 5px; font-weight: bold;">
+                        ⚠️ Пользователь уже забанен
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        
+        <form method="post">
+            {% csrf_token %}
+            
+            <div style="margin-bottom: 25px;">
+                <label style="display: block; color: #FFD700; margin-bottom: 8px; font-weight: bold;">
+                    Длительность бана *
+                </label>
+                {{ form.duration }}
+                <small style="color: #95a5a6; display: block; margin-top: 5px;">
+                    Выберите срок, на который пользователь будет забанен
+                </small>
+            </div>
+            
+            <div style="margin-bottom: 25px;">
+                <label style="display: block; color: #FFD700; margin-bottom: 8px; font-weight: bold;">
+                    Причина бана *
+                </label>
+                {{ form.reason }}
+                {% if form.reason.errors %}
+                <div style="color: #dc3545; margin-top: 5px; font-size: 0.9em;">
+                    {{ form.reason.errors }}
+                </div>
+                {% endif %}
+            </div>
+            <div style="margin-bottom: 30px;">
+                <label style="display: block; color: #FFD700; margin-bottom: 8px; font-weight: bold;">
+                    Дополнительные заметки
+                </label>
+                {{ form.notes }}
+                <small style="color: #95a5a6; display: block; margin-top: 5px;">
+                    Внутренние заметки для модераторов (не показываются пользователю)
+                </small>
+            </div>
+            
+            <div style="background: rgba(220, 53, 69, 0.1); padding: 15px; border-radius: 8px; border-left: 4px solid #dc3545; margin-bottom: 25px;">
+                <div style="color: #e74c3c; font-weight: bold; margin-bottom: 5px;">⚠️ Важная информация</div>
+                <div style="color: #e8e8e8; font-size: 0.95em;">
+                    После бана пользователь не сможет:
+                    <ul style="margin: 10px 0 10px 20px; color: #95a5a6;">
+                        <li>Создавать новые статьи</li>
+                        <li>Оставлять комментарии</li>
+                        <li>Отправлять сообщения</li>
+                        <li>Ставить лайки</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div style="display: flex; justify-content: space-between; gap: 15px;">
+                <a href="{% url 'wiki:user_detail' user.id %}" 
+                   style="background: #6c757d; color: white; padding: 12px 25px; border-radius: 8px; text-decoration: none; font-weight: bold; text-align: center; flex: 1;">
+                    ← Отмена
+                </a>
+                <button type="submit" 
+                        onclick="return confirmBan()"
+                        style="background: linear-gradient(to right, #dc3545, #c82333); color: white; border: none; padding: 12px 25px; border-radius: 8px; font-weight: bold; cursor: pointer; flex: 1;">
+                    🚫 Забанить пользователя
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+function confirmBan() {
+    const duration = document.querySelector('select[name="duration"]').value;
+    const reason = document.querySelector('input[name="reason"]').value;
+    
+    if (!reason.trim()) {
+        alert('Пожалуйста, укажите причину бана');
+        return false;
+    }
+    
+    const durationText = {
+        '1h': '1 час',
+        '12h': '12 часов',
+        '1d': '1 день',
+        '3d': '3 дня',
+        '7d': '7 дней',
+        '30d': '30 дней',
+        'permanent': 'постоянно'
+    }[duration] || duration;
+    
+    const message = `Вы уверены, что хотите забанить пользователя {{ user.username }} на ${durationText}?\nПричина: ${reason}`;
+    
+    return confirm(message);
+}
+</script>
+
+<style>
+input, select, textarea {
+    width: 100%;
+    padding: 12px;
+    background: #1a1a1a;
+    border: 1px solid #D4AF37;
+    border-radius: 5px;
+    color: #e8e8e8;
+    font-family: 'Georgia', serif;
+    font-size: 16px;
+    transition: all 0.3s;
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: #dc3545;
+    box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.2);
+}
+
+select {
+    cursor: pointer;
+}
+
+textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+</style>
+{% endblock %}

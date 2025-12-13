@@ -1266,128 +1266,21 @@ class CommentLike(models.Model):
         return f"Лайк от {self.user.username} на комментарий {self.comment.id}"
 
 
-class UserBan(models.Model):
-    """Модель для банов пользователей"""
-    BAN_DURATIONS = [
-        ('1h', '1 час'),
-        ('24h', '1 день'),
-        ('72h', '3 дня'),
-        ('168h', '1 неделя'),
-        ('720h', '1 месяц'),
-        ('8760h', '1 год'),
-        ('permanent', 'Навсегда'),
-    ]
-
-    BAN_REASONS = [
-        ('censorship', 'Нецензурная лексика'),
-        ('spam', 'Спам'),
-        ('harassment', 'Оскорбления/Троллинг'),
-        ('rules_violation', 'Нарушение правил'),
-        ('multiple_violations', 'Множественные нарушения'),
-        ('other', 'Другое'),
-    ]
-
-    user = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE,
-        related_name='bans',
-        verbose_name='Пользователь'
-    )
-    banned_by = models.ForeignKey(
-        User,
-        on_delete=models.SET_NULL,
-        null=True,
-        related_name='given_bans',
-        verbose_name='Забанен администратором'
-    )
-    reason = models.CharField(
-        max_length=50,
-        choices=BAN_REASONS,
-        verbose_name='Причина бана'
-    )
-    duration = models.CharField(
-        max_length=20,
-        choices=BAN_DURATIONS,
-        verbose_name='Длительность бана'
-    )
-    start_time = models.DateTimeField(
-        auto_now_add=True,
-        verbose_name='Время начала бана'
-    )
-    end_time = models.DateTimeField(
-        null=True,
-        blank=True,
-        verbose_name='Время окончания бана'
-    )
-    notes = models.TextField(
-        blank=True,
-        verbose_name='Дополнительные заметки'
-    )
-    is_active = models.BooleanField(
-        default=True,
-        verbose_name='Бан активен'
-    )
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    class Meta:
-        verbose_name = 'Бан пользователя'
-        verbose_name_plural = 'Баны пользователей'
-        ordering = ['-created_at']
-
-    def __str__(self):
-        return f'{self.user.username} - {self.get_duration_display()} ({self.get_reason_display()})'
-
-    def save(self, *args, **kwargs):
-        # Автоматически рассчитываем время окончания бана
-        if not self.end_time and self.duration != 'permanent':
-            duration_hours = int(self.duration.replace('h', ''))
-            self.end_time = timezone.now() + timezone.timedelta(hours=duration_hours)
-
-        super().save(*args, **kwargs)
-
-    def is_expired(self):
-        """Проверяет, истек ли бан"""
-        if not self.is_active:
-            return True
-        if self.duration == 'permanent':
-            return False
-        if self.end_time and timezone.now() > self.end_time:
-            return True
-        return False
-
-    def time_remaining(self):
-        """Возвращает оставшееся время бана"""
-        if not self.is_active or self.is_expired():
-            return "Бан не активен"
-        if self.duration == 'permanent':
-            return "Навсегда"
-        if self.end_time:
-            remaining = self.end_time - timezone.now()
-            if remaining.days > 0:
-                return f"{remaining.days} дней {remaining.seconds // 3600} часов"
-            return f"{remaining.seconds // 3600} часов {remaining.seconds % 3600 // 60} минут"
-        return "Не определено"
-
-    def get_duration_hours(self):
-        """Возвращает длительность в часах"""
-        if self.duration == 'permanent':
-            return None
-        return int(self.duration.replace('h', ''))
-
-
 class UserWarning(models.Model):
-    """Модель для официальных предупреждений пользователям"""
+    """Официальное предупреждение пользователю"""
+
+    # ДОБАВЬТЕ ЭТИ КОНСТАНТЫ, ЕСЛИ ИХ НЕТ
     SEVERITY_LEVELS = [
-        (1, 'Легкое предупреждение'),
-        (2, 'Предупреждение'),
-        (3, 'Серьезное предупреждение'),
-        (4, 'Последнее предупреждение'),
+        ('low', 'Низкое'),
+        ('medium', 'Среднее'),
+        ('high', 'Высокое'),
+        ('critical', 'Критическое'),
     ]
 
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        related_name='official_warnings',
+        related_name='user_warnings',
         verbose_name='Пользователь'
     )
     issued_by = models.ForeignKey(
@@ -1395,100 +1288,185 @@ class UserWarning(models.Model):
         on_delete=models.SET_NULL,
         null=True,
         related_name='issued_warnings',
-        verbose_name='Выдано администратором'
+        verbose_name='Кем выдано'
     )
-    severity = models.IntegerField(
-        choices=SEVERITY_LEVELS,
-        default=2,
+    severity = models.CharField(
+        max_length=20,
+        choices=SEVERITY_LEVELS,  # ИСПОЛЬЗУЕМ КОНСТАНТУ
+        default='low',
         verbose_name='Уровень серьезности'
     )
-    reason = models.TextField(verbose_name='Причина предупреждения')
-    related_content = models.CharField(
-        max_length=500,
-        blank=True,
-        verbose_name='Связанный контент (URL или описание)'
+    reason = models.TextField(verbose_name='Причина')
+    related_content = models.TextField(
+        verbose_name='Связанный контент',
+        blank=True
     )
     is_active = models.BooleanField(
         default=True,
-        verbose_name='Предупреждение активно'
+        verbose_name='Активно'
     )
-    expires_at = models.DateTimeField(
-        null=True,
-        blank=True,
-        verbose_name='Истекает'
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name='Дата создания'
     )
-    created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        verbose_name = 'Официальное предупреждение'
-        verbose_name_plural = 'Официальные предупреждения'
+        verbose_name = 'Предупреждение пользователя'
+        verbose_name_plural = 'Предупреждения пользователей'
         ordering = ['-created_at']
 
     def __str__(self):
-        return f'{self.user.username} - Уровень {self.severity}'
+        return f'Предупреждение {self.get_severity_display()} для {self.user.username}'
+
+    def get_severity_display(self):
+        """Отображаемое название уровня серьезности"""
+        severity_dict = dict(self.SEVERITY_LEVELS)
+        return severity_dict.get(self.severity, self.severity)
+
+
+class UserBan(models.Model):
+    """Модель бана пользователя"""
+
+    REASON_CHOICES = [
+        ('spam', 'Спам и реклама'),
+        ('abuse', 'Оскорбления и харассмент'),
+        ('hate_speech', 'Разжигание ненависти'),
+        ('fake_news', 'Распространение ложной информации'),
+        ('illegal_content', 'Незаконный контент'),
+        ('multiple_violations', 'Множественные нарушения'),
+        ('other', 'Другое'),
+    ]
+
+    DURATION_CHOICES = [
+        ('1h', '1 час'),
+        ('12h', '12 часов'),
+        ('1d', '1 день'),
+        ('3d', '3 дня'),
+        ('7d', '7 дней'),
+        ('30d', '30 дней'),
+        ('permanent', 'Постоянно'),
+    ]
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='bans')
+    banned_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='issued_bans')
+    reason = models.CharField(max_length=50, choices=REASON_CHOICES, verbose_name='Причина')
+    duration = models.CharField(max_length=20, choices=DURATION_CHOICES, verbose_name='Длительность')
+    notes = models.TextField(blank=True, verbose_name='Заметки')
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
+    expires_at = models.DateTimeField(null=True, blank=True, verbose_name='Дата окончания')
+    is_active = models.BooleanField(default=True, verbose_name='Активен')
+
+    class Meta:
+        verbose_name = 'Бан пользователя'
+        verbose_name_plural = 'Баны пользователей'
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f'{self.user.username} - {self.get_reason_display()} ({self.get_duration_display()})'
 
     def save(self, *args, **kwargs):
-        # Автоматически устанавливаем срок истечения (30 дней)
-        if not self.expires_at:
-            self.expires_at = timezone.now() + timezone.timedelta(days=30)
+        from django.utils import timezone
+
+        # Если это новый бан и не перманентный - устанавливаем expires_at
+        if not self.pk and self.duration != 'permanent':
+            duration_mapping = {
+                '1h': timezone.timedelta(hours=1),
+                '12h': timezone.timedelta(hours=12),
+                '1d': timezone.timedelta(days=1),
+                '3d': timezone.timedelta(days=3),
+                '7d': timezone.timedelta(days=7),
+                '30d': timezone.timedelta(days=30),
+            }
+
+            if self.duration in duration_mapping:
+                self.expires_at = timezone.now() + duration_mapping[self.duration]
+
         super().save(*args, **kwargs)
 
     def is_expired(self):
-        """Проверяет, истекло ли предупреждение"""
-        if not self.is_active:
+        from django.utils import timezone
+        if self.duration == 'permanent':
+            return False
+        return self.expires_at and self.expires_at < timezone.now()
+
+    def time_remaining(self):
+        from django.utils import timezone
+        if self.duration == 'permanent' or not self.expires_at:
+            return None
+        return self.expires_at - timezone.now()
+
+    def get_duration_display(self):
+        """Отображаемое название длительности"""
+        duration_dict = dict(self.DURATION_CHOICES)
+        return duration_dict.get(self.duration, self.duration)
+
+    def get_reason_display(self):
+        """Отображаемое название причины"""
+        reason_dict = dict(self.REASON_CHOICES)
+        return reason_dict.get(self.reason, self.reason)
+
+    def is_expired(self):
+        """Проверяет, истек ли бан"""
+        from django.utils import timezone
+
+        if self.duration == 'permanent':
+            return False
+
+        if not self.expires_at:
             return True
-        if self.expires_at and timezone.now() > self.expires_at:
-            return True
-        return False
+
+        return self.expires_at < timezone.now()
+
+    def time_remaining(self):
+        """Возвращает оставшееся время бана"""
+        from django.utils import timezone
+
+        if self.duration == 'permanent' or not self.expires_at:
+            return None
+
+        remaining = self.expires_at - timezone.now()
+
+        # Если время вышло, возвращаем 0
+        if remaining.total_seconds() <= 0:
+            return timezone.timedelta(0)
+
+        return remaining
 
 
 class ModerationLog(models.Model):
-    """Лог действий модерации"""
     ACTION_TYPES = [
-        ('warning_issued', 'Выдано предупреждение'),
-        ('ban_issued', 'Выдан бан'),
-        ('ban_removed', 'Бан снят'),
-        ('content_removed', 'Контент удален'),
-        ('content_restored', 'Контент восстановлен'),
-        ('user_promoted', 'Пользователь повышен'),
-        ('user_demoted', 'Пользователь понижен'),
+        ('ban', 'Бан'),
+        ('unban', 'Разбан'),
+        ('warning', 'Предупреждение'),
+        ('remove_warning', 'Удаление предупреждения'),
+        ('edit_article', 'Редактирование статьи'),
+        ('delete_article', 'Удаление статьи'),
     ]
 
-    moderator = models.ForeignKey(
-        User,
-        on_delete=models.SET_NULL,
-        null=True,
-        related_name='moderation_actions',
-        verbose_name='Модератор'
-    )
-    target_user = models.ForeignKey(
-        User,
-        on_delete=models.SET_NULL,
-        null=True,
-        related_name='moderation_logs',
-        verbose_name='Целевой пользователь'
-    )
-    action_type = models.CharField(
-        max_length=50,
-        choices=ACTION_TYPES,
-        verbose_name='Тип действия'
-    )
-    description = models.TextField(verbose_name='Описание')
-    details = models.JSONField(
-        default=dict,
-        verbose_name='Детали действия'
-    )
-    ip_address = models.GenericIPAddressField(
-        null=True,
-        blank=True,
-        verbose_name='IP адрес'
-    )
+    moderator = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='moderation_actions')
+    target_user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='moderation_logs')
+    action_type = models.CharField(max_length=50, choices=ACTION_TYPES)
+    details = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        verbose_name = 'Лог модерации'
-        verbose_name_plural = 'Логи модерации'
         ordering = ['-created_at']
 
     def __str__(self):
-        return f'{self.moderator} → {self.target_user}: {self.get_action_type_display()}'
+        return f"{self.get_action_type_display()} - {self.target_user}"
+
+
+class CensorshipWarning(models.Model):
+    """Модель для отслеживания нецензурной лексики"""
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='censorship_warnings')
+    text = models.TextField(max_length=500, verbose_name='Текст с нарушением')
+    source_url = models.CharField(max_length=200, verbose_name='Источник')
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата нарушения')
+
+    class Meta:
+        verbose_name = 'Нарушение цензуры'
+        verbose_name_plural = 'Нарушения цензуры'
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f'{self.user.username} - {self.created_at.strftime("%d.%m.%Y %H:%M")}'

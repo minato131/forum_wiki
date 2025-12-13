@@ -1,0 +1,283 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Профиль пользователя - {{ target_user.username }}{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 1200px; margin: 20px auto; padding: 20px;">
+    <h1 style="color: #D4AF37; margin-bottom: 20px; border-bottom: 2px solid #D4AF37; padding-bottom: 10px;">
+        👤 Профиль пользователя
+    </h1>
+
+    <!-- Информация о пользователе -->
+    <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 30px; margin-bottom: 30px;">
+        <!-- Левая колонка: основная информация -->
+        <div style="background: #2d2d2d; border: 1px solid #D4AF37; border-radius: 10px; padding: 25px;">
+            <div style="text-align: center; margin-bottom: 20px;">
+                <div style="font-size: 4em; color: #D4AF37; margin-bottom: 15px;">👤</div>
+                <h2 style="color: #FFD700; margin-bottom: 5px;">{{ target_user.username }}</h2>
+                <div style="color: #95a5a6;">{{ target_user.email }}</div>
+            </div>
+
+            <div style="margin-top: 20px;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                    <span style="color: #e8e8e8;">Дата регистрации:</span>
+                    <span style="color: #95a5a6;">{{ target_user.date_joined|date:"d.m.Y" }}</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                    <span style="color: #e8e8e8;">Последний вход:</span>
+                    <span style="color: #95a5a6;">{{ target_user.last_login|date:"d.m.Y H:i"|default:"Никогда" }}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Правая колонка: статус и действия -->
+        <div style="background: #2d2d2d; border: 1px solid #D4AF37; border-radius: 10px; padding: 25px;">
+            <h3 style="color: #FFD700; margin-bottom: 20px; border-bottom: 1px solid rgba(212, 175, 55, 0.3); padding-bottom: 10px;">
+                Статус и действия
+            </h3>
+
+            <!-- Статус блок -->
+            <div style="margin-bottom: 25px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                    <span style="color: #e8e8e8; font-weight: bold;">Статус аккаунта:</span>
+                    {% if user_status.is_banned %}
+                        <span style="background: #dc3545; color: white; padding: 5px 15px; border-radius: 20px; font-weight: bold;">
+                            🚫 Забанен
+                        </span>
+                    {% else %}
+                        <span style="background: #28a745; color: white; padding: 5px 15px; border-radius: 20px; font-weight: bold;">
+                            ✅ Активен
+                        </span>
+                    {% endif %}
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 20px;">
+                    <div style="text-align: center; background: rgba(255, 193, 7, 0.1); padding: 15px; border-radius: 8px; border: 1px solid #ffc107;">
+                        <div style="font-size: 1.5em; color: #ffc107; margin-bottom: 5px;">⚠️</div>
+                        <div style="color: #e8e8e8; font-size: 1.8em; font-weight: bold;">{{ user_status.total_warnings }}</div>
+                        <div style="color: #95a5a6; font-size: 0.9em;">Всего пред.</div>
+                    </div>
+
+                    <div style="text-align: center; background: rgba(231, 76, 60, 0.1); padding: 15px; border-radius: 8px; border: 1px solid #e74c3c;">
+                        <div style="font-size: 1.5em; color: #e74c3c; margin-bottom: 5px;">🔞</div>
+                        <div style="color: #e8e8e8; font-size: 1.8em; font-weight: bold;">{{ user_status.censorship_warnings }}</div>
+                        <div style="color: #95a5a6; font-size: 0.9em;">Цензура</div>
+                    </div>
+
+                    <div style="text-align: center; background: rgba(52, 152, 219, 0.1); padding: 15px; border-radius: 8px; border: 1px solid #3498db;">
+                        <div style="font-size: 1.5em; color: #3498db; margin-bottom: 5px;">📊</div>
+                        <div style="color: #e8e8e8; font-size: 1.8em; font-weight: bold;">{{ user_status.active_warnings }}</div>
+                        <div style="color: #95a5a6; font-size: 0.9em;">Официальные</div>
+                    </div>
+                </div>
+
+                <!-- Права доступа -->
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <div style="color: {% if user_status.can_post %}#28a745{% else %}#dc3545{% endif %};">
+                            {% if user_status.can_post %}✅{% else %}❌{% endif %}
+                        </div>
+                        <span style="color: #e8e8e8;">Может писать статьи</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <div style="color: {% if user_status.can_comment %}#28a745{% else %}#dc3545{% endif %};">
+                            {% if user_status.can_comment %}✅{% else %}❌{% endif %}
+                        </div>
+                        <span style="color: #e8e8e8;">Может комментировать</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <div style="color: {% if user_status.can_message %}#28a745{% else %}#dc3545{% endif %};">
+                            {% if user_status.can_message %}✅{% else %}❌{% endif %}
+                        </div>
+                        <span style="color: #e8e8e8;">Может отправлять сообщения</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Кнопки действий -->
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
+                <a href="{% url 'wiki:warn_user' target_user.id %}"
+                   style="background: #ffc107; color: #1a1a1a; padding: 12px; border-radius: 8px; text-decoration: none; text-align: center; font-weight: bold;">
+                    ⚠️ Предупредить
+                </a>
+
+                {% if user_status.is_banned %}
+                    <form method="post" style="margin: 0;">
+                        {% csrf_token %}
+                        <input type="hidden" name="action" value="unban">
+                        <input type="hidden" name="unban_reason" value="Досрочное снятие">
+                        <button type="submit"
+                                style="background: #28a745; color: white; width: 100%; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">
+                            ✅ Разбанить
+                        </button>
+                    </form>
+                {% else %}
+                    <a href="{% url 'wiki:ban_user' target_user.id %}"
+                       style="background: #dc3545; color: white; padding: 12px; border-radius: 8px; text-decoration: none; text-align: center; font-weight: bold;">
+                        🚫 Забанить
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Вкладки -->
+    <div style="background: #2d2d2d; border: 1px solid #D4AF37; border-radius: 10px; overflow: hidden; margin-bottom: 30px;">
+        <!-- Навигация вкладок -->
+        <div style="display: flex; background: #1a1a1a; border-bottom: 1px solid #D4AF37;">
+            <button onclick="showTab('bans')"
+                    style="flex: 1; background: #2d2d2d; color: #D4AF37; border: none; padding: 15px; font-weight: bold; cursor: pointer; border-right: 1px solid #D4AF37;">
+                🚫 История банов ({{ ban_history.count }})
+            </button>
+            <button onclick="showTab('warnings')"
+                    style="flex: 1; background: #2d2d2d; color: #D4AF37; border: none; padding: 15px; font-weight: bold; cursor: pointer;">
+                ⚠️ История предупреждений ({{ warning_history.count }})
+            </button>
+        </div>
+
+        <!-- Содержимое вкладок -->
+        <div id="bansTab" style="padding: 25px; display: block;">
+            {% if ban_history %}
+            <div style="overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr style="background: #1a1a1a;">
+                            <th style="padding: 12px; text-align: left; color: #dc3545; border-bottom: 2px solid #dc3545;">Статус</th>
+                            <th style="padding: 12px; text-align: left; color: #dc3545; border-bottom: 2px solid #dc3545;">Причина</th>
+                            <th style="padding: 12px; text-align: left; color: #dc3545; border-bottom: 2px solid #dc3545;">Забанил</th>
+                            <th style="padding: 12px; text-align: left; color: #dc3545; border-bottom: 2px solid #dc3545;">Дата начала</th>
+                            <th style="padding: 12px; text-align: left; color: #dc3545; border-bottom: 2px solid #dc3545;">Дата окончания</th>
+                            <th style="padding: 12px; text-align: left; color: #dc3545; border-bottom: 2px solid #dc3545;">Длительность</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for ban in ban_history %}
+                        <tr style="border-bottom: 1px solid rgba(220, 53, 69, 0.2);">
+                            <td style="padding: 12px;">
+                                {% if ban.is_active and not ban.is_expired %}
+                                    <span style="background: #dc3545; color: white; padding: 3px 8px; border-radius: 3px; font-size: 12px;">
+                                        Активен
+                                    </span>
+                                {% else %}
+                                    <span style="background: #6c757d; color: white; padding: 3px 8px; border-radius: 3px; font-size: 12px;">
+                                        Неактивен
+                                    </span>
+                                {% endif %}
+                            </td>
+                            <td style="padding: 12px; color: #e74c3c;">{{ ban.reason }}</td>
+                            <td style="padding: 12px;">
+                                <span style="color: #3498db;">{{ ban.banned_by.username }}</span>
+                            </td>
+                            <td style="padding: 12px; color: #95a5a6;">{{ ban.created_at|date:"d.m.Y H:i" }}</td>
+                            <td style="padding: 12px; color: #95a5a6;">
+                                {% if ban.expires_at %}
+                                    {{ ban.expires_at|date:"d.m.Y H:i" }}
+                                {% else %}
+                                    Бессрочно
+                                {% endif %}
+                            </td>
+                            <td style="padding: 12px;">
+                                {{ ban.get_duration_display }}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <div style="text-align: center; padding: 40px 20px;">
+                <div style="font-size: 4em; color: #28a745; margin-bottom: 20px;">✅</div>
+                <h3 style="color: #e8e8e8; margin-bottom: 10px;">Нет истории банов</h3>
+                <p style="color: #95a5a6;">У пользователя никогда не было ограничений.</p>
+            </div>
+            {% endif %}
+        </div>
+
+        <div id="warningsTab" style="padding: 25px; display: none;">
+            {% if warning_history %}
+            <div style="overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr style="background: #1a1a1a;">
+                            <th style="padding: 12px; text-align: left; color: #ffc107; border-bottom: 2px solid #ffc107;">Статус</th>
+                            <th style="padding: 12px; text-align: left; color: #ffc107; border-bottom: 2px solid #ffc107;">Уровень</th>
+                            <th style="padding: 12px; text-align: left; color: #ffc107; border-bottom: 2px solid #ffc107;">Причина</th>
+                            <th style="padding: 12px; text-align: left; color: #ffc107; border-bottom: 2px solid #ffc107;">Кем выдано</th>
+                            <th style="padding: 12px; text-align: left; color: #ffc107; border-bottom: 2px solid #ffc107;">Дата</th>
+                            <th style="padding: 12px; text-align: left; color: #ffc107; border-bottom: 2px solid #ffc107;">Действия</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for warning in warning_history %}
+                        <tr style="border-bottom: 1px solid rgba(255, 193, 7, 0.2);">
+                            <td style="padding: 12px;">
+                                {% if warning.is_active %}
+                                    <span style="background: #ffc107; color: #1a1a1a; padding: 3px 8px; border-radius: 3px; font-size: 12px;">
+                                        Активно
+                                    </span>
+                                {% else %}
+                                    <span style="background: #6c757d; color: white; padding: 3px 8px; border-radius: 3px; font-size: 12px;">
+                                        Снято
+                                    </span>
+                                {% endif %}
+                            </td>
+                            <td style="padding: 12px;">
+                                <span style="color: #ffc107; font-weight: bold;">
+                                    {{ warning.get_severity_display }}
+                                </span>
+                            </td>
+                            <td style="padding: 12px; color: #e8e8e8;">{{ warning.reason }}</td>
+                            <td style="padding: 12px;">
+                                <span style="color: #3498db;">{{ warning.issued_by.username }}</span>
+                            </td>
+                            <td style="padding: 12px; color: #95a5a6;">{{ warning.created_at|date:"d.m.Y H:i" }}</td>
+                            <td style="padding: 12px;">
+                                {% if warning.is_active %}
+                                <form method="post" style="display: inline;">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="action" value="remove_warning">
+                                    <input type="hidden" name="warning_id" value="{{ warning.id }}">
+                                    <button type="submit"
+                                            style="background: #28a745; color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer; font-size: 0.9em;">
+                                        Снять
+                                    </button>
+                                </form>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <div style="text-align: center; padding: 40px 20px;">
+                <div style="font-size: 4em; color: #28a745; margin-bottom: 20px;">✅</div>
+                <h3 style="color: #e8e8e8; margin-bottom: 10px;">Нет истории предупреждений</h3>
+                <p style="color: #95a5a6;">У пользователя никогда не было предупреждений.</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<script>
+function showTab(tabName) {
+    // Скрываем все вкладки
+    document.getElementById('bansTab').style.display = 'none';
+    document.getElementById('warningsTab').style.display = 'none';
+
+    // Сбрасываем стили всех кнопок
+    const buttons = document.querySelectorAll('[onclick^="showTab"]');
+    buttons.forEach(btn => {
+        btn.style.background = '#2d2d2d';
+        btn.style.color = '#D4AF37';
+    });
+
+    // Показываем выбранную вкладку и меняем стиль кнопки
+    document.getElementById(tabName + 'Tab').style.display = 'block';
+    event.target.style.background = '#D4AF37';
+    event.target.style.color = '#1a1a1a';
+}
+</script>
+{% endblock %}

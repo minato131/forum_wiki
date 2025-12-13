@@ -1,4 +1,4 @@
-from .views import user_management, FAQView, HelpView
+from .views import user_management, FAQView, HelpView, banned_page
 from django.contrib.auth import views as auth_views
 from .views import register
 from django.contrib.auth import views as auth_views
@@ -6,16 +6,11 @@ from accounts.forms import CustomAuthenticationForm
 from django.urls import path
 from . import views
 from django.contrib.admin.views.decorators import staff_member_required
-from .moderation_views import (
-    moderation_dashboard,
-    user_search,
-    user_detail,
-    banned_users_list,
-    warned_users_list,
-    moderation_logs,
-)
-
+from . import moderation_views
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 app_name = 'wiki'
+
 
 urlpatterns = [
     # Основные страницы
@@ -152,10 +147,14 @@ urlpatterns = [
     path('admin/user-warnings/', staff_member_required(views.user_warnings_list), name='user_warnings_list'),
     path('admin/reset-warnings/<int:user_id>/', staff_member_required(views.reset_user_warnings),
          name='reset_warnings'),
-    path('moderation/', views.moderation_dashboard, name='moderation_dashboard'),
-    path('moderation/search/', views.user_search, name='user_search'),
-    path('moderation/user/<int:user_id>/', views.user_detail, name='user_detail'),
-    path('moderation/banned/', views.banned_users_list, name='banned_users'),
-    path('moderation/warned/', views.warned_users_list, name='warned_users'),
-    path('moderation/logs/', views.moderation_logs, name='moderation_logs'),
+    path('moderation/dashboard/', moderation_views.moderation_dashboard, name='moderation_dashboard'),
+    path('moderation/search/', moderation_views.user_search, name='user_search'),
+    path('moderation/warned/', moderation_views.warned_users_list, name='warned_users_list'),
+    path('moderation/banned/', moderation_views.banned_users_list, name='banned_users_list'),
+    path('moderation/logs/', moderation_views.moderation_logs, name='moderation_logs'),
+    path('moderation/user/<int:user_id>/', moderation_views.user_detail, name='user_detail'),
+    path('moderation/warn/<int:user_id>/', moderation_views.warn_user, name='warn_user'),
+    path('moderation/ban/<int:user_id>/', moderation_views.ban_user, name='ban_user'),
+    path('moderation/unban/<int:user_id>/', moderation_views.unban_user, name='unban_user'),
+    path('banned/', banned_page, name='banned'),
 ]

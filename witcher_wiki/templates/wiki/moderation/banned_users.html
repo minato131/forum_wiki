@@ -1,0 +1,145 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Забаненные пользователи{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 1200px; margin: 20px auto; padding: 20px;">
+    <h1 style="color: #D4AF37; margin-bottom: 20px; border-bottom: 2px solid #D4AF37; padding-bottom: 10px;">
+        🚫 Забаненные пользователи
+    </h1>
+
+    <div style="background: #2d2d2d; border: 1px solid #D4AF37; border-radius: 10px; padding: 20px; margin-bottom: 20px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h3 style="color: #FFD700; margin: 0;">
+                Всего забанено: <span style="color: #e74c3c;">{{ total_banned }}</span>
+            </h3>
+        </div>
+
+        {% if page_obj %}
+        <div style="overflow-x: auto;">
+            <table style="width: 100%; border-collapse: collapse;">
+                <thead>
+                    <tr style="background: #1a1a1a;">
+                        <th style="padding: 12px; text-align: left; color: #D4AF37; border-bottom: 2px solid #D4AF37;">Пользователь</th>
+                        <th style="padding: 12px; text-align: left; color: #D4AF37; border-bottom: 2px solid #D4AF37;">Причина</th>
+                        <th style="padding: 12px; text-align: left; color: #D4AF37; border-bottom: 2px solid #D4AF37;">Забанил</th>
+                        <th style="padding: 12px; text-align: left; color: #D4AF37; border-bottom: 2px solid #D4AF37;">Дата бана</th>
+                        <th style="padding: 12px; text-align: left; color: #D4AF37; border-bottom: 2px solid #D4AF37;">Истекает</th>
+                        <th style="padding: 12px; text-align: left; color: #D4AF37; border-bottom: 2px solid #D4AF37;">Осталось</th>
+                        <th style="padding: 12px; text-align: left; color: #D4AF37; border-bottom: 2px solid #D4AF37;">Действия</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ban in page_obj %}
+                    <tr style="border-bottom: 1px solid rgba(212, 175, 55, 0.2);">
+                        <td style="padding: 12px;">
+                            <strong style="color: #e8e8e8; display: block;">{{ ban.user.username }}</strong>
+                            <small style="color: #95a5a6;">{{ ban.user.email }}</small>
+                        </td>
+                        <td style="padding: 12px; color: #e74c3c;">
+                            {{ ban.reason }}
+                        </td>
+                        <td style="padding: 12px;">
+                            <span style="color: #3498db;">{{ ban.banned_by.username }}</span>
+                        </td>
+                        <td style="padding: 12px; color: #95a5a6;">
+                            {{ ban.ban.created_at|date:"d.m.Y H:i" }}
+                        </td>
+                        <td style="padding: 12px; color: #95a5a6;">
+                            {{ ban.ban.expires_at|date:"d.m.Y H:i" }}
+                        </td>
+                        <td style="padding: 12px;">
+                            {% if ban.time_remaining.days > 0 %}
+                                <span style="color: #e67e22; font-weight: bold;">
+                                    {{ ban.time_remaining.days }} дн.
+                                </span>
+                            {% else %}
+                                <span style="color: #e74c3c; font-weight: bold;">
+                                    {{ ban.time_remaining.hours }} ч.
+                                </span>
+                            {% endif %}
+                        </td>
+                        <td style="padding: 12px;">
+                            <button onclick="confirmUnban('{{ ban.user.id }}', '{{ ban.user.username|escapejs }}')"
+                                    style="background: #28a745; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-weight: bold; transition: all 0.3s;">
+                                Разбанить
+                            </button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Пагинация -->
+        {% if page_obj.has_other_pages %}
+        <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(212, 175, 55, 0.3);">
+            <div style="display: flex; justify-content: center; gap: 10px;">
+                {% if page_obj.has_previous %}
+                    <a href="?page={{ page_obj.previous_page_number }}"
+                       style="background: #D4AF37; color: #1a1a1a; padding: 8px 15px; border-radius: 5px; text-decoration: none; font-weight: bold;">
+                        ← Назад
+                    </a>
+                {% endif %}
+
+                <div style="display: flex; gap: 5px;">
+                    {% for num in page_obj.paginator.page_range %}
+                        {% if page_obj.number == num %}
+                            <span style="background: #e74c3c; color: white; padding: 8px 15px; border-radius: 5px; font-weight: bold;">
+                                {{ num }}
+                            </span>
+                        {% elif num > page_obj.number|add:-3 and num < page_obj.number|add:3 %}
+                            <a href="?page={{ num }}"
+                               style="background: #2d2d2d; color: #D4AF37; padding: 8px 15px; border-radius: 5px; text-decoration: none; border: 1px solid #D4AF37;">
+                                {{ num }}
+                            </a>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}"
+                       style="background: #D4AF37; color: #1a1a1a; padding: 8px 15px; border-radius: 5px; text-decoration: none; font-weight: bold;">
+                        Вперед →
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+
+        {% else %}
+        <div style="text-align: center; padding: 40px 20px;">
+            <div style="font-size: 4em; color: #28a745; margin-bottom: 20px;">✅</div>
+            <h3 style="color: #e8e8e8; margin-bottom: 10px;">Нет забаненных пользователей</h3>
+            <p style="color: #95a5a6;">Все пользователи активны и могут свободно общаться.</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+function confirmUnban(userId, username) {
+    if (confirm(`Вы уверены, что хотите разбанить пользователя ${username}?`)) {
+        const form = document.createElement('form');
+        form.method = 'post';
+        form.action = `{% url 'wiki:unban_user' 0 %}`.replace('0', userId);
+
+        const csrf = document.createElement('input');
+        csrf.type = 'hidden';
+        csrf.name = 'csrfmiddlewaretoken';
+        csrf.value = '{{ csrf_token }}';
+
+        const reason = document.createElement('input');
+        reason.type = 'hidden';
+        reason.name = 'reason';
+        reason.value = 'Досрочное снятие бана';
+
+        form.appendChild(csrf);
+        form.appendChild(reason);
+        document.body.appendChild(form);
+        form.submit();
+    }
+}
+</script>
+{% endblock %}
