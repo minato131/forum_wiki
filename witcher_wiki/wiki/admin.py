@@ -3,7 +3,7 @@ from rest_framework.generics import get_object_or_404
 
 from .models import Article, Category, Comment, UserProfile, ArticleMedia, ModerationComment, ArticleRevision, BackupLog
 from .models import AuthCode
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group, User
 from django.contrib import admin
 from django.contrib.auth.models import Group, Permission
 from django.contrib.auth.admin import GroupAdmin as BaseGroupAdmin
@@ -37,6 +37,11 @@ from django.urls import reverse
 from .models import CommentLike
 import os
 from .models import UserBan, UserWarning, ModerationLog
+from django.contrib import admin
+from django.utils.html import format_html
+from django.urls import path
+from django.shortcuts import redirect
+from django.contrib import messages
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
@@ -121,6 +126,66 @@ class UserWarningAdmin(admin.ModelAdmin):
         if not obj.issued_by:
             obj.issued_by = request.user
         super().save_model(request, obj, form, change)
+
+    change_list_template = "admin/wiki/userwarning/change_list.html"
+
+    def get_urls(self):
+        urls = super().get_urls()
+        custom_urls = [
+            path(
+                'check-auto-bans/',
+                self.admin_site.admin_view(self.check_auto_bans),
+                name='wiki_userwarning_check_auto_bans',
+            ),
+        ]
+        return custom_urls + urls
+
+    def check_auto_bans(self, request):
+        """Проверяет и применяет авто-баны"""
+
+        users_banned = 0
+
+        # Находим пользователей с 4+ предупреждениями
+        for user in User.objects.all():
+            warnings_count = UserWarning.objects.filter(
+                user=user,
+                is_active=True
+            ).count()
+
+            if warnings_count >= 4:
+                # Проверяем нет ли активного бана
+                has_active_ban = False
+                existing_bans = UserBan.objects.filter(user=user, is_active=True)
+
+                for ban in existing_bans:
+                    if ban.duration == 'permanent' or (ban.expires_at and ban.expires_at > timezone.now()):
+                        has_active_ban = True
+                        break
+
+                if not has_active_ban:
+                    # Создаем бан
+                    last_warning = UserWarning.objects.filter(
+                        user=user
+                    ).order_by('-created_at').first()
+
+                    issuer = last_warning.issued_by if last_warning else user
+
+                    UserBan.objects.create(
+                        user=user,
+                        banned_by=issuer,
+                        reason='multiple_violations',
+                        duration='1d',
+                        notes=f'Автоматический бан за {warnings_count} предупреждений',
+                        is_active=True
+                    )
+                    users_banned += 1
+
+        if users_banned > 0:
+            messages.success(request, f'Создано {users_banned} автоматических банов')
+        else:
+            messages.info(request, 'Нет пользователей для автоматического бана')
+
+        return redirect('admin:wiki_userwarning_changelist')
 
 
 @admin.register(ModerationLog)

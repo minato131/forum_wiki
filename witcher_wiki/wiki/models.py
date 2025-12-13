@@ -1323,6 +1323,66 @@ class UserWarning(models.Model):
         severity_dict = dict(self.SEVERITY_LEVELS)
         return severity_dict.get(self.severity, self.severity)
 
+    def save(self, *args, **kwargs):
+        # Сохраняем сначала
+        super().save(*args, **kwargs)
+
+        # Проверяем авто-бан после сохранения
+        if self.is_active:
+            try:
+                print(f"🔄 Проверка авто-бана для {self.user.username}")
+
+                # Импортируем здесь чтобы избежать циклических импортов
+                from django.utils import timezone
+
+                # Считаем активные предупреждения
+                warnings_count = UserWarning.objects.filter(
+                    user=self.user,
+                    is_active=True
+                ).count()
+
+                print(f"   Активных предупреждений: {warnings_count}")
+
+                if warnings_count >= 4:
+                    # Проверяем нет ли уже активного бана
+                    from wiki.models import UserBan
+
+                    existing_bans = UserBan.objects.filter(
+                        user=self.user,
+                        is_active=True
+                    )
+
+                    has_active_ban = False
+                    for ban in existing_bans:
+                        if ban.duration == 'permanent':
+                            has_active_ban = True
+                            break
+                        elif ban.expires_at and ban.expires_at > timezone.now():
+                            has_active_ban = True
+                            break
+                        else:
+                            # Бан истек - деактивируем
+                            ban.is_active = False
+                            ban.save()
+
+                    if not has_active_ban:
+                        print(f"   🚨 Создаем авто-бан для {self.user.username}")
+
+                        ban = UserBan.objects.create(
+                            user=self.user,
+                            banned_by=self.issued_by,
+                            reason='multiple_violations',
+                            duration='1d',
+                            notes=f'Автоматический бан за {warnings_count} активных предупреждений',
+                            is_active=True
+                        )
+
+                        print(f"   ✅ Бан создан! ID: {ban.id}")
+
+            except Exception as e:
+                print(f"   ❌ Ошибка при проверке авто-бана: {e}")
+
+
 
 class UserBan(models.Model):
     """Модель бана пользователя"""

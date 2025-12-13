@@ -106,6 +106,7 @@ from .moderation_views import (
     clear_old_logs,
 )
 # from wiki.middleware import CensorshipMiddleware
+from .models import UserWarning
 from .models import UserBan
 
 def clean_latex_from_content(content):
@@ -426,6 +427,55 @@ def profile(request):
 @login_required
 def article_create(request):
     """Создание новой статьи"""
+
+    active_bans = UserBan.objects.filter(
+        user=request.user,
+        is_active=True
+    )
+
+    for ban in active_bans:
+        if ban.duration == 'permanent' or (ban.expires_at and ban.expires_at > timezone.now()):
+            messages.error(request, '❌ Вы не можете создавать статьи: ваш аккаунт заблокирован.')
+            return redirect('banned_page')
+
+    # ПРОВЕРКА 2: Есть ли 4+ предупреждений (даже если нет бана еще)
+    warnings_count = UserWarning.objects.filter(
+        user=request.user,
+        is_active=True
+    ).count()
+
+    if warnings_count >= 4:
+        messages.error(request,
+                       f'❌ Вы не можете создавать статьи: у вас {warnings_count} активных предупреждений. '
+                       f'Ожидается автоматический бан.'
+                       )
+        return redirect('wiki:home')
+
+    # ПРОВЕРКА 3: Нецензурная лексика (дополнительная проверка на случай если middleware не сработал)
+    if request.method == 'POST':
+        banned_words = ['хуй', 'пизда', 'еблан', 'мудак', 'говно']
+        found_words = []
+
+        # Проверяем заголовок и контент
+        title = request.POST.get('title', '')
+        content = request.POST.get('content', '')
+
+        for word in banned_words:
+            if word in title.lower() or word in content.lower():
+                found_words.append(word)
+
+        if found_words:
+            messages.error(request,
+                           f'❌ Текст содержит запрещенные слова: {", ".join(found_words)}. '
+                           f'Создание статьи заблокировано.'
+                           )
+
+            # Возвращаем форму с ошибкой
+            categories = Category.objects.all()
+            return render(request, 'wiki/article_create.html', {
+                'categories': categories,
+                'error_message': 'Текст содержит запрещенные слова'
+            })
     error_message = ""
     success_message = ""
 

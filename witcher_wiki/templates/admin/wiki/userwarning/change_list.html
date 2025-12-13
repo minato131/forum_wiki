@@ -1,0 +1,11 @@
+<!-- templates/admin/wiki/userwarning/change_list.html -->
+{% extends "admin/change_list.html" %}
+
+{% block object-tools-items %}
+  <li>
+    <a href="{% url 'admin:wiki_userwarning_check_auto_bans' %}" class="button">
+      🔍 Проверить авто-баны
+    </a>
+  </li>
+  {{ block.super }}
+{% endblock %}
