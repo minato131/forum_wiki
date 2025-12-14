@@ -35065,3 +35065,21 @@ INFO 2025-12-14 22:26:46,703 autoreload Watching for file changes with StatReloa
 INFO 2025-12-14 22:26:48,726 log "GET / HTTP/1.1" 200 50620
 INFO 2025-12-14 22:26:53,430 log "GET /article/yvvyvyyv/ HTTP/1.1" 200 84479
 INFO 2025-12-14 22:26:57,695 log "GET /notifications/ HTTP/1.1" 200 54244
+INFO 2025-12-14 23:01:43,376 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\witcher_wiki\settings.py changed, reloading.
+INFO 2025-12-14 23:01:45,563 autoreload Watching for file changes with StatReloader
+INFO 2025-12-14 23:02:06,587 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\admin.py changed, reloading.
+INFO 2025-12-14 23:02:08,007 autoreload Watching for file changes with StatReloader
+INFO 2025-12-14 23:03:20,834 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\models.py changed, reloading.
+INFO 2025-12-14 23:03:27,495 autoreload Watching for file changes with StatReloader
+INFO 2025-12-14 23:03:58,012 autoreload Watching for file changes with StatReloader
+INFO 2025-12-14 23:04:13,644 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\admin.py changed, reloading.
+INFO 2025-12-14 23:04:14,640 autoreload Watching for file changes with StatReloader
+INFO 2025-12-14 23:08:05,405 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\signals.py changed, reloading.
+INFO 2025-12-14 23:08:06,058 autoreload Watching for file changes with StatReloader
+INFO 2025-12-14 23:08:07,823 log "GET / HTTP/1.1" 200 53725
+INFO 2025-12-14 23:08:08,114 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-14 23:08:09,208 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-14 23:08:09,208 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-14 23:08:12,200 log "GET /admin/ HTTP/1.1" 200 20879
+INFO 2025-12-14 23:08:14,020 log "GET /admin/wiki/actionlog/ HTTP/1.1" 200 97832
+INFO 2025-12-14 23:08:14,120 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820

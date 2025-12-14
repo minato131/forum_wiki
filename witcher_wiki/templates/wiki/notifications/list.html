@@ -1,806 +1,516 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load notification_tags %}
 
 {% block title %}Уведомления - Witcher Wiki{% endblock %}
 
 {% block extra_css %}
 <style>
-.notifications-page {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-/* Статистика */
-.notifications-stats {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 15px;
-    margin-bottom: 30px;
-}
-
-.stat-card {
-    background: #2d2d2d;
-    border-radius: 10px;
-    padding: 20px;
-    text-align: center;
-    border: 1px solid #D4AF37;
-    transition: transform 0.3s;
-}
-
-.stat-card:hover {
-    transform: translateY(-5px);
-}
-
-.stat-card.total { border-left: 5px solid #6c757d; }
-.stat-card.unread { border-left: 5px solid #007bff; }
-.stat-card.info { border-left: 5px solid #17a2b8; }
-.stat-card.warning { border-left: 5px solid #ffc107; }
-.stat-card.alert { border-left: 5px solid #dc3545; }
-.stat-card.success { border-left: 5px solid #28a745; }
-.stat-card.system { border-left: 5px solid #6c757d; }
-
-.stat-number {
-    font-size: 2rem;
-    font-weight: bold;
-    display: block;
-}
-
-.stat-label {
-    font-size: 0.9rem;
-    color: #aaa;
-}
-
-/* Фильтры и поиск */
-.notifications-controls {
-    background: #2d2d2d;
-    padding: 20px;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #D4AF37;
-}
-
-.filters-row {
-    display: flex;
-    gap: 15px;
-    flex-wrap: wrap;
-    margin-bottom: 15px;
-}
-
-.filter-btn {
-    padding: 8px 16px;
-    border: 1px solid #D4AF37;
-    background: transparent;
-    color: #D4AF37;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.3s;
-}
-
-.filter-btn.active {
-    background: #D4AF37;
-    color: #1a1a1a;
-    font-weight: bold;
-}
-
-.filter-btn:hover {
-    background: rgba(212, 175, 55, 0.2);
-}
-
-.search-box {
-    flex: 1;
-    min-width: 200px;
-}
-
-.search-input {
-    width: 100%;
-    padding: 10px 15px;
-    background: #1a1a1a;
-    border: 1px solid #D4AF37;
-    border-radius: 5px;
-    color: white;
-}
-
-/* Список уведомлений */
-.notifications-list {
-    background: #2d2d2d;
-    border-radius: 10px;
-    overflow: hidden;
-    border: 1px solid #D4AF37;
-}
-
 .notification-item {
-    padding: 20px;
-    border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-    transition: background 0.3s;
-    position: relative;
-}
-
-.notification-item:last-child {
-    border-bottom: none;
-}
-
-.notification-item:hover {
-    background: rgba(212, 175, 55, 0.05);
+    transition: all 0.3s ease;
+    border-left: 4px solid transparent;
 }
 
 .notification-item.unread {
-    background: rgba(0, 123, 255, 0.05);
+    border-left-color: #007bff;
+    background-color: #f8f9fa !important;
 }
 
-.notification-item.unread::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 4px;
-    background: #007bff;
+.notification-item:hover {
+    background-color: #f0f0f0 !important;
 }
 
-/* Заголовок уведомления */
-.notification-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 10px;
-}
-
-.notification-title {
-    font-size: 1.1rem;
-    font-weight: 600;
-    margin: 0;
+.notification-icon {
+    width: 40px;
+    height: 40px;
     display: flex;
     align-items: center;
-    gap: 10px;
-}
-
-.notification-badge {
-    font-size: 0.7rem;
-    padding: 2px 8px;
-    border-radius: 10px;
-    text-transform: uppercase;
-}
-
-.notification-time {
-    font-size: 0.85rem;
-    color: #aaa;
-    white-space: nowrap;
-}
-
-/* Тело уведомления */
-.notification-body {
-    margin-bottom: 15px;
-}
-
-.notification-message {
-    color: #ddd;
-    line-height: 1.5;
-}
-
-/* Действия */
-.notification-actions {
-    display: flex;
-    gap: 10px;
-}
-
-.notification-actions .btn {
-    padding: 5px 12px;
-    font-size: 0.85rem;
-}
-
-/* Быстрые действия */
-.quick-actions {
-    display: flex;
-    gap: 10px;
-    margin-top: 20px;
-    padding: 15px;
-    background: rgba(212, 175, 55, 0.1);
-    border-radius: 5px;
-}
-
-/* Пагинация */
-.pagination {
-    display: flex;
     justify-content: center;
-    gap: 5px;
-    margin-top: 20px;
+    border-radius: 50%;
 }
 
-.page-link {
-    padding: 8px 12px;
-    border: 1px solid #D4AF37;
-    background: #2d2d2d;
-    color: #D4AF37;
-    text-decoration: none;
-    border-radius: 5px;
+.notification-type-info .notification-icon {
+    background-color: #d1ecf1;
+    color: #0c5460;
 }
 
-.page-link.active {
-    background: #D4AF37;
-    color: #1a1a1a;
+.notification-type-warning .notification-icon {
+    background-color: #fff3cd;
+    color: #856404;
 }
 
-.page-link:hover {
-    background: rgba(212, 175, 55, 0.2);
+.notification-type-success .notification-icon {
+    background-color: #d4edda;
+    color: #155724;
 }
 
-/* Пустое состояние */
-.empty-state {
-    text-align: center;
-    padding: 50px 20px;
+.notification-type-alert .notification-icon {
+    background-color: #f8d7da;
+    color: #721c24;
 }
 
-.empty-state-icon {
-    font-size: 3rem;
-    color: #6c757d;
-    margin-bottom: 20px;
+.notification-type-system .notification-icon {
+    background-color: #e2e3e5;
+    color: #383d41;
 }
 
-/* Анимации */
-@keyframes slideIn {
-    from {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.filter-badge {
+    cursor: pointer;
+    transition: all 0.2s;
 }
 
-.notification-item {
-    animation: slideIn 0.3s ease-out;
+.filter-badge:hover {
+    transform: scale(1.05);
 }
 
-/* Режим реального времени */
-.realtime-indicator {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 1000;
-    animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-    0% { opacity: 1; }
-    50% { opacity: 0.5; }
-    100% { opacity: 1; }
+.filter-badge.active {
+    box-shadow: 0 0 0 2px rgba(0,123,255,.25);
 }
 </style>
 {% endblock %}
 
 {% block content %}
-<div class="notifications-page">
-    <!-- Заголовок -->
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1><i class="fas fa-bell mr-2"></i>Уведомления</h1>
-        <div class="notification-actions">
-            <button id="mark-all-read" class="btn btn-outline-primary">
-                <i class="fas fa-check-circle mr-1"></i>Прочитать все
-            </button>
-            <button id="delete-read" class="btn btn-outline-danger">
-                <i class="fas fa-trash mr-1"></i>Удалить прочитанные
-            </button>
-        </div>
-    </div>
+<div class="container py-4">
+    <div class="row">
+        <div class="col-lg-3 mb-4">
+            <!-- Панель фильтров -->
+            <div class="card shadow-sm">
+                <div class="card-header bg-dark text-white">
+                    <h5 class="mb-0"><i class="fas fa-filter mr-2"></i>Фильтры</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <h6>Типы уведомлений:</h6>
+                        <div class="d-flex flex-wrap gap-2">
+                            <span class="badge filter-badge badge-{% if filter_type == 'all' %}primary active{% else %}secondary{% endif %}"
+                                  data-type="all">Все ({{ stats.total }})</span>
+                            <span class="badge filter-badge badge-{% if filter_type == 'info' %}info active{% else %}secondary{% endif %}"
+                                  data-type="info">Инфо ({{ stats.info }})</span>
+                            <span class="badge filter-badge badge-{% if filter_type == 'warning' %}warning active{% else %}secondary{% endif %}"
+                                  data-type="warning">Предупреждения ({{ stats.warning }})</span>
+                            <span class="badge filter-badge badge-{% if filter_type == 'alert' %}danger active{% else %}secondary{% endif %}"
+                                  data-type="alert">Алерты ({{ stats.alert }})</span>
+                            <span class="badge filter-badge badge-{% if filter_type == 'success' %}success active{% else %}secondary{% endif %}"
+                                  data-type="success">Успех ({{ stats.success }})</span>
+                            <span class="badge filter-badge badge-{% if filter_type == 'system' %}dark active{% else %}secondary{% endif %}"
+                                  data-type="system">Системные ({{ stats.system }})</span>
+                        </div>
+                    </div>
 
-    <!-- Статистика -->
-    <div class="notifications-stats">
-        <div class="stat-card total">
-            <span class="stat-number">{{ stats.total }}</span>
-            <span class="stat-label">Всего</span>
-        </div>
-        <div class="stat-card unread">
-            <span class="stat-number">{{ stats.unread }}</span>
-            <span class="stat-label">Непрочитанные</span>
-        </div>
-        <div class="stat-card info">
-            <span class="stat-number">{{ stats.info }}</span>
-            <span class="stat-label">Информационные</span>
-        </div>
-        <div class="stat-card warning">
-            <span class="stat-number">{{ stats.warning }}</span>
-            <span class="stat-label">Предупреждения</span>
-        </div>
-        <div class="stat-card alert">
-            <span class="stat-number">{{ stats.alert }}</span>
-            <span class="stat-label">Тревоги</span>
-        </div>
-        <div class="stat-card success">
-            <span class="stat-number">{{ stats.success }}</span>
-            <span class="stat-label">Успехи</span>
-        </div>
-        <div class="stat-card system">
-            <span class="stat-number">{{ stats.system }}</span>
-            <span class="stat-label">Системные</span>
-        </div>
-    </div>
+                    <div class="mb-3">
+                        <h6>Статус:</h6>
+                        <div class="d-flex flex-wrap gap-2">
+                            <span class="badge badge-light">{{ stats.unread }} непрочитанных</span>
+                            <span class="badge badge-light">{{ stats.total|add:stats.unread|floatformat:"0" }} всего</span>
+                        </div>
+                    </div>
 
-    <!-- Фильтры и поиск -->
-    <div class="notifications-controls">
-        <div class="filters-row">
-            <a href="?type=all{% if search_query %}&q={{ search_query }}{% endif %}"
-               class="filter-btn {% if filter_type == 'all' %}active{% endif %}">
-                Все
-            </a>
-            <a href="?type=info{% if search_query %}&q={{ search_query }}{% endif %}"
-               class="filter-btn {% if filter_type == 'info' %}active{% endif %}">
-                Информационные
-            </a>
-            <a href="?type=warning{% if search_query %}&q={{ search_query }}{% endif %}"
-               class="filter-btn {% if filter_type == 'warning' %}active{% endif %}">
-                Предупреждения
-            </a>
-            <a href="?type=alert{% if search_query %}&q={{ search_query }}{% endif %}"
-               class="filter-btn {% if filter_type == 'alert' %}active{% endif %}">
-                Тревоги
-            </a>
-            <a href="?type=success{% if search_query %}&q={{ search_query }}{% endif %}"
-               class="filter-btn {% if filter_type == 'success' %}active{% endif %}">
-                Успехи
-            </a>
-            <a href="?type=system{% if search_query %}&q={{ search_query }}{% endif %}"
-               class="filter-btn {% if filter_type == 'system' %}active{% endif %}">
-                Системные
-            </a>
-        </div>
+                    <div class="mb-3">
+                        <h6>Действия:</h6>
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-outline-success btn-sm" id="markAllReadBtn">
+                                <i class="fas fa-check-double mr-1"></i>Прочитать все
+                            </button>
+                            <button class="btn btn-outline-danger btn-sm" id="deleteAllReadBtn">
+                                <i class="fas fa-trash mr-1"></i>Удалить прочитанные
+                            </button>
+                            <button class="btn btn-outline-warning btn-sm" id="deleteAllBtn">
+                                <i class="fas fa-broom mr-1"></i>Очистить все
+                            </button>
+                        </div>
+                    </div>
 
-        <form method="get" class="filters-row">
-            <div class="search-box">
-                <input type="text" name="q" class="search-input"
-                       placeholder="Поиск по уведомлениям..." value="{{ search_query }}">
+                    <!-- Поиск -->
+                    <form method="GET" class="mt-3">
+                        <div class="input-group input-group-sm">
+                            <input type="text" class="form-control" name="q" placeholder="Поиск..."
+                                   value="{{ search_query }}">
+                            <button class="btn btn-outline-primary" type="submit">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <button type="submit" class="btn btn-outline-primary">
-                <i class="fas fa-search"></i> Найти
-            </button>
-            {% if search_query %}
-            <a href="?type={{ filter_type }}" class="btn btn-outline-secondary">
-                <i class="fas fa-times"></i> Сбросить
-            </a>
-            {% endif %}
-        </form>
-
-        <!-- Сортировка -->
-        <div class="filters-row">
-            <span class="text-muted mr-2">Сортировка:</span>
-            <a href="?type={{ filter_type }}&q={{ search_query }}&sort=-created_at"
-               class="filter-btn {% if sort_by == '-created_at' %}active{% endif %}">
-                Сначала новые
-            </a>
-            <a href="?type={{ filter_type }}&q={{ search_query }}&sort=created_at"
-               class="filter-btn {% if sort_by == 'created_at' %}active{% endif %}">
-                Сначала старые
-            </a>
         </div>
-    </div>
 
-    <!-- Быстрые действия по типам -->
-    <div class="quick-actions">
-        <button class="btn btn-sm btn-outline-info mark-by-type" data-type="info">
-            <i class="fas fa-check mr-1"></i>Прочитать все информационные
-        </button>
-        <button class="btn btn-sm btn-outline-warning mark-by-type" data-type="warning">
-            <i class="fas fa-check mr-1"></i>Прочитать все предупреждения
-        </button>
-        <button class="btn btn-sm btn-outline-danger mark-by-type" data-type="alert">
-            <i class="fas fa-check mr-1"></i>Прочитать все тревоги
-        </button>
-        <button class="btn btn-sm btn-outline-secondary delete-by-type" data-type="read">
-            <i class="fas fa-trash mr-1"></i>Удалить прочитанные
-        </button>
-    </div>
+        <div class="col-lg-9">
+            <!-- Основной контент -->
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">
+                        <i class="fas fa-bell mr-2"></i>Мои уведомления
+                        {% if stats.unread > 0 %}
+                        <span class="badge badge-light ml-2">{{ stats.unread }} новых</span>
+                        {% endif %}
+                    </h4>
+                    <div class="dropdown">
+                        <button class="btn btn-sm btn-light dropdown-toggle" type="button"
+                                id="sortDropdown" data-toggle="dropdown">
+                            <i class="fas fa-sort mr-1"></i>
+                            {% if sort_by == '-created_at' %}Сначала новые{% endif %}
+                            {% if sort_by == 'created_at' %}Сначала старые{% endif %}
+                            {% if sort_by == 'notification_type' %}По типу{% endif %}
+                        </button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item {% if sort_by == '-created_at' %}active{% endif %}"
+                               href="?sort=-created_at{% if filter_type != 'all' %}&type={{ filter_type }}{% endif %}">
+                                Сначала новые
+                            </a>
+                            <a class="dropdown-item {% if sort_by == 'created_at' %}active{% endif %}"
+                               href="?sort=created_at{% if filter_type != 'all' %}&type={{ filter_type }}{% endif %}">
+                                Сначала старые
+                            </a>
+                            <a class="dropdown-item {% if sort_by == 'notification_type' %}active{% endif %}"
+                               href="?sort=notification_type{% if filter_type != 'all' %}&type={{ filter_type }}{% endif %}">
+                                По типу
+                            </a>
+                        </div>
+                    </div>
+                </div>
 
-    <!-- Список уведомлений -->
-    <div class="notifications-list">
-        {% if notifications %}
-            {% for notification in notifications %}
-            <div class="notification-item {% if not notification.is_read %}unread{% endif %}"
-                 id="notification-{{ notification.id }}"
-                 data-type="{{ notification.notification_type }}">
-                <div class="notification-header">
-                    <div>
-                        <h3 class="notification-title">
-                            <i class="fas {{ notification.get_icon_class }} text-{{ notification.get_notification_color }} mr-2"></i>
-                            <span class="notification-badge badge badge-{{ notification.get_notification_color }}">
-                                {{ notification.get_notification_badge }}
-                            </span>
-                            {{ notification.title }}
-                        </h3>
-                        <p class="notification-time mb-0">
-                            <i class="far fa-clock mr-1"></i>{{ notification.get_time_ago }}
-                            {% if notification.is_recent %}
-                            <span class="badge badge-success ml-2">Новое</span>
+                <div class="card-body p-0">
+                    {% if notifications %}
+                    <div class="list-group list-group-flush" id="notificationsList">
+                        {% for notification in notifications %}
+                        <div class="list-group-item list-group-item-action notification-item
+                                   {% if not notification.is_read %}unread{% endif %}
+                                   notification-type-{{ notification.notification_type }}"
+                             data-id="{{ notification.id }}" data-type="{{ notification.notification_type }}">
+                            <div class="row align-items-center">
+                                <div class="col-auto">
+                                    <div class="notification-icon">
+                                        {% if notification.notification_type == 'warning' %}
+                                        <i class="fas fa-exclamation-triangle"></i>
+                                        {% elif notification.notification_type == 'system' %}
+                                        <i class="fas fa-cog"></i>
+                                        {% elif notification.notification_type == 'success' %}
+                                        <i class="fas fa-check-circle"></i>
+                                        {% elif notification.notification_type == 'alert' %}
+                                        <i class="fas fa-exclamation-circle"></i>
+                                        {% elif notification.notification_type == 'info' %}
+                                        <i class="fas fa-info-circle"></i>
+                                        {% else %}
+                                        <i class="fas fa-bell"></i>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <div>
+                                            <h6 class="mb-1">
+                                                {{ notification.title }}
+                                                {% if not notification.is_read %}
+                                                <span class="badge badge-primary ml-2">Новое</span>
+                                                {% endif %}
+                                            </h6>
+                                            <p class="mb-1 text-muted">{{ notification.message }}</p>
+                                            <small class="text-muted">
+                                                <i class="far fa-clock mr-1"></i>
+                                                {{ notification.created_at|date:"d.m.Y H:i" }}
+                                            </small>
+                                        </div>
+                                        <div class="btn-group btn-group-sm">
+                                            {% if not notification.is_read %}
+                                            <button class="btn btn-outline-success mark-read-btn"
+                                                    data-id="{{ notification.id }}" title="Прочитать">
+                                                <i class="fas fa-check"></i>
+                                            </button>
+                                            {% endif %}
+                                            {% if notification.link %}
+                                            <a href="{{ notification.link }}" class="btn btn-outline-primary"
+                                               title="Перейти">
+                                                <i class="fas fa-external-link-alt"></i>
+                                            </a>
+                                            {% endif %}
+                                            <button class="btn btn-outline-danger delete-btn"
+                                                    data-id="{{ notification.id }}" title="Удалить">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                    <!-- Пагинация -->
+                    {% if notifications.has_other_pages %}
+                    <nav class="p-3 border-top">
+                        <ul class="pagination justify-content-center mb-0">
+                            {% if notifications.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page=1{% if filter_type != 'all' %}&type={{ filter_type }}{% endif %}{% if search_query %}&q={{ search_query }}{% endif %}{% if sort_by != '-created_at' %}&sort={{ sort_by }}{% endif %}">
+                                    &laquo;&laquo;
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ notifications.previous_page_number }}{% if filter_type != 'all' %}&type={{ filter_type }}{% endif %}{% if search_query %}&q={{ search_query }}{% endif %}{% if sort_by != '-created_at' %}&sort={{ sort_by }}{% endif %}">
+                                    &laquo;
+                                </a>
+                            </li>
+                            {% endif %}
+
+                            {% for num in notifications.paginator.page_range %}
+                                {% if notifications.number == num %}
+                                <li class="page-item active">
+                                    <span class="page-link">{{ num }}</span>
+                                </li>
+                                {% elif num > notifications.number|add:'-3' and num < notifications.number|add:'3' %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ num }}{% if filter_type != 'all' %}&type={{ filter_type }}{% endif %}{% if search_query %}&q={{ search_query }}{% endif %}{% if sort_by != '-created_at' %}&sort={{ sort_by }}{% endif %}">
+                                        {{ num }}
+                                    </a>
+                                </li>
+                                {% endif %}
+                            {% endfor %}
+
+                            {% if notifications.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ notifications.next_page_number }}{% if filter_type != 'all' %}&type={{ filter_type }}{% endif %}{% if search_query %}&q={{ search_query }}{% endif %}{% if sort_by != '-created_at' %}&sort={{ sort_by }}{% endif %}">
+                                    &raquo;
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ notifications.paginator.num_pages }}{% if filter_type != 'all' %}&type={{ filter_type }}{% endif %}{% if search_query %}&q={{ search_query }}{% endif %}{% if sort_by != '-created_at' %}&sort={{ sort_by }}{% endif %}">
+                                    &raquo;&raquo;
+                                </a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                    {% endif %}
+
+                    {% else %}
+                    <div class="text-center py-5">
+                        <i class="fas fa-bell-slash fa-4x text-muted mb-3"></i>
+                        <h4>Уведомлений нет</h4>
+                        <p class="text-muted">
+                            {% if search_query %}
+                            По запросу "{{ search_query }}" ничего не найдено
+                            {% elif filter_type != 'all' %}
+                            Уведомлений типа "{{ filter_type }}" нет
+                            {% else %}
+                            Здесь будут появляться новые уведомления
                             {% endif %}
                         </p>
                     </div>
-                    <div>
-                        {% if not notification.is_read %}
-                        <span class="badge badge-primary">Непрочитано</span>
-                        {% endif %}
-                    </div>
-                </div>
-
-                <div class="notification-body">
-                    <p class="notification-message">{{ notification.message|linebreaks }}</p>
-                </div>
-
-                <div class="notification-actions">
-                    {% if not notification.is_read %}
-                    <button class="btn btn-sm btn-outline-success mark-read"
-                            data-id="{{ notification.id }}">
-                        <i class="fas fa-check mr-1"></i>Прочитать
-                    </button>
-                    {% endif %}
-
-                    {% if notification.link %}
-                    <a href="{{ notification.link }}" class="btn btn-sm btn-primary">
-                        <i class="fas fa-external-link-alt mr-1"></i>Перейти
-                    </a>
-                    {% endif %}
-
-                    <button class="btn btn-sm btn-outline-danger delete-notification"
-                            data-id="{{ notification.id }}">
-                        <i class="fas fa-trash mr-1"></i>Удалить
-                    </button>
-
-                    {% if notification.sender %}
-                    <span class="text-muted ml-2">
-                        <i class="fas fa-user mr-1"></i>От: {{ notification.sender.username }}
-                    </span>
                     {% endif %}
                 </div>
             </div>
-            {% endfor %}
-        {% else %}
-            <div class="empty-state">
-                <div class="empty-state-icon">
-                    <i class="fas fa-bell-slash"></i>
-                </div>
-                <h3>Нет уведомлений</h3>
-                <p class="text-muted">
-                    {% if filter_type != 'all' or search_query %}
-                        Попробуйте изменить фильтры или очистить поиск
-                    {% else %}
-                        Здесь появятся ваши уведомления
-                    {% endif %}
-                </p>
-            </div>
-        {% endif %}
-    </div>
-
-    <!-- Пагинация -->
-    {% if notifications.has_other_pages %}
-    <div class="pagination">
-        {% if notifications.has_previous %}
-        <a href="?page={{ notifications.previous_page_number }}&type={{ filter_type }}&q={{ search_query }}&sort={{ sort_by }}"
-           class="page-link">
-            <i class="fas fa-chevron-left"></i>
-        </a>
-        {% endif %}
-
-        {% for num in notifications.paginator.page_range %}
-            {% if notifications.number == num %}
-            <span class="page-link active">{{ num }}</span>
-            {% elif num > notifications.number|add:'-3' and num < notifications.number|add:'3' %}
-            <a href="?page={{ num }}&type={{ filter_type }}&q={{ search_query }}&sort={{ sort_by }}"
-               class="page-link">{{ num }}</a>
-            {% endif %}
-        {% endfor %}
-
-        {% if notifications.has_next %}
-        <a href="?page={{ notifications.next_page_number }}&type={{ filter_type }}&q={{ search_query }}&sort={{ sort_by }}"
-           class="page-link">
-            <i class="fas fa-chevron-right"></i>
-        </a>
-        {% endif %}
-    </div>
-    {% endif %}
-</div>
-
-<!-- Индикатор новых уведомлений -->
-<div class="realtime-indicator" id="realtime-indicator" style="display: none;">
-    <div class="alert alert-info">
-        <i class="fas fa-sync-alt mr-2"></i>Получены новые уведомления!
-        <button type="button" class="close" onclick="hideIndicator()">
-            <span>&times;</span>
-        </button>
+        </div>
     </div>
 </div>
 {% endblock %}
 
 {% block extra_js %}
 <script>
-// Конфигурация
-const NOTIFICATION_API = {
-    markRead: '{% url "wiki:notification_mark_read" 0 %}'.replace('/0/', '/'),
-    delete: '{% url "wiki:notification_delete" 0 %}'.replace('/0/', '/'),
-    markAllRead: '{% url "wiki:notification_mark_all_read" %}',
-    deleteRead: '{% url "wiki:notification_delete_read" %}',
-    unreadCount: '{% url "wiki:notification_unread_count" %}',
-    new: '{% url "wiki:notification_new" %}',
-    markByType: '{% url "wiki:notification_mark_by_type" %}',
-    deleteByType: '{% url "wiki:notification_delete_by_type" %}',
-};
-
-// Утилиты
-function updateUnreadCount() {
-    fetch(NOTIFICATION_API.unreadCount)
-        .then(r => r.json())
-        .then(data => {
-            // Обновляем бейджи в навигации
-            document.querySelectorAll('.notification-badge').forEach(badge => {
+$(document).ready(function() {
+    // Автообновление счетчика уведомлений каждые 30 секунд
+    function updateNotificationCount() {
+        $.ajax({
+            url: '{% url "get_unread_count" %}',
+            type: 'GET',
+            success: function(data) {
+                const badge = $('#notificationCounter');
                 if (data.count > 0) {
-                    badge.textContent = data.count > 99 ? '99+' : data.count;
-                    badge.style.display = 'inline-block';
+                    if (badge.length) {
+                        badge.text(data.count);
+                    } else {
+                        $('#notificationsDropdown i').after(
+                            '<span class="notification-badge badge badge-danger" style="position: absolute; top: -5px; right: -5px; font-size: 0.6rem; padding: 2px 5px; border-radius: 50%; min-width: 18px; height: 18px; display: inline-flex; align-items: center; justify-content: center;" id="notificationCounter">' + data.count + '</span>'
+                        );
+                    }
                 } else {
-                    badge.style.display = 'none';
+                    badge.remove();
                 }
-            });
-            // Обновляем статистику на странице
-            const statUnread = document.querySelector('.stat-card.unread .stat-number');
-            if (statUnread) {
-                statUnread.textContent = data.count;
+                $('#lastUpdate').text('только что');
             }
         });
-}
+    }
 
-function showToast(message, type = 'info') {
-    // Простая реализация toast уведомлений
-    const toast = document.createElement('div');
-    toast.className = `alert alert-${type} alert-dismissible fade show`;
-    toast.innerHTML = `
-        ${message}
-        <button type="button" class="close" data-dismiss="alert">
-            <span>&times;</span>
-        </button>
-    `;
-    toast.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        z-index: 1000;
-        min-width: 300px;
-    `;
-    document.body.appendChild(toast);
-    setTimeout(() => toast.remove(), 3000);
-}
+    // Запускаем автообновление
+    setInterval(updateNotificationCount, 30000);
 
-// Основные обработчики
-document.addEventListener('DOMContentLoaded', function() {
-    // Прочитать одно уведомление
-    document.querySelectorAll('.mark-read').forEach(btn => {
-        btn.addEventListener('click', function() {
-            const notificationId = this.dataset.id;
-            const notification = document.getElementById(`notification-${notificationId}`);
+    // Отметить как прочитанное
+    $('.mark-read-btn').click(function() {
+        const btn = $(this);
+        const notificationId = btn.data('id');
+        const notificationItem = btn.closest('.notification-item');
 
-            fetch(`${NOTIFICATION_API.markRead}${notificationId}/`, {
-                method: 'POST',
-                headers: {
-                    'X-CSRFToken': '{{ csrf_token }}',
-                    'Content-Type': 'application/json'
+        $.ajax({
+            url: '{% url "mark_notification_read_ajax" %}',
+            type: 'POST',
+            data: {
+                'notification_id': notificationId,
+                'csrfmiddlewaretoken': '{{ csrf_token }}'
+            },
+            success: function(response) {
+                if (response.success) {
+                    notificationItem.removeClass('unread');
+                    notificationItem.find('.badge-primary').remove();
+                    btn.remove();
+
+                    // Обновляем счетчик в шапке
+                    updateNotificationCount();
                 }
-            })
-            .then(r => r.json())
-            .then(data => {
-                if (data.status === 'success') {
-                    // Обновляем UI
-                    notification.classList.remove('unread');
-                    notification.querySelector('.mark-read').remove();
-                    notification.querySelector('.badge-primary')?.remove();
-
-                    // Обновляем счетчик
-                    updateUnreadCount();
-
-                    showToast('Уведомление прочитано', 'success');
-                }
-            });
+            }
         });
     });
 
-    // Удалить одно уведомление
-    document.querySelectorAll('.delete-notification').forEach(btn => {
-        btn.addEventListener('click', function() {
-            if (!confirm('Удалить уведомление?')) return;
+    // Удалить уведомление
+    $('.delete-btn, .delete-notification-btn').click(function() {
+        const btn = $(this);
+        const notificationId = btn.data('id');
+        const notificationItem = btn.closest('.notification-item');
 
-            const notificationId = this.dataset.id;
-            const notification = document.getElementById(`notification-${notificationId}`);
+        if (confirm('Удалить это уведомление?')) {
+            $.ajax({
+                url: '{% url "delete_notification_ajax" %}',
+                type: 'POST',
+                data: {
+                    'notification_id': notificationId,
+                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                },
+                success: function(response) {
+                    if (response.success) {
+                        notificationItem.fadeOut(300, function() {
+                            $(this).remove();
 
-            fetch(`${NOTIFICATION_API.delete}${notificationId}/`, {
-                method: 'POST',
-                headers: {
-                    'X-CSRFToken': '{{ csrf_token }}',
-                }
-            })
-            .then(r => r.json())
-            .then(data => {
-                if (data.status === 'success') {
-                    // Анимация удаления
-                    notification.style.opacity = '0';
-                    notification.style.transform = 'translateX(-100%)';
-                    notification.style.transition = 'all 0.3s';
-
-                    setTimeout(() => {
-                        notification.remove();
-                        updateUnreadCount();
-                        showToast('Уведомление удалено', 'success');
-
-                        // Если уведомлений не осталось, показываем пустое состояние
-                        if (!document.querySelector('.notification-item')) {
-                            location.reload();
-                        }
-                    }, 300);
+                            // Если уведомлений не осталось
+                            if ($('#notificationsList .notification-item').length === 0) {
+                                $('#notificationsList').html(`
+                                    <div class="text-center py-5">
+                                        <i class="fas fa-bell-slash fa-4x text-muted mb-3"></i>
+                                        <h4>Уведомлений нет</h4>
+                                        <p class="text-muted">
+                                            {% if search_query %}
+                                            По запросу "{{ search_query }}" ничего не найдено
+                                            {% elif filter_type != 'all' %}
+                                            Уведомлений типа "{{ filter_type }}" нет
+                                            {% else %}
+                                            Здесь будут появляться новые уведомления
+                                            {% endif %}
+                                        </p>
+                                    </div>
+                                `);
+                            }
+                        });
+                    }
                 }
             });
-        });
+        }
     });
 
     // Прочитать все
-    document.getElementById('mark-all-read').addEventListener('click', function() {
-        if (!confirm('Отметить все уведомления как прочитанные?')) return;
+    $('#markAllReadBtn, #markAllReadDropdown').click(function() {
+        $.ajax({
+            url: '{% url "mark_all_as_read_ajax" %}',
+            type: 'POST',
+            data: {
+                'csrfmiddlewaretoken': '{{ csrf_token }}'
+            },
+            success: function(response) {
+                if (response.success) {
+                    $('.notification-item').removeClass('unread');
+                    $('.badge-primary').remove();
+                    $('.mark-read-btn').remove();
+                    $('.notification-badge').remove();
 
-        fetch(NOTIFICATION_API.markAllRead, {
-            method: 'POST',
-            headers: {
-                'X-CSRFToken': '{{ csrf_token }}',
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(r => r.json())
-        .then(data => {
-            if (data.status === 'success') {
-                // Обновляем все уведомления на странице
-                document.querySelectorAll('.notification-item.unread').forEach(item => {
-                    item.classList.remove('unread');
-                    item.querySelector('.mark-read')?.remove();
-                    item.querySelector('.badge-primary')?.remove();
-                });
-
-                updateUnreadCount();
-                showToast('Все уведомления прочитаны', 'success');
+                    // Обновляем дропдаун
+                    $('#notificationsDropdown .dropdown-item.bg-light')
+                        .removeClass('bg-light')
+                        .find('.mark-read-btn').remove();
+                }
             }
         });
     });
 
-    // Удалить прочитанные
-    document.getElementById('delete-read').addEventListener('click', function() {
-        if (!confirm('Удалить все прочитанные уведомления?')) return;
-
-        fetch(NOTIFICATION_API.deleteRead, {
-            method: 'POST',
-            headers: {
-                'X-CSRFToken': '{{ csrf_token }}',
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(r => r.json())
-        .then(data => {
-            if (data.status === 'success') {
-                // Удаляем прочитанные уведомления с анимацией
-                document.querySelectorAll('.notification-item:not(.unread)').forEach(item => {
-                    item.style.opacity = '0';
-                    item.style.transform = 'translateX(-100%)';
-                    item.style.transition = 'all 0.3s';
-
-                    setTimeout(() => item.remove(), 300);
-                });
-
-                setTimeout(() => {
-                    updateUnreadCount();
-                    showToast('Прочитанные уведомления удалены', 'success');
-
-                    // Если уведомлений не осталось, перезагружаем страницу
-                    if (!document.querySelector('.notification-item')) {
-                        location.reload();
+    // Удалить все прочитанные
+    $('#deleteAllReadBtn').click(function() {
+        if (confirm('Удалить все прочитанные уведомления?')) {
+            $.ajax({
+                url: '{% url "delete_all_read_ajax" %}',
+                type: 'POST',
+                data: {
+                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                },
+                success: function(response) {
+                    if (response.success) {
+                        $('.notification-item:not(.unread)').fadeOut(300, function() {
+                            $(this).remove();
+                        });
                     }
-                }, 500);
-            }
-        });
-    });
-
-    // Быстрые действия по типам
-    document.querySelectorAll('.mark-by-type').forEach(btn => {
-        btn.addEventListener('click', function() {
-            const type = this.dataset.type;
-            const typeName = this.textContent.split(' ').slice(2).join(' ');
-
-            if (!confirm(`Прочитать все ${typeName}?`)) return;
-
-            fetch(NOTIFICATION_API.markByType, {
-                method: 'POST',
-                headers: {
-                    'X-CSRFToken': '{{ csrf_token }}',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ type: type })
-            })
-            .then(r => r.json())
-            .then(data => {
-                if (data.status === 'success') {
-                    // Обновляем уведомления данного типа
-                    document.querySelectorAll(`.notification-item[data-type="${type}"]`).forEach(item => {
-                        if (!item.classList.contains('unread')) return;
-
-                        item.classList.remove('unread');
-                        item.querySelector('.mark-read')?.remove();
-                        item.querySelector('.badge-primary')?.remove();
-                    });
-
-                    updateUnreadCount();
-                    showToast(`${typeName} прочитаны`, 'success');
                 }
             });
-        });
+        }
     });
 
-    document.querySelectorAll('.delete-by-type').forEach(btn => {
-        btn.addEventListener('click', function() {
-            const type = this.dataset.type;
-
-            if (!confirm('Удалить прочитанные уведомления?')) return;
-
-            fetch(NOTIFICATION_API.deleteByType, {
-                method: 'POST',
-                headers: {
-                    'X-CSRFToken': '{{ csrf_token }}',
-                    'Content-Type': 'application/json'
+    // Очистить все
+    $('#deleteAllBtn').click(function() {
+        if (confirm('Удалить ВСЕ уведомления? Это действие нельзя отменить.')) {
+            $.ajax({
+                url: '{% url "delete_by_type_ajax" %}',
+                type: 'POST',
+                data: {
+                    'type': 'all',
+                    'csrfmiddlewaretoken': '{{ csrf_token }}'
                 },
-                body: JSON.stringify({ type: type })
-            })
-            .then(r => r.json())
-            .then(data => {
-                if (data.status === 'success') {
-                    // Удаляем прочитанные уведомления
-                    document.querySelectorAll('.notification-item:not(.unread)').forEach(item => {
-                        item.style.opacity = '0';
-                        item.style.transform = 'translateX(-100%)';
-                        item.style.transition = 'all 0.3s';
+                success: function(response) {
+                    if (response.success) {
+                        $('.notification-item').fadeOut(300, function() {
+                            $(this).remove();
+                        });
 
-                        setTimeout(() => item.remove(), 300);
-                    });
-
-                    setTimeout(() => {
-                        updateUnreadCount();
-                        showToast('Уведомления удалены', 'success');
-
-                        if (!document.querySelector('.notification-item')) {
+                        setTimeout(function() {
                             location.reload();
-                        }
-                    }, 500);
+                        }, 300);
+                    }
                 }
             });
-        });
+        }
     });
 
-    // Режим реального времени
-    let lastNotificationId = {% if notifications.0.id %}{{ notifications.0.id }}{% else %}0{% endif %};
+    // Фильтрация по типу
+    $('.filter-badge').click(function() {
+        const type = $(this).data('type');
+        const url = new URL(window.location);
 
-    function checkNewNotifications() {
-        fetch(`${NOTIFICATION_API.new}?last_id=${lastNotificationId}`)
-            .then(r => r.json())
-            .then(data => {
-                if (data.has_new && data.notifications.length > 0) {
-                    // Показываем индикатор
-                    document.getElementById('realtime-indicator').style.display = 'block';
+        if (type === 'all') {
+            url.searchParams.delete('type');
+        } else {
+            url.searchParams.set('type', type);
+        }
 
-                    // Обновляем счетчик
-                    updateUnreadCount();
+        window.location.href = url.toString();
+    });
 
-                    // Запоминаем последний ID
-                    lastNotificationId = data.notifications[0].id;
+    // Отметить все уведомления определенного типа как прочитанные
+    $(document).on('contextmenu', '.filter-badge:not([data-type="all"])', function(e) {
+        e.preventDefault();
+        const type = $(this).data('type');
+
+        if (confirm(`Отметить все уведомления типа "${type}" как прочитанные?`)) {
+            $.ajax({
+                url: '{% url "mark_by_type_read_ajax" %}',
+                type: 'POST',
+                data: {
+                    'type': type,
+                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                },
+                success: function(response) {
+                    if (response.success) {
+                        $(`.notification-item[data-type="${type}"]`).removeClass('unread')
+                            .find('.badge-primary').remove()
+                            .find('.mark-read-btn').remove();
+
+                        updateNotificationCount();
+                    }
                 }
             });
-    }
-
-    // Проверяем каждые 30 секунд
-    setInterval(checkNewNotifications, 30000);
-
-    // Инициализация
-    updateUnreadCount();
+        }
+    });
 });
-
-function hideIndicator() {
-    document.getElementById('realtime-indicator').style.display = 'none';
-}
 </script>
 {% endblock %}

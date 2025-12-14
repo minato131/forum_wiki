@@ -157,16 +157,4 @@ urlpatterns = [
     path('moderation/ban/<int:user_id>/', moderation_views.ban_user, name='ban_user'),
     path('moderation/unban/<int:user_id>/', moderation_views.unban_user, name='unban_user'),
     path('banned/', banned_page, name='banned'),
-
-    path('notifications/', views.notification_list, name='notification_list'),
-    path('notifications/<int:pk>/', views.notification_detail, name='notification_detail'),
-    path('notifications/<int:pk>/mark-read/', views.mark_notification_read, name='notification_mark_read'),
-    path('notifications/<int:pk>/delete/', views.delete_notification, name='notification_delete'),
-    path('notifications/mark-all-read/', views.mark_all_as_read, name='notification_mark_all_read'),
-    path('notifications/delete-read/', views.delete_all_read, name='notification_delete_read'),
-    path('notifications/unread-count/', views.get_unread_count, name='notification_unread_count'),
-    path('notifications/new/', views.get_new_notifications, name='notification_new'),
-    # ДОБАВИМ НОВЫЕ:
-    path('notifications/mark-by-type/', views.mark_notifications_read_by_type, name='notification_mark_by_type'),
-    path('notifications/delete-by-type/', views.delete_notifications_by_type, name='notification_delete_by_type'),
 ]

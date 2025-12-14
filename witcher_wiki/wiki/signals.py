@@ -1,15 +1,13 @@
 from django.db.models.signals import post_save, post_delete, m2m_changed
 from django.dispatch import receiver
 from django.contrib.auth.models import User
-from .models import UserProfile, Article, Backup, BackupLog, ActionLog, Notification  # Добавили Notification
+from .models import UserProfile, Article, Backup, BackupLog, ActionLog
 from django.core.mail import send_mail
 from django.conf import settings
 from django.db.models.signals import post_migrate
 from django.dispatch import receiver
 from django.core.management import call_command
 from django.utils import timezone
-from django.utils.html import strip_tags
-import re
 
 
 @receiver(post_save, sender=User)
@@ -25,14 +23,6 @@ def create_user_profile(sender, instance, created, **kwargs):
             action_data={'user_id': instance.id, 'username': instance.username}
         )
 
-        # Уведомление новому пользователю
-        Notification.objects.create(
-            user=instance,
-            title='Добро пожаловать!',
-            message=f'Добро пожаловать на Witcher Wiki, {instance.username}! Ваш аккаунт успешно создан.',
-            notification_type='success'
-        )
-
 
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
@@ -41,80 +31,14 @@ def save_user_profile(sender, instance, **kwargs):
         instance.profile.save()
 
 
-# ========== СИГНАЛЫ ДЛЯ УВЕДОМЛЕНИЙ ==========
-
-def contains_profanity(text):
-    """Проверка на нецензурную лексику"""
-    # Добавьте реальный список нецензурных слов
-    profanity_words = [
-        'мат1', 'мат2', 'мат3',
-        # Добавьте больше слов здесь
-    ]
-    if not text:
-        return False
-
-    text_lower = text.lower()
-    for word in profanity_words:
-        if word in text_lower:
-            return True
-    return False
-
-
-def create_admin_notification(title, message, link=None, notification_type='alert'):
-    """Создание уведомления для всех администраторов"""
-    admins = User.objects.filter(is_staff=True, is_active=True)
-    for admin in admins:
-        Notification.objects.create(
-            user=admin,
-            title=title,
-            message=message,
-            notification_type=notification_type,
-            link=link
-        )
-
-
 @receiver(post_save, sender=Article)
 def handle_article_status_change(sender, instance, created, **kwargs):
     """Обработка изменения статуса статьи"""
     if not created:  # Только при изменениях
         try:
             old_instance = Article.objects.get(pk=instance.pk)
-
-            # Проверка на нецензурную лексику в содержимом статьи
-            if contains_profanity(instance.content) or contains_profanity(instance.title):
-                create_admin_notification(
-                    title='Обнаружена нецензурная лексика в статье',
-                    message=f'Пользователь {instance.author.username} использовал нецензурную лексику в статье "{instance.title}"',
-                    link=f'/admin/wiki/article/{instance.id}/change/',
-                    notification_type='alert'
-                )
-
-            # Обработка изменения статуса
             if old_instance.status != instance.status:
                 send_article_status_notification(instance, old_instance.status)
-
-                # Создаем уведомление для автора
-                status_messages = {
-                    'published': ('Ваша статья опубликована!', '🎉 Ваша статья была одобрена и опубликована.'),
-                    'needs_correction': ('Требуются правки',
-                                         '✏️ Ваша статья требует доработки. Пожалуйста, ознакомьтесь с замечаниями модератора.'),
-                    'editor_review': ('Статья отправлена редактору',
-                                      '📝 Ваша статья была отправлена редактору для исправления.'),
-                    'author_review': ('Доступна исправленная версия',
-                                      '📋 Редактор внес правки в вашу статью. Пожалуйста, ознакомьтесь и согласуйте изменения.'),
-                    'rejected': ('Статья отклонена', '❌ Ваша статья была отклонена.')
-                }
-
-                if instance.status in status_messages:
-                    title, message = status_messages[instance.status]
-                    Notification.objects.create(
-                        user=instance.author,
-                        title=title,
-                        message=f'{message}\nСтатья: "{instance.title}"',
-                        notification_type='info' if instance.status == 'published' else 'warning',
-                        link=instance.get_absolute_url()
-                    )
-
                 # Логируем изменение статуса
                 ActionLog.objects.create(
                     user=instance.author,
@@ -128,27 +52,8 @@ def handle_article_status_change(sender, instance, created, **kwargs):
                         'slug': instance.slug
                     }
                 )
-
-                # Уведомление для администраторов о смене статуса статьи
-                if instance.status == 'published' or instance.status == 'rejected':
-                    create_admin_notification(
-                        title=f'Статус статьи изменен: {instance.status}',
-                        message=f'Статья "{instance.title}" пользователя {instance.author.username} получила статус {instance.status}',
-                        link=f'/admin/wiki/article/{instance.id}/change/',
-                        notification_type='info'
-                    )
-
         except Article.DoesNotExist:
             pass
-
-    # Для новых статей - уведомление администраторам
-    elif created and not instance.author.is_staff:
-        create_admin_notification(
-            title='Новая статья на модерации',
-            message=f'Пользователь {instance.author.username} создал новую статью "{instance.title}"',
-            link=f'/admin/wiki/article/{instance.id}/change/',
-            notification_type='info'
-        )
 
 
 def send_article_status_notification(article, old_status):
@@ -188,8 +93,8 @@ def send_article_status_notification(article, old_status):
         {f'Замечания модератора: {article.moderation_notes}' if article.moderation_notes else ''}
         {f'Заметки редактора: {article.editor_notes}' if article.editor_notes else ''}
 
-        Посмотреть статью: {settings.SITE_URL}{article.get_absolute_url()}
-        {f'Согласовать правки: {settings.SITE_URL}/article/{article.slug}/author-review/' if article.status == 'author_review' else ''}
+        Посмотреть статью: http://127.0.0.1:8000{article.get_absolute_url()}
+        {f'Согласовать правки: http://127.0.0.1:8000/article/{article.slug}/author-review/' if article.status == 'author_review' else ''}
 
         С уважением,
         Команда Форума по Вселенной Ведьмака
@@ -217,87 +122,6 @@ def send_article_status_notification(article, old_status):
             )
         except Exception as e:
             print(f"❌ Ошибка отправки email: {e}")
-
-
-# ========== СИГНАЛЫ ДЛЯ КОММЕНТАРИЕВ И УВЕДОМЛЕНИЙ ==========
-
-@receiver(post_save, sender='wiki.Comment')  # Используем строковый идентификатор для избежания циклического импорта
-def notify_comment_interaction(sender, instance, created, **kwargs):
-    """Уведомление при взаимодействии с комментарием"""
-    if created:
-        # Импортируем здесь, чтобы избежать циклического импорта
-        from .models import Comment, Notification
-
-        # Уведомление автору поста
-        if instance.article.author != instance.author:
-            Notification.objects.create(
-                user=instance.article.author,
-                title='Новый комментарий к вашей статье',
-                message=f'Пользователь {instance.author.username} прокомментировал вашу статью "{instance.article.title}"',
-                notification_type='info',
-                link=f'{instance.article.get_absolute_url()}#comment-{instance.id}'
-            )
-
-        # Уведомление автору комментария (если это ответ)
-        if instance.parent and instance.parent.author != instance.author:
-            Notification.objects.create(
-                user=instance.parent.author,
-                title='Ответ на ваш комментарий',
-                message=f'Пользователь {instance.author.username} ответил на ваш комментарий',
-                notification_type='info',
-                link=f'{instance.article.get_absolute_url()}#comment-{instance.id}'
-            )
-
-        # Проверка на нецензурную лексику в комментарии
-        if contains_profanity(instance.content):
-            create_admin_notification(
-                title='Обнаружена нецензурная лексика в комментарии',
-                message=f'Пользователь {instance.author.username} использовал нецензурную лексику в комментарии к статье "{instance.article.title}"',
-                link=f'/admin/wiki/comment/{instance.id}/change/',
-                notification_type='alert'
-            )
-
-
-# ========== СИГНАЛЫ ДЛЯ СИСТЕМНЫХ УВЕДОМЛЕНИЙ ==========
-
-def create_system_notification(user, title, message, notification_type='system', link=None):
-    """Создание системного уведомления"""
-    Notification.objects.create(
-        user=user,
-        title=title,
-        message=message,
-        notification_type=notification_type,
-        link=link
-    )
-
-
-@receiver(post_save, sender=ActionLog)
-def create_notification_for_action_log(sender, instance, created, **kwargs):
-    """Создание уведомлений на основе ActionLog"""
-    if created:
-        # Определяем, нужно ли создавать уведомление на основе типа действия
-        notification_types = {
-            'backup_created': ('Резервная копия создана', 'info'),
-            'backup_deleted': ('Резервная копия удалена', 'warning'),
-            'backup_restored': ('Резервная копия восстановлена', 'success'),
-            'user_warned': ('Вам выдано предупреждение', 'warning'),
-            'user_banned': ('Ваш аккаунт заблокирован', 'alert'),
-            'article_reported': ('Жалоба на статью', 'warning'),
-            'comment_reported': ('Жалоба на комментарий', 'warning'),
-        }
-
-        if instance.action_type in notification_types:
-            title, notif_type = notification_types[instance.action_type]
-
-            # Для уведомлений пользователям (кроме системных)
-            if instance.user and not instance.action_type.startswith('backup_'):
-                Notification.objects.create(
-                    user=instance.user,
-                    title=title,
-                    message=instance.description,
-                    notification_type=notif_type,
-                    link=instance.action_data.get('link') if isinstance(instance.action_data, dict) else None
-                )
 
 
 @receiver(post_migrate)
@@ -358,14 +182,6 @@ def log_backup_creation(sender, instance, created, **kwargs):
                 'path': instance.file_path,
                 'status': instance.status,
             }
-        )
-
-        # Уведомление администраторам о создании бэкапа
-        create_admin_notification(
-            title='Создана резервная копия',
-            message=f'Создана резервная копия "{instance.name}" ({instance.backup_type})',
-            link=f'/admin/wiki/backup/{instance.id}/change/',
-            notification_type='info'
         )
 
         print(f"✅ Лог бэкапа создан: {description}")
@@ -477,13 +293,6 @@ def log_backup_deletion(sender, instance, **kwargs):
                 'created_at': instance.created_at.isoformat(),
                 'deleted_at': timezone.now().isoformat(),
             }
-        )
-
-        # Уведомление администраторам об удалении бэкапа
-        create_admin_notification(
-            title='Резервная копия удалена',
-            message=f'Резервная копия "{instance.name}" была удалена',
-            notification_type='warning'
         )
 
         print(f"✅ Лог удаления бэкапа: {description}")
