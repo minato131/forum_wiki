@@ -42,6 +42,7 @@ from django.utils.html import format_html
 from django.urls import path
 from django.shortcuts import redirect
 from django.contrib import messages
+from .models import Notification
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
@@ -1681,5 +1682,67 @@ class CommentLikeAdmin(admin.ModelAdmin):
 
     def has_change_permission(self, request, obj=None):
         return False
+
+
+@admin.register(Notification)
+class NotificationAdmin(admin.ModelAdmin):
+    list_display = ('title', 'user', 'notification_type_badge', 'is_read_badge', 'created_at_formatted')
+    list_filter = ('notification_type', 'is_read', 'created_at')
+    search_fields = ('title', 'message', 'user__username')
+    readonly_fields = ('created_at',)
+    list_per_page = 20
+    actions = ['mark_as_read', 'mark_as_unread', 'delete_selected']
+
+    fieldsets = (
+        ('Основная информация', {
+            'fields': ('user', 'title', 'message', 'notification_type')
+        }),
+        ('Статус и ссылки', {
+            'fields': ('is_read', 'link', 'sender')
+        }),
+        ('Метаданные', {
+            'fields': ('created_at',),
+            'classes': ('collapse',)
+        }),
+    )
+
+    def notification_type_badge(self, obj):
+        from django.utils.html import format_html
+        badge_class = obj.get_badge_class()
+        return format_html(
+            '<span class="badge {}">{}</span>',
+            badge_class,
+            obj.get_notification_type_display()
+        )
+
+    notification_type_badge.short_description = 'Тип'
+
+    def is_read_badge(self, obj):
+        from django.utils.html import format_html
+        if obj.is_read:
+            return format_html('<span class="badge badge-success">Прочитано</span>')
+        else:
+            return format_html('<span class="badge badge-warning">Новое</span>')
+
+    is_read_badge.short_description = 'Статус'
+
+    def created_at_formatted(self, obj):
+        return obj.created_at.strftime('%d.%m.%Y %H:%M')
+
+    created_at_formatted.short_description = 'Дата создания'
+
+    def mark_as_read(self, request, queryset):
+        updated = queryset.update(is_read=True)
+        self.message_user(request, f"{updated} уведомлений отмечены как прочитанные")
+
+    mark_as_read.short_description = "Отметить как прочитанные"
+
+    def mark_as_unread(self, request, queryset):
+        updated = queryset.update(is_read=False)
+        self.message_user(request, f"{updated} уведомлений отмечены как непрочитанные")
+
+    mark_as_unread.short_description = "Отметить как непрочитанные"
+
+
 admin.site.unregister(Group)
 admin.site.register(Group, CustomGroupAdmin)

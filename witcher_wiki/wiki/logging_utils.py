@@ -1,7 +1,4 @@
-import json
-import uuid
 from user_agents import parse
-from django.utils import timezone
 from django.contrib.contenttypes.models import ContentType
 from .models import ActionLog
 

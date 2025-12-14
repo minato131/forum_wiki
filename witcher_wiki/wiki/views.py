@@ -108,6 +108,8 @@ from .moderation_views import (
 # from wiki.middleware import CensorshipMiddleware
 from .models import UserWarning
 from .models import UserBan
+from .models import Notification
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 def clean_latex_from_content(content):
     """
@@ -4998,3 +5000,185 @@ def moderation_panel(request):
     if not request.user.has_perm('wiki.moderate_content'):
         messages.error(request, 'У вас нет прав для доступа к панели модерации')
         return redirect('index')
+
+
+@login_required
+def notification_list(request):
+    """Улучшенная страница уведомлений с фильтрацией"""
+    notifications = Notification.objects.filter(user=request.user)
+
+    # Фильтры
+    filter_type = request.GET.get('type', 'all')
+    if filter_type != 'all':
+        notifications = notifications.filter(notification_type=filter_type)
+
+    # Поиск
+    search_query = request.GET.get('q', '')
+    if search_query:
+        notifications = notifications.filter(
+            Q(title__icontains=search_query) |
+            Q(message__icontains=search_query)
+        )
+
+    # Сортировка
+    sort_by = request.GET.get('sort', '-created_at')
+    notifications = notifications.order_by(sort_by)
+
+    # Пагинация
+    page = request.GET.get('page', 1)
+    paginator = Paginator(notifications, 20)
+
+    try:
+        notifications_page = paginator.page(page)
+    except PageNotAnInteger:
+        notifications_page = paginator.page(1)
+    except EmptyPage:
+        notifications_page = paginator.page(paginator.num_pages)
+
+    # Статистика
+    stats = {
+        'total': Notification.objects.filter(user=request.user).count(),
+        'unread': Notification.objects.filter(user=request.user, is_read=False).count(),
+        'info': Notification.objects.filter(user=request.user, notification_type='info').count(),
+        'warning': Notification.objects.filter(user=request.user, notification_type='warning').count(),
+        'alert': Notification.objects.filter(user=request.user, notification_type='alert').count(),
+        'success': Notification.objects.filter(user=request.user, notification_type='success').count(),
+        'system': Notification.objects.filter(user=request.user, notification_type='system').count(),
+    }
+
+    return render(request, 'wiki/notifications/list.html', {
+        'notifications': notifications_page,
+        'stats': stats,
+        'filter_type': filter_type,
+        'search_query': search_query,
+        'sort_by': sort_by,
+    })
+
+
+@login_required
+def notification_detail(request, pk):
+    """Просмотр конкретного уведомления"""
+    notification = get_object_or_404(Notification, pk=pk, user=request.user)
+    notification.mark_as_read()
+
+    if notification.link:
+        return redirect(notification.link)
+
+    return render(request, 'wiki/notifications/detail.html', {
+        'notification': notification
+    })
+
+
+@login_required
+@require_POST
+def mark_all_as_read(request):
+    """Отметить все уведомления как прочитанные"""
+    Notification.objects.filter(user=request.user, is_read=False).update(is_read=True)
+    return JsonResponse({'status': 'success'})
+
+
+@login_required
+@require_POST
+def delete_all_read(request):
+    """Удалить все прочитанные уведомления"""
+    Notification.objects.filter(user=request.user, is_read=True).delete()
+    return JsonResponse({'status': 'success'})
+
+
+@login_required
+def get_unread_count(request):
+    """Получить количество непрочитанных уведомлений (для AJAX)"""
+    count = Notification.objects.filter(user=request.user, is_read=False).count()
+    return JsonResponse({'count': count})
+
+
+@login_required
+def get_new_notifications(request):
+    """Получить новые уведомления (для AJAX)"""
+    last_id = request.GET.get('last_id', 0)
+    try:
+        last_id = int(last_id)
+    except ValueError:
+        last_id = 0
+
+    notifications = Notification.objects.filter(
+        user=request.user,
+        id__gt=last_id
+    ).order_by('-created_at')[:10]
+
+    notifications_data = []
+    for notification in notifications:
+        notifications_data.append({
+            'id': notification.id,
+            'title': notification.title,
+            'message': notification.message,
+            'type': notification.notification_type,
+            'is_read': notification.is_read,
+            'created_at': notification.created_at.strftime('%d.%m.%Y %H:%M'),
+            'link': notification.link or '#',
+            'icon': notification.get_icon_class()
+        })
+
+    return JsonResponse({
+        'notifications': notifications_data,
+        'has_new': len(notifications_data) > 0
+    })
+
+
+@login_required
+@require_POST
+def mark_notification_read(request, pk):
+    """Отметить уведомление как прочитанное"""
+    notification = get_object_or_404(Notification, pk=pk, user=request.user)
+    notification.mark_as_read()
+
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        return JsonResponse({
+            'status': 'success',
+            'unread_count': Notification.get_unread_count_for_user(request.user)
+        })
+
+    return redirect('wiki:notification_list')
+
+@login_required
+@csrf_exempt
+@require_POST
+def delete_notification(request, pk):
+    """Удалить уведомление"""
+    notification = get_object_or_404(Notification, pk=pk, user=request.user)
+    notification.delete()
+    return JsonResponse({'status': 'success'})
+
+@login_required
+@require_POST
+def mark_notifications_read_by_type(request):
+    """Отметить все уведомления определенного типа как прочитанные"""
+    notification_type = request.POST.get('type')
+
+    if notification_type == 'all':
+        Notification.objects.filter(user=request.user, is_read=False).update(is_read=True)
+    else:
+        Notification.objects.filter(
+            user=request.user,
+            notification_type=notification_type,
+            is_read=False
+        ).update(is_read=True)
+
+    return JsonResponse({
+        'status': 'success',
+        'unread_count': Notification.get_unread_count_for_user(request.user)
+    })
+
+
+@login_required
+@require_POST
+def delete_notifications_by_type(request):
+    """Удалить все уведомления определенного типа"""
+    notification_type = request.POST.get('type')
+
+    if notification_type == 'all':
+        Notification.objects.filter(user=request.user).delete()
+    else:
+        Notification.objects.filter(user=request.user, notification_type=notification_type).delete()
+
+    return JsonResponse({'status': 'success'})
