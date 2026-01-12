@@ -1,0 +1,1008 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block title %}{{ title }} | Witcher Wiki{% endblock %}
+
+{% block branding %}
+<h1 id="site-name">
+    <a href="{% url 'admin:index' %}">
+        ⚔️ Форум Ведьмак
+    </a>
+</h1>
+{% endblock %}
+
+{% block extrastyle %}
+{{ block.super }}
+<style>
+:root {
+    --witcher-bg: #0d0d0d;
+    --witcher-dark: #1a1a1a;
+    --witcher-darker: #121212;
+    --witcher-card: #1e1e1e;
+    --witcher-border: #2a2a2a;
+    --witcher-gold: #c0a050;
+    --witcher-gold-dark: #8b7355;
+    --witcher-red: #8b0000;
+    --witcher-red-dark: #660000;
+    --witcher-text: #e8e8e8;
+    --witcher-text-light: #f8f8f8;
+    --witcher-text-muted: #aaaaaa;
+    --witcher-success: #2e7d32;
+    --witcher-error: #c62828;
+    --witcher-warning: #ef6c00;
+}
+
+/* 2. ТЕЛО СТРАНИЦЫ */
+body {
+    background-color: var(--witcher-bg) !important;
+    color: var(--witcher-text) !important;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+    line-height: 1.6 !important;
+}
+
+/* 3. ШАПКА - ТЕМНАЯ С ЗОЛОТОЙ АКЦЕНТАЦИЕЙ */
+#header {
+    background: var(--witcher-dark) !important;
+    color: var(--witcher-text-light) !important;
+    height: 60px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+    border-bottom: 3px solid var(--witcher-gold) !important;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.5) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+}
+
+/* НАЗВАНИЕ - ИСПРАВЛЕНО ВЫРАВНИВАНИЕ */
+#branding {
+    flex: 0 0 auto !important;
+}
+
+#branding h1 {
+    color: var(--witcher-text-light) !important;
+    font-weight: 600 !important;
+    font-size: 18px !important;
+    padding: 0 20px !important;
+    margin: 0 !important;
+    line-height: 60px !important;
+    height: 60px !important;
+    letter-spacing: 0.3px !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+#branding h1 a:link,
+#branding h1 a:visited {
+    color: var(--witcher-text-light) !important;
+    text-decoration: none !important;
+    display: flex !important;
+    align-items: center !important;
+    height: 100% !important;
+}
+
+#branding h1 a:hover {
+    color: var(--witcher-gold) !important;
+}
+
+/* ПРАВАЯ ЧАСТЬ ШАПКИ - ИСПРАВЛЕНО ВЫРАВНИВАНИЕ */
+#user-tools {
+    color: var(--witcher-text-muted) !important;
+    font-size: 12px !important;
+    padding: 0 20px !important;
+    margin: 0 !important;
+    line-height: 60px !important;
+    height: 60px !important;
+    display: flex !important;
+    align-items: center !important;
+    white-space: nowrap !important;
+}
+
+#user-tools a:link,
+#user-tools a:visited {
+    color: var(--witcher-gold) !important;
+    text-decoration: none !important;
+    border-bottom: 1px dotted var(--witcher-gold) !important;
+    margin-left: 10px !important;
+}
+
+#user-tools a:first-child {
+    margin-left: 0 !important;
+}
+
+#user-tools a:hover {
+    color: var(--witcher-text-light) !important;
+    border-bottom: 1px solid var(--witcher-text-light) !important;
+}
+
+#user-tools strong {
+    color: var(--witcher-text-light) !important;
+}
+
+/* 4. ОСНОВНОЙ КОНТЕНТ */
+#content {
+    background: var(--witcher-bg) !important;
+    color: var(--witcher-text) !important;
+    padding: 20px !important;
+    margin: 0 !important;
+}
+
+#content h1 {
+    color: var(--witcher-text-light) !important;
+    border-bottom: 2px solid var(--witcher-gold) !important;
+    padding-bottom: 15px !important;
+    margin-bottom: 25px !important;
+    font-weight: 500 !important;
+}
+
+/* 5. КАРТОЧКИ И ФОРМЫ */
+#content-main {
+    background: var(--witcher-dark) !important;
+    border-radius: 8px !important;
+    padding: 25px !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+    border: 1px solid var(--witcher-border) !important;
+    overflow: hidden !important;
+}
+
+/* ИСПРАВЛЕНО: поля формы с фиксированной шириной */
+.form-row {
+    background: var(--witcher-card) !important;
+    border-left: 4px solid var(--witcher-gold) !important;
+    padding: 20px !important;
+    margin-bottom: 15px !important;
+    border-radius: 0 6px 6px 0 !important;
+    border: 1px solid var(--witcher-border) !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: flex-start !important;
+}
+
+/* Контейнер для метки и поля */
+.form-row > div {
+    flex: 1 !important;
+    min-width: 300px !important;
+}
+
+/* Заголовки полей */
+label {
+    color: var(--witcher-text-light) !important;
+    font-weight: 500 !important;
+    margin-bottom: 8px !important;
+    display: block !important;
+    font-size: 13px !important;
+    width: 100% !important;
+}
+
+.help {
+    color: var(--witcher-text-muted) !important;
+    font-size: 12px !important;
+    margin-top: 5px !important;
+    width: 100% !important;
+    clear: both !important;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="url"],
+textarea,
+select {
+    background: var(--witcher-dark) !important;
+    color: var(--witcher-text) !important;
+    border: 1px solid var(--witcher-border) !important;
+    border-radius: 4px !important;
+    padding: 10px 12px !important;
+    width: 100% !important;
+    /* УБИРАЕМ max-width для стандартных полей */
+    box-sizing: border-box !important;
+    font-size: 14px !important;
+    min-height: 40px !important;
+}
+
+/* Для маленьких полей (только для обычных текстовых полей) */
+input[type="text"].vTextField,
+input[type="email"].vTextField,
+input[type="password"].vTextField {
+    max-width: 300px !important;
+}
+
+/* СПЕЦИАЛЬНО для select multiple (поля прав и групп) */
+select[multiple] {
+    min-width: 500px !important;
+    min-height: 200px !important;
+    max-width: 100% !important;
+}
+
+/* Для обычных select (одиночных) */
+select:not([multiple]) {
+    max-width: 300px !important;
+}
+
+/* Для больших текстовых полей */
+textarea {
+    min-height: 120px !important;
+    max-width: 800px !important;
+    resize: vertical !important;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+textarea:focus,
+select:focus {
+    border-color: var(--witcher-gold) !important;
+    outline: none !important;
+    box-shadow: 0 0 0 2px rgba(192, 160, 80, 0.2) !important;
+    background: var(--witcher-darker) !important;
+}
+
+/* 6. КНОПКИ */
+input[type="submit"],
+button[type="submit"],
+input.default,
+.submit-row input,
+.button {
+    background: linear-gradient(
+        135deg,
+        var(--witcher-red) 0%,
+        var(--witcher-red-dark) 100%
+    ) !important;
+    color: var(--witcher-text-light) !important;
+    border: none !important;
+    padding: 12px 25px !important;
+    border-radius: 4px !important;
+    font-weight: 500 !important;
+    font-size: 14px !important;
+    cursor: pointer !important;
+    box-shadow: 0 3px 6px rgba(139, 0, 0, 0.3) !important;
+    transition: all 0.3s ease !important;
+    min-width: 120px !important;
+    text-align: center !important;
+}
+
+input[type="submit"]:hover,
+button[type="submit"]:hover,
+input.default:hover,
+.submit-row input:hover,
+.button:hover {
+    background: linear-gradient(
+        135deg,
+        #9a0000 0%,
+        #7a0000 100%
+    ) !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 5px 10px rgba(139, 0, 0, 0.4) !important;
+}
+
+/* Кнопка удаления */
+.deletelink {
+    background: var(--witcher-border) !important;
+    color: var(--witcher-text) !important;
+    border-radius: 4px !important;
+    padding: 8px 15px !important;
+    border: 1px solid #444 !important;
+    min-width: auto !important;
+    display: inline-block !important;
+}
+
+.deletelink:hover {
+    background: #444 !important;
+    color: var(--witcher-text-light) !important;
+}
+
+/* Строка с кнопками submit */
+.submit-row {
+    padding: 20px !important;
+    background: var(--witcher-card) !important;
+    border-top: 1px solid var(--witcher-border) !important;
+    margin-top: 20px !important;
+    display: flex !important;
+    gap: 10px !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+}
+
+/* 7. БОКОВАЯ ПАНЕЛЬ */
+#content-related {
+    background: var(--witcher-dark) !important;
+    border-left: 2px solid var(--witcher-border) !important;
+}
+
+.module {
+    background: var(--witcher-card) !important;
+    border: 1px solid var(--witcher-border) !important;
+    border-radius: 6px !important;
+    margin-bottom: 15px !important;
+    overflow: hidden !important;
+}
+
+/* Заголовки модулей */
+.module h2,
+.module caption,
+.inline-group h2 {
+    background: linear-gradient(
+        135deg,
+        var(--witcher-darker) 0%,
+        var(--witcher-dark) 100%
+    ) !important;
+    color: var(--witcher-text-light) !important;
+    padding: 12px 15px !important;
+    margin: 0 !important;
+    border: none !important;
+    font-weight: 500 !important;
+    font-size: 14px !important;
+    border-bottom: 1px solid var(--witcher-border) !important;
+}
+
+/* Ссылки в модулях */
+.module ul {
+    background: transparent !important;
+    border: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.module li {
+    border-bottom: 1px solid var(--witcher-border) !important;
+    margin: 0 !important;
+}
+
+.module li:last-child {
+    border-bottom: none !important;
+}
+
+.module li a {
+    color: var(--witcher-text) !important;
+    padding: 10px 15px !important;
+    display: block !important;
+    transition: all 0.2s !important;
+    text-decoration: none !important;
+}
+
+.module li a:hover {
+    background: rgba(192, 160, 80, 0.15) !important;
+    color: var(--witcher-gold) !important;
+    padding-left: 20px !important;
+}
+
+/* 8. ТАБЛИЦЫ - ИСПРАВЛЕНЫ ОТСТУПЫ */
+#changelist {
+    background: var(--witcher-dark) !important;
+    border: 1px solid var(--witcher-border) !important;
+    border-radius: 8px !important;
+    overflow: hidden !important;
+    margin-bottom: 20px !important;
+}
+
+/* Заголовки таблиц */
+#changelist table thead th {
+    background: var(--witcher-darker) !important;
+    color: var(--witcher-text-light) !important;
+    padding: 10px 12px !important;
+    border: none !important;
+    border-bottom: 2px solid var(--witcher-border) !important;
+    font-weight: 500 !important;
+    font-size: 13px !important;
+    height: auto !important;
+    line-height: 1.4 !important;
+    vertical-align: middle !important;
+}
+
+/* Ячейки таблиц */
+#changelist table tbody td {
+    padding: 10px 12px !important;
+    border-bottom: 1px solid var(--witcher-border) !important;
+    color: var(--witcher-text) !important;
+    font-size: 13px !important;
+    vertical-align: middle !important;
+}
+
+/* Чередование строк */
+#changelist table tbody tr:nth-child(even) {
+    background: rgba(255, 255, 255, 0.02) !important;
+}
+
+/* Ховер на строках */
+#changelist table tbody tr:hover {
+    background: rgba(192, 160, 80, 0.1) !important;
+}
+
+/* Ссылки в таблицах */
+#changelist table a:link,
+#changelist table a:visited {
+    color: var(--witcher-gold) !important;
+    text-decoration: none !important;
+}
+
+#changelist table a:hover {
+    color: var(--witcher-text-light) !important;
+    text-decoration: underline !important;
+}
+
+/* 9. ПАГИНАЦИЯ */
+.pagination {
+    background: var(--witcher-card) !important;
+    border-top: 1px solid var(--witcher-border) !important;
+    padding: 15px !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 5px !important;
+}
+
+.pagination .this-page {
+    background: var(--witcher-red) !important;
+    color: var(--witcher-text-light) !important;
+    border-color: var(--witcher-red) !important;
+}
+
+.pagination a:link,
+.pagination a:visited {
+    color: var(--witcher-gold) !important;
+    border: 1px solid var(--witcher-border) !important;
+    background: var(--witcher-dark) !important;
+    padding: 5px 10px !important;
+    border-radius: 3px !important;
+    text-decoration: none !important;
+}
+
+.pagination a:hover {
+    background: rgba(192, 160, 80, 0.15) !important;
+    border-color: var(--witcher-gold) !important;
+}
+
+/* 10. СООБЩЕНИЯ */
+.messagelist {
+    background: var(--witcher-dark) !important;
+    border: 1px solid var(--witcher-border) !important;
+    border-radius: 6px !important;
+    margin-bottom: 20px !important;
+    overflow: hidden !important;
+}
+
+.messagelist .success {
+    background: rgba(46, 125, 50, 0.15) !important;
+    border-left: 4px solid var(--witcher-success) !important;
+    color: #a5d6a7 !important;
+    padding: 15px 20px !important;
+}
+
+.messagelist .error {
+    background: rgba(198, 40, 40, 0.15) !important;
+    border-left: 4px solid var(--witcher-error) !important;
+    color: #ef9a9a !important;
+    padding: 15px 20px !important;
+}
+
+.messagelist .warning {
+    background: rgba(239, 108, 0, 0.15) !important;
+    border-left: 4px solid var(--witcher-warning) !important;
+    color: #ffcc80 !important;
+    padding: 15px 20px !important;
+}
+
+/* 11. ПОИСК */
+#searchbar {
+    background: var(--witcher-dark) !important;
+    color: var(--witcher-text) !important;
+    border: 1px solid var(--witcher-border) !important;
+    border-radius: 4px !important;
+    padding: 10px 15px !important;
+    width: 100% !important;
+    max-width: 300px !important;
+    box-sizing: border-box !important;
+}
+
+#searchbar:focus {
+    border-color: var(--witcher-gold) !important;
+    box-shadow: 0 0 0 2px rgba(192, 160, 80, 0.2) !important;
+    background: var(--witcher-darker) !important;
+}
+
+/* 12. ЧЕКБОКСЫ И РАДИОКНОПКИ */
+input[type="checkbox"] {
+    accent-color: var(--witcher-gold) !important;
+    width: 18px !important;
+    height: 18px !important;
+    vertical-align: middle !important;
+}
+
+input[type="radio"] {
+    accent-color: var(--witcher-red) !important;
+    width: 18px !important;
+    height: 18px !important;
+    vertical-align: middle !important;
+}
+
+/* 13. ИКОНКИ В ТАБЛИЦАХ */
+.object-tools {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.object-tools a {
+    background: var(--witcher-border) !important;
+    color: var(--witcher-text) !important;
+    border: 1px solid #444 !important;
+    padding: 8px 15px !important;
+    border-radius: 4px !important;
+    text-decoration: none !important;
+    display: inline-block !important;
+    margin-left: 5px !important;
+}
+
+.object-tools a:hover {
+    background: #444 !important;
+    color: var(--witcher-text-light) !important;
+}
+
+/* 14. ВКЛАДКИ */
+.tabular {
+    background: var(--witcher-card) !important;
+    border: 1px solid var(--witcher-border) !important;
+    border-radius: 6px !important;
+    overflow: hidden !important;
+}
+
+.tabular table caption {
+    background: var(--witcher-darker) !important;
+    color: var(--witcher-text-light) !important;
+    border-bottom: 1px solid var(--witcher-border) !important;
+    padding: 12px 15px !important;
+    font-weight: 500 !important;
+}
+
+/* 15. ОБЩИЕ ССЫЛКИ */
+a:link {
+    color: var(--witcher-gold) !important;
+}
+
+a:visited {
+    color: var(--witcher-gold-dark) !important;
+}
+
+a:hover {
+    color: var(--witcher-text-light) !important;
+}
+
+/* 16. ЗАГОЛОВКИ */
+h2, h3, h4, h5, h6 {
+    color: var(--witcher-text-light) !important;
+    margin-top: 0 !important;
+}
+
+/* 17. ТЕСТОВЫЙ ИНДИКАТОР - МОЖНО УБРАТЬ В ПРОДАКШЕНЕ */
+body::after {
+    content: "🌙 WITCHER DARK MODE" !important;
+    position: fixed !important;
+    bottom: 10px !important;
+    right: 10px !important;
+    background: var(--witcher-red) !important;
+    color: var(--witcher-text-light) !important;
+    padding: 6px 10px !important;
+    border-radius: 4px !important;
+    font-size: 10px !important;
+    font-weight: bold !important;
+    z-index: 9999 !important;
+    opacity: 0.8 !important;
+}
+
+/* 18. SCROLLBAR */
+::-webkit-scrollbar {
+    width: 10px;
+    background: var(--witcher-dark);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--witcher-border);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--witcher-gold-dark);
+}
+
+/* 19. АДАПТИВНОСТЬ */
+@media (max-width: 768px) {
+    #content {
+        padding: 15px !important;
+    }
+
+    #content-main {
+        padding: 15px !important;
+    }
+
+    .form-row {
+        padding: 15px !important;
+        flex-direction: column !important;
+    }
+
+    .form-row > div {
+        min-width: 100% !important;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="number"],
+    input[type="url"],
+    textarea,
+    select {
+        max-width: 100% !important;
+    }
+
+    #header {
+        flex-direction: column !important;
+        height: auto !important;
+        padding: 10px 0 !important;
+    }
+
+    #branding h1,
+    #user-tools {
+        line-height: 1.5 !important;
+        height: auto !important;
+        padding: 10px 15px !important;
+    }
+}
+
+/* 20. ИСПРАВЛЕНИЯ ДЛЯ СПЕЦИФИЧНЫХ ЭЛЕМЕНТОВ АДМИНКИ */
+/* Выпадающие списки в фильтрах */
+.selector {
+    width: 100% !important;
+    max-width: 500px !important;
+}
+
+.selector select {
+    width: 100% !important;
+}
+
+/* Календари и время */
+.calendarbox, .clockbox {
+    background: var(--witcher-card) !important;
+    border: 1px solid var(--witcher-border) !important;
+    color: var(--witcher-text) !important;
+}
+
+.calendar caption, .calendar th {
+    background: var(--witcher-darker) !important;
+    color: var(--witcher-text-light) !important;
+}
+
+/* Иконки календаря */
+.calendarnav-previous, .calendarnav-next {
+    color: var(--witcher-gold) !important;
+}
+
+/* Многострочные поля */
+.field-content textarea {
+    width: 100% !important;
+    max-width: 800px !important;
+    min-height: 150px !important;
+}
+
+/* Чекбоксы в таблицах */
+.action-checkbox {
+    width: 20px !important;
+    padding: 10px 5px !important;
+}
+
+/* Селект всех чекбоксов */
+#action-toggle {
+    margin: 0 5px !important;
+}
+
+/* Поле выбора действия */
+#changelist-form .actions {
+    padding: 15px !important;
+    background: var(--witcher-card) !important;
+    border-top: 1px solid var(--witcher-border) !important;
+    margin-top: 20px !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+}
+
+#changelist-form .actions select {
+    max-width: 200px !important;
+    min-width: 150px !important;
+}
+
+/* Инлайн формы */
+.inline-group {
+    border: 1px solid var(--witcher-border) !important;
+    border-radius: 6px !important;
+    overflow: hidden !important;
+    margin-bottom: 20px !important;
+}
+
+.inline-related {
+    border-bottom: 1px solid var(--witcher-border) !important;
+}
+
+.inline-related:last-child {
+    border-bottom: none !important;
+}
+
+/* Плейсхолдеры */
+::placeholder {
+    color: var(--witcher-text-muted) !important;
+    opacity: 0.7 !important;
+}
+
+/* Фокус состояния */
+:focus {
+    outline: 2px solid var(--witcher-gold) !important;
+    outline-offset: 2px !important;
+}
+</style>
+{% endblock %}
+
+{% block extrahead %}
+{{ block.super }}
+<script>
+// ===========================================
+// DARK THEME ENHANCEMENTS - FIXED
+// ===========================================
+
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('🌙 Witcher Dark Admin Theme loaded');
+
+    // 1. Добавляем классы для темной темы
+    document.body.classList.add('witcher-dark', 'admin-dark-theme');
+
+    // 2. Подсветка активной строки в таблицах
+    const tableRows = document.querySelectorAll('#changelist table tbody tr');
+    tableRows.forEach(row => {
+        row.addEventListener('click', function(e) {
+            if (e.target.tagName === 'A' || e.target.tagName === 'INPUT') return;
+
+            tableRows.forEach(r => r.classList.remove('active-row'));
+            this.classList.add('active-row');
+        });
+    });
+
+    // 3. Стиль для активной строки
+    const style = document.createElement('style');
+    style.textContent = `
+        .active-row {
+            background: rgba(192, 160, 80, 0.2) !important;
+            border-left: 3px solid var(--witcher-gold) !important;
+        }
+
+        /* Плавные переходы */
+        #changelist table tbody tr,
+        .module li a,
+        input[type="submit"],
+        button {
+            transition: all 0.25s ease !important;
+        }
+
+        /* Анимация появления */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        #content-main {
+            animation: fadeIn 0.3s ease;
+        }
+
+        /* Исправления для выравнивания */
+        .form-row {
+            display: flex !important;
+            flex-wrap: wrap !important;
+            align-items: flex-start !important;
+        }
+
+        .form-row .fieldBox {
+            flex: 1 !important;
+            min-width: 300px !important;
+            margin-right: 20px !important;
+        }
+
+        .form-row .fieldBox:last-child {
+            margin-right: 0 !important;
+        }
+
+        /* Исправление для полей с ошибками */
+        .errorlist {
+            color: var(--witcher-error) !important;
+            background: rgba(198, 40, 40, 0.1) !important;
+            border-left: 3px solid var(--witcher-error) !important;
+            padding: 10px !important;
+            border-radius: 4px !important;
+            margin: 5px 0 !important;
+        }
+
+        .errornote {
+            color: var(--witcher-error) !important;
+            background: rgba(198, 40, 40, 0.1) !important;
+            border: 1px solid var(--witcher-error) !important;
+            padding: 15px !important;
+            border-radius: 4px !important;
+            margin-bottom: 20px !important;
+        }
+    `;
+    document.head.appendChild(style);
+
+    // 4. Добавляем иконки к кнопкам
+    const buttons = document.querySelectorAll('input[type="submit"], button');
+    buttons.forEach(btn => {
+        const text = btn.value || btn.textContent || '';
+        const originalHTML = btn.innerHTML;
+
+        if (text.match(/сохранить|save/i)) {
+            btn.innerHTML = '💾 ' + originalHTML;
+        }
+        if (text.match(/удалить|delete/i)) {
+            btn.innerHTML = '🗑️ ' + originalHTML;
+        }
+        if (text.match(/добавить|add/i)) {
+            btn.innerHTML = '➕ ' + originalHTML;
+        }
+        if (text.match(/поиск|search/i)) {
+            btn.innerHTML = '🔍 ' + originalHTML;
+        }
+        if (text.match(/очистить|clear/i)) {
+            btn.innerHTML = '🧹 ' + originalHTML;
+        }
+    });
+
+    // 5. Обработка загрузки форм
+    const forms = document.querySelectorAll('form');
+    forms.forEach(form => {
+        form.addEventListener('submit', function() {
+            const submitBtn = this.querySelector('input[type="submit"], button[type="submit"]');
+            if (submitBtn && !submitBtn.dataset.processing) {
+                const original = submitBtn.innerHTML;
+                submitBtn.innerHTML = '⏳ Обработка...';
+                submitBtn.disabled = true;
+                submitBtn.dataset.processing = 'true';
+
+                setTimeout(() => {
+                    submitBtn.innerHTML = original;
+                    submitBtn.disabled = false;
+                    delete submitBtn.dataset.processing;
+                }, 5000);
+            }
+        });
+    });
+
+    // 6. Улучшаем поля ввода
+    const inputs = document.querySelectorAll('input[type="text"], input[type="email"], input[type="password"], textarea, select');
+    inputs.forEach(input => {
+        // Добавляем индикатор фокуса
+        input.addEventListener('focus', function() {
+            this.style.boxShadow = '0 0 0 2px rgba(192, 160, 80, 0.3)';
+            this.style.borderColor = 'var(--witcher-gold)';
+        });
+
+        input.addEventListener('blur', function() {
+            this.style.boxShadow = '';
+            this.style.borderColor = '';
+        });
+
+        // Добавляем класс для длинных полей
+        if (input.value && input.value.length > 50) {
+            input.classList.add('long-text');
+        }
+    });
+
+    // 7. Уведомление о теме
+    setTimeout(() => {
+        if (typeof toastr !== 'undefined') {
+            toastr.info('Темная тема "Ведьмак" активирована', '🌙 Witcher Admin Mode', {
+                timeOut: 3000,
+                positionClass: 'toast-top-right'
+            });
+        }
+    }, 500);
+
+    // 8. Исправление выравнивания для action select
+    const actionSelect = document.querySelector('#changelist-form select[name="action"]');
+    if (actionSelect) {
+        actionSelect.style.minWidth = '150px';
+        actionSelect.style.maxWidth = '200px';
+    }
+
+    // 9. Исправление для фильтров
+    const filters = document.querySelectorAll('#changelist-filter h2');
+    filters.forEach(filter => {
+        filter.style.marginBottom = '10px';
+    });
+});
+
+// 10. Темный toastr
+if (typeof toastr !== 'undefined') {
+    toastr.options = {
+        "closeButton": true,
+        "debug": false,
+        "newestOnTop": true,
+        "progressBar": true,
+        "positionClass": "toast-top-right",
+        "preventDuplicates": false,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    };
+}
+</script>
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<!-- Toastr для уведомлений -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<style>
+/* Темный toastr */
+.toast {
+    background: var(--witcher-card) !important;
+    color: var(--witcher-text) !important;
+    border: 1px solid var(--witcher-border) !important;
+    border-left: 4px solid var(--witcher-gold) !important;
+}
+
+.toast-success {
+    border-left-color: var(--witcher-success) !important;
+}
+
+.toast-error {
+    border-left-color: var(--witcher-error) !important;
+}
+
+.toast-info {
+    border-left-color: var(--witcher-gold) !important;
+}
+
+.toast-warning {
+    border-left-color: var(--witcher-warning) !important;
+}
+
+/* Дополнительные исправления */
+.quiet, .quiet a {
+    color: var(--witcher-text-muted) !important;
+}
+
+.datetimeshortcuts {
+    color: var(--witcher-gold) !important;
+}
+
+.datetimeshortcuts a {
+    color: var(--witcher-gold) !important;
+}
+
+.datetimeshortcuts a:hover {
+    color: var(--witcher-text-light) !important;
+}
+
+/* Иконки действий */
+.viewlink, .addlink, .changelink {
+    padding-left: 20px !important;
+    background-position: 0 50% !important;
+    background-repeat: no-repeat !important;
+}
+
+.viewlink {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23c0a050" width="18px" height="18px"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>') !important;
+}
+
+.addlink {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23c0a050" width="18px" height="18px"><path d="M0 0h24v24H0z" fill="none"/><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>') !important;
+}
+
+.changelink {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23c0a050" width="18px" height="18px"><path d="M0 0h24v24H0z" fill="none"/><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>') !important;
+}
+</style>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}

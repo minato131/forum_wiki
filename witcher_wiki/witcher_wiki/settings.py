@@ -56,6 +56,7 @@ TEMPLATES = [
                 'wiki.context_processors.telegram_settings',
                 'wiki.context_processors.tutorial_context',
                 'wiki.context_processors.moderation_counts',
+                'django.template.context_processors.static',
             ],
         },
     },

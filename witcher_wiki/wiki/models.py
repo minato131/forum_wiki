@@ -141,25 +141,38 @@ class Article(models.Model):
         ordering = ['-created_at']
         permissions = [
             # Базовые права
+            ("can_view_published_articles", "Может просматривать опубликованные статьи"),
             ("can_create_articles", "Может создавать статьи"),
             ("can_edit_own_articles", "Может редактировать свои статьи"),
-            ("can_edit_any_articles", "Может редактировать любые статьи"),
-
-            # Права модерации
-            ("can_moderate", "Может модерировать статьи"),
-            ("can_manage_categories", "Может управлять категориями"),
+            ("can_comment_articles", "Может комментировать статьи"),
+            ("can_like_articles", "Может лайкать статьи"),
+            ("can_view_profiles", "Может просматривать профили других пользователей"),
+            ("can_send_messages", "Может отправлять личные сообщения"),
 
             # Права редактора
+            ("can_edit_any_articles", "Может редактировать любые статьи"),
             ("can_edit_content", "Может редактировать контент"),
             ("can_manage_media", "Может управлять медиафайлами"),
+            ("can_access_editor_panel", "Доступ к панели редактора"),
 
-            # Дополнительные права
+            # Права модератора
+            ("can_moderate", "Может модерировать статьи"),
+            ("can_manage_categories", "Может управлять категориями"),
             ("can_delete_comments", "Может удалять комментарии"),
             ("can_view_moderation_queue", "Может видеть очередь модерации"),
+
+            # Права администратора
             ("can_manage_users", "Может управлять пользователями"),
-            ("can_access_admin", "Доступ к админ-панели"),
+            ("can_access_admin", "Доступ к админ-панели Django"),
             ("can_view_logs", "Может просматривать логи"),
             ("can_backup_data", "Может создавать бэкапы"),
+            ("can_manage_system_settings", "Может управлять системными настройками"),
+
+            # Дополнительные права
+            ("can_restore_backup", "Может восстанавливать из бэкапа"),
+            ("can_delete_backup", "Может удалять бэкапы"),
+            ("can_view_statistics", "Может просматривать статистику"),
+            ("can_export_data", "Может экспортировать данные"),
         ]
 
     def can_delete(self, user=None):

@@ -59,7 +59,7 @@
             padding: 14px 16px;
             display: inline-block;
             transition: all 0.3s ease;
-            margin: 0 !important; /* Важно: убираем все margin */
+            margin: 0 !important;
         }
 
         .navbar a:hover {
@@ -67,7 +67,7 @@
             color: #FFD700;
         }
 
-        /* USER MENU */
+        /* USER MENU - ВЕРНУЛ СТИЛИ ИЗ 1138, НО С БЕЛЫМ ТЕКСТОМ */
         .user-info {
             position: relative;
         }
@@ -85,7 +85,7 @@
             cursor: pointer;
             font-family: 'Georgia', serif;
             font-size: 14px;
-            margin: 0 !important; /* Важно: убираем margin */
+            margin: 0 !important;
         }
 
         .dropdown-content {
@@ -106,7 +106,7 @@
         }
 
         .dropdown-content a {
-            color: #e8e8e8;
+            color: #ffffff !important; /* БЕЛЫЙ ТЕКСТ */
             padding: 12px 16px;
             text-decoration: none;
             display: block;
@@ -115,6 +115,7 @@
 
         .dropdown-content a:hover {
             background: rgba(212, 175, 55, 0.1);
+            color: #FFD700 !important;
         }
 
         /* AUTH BUTTONS */
@@ -130,7 +131,7 @@
             padding: 8px 16px;
             border-radius: 5px;
             text-decoration: none;
-            margin: 0 !important; /* Важно: убираем margin */
+            margin: 0 !important;
         }
 
         .btn-outline-light:hover {
@@ -266,7 +267,7 @@
         .logout-form-btn {
             background: none;
             border: none;
-            color: #e8e8e8;
+            color: #ffffff !important; /* БЕЛЫЙ ТЕКСТ */
             padding: 12px 16px;
             width: 100%;
             text-align: left;
@@ -278,6 +279,7 @@
 
         .logout-form-btn:hover {
             background: rgba(220, 53, 69, 0.1);
+            color: #FFD700 !important;
         }
 
         /* Стили для форм с подтверждением */
@@ -285,7 +287,7 @@
             display: inline;
         }
 
-        /* ИСПРАВЛЕНИЕ ДЛЯ КНОПКИ МОДЕРАЦИИ */
+        /* ИСПРАВЛЕННЫЕ СТИЛИ ДЛЯ КНОПКИ МОДЕРАЦИИ - БЕЗ ТОЧЕК И С ПРАВИЛЬНЫМ ФОНОМ */
         .nav-item.dropdown {
             position: relative;
             display: inline-block;
@@ -294,7 +296,7 @@
         .nav-link.dropdown-toggle {
             cursor: pointer;
             position: relative;
-            padding-right: 25px !important; /* Важно: добавляем padding для стрелки */
+            padding-right: 25px !important;
             background: transparent !important;
             border: none !important;
             margin: 0 !important;
@@ -321,19 +323,21 @@
             transform: translateY(-50%);
         }
 
+        /* ИСПРАВЛЕННОЕ ВЫПАДАЮЩЕЕ МЕНЮ МОДЕРАЦИИ - БЕЗ ТОЧЕК И С ПРАВИЛЬНЫМ ПОЗИЦИОНИРОВАНИЕМ */
         #moderationMenu {
             display: none;
             position: absolute;
             left: 0;
-            top: 100%;
+            top: 100% !important; /* ФИКС: УБИРАЕМ СДВИГ ВВЕРХ */
             background: #2d2d2d;
             min-width: 220px;
             border: 1px solid #D4AF37;
             border-radius: 5px;
             z-index: 1000;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-            margin-top: 5px;
+            margin-top: 5px !important; /* ФИКС: ДОБАВЛЯЕМ ОТСТУП */
             padding: 5px 0;
+            list-style: none !important; /* УБИРАЕМ ТОЧКИ */
         }
 
         #moderationMenu.show {
@@ -341,7 +345,7 @@
         }
 
         #moderationMenu .dropdown-item {
-            color: #e8e8e8;
+            color: #ffffff !important; /* БЕЛЫЙ ТЕКСТ */
             padding: 10px 15px;
             text-decoration: none;
             display: block;
@@ -352,7 +356,7 @@
 
         #moderationMenu .dropdown-item:hover {
             background: rgba(212, 175, 55, 0.1);
-            color: #FFD700;
+            color: #FFD700 !important;
         }
 
         #moderationMenu .dropdown-divider {
@@ -369,14 +373,6 @@
 
         .nav-links li.nav-item.dropdown a.nav-link i {
             margin-right: 5px !important;
-        }
-
-        .nav-links li.nav-item.dropdown a.nav-link span {
-            position: absolute !important;
-            right: 8px !important;
-            top: 50% !important;
-            transform: translateY(-50%) !important;
-            font-size: 10px !important;
         }
 
         /* Защита от конфликтов стилей .btn */
@@ -546,9 +542,10 @@
                 </a>
             {% endif %}
 
+            <!-- ВЫПАДАЮЩЕЕ МЕНЮ МОДЕРАЦИИ - ИСПРАВЛЕННАЯ ВЕРСИЯ -->
             {% if user.is_staff %}
             <div class="nav-item dropdown" id="moderationDropdown">
-                <a class="nav-link" href="#" onclick="toggleModerationMenu(event); return false;">
+                <a class="nav-link dropdown-toggle" href="#" onclick="toggleModerationMenu(event); return false;">
                     <i class="fas fa-gavel"></i> Модерация
                 </a>
                 <ul class="dropdown-menu" id="moderationMenu">

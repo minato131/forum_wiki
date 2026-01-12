@@ -224,39 +224,35 @@ def search(request):
     query = request.GET.get('q', '').strip()
     category_filter = request.GET.get('category', '')
     tag_filter = request.GET.get('tag', '')
+    author_filter = request.GET.get('author', '')
+    status_filter = request.GET.get('status', '')
+    sort_by = request.GET.get('sort', 'relevance')
+    time_filter = request.GET.get('time', 'all')
+    min_views = request.GET.get('min_views', '')
+    min_likes = request.GET.get('min_likes', '')
+    has_media = request.GET.get('has_media', '')
+    article_length = request.GET.get('length', '')
+
     results = []
     total_count = 0
+    filters_applied = []
 
-    if query or tag_filter or category_filter:
-        # Сохраняем поисковый запрос в SearchQuery (популярность)
+    if query or tag_filter or category_filter or any([author_filter, status_filter, min_views, min_likes, has_media]):
+        # Сохраняем поисковый запрос в SearchQuery
         if query:
             try:
-                # Используем get_or_create с обработкой дубликатов
-                try:
-                    search_query_obj = SearchQuery.objects.get(query=query)
-                    created = False
-                except SearchQuery.DoesNotExist:
-                    search_query_obj = SearchQuery.objects.create(query=query)
-                    created = True
-                except SearchQuery.MultipleObjectsReturned:
-                    # Если есть дубликаты, берем первый и удаляем остальные
-                    duplicates = SearchQuery.objects.filter(query=query)
-                    search_query_obj = duplicates.first()
-                    duplicates.exclude(id=search_query_obj.id).delete()
-                    created = False
-
+                search_query_obj, created = SearchQuery.objects.get_or_create(query=query)
                 if not created:
                     search_query_obj.count += 1
                     search_query_obj.save()
             except Exception as e:
                 print(f"Ошибка при сохранении поискового запроса: {e}")
 
-        # Сохраняем историю поиска в SearchHistory
+        # Сохраняем историю поиска
         if query:
             SearchHistory.objects.create(
                 query=query,
                 user=request.user if request.user.is_authenticated else None,
-                results_count=total_count,
                 ip_address=request.META.get('REMOTE_ADDR'),
                 user_agent=request.META.get('HTTP_USER_AGENT', '')
             )
@@ -270,21 +266,99 @@ def search(request):
                             Q(content__icontains=query) |
                             Q(excerpt__icontains=query) |
                             Q(tags__name__icontains=query))
+            filters_applied.append(f"Поиск: '{query}'")
 
         # Поиск по хештегам
         if tag_filter:
             search_query = Q(tags__name__iexact=tag_filter)
+            filters_applied.append(f"Тег: '{tag_filter}'")
 
-        # Базовая фильтрация по статусу
-        results = Article.objects.filter(status='published')
+        # Базовая фильтрация - для обычных пользователей только опубликованные
+        if request.user.is_authenticated and (request.user.is_staff or
+                                              request.user.groups.filter(
+                                                  name__in=['Модератор', 'Администратор']).exists()):
+            # Админы/модераторы видят все статусы
+            results = Article.objects.all()
+        else:
+            # Обычные пользователи - только опубликованные
+            results = Article.objects.filter(status='published')
 
         # Применяем поисковый запрос если есть query или tag_filter
         if query or tag_filter:
             results = results.filter(search_query).distinct()
 
-        # Фильтр по категории
+        # ФИЛЬТР ПО КАТЕГОРИИ
         if category_filter:
             results = results.filter(categories__slug=category_filter)
+            try:
+                category = Category.objects.get(slug=category_filter)
+                filters_applied.append(f"Категория: {category.name}")
+            except Category.DoesNotExist:
+                pass
+
+        # ФИЛЬТР ПО АВТОРУ
+        if author_filter:
+            results = results.filter(author__username__icontains=author_filter)
+            filters_applied.append(f"Автор: '{author_filter}'")
+
+        # ФИЛЬТР ПО СТАТУСУ (только для админов/модераторов)
+        if status_filter and request.user.is_authenticated and (
+                request.user.is_staff or request.user.groups.filter(name__in=['Модератор', 'Администратор']).exists()):
+            results = results.filter(status=status_filter)
+            status_display = dict(Article.STATUS_CHOICES).get(status_filter, status_filter)
+            filters_applied.append(f"Статус: {status_display}")
+
+        # ФИЛЬТР ПО ВРЕМЕНИ
+        if time_filter != 'all':
+            now = timezone.now()
+            if time_filter == 'today':
+                start_date = now - timezone.timedelta(days=1)
+                time_display = "сегодня"
+            elif time_filter == 'week':
+                start_date = now - timezone.timedelta(days=7)
+                time_display = "за неделю"
+            elif time_filter == 'month':
+                start_date = now - timezone.timedelta(days=30)
+                time_display = "за месяц"
+            elif time_filter == 'year':
+                start_date = now - timezone.timedelta(days=365)
+                time_display = "за год"
+            else:
+                start_date = None
+                time_display = ""
+
+            if start_date:
+                results = results.filter(created_at__gte=start_date)
+                filters_applied.append(f"Период: {time_display}")
+
+        # ФИЛЬТР ПО МИНИМАЛЬНОМУ КОЛИЧЕСТВУ ПРОСМОТРОВ
+        if min_views and min_views.isdigit():
+            results = results.filter(views_count__gte=int(min_views))
+            filters_applied.append(f"Просмотров: >{min_views}")
+
+        # ФИЛЬТР ПО МИНИМАЛЬНОМУ КОЛИЧЕСТВУ ЛАЙКОВ
+        if min_likes and min_likes.isdigit():
+            results = results.annotate(likes_count=Count('likes')).filter(likes_count__gte=int(min_likes))
+            filters_applied.append(f"Лайков: >{min_likes}")
+
+        # ФИЛЬТР ПО НАЛИЧИЮ МЕДИА
+        if has_media == 'yes':
+            results = results.filter(media_files__isnull=False).distinct()
+            filters_applied.append("С медиафайлами")
+
+        # ФИЛЬТР ПО ДЛИНЕ СТАТЬИ
+        if article_length:
+            if article_length == 'short':
+                results = results.annotate(content_length=Length('content')).filter(content_length__lt=1000)
+                filters_applied.append("Короткие (<1000 символов)")
+            elif article_length == 'medium':
+                results = results.annotate(content_length=Length('content')).filter(
+                    content_length__gte=1000, content_length__lt=5000
+                )
+                filters_applied.append("Средние (1000-5000 символов)")
+            elif article_length == 'long':
+                results = results.annotate(content_length=Length('content')).filter(content_length__gte=5000)
+                filters_applied.append("Длинные (>5000 символов)")
 
         total_count = results.count()
 
@@ -298,36 +372,61 @@ def search(request):
                 last_search.results_count = total_count
                 last_search.save()
 
-        # УЛУЧШЕННАЯ СОРТИРОВКА ПО ПРИОРИТЕТУ
-        if query and not tag_filter:
-            # Статьи с точным совпадением в названии (высший приоритет)
-            exact_title_matches = results.filter(title__iexact=query)
-
-            # Статьи с совпадением в начале названия
-            start_title_matches = results.filter(title__istartswith=query).exclude(title__iexact=query)
-
-            # Статьи с совпадением в названии (любая позиция)
-            any_title_matches = results.filter(title__icontains=query).exclude(
-                title__istartswith=query
-            ).exclude(title__iexact=query)
-
-            # Статьи с совпадением только в контенте (низший приоритет)
-            content_only_matches = results.filter(
-                content__icontains=query
-            ).exclude(
-                Q(title__icontains=query) | Q(excerpt__icontains=query)
-            )
-
-            # Объединяем результаты с приоритетом
-            results = list(exact_title_matches) + list(start_title_matches) + \
-                      list(any_title_matches) + list(content_only_matches)
-
-        elif tag_filter or category_filter:
-            # Для хештегов и категорий сортируем по дате создания
+        # УЛУЧШЕННАЯ СОРТИРОВКА
+        if sort_by == 'date_new':
             results = results.order_by('-created_at')
+            sort_display = "Сначала новые"
+        elif sort_by == 'date_old':
+            results = results.order_by('created_at')
+            sort_display = "Сначала старые"
+        elif sort_by == 'views':
+            results = results.order_by('-views_count')
+            sort_display = "По популярности"
+        elif sort_by == 'likes':
+            results = results.annotate(likes_count=Count('likes')).order_by('-likes_count')
+            sort_display = "По лайкам"
+        elif sort_by == 'comments':
+            results = results.annotate(comments_count=Count('comments')).order_by('-comments_count')
+            sort_display = "По комментариям"
+        elif sort_by == 'title_asc':
+            results = results.order_by('title')
+            sort_display = "По названию (А-Я)"
+        elif sort_by == 'title_desc':
+            results = results.order_by('-title')
+            sort_display = "По названию (Я-А)"
+        else:  # relevance
+            if query and not tag_filter:
+                # Статьи с точным совпадением в названии (высший приоритет)
+                exact_title_matches = results.filter(title__iexact=query)
+
+                # Статьи с совпадением в начале названия
+                start_title_matches = results.filter(title__istartswith=query).exclude(title__iexact=query)
+
+                # Статьи с совпадением в названии (любая позиция)
+                any_title_matches = results.filter(title__icontains=query).exclude(
+                    title__istartswith=query
+                ).exclude(title__iexact=query)
+
+                # Статьи с совпадением только в контенте (низший приоритет)
+                content_only_matches = results.filter(
+                    content__icontains=query
+                ).exclude(
+                    Q(title__icontains=query) | Q(excerpt__icontains=query)
+                )
+
+                # Объединяем результаты с приоритетом
+                results = list(exact_title_matches) + list(start_title_matches) + \
+                          list(any_title_matches) + list(content_only_matches)
+                sort_display = "По релевантности"
+            else:
+                results = results.order_by('-created_at')
+                sort_display = "По дате"
+
+        if sort_display and sort_display not in [f.split(": ")[1] if ": " in f else f for f in filters_applied]:
+            filters_applied.append(f"Сортировка: {sort_display}")
 
         # Пагинация
-        paginator = Paginator(results, 10)
+        paginator = Paginator(results, 15)  # Увеличим до 15 на страницу
         page_number = request.GET.get('page')
         results = paginator.get_page(page_number)
 
@@ -343,21 +442,73 @@ def search(request):
 
     # Получаем популярные хештеги
     from django.db.models import Count
-    popular_tags = Article.tags.most_common()[:15]
+    popular_tags = Article.tags.most_common()[:20]
 
     # Получаем категории для фильтра
     categories = Category.objects.all()
+
+    # Получаем авторов для фильтра
+    authors = User.objects.filter(
+        articles__status='published'
+    ).distinct().order_by('username')[:50]
+
+    # Опции для селектов
+    sort_options = [
+        ('relevance', 'По релевантности'),
+        ('date_new', 'Сначала новые'),
+        ('date_old', 'Сначала старые'),
+        ('views', 'По просмотрам'),
+        ('likes', 'По лайкам'),
+        ('comments', 'По комментариям'),
+        ('title_asc', 'По названию (А-Я)'),
+        ('title_desc', 'По названию (Я-А)'),
+    ]
+
+    time_options = [
+        ('all', 'За всё время'),
+        ('today', 'Сегодня'),
+        ('week', 'За неделю'),
+        ('month', 'За месяц'),
+        ('year', 'За год'),
+    ]
+
+    status_options = Article.STATUS_CHOICES
+
+    length_options = [
+        ('', 'Любая длина'),
+        ('short', 'Короткие (<1000 симв.)'),
+        ('medium', 'Средние (1000-5000)'),
+        ('long', 'Длинные (>5000 симв.)'),
+    ]
 
     context = {
         'query': query,
         'category_filter': category_filter,
         'tag_filter': tag_filter,
+        'author_filter': author_filter,
+        'status_filter': status_filter,
+        'sort_by': sort_by,
+        'time_filter': time_filter,
+        'min_views': min_views,
+        'min_likes': min_likes,
+        'has_media': has_media,
+        'article_length': article_length,
         'results': results,
         'total_count': total_count,
+        'filters_applied': filters_applied,
         'categories': categories,
+        'authors': authors,
         'popular_queries': popular_queries,
         'recent_user_searches': recent_user_searches,
         'popular_tags': popular_tags,
+        'sort_options': sort_options,
+        'time_options': time_options,
+        'status_options': status_options,
+        'length_options': length_options,
+        'user_can_moderate': request.user.is_authenticated and (
+                request.user.is_staff or
+                request.user.groups.filter(name__in=['Модератор', 'Администратор']).exists()
+        ),
     }
     return render(request, 'wiki/search.html', context)
 
@@ -4935,7 +5086,7 @@ def user_warnings_list(request):
 def banned_page(request):
     """Страница информации о бане"""
     if not request.user.is_authenticated:
-        return redirect('login')
+        return redirect('wiki:login')  # Используем wiki:login
 
     try:
         # Получаем активные баны пользователя
@@ -4946,7 +5097,7 @@ def banned_page(request):
 
         if not active_bans.exists():
             # Если нет активных банов - редирект на главную
-            return redirect('home')
+            return redirect('wiki:home')  # Используем wiki:home вместо home
 
         # Берем первый активный бан
         ban = active_bans.first()
@@ -4957,7 +5108,7 @@ def banned_page(request):
                 # Бан истек - деактивируем
                 ban.is_active = False
                 ban.save()
-                return redirect('home')
+                return redirect('wiki:home')  # Используем wiki:home вместо home
 
         # Формируем контекст
         time_remaining = None
@@ -4976,7 +5127,7 @@ def banned_page(request):
 
     except Exception as e:
         print(f"DEBUG: Error in banned_page: {e}")
-        return redirect('home')
+        return redirect('wiki:home')  # Используем wiki:home вместо home
 
 def check_user_ban(user):
     """Проверяет, забанен ли пользователь"""
