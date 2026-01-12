@@ -93,7 +93,7 @@
                 {% endif %}
 
                 <div class="dropdown-container">
-                    <button class="action-btn" onclick="toggleDropdown('dropdown-{{ message_obj.id }}')">
+                    <button class="action-btn" onclick="toggleMessagesDropdown('dropdown-{{ message_obj.id }}', event)">
                         <i class="fas fa-ellipsis-v"></i>
                     </button>
                     <div class="dropdown-menu" id="dropdown-{{ message_obj.id }}">
@@ -164,6 +164,7 @@
 </div>
 
 <style>
+/* Инициализация - предотвращаем конфликты */
 .messages-header {
     background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
     border: 1px solid #D4AF37;
@@ -226,7 +227,7 @@
     background: #2d2d2d;
     border: 1px solid #444;
     border-radius: 10px;
-    overflow: visible; /* ИЗМЕНИЛИ с hidden на visible */
+    overflow: visible;
 }
 
 .message-item {
@@ -343,14 +344,14 @@
     background: rgba(255, 255, 255, 0.1);
 }
 
-/* НОВЫЕ СТИЛИ ДЛЯ DROPDOWN */
-.dropdown-container {
+/* УЛУЧШЕННЫЕ СТИЛИ ДЛЯ DROPDOWN */
+.message-actions .dropdown-container {
     position: relative;
     display: inline-block;
 }
 
-.dropdown-menu {
-    position: fixed; /* ИЗМЕНИЛИ с absolute на fixed */
+.message-actions .dropdown-menu {
+    position: fixed;
     background: #1a1a1a;
     border: 1px solid #D4AF37;
     border-radius: 6px;
@@ -360,19 +361,20 @@
     visibility: hidden;
     transform: translateY(-10px);
     transition: all 0.3s ease;
-    z-index: 9999; /* ОЧЕНЬ ВЫСОКИЙ z-index */
+    z-index: 100001; /* ВЫШЕ, чем модальное окно в base.html */
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
     pointer-events: none;
 }
 
-.dropdown-menu.active {
+.message-actions .dropdown-menu.active {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
     pointer-events: all;
 }
 
-.dropdown-item {
+/* Специфичные селекторы для предотвращения конфликтов */
+.message-actions .dropdown-item {
     display: block;
     width: 100%;
     padding: 10px 16px;
@@ -387,7 +389,7 @@
     white-space: nowrap;
 }
 
-.dropdown-item:hover {
+.message-actions .dropdown-item:hover {
     background: rgba(212, 175, 55, 0.2);
     color: #D4AF37;
 }
@@ -477,51 +479,79 @@
 }
 
 /* Overlay для закрытия dropdown */
-.dropdown-overlay {
+.messages-dropdown-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background: transparent;
-    z-index: 9998;
+    z-index: 100000;
     display: none;
-}
-
-.dropdown-overlay.active {
-    display: block;
 }
 </style>
 
 <script>
-let activeDropdown = null;
-let overlay = null;
+// УНИКАЛЬНЫЕ ИМЕНА ФУНКЦИЙ для этой страницы - предотвращаем конфликты
+let messagesActiveDropdown = null;
+let messagesOverlay = null;
 
-function createOverlay() {
-    if (!overlay) {
-        overlay = document.createElement('div');
-        overlay.className = 'dropdown-overlay';
-        overlay.addEventListener('click', closeAllDropdowns);
-        document.body.appendChild(overlay);
+// Приоритетное закрытие всех dropdown при загрузке страницы
+document.addEventListener('DOMContentLoaded', function() {
+    // Закрываем все dropdown из base.html при входе на эту страницу
+    if (typeof closeAllDropdowns === 'function') {
+        closeAllDropdowns();
     }
-    return overlay;
+
+    // Отключаем кликабельность на элементах, которые могут конфликтовать
+    document.querySelectorAll('.navbar a, .user-btn').forEach(el => {
+        el.style.pointerEvents = 'auto';
+    });
+});
+
+function createMessagesOverlay() {
+    if (!messagesOverlay) {
+        messagesOverlay = document.createElement('div');
+        messagesOverlay.className = 'messages-dropdown-overlay';
+        messagesOverlay.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            z-index: 100000;
+            display: none;
+        `;
+        messagesOverlay.addEventListener('click', closeAllMessagesDropdowns);
+        document.body.appendChild(messagesOverlay);
+    }
+    return messagesOverlay;
 }
 
-function toggleDropdown(dropdownId) {
+function toggleMessagesDropdown(dropdownId, event) {
+    event.preventDefault();
+    event.stopPropagation();
+
     const dropdown = document.getElementById(dropdownId);
     const button = event.currentTarget;
 
-    if (activeDropdown === dropdown) {
-        closeAllDropdowns();
+    if (messagesActiveDropdown === dropdown) {
+        closeAllMessagesDropdowns();
         return;
     }
 
-    // Закрываем предыдущий dropdown
-    closeAllDropdowns();
+    // Закрываем все dropdown на этой странице
+    closeAllMessagesDropdowns();
+
+    // Закрываем dropdown из base.html если они открыты
+    if (typeof closeAllDropdowns === 'function') {
+        closeAllDropdowns();
+    }
 
     // Показываем overlay
-    const overlay = createOverlay();
-    overlay.classList.add('active');
+    const overlay = createMessagesOverlay();
+    overlay.style.display = 'block';
 
     // Позиционируем dropdown относительно кнопки
     const rect = button.getBoundingClientRect();
@@ -530,33 +560,32 @@ function toggleDropdown(dropdownId) {
 
     // Показываем dropdown
     dropdown.classList.add('active');
-    activeDropdown = dropdown;
-
-    event.stopPropagation();
+    messagesActiveDropdown = dropdown;
 }
 
-function closeAllDropdowns() {
-    if (activeDropdown) {
-        activeDropdown.classList.remove('active');
-        activeDropdown = null;
+function closeAllMessagesDropdowns() {
+    if (messagesActiveDropdown) {
+        messagesActiveDropdown.classList.remove('active');
+        messagesActiveDropdown = null;
     }
 
-    if (overlay) {
-        overlay.classList.remove('active');
+    if (messagesOverlay) {
+        messagesOverlay.style.display = 'none';
     }
 }
 
 // Закрытие dropdown при клике вне его
 document.addEventListener('click', function(e) {
-    if (!e.target.closest('.dropdown-container') && !e.target.closest('.dropdown-menu')) {
-        closeAllDropdowns();
+    if (!e.target.closest('.message-actions .dropdown-container') &&
+        !e.target.closest('.message-actions .dropdown-menu')) {
+        closeAllMessagesDropdowns();
     }
 });
 
 // Закрытие при нажатии ESC
 document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
-        closeAllDropdowns();
+        closeAllMessagesDropdowns();
     }
 });
 </script>

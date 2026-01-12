@@ -591,7 +591,6 @@
 </style>
 
 <div class="article-container">
-    <!-- Шапка статьи -->
     <div class="article-header">
         <h1 class="article-title">⚔️ {{ article.title }}</h1>
 
@@ -640,7 +639,6 @@
     </div>
     {% endif %}
 
-    <!-- Главное изображение -->
     {% if article.featured_image %}
     <div class="featured-image">
         <img src="{{ article.featured_image.url }}" alt="{{ article.title }}"
@@ -648,12 +646,10 @@
     </div>
     {% endif %}
 
-    <!-- Контент статьи -->
     <div class="article-content">
         {{ article.content|safe }}
     </div>
 
-    <!-- Хештеги статьи -->
     {% if article.tags.all %}
     <div class="article-hashtags">
         <h4 class="hashtags-title">🏷️ Хештеги статьи:</h4>

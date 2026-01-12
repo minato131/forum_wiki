@@ -227,16 +227,13 @@
 
                         <div class="dropdown-section">
                             <a href="#" class="dropdown-item" onclick="sendMessageToUser('{{ user.id }}', '{{ user.username }}')">
-                                <i class="fas fa-envelope"></i>
                                 Написать сообщение
                             </a>
                             <a href="{% url 'wiki:user_public_profile' user.username %}" class="dropdown-item">
-                                <i class="fas fa-eye"></i>
                                 Просмотр профиля
                             </a>
                             {% if user.articles.count > 0 %}
                             <a href="?filter=user:{{ user.id }}" class="dropdown-item">
-                                <i class="fas fa-file-alt"></i>
                                 Показать статьи
                             </a>
                             {% endif %}

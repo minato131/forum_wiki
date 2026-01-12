@@ -59,6 +59,7 @@
             padding: 14px 16px;
             display: inline-block;
             transition: all 0.3s ease;
+            margin: 0 !important; /* Важно: убираем все margin */
         }
 
         .navbar a:hover {
@@ -84,6 +85,7 @@
             cursor: pointer;
             font-family: 'Georgia', serif;
             font-size: 14px;
+            margin: 0 !important; /* Важно: убираем margin */
         }
 
         .dropdown-content {
@@ -128,6 +130,7 @@
             padding: 8px 16px;
             border-radius: 5px;
             text-decoration: none;
+            margin: 0 !important; /* Важно: убираем margin */
         }
 
         .btn-outline-light:hover {
@@ -281,171 +284,172 @@
         .confirmable-form {
             display: inline;
         }
-        nav-item.dropdown {
-    position: relative;
-    display: inline-block;
-}
 
-.nav-link.dropdown-toggle {
-    cursor: pointer;
-    position: relative;
-    padding-right: 20px;
-}
+        /* ИСПРАВЛЕНИЕ ДЛЯ КНОПКИ МОДЕРАЦИИ */
+        .nav-item.dropdown {
+            position: relative;
+            display: inline-block;
+        }
 
-.nav-link.dropdown-toggle::after {
-    content: '▼';
-    font-size: 10px;
-    position: absolute;
-    right: 8px;
-    top: 50%;
-    transform: translateY(-50%);
-}
+        .nav-link.dropdown-toggle {
+            cursor: pointer;
+            position: relative;
+            padding-right: 25px !important; /* Важно: добавляем padding для стрелки */
+            background: transparent !important;
+            border: none !important;
+            margin: 0 !important;
+            padding: 14px 16px !important;
+            display: inline-block !important;
+            text-decoration: none !important;
+            cursor: pointer !important;
+            font-weight: normal !important;
+            font-size: 14px !important;
+            color: #D4AF37 !important;
+        }
 
-.dropdown-menu {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background: #2d2d2d;
-    min-width: 220px;
-    border: 1px solid #D4AF37;
-    border-radius: 5px;
-    z-index: 1000;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-    margin-top: 5px;
-}
+        .nav-link.dropdown-toggle:hover {
+            background-color: rgba(212, 175, 55, 0.1) !important;
+            color: #FFD700 !important;
+        }
 
-.dropdown-menu.show {
-    display: block;
-}
+        .nav-link.dropdown-toggle::after {
+            content: '▼';
+            font-size: 10px;
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
 
-.dropdown-menu li {
-    list-style: none;
-}
+        #moderationMenu {
+            display: none;
+            position: absolute;
+            left: 0;
+            top: 100%;
+            background: #2d2d2d;
+            min-width: 220px;
+            border: 1px solid #D4AF37;
+            border-radius: 5px;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            margin-top: 5px;
+            padding: 5px 0;
+        }
 
-.dropdown-menu .dropdown-item {
-    color: #e8e8e8;
-    padding: 10px 15px;
-    text-decoration: none;
-    display: block;
-    border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-    transition: all 0.3s ease;
-}
+        #moderationMenu.show {
+            display: block;
+        }
 
-.dropdown-menu .dropdown-item:hover {
-    background: rgba(212, 175, 55, 0.1);
-    color: #FFD700;
-}
+        #moderationMenu .dropdown-item {
+            color: #e8e8e8;
+            padding: 10px 15px;
+            text-decoration: none;
+            display: block;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
 
-.dropdown-divider {
-    height: 1px;
-    background: rgba(212, 175, 55, 0.3);
-    margin: 5px 0;
-}
+        #moderationMenu .dropdown-item:hover {
+            background: rgba(212, 175, 55, 0.1);
+            color: #FFD700;
+        }
 
-/* Исправленная навигация модерации в шапке */
-.nav-links {
-    display: flex;
-    position: relative; /* Для правильного позиционирования dropdown */
-}
-.nav-item.dropdown {
-    position: relative;
-    display: inline-block;
-}
+        #moderationMenu .dropdown-divider {
+            height: 1px;
+            background: rgba(212, 175, 55, 0.3);
+            margin: 5px 15px;
+        }
 
-#moderationMenu {
-    display: none;
-    position: absolute;
-    left: 0;
-    top: 100%;
-    background: #2d2d2d;
-    min-width: 220px;
-    border: 1px solid #D4AF37;
-    border-radius: 5px;
-    z-index: 1000;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-    margin-top: 5px;
-    padding: 5px 0;
-}
+        /* Убираем встроенные стили из HTML для кнопки модерации */
+        .nav-links li.nav-item.dropdown a.nav-link {
+            position: relative !important;
+            padding-right: 25px !important;
+        }
 
-#moderationMenu.show {
-    display: block;
-}
+        .nav-links li.nav-item.dropdown a.nav-link i {
+            margin-right: 5px !important;
+        }
 
-#moderationMenu .dropdown-item {
-    color: #e8e8e8;
-    padding: 10px 15px;
-    text-decoration: none;
-    display: block;
-    border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-    transition: all 0.3s ease;
-    white-space: nowrap;
-}
+        .nav-links li.nav-item.dropdown a.nav-link span {
+            position: absolute !important;
+            right: 8px !important;
+            top: 50% !important;
+            transform: translateY(-50%) !important;
+            font-size: 10px !important;
+        }
 
-#moderationMenu .dropdown-item:hover {
-    background: rgba(212, 175, 55, 0.1);
-    color: #FFD700;
-}
+        /* Защита от конфликтов стилей .btn */
+        .navbar a,
+        .navbar .nav-link,
+        .navbar .nav-links a,
+        .nav-item.dropdown > a,
+        .nav-item.dropdown > .nav-link {
+            all: initial !important; /* Сбрасываем все стили */
+            font-family: 'Georgia', serif !important;
+            color: #D4AF37 !important;
+            text-decoration: none !important;
+            padding: 14px 16px !important;
+            display: inline-block !important;
+            transition: all 0.3s ease !important;
+            cursor: pointer !important;
+            background: transparent !important;
+            border: none !important;
+            margin: 0 !important;
+            font-size: 14px !important;
+            line-height: normal !important;
+        }
 
-#moderationMenu .dropdown-divider {
-    height: 1px;
-    background: rgba(212, 175, 55, 0.3);
-    margin: 5px 15px;
-}
-#notificationDropdown {
-    cursor: pointer;
-    position: relative;
-}
+        .navbar a:hover,
+        .navbar .nav-link:hover,
+        .navbar .nav-links a:hover,
+        .nav-item.dropdown > a:hover,
+        .nav-item.dropdown > .nav-link:hover {
+            background-color: rgba(212, 175, 55, 0.1) !important;
+            color: #FFD700 !important;
+        }
 
-.dropdown-menu-right {
-    right: 0;
-    left: auto;
-}
+        /* Стили только для кнопок, которые должны выглядеть как кнопки */
+        button.user-btn,
+        .auth-buttons a,
+        .modal-btn {
+            padding: 8px 16px !important;
+            border-radius: 5px !important;
+            border: 2px solid #D4AF37 !important;
+            background: transparent !important;
+            color: #D4AF37 !important;
+            font-family: 'Georgia', serif !important;
+            font-size: 14px !important;
+            cursor: pointer !important;
+            text-decoration: none !important;
+            display: inline-block !important;
+            margin: 0 0 0 10px !important; /* Только левый margin */
+            transition: all 0.3s !important;
+        }
 
-.dropdown-menu {
-    display: none;
-    position: absolute;
-    background: #2d2d2d;
-    min-width: 300px;
-    border: 1px solid #D4AF37;
-    border-radius: 5px;
-    z-index: 1000;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-    margin-top: 5px;
-    padding: 5px 0;
-}
+        button.user-btn:hover,
+        .auth-buttons a:hover {
+            background: #D4AF37 !important;
+            color: #1a1a1a !important;
+        }
 
-.dropdown-menu.show {
-    display: block;
-}
+        /* Убираем влияние глобальных .btn стилей на навигацию */
+        .navbar * {
+            margin: 0 !important;
+        }
 
-.dropdown-header {
-    color: #D4AF37;
-    padding: 10px 15px;
-    font-weight: bold;
-    border-bottom: 1px solid rgba(212, 175, 55, 0.3);
-}
+        .navbar > * {
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+        }
 
-.dropdown-item {
-    color: #e8e8e8;
-    padding: 10px 15px;
-    text-decoration: none;
-    display: block;
-    border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-    transition: all 0.3s ease;
-    white-space: nowrap;
-}
+        .nav-links > * {
+            margin: 0 !important;
+        }
 
-.dropdown-item:hover {
-    background: rgba(212, 175, 55, 0.1);
-    color: #FFD700;
-}
-
-.dropdown-divider {
-    height: 1px;
-    background: rgba(212, 175, 55, 0.3);
-    margin: 5px 0;
-}
+        .user-info > * {
+            margin: 0 !important;
+        }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
@@ -489,8 +493,9 @@
         </script>
     {% endif %}
 
-        <!-- Подключаем JavaScript -->
-        <script src="{% static 'js/tutorials.js' %}"></script>
+    <!-- Подключаем JavaScript -->
+    <script src="{% static 'js/tutorials.js' %}"></script>
+
     <!-- Модальное окно подтверждения -->
     <div id="confirmationModal" class="confirmation-modal">
         <div class="modal-content">
@@ -542,17 +547,15 @@
             {% endif %}
 
             {% if user.is_staff %}
-            <li class="nav-item dropdown" style="position: relative; display: inline-block;" id="moderationDropdown">
-                <a class="nav-link" href="#" onclick="toggleModerationMenu(event); return false;"
-                   style="position: relative; padding-right: 25px;">
+            <div class="nav-item dropdown" id="moderationDropdown">
+                <a class="nav-link" href="#" onclick="toggleModerationMenu(event); return false;">
                     <i class="fas fa-gavel"></i> Модерация
-                    <span style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); font-size: 10px;">▼</span>
                 </a>
-                <ul class="dropdown-menu" id="moderationMenu" style="display: none; position: absolute; left: 0; top: 100%;">
+                <ul class="dropdown-menu" id="moderationMenu">
                     <li><a class="dropdown-item" href="{% url 'wiki:moderation_dashboard' %}">
                         <i class="fas fa-tachometer-alt"></i> Панель модерации
                     </a></li>
-                    <li><hr class="dropdown-divider" style="margin: 5px 0; border-color: rgba(212, 175, 55, 0.3);"></li>
+                    <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item" href="{% url 'wiki:user_search' %}">
                         <i class="fas fa-user-friends"></i> Поиск пользователей
                     </a></li>
@@ -566,15 +569,14 @@
                         <i class="fas fa-history"></i> Логи
                     </a></li>
                 </ul>
-            </li>
+            </div>
             {% endif %}
         </div>
 
         <div class="user-info">
             {% if user.is_authenticated %}
                 <div class="user-dropdown">
-                    <button class="user-btn" id="fixedUserButton" onclick="toggleMenu()"
-                            style="position: relative !important; left: 0 !important; right: auto !important; transform: none !important; margin: 0 !important; float: none !important; display: inline-block !important;">
+                    <button class="user-btn" id="fixedUserButton" onclick="toggleMenu()">
                         👤 {{ user.username }}
                         <span class="user-role
                             {% if user.is_staff %}role-admin
@@ -630,13 +632,13 @@
                     </div>
                 </div>
             {% else %}
-                    <div class="auth-buttons">
-                        <a href="{% url 'wiki:telegram_webapp_login' %}" class="btn-outline-light" style="background: #0088cc; border-color: #0088cc;">
-        📱 Войти через Telegram
-                        </a>
-                        <a href="{% url 'wiki:login' %}" class="btn-outline-light">🔐 Войти</a>
-                        <a href="{% url 'wiki:register' %}" class="btn-outline-light">📝 Регистрация</a>
-                    </div>
+                <div class="auth-buttons">
+                    <a href="{% url 'wiki:telegram_webapp_login' %}" class="btn-outline-light" style="background: #0088cc; border-color: #0088cc;">
+                        📱 Войти через Telegram
+                    </a>
+                    <a href="{% url 'wiki:login' %}" class="btn-outline-light">🔐 Войти</a>
+                    <a href="{% url 'wiki:register' %}" class="btn-outline-light">📝 Регистрация</a>
+                </div>
             {% endif %}
         </div>
     </div>
@@ -679,26 +681,9 @@
             }
         }
 
-        function toggleNotificationsMenu(e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            const menu = document.getElementById('notificationsMenu');
-            if (menu.style.display === 'block') {
-                menu.style.display = 'none';
-                menu.classList.remove('show');
-            } else {
-                // Закрываем другие открытые меню
-                closeAllDropdowns();
-                menu.style.display = 'block';
-                menu.classList.add('show');
-            }
-        }
-
         function closeAllDropdowns() {
             const moderationMenu = document.getElementById('moderationMenu');
             const userDropdown = document.getElementById('userDropdown');
-            const notificationsMenu = document.getElementById('notificationsMenu');
 
             if (moderationMenu) {
                 moderationMenu.style.display = 'none';
@@ -707,26 +692,18 @@
             if (userDropdown) {
                 userDropdown.classList.remove('show');
             }
-            if (notificationsMenu) {
-                notificationsMenu.style.display = 'none';
-                notificationsMenu.classList.remove('show');
-            }
         }
 
         document.addEventListener('click', function(event) {
             const moderationDropdown = document.getElementById('moderationDropdown');
             const moderationMenu = document.getElementById('moderationMenu');
             const userDropdown = document.getElementById('userDropdown');
-            const notificationsDropdown = document.getElementById('notificationsDropdown');
-            const notificationsMenu = document.getElementById('notificationsMenu');
 
             // Если клик не по элементам dropdown
             if (!moderationDropdown?.contains(event.target) &&
                 !moderationMenu?.contains(event.target) &&
                 !event.target.closest('.user-dropdown') &&
-                !userDropdown?.contains(event.target) &&
-                !notificationsDropdown?.contains(event.target) &&
-                !notificationsMenu?.contains(event.target)) {
+                !userDropdown?.contains(event.target)) {
                 closeAllDropdowns();
             }
         });
@@ -988,6 +965,7 @@
                 confirmUnlike(articleId, articleTitle);
             }
         }
+
         function confirmArticleDelete(articleSlug, articleTitle) {
             showConfirmationModal(
                 `Вы уверены, что хотите удалить статью "${articleTitle}"? Это действие нельзя отменить.`,
@@ -1123,37 +1101,6 @@
                     confirmModerationAction(action, articleTitle);
                 };
             });
-
-            // Обработчики для кнопок уведомлений
-            const markReadButtons = document.querySelectorAll('.mark-read-btn');
-            markReadButtons.forEach(button => {
-                button.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const notificationId = this.getAttribute('data-id');
-                    markNotificationAsRead(notificationId, this);
-                });
-            });
-
-            const deleteButtons = document.querySelectorAll('.delete-notification-btn');
-            deleteButtons.forEach(button => {
-                button.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const notificationId = this.getAttribute('data-id');
-                    if (confirm('Удалить это уведомление?')) {
-                        deleteNotification(notificationId, this);
-                    }
-                });
-            });
-
-            const markAllReadBtn = document.getElementById('markAllReadBtn');
-            if (markAllReadBtn) {
-                markAllReadBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    if (confirm('Прочитать все уведомления?')) {
-                        markAllNotificationsAsRead();
-                    }
-                });
-            }
         });
 
         function updateUnreadCount() {
@@ -1186,145 +1133,6 @@
         // Обновляем каждые 30 секунд
         setInterval(updateUnreadCount, 30000);
         updateUnreadCount(); // Initial load
-
-        // Функции для работы с уведомлениями
-        function markNotificationAsRead(notificationId, buttonElement) {
-            fetch('/api/notifications/mark-read/', {
-                method: 'POST',
-                headers: {
-                    'X-CSRFToken': '{{ csrf_token }}',
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ notification_id: notificationId })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    // Убираем подсветку
-                    const notificationItem = buttonElement.closest('.dropdown-item');
-                    notificationItem.classList.remove('bg-light');
-
-                    // Убираем кнопку "Прочитать"
-                    buttonElement.remove();
-
-                    // Обновляем счетчик
-                    updateNotificationCounter();
-                }
-            })
-            .catch(error => console.error('Error:', error));
-        }
-
-        function deleteNotification(notificationId, buttonElement) {
-            fetch('/api/notifications/delete/', {
-                method: 'POST',
-                headers: {
-                    'X-CSRFToken': '{{ csrf_token }}',
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ notification_id: notificationId })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    // Удаляем элемент из DOM
-                    const notificationItem = buttonElement.closest('.dropdown-item');
-                    notificationItem.style.transition = 'opacity 0.3s';
-                    notificationItem.style.opacity = '0';
-
-                    setTimeout(() => {
-                        notificationItem.remove();
-
-                        // Если уведомлений не осталось
-                        const notificationsMenu = document.getElementById('notificationsMenu');
-                        const notifications = notificationsMenu.querySelectorAll('.dropdown-item:not(.dropdown-header)');
-                        if (notifications.length === 0) {
-                            notificationsMenu.innerHTML = `
-                                <h6 class="dropdown-header">Уведомления</h6>
-                                <a class="dropdown-item text-muted text-center">
-                                    <i class="fas fa-bell-slash mr-1"></i>Уведомлений нет
-                                </a>
-                            `;
-                        }
-                    }, 300);
-                }
-            })
-            .catch(error => console.error('Error:', error));
-        }
-
-        function markAllNotificationsAsRead() {
-            fetch('/api/notifications/mark-all-read/', {
-                method: 'POST',
-                headers: {
-                    'X-CSRFToken': '{{ csrf_token }}',
-                    'Content-Type': 'application/json',
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    // Убираем подсветку со всех уведомлений
-                    const unreadNotifications = document.querySelectorAll('.dropdown-item.bg-light');
-                    unreadNotifications.forEach(item => {
-                        item.classList.remove('bg-light');
-                    });
-
-                    // Убираем все кнопки "Прочитать"
-                    const markReadButtons = document.querySelectorAll('.mark-read-btn');
-                    markReadButtons.forEach(button => button.remove());
-
-                    // Обновляем счетчик
-                    updateNotificationCounter();
-                }
-            })
-            .catch(error => console.error('Error:', error));
-        }
-
-        function updateNotificationCounter() {
-            // Обновляем счетчик уведомлений в реальном времени
-            fetch('/api/notifications/unread-count/')
-                .then(response => response.json())
-                .then(data => {
-                    const badge = document.querySelector('.notification-badge');
-                    if (data.count > 0) {
-                        if (badge) {
-                            badge.textContent = data.count;
-                        } else {
-                            // Создаем бейдж если его нет
-                            const icon = document.querySelector('#notificationsDropdown i');
-                            if (icon) {
-                                const newBadge = document.createElement('span');
-                                newBadge.className = 'notification-badge badge badge-danger';
-                                newBadge.style.cssText = `
-                                    position: absolute;
-                                    top: -5px;
-                                    right: -5px;
-                                    font-size: 0.6rem;
-                                    padding: 2px 5px;
-                                    border-radius: 50%;
-                                    min-width: 18px;
-                                    height: 18px;
-                                    display: inline-flex;
-                                    align-items: center;
-                                    justify-content: center;
-                                `;
-                                newBadge.textContent = data.count;
-                                icon.parentNode.insertBefore(newBadge, icon.nextSibling);
-                            }
-                        }
-                    } else if (badge) {
-                        badge.remove();
-                    }
-                })
-                .catch(error => console.error('Error updating notification counter:', error));
-        }
-
-        // Автообновление счетчика уведомлений каждые 30 секунд
-        setInterval(updateNotificationCounter, 30000);
-
-        // Инициализация счетчика при загрузке
-        document.addEventListener('DOMContentLoaded', function() {
-            setTimeout(updateNotificationCounter, 1000);
-        });
     </script>
 </body>
 </html>

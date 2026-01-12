@@ -37911,3 +37911,1463 @@ INFO 2025-12-16 17:07:18,457 log "GET /admin/auth/group/ HTTP/1.1" 200 20907
 INFO 2025-12-16 17:07:18,624 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
 INFO 2025-12-16 17:07:20,136 log "GET /admin/auth/group/3/change/ HTTP/1.1" 200 40502
 INFO 2025-12-16 17:07:20,303 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-16 17:11:39,815 log "GET /admin/wiki/comment/ HTTP/1.1" 200 23090
+INFO 2025-12-16 17:11:39,872 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-16 17:11:41,775 log "GET /admin/wiki/moderationlog/ HTTP/1.1" 200 36410
+INFO 2025-12-16 17:11:41,835 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-16 17:11:50,594 log "GET /admin/wiki/moderationlog/add/ HTTP/1.1" 200 23560
+INFO 2025-12-16 17:11:50,648 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-16 17:11:51,735 log "GET /admin/wiki/moderationlog/ HTTP/1.1" 200 36410
+INFO 2025-12-16 17:11:52,902 log "GET /admin/wiki/moderationlog/add/ HTTP/1.1" 200 23560
+INFO 2025-12-16 17:11:52,960 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-16 17:11:56,147 log "GET /admin/wiki/moderationlog/ HTTP/1.1" 200 36410
+INFO 2025-12-16 17:11:59,000 log "GET /admin/wiki/moderationlog/?o=4.-5 HTTP/1.1" 200 37943
+INFO 2025-12-16 17:11:59,057 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-16 17:12:00,131 log "GET /admin/wiki/moderationlog/?o=-4.-5 HTTP/1.1" 200 37994
+INFO 2025-12-16 17:12:00,194 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-16 17:12:05,841 log "GET /admin/wiki/moderationlog/?o=-5 HTTP/1.1" 200 37365
+INFO 2025-12-16 17:12:05,897 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-16 17:12:08,357 log "GET /admin/wiki/userwarning/ HTTP/1.1" 200 27042
+INFO 2025-12-16 17:12:08,413 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-16 17:12:11,021 log "GET /admin/wiki/articlemedia/ HTTP/1.1" 200 16433
+INFO 2025-12-16 17:12:11,076 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-16 17:12:11,840 log "GET /admin/wiki/userwarning/ HTTP/1.1" 200 27042
+INFO 2025-12-16 17:12:11,895 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-16 17:12:14,296 log "GET /admin/wiki/userwarning/check-auto-bans/ HTTP/1.1" 302 0
+INFO 2025-12-16 17:12:14,369 log "GET /admin/wiki/userwarning/ HTTP/1.1" 200 27225
+INFO 2025-12-16 17:12:14,425 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-16 17:12:14,446 log "GET /static/admin/img/icon-info-dark.svg HTTP/1.1" 200 630
+INFO 2025-12-16 17:12:17,832 log "GET /admin/wiki/articlemedia/ HTTP/1.1" 200 16433
+INFO 2025-12-16 17:12:17,887 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-16 17:12:19,151 log "GET /admin/wiki/actionlog/ HTTP/1.1" 200 97861
+INFO 2025-12-16 17:12:19,206 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-16 17:12:26,264 log "GET /admin/wiki/backuplog/ HTTP/1.1" 200 19118
+INFO 2025-12-16 17:12:26,322 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-16 17:12:27,895 log "GET /admin/wiki/backuplog/add/ HTTP/1.1" 200 24442
+INFO 2025-12-16 17:12:27,950 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-16 17:12:30,058 log "GET /admin/wiki/backuplog/ HTTP/1.1" 200 19118
+INFO 2025-12-16 17:12:32,691 log "GET /admin/wiki/backup/ HTTP/1.1" 200 23551
+INFO 2025-12-16 17:12:32,852 log "GET /admin/wiki/backup/history/ HTTP/1.1" 200 93
+INFO 2025-12-16 17:12:40,972 log "GET /admin/wiki/articlerevision/ HTTP/1.1" 200 18499
+INFO 2025-12-16 17:12:41,132 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-16 17:12:43,129 log "GET /admin/wiki/articlerevision/add/ HTTP/1.1" 200 25577
+INFO 2025-12-16 17:12:43,159 log "GET /static/django_ckeditor_5/dist/styles.css HTTP/1.1" 200 213809
+INFO 2025-12-16 17:12:43,160 log "GET /static/django_ckeditor_5/dist/translations/ru.js HTTP/1.1" 200 47437
+INFO 2025-12-16 17:12:43,194 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-16 17:12:43,195 log "GET /static/django_ckeditor_5/dist/bundle.js HTTP/1.1" 200 1275904
+INFO 2025-12-16 17:12:46,758 log "GET /admin/wiki/articlerevision/ HTTP/1.1" 200 18499
+INFO 2025-12-16 17:12:48,155 log "GET /admin/wiki/userban/ HTTP/1.1" 200 22862
+INFO 2025-12-16 17:12:48,211 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-16 17:12:57,254 log "GET /admin/wiki/moderationlog/ HTTP/1.1" 200 36410
+INFO 2025-12-16 17:12:57,317 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-16 17:12:59,048 log "GET /admin/wiki/moderationcomment/ HTTP/1.1" 200 16515
+INFO 2025-12-16 17:12:59,102 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-16 17:13:00,397 log "GET /admin/wiki/moderationcomment/add/ HTTP/1.1" 200 29897
+INFO 2025-12-16 17:13:00,454 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-16 17:13:14,177 log "GET /admin/taggit/tag/ HTTP/1.1" 200 19576
+INFO 2025-12-16 17:13:14,235 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-16 17:13:18,371 log "GET /admin/taggit/tag/2/change/ HTTP/1.1" 200 42007
+INFO 2025-12-16 17:13:18,406 log "GET /static/admin/js/inlines.js HTTP/1.1" 200 15628
+INFO 2025-12-16 17:13:18,531 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-16 17:13:18,566 log "GET /static/admin/img/inline-delete.svg HTTP/1.1" 200 651
+INFO 2025-12-16 17:13:28,202 log "GET /admin/taggit/tag/ HTTP/1.1" 200 19576
+INFO 2025-12-16 17:13:30,658 log "GET /admin/auth/user/ HTTP/1.1" 200 22566
+INFO 2025-12-16 17:13:30,713 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-16 17:13:31,767 log "GET /admin/auth/user/1/change/ HTTP/1.1" 200 52346
+INFO 2025-12-16 17:13:31,824 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2025-12-16 17:14:30,138 log "GET /admin/auth/user/1/change/ HTTP/1.1" 200 52346
+INFO 2025-12-16 17:17:36,989 log "GET / HTTP/1.1" 200 53725
+INFO 2025-12-16 17:17:37,071 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 17:17:38,063 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:17:38,063 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:17:46,772 log "GET /moderation/search/ HTTP/1.1" 200 52612
+INFO 2025-12-16 17:17:46,942 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 17:17:47,945 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:17:47,946 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:17:48,399 log "GET /moderation/warned/ HTTP/1.1" 200 49220
+INFO 2025-12-16 17:17:48,578 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 17:17:49,468 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:17:49,468 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:17:49,936 log "GET /moderation/banned/ HTTP/1.1" 200 50038
+INFO 2025-12-16 17:17:50,010 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 17:17:51,007 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:17:51,008 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:17:51,689 log "GET /moderation/dashboard/ HTTP/1.1" 200 62362
+INFO 2025-12-16 17:17:51,869 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 17:17:52,765 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:17:52,765 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:17:57,786 log "GET /accounts/profile/ HTTP/1.1" 200 68544
+INFO 2025-12-16 17:17:57,867 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 17:17:58,855 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:17:58,855 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:17:59,092 log "GET /article/create/ HTTP/1.1" 200 51286
+INFO 2025-12-16 17:17:59,165 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 17:18:00,154 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:18:00,155 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:18:01,002 log "GET /my-articles/ HTTP/1.1" 200 63758
+INFO 2025-12-16 17:18:01,076 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 17:18:02,072 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:18:02,072 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:18:02,913 log "GET /messages/inbox/ HTTP/1.1" 200 59249
+INFO 2025-12-16 17:18:02,988 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 17:18:04,080 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:18:04,080 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:18:05,414 log "GET /messages/inbox/ HTTP/1.1" 200 59249
+INFO 2025-12-16 17:18:05,597 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 17:18:06,492 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:18:06,492 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:18:08,115 log "GET /messages/inbox/ HTTP/1.1" 200 59249
+INFO 2025-12-16 17:18:08,188 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 17:18:09,193 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:18:09,193 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:18:09,298 log "GET /message/1/ HTTP/1.1" 200 53728
+INFO 2025-12-16 17:18:09,374 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 17:18:10,374 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:18:10,375 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:18:17,408 log "GET /messages/inbox/ HTTP/1.1" 200 59074
+INFO 2025-12-16 17:18:17,481 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 17:18:18,485 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:18:18,486 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:18:23,981 log "GET /liked-articles/ HTTP/1.1" 200 67270
+INFO 2025-12-16 17:18:24,149 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 17:18:25,050 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:18:25,051 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:18:27,948 log "GET /messages/inbox/ HTTP/1.1" 200 59074
+INFO 2025-12-16 17:18:28,024 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 17:18:29,016 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:18:29,016 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:18:29,680 log "GET /message/create/ HTTP/1.1" 200 54391
+INFO 2025-12-16 17:18:29,752 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+INFO 2025-12-16 17:18:36,394 log "GET /messages/sent/ HTTP/1.1" 200 57049
+INFO 2025-12-16 17:18:36,469 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 17:18:37,467 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:18:37,467 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:18:39,751 log "GET /liked-articles/ HTTP/1.1" 200 67270
+INFO 2025-12-16 17:18:39,828 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 17:18:40,818 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:18:40,819 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:18:41,829 log "GET /statistics/yondaime_hokage/ HTTP/1.1" 200 71467
+INFO 2025-12-16 17:18:42,015 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 17:18:42,902 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:18:42,903 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:18:43,725 log "GET /categories/ HTTP/1.1" 200 59834
+INFO 2025-12-16 17:18:43,895 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 17:18:44,904 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:18:44,904 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:18:45,584 log "GET /moderation/ HTTP/1.1" 200 54962
+INFO 2025-12-16 17:18:45,659 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 17:18:46,650 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:18:46,650 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:18:47,596 log "GET /editor/dashboard/ HTTP/1.1" 200 53119
+INFO 2025-12-16 17:18:47,673 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 17:18:48,659 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:18:48,659 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:18:49,598 log "GET /user-management/ HTTP/1.1" 200 95436
+INFO 2025-12-16 17:18:49,678 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 17:18:50,678 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:18:50,678 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:18:57,189 log "GET /admin/ HTTP/1.1" 200 20879
+INFO 2025-12-16 17:18:58,470 log "GET /admin/password_change/ HTTP/1.1" 200 16437
+INFO 2025-12-16 17:18:59,206 log "GET /admin/ HTTP/1.1" 200 20879
+INFO 2025-12-16 17:18:59,542 log "GET / HTTP/1.1" 200 53725
+INFO 2025-12-16 17:18:59,622 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 17:19:00,611 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:19:00,612 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:19:00,931 log "GET /statistics/ HTTP/1.1" 200 70675
+INFO 2025-12-16 17:19:01,006 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 17:19:02,005 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:19:02,005 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:19:06,754 log "GET / HTTP/1.1" 200 53725
+INFO 2025-12-16 17:19:06,930 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 17:19:07,821 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:19:07,821 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:19:08,346 log "GET /category/characters/ HTTP/1.1" 200 50803
+INFO 2025-12-16 17:19:08,423 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+INFO 2025-12-16 17:19:08,790 log "GET /search/ HTTP/1.1" 200 64760
+INFO 2025-12-16 17:19:08,884 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 17:19:09,861 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:19:09,861 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:19:10,487 log "GET /search/?q=uyutyutyutyut76765756756 HTTP/1.1" 200 63304
+INFO 2025-12-16 17:19:10,566 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 17:19:11,663 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:19:11,664 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:19:12,434 log "GET /search/?q=aaaa HTTP/1.1" 200 63244
+INFO 2025-12-16 17:19:12,615 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+INFO 2025-12-16 17:19:13,968 log "GET /search/?q=%D1%8B%D1%8B%D1%8B%D1%8B HTTP/1.1" 200 63256
+INFO 2025-12-16 17:19:14,043 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 17:19:15,036 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:19:15,037 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:19:15,938 log "GET /search/?q=%D1%8B HTTP/1.1" 200 65412
+INFO 2025-12-16 17:19:16,014 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 17:19:17,007 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:19:17,007 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:19:20,556 log "GET /article/yvvyvyyv/ HTTP/1.1" 200 87584
+INFO 2025-12-16 17:19:20,632 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 17:19:21,736 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:19:21,737 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:19:22,669 log "GET /my-articles/ HTTP/1.1" 200 63758
+INFO 2025-12-16 17:19:22,748 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+INFO 2025-12-16 17:19:23,267 log "GET /category/locations/ HTTP/1.1" 200 50479
+INFO 2025-12-16 17:19:23,339 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+INFO 2025-12-16 17:19:23,920 log "GET /category/monsters/ HTTP/1.1" 200 50467
+INFO 2025-12-16 17:19:23,993 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+INFO 2025-12-16 17:19:24,649 log "GET /category/characters/ HTTP/1.1" 200 50803
+INFO 2025-12-16 17:19:24,721 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 17:19:25,724 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:19:25,725 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:19:25,734 log "GET /search/ HTTP/1.1" 200 64712
+INFO 2025-12-16 17:19:25,813 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 17:19:26,910 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:19:26,910 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:19:29,124 log "GET /user-management/ HTTP/1.1" 200 95436
+INFO 2025-12-16 17:19:29,202 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 17:19:30,189 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:19:30,190 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:19:31,204 log "GET /messages/inbox/ HTTP/1.1" 200 59074
+INFO 2025-12-16 17:19:31,279 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 17:19:32,266 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:19:32,267 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:19:33,089 log "GET /my-articles/ HTTP/1.1" 200 63758
+INFO 2025-12-16 17:19:33,163 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 17:19:34,154 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:19:34,155 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:19:34,884 log "GET /accounts/profile/ HTTP/1.1" 200 68544
+INFO 2025-12-16 17:19:34,963 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 17:19:36,501 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:19:36,502 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:19:44,942 log "GET /messages/inbox/ HTTP/1.1" 200 59074
+INFO 2025-12-16 17:19:45,021 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 17:19:46,008 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:19:46,008 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+WARNING 2025-12-16 17:20:15,406 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:20:15,406 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:20:15,511 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 17:20:45,422 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:20:45,422 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:20:45,431 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 17:21:13,255 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:21:13,256 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:21:13,265 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+INFO 2025-12-16 17:21:15,025 log "GET /categories/ HTTP/1.1" 200 59834
+INFO 2025-12-16 17:21:15,098 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 17:21:16,092 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:21:16,093 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:21:16,254 log "GET /user-management/ HTTP/1.1" 200 95436
+INFO 2025-12-16 17:21:16,329 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 17:21:17,321 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:21:17,321 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+WARNING 2025-12-16 17:21:46,342 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:21:46,342 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:21:46,352 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+INFO 2025-12-16 17:21:53,942 log "GET /liked-articles/ HTTP/1.1" 200 67270
+INFO 2025-12-16 17:21:54,018 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 17:21:55,043 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:21:55,043 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:21:57,074 log "GET /accounts/profile/ HTTP/1.1" 200 68544
+INFO 2025-12-16 17:21:57,150 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 17:21:58,246 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:21:58,247 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:22:01,286 log "GET /my-censorship-warnings/ HTTP/1.1" 200 64856
+INFO 2025-12-16 17:22:01,358 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 17:22:02,350 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:22:02,351 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:22:13,036 log "GET /accounts/profile/ HTTP/1.1" 200 68544
+INFO 2025-12-16 17:22:13,219 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 17:22:14,101 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:22:14,102 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:22:15,611 log "GET /messages/inbox/ HTTP/1.1" 200 59074
+INFO 2025-12-16 17:22:15,686 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 17:22:16,680 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:22:16,680 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:22:25,907 log "GET /messages/inbox/ HTTP/1.1" 200 59074
+INFO 2025-12-16 17:22:25,979 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 17:22:26,971 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:22:26,972 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:22:32,625 log "GET /messages/inbox/ HTTP/1.1" 200 59074
+INFO 2025-12-16 17:22:32,698 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 17:22:33,692 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:22:33,693 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:22:35,785 log "GET /messages/inbox/ HTTP/1.1" 200 59074
+INFO 2025-12-16 17:22:35,956 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 17:22:36,864 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:22:36,864 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+WARNING 2025-12-16 17:22:53,400 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:22:53,401 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:22:53,411 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+INFO 2025-12-16 17:22:56,828 log "GET /moderation/ HTTP/1.1" 200 54962
+INFO 2025-12-16 17:22:56,901 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 17:22:57,904 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:22:57,904 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:23:25,993 log "GET /moderation/ HTTP/1.1" 200 54962
+INFO 2025-12-16 17:23:26,066 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 17:23:27,064 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:23:27,064 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:23:27,453 log "GET /article/yyy/moderate/enhanced/ HTTP/1.1" 200 62267
+INFO 2025-12-16 17:23:27,540 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 17:23:28,519 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:23:28,519 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:23:31,794 log "GET /accounts/profile/ HTTP/1.1" 200 68544
+INFO 2025-12-16 17:23:31,868 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 17:23:32,958 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:23:32,958 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:23:41,365 log "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-12-16 17:23:41,418 log "GET / HTTP/1.1" 200 49576
+INFO 2025-12-16 17:23:41,978 log "GET /login/ HTTP/1.1" 200 49101
+WARNING 2025-12-16 17:23:43,000 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:23:43,000 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:23:44,563 log "POST /login/ HTTP/1.1" 302 0
+INFO 2025-12-16 17:23:44,627 log "GET / HTTP/1.1" 200 51413
+INFO 2025-12-16 17:23:44,704 log "GET /messages/unread-count/ HTTP/1.1" 200 54706
+WARNING 2025-12-16 17:23:45,704 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:23:45,704 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:23:46,638 log "GET /statistics/user1/ HTTP/1.1" 200 84047
+INFO 2025-12-16 17:23:46,714 log "GET /messages/unread-count/ HTTP/1.1" 200 54706
+WARNING 2025-12-16 17:23:47,712 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:23:47,713 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:24:10,206 log "GET /help/ HTTP/1.1" 200 58466
+INFO 2025-12-16 17:24:10,280 log "GET /messages/unread-count/ HTTP/1.1" 200 54706
+WARNING 2025-12-16 17:24:11,392 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:24:11,393 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:24:13,284 log "GET /messages/inbox/ HTTP/1.1" 200 54734
+INFO 2025-12-16 17:24:13,368 log "GET /messages/unread-count/ HTTP/1.1" 200 54706
+WARNING 2025-12-16 17:24:14,352 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:24:14,352 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:24:16,359 log "GET /messages/inbox/ HTTP/1.1" 200 54734
+INFO 2025-12-16 17:24:16,431 log "GET /messages/unread-count/ HTTP/1.1" 200 54706
+WARNING 2025-12-16 17:24:17,428 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:24:17,428 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:24:17,737 log "GET /messages/sent/ HTTP/1.1" 200 56576
+INFO 2025-12-16 17:24:17,809 log "GET /messages/unread-count/ HTTP/1.1" 200 54706
+WARNING 2025-12-16 17:24:18,803 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:24:18,803 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:24:22,983 log "GET /messages/sent/ HTTP/1.1" 200 56576
+INFO 2025-12-16 17:24:23,056 log "GET /messages/unread-count/ HTTP/1.1" 200 54706
+WARNING 2025-12-16 17:24:24,060 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:24:24,060 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:24:24,420 log "GET /message/1/ HTTP/1.1" 200 51019
+INFO 2025-12-16 17:24:24,493 log "GET /messages/unread-count/ HTTP/1.1" 200 54706
+WARNING 2025-12-16 17:24:25,485 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:24:25,486 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:24:27,545 log "GET /message/create/ HTTP/1.1" 200 52089
+INFO 2025-12-16 17:24:27,615 log "GET /messages/unread-count/ HTTP/1.1" 200 54706
+WARNING 2025-12-16 17:24:28,615 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:24:28,615 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:24:33,622 log "GET /article/create/ HTTP/1.1" 200 48974
+INFO 2025-12-16 17:24:33,694 log "GET /messages/unread-count/ HTTP/1.1" 200 54706
+WARNING 2025-12-16 17:24:34,685 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:24:34,685 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:24:34,756 log "POST /article/create/ HTTP/1.1" 200 76255
+INFO 2025-12-16 17:24:34,825 log "GET /messages/unread-count/ HTTP/1.1" 200 54706
+WARNING 2025-12-16 17:24:35,821 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:24:35,822 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:24:39,320 log "GET /accounts/profile/ HTTP/1.1" 200 67943
+INFO 2025-12-16 17:24:39,391 log "GET /messages/unread-count/ HTTP/1.1" 200 54706
+WARNING 2025-12-16 17:24:40,497 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:24:40,498 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:24:41,221 log "GET / HTTP/1.1" 200 51413
+INFO 2025-12-16 17:24:41,401 log "GET /messages/unread-count/ HTTP/1.1" 200 54706
+WARNING 2025-12-16 17:24:42,285 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:24:42,286 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:25:10,265 log "GET /my-articles/ HTTP/1.1" 200 68889
+INFO 2025-12-16 17:25:10,339 log "GET /messages/unread-count/ HTTP/1.1" 200 54706
+WARNING 2025-12-16 17:25:11,336 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:25:11,337 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:25:11,955 log "GET /category/locations/ HTTP/1.1" 200 48167
+INFO 2025-12-16 17:25:12,030 log "GET /messages/unread-count/ HTTP/1.1" 200 54706
+WARNING 2025-12-16 17:25:13,024 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:25:13,025 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:25:29,734 log "GET /category/monsters/ HTTP/1.1" 200 48155
+INFO 2025-12-16 17:25:29,807 log "GET /messages/unread-count/ HTTP/1.1" 200 54706
+INFO 2025-12-16 17:25:30,314 log "GET /category/locations/ HTTP/1.1" 200 48167
+INFO 2025-12-16 17:25:30,389 log "GET /messages/unread-count/ HTTP/1.1" 200 54706
+INFO 2025-12-16 17:25:30,756 log "GET /my-articles/ HTTP/1.1" 200 68889
+INFO 2025-12-16 17:25:30,832 log "GET /messages/unread-count/ HTTP/1.1" 200 54706
+WARNING 2025-12-16 17:25:31,830 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:25:31,831 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:25:59,816 log "GET /statistics/user1/ HTTP/1.1" 200 84047
+INFO 2025-12-16 17:25:59,888 log "GET /messages/unread-count/ HTTP/1.1" 200 54706
+WARNING 2025-12-16 17:26:00,882 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:26:00,883 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:26:02,399 log "GET /statistics/user1/?filter=year HTTP/1.1" 200 84068
+INFO 2025-12-16 17:26:02,469 log "GET /messages/unread-count/ HTTP/1.1" 200 54706
+WARNING 2025-12-16 17:26:03,472 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:26:03,473 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:26:05,893 log "GET /search/ HTTP/1.1" 200 62400
+INFO 2025-12-16 17:26:05,966 log "GET /messages/unread-count/ HTTP/1.1" 200 54706
+WARNING 2025-12-16 17:26:06,962 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:26:06,962 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+WARNING 2025-12-16 17:26:35,978 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:26:35,979 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:26:36,079 log "GET /messages/unread-count/ HTTP/1.1" 200 54706
+WARNING 2025-12-16 17:27:05,981 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:27:05,982 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:27:05,990 log "GET /messages/unread-count/ HTTP/1.1" 200 54706
+INFO 2025-12-16 17:27:11,479 log "GET /my-articles/ HTTP/1.1" 200 68889
+INFO 2025-12-16 17:27:11,553 log "GET /messages/unread-count/ HTTP/1.1" 200 54706
+WARNING 2025-12-16 17:27:12,565 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:27:12,566 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:27:12,592 log "GET /category/locations/ HTTP/1.1" 200 48167
+INFO 2025-12-16 17:27:12,666 log "GET /messages/unread-count/ HTTP/1.1" 200 54706
+INFO 2025-12-16 17:27:13,560 log "GET /category/monsters/ HTTP/1.1" 200 48155
+INFO 2025-12-16 17:27:13,633 log "GET /messages/unread-count/ HTTP/1.1" 200 54706
+INFO 2025-12-16 17:27:14,323 log "GET /category/characters/ HTTP/1.1" 200 48491
+INFO 2025-12-16 17:27:14,495 log "GET /messages/unread-count/ HTTP/1.1" 200 54706
+INFO 2025-12-16 17:27:15,006 log "GET /help/ HTTP/1.1" 200 58466
+INFO 2025-12-16 17:27:15,077 log "GET /messages/unread-count/ HTTP/1.1" 200 54706
+WARNING 2025-12-16 17:27:16,072 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:27:16,072 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:27:45,096 log "GET /messages/unread-count/ HTTP/1.1" 200 54706
+WARNING 2025-12-16 17:27:45,199 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:27:45,200 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:28:15,083 log "GET /messages/unread-count/ HTTP/1.1" 200 54706
+WARNING 2025-12-16 17:28:15,195 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:28:15,196 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+WARNING 2025-12-16 17:28:45,413 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 17:28:45,414 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 17:28:45,420 log "GET /messages/unread-count/ HTTP/1.1" 200 54706
+INFO 2025-12-16 21:31:58,580 autoreload Watching for file changes with StatReloader
+INFO 2025-12-16 21:32:05,480 log "GET / HTTP/1.1" 200 51413
+INFO 2025-12-16 21:32:05,817 log "GET /messages/unread-count/ HTTP/1.1" 200 54706
+WARNING 2025-12-16 21:32:07,699 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 21:32:07,701 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 21:32:08,628 log "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-12-16 21:32:08,693 log "GET / HTTP/1.1" 200 49576
+INFO 2025-12-16 21:32:09,396 log "GET /login/ HTTP/1.1" 200 49101
+WARNING 2025-12-16 21:32:10,440 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 21:32:10,443 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 21:32:26,323 log "POST /login/ HTTP/1.1" 200 49106
+WARNING 2025-12-16 21:32:27,344 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 21:32:27,344 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 21:32:50,560 log "POST /login/ HTTP/1.1" 302 0
+INFO 2025-12-16 21:32:50,632 log "GET / HTTP/1.1" 200 53725
+INFO 2025-12-16 21:32:50,821 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 21:32:51,708 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 21:32:51,709 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+WARNING 2025-12-16 21:33:21,418 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 21:33:21,419 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 21:33:21,428 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 21:33:51,415 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 21:33:51,416 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 21:33:51,426 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 21:34:21,410 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 21:34:21,411 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 21:34:21,421 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 21:34:51,423 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 21:34:51,424 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 21:34:51,435 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 21:35:21,422 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 21:35:21,422 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 21:35:21,431 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 21:35:51,416 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 21:35:51,417 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 21:35:51,531 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 21:36:21,417 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 21:36:21,417 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 21:36:21,425 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 21:37:22,420 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 21:37:22,420 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 21:37:22,429 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 21:38:23,422 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 21:38:23,422 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 21:38:23,431 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 21:39:24,424 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 21:39:24,425 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 21:39:24,435 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 21:40:25,417 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 21:40:25,417 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 21:40:25,427 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 21:41:26,426 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 21:41:26,427 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 21:41:26,437 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 21:42:27,423 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 21:42:27,423 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 21:42:27,431 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 21:43:28,417 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 21:43:28,417 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 21:43:28,426 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 21:44:29,403 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 21:44:29,403 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 21:44:29,505 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 21:45:30,422 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 21:45:30,423 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 21:45:30,433 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 21:46:31,419 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 21:46:31,419 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 21:46:31,430 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 21:47:32,419 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 21:47:32,420 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 21:47:32,428 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 21:48:33,426 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 21:48:33,426 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 21:48:33,435 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 21:49:34,424 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 21:49:34,424 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 21:49:34,432 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 21:50:35,422 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 21:50:35,422 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 21:50:35,431 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 21:51:36,413 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 21:51:36,414 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 21:51:36,529 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 21:52:37,429 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 21:52:37,430 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 21:52:37,444 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 21:53:38,420 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 21:53:38,421 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 21:53:38,427 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 21:54:39,414 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 21:54:39,415 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 21:54:39,423 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 21:55:40,427 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 21:55:40,427 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 21:55:40,435 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 21:56:41,425 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 21:56:41,426 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 21:56:41,434 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 21:57:42,411 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 21:57:42,412 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 21:57:42,422 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 21:58:43,411 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 21:58:43,411 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 21:58:43,527 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 21:59:44,419 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 21:59:44,420 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 21:59:44,429 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 22:00:45,427 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 22:00:45,427 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 22:00:45,437 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 22:01:45,429 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 22:01:45,429 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 22:01:45,441 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 22:02:45,427 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 22:02:45,427 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 22:02:45,436 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 22:03:45,417 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 22:03:45,417 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 22:03:45,425 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 22:04:45,431 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 22:04:45,431 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 22:04:45,440 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 22:05:45,424 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 22:05:45,425 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 22:05:45,435 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 22:06:45,534 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 22:06:45,534 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 22:06:45,543 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 22:07:45,411 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 22:07:45,411 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 22:07:45,526 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+INFO 2025-12-16 22:08:45,413 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 22:08:45,524 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 22:08:45,524 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+WARNING 2025-12-16 22:09:45,419 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 22:09:45,420 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 22:09:45,429 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 22:10:45,429 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 22:10:45,429 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 22:10:45,438 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 22:11:45,414 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 22:11:45,414 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 22:11:45,423 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 22:12:45,437 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 22:12:45,437 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 22:12:45,447 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+INFO 2025-12-16 22:13:45,421 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 22:13:45,531 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 22:13:45,532 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+WARNING 2025-12-16 22:14:45,428 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 22:14:45,428 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 22:14:45,436 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 22:15:45,413 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 22:15:45,413 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 22:15:45,526 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 22:16:45,425 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 22:16:45,425 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 22:16:45,431 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 22:17:45,426 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 22:17:45,426 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 22:17:45,434 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 22:18:45,407 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 22:18:45,407 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 22:18:45,520 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+INFO 2025-12-16 22:19:45,421 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 22:19:45,526 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 22:19:45,526 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+WARNING 2025-12-16 22:20:45,417 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 22:20:45,418 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 22:20:45,426 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 22:21:45,420 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 22:21:45,421 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 22:21:45,431 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 22:22:45,427 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 22:22:45,428 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 22:22:45,437 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 22:23:45,419 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 22:23:45,419 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 22:23:45,430 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 22:24:45,430 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 22:24:45,431 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 22:24:45,441 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 22:25:45,414 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 22:25:45,415 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 22:25:45,552 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 22:26:45,427 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 22:26:45,428 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 22:26:45,438 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 22:27:45,429 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 22:27:45,430 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 22:27:45,438 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 22:28:45,427 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 22:28:45,428 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 22:28:45,438 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 22:29:45,435 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 22:29:45,436 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 22:29:45,445 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 22:30:45,419 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 22:30:45,420 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 22:30:45,430 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 22:31:45,428 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 22:31:45,428 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 22:31:45,434 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 22:32:45,420 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 22:32:45,421 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 22:32:45,430 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+INFO 2025-12-16 22:33:45,426 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 22:33:45,535 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 22:33:45,535 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+WARNING 2025-12-16 22:34:45,424 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 22:34:45,425 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 22:34:45,434 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+INFO 2025-12-16 22:35:45,417 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 22:35:45,521 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 22:35:45,521 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 22:36:45,422 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 22:36:45,530 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 22:36:45,530 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+WARNING 2025-12-16 22:37:45,431 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 22:37:45,432 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 22:37:45,441 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 22:38:45,432 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 22:38:45,432 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 22:38:45,442 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 22:39:45,435 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 22:39:45,435 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 22:39:45,445 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 22:40:45,421 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 22:40:45,422 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 22:40:45,431 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 22:41:45,421 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 22:41:45,422 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 22:41:45,536 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 22:42:45,427 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 22:42:45,427 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 22:42:45,438 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 22:43:45,432 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 22:43:45,433 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 22:43:45,443 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 22:44:45,416 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 22:44:45,417 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 22:44:45,426 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 22:45:45,421 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 22:45:45,422 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 22:45:45,430 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 22:46:45,424 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 22:46:45,424 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 22:46:45,433 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 22:47:45,423 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 22:47:45,423 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 22:47:45,431 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 22:48:45,420 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 22:48:45,420 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 22:48:45,429 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 22:49:45,422 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 22:49:45,422 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 22:49:45,431 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 22:50:45,426 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 22:50:45,427 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 22:50:45,436 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 22:51:45,419 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 22:51:45,419 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 22:51:45,428 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 22:52:45,414 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 22:52:45,414 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 22:52:45,517 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+INFO 2025-12-16 22:53:45,406 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 22:53:45,516 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 22:53:45,517 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+WARNING 2025-12-16 22:54:45,427 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 22:54:45,428 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 22:54:45,439 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 22:55:45,419 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 22:55:45,420 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 22:55:45,428 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 22:56:45,419 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 22:56:45,420 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 22:56:45,430 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 22:57:45,435 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 22:57:45,436 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 22:57:45,449 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 22:58:45,427 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 22:58:45,427 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 22:58:45,435 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 22:59:45,421 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 22:59:45,421 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 22:59:45,429 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+INFO 2025-12-16 23:00:45,412 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 23:00:45,525 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 23:00:45,525 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+WARNING 2025-12-16 23:01:45,424 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 23:01:45,424 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 23:01:45,432 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+INFO 2025-12-16 23:02:06,136 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 23:02:06,147 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 23:02:06,147 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 23:02:21,412 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 23:02:21,518 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 23:02:21,519 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+WARNING 2025-12-16 23:02:51,422 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 23:02:51,422 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 23:02:51,432 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 23:03:45,414 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 23:03:45,415 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 23:03:45,425 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 23:04:45,420 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 23:04:45,420 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 23:04:45,534 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 23:05:45,416 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 23:05:45,416 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 23:05:45,425 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 23:06:45,429 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 23:06:45,430 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 23:06:45,437 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 23:07:45,419 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 23:07:45,420 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 23:07:45,428 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 23:08:45,420 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 23:08:45,420 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 23:08:45,428 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 23:09:45,417 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 23:09:45,417 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 23:09:45,426 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 23:10:45,420 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 23:10:45,420 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 23:10:45,429 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 23:11:45,414 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 23:11:45,414 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 23:11:45,531 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 23:12:45,429 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 23:12:45,429 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 23:12:45,437 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 23:13:45,431 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 23:13:45,431 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 23:13:45,441 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 23:14:45,422 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 23:14:45,422 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 23:14:45,433 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 23:15:45,416 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 23:15:45,416 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 23:15:45,531 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 23:16:45,421 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 23:16:45,421 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 23:16:45,430 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 23:17:45,427 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 23:17:45,428 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 23:17:45,436 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 23:18:45,416 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 23:18:45,416 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 23:18:45,425 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 23:19:45,421 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 23:19:45,422 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 23:19:45,432 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 23:20:45,429 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 23:20:45,429 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 23:20:45,436 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 23:21:45,438 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 23:21:45,439 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 23:21:45,451 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 23:22:45,422 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 23:22:45,423 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 23:22:45,434 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 23:23:45,424 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 23:23:45,424 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 23:23:45,430 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 23:24:45,427 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 23:24:45,427 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 23:24:45,437 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 23:25:45,427 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 23:25:45,428 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 23:25:45,438 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2025-12-16 23:26:45,422 log Not Found: /api/notifications/unread-count/
+WARNING 2025-12-16 23:26:45,422 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2025-12-16 23:26:45,537 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+INFO 2026-01-12 18:34:37,209 autoreload Watching for file changes with StatReloader
+INFO 2026-01-12 18:34:39,497 log "GET / HTTP/1.1" 200 49576
+INFO 2026-01-12 18:34:39,630 log "GET /static/js/tutorials.js HTTP/1.1" 200 6117
+INFO 2026-01-12 18:34:39,631 log "GET /static/css/tutorials.css HTTP/1.1" 200 2081
+INFO 2026-01-12 18:34:39,634 log "GET /static/css/style.css HTTP/1.1" 200 11130
+WARNING 2026-01-12 18:34:41,168 log Not Found: /favicon.ico
+WARNING 2026-01-12 18:34:41,230 log "GET /favicon.ico HTTP/1.1" 404 31356
+WARNING 2026-01-12 18:34:41,315 log Not Found: /api/notifications/unread-count/
+WARNING 2026-01-12 18:34:41,315 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2026-01-12 18:34:41,573 log "GET /login/ HTTP/1.1" 200 48918
+WARNING 2026-01-12 18:34:42,643 log Not Found: /api/notifications/unread-count/
+WARNING 2026-01-12 18:34:42,645 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2026-01-12 18:34:44,078 log "POST /login/ HTTP/1.1" 302 0
+INFO 2026-01-12 18:34:44,291 log "GET / HTTP/1.1" 200 53725
+INFO 2026-01-12 18:34:44,505 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2026-01-12 18:34:45,371 log Not Found: /api/notifications/unread-count/
+WARNING 2026-01-12 18:34:45,372 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2026-01-12 18:34:53,695 log "GET /search/ HTTP/1.1" 200 64712
+INFO 2026-01-12 18:34:53,783 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2026-01-12 18:34:54,876 log Not Found: /api/notifications/unread-count/
+WARNING 2026-01-12 18:34:54,877 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2026-01-12 18:34:58,620 log "GET / HTTP/1.1" 200 53725
+INFO 2026-01-12 18:34:58,710 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+INFO 2026-01-12 18:34:59,292 log "GET /category/characters/ HTTP/1.1" 200 50803
+INFO 2026-01-12 18:34:59,489 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+INFO 2026-01-12 18:34:59,934 log "GET /category/monsters/ HTTP/1.1" 200 50467
+INFO 2026-01-12 18:35:00,036 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+INFO 2026-01-12 18:35:00,356 log "GET /category/locations/ HTTP/1.1" 200 50479
+INFO 2026-01-12 18:35:00,444 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+INFO 2026-01-12 18:35:00,807 log "GET /my-articles/ HTTP/1.1" 200 63758
+INFO 2026-01-12 18:35:00,996 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+INFO 2026-01-12 18:35:01,245 log "GET /liked-articles/ HTTP/1.1" 200 67270
+INFO 2026-01-12 18:35:01,326 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2026-01-12 18:35:02,314 log Not Found: /api/notifications/unread-count/
+WARNING 2026-01-12 18:35:02,315 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2026-01-12 18:35:03,585 log "GET /moderation/dashboard/ HTTP/1.1" 200 62361
+INFO 2026-01-12 18:35:03,668 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2026-01-12 18:35:04,665 log Not Found: /api/notifications/unread-count/
+WARNING 2026-01-12 18:35:04,665 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+WARNING 2026-01-12 18:35:08,588 log Not Found: /api/notifications/unread-count/
+WARNING 2026-01-12 18:35:08,588 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2026-01-12 18:35:09,675 log "GET /accounts/profile/ HTTP/1.1" 200 68544
+INFO 2026-01-12 18:35:09,856 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2026-01-12 18:35:11,326 log Not Found: /api/notifications/unread-count/
+WARNING 2026-01-12 18:35:11,327 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2026-01-12 18:35:15,563 log "GET /messages/inbox/ HTTP/1.1" 200 59074
+INFO 2026-01-12 18:35:15,741 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2026-01-12 18:35:16,631 log Not Found: /api/notifications/unread-count/
+WARNING 2026-01-12 18:35:16,631 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2026-01-12 18:35:22,549 log "GET /categories/ HTTP/1.1" 200 59834
+INFO 2026-01-12 18:35:22,630 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2026-01-12 18:35:23,617 log Not Found: /api/notifications/unread-count/
+WARNING 2026-01-12 18:35:23,618 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2026-01-12 18:35:26,459 log "GET /user-management/ HTTP/1.1" 200 95436
+INFO 2026-01-12 18:35:26,539 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2026-01-12 18:35:27,538 log Not Found: /api/notifications/unread-count/
+WARNING 2026-01-12 18:35:27,539 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2026-01-12 18:39:57,479 log "GET / HTTP/1.1" 200 53725
+INFO 2026-01-12 18:39:57,737 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2026-01-12 18:39:58,619 log Not Found: /api/notifications/unread-count/
+WARNING 2026-01-12 18:39:58,620 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2026-01-12 18:40:01,245 log "GET /messages/inbox/ HTTP/1.1" 200 59074
+INFO 2026-01-12 18:40:01,331 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2026-01-12 18:40:02,321 log Not Found: /api/notifications/unread-count/
+WARNING 2026-01-12 18:40:02,321 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+WARNING 2026-01-12 18:40:31,329 log Not Found: /api/notifications/unread-count/
+WARNING 2026-01-12 18:40:31,330 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2026-01-12 18:40:31,341 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2026-01-12 18:41:01,796 log Not Found: /api/notifications/unread-count/
+WARNING 2026-01-12 18:41:01,796 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2026-01-12 18:41:01,806 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2026-01-12 18:41:31,795 log Not Found: /api/notifications/unread-count/
+WARNING 2026-01-12 18:41:31,796 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2026-01-12 18:41:31,801 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2026-01-12 18:42:01,790 log Not Found: /api/notifications/unread-count/
+WARNING 2026-01-12 18:42:01,790 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2026-01-12 18:42:01,800 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+INFO 2026-01-12 18:42:31,792 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2026-01-12 18:42:31,901 log Not Found: /api/notifications/unread-count/
+WARNING 2026-01-12 18:42:31,902 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+WARNING 2026-01-12 18:43:01,803 log Not Found: /api/notifications/unread-count/
+WARNING 2026-01-12 18:43:01,804 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2026-01-12 18:43:01,816 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2026-01-12 18:43:31,791 log Not Found: /api/notifications/unread-count/
+WARNING 2026-01-12 18:43:31,792 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2026-01-12 18:43:31,803 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2026-01-12 18:44:01,796 log Not Found: /api/notifications/unread-count/
+WARNING 2026-01-12 18:44:01,797 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2026-01-12 18:44:01,809 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+WARNING 2026-01-12 18:44:31,804 log Not Found: /api/notifications/unread-count/
+WARNING 2026-01-12 18:44:31,805 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2026-01-12 18:44:31,815 log "GET /messages/unread-count/ HTTP/1.1" 200 57018
+INFO 2026-01-12 18:44:52,420 autoreload Watching for file changes with StatReloader
+INFO 2026-01-12 18:44:54,180 log "GET / HTTP/1.1" 200 53725
+INFO 2026-01-12 18:44:54,354 log "GET /messages/unread-count/ HTTP/1.1" 200 58662
+WARNING 2026-01-12 18:44:55,332 log Not Found: /api/notifications/unread-count/
+WARNING 2026-01-12 18:44:55,332 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2026-01-12 18:44:56,461 log "GET /messages/inbox/ HTTP/1.1" 200 60733
+INFO 2026-01-12 18:44:56,539 log "GET /messages/unread-count/ HTTP/1.1" 200 58662
+WARNING 2026-01-12 18:44:57,540 log Not Found: /api/notifications/unread-count/
+WARNING 2026-01-12 18:44:57,541 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+WARNING 2026-01-12 18:45:06,802 log Not Found: /api/notifications/unread-count/
+WARNING 2026-01-12 18:45:06,802 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2026-01-12 18:45:06,809 log "GET /messages/unread-count/ HTTP/1.1" 200 58662
+INFO 2026-01-12 18:45:23,592 log "GET /liked-articles/ HTTP/1.1" 200 67270
+INFO 2026-01-12 18:45:23,672 log "GET /messages/unread-count/ HTTP/1.1" 200 58662
+WARNING 2026-01-12 18:45:24,665 log Not Found: /api/notifications/unread-count/
+WARNING 2026-01-12 18:45:24,665 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2026-01-12 18:45:25,797 log "GET /messages/inbox/ HTTP/1.1" 200 60733
+INFO 2026-01-12 18:45:25,972 log "GET /messages/unread-count/ HTTP/1.1" 200 58662
+WARNING 2026-01-12 18:45:26,868 log Not Found: /api/notifications/unread-count/
+WARNING 2026-01-12 18:45:26,868 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+WARNING 2026-01-12 18:45:31,329 log Not Found: /api/notifications/unread-count/
+WARNING 2026-01-12 18:45:31,329 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2026-01-12 18:45:31,338 log "GET /messages/unread-count/ HTTP/1.1" 200 58662
+INFO 2026-01-12 18:45:34,843 log "GET /liked-articles/ HTTP/1.1" 200 67270
+INFO 2026-01-12 18:45:35,028 log "GET /messages/unread-count/ HTTP/1.1" 200 58662
+WARNING 2026-01-12 18:45:35,911 log Not Found: /api/notifications/unread-count/
+WARNING 2026-01-12 18:45:35,912 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2026-01-12 18:45:36,380 log "GET /moderation/dashboard/ HTTP/1.1" 200 62361
+INFO 2026-01-12 18:45:36,573 log "GET /messages/unread-count/ HTTP/1.1" 200 58662
+WARNING 2026-01-12 18:45:37,465 log Not Found: /api/notifications/unread-count/
+WARNING 2026-01-12 18:45:37,465 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2026-01-12 18:45:38,156 log "GET /messages/inbox/ HTTP/1.1" 200 60733
+INFO 2026-01-12 18:45:38,238 log "GET /messages/unread-count/ HTTP/1.1" 200 58662
+WARNING 2026-01-12 18:45:39,221 log Not Found: /api/notifications/unread-count/
+WARNING 2026-01-12 18:45:39,222 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+WARNING 2026-01-12 18:46:08,783 log Not Found: /api/notifications/unread-count/
+WARNING 2026-01-12 18:46:08,784 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2026-01-12 18:46:08,901 log "GET /messages/unread-count/ HTTP/1.1" 200 58662
+WARNING 2026-01-12 18:46:38,787 log Not Found: /api/notifications/unread-count/
+WARNING 2026-01-12 18:46:38,788 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2026-01-12 18:46:38,799 log "GET /messages/unread-count/ HTTP/1.1" 200 58662
+WARNING 2026-01-12 18:47:08,783 log Not Found: /api/notifications/unread-count/
+WARNING 2026-01-12 18:47:08,783 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2026-01-12 18:47:08,796 log "GET /messages/unread-count/ HTTP/1.1" 200 58662
+INFO 2026-01-12 18:47:17,191 log "GET /moderation/dashboard/ HTTP/1.1" 200 62361
+INFO 2026-01-12 18:47:17,273 log "GET /messages/unread-count/ HTTP/1.1" 200 58662
+WARNING 2026-01-12 18:47:18,261 log Not Found: /api/notifications/unread-count/
+WARNING 2026-01-12 18:47:18,261 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2026-01-12 18:47:22,165 log "GET / HTTP/1.1" 200 53725
+INFO 2026-01-12 18:47:22,250 log "GET /messages/unread-count/ HTTP/1.1" 200 58662
+WARNING 2026-01-12 18:47:23,339 log Not Found: /api/notifications/unread-count/
+WARNING 2026-01-12 18:47:23,339 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2026-01-12 18:47:25,428 log "GET /moderation/dashboard/ HTTP/1.1" 200 62361
+INFO 2026-01-12 18:47:25,611 log "GET /messages/unread-count/ HTTP/1.1" 200 58662
+WARNING 2026-01-12 18:47:26,512 log Not Found: /api/notifications/unread-count/
+WARNING 2026-01-12 18:47:26,512 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2026-01-12 18:49:41,390 autoreload Watching for file changes with StatReloader
+INFO 2026-01-12 18:49:43,326 log "GET / HTTP/1.1" 200 54700
+INFO 2026-01-12 18:49:43,595 log "GET /messages/unread-count/ HTTP/1.1" 200 59637
+WARNING 2026-01-12 18:49:44,467 log Not Found: /api/notifications/unread-count/
+WARNING 2026-01-12 18:49:44,468 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2026-01-12 18:49:45,094 log "GET /messages/inbox/ HTTP/1.1" 200 61708
+INFO 2026-01-12 18:49:45,172 log "GET /messages/unread-count/ HTTP/1.1" 200 59637
+WARNING 2026-01-12 18:49:46,171 log Not Found: /api/notifications/unread-count/
+WARNING 2026-01-12 18:49:46,172 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+WARNING 2026-01-12 18:50:15,805 log Not Found: /api/notifications/unread-count/
+WARNING 2026-01-12 18:50:15,806 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2026-01-12 18:50:15,822 log "GET /messages/unread-count/ HTTP/1.1" 200 58663
+INFO 2026-01-12 18:50:20,997 autoreload Watching for file changes with StatReloader
+INFO 2026-01-12 18:50:22,919 log "GET / HTTP/1.1" 200 55040
+INFO 2026-01-12 18:50:23,221 log "GET /messages/unread-count/ HTTP/1.1" 200 59977
+WARNING 2026-01-12 18:50:24,361 log Not Found: /api/notifications/unread-count/
+WARNING 2026-01-12 18:50:24,362 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2026-01-12 18:50:26,163 log "GET /messages/inbox/ HTTP/1.1" 200 62048
+INFO 2026-01-12 18:50:26,243 log "GET /messages/unread-count/ HTTP/1.1" 200 59977
+WARNING 2026-01-12 18:50:27,245 log Not Found: /api/notifications/unread-count/
+WARNING 2026-01-12 18:50:27,245 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+WARNING 2026-01-12 18:50:56,243 log Not Found: /api/notifications/unread-count/
+WARNING 2026-01-12 18:50:56,243 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2026-01-12 18:50:56,361 log "GET /messages/unread-count/ HTTP/1.1" 200 59977
+INFO 2026-01-12 18:51:17,240 autoreload Watching for file changes with StatReloader
+INFO 2026-01-12 18:51:19,369 log "GET / HTTP/1.1" 200 53725
+INFO 2026-01-12 18:51:19,516 log "GET /messages/unread-count/ HTTP/1.1" 200 58662
+WARNING 2026-01-12 18:51:20,518 log Not Found: /api/notifications/unread-count/
+WARNING 2026-01-12 18:51:20,519 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2026-01-12 18:51:22,142 log "GET /messages/inbox/ HTTP/1.1" 200 60733
+INFO 2026-01-12 18:51:22,218 log "GET /messages/unread-count/ HTTP/1.1" 200 58662
+WARNING 2026-01-12 18:51:23,222 log Not Found: /api/notifications/unread-count/
+WARNING 2026-01-12 18:51:23,222 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+WARNING 2026-01-12 18:51:52,233 log Not Found: /api/notifications/unread-count/
+WARNING 2026-01-12 18:51:52,234 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2026-01-12 18:51:52,243 log "GET /messages/unread-count/ HTTP/1.1" 200 58662
+WARNING 2026-01-12 18:52:22,214 log Not Found: /api/notifications/unread-count/
+WARNING 2026-01-12 18:52:22,214 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2026-01-12 18:52:22,322 log "GET /messages/unread-count/ HTTP/1.1" 200 58662
+WARNING 2026-01-12 18:52:52,797 log Not Found: /api/notifications/unread-count/
+WARNING 2026-01-12 18:52:52,798 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2026-01-12 18:52:52,804 log "GET /messages/unread-count/ HTTP/1.1" 200 58662
+INFO 2026-01-12 18:53:22,786 log "GET /messages/unread-count/ HTTP/1.1" 200 58662
+WARNING 2026-01-12 18:53:22,899 log Not Found: /api/notifications/unread-count/
+WARNING 2026-01-12 18:53:22,900 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+WARNING 2026-01-12 18:53:52,800 log Not Found: /api/notifications/unread-count/
+WARNING 2026-01-12 18:53:52,801 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2026-01-12 18:53:52,818 log "GET /messages/unread-count/ HTTP/1.1" 200 60116
+WARNING 2026-01-12 18:54:22,800 log Not Found: /api/notifications/unread-count/
+WARNING 2026-01-12 18:54:22,800 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2026-01-12 18:54:22,811 log "GET /messages/unread-count/ HTTP/1.1" 200 60116
+INFO 2026-01-12 18:54:43,111 autoreload Watching for file changes with StatReloader
+INFO 2026-01-12 18:54:45,017 log "GET / HTTP/1.1" 200 55604
+INFO 2026-01-12 18:54:45,287 log "GET /messages/unread-count/ HTTP/1.1" 200 60541
+WARNING 2026-01-12 18:54:46,273 log Not Found: /api/notifications/unread-count/
+WARNING 2026-01-12 18:54:46,273 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2026-01-12 18:54:47,551 log "GET /messages/inbox/ HTTP/1.1" 200 62612
+INFO 2026-01-12 18:54:47,626 log "GET /messages/unread-count/ HTTP/1.1" 200 60541
+WARNING 2026-01-12 18:54:48,720 log Not Found: /api/notifications/unread-count/
+WARNING 2026-01-12 18:54:48,721 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2026-01-12 18:54:51,509 log "GET /liked-articles/ HTTP/1.1" 200 69149
+INFO 2026-01-12 18:54:51,618 log "GET /messages/unread-count/ HTTP/1.1" 200 60541
+WARNING 2026-01-12 18:54:52,737 log Not Found: /api/notifications/unread-count/
+WARNING 2026-01-12 18:54:52,738 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2026-01-12 19:02:25,530 autoreload Watching for file changes with StatReloader
+INFO 2026-01-12 19:02:27,759 log "GET / HTTP/1.1" 200 46268
+INFO 2026-01-12 19:02:28,020 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:02:38,289 log "GET /messages/inbox/ HTTP/1.1" 200 53276
+INFO 2026-01-12 19:02:38,463 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:02:43,652 log "GET /accounts/profile/ HTTP/1.1" 200 61087
+INFO 2026-01-12 19:02:43,732 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:02:45,464 log "GET /article/create/ HTTP/1.1" 200 43829
+INFO 2026-01-12 19:02:45,544 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:02:48,688 log "GET /editor/dashboard/ HTTP/1.1" 200 45662
+INFO 2026-01-12 19:02:48,768 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:02:50,211 log "GET /moderation/ HTTP/1.1" 200 47505
+INFO 2026-01-12 19:02:50,289 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:02:52,263 log "GET /user-management/ HTTP/1.1" 200 87979
+INFO 2026-01-12 19:02:52,348 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:02:53,651 log "GET /admin/ HTTP/1.1" 200 20879
+INFO 2026-01-12 19:02:53,764 log "GET /static/admin/css/base.css HTTP/1.1" 200 23100
+INFO 2026-01-12 19:02:53,772 log "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 200 2810
+INFO 2026-01-12 19:02:53,772 log "GET /static/admin/css/dark_mode.css HTTP/1.1" 200 3538
+INFO 2026-01-12 19:02:53,772 log "GET /static/admin/css/responsive.css HTTP/1.1" 200 16194
+INFO 2026-01-12 19:02:53,775 log "GET /static/admin/css/dashboard.css HTTP/1.1" 200 441
+INFO 2026-01-12 19:02:53,782 log "GET /static/admin/js/theme.js HTTP/1.1" 200 1653
+INFO 2026-01-12 19:02:53,796 log "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 200 3063
+INFO 2026-01-12 19:02:53,800 log "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 200 928
+INFO 2026-01-12 19:02:53,800 log "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 593
+INFO 2026-01-12 19:02:53,800 log "GET /static/admin/img/icon-deletelink.svg HTTP/1.1" 200 689
+INFO 2026-01-12 19:02:53,801 log "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 200 978
+INFO 2026-01-12 19:02:55,508 log "GET /user-management/ HTTP/1.1" 200 87979
+INFO 2026-01-12 19:02:55,589 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:03:06,371 log "GET /user-management/ HTTP/1.1" 200 87979
+INFO 2026-01-12 19:03:06,455 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:03:13,819 log "POST /user-management/ HTTP/1.1" 200 88593
+INFO 2026-01-12 19:03:13,903 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:03:18,125 log "POST /user-management/ HTTP/1.1" 200 88593
+INFO 2026-01-12 19:03:18,206 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:03:24,591 log "POST /user-management/ HTTP/1.1" 200 88593
+INFO 2026-01-12 19:03:24,675 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:03:29,069 log "GET /user/redaktor/ HTTP/1.1" 200 48830
+INFO 2026-01-12 19:03:29,158 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:04:00,988 log "GET /user/redaktor/ HTTP/1.1" 200 48106
+INFO 2026-01-12 19:04:01,177 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:04:11,075 log "GET / HTTP/1.1" 200 46268
+INFO 2026-01-12 19:04:11,152 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:04:19,060 log "GET /categories/ HTTP/1.1" 200 52377
+INFO 2026-01-12 19:04:19,136 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:04:20,433 log "GET /user-management/ HTTP/1.1" 200 88041
+INFO 2026-01-12 19:04:20,510 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:04:22,233 log "GET /user-management/ HTTP/1.1" 200 88041
+INFO 2026-01-12 19:04:22,315 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:04:33,675 log "GET /user-management/ HTTP/1.1" 200 88041
+INFO 2026-01-12 19:04:33,758 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:04:40,794 log "GET /user-management/?filter=user:1 HTTP/1.1" 200 88041
+INFO 2026-01-12 19:04:40,876 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:04:43,001 log "GET /user-management/?filter=user:1 HTTP/1.1" 200 88041
+INFO 2026-01-12 19:04:43,079 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:04:48,547 log "GET /user-management/?filter=user:2 HTTP/1.1" 200 88041
+INFO 2026-01-12 19:04:48,629 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:05:18,638 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:05:48,642 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:05:51,384 log "GET /user-management/?filter=user:2 HTTP/1.1" 200 87544
+INFO 2026-01-12 19:05:51,531 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:06:21,516 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:06:24,167 log "GET /user-management/ HTTP/1.1" 200 87544
+INFO 2026-01-12 19:06:24,362 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:06:32,143 log "GET /statistics/yondaime_hokage/ HTTP/1.1" 200 64010
+INFO 2026-01-12 19:06:32,318 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:06:35,406 log "GET /messages/inbox/ HTTP/1.1" 200 53276
+INFO 2026-01-12 19:06:35,488 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:06:38,687 log "GET /liked-articles/ HTTP/1.1" 200 59813
+INFO 2026-01-12 19:06:38,765 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:06:40,870 log "GET /my-articles/ HTTP/1.1" 200 56301
+INFO 2026-01-12 19:06:40,946 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:06:41,918 log "GET /liked-articles/ HTTP/1.1" 200 59813
+INFO 2026-01-12 19:06:41,993 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:06:43,021 log "GET /messages/inbox/ HTTP/1.1" 200 53276
+INFO 2026-01-12 19:06:43,097 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:06:44,415 log "GET /statistics/yondaime_hokage/ HTTP/1.1" 200 64010
+INFO 2026-01-12 19:06:44,498 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:06:45,803 log "GET /categories/ HTTP/1.1" 200 52377
+INFO 2026-01-12 19:06:45,880 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:06:47,053 log "GET /moderation/ HTTP/1.1" 200 47505
+INFO 2026-01-12 19:06:47,134 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:06:48,806 log "GET /user-management/ HTTP/1.1" 200 87544
+INFO 2026-01-12 19:06:48,883 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:06:50,351 log "GET /admin/ HTTP/1.1" 200 20879
+INFO 2026-01-12 19:06:52,872 log "GET /statistics/ HTTP/1.1" 200 63215
+INFO 2026-01-12 19:06:52,948 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:06:54,306 log "GET /accounts/profile/ HTTP/1.1" 200 61087
+INFO 2026-01-12 19:06:54,381 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:06:55,235 log "GET /my-articles/ HTTP/1.1" 200 56301
+INFO 2026-01-12 19:06:55,310 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:06:56,807 log "GET /liked-articles/ HTTP/1.1" 200 59813
+INFO 2026-01-12 19:06:56,886 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:06:59,605 log "GET /statistics/yondaime_hokage/ HTTP/1.1" 200 64010
+INFO 2026-01-12 19:06:59,684 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:07:00,882 log "GET /messages/inbox/ HTTP/1.1" 200 53276
+INFO 2026-01-12 19:07:00,959 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:07:02,045 log "GET /messages/inbox/ HTTP/1.1" 200 53276
+INFO 2026-01-12 19:07:02,118 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:07:03,226 log "GET /liked-articles/ HTTP/1.1" 200 59813
+INFO 2026-01-12 19:07:03,413 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:07:32,783 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:08:02,791 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:08:09,855 log "GET / HTTP/1.1" 200 46268
+INFO 2026-01-12 19:08:09,938 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:08:11,249 log "GET /accounts/profile/ HTTP/1.1" 200 61087
+INFO 2026-01-12 19:08:11,433 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:08:12,598 log "GET /article/create/ HTTP/1.1" 200 43829
+INFO 2026-01-12 19:08:12,676 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:08:14,154 log "GET /my-articles/ HTTP/1.1" 200 56301
+INFO 2026-01-12 19:08:14,229 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:08:15,489 log "GET /liked-articles/ HTTP/1.1" 200 59813
+INFO 2026-01-12 19:08:15,566 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:08:16,709 log "GET /messages/inbox/ HTTP/1.1" 200 53276
+INFO 2026-01-12 19:08:16,786 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:08:32,366 log "GET /liked-articles/ HTTP/1.1" 200 59813
+INFO 2026-01-12 19:08:32,543 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:08:33,645 log "GET /messages/inbox/ HTTP/1.1" 200 53276
+INFO 2026-01-12 19:08:33,721 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:08:42,008 log "GET /statistics/yondaime_hokage/ HTTP/1.1" 200 64010
+INFO 2026-01-12 19:08:42,087 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:08:43,813 log "GET /liked-articles/ HTTP/1.1" 200 59813
+INFO 2026-01-12 19:08:43,896 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:08:45,106 log "GET /categories/ HTTP/1.1" 200 52377
+INFO 2026-01-12 19:08:45,292 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:08:46,900 log "GET /statistics/yondaime_hokage/ HTTP/1.1" 200 64010
+INFO 2026-01-12 19:08:47,076 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:08:47,947 log "GET /categories/ HTTP/1.1" 200 52377
+INFO 2026-01-12 19:08:48,025 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:08:58,032 log "GET /statistics/yondaime_hokage/ HTTP/1.1" 200 64010
+INFO 2026-01-12 19:08:58,218 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:08:59,932 log "GET /moderation/ HTTP/1.1" 200 47505
+INFO 2026-01-12 19:09:00,007 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:09:01,393 log "GET /editor/dashboard/ HTTP/1.1" 200 45662
+INFO 2026-01-12 19:09:01,574 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:09:02,814 log "GET /user-management/ HTTP/1.1" 200 87544
+INFO 2026-01-12 19:09:02,892 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:09:04,389 log "GET /admin/ HTTP/1.1" 200 20879
+INFO 2026-01-12 19:09:06,239 log "GET /statistics/ HTTP/1.1" 200 63215
+INFO 2026-01-12 19:09:06,316 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:09:09,060 log "GET /accounts/profile/ HTTP/1.1" 200 61087
+INFO 2026-01-12 19:09:09,142 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:09:10,258 log "GET /user-management/ HTTP/1.1" 200 87544
+INFO 2026-01-12 19:09:10,336 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:09:12,224 log "GET /my-articles/ HTTP/1.1" 200 56301
+INFO 2026-01-12 19:09:12,305 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:09:13,823 log "GET /liked-articles/ HTTP/1.1" 200 59813
+INFO 2026-01-12 19:09:13,903 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:09:15,039 log "GET /admin/ HTTP/1.1" 200 20879
+INFO 2026-01-12 19:09:17,230 log "GET /my-articles/ HTTP/1.1" 200 56301
+INFO 2026-01-12 19:09:17,312 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:09:19,499 log "GET /statistics/ HTTP/1.1" 200 63215
+INFO 2026-01-12 19:09:19,578 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:09:49,790 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:09:56,202 log "GET /messages/inbox/ HTTP/1.1" 200 53276
+INFO 2026-01-12 19:09:56,277 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:09:59,725 log "GET /my-articles/ HTTP/1.1" 200 56301
+INFO 2026-01-12 19:09:59,904 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:10:01,321 log "GET /messages/inbox/ HTTP/1.1" 200 53276
+INFO 2026-01-12 19:10:01,399 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:10:07,655 log "GET /user-management/ HTTP/1.1" 200 87544
+INFO 2026-01-12 19:10:07,733 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:10:10,010 log "GET /my-articles/ HTTP/1.1" 200 56301
+INFO 2026-01-12 19:10:10,086 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:10:11,440 log "GET /categories/ HTTP/1.1" 200 52377
+INFO 2026-01-12 19:10:11,519 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:10:41,786 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:11:11,894 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:11:41,793 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:12:11,908 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:12:41,791 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:13:11,916 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:13:41,921 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:14:42,785 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:15:43,789 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:16:44,799 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:17:45,790 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:18:46,782 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:19:47,778 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:20:48,785 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:21:49,781 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:22:50,780 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:23:51,890 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:24:52,778 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:25:53,780 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:26:54,790 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:27:55,786 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:28:56,782 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:29:57,905 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:30:58,785 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:31:59,880 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:33:00,787 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:34:01,784 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:35:02,778 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:36:03,895 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:37:04,887 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:38:05,780 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:39:06,792 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:40:06,788 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:41:06,808 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:42:06,799 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:43:06,802 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:44:06,799 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:44:28,315 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:44:41,534 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:45:11,799 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:45:41,783 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:46:42,811 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:46:58,145 autoreload Watching for file changes with StatReloader
+INFO 2026-01-12 19:47:00,270 log "GET / HTTP/1.1" 200 46268
+INFO 2026-01-12 19:47:00,568 log "GET /messages/unread-count/ HTTP/1.1" 200 55082
+INFO 2026-01-12 19:47:02,812 log "GET /messages/inbox/ HTTP/1.1" 200 57153
+INFO 2026-01-12 19:47:02,904 log "GET /messages/unread-count/ HTTP/1.1" 200 55082
+INFO 2026-01-12 19:47:11,045 log "GET /categories/ HTTP/1.1" 200 52377
+INFO 2026-01-12 19:47:11,220 log "GET /messages/unread-count/ HTTP/1.1" 200 55082
+INFO 2026-01-12 19:47:12,753 log "GET /user-management/ HTTP/1.1" 200 88292
+INFO 2026-01-12 19:47:12,837 log "GET /messages/unread-count/ HTTP/1.1" 200 55082
+INFO 2026-01-12 19:47:31,386 log "GET /user-management/ HTTP/1.1" 200 87544
+INFO 2026-01-12 19:47:31,470 log "GET /messages/unread-count/ HTTP/1.1" 200 55082
+INFO 2026-01-12 19:47:37,911 log "GET /messages/inbox/ HTTP/1.1" 200 57153
+INFO 2026-01-12 19:47:37,996 log "GET /messages/unread-count/ HTTP/1.1" 200 55082
+INFO 2026-01-12 19:48:08,797 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:48:37,408 log "GET /messages/inbox/ HTTP/1.1" 200 57153
+INFO 2026-01-12 19:48:37,489 log "GET /messages/unread-count/ HTTP/1.1" 200 55082
+INFO 2026-01-12 19:48:40,680 log "GET /liked-articles/ HTTP/1.1" 200 59813
+INFO 2026-01-12 19:48:40,864 log "GET /messages/unread-count/ HTTP/1.1" 200 55082
+INFO 2026-01-12 19:48:42,813 log "GET /messages/inbox/ HTTP/1.1" 200 57153
+INFO 2026-01-12 19:48:42,993 log "GET /messages/unread-count/ HTTP/1.1" 200 55082
+INFO 2026-01-12 19:48:45,621 log "GET /liked-articles/ HTTP/1.1" 200 59813
+INFO 2026-01-12 19:48:45,704 log "GET /messages/unread-count/ HTTP/1.1" 200 55082
+INFO 2026-01-12 19:48:47,315 log "GET /user-management/ HTTP/1.1" 200 88292
+INFO 2026-01-12 19:48:47,400 log "GET /messages/unread-count/ HTTP/1.1" 200 55082
+INFO 2026-01-12 19:49:15,784 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:49:45,794 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:50:15,777 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:50:45,779 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:51:15,784 log "GET /messages/unread-count/ HTTP/1.1" 200 51996
+INFO 2026-01-12 19:51:26,144 autoreload Watching for file changes with StatReloader
+INFO 2026-01-12 19:51:27,941 log "GET / HTTP/1.1" 200 46268
+INFO 2026-01-12 19:51:28,098 log "GET /messages/unread-count/ HTTP/1.1" 200 52565
+INFO 2026-01-12 19:51:30,643 log "GET /user-management/ HTTP/1.1" 200 87544
+INFO 2026-01-12 19:51:30,724 log "GET /messages/unread-count/ HTTP/1.1" 200 52565
+INFO 2026-01-12 19:51:32,798 log "GET /messages/inbox/ HTTP/1.1" 200 54636
+INFO 2026-01-12 19:51:32,905 log "GET /messages/unread-count/ HTTP/1.1" 200 52565
+INFO 2026-01-12 19:51:50,541 log "GET /user-management/ HTTP/1.1" 200 87544
+INFO 2026-01-12 19:51:50,622 log "GET /messages/unread-count/ HTTP/1.1" 200 52565
+INFO 2026-01-12 19:51:52,124 log "GET /categories/ HTTP/1.1" 200 52377
+INFO 2026-01-12 19:51:52,310 log "GET /messages/unread-count/ HTTP/1.1" 200 52565
+INFO 2026-01-12 19:51:57,732 log "GET /liked-articles/ HTTP/1.1" 200 59813
+INFO 2026-01-12 19:51:57,808 log "GET /messages/unread-count/ HTTP/1.1" 200 52565
+INFO 2026-01-12 19:51:59,485 log "GET /user-management/ HTTP/1.1" 200 87544
+INFO 2026-01-12 19:51:59,670 log "GET /messages/unread-count/ HTTP/1.1" 200 52565
+INFO 2026-01-12 19:52:01,688 log "GET /categories/ HTTP/1.1" 200 52377
+INFO 2026-01-12 19:52:01,773 log "GET /messages/unread-count/ HTTP/1.1" 200 52565
+INFO 2026-01-12 19:52:31,792 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:53:01,783 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:53:31,787 log "GET /messages/unread-count/ HTTP/1.1" 200 51317
+INFO 2026-01-12 19:54:02,536 autoreload Watching for file changes with StatReloader
+INFO 2026-01-12 19:54:03,723 log "GET /messages/unread-count/ HTTP/1.1" 200 52829
+INFO 2026-01-12 19:54:04,441 log "GET / HTTP/1.1" 200 46268
+INFO 2026-01-12 19:54:04,603 log "GET /messages/unread-count/ HTTP/1.1" 200 52829
+INFO 2026-01-12 19:54:06,114 log "GET /messages/inbox/ HTTP/1.1" 200 54900
+INFO 2026-01-12 19:54:06,190 log "GET /messages/unread-count/ HTTP/1.1" 200 52829
+INFO 2026-01-12 19:54:18,737 log "GET / HTTP/1.1" 200 46268
+INFO 2026-01-12 19:54:18,824 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:54:20,608 log "GET /accounts/profile/ HTTP/1.1" 200 61087
+INFO 2026-01-12 19:54:20,690 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:54:21,858 log "GET /my-articles/ HTTP/1.1" 200 56301
+INFO 2026-01-12 19:54:22,062 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:54:23,347 log "GET /messages/inbox/ HTTP/1.1" 200 53276
+INFO 2026-01-12 19:54:23,531 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:54:24,563 log "GET /liked-articles/ HTTP/1.1" 200 59813
+INFO 2026-01-12 19:54:24,650 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:54:26,162 log "GET /messages/inbox/ HTTP/1.1" 200 53276
+INFO 2026-01-12 19:54:26,246 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:56:22,663 autoreload Watching for file changes with StatReloader
+INFO 2026-01-12 19:56:25,189 log "GET / HTTP/1.1" 200 46268
+INFO 2026-01-12 19:56:25,334 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:56:27,545 log "GET /categories/ HTTP/1.1" 200 54204
+INFO 2026-01-12 19:56:27,627 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:56:40,444 log "GET /categories/ HTTP/1.1" 200 52377
+INFO 2026-01-12 19:56:40,527 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:56:42,447 log "GET /accounts/profile/ HTTP/1.1" 200 61087
+INFO 2026-01-12 19:56:42,526 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:57:12,789 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:57:42,790 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:58:12,788 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:58:42,780 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:59:12,782 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:59:22,195 log "GET /user-management/ HTTP/1.1" 200 87544
+INFO 2026-01-12 19:59:22,276 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 19:59:33,138 log "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2026-01-12 19:59:33,190 log "GET / HTTP/1.1" 200 42705
+INFO 2026-01-12 19:59:35,976 log "GET /login/ HTTP/1.1" 200 42230
+INFO 2026-01-12 19:59:38,348 log "GET /register/ HTTP/1.1" 200 58780
+INFO 2026-01-12 20:00:22,448 log "GET /auth/telegram/webapp/ HTTP/1.1" 200 43728
+INFO 2026-01-12 20:01:01,217 log "GET /login/ HTTP/1.1" 200 42047
+INFO 2026-01-12 20:01:04,551 log "POST /login/ HTTP/1.1" 302 0
+INFO 2026-01-12 20:01:04,623 log "GET / HTTP/1.1" 200 46268
+INFO 2026-01-12 20:01:04,703 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 20:01:06,640 log "GET /admin/ HTTP/1.1" 200 20879
+INFO 2026-01-12 20:01:06,742 log "GET /static/admin/css/base.css HTTP/1.1" 200 23100
+INFO 2026-01-12 20:01:06,762 log "GET /static/admin/css/dashboard.css HTTP/1.1" 200 441
+INFO 2026-01-12 20:01:06,765 log "GET /static/admin/css/dark_mode.css HTTP/1.1" 200 3538
+INFO 2026-01-12 20:01:06,765 log "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 200 2810
+INFO 2026-01-12 20:01:06,766 log "GET /static/admin/css/responsive.css HTTP/1.1" 200 16194
+INFO 2026-01-12 20:01:06,769 log "GET /static/admin/js/theme.js HTTP/1.1" 200 1653
+INFO 2026-01-12 20:01:06,786 log "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 200 978
+INFO 2026-01-12 20:01:06,786 log "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 200 928
+INFO 2026-01-12 20:01:06,787 log "GET /static/admin/img/icon-deletelink.svg HTTP/1.1" 200 689
+INFO 2026-01-12 20:01:06,787 log "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 593
+INFO 2026-01-12 20:01:06,787 log "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 200 3063
+INFO 2026-01-12 20:01:09,433 log "GET /admin/auth/user/ HTTP/1.1" 200 22566
+INFO 2026-01-12 20:01:09,462 log "GET /static/admin/css/changelists.css HTTP/1.1" 200 7501
+INFO 2026-01-12 20:01:09,473 log "GET /static/admin/js/jquery.init.js HTTP/1.1" 200 347
+INFO 2026-01-12 20:01:09,482 log "GET /static/admin/js/core.js HTTP/1.1" 200 6208
+INFO 2026-01-12 20:01:09,484 log "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 200 9777
+INFO 2026-01-12 20:01:09,491 log "GET /static/admin/js/actions.js HTTP/1.1" 200 8076
+INFO 2026-01-12 20:01:09,498 log "GET /static/admin/js/urlify.js HTTP/1.1" 200 7887
+INFO 2026-01-12 20:01:09,505 log "GET /static/admin/js/prepopulate.js HTTP/1.1" 200 1531
+INFO 2026-01-12 20:01:09,506 log "GET /static/admin/img/search.svg HTTP/1.1" 200 607
+INFO 2026-01-12 20:01:09,509 log "GET /static/admin/img/icon-no.svg HTTP/1.1" 200 645
+INFO 2026-01-12 20:01:09,519 log "GET /static/admin/img/icon-yes.svg HTTP/1.1" 200 558
+INFO 2026-01-12 20:01:09,523 log "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 285314
+INFO 2026-01-12 20:01:09,553 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2026-01-12 20:01:09,574 log "GET /static/admin/js/filters.js HTTP/1.1" 200 978
+INFO 2026-01-12 20:01:09,578 log "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 325171
+INFO 2026-01-12 20:01:09,600 log "GET /static/admin/img/tooltag-add.svg HTTP/1.1" 200 593
+INFO 2026-01-12 20:01:09,601 log "GET /static/admin/img/sorting-icons.svg HTTP/1.1" 200 1761
+INFO 2026-01-12 20:01:13,268 log "GET /admin/auth/user/add/ HTTP/1.1" 200 21601
+INFO 2026-01-12 20:01:13,294 log "GET /static/admin/css/unusable_password_field.css HTTP/1.1" 200 663
+INFO 2026-01-12 20:01:13,294 log "GET /static/admin/css/forms.css HTTP/1.1" 200 8844
+INFO 2026-01-12 20:01:13,300 log "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 200 586
+INFO 2026-01-12 20:01:13,306 log "GET /static/admin/css/widgets.css HTTP/1.1" 200 11811
+INFO 2026-01-12 20:01:13,323 log "GET /static/admin/js/change_form.js HTTP/1.1" 200 606
+INFO 2026-01-12 20:01:13,431 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2026-01-12 20:01:52,908 log "POST /admin/auth/user/add/ HTTP/1.1" 200 21925
+INFO 2026-01-12 20:01:53,072 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2026-01-12 20:02:05,249 log "POST /admin/auth/user/add/ HTTP/1.1" 302 0
+INFO 2026-01-12 20:02:05,494 log "GET /admin/auth/user/17/change/ HTTP/1.1" 200 52539
+INFO 2026-01-12 20:02:05,531 log "GET /static/admin/js/SelectFilter2.js HTTP/1.1" 200 16428
+INFO 2026-01-12 20:02:05,531 log "GET /static/admin/js/calendar.js HTTP/1.1" 200 9159
+INFO 2026-01-12 20:02:05,532 log "GET /static/admin/js/admin/DateTimeShortcuts.js HTTP/1.1" 200 19698
+INFO 2026-01-12 20:02:05,533 log "GET /static/admin/js/SelectBox.js HTTP/1.1" 200 4530
+INFO 2026-01-12 20:02:05,559 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2026-01-12 20:02:05,581 log "GET /static/admin/img/icon-yes-dark.svg HTTP/1.1" 200 558
+INFO 2026-01-12 20:02:05,609 log "GET /static/admin/img/icon-calendar.svg HTTP/1.1" 200 1112
+INFO 2026-01-12 20:02:05,609 log "GET /static/admin/img/icon-clock.svg HTTP/1.1" 200 805
+INFO 2026-01-12 20:02:05,609 log "GET /static/admin/img/selector-icons.svg HTTP/1.1" 200 2387
+INFO 2026-01-12 20:02:07,701 log "GET / HTTP/1.1" 200 46268
+INFO 2026-01-12 20:02:07,881 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 20:02:09,736 log "GET /user-management/ HTTP/1.1" 200 93162
+INFO 2026-01-12 20:02:09,813 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 20:02:13,270 log "POST /user-management/ HTTP/1.1" 200 93777
+INFO 2026-01-12 20:02:13,346 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 20:02:16,575 log "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2026-01-12 20:02:16,629 log "GET / HTTP/1.1" 200 42705
+INFO 2026-01-12 20:02:17,271 log "GET /login/ HTTP/1.1" 200 42230
+INFO 2026-01-12 20:02:20,255 log "POST /login/ HTTP/1.1" 302 0
+INFO 2026-01-12 20:02:20,324 log "GET / HTTP/1.1" 200 49541
+INFO 2026-01-12 20:02:20,402 log "GET /messages/unread-count/ HTTP/1.1" 200 54478
+INFO 2026-01-12 20:02:30,738 log "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2026-01-12 20:02:30,790 log "GET / HTTP/1.1" 200 42705
+INFO 2026-01-12 20:02:31,500 log "GET /login/ HTTP/1.1" 200 42230
+INFO 2026-01-12 20:02:33,999 log "POST /login/ HTTP/1.1" 302 0
+INFO 2026-01-12 20:02:34,077 log "GET / HTTP/1.1" 200 46268
+INFO 2026-01-12 20:02:34,275 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 20:02:35,728 log "GET /admin/ HTTP/1.1" 200 20919
+INFO 2026-01-12 20:02:37,892 log "GET /admin/auth/user/ HTTP/1.1" 200 23080
+INFO 2026-01-12 20:02:37,956 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2026-01-12 20:02:41,665 log "GET /admin/auth/group/ HTTP/1.1" 200 20907
+INFO 2026-01-12 20:02:41,729 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2026-01-12 20:02:43,348 log "GET /admin/auth/group/1/change/ HTTP/1.1" 200 40478
+INFO 2026-01-12 20:02:43,406 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2026-01-12 20:02:44,896 log "GET /admin/auth/group/ HTTP/1.1" 200 20907
+INFO 2026-01-12 20:02:45,732 log "GET /admin/auth/user/ HTTP/1.1" 200 23080
+INFO 2026-01-12 20:02:45,787 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2026-01-12 20:02:47,856 log "GET /admin/auth/user/17/change/ HTTP/1.1" 200 52282
+INFO 2026-01-12 20:02:47,911 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2026-01-12 20:03:03,122 log "GET /admin/auth/user/ HTTP/1.1" 200 23080
+INFO 2026-01-12 20:03:09,929 log "GET /admin/auth/user/17/change/ HTTP/1.1" 200 52282
+INFO 2026-01-12 20:03:09,987 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2026-01-12 20:03:15,618 log "GET /admin/auth/user/ HTTP/1.1" 200 23080
+INFO 2026-01-12 20:03:15,676 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2026-01-12 20:03:16,634 log "GET /admin/auth/user/17/change/ HTTP/1.1" 200 52282
+INFO 2026-01-12 20:03:16,688 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2026-01-12 20:03:26,627 log "POST /admin/auth/user/17/change/ HTTP/1.1" 302 0
+INFO 2026-01-12 20:03:26,719 log "GET /admin/auth/user/17/change/ HTTP/1.1" 200 52585
+INFO 2026-01-12 20:03:26,786 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2026-01-12 20:03:33,423 log "POST /admin/auth/user/17/change/ HTTP/1.1" 302 0
+INFO 2026-01-12 20:03:33,488 log "GET /admin/auth/user/ HTTP/1.1" 200 23306
+INFO 2026-01-12 20:03:33,550 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2026-01-12 20:03:35,900 log "GET / HTTP/1.1" 200 46268
+INFO 2026-01-12 20:03:36,081 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 20:03:38,782 log "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2026-01-12 20:03:38,837 log "GET / HTTP/1.1" 200 42705
+INFO 2026-01-12 20:03:39,537 log "GET /login/ HTTP/1.1" 200 42230
+INFO 2026-01-12 20:03:42,085 log "POST /login/ HTTP/1.1" 302 0
+INFO 2026-01-12 20:03:42,149 log "GET / HTTP/1.1" 200 49545
+INFO 2026-01-12 20:03:42,227 log "GET /messages/unread-count/ HTTP/1.1" 200 54482
+INFO 2026-01-12 20:03:48,433 log "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2026-01-12 20:03:48,482 log "GET / HTTP/1.1" 200 42705
+INFO 2026-01-12 20:04:03,916 log "GET / HTTP/1.1" 200 49576
+WARNING 2026-01-12 20:04:04,952 log Not Found: /api/notifications/unread-count/
+WARNING 2026-01-12 20:04:04,952 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2026-01-12 20:04:05,285 log "GET /login/ HTTP/1.1" 200 49101
+WARNING 2026-01-12 20:04:06,305 log Not Found: /api/notifications/unread-count/
+WARNING 2026-01-12 20:04:06,305 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2026-01-12 20:04:08,617 log "POST /login/ HTTP/1.1" 302 0
+INFO 2026-01-12 20:04:08,683 log "GET / HTTP/1.1" 200 53725
+INFO 2026-01-12 20:04:08,763 log "GET /messages/unread-count/ HTTP/1.1" 200 58662
+WARNING 2026-01-12 20:04:09,752 log Not Found: /api/notifications/unread-count/
+WARNING 2026-01-12 20:04:09,752 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2026-01-12 20:04:12,967 log "GET /moderation/ HTTP/1.1" 200 54962
+INFO 2026-01-12 20:04:13,141 log "GET /messages/unread-count/ HTTP/1.1" 200 58662
+WARNING 2026-01-12 20:04:14,041 log Not Found: /api/notifications/unread-count/
+WARNING 2026-01-12 20:04:14,042 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2026-01-12 20:04:19,134 log "GET /admin/ HTTP/1.1" 200 21009
+INFO 2026-01-12 20:04:20,934 log "GET /admin/auth/group/ HTTP/1.1" 200 20907
+INFO 2026-01-12 20:04:20,996 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2026-01-12 20:04:22,766 log "GET /admin/auth/group/1/change/ HTTP/1.1" 200 40478
+INFO 2026-01-12 20:04:22,822 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2026-01-12 20:04:27,281 log "GET /admin/auth/group/1/history/ HTTP/1.1" 200 15048
+INFO 2026-01-12 20:04:28,315 log "GET /admin/auth/group/1/change/ HTTP/1.1" 200 40478
+INFO 2026-01-12 20:04:33,349 log "GET / HTTP/1.1" 200 53725
+INFO 2026-01-12 20:04:33,529 log "GET /messages/unread-count/ HTTP/1.1" 200 58662
+WARNING 2026-01-12 20:04:34,527 log Not Found: /api/notifications/unread-count/
+WARNING 2026-01-12 20:04:34,528 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2026-01-12 20:04:35,494 log "GET /messages/inbox/ HTTP/1.1" 200 60733
+INFO 2026-01-12 20:04:35,570 log "GET /messages/unread-count/ HTTP/1.1" 200 58662
+WARNING 2026-01-12 20:04:36,571 log Not Found: /api/notifications/unread-count/
+WARNING 2026-01-12 20:04:36,571 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2026-01-12 20:04:39,896 log "GET /user-management/ HTTP/1.1" 200 100689
+INFO 2026-01-12 20:04:39,981 log "GET /messages/unread-count/ HTTP/1.1" 200 58662
+WARNING 2026-01-12 20:04:40,966 log Not Found: /api/notifications/unread-count/
+WARNING 2026-01-12 20:04:40,966 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2026-01-12 20:04:43,221 log "GET /user-management/ HTTP/1.1" 200 100689
+INFO 2026-01-12 20:04:43,302 log "GET /messages/unread-count/ HTTP/1.1" 200 58662
+WARNING 2026-01-12 20:04:44,297 log Not Found: /api/notifications/unread-count/
+WARNING 2026-01-12 20:04:44,298 log "GET /api/notifications/unread-count/ HTTP/1.1" 404 31416
+INFO 2026-01-12 20:04:51,813 log "GET /user-management/ HTTP/1.1" 200 93232
+INFO 2026-01-12 20:04:51,951 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 20:04:56,019 log "GET /accounts/profile/ HTTP/1.1" 200 61087
+INFO 2026-01-12 20:04:56,099 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 20:04:57,945 log "GET /user-management/ HTTP/1.1" 200 93232
+INFO 2026-01-12 20:04:58,136 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 20:05:28,876 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 20:05:58,801 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 20:06:28,877 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 20:06:58,788 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 20:07:28,784 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 20:07:58,781 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 20:08:28,780 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 20:09:06,792 log "GET /messages/unread-count/ HTTP/1.1" 200 51205
+INFO 2026-01-12 20:09:16,175 log "GET /admin/ HTTP/1.1" 200 21009
+INFO 2026-01-12 20:09:19,948 log "GET /admin/auth/group/ HTTP/1.1" 200 20907
+INFO 2026-01-12 20:09:20,015 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2026-01-12 20:09:21,322 log "GET /admin/auth/group/1/change/ HTTP/1.1" 200 40478
+INFO 2026-01-12 20:09:21,382 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820

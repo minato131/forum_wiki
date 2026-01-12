@@ -54,26 +54,6 @@
                                 <span class="status-indicator error">✗</span>
                             {% endif %}
                         </div>
-                        <div class="social-item {% if user_profile.discord %}has-link{% else %}no-link{% endif %}">
-                            <span class="social-icon">🎮</span>
-                            <span class="social-name">Discord</span>
-                            {% if user_profile.discord %}
-                                <span class="social-link">{{ user_profile.discord }}</span>
-                                <span class="status-indicator success">✓</span>
-                            {% else %}
-                                <span class="status-indicator error">✗</span>
-                            {% endif %}
-                        </div>
-                        <div class="social-item {% if user_profile.youtube %}has-link{% else %}no-link{% endif %}">
-                            <span class="social-icon">📺</span>
-                            <span class="social-name">YouTube</span>
-                            {% if user_profile.youtube %}
-                                <a href="{{ user_profile.youtube }}" target="_blank" class="social-link">Перейти</a>
-                                <span class="status-indicator success">✓</span>
-                            {% else %}
-                                <span class="status-indicator error">✗</span>
-                            {% endif %}
-                        </div>
                     </div>
                 </div>
 
