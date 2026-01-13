@@ -590,6 +590,222 @@ body::after {
     opacity: 0.8 !important;
 }
 
+/* 21. СТИЛИ ДЛЯ CKEDITOR 5 */
+.django-ckeditor-widget,
+.ck-editor {
+    background: var(--witcher-dark) !important;
+    color: var(--witcher-text) !important;
+    border: 1px solid var(--witcher-border) !important;
+    border-radius: 6px !important;
+    overflow: hidden !important;
+    max-width: 100% !important;
+}
+
+/* Контейнер CKEditor */
+.ck.ck-editor {
+    background: var(--witcher-dark) !important;
+    border-color: var(--witcher-border) !important;
+    max-width: 100% !important;
+}
+
+/* Панель инструментов */
+.ck.ck-toolbar {
+    background: var(--witcher-darker) !important;
+    border-bottom: 1px solid var(--witcher-border) !important;
+    border-color: var(--witcher-border) !important;
+    padding: 5px 10px !important;
+}
+
+/* Кнопки на панели инструментов */
+.ck.ck-button {
+    background: var(--witcher-card) !important;
+    color: var(--witcher-text) !important;
+    border-color: var(--witcher-border) !important;
+    border-radius: 4px !important;
+    margin: 2px !important;
+    transition: all 0.2s ease !important;
+}
+
+.ck.ck-button:hover,
+.ck.ck-button:focus,
+.ck.ck-button.ck-on {
+    background: rgba(192, 160, 80, 0.2) !important;
+    color: var(--witcher-gold) !important;
+    border-color: var(--witcher-gold) !important;
+}
+
+/* Иконки кнопок */
+.ck.ck-icon {
+    color: var(--witcher-text) !important;
+}
+
+.ck.ck-button:hover .ck.ck-icon,
+.ck.ck-button:focus .ck.ck-icon,
+.ck.ck-button.ck-on .ck.ck-icon {
+    color: var(--witcher-gold) !important;
+}
+
+/* Основная область редактирования (САМОЕ ВАЖНОЕ!) */
+.ck.ck-editor__main .ck-editor__editable {
+    background: var(--witcher-dark) !important;
+    color: var(--witcher-text) !important;
+    border: none !important;
+    border-top: 1px solid var(--witcher-border) !important;
+    min-height: 300px !important;
+    max-height: 500px !important;
+    overflow-y: auto !important;
+    padding: 20px !important;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+    font-size: 14px !important;
+    line-height: 1.6 !important;
+}
+
+/* Контент внутри редактора */
+.ck-editor__editable.ck-blurred p,
+.ck-editor__editable.ck-focused p,
+.ck-editor__editable.ck-blurred div,
+.ck-editor__editable.ck-focused div,
+.ck-editor__editable.ck-blurred span,
+.ck-editor__editable.ck-focused span,
+.ck-editor__editable.ck-blurred h1,
+.ck-editor__editable.ck-focused h1,
+.ck-editor__editable.ck-blurred h2,
+.ck-editor__editable.ck-focused h2,
+.ck-editor__editable.ck-blurred h3,
+.ck-editor__editable.ck-focused h3,
+.ck-editor__editable.ck-blurred h4,
+.ck-editor__editable.ck-focused h4 {
+    background: transparent !important;
+    color: var(--witcher-text) !important;
+}
+
+/* Заголовки в редакторе */
+.ck-editor__editable h1,
+.ck-editor__editable h2,
+.ck-editor__editable h3,
+.ck-editor__editable h4 {
+    color: var(--witcher-text-light) !important;
+    border-bottom: 1px solid var(--witcher-border) !important;
+    padding-bottom: 10px !important;
+    margin-bottom: 15px !important;
+}
+
+/* Ссылки в редакторе */
+.ck-editor__editable a {
+    color: var(--witcher-gold) !important;
+    text-decoration: underline !important;
+}
+
+.ck-editor__editable a:hover {
+    color: var(--witcher-text-light) !important;
+}
+
+/* Цитаты в редакторе */
+.ck-editor__editable blockquote {
+    border-left: 4px solid var(--witcher-gold) !important;
+    background: rgba(192, 160, 80, 0.1) !important;
+    color: var(--witcher-text-light) !important;
+    padding: 15px 20px !important;
+    margin: 15px 0 !important;
+    font-style: italic !important;
+}
+
+/* Код в редакторе */
+.ck-editor__editable pre,
+.ck-editor__editable code {
+    background: var(--witcher-card) !important;
+    color: var(--witcher-text) !important;
+    border: 1px solid var(--witcher-border) !important;
+    border-radius: 4px !important;
+    padding: 5px 10px !important;
+    font-family: 'Courier New', monospace !important;
+}
+
+/* Выпадающие меню */
+.ck.ck-dropdown__panel {
+    background: var(--witcher-card) !important;
+    border: 1px solid var(--witcher-border) !important;
+    color: var(--witcher-text) !important;
+    border-radius: 4px !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+}
+
+.ck.ck-list {
+    background: transparent !important;
+}
+
+.ck.ck-list__item {
+    color: var(--witcher-text) !important;
+    background: transparent !important;
+}
+
+.ck.ck-list__item:hover,
+.ck.ck-list__item:focus {
+    background: rgba(192, 160, 80, 0.2) !important;
+    color: var(--witcher-gold) !important;
+}
+
+/* Плейсхолдер */
+.ck.ck-editor__editable.ck-blurred .ck.ck-placeholder::before {
+    color: var(--witcher-text-muted) !important;
+    opacity: 0.7 !important;
+}
+
+/* Фокус на редакторе */
+.ck.ck-editor__editable.ck-focused {
+    border: none !important;
+    box-shadow: inset 0 0 0 2px rgba(192, 160, 80, 0.2) !important;
+    outline: none !important;
+}
+
+/* Модальные окна CKEditor */
+.ck.ck-balloon-panel {
+    background: var(--witcher-card) !important;
+    border: 1px solid var(--witcher-border) !important;
+    color: var(--witcher-text) !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4) !important;
+}
+
+.ck.ck-link-form {
+    background: var(--witcher-card) !important;
+    border: 1px solid var(--witcher-border) !important;
+}
+
+/* Поля ввода в модальных окнах */
+.ck.ck-input,
+.ck.ck-input-text {
+    background: var(--witcher-dark) !important;
+    color: var(--witcher-text) !important;
+    border: 1px solid var(--witcher-border) !important;
+    border-radius: 4px !important;
+    padding: 8px 10px !important;
+}
+
+.ck.ck-input:focus {
+    border-color: var(--witcher-gold) !important;
+    box-shadow: 0 0 0 2px rgba(192, 160, 80, 0.2) !important;
+}
+
+/* Кнопки в модальных окнах */
+.ck.ck-button-save,
+.ck.ck-button-cancel {
+    background: var(--witcher-border) !important;
+    color: var(--witcher-text) !important;
+    border: 1px solid var(--witcher-border) !important;
+}
+
+.ck.ck-button-save:hover,
+.ck.ck-button-save:focus {
+    background: var(--witcher-success) !important;
+    color: white !important;
+}
+
+.ck.ck-button-cancel:hover,
+.ck.ck-button-cancel:focus {
+    background: var(--witcher-error) !important;
+    color: white !important;
+}
+
 /* 18. SCROLLBAR */
 ::-webkit-scrollbar {
     width: 10px;
@@ -603,6 +819,21 @@ body::after {
 
 ::-webkit-scrollbar-thumb:hover {
     background: var(--witcher-gold-dark);
+}
+
+/* Scrollbar в редакторе */
+.ck.ck-editor__main .ck-editor__editable::-webkit-scrollbar {
+    width: 8px;
+    background: var(--witcher-darker);
+}
+
+.ck.ck-editor__main .ck-editor__editable::-webkit-scrollbar-thumb {
+    background: var(--witcher-border);
+    border-radius: 4px;
+}
+
+.ck.ck-editor__main .ck-editor__editable::-webkit-scrollbar-thumb:hover {
+    background: var(--witcher-gold);
 }
 
 /* 19. АДАПТИВНОСТЬ */
@@ -645,6 +876,24 @@ body::after {
         line-height: 1.5 !important;
         height: auto !important;
         padding: 10px 15px !important;
+    }
+
+    /* Адаптивность для CKEditor */
+    .ck.ck-toolbar {
+        flex-wrap: wrap !important;
+        height: auto !important;
+        padding: 8px !important;
+    }
+
+    .ck.ck-toolbar .ck-toolbar__items {
+        flex-wrap: wrap !important;
+    }
+
+    .ck.ck-button {
+        margin: 3px !important;
+        padding: 5px !important;
+        min-width: 36px !important;
+        min-height: 36px !important;
     }
 }
 
@@ -913,6 +1162,83 @@ document.addEventListener('DOMContentLoaded', function() {
     filters.forEach(filter => {
         filter.style.marginBottom = '10px';
     });
+
+    // 11. Исправление для CKEditor 5
+    function fixCKEditor5() {
+        const ckeditors = document.querySelectorAll('.django-ckeditor-widget, .ck-editor');
+
+        ckeditors.forEach(editor => {
+            // Добавляем темные классы к контейнеру
+            editor.classList.add('witcher-dark-editor');
+
+            // Ждем загрузки CKEditor
+            if (window.CKEDITOR) {
+                for (const name in CKEDITOR.instances) {
+                    const instance = CKEDITOR.instances[name];
+
+                    // Устанавливаем темный стиль контента
+                    instance.on('instanceReady', function() {
+                        // Устанавливаем стили для редактируемой области
+                        const editable = instance.editable();
+                        if (editable) {
+                            editable.setStyle('background-color', 'var(--witcher-dark)');
+                            editable.setStyle('color', 'var(--witcher-text)');
+                            editable.setStyle('font-family', '\'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif');
+                            editable.setStyle('line-height', '1.6');
+                            editable.setStyle('padding', '20px');
+                        }
+
+                        // Устанавливаем стиль для тела редактора
+                        const iframe = instance.document.getBody();
+                        iframe.setStyle('background-color', 'var(--witcher-dark)');
+                        iframe.setStyle('color', 'var(--witcher-text)');
+                        iframe.setStyle('font-family', '\'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif');
+                        iframe.setStyle('line-height', '1.6');
+                        iframe.setStyle('padding', '20px');
+                    });
+
+                    // Также применяем стили при каждом изменении
+                    instance.on('contentDom', function() {
+                        const iframe = instance.document.getBody();
+                        iframe.setStyle('background-color', 'var(--witcher-dark)');
+                        iframe.setStyle('color', 'var(--witcher-text)');
+                        iframe.setStyle('font-family', '\'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif');
+                        iframe.setStyle('line-height', '1.6');
+                        iframe.setStyle('padding', '20px');
+                    });
+                }
+            }
+
+            // Для CKEditor 5 (новый API)
+            if (editor.querySelector('.ck-editor__editable')) {
+                const editable = editor.querySelector('.ck-editor__editable');
+                if (editable) {
+                    editable.style.backgroundColor = 'var(--witcher-dark)';
+                    editable.style.color = 'var(--witcher-text)';
+                    editable.style.fontFamily = '\'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif';
+                    editable.style.lineHeight = '1.6';
+                    editable.style.padding = '20px';
+
+                    // Принудительно устанавливаем стили для всех элементов внутри
+                    const allElements = editable.querySelectorAll('*');
+                    allElements.forEach(el => {
+                        el.style.backgroundColor = 'transparent';
+                        el.style.color = 'var(--witcher-text)';
+                    });
+                }
+            }
+        });
+
+        // Принудительное обновление каждые 2 секунды на случай динамической загрузки
+        setTimeout(fixCKEditor5, 2000);
+    }
+
+    // Запускаем исправление для CKEditor
+    fixCKEditor5();
+
+    // Также запускаем при изменениях DOM (на случай AJAX загрузки форм)
+    const observer = new MutationObserver(fixCKEditor5);
+    observer.observe(document.body, { childList: true, subtree: true });
 });
 
 // 10. Темный toastr
@@ -1001,6 +1327,18 @@ if (typeof toastr !== 'undefined') {
 
 .changelink {
     background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23c0a050" width="18px" height="18px"><path d="M0 0h24v24H0z" fill="none"/><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>') !important;
+}
+
+/* Дополнительные стили для CKEditor 5 */
+.witcher-dark-editor {
+    background: var(--witcher-dark) !important;
+    border-color: var(--witcher-border) !important;
+}
+
+/* Переопределение стандартных цветов CKEditor */
+.ck.ck-reset,
+.ck.ck-reset_all {
+    color: var(--witcher-text) !important;
 }
 </style>
 {% endblock %}
