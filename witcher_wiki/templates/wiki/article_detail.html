@@ -101,6 +101,17 @@
         margin-bottom: 30px;
         line-height: 1.7;
     }
+
+    /* ТОЛЬКО ИСПРАВЛЕНИЕ ЦВЕТА ЗАГОЛОВКОВ */
+    .article-content h1,
+    .article-content h2,
+    .article-content h3,
+    .article-content h4,
+    .article-content h5,
+    .article-content h6 {
+        color: #D4AF37 !important;
+    }
+
     .featured-image {
         text-align: center;
         margin: 25px 0;
@@ -446,7 +457,7 @@
         right: 30px;
     }
 
-    /* Стили для хештегов */
+    /* Стили для хештеги */
     .article-hashtags {
         background: rgba(23, 162, 184, 0.1);
         padding: 20px;
@@ -590,6 +601,7 @@
 }
 </style>
 
+<!-- Весь остальной HTML код остается БЕЗ ИЗМЕНЕНИЙ -->
 <div class="article-container">
     <div class="article-header">
         <h1 class="article-title">⚔️ {{ article.title }}</h1>
@@ -904,7 +916,6 @@
     <button class="lightbox-nav lightbox-next" onclick="changeImage(1)">›</button>
     <img id="lightbox-img" class="lightbox-content" src="" alt="">
 </div>
-
 <script>
 // Лайтбокс для изображений
 let currentImageIndex = 0;

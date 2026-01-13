@@ -4891,31 +4891,41 @@ def export_statistics_json(request):
 def comment_like(request, comment_id):
     """Обработка лайка на комментарий. Только для аутентифицированных пользователей."""
     try:
-        comment = Comment.objects.get(id=comment_id)
+        comment = get_object_or_404(Comment, id=comment_id)
 
-        # Проверяем, лайкал ли уже пользователь этот комментарий
-        user_liked = comment.comment_likes.filter(user=request.user).exists()
+        # Проверяем, есть ли уже лайк от пользователя
+        was_liked = comment.is_liked_by_user(request.user)
 
-        if user_liked:
-            # Если уже лайкал - убираем лайк
-            comment.comment_likes.filter(user=request.user).delete()
-            comment.like_count = max(0, comment.like_count - 1)
-            liked = False
-        else:
-            # Если не лайкал - добавляем лайк
-            CommentLike.objects.create(user=request.user, comment=comment)
-            comment.like_count += 1
-            liked = True
+        # Переключаем лайк с помощью метода из модели
+        liked = comment.toggle_like(request.user)
+        likes_count = comment.like_count
 
-        comment.save()
+        # Логируем действие
+        ActionLogger.log_action(
+            request=request,
+            action_type='comment_like_add' if liked else 'comment_like_remove',
+            description=f'Пользователь {request.user.username} {"поставил" if liked else "убрал"} лайк комментарию',
+            target_object=comment,
+            extra_data={
+                'comment_id': comment.id,
+                'article_title': comment.article.title,
+                'was_liked': was_liked,
+                'now_liked': liked,
+                'total_likes': likes_count,
+            }
+        )
 
         return JsonResponse({
             'success': True,
-            'new_likes': comment.like_count,  # Возвращаем обновленное количество
-            'liked': liked
+            'liked': liked,
+            'likes_count': likes_count,
+            'was_liked': was_liked,
+            'status_changed': was_liked != liked
         })
     except Comment.DoesNotExist:
         return JsonResponse({'success': False, 'error': 'Комментарий не найден'}, status=404)
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)}, status=500)
 
 
 @login_required

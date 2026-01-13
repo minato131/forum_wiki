@@ -41962,3 +41962,512 @@ INFO 2026-01-13 07:39:39,573 log "GET /login/ HTTP/1.1" 200 42588
 INFO 2026-01-13 07:39:42,960 log "POST /login/ HTTP/1.1" 302 0
 INFO 2026-01-13 07:39:43,026 log "GET / HTTP/1.1" 200 46642
 INFO 2026-01-13 07:39:43,104 log "GET /messages/unread-count/ HTTP/1.1" 200 51579
+INFO 2026-01-13 07:40:13,816 log "GET /messages/unread-count/ HTTP/1.1" 200 51579
+INFO 2026-01-13 07:40:43,815 log "GET /messages/unread-count/ HTTP/1.1" 200 51579
+INFO 2026-01-13 07:41:13,815 log "GET /messages/unread-count/ HTTP/1.1" 200 51579
+INFO 2026-01-13 07:41:43,833 log "GET /messages/unread-count/ HTTP/1.1" 200 51579
+INFO 2026-01-13 07:42:13,829 log "GET /messages/unread-count/ HTTP/1.1" 200 51579
+INFO 2026-01-13 07:42:43,824 log "GET /messages/unread-count/ HTTP/1.1" 200 51579
+INFO 2026-01-13 07:43:13,822 log "GET /messages/unread-count/ HTTP/1.1" 200 51579
+INFO 2026-01-13 07:44:04,934 log "GET /messages/unread-count/ HTTP/1.1" 200 51579
+INFO 2026-01-13 07:44:13,922 log "GET /messages/unread-count/ HTTP/1.1" 200 51579
+INFO 2026-01-13 07:44:43,824 log "GET /messages/unread-count/ HTTP/1.1" 200 51579
+INFO 2026-01-13 07:45:13,924 log "GET /messages/unread-count/ HTTP/1.1" 200 51579
+INFO 2026-01-13 07:45:43,818 log "GET /messages/unread-count/ HTTP/1.1" 200 51579
+INFO 2026-01-13 07:46:13,821 log "GET /messages/unread-count/ HTTP/1.1" 200 51579
+INFO 2026-01-13 07:46:43,813 log "GET /messages/unread-count/ HTTP/1.1" 200 51579
+INFO 2026-01-13 07:47:05,802 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\models.py changed, reloading.
+INFO 2026-01-13 07:47:06,607 autoreload Watching for file changes with StatReloader
+INFO 2026-01-13 07:47:13,979 log "GET /messages/unread-count/ HTTP/1.1" 200 51579
+INFO 2026-01-13 07:47:36,621 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\permissions.py changed, reloading.
+INFO 2026-01-13 07:47:37,383 autoreload Watching for file changes with StatReloader
+INFO 2026-01-13 07:47:44,698 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\permissions.py changed, reloading.
+INFO 2026-01-13 07:47:45,425 autoreload Watching for file changes with StatReloader
+INFO 2026-01-13 07:48:04,977 log "GET /messages/unread-count/ HTTP/1.1" 200 51579
+INFO 2026-01-13 07:48:22,909 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2026-01-13 07:48:24,742 autoreload Watching for file changes with StatReloader
+INFO 2026-01-13 07:48:35,127 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2026-01-13 07:48:37,312 autoreload Watching for file changes with StatReloader
+INFO 2026-01-13 07:49:04,954 log "GET /messages/unread-count/ HTTP/1.1" 200 51579
+INFO 2026-01-13 07:50:17,529 autoreload Watching for file changes with StatReloader
+INFO 2026-01-13 07:50:19,318 log "GET / HTTP/1.1" 200 46642
+INFO 2026-01-13 07:50:19,484 log "GET /messages/unread-count/ HTTP/1.1" 200 51579
+INFO 2026-01-13 07:50:21,896 log "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2026-01-13 07:50:21,952 log "GET / HTTP/1.1" 200 43063
+INFO 2026-01-13 07:50:22,508 log "GET /login/ HTTP/1.1" 200 42588
+INFO 2026-01-13 07:50:26,023 log "POST /login/ HTTP/1.1" 302 0
+INFO 2026-01-13 07:50:26,095 log "GET / HTTP/1.1" 200 44726
+INFO 2026-01-13 07:50:26,171 log "GET /messages/unread-count/ HTTP/1.1" 200 49663
+INFO 2026-01-13 07:50:31,699 log "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2026-01-13 07:50:31,865 log "GET / HTTP/1.1" 200 43063
+INFO 2026-01-13 07:50:32,412 log "GET /login/ HTTP/1.1" 200 42588
+INFO 2026-01-13 07:50:35,223 log "POST /login/ HTTP/1.1" 302 0
+INFO 2026-01-13 07:50:35,289 log "GET / HTTP/1.1" 200 49903
+INFO 2026-01-13 07:50:35,363 log "GET /messages/unread-count/ HTTP/1.1" 200 54840
+INFO 2026-01-13 07:50:38,926 log "GET /login/ HTTP/1.1" 302 0
+INFO 2026-01-13 07:50:53,895 log "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2026-01-13 07:50:54,050 log "GET / HTTP/1.1" 200 43063
+INFO 2026-01-13 07:50:54,516 log "GET /login/ HTTP/1.1" 200 42588
+INFO 2026-01-13 07:50:56,919 log "POST /login/ HTTP/1.1" 302 0
+INFO 2026-01-13 07:50:56,982 log "GET / HTTP/1.1" 200 46642
+INFO 2026-01-13 07:50:57,157 log "GET /messages/unread-count/ HTTP/1.1" 200 51579
+INFO 2026-01-13 07:50:58,394 log "GET /admin/ HTTP/1.1" 200 49844
+INFO 2026-01-13 07:51:02,746 log "GET /admin/auth/group/ HTTP/1.1" 200 50200
+INFO 2026-01-13 07:51:02,825 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2026-01-13 07:51:04,130 log "GET /admin/auth/group/1/change/ HTTP/1.1" 200 71235
+INFO 2026-01-13 07:51:04,194 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2026-01-13 07:51:04,814 log "GET /messages/unread-count/ HTTP/1.1" 200 51579
+INFO 2026-01-13 07:51:14,627 log "GET /admin/auth/group/ HTTP/1.1" 200 50200
+INFO 2026-01-13 07:51:15,703 log "GET /admin/auth/group/1/change/ HTTP/1.1" 200 71235
+INFO 2026-01-13 07:51:15,768 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2026-01-13 07:51:16,662 log "GET /admin/auth/group/ HTTP/1.1" 200 50200
+INFO 2026-01-13 07:51:17,644 log "GET /admin/auth/group/3/change/ HTTP/1.1" 200 71190
+INFO 2026-01-13 07:51:17,707 log "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+INFO 2026-01-13 07:51:20,838 log "GET /admin/auth/group/ HTTP/1.1" 200 50200
+INFO 2026-01-13 07:52:04,820 log "GET /messages/unread-count/ HTTP/1.1" 200 51579
+INFO 2026-01-13 07:52:41,108 log "GET /messages/unread-count/ HTTP/1.1" 200 51579
+INFO 2026-01-13 07:52:43,915 log "GET /messages/unread-count/ HTTP/1.1" 200 51579
+INFO 2026-01-13 07:53:13,811 log "GET /messages/unread-count/ HTTP/1.1" 200 51579
+INFO 2026-01-13 07:53:46,911 log "GET /messages/unread-count/ HTTP/1.1" 200 51579
+INFO 2026-01-13 07:54:13,931 log "GET /messages/unread-count/ HTTP/1.1" 200 51579
+INFO 2026-01-13 07:59:06,493 autoreload Watching for file changes with StatReloader
+INFO 2026-01-13 07:59:08,296 log "GET / HTTP/1.1" 200 46641
+INFO 2026-01-13 07:59:08,444 log "GET /messages/unread-count/ HTTP/1.1" 200 51578
+INFO 2026-01-13 07:59:13,761 log "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2026-01-13 07:59:13,818 log "GET / HTTP/1.1" 200 43063
+INFO 2026-01-13 07:59:14,388 log "GET /login/ HTTP/1.1" 200 42588
+INFO 2026-01-13 07:59:17,155 log "POST /login/ HTTP/1.1" 302 0
+INFO 2026-01-13 07:59:17,328 log "GET / HTTP/1.1" 200 44835
+INFO 2026-01-13 07:59:17,401 log "GET /messages/unread-count/ HTTP/1.1" 200 49772
+INFO 2026-01-13 07:59:19,881 log "GET /editor/dashboard/ HTTP/1.1" 200 44233
+INFO 2026-01-13 07:59:20,052 log "GET /messages/unread-count/ HTTP/1.1" 200 49772
+INFO 2026-01-13 07:59:23,589 log "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2026-01-13 07:59:23,820 log "GET / HTTP/1.1" 200 43063
+INFO 2026-01-13 07:59:24,340 log "GET /login/ HTTP/1.1" 200 42588
+INFO 2026-01-13 07:59:27,933 log "POST /login/ HTTP/1.1" 302 0
+INFO 2026-01-13 07:59:27,999 log "GET / HTTP/1.1" 200 50222
+INFO 2026-01-13 07:59:28,175 log "GET /messages/unread-count/ HTTP/1.1" 200 55159
+INFO 2026-01-13 07:59:30,576 log "GET /moderation/ HTTP/1.1" 200 51364
+INFO 2026-01-13 07:59:30,650 log "GET /messages/unread-count/ HTTP/1.1" 200 55159
+INFO 2026-01-13 07:59:33,968 log "GET /article/yyy/moderate/enhanced/ HTTP/1.1" 200 58764
+INFO 2026-01-13 07:59:34,053 log "GET /messages/unread-count/ HTTP/1.1" 200 55159
+INFO 2026-01-13 07:59:39,178 log "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2026-01-13 07:59:39,236 log "GET / HTTP/1.1" 200 43063
+INFO 2026-01-13 07:59:39,776 log "GET /login/ HTTP/1.1" 200 42588
+INFO 2026-01-13 07:59:42,504 log "POST /login/ HTTP/1.1" 302 0
+INFO 2026-01-13 07:59:42,568 log "GET / HTTP/1.1" 200 44688
+INFO 2026-01-13 07:59:42,645 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 07:59:45,861 log "GET /my-articles/ HTTP/1.1" 200 62268
+INFO 2026-01-13 07:59:46,046 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 07:59:48,816 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:00:02,378 log "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2026-01-13 08:00:02,533 log "GET / HTTP/1.1" 200 43063
+INFO 2026-01-13 08:00:03,004 log "GET /login/ HTTP/1.1" 200 42588
+INFO 2026-01-13 08:00:05,202 log "POST /login/ HTTP/1.1" 302 0
+INFO 2026-01-13 08:00:05,278 log "GET / HTTP/1.1" 200 46641
+INFO 2026-01-13 08:00:05,467 log "GET /messages/unread-count/ HTTP/1.1" 200 51578
+INFO 2026-01-13 08:00:13,820 log "GET /messages/unread-count/ HTTP/1.1" 200 51578
+INFO 2026-01-13 08:00:35,825 log "GET /messages/unread-count/ HTTP/1.1" 200 51578
+INFO 2026-01-13 08:00:43,812 log "GET /messages/unread-count/ HTTP/1.1" 200 51578
+INFO 2026-01-13 08:00:51,214 log "GET /search/ HTTP/1.1" 200 88190
+INFO 2026-01-13 08:00:51,294 log "GET /messages/unread-count/ HTTP/1.1" 200 51578
+INFO 2026-01-13 08:00:56,572 log "GET /search/?q=&category=characters&author=&sort=relevance&time=all&tag=&status=&min_views=&min_likes=&has_media=&length= HTTP/1.1" 200 101278
+INFO 2026-01-13 08:00:56,757 log "GET /messages/unread-count/ HTTP/1.1" 200 51578
+INFO 2026-01-13 08:01:26,936 log "GET /messages/unread-count/ HTTP/1.1" 200 51578
+INFO 2026-01-13 08:01:44,816 log "GET /messages/unread-count/ HTTP/1.1" 200 51578
+INFO 2026-01-13 08:01:56,810 log "GET /messages/unread-count/ HTTP/1.1" 200 51578
+INFO 2026-01-13 08:02:12,485 log "POST /accounts/logout/ HTTP/1.1" 302 0
+INFO 2026-01-13 08:02:12,648 log "GET / HTTP/1.1" 200 43063
+INFO 2026-01-13 08:02:13,059 log "GET /login/ HTTP/1.1" 200 42588
+INFO 2026-01-13 08:02:15,450 log "POST /login/ HTTP/1.1" 302 0
+INFO 2026-01-13 08:02:15,516 log "GET / HTTP/1.1" 200 44688
+INFO 2026-01-13 08:02:15,595 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:02:16,424 log "GET /search/ HTTP/1.1" 200 80976
+INFO 2026-01-13 08:02:16,500 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:02:18,618 log "GET /search/?q=&category=characters&author=&sort=relevance&time=all&tag=&min_views=&min_likes=&has_media=&length= HTTP/1.1" 200 84946
+INFO 2026-01-13 08:02:18,691 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:02:21,543 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:02:43,097 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:03:13,822 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:03:43,820 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:04:44,926 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:05:13,819 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:05:43,810 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:06:44,822 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:07:45,815 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:08:46,816 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:09:47,814 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:10:48,813 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:11:36,344 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:11:43,105 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:12:13,816 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:12:43,845 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:13:13,099 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:13:43,822 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:14:45,585 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:15:00,192 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\models.py changed, reloading.
+INFO 2026-01-13 08:15:01,010 autoreload Watching for file changes with StatReloader
+INFO 2026-01-13 08:15:17,211 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2026-01-13 08:15:19,874 autoreload Watching for file changes with StatReloader
+INFO 2026-01-13 08:15:45,856 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:16:13,816 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:16:43,935 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:17:13,831 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:18:05,757 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:18:16,663 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2026-01-13 08:18:18,550 autoreload Watching for file changes with StatReloader
+INFO 2026-01-13 08:18:50,634 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\models.py changed, reloading.
+INFO 2026-01-13 08:18:51,322 autoreload Watching for file changes with StatReloader
+INFO 2026-01-13 08:19:04,847 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:20:04,814 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:21:04,821 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:22:04,813 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:22:31,039 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2026-01-13 08:22:33,355 autoreload Watching for file changes with StatReloader
+INFO 2026-01-13 08:23:02,341 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\models.py changed, reloading.
+INFO 2026-01-13 08:23:03,013 autoreload Watching for file changes with StatReloader
+INFO 2026-01-13 08:23:04,837 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:23:11,837 autoreload Watching for file changes with StatReloader
+INFO 2026-01-13 08:23:14,235 log "GET / HTTP/1.1" 200 44688
+INFO 2026-01-13 08:23:14,471 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+ERROR 2026-01-13 08:23:16,467 log Internal Server Error: /article/ssss/
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 577, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'static'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py", line 863, in article_detail
+    return render(request, 'wiki/article_detail.html', context)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 174, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 166, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 160, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 166, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 66, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\defaulttags.py", line 249, in render
+    nodelist.append(node.render_annotated(context))
+                    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 200, in render
+    template = context.template.engine.select_template(template_name)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\engine.py", line 228, in select_template
+    return self.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\engine.py", line 186, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 157, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 199, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 579, in parse
+    self.invalid_block_tag(token, command, parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 644, in invalid_block_tag
+    raise self.error(
+    ...<3 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Template: C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\templates\wiki\comment_item.html, Invalid block tag on line 75: 'static'. Did you forget to register or load this tag?
+ERROR 2026-01-13 08:23:16,474 log "GET /article/ssss/ HTTP/1.1" 500 253727
+INFO 2026-01-13 08:24:22,563 autoreload Watching for file changes with StatReloader
+INFO 2026-01-13 08:24:24,279 log "GET / HTTP/1.1" 200 44688
+INFO 2026-01-13 08:24:24,535 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:24:26,103 log "GET /article/ssss/ HTTP/1.1" 200 79163
+INFO 2026-01-13 08:24:26,148 log "GET /static/css/comments.css HTTP/1.1" 200 1523
+INFO 2026-01-13 08:24:26,231 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:24:47,678 log "GET /article/ssss/ HTTP/1.1" 200 77279
+INFO 2026-01-13 08:24:47,766 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:24:48,861 log "POST /comment/2/like/ HTTP/1.1" 200 94
+INFO 2026-01-13 08:24:53,132 log "POST /comment/3/like/ HTTP/1.1" 200 94
+INFO 2026-01-13 08:24:55,062 log "POST /comment/2/like/ HTTP/1.1" 200 94
+INFO 2026-01-13 08:24:55,735 log "POST /comment/3/like/ HTTP/1.1" 200 94
+INFO 2026-01-13 08:24:57,495 log "GET /article/ssss/ HTTP/1.1" 200 77279
+INFO 2026-01-13 08:24:57,677 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:24:58,935 log "POST /comment/2/like/ HTTP/1.1" 200 94
+INFO 2026-01-13 08:25:00,366 log "GET /article/ssss/ HTTP/1.1" 200 77279
+INFO 2026-01-13 08:25:00,441 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:25:02,126 log "POST /comment/2/like/ HTTP/1.1" 200 94
+INFO 2026-01-13 08:25:04,593 log "POST /comment/2/like/ HTTP/1.1" 200 94
+INFO 2026-01-13 08:25:05,625 log "GET /article/ssss/ HTTP/1.1" 200 77279
+INFO 2026-01-13 08:25:05,702 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:25:35,817 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:26:05,813 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:26:35,819 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:27:05,820 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:27:05,982 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\models.py changed, reloading.
+INFO 2026-01-13 08:27:06,655 autoreload Watching for file changes with StatReloader
+INFO 2026-01-13 08:27:17,307 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2026-01-13 08:27:17,951 autoreload Watching for file changes with StatReloader
+INFO 2026-01-13 08:27:25,769 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\migrations\0038_alter_article_options.py changed, reloading.
+INFO 2026-01-13 08:27:26,377 autoreload Watching for file changes with StatReloader
+INFO 2026-01-13 08:27:42,172 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2026-01-13 08:27:42,815 autoreload Watching for file changes with StatReloader
+INFO 2026-01-13 08:27:54,043 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2026-01-13 08:27:55,985 autoreload Watching for file changes with StatReloader
+INFO 2026-01-13 08:27:58,448 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\models.py changed, reloading.
+INFO 2026-01-13 08:27:59,653 autoreload Watching for file changes with StatReloader
+INFO 2026-01-13 08:28:03,537 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\models.py changed, reloading.
+INFO 2026-01-13 08:28:04,333 autoreload Watching for file changes with StatReloader
+INFO 2026-01-13 08:28:05,843 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:28:08,278 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2026-01-13 08:28:09,562 autoreload Watching for file changes with StatReloader
+INFO 2026-01-13 08:28:11,260 log "GET / HTTP/1.1" 200 44688
+INFO 2026-01-13 08:28:11,400 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:28:13,336 log "GET /article/yvvyvyyv/ HTTP/1.1" 200 77155
+INFO 2026-01-13 08:28:13,416 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+ERROR 2026-01-13 08:28:15,067 log Internal Server Error: /comment/1/like/
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\views\decorators\http.py", line 64, in inner
+    return func(request, *args, **kwargs)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py", line 4900, in comment_like
+    liked = comment.toggle_like(request.user)
+            ^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Comment' object has no attribute 'toggle_like'
+ERROR 2026-01-13 08:28:15,073 log "POST /comment/1/like/ HTTP/1.1" 500 87607
+INFO 2026-01-13 08:28:19,362 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py changed, reloading.
+INFO 2026-01-13 08:28:20,762 autoreload Watching for file changes with StatReloader
+INFO 2026-01-13 08:28:28,739 log "GET / HTTP/1.1" 200 44688
+INFO 2026-01-13 08:28:29,060 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:28:31,366 log "GET /article/ssss/ HTTP/1.1" 200 77279
+INFO 2026-01-13 08:28:31,453 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+ERROR 2026-01-13 08:28:33,159 log Internal Server Error: /comment/2/like/
+ERROR 2026-01-13 08:28:33,160 log "POST /comment/2/like/ HTTP/1.1" 500 78
+INFO 2026-01-13 08:28:35,810 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:28:48,169 autoreload C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\models.py changed, reloading.
+INFO 2026-01-13 08:28:48,894 autoreload Watching for file changes with StatReloader
+INFO 2026-01-13 08:28:50,050 log "GET /article/ssss/ HTTP/1.1" 200 77279
+INFO 2026-01-13 08:28:50,144 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:28:51,639 log "POST /comment/2/like/ HTTP/1.1" 200 94
+INFO 2026-01-13 08:28:53,280 log "GET /article/ssss/ HTTP/1.1" 200 77279
+INFO 2026-01-13 08:28:53,354 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:28:54,299 log "POST /comment/2/like/ HTTP/1.1" 200 94
+INFO 2026-01-13 08:28:55,323 log "GET /article/ssss/ HTTP/1.1" 200 77279
+INFO 2026-01-13 08:28:55,505 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:41:13,995 autoreload Watching for file changes with StatReloader
+ERROR 2026-01-13 08:41:15,789 log Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Yondaime Hokage\PycharmProjects\forum_wiki\witcher_wiki\wiki\views.py", line 159, in home
+    return render(request, 'wiki/home.html', context)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 174, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 166, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 160, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 166, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 66, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\defaulttags.py", line 333, in render
+    return nodelist.render(context)
+           ~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\defaulttags.py", line 249, in render
+    nodelist.append(node.render_annotated(context))
+                    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\defaulttags.py", line 511, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\Yondaime Hokage\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\urls\resolvers.py", line 842, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'article_detail' with arguments '('артефакты-древней-расы-1',)' not found. 1 pattern(s) tried: ['article/(?P<slug>[-a-zA-Z0-9_]+)/\\Z']
+ERROR 2026-01-13 08:41:15,797 log "GET / HTTP/1.1" 500 217392
+INFO 2026-01-13 08:41:36,926 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:45:01,909 autoreload Watching for file changes with StatReloader
+INFO 2026-01-13 08:45:03,995 log "GET / HTTP/1.1" 200 45780
+INFO 2026-01-13 08:45:04,253 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:45:06,664 log "GET /category/characters/ HTTP/1.1" 200 46190
+INFO 2026-01-13 08:45:06,741 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:45:09,532 log "GET /article/yennifer-iz-vengerberga/ HTTP/1.1" 200 106309
+INFO 2026-01-13 08:45:09,723 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:45:23,429 log "GET /category/characters/ HTTP/1.1" 200 46190
+INFO 2026-01-13 08:45:23,507 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:45:24,297 log "GET /category/monsters/ HTTP/1.1" 200 45609
+INFO 2026-01-13 08:45:24,369 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:45:26,533 log "GET /article/bruksa-poludennitsa/ HTTP/1.1" 200 97294
+INFO 2026-01-13 08:45:26,608 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:45:39,057 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:45:56,811 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:46:26,821 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:46:56,815 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:47:26,822 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:47:56,813 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:48:26,812 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:48:38,181 log "GET /statistics/user1/ HTTP/1.1" 200 77322
+INFO 2026-01-13 08:48:38,272 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:48:49,061 log "GET /help/ HTTP/1.1" 200 51741
+INFO 2026-01-13 08:48:49,140 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:48:56,731 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:49:17,149 log "GET / HTTP/1.1" 200 45780
+INFO 2026-01-13 08:49:17,234 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:49:18,130 log "GET /category/characters/ HTTP/1.1" 200 46190
+INFO 2026-01-13 08:49:18,214 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:49:20,091 log "GET / HTTP/1.1" 200 45780
+INFO 2026-01-13 08:49:20,177 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:49:20,929 log "GET /category/characters/ HTTP/1.1" 200 46190
+INFO 2026-01-13 08:49:21,010 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:49:22,602 log "GET / HTTP/1.1" 200 45780
+INFO 2026-01-13 08:49:22,689 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:49:23,773 log "GET /category/characters/ HTTP/1.1" 200 46190
+INFO 2026-01-13 08:49:23,850 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:49:24,543 log "GET /category/monsters/ HTTP/1.1" 200 45609
+INFO 2026-01-13 08:49:24,613 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:49:25,278 log "GET /category/locations/ HTTP/1.1" 200 45186
+INFO 2026-01-13 08:49:25,351 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:49:27,211 log "GET / HTTP/1.1" 200 45780
+INFO 2026-01-13 08:49:27,291 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:49:28,524 log "GET /category/events/ HTTP/1.1" 200 45862
+INFO 2026-01-13 08:49:28,603 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:49:30,183 log "GET /category/magic/ HTTP/1.1" 200 43969
+INFO 2026-01-13 08:49:30,257 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:49:33,275 log "GET /category/monsters/ HTTP/1.1" 200 45609
+INFO 2026-01-13 08:49:33,351 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:49:36,372 log "GET /category/monsters/ HTTP/1.1" 200 45609
+INFO 2026-01-13 08:49:36,542 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:49:38,334 log "GET /category/characters/ HTTP/1.1" 200 46190
+INFO 2026-01-13 08:49:38,407 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:49:42,859 log "GET /article/triss-merigold-1/ HTTP/1.1" 200 88588
+INFO 2026-01-13 08:49:42,940 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:49:55,800 log "GET / HTTP/1.1" 200 45780
+INFO 2026-01-13 08:49:55,979 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:50:26,822 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:50:56,826 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:51:26,827 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:51:56,812 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:52:26,815 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:52:42,932 autoreload Watching for file changes with StatReloader
+INFO 2026-01-13 08:52:44,968 log "GET / HTTP/1.1" 200 45780
+INFO 2026-01-13 08:52:45,122 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:52:46,602 log "GET /article/artefakty-drevney-rasy/ HTTP/1.1" 200 76276
+INFO 2026-01-13 08:52:46,776 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:52:56,816 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:53:15,923 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:53:26,924 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:53:45,814 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:53:56,829 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:54:15,838 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:54:26,816 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:54:45,819 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:55:04,931 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:55:15,821 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:55:45,818 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:56:04,827 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:56:15,825 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:57:04,829 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:57:04,994 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:58:04,814 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:58:04,972 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:59:04,834 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:59:04,894 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:59:10,610 autoreload Watching for file changes with StatReloader
+INFO 2026-01-13 08:59:12,426 log "GET / HTTP/1.1" 200 45780
+INFO 2026-01-13 08:59:12,585 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:59:14,004 log "GET /article/artefakty-drevney-rasy/ HTTP/1.1" 200 95405
+INFO 2026-01-13 08:59:14,092 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:59:20,812 log "GET /category/magic/ HTTP/1.1" 200 43969
+INFO 2026-01-13 08:59:20,887 log "GET /messages/unread-count/ HTTP/1.1" 200 49625
+INFO 2026-01-13 08:59:44,830 log "GET /messages/unread-count/ HTTP/1.1" 200 49625

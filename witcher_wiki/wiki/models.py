@@ -552,6 +552,26 @@ class Comment(models.Model):
         # Используем related_name 'comment_likes'
         return self.comment_likes.filter(user=user).exists()
 
+    def toggle_like(self, user):
+        """Добавляет или убирает лайк комментария"""
+        if not user.is_authenticated:
+            return False
+
+        like, created = CommentLike.objects.get_or_create(
+            user=user,
+            comment=self
+        )
+
+        if not created:
+            like.delete()
+            self.like_count = max(0, self.like_count - 1)
+            self.save()
+            return False  # Лайк убран
+        else:
+            self.like_count += 1
+            self.save()
+            return True  # Лайк добавлен
+
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
